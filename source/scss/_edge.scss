@@ -1,0 +1,54 @@
+.agent-edge{
+    .page-wrapper article header .entry-title a[href]{
+        text-align:center;
+    }
+    &.emulsion-has-sidebar,
+    &.emulsion-no-sidebar{
+        header{
+            &.header-layer{
+                color:$header_text_color;
+                //  background:$header_bg_color;
+
+                .header-text{
+
+                }
+                .entry-text{
+                    display:block;
+                    text-align:center;
+
+                    & > div{
+                        flex:none;
+                        margin-left:auto;
+                        margin-right:auto;
+                    }
+
+                }
+                &.template-part-header-custom{
+
+                    .entry-text{
+                        display:flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        align-items: center;
+                        text-align:center;
+
+                        & > div{
+
+                            .entry-meta{
+                                flex:1 1 auto;
+                                margin-top:0;
+                                ul{
+                                    margin-top:0;
+                                    margin-bottom:0;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .post-excerpt-html{
+        text-align:center;
+    }
+}

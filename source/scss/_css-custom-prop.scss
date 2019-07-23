@@ -1,0 +1,158 @@
+
+:root{
+    
+    --thm_post_display_date: $post_display_date;
+    --thm_post_display_author:$post_display_author;
+    --thm_post_display_category:$post_display_category;
+    --thm_post_display_tag:$post_display_tag;
+    
+    --thm_favorite_color_palette:$favorite_color_palette;
+    --thm_hover_color:$hover_color;
+    --thm_excerpt_linebreak: $excerpt_linebreak;
+    // when header media not exists
+    --thm_default_header_height: $default_header_height;
+    --thm_header_text_color: $header_text_color;
+    --thm_header_link_color: $header_link_color;
+    --thm_header_hover_color: $header_hover_color;
+    --thm_header_bg_color: $header_bg_color;
+    --thm_header_background_gradient_color:$header_background_gradient_color;
+    --thm_header_image_dim:rgba(0,0,0,.3);
+
+    --thm_heading-font-transform: $heading-font-transform;
+    --thm_heading_font_weight: $heading_font_weight;
+    --thm_heading_font_family: $heading_font_family;
+
+    --thm_common_line_height: $common_line_height;
+    --thm_common_font_family: $common_font_family;
+    --thm_common_font_size: $common_font_size;
+    --thm_general_text_color: $general_text_color;
+    --thm_general_link_hover_color: $general_link_hover_color;
+    --thm_general_link_color: $general_link_color;
+    --thm_background_color: $background_color;
+    --thm_sub_background_color_lighten:$sub_background_color_lighten;
+    --thm_sub_background_color_darken:$sub_background_color_darken;
+
+    --thm_meta_data_font_size: $meta_data_font_size;
+    --thm_meta_data_font_family: $meta_data_font_family;
+    --thm_meta_data_font_transform: $meta_data_font_transform;
+
+    --thm_align_offset:$align_offset;
+    
+    --thm_main_width: $main_width;
+    --thm_content_width: $content_width;
+    --thm_content_gap: $content_gap;
+    --thm_content_line_height: $content_line_height;
+    --thm_content_margin_top: $content_margin_top;
+    --thm_box_gap: $box_gap;
+    --thm_sidebar_width: $sidebar_width;
+    --thm_sidebar_bg_color:$sidebar_background;
+    --thm_sidebar_link_color:$sidebar_link_color;
+    --thm_sidebar_hover_color:$sidebar_hover_color;
+    --thm_sidebar_text_color:$sidebar_color;
+    --thm_primary_menu_background:$primary_menu_background;
+    --thm_primary_menu_link_color:$primary_menu_link_color;
+    --thm_primary_menu_color:$primary_menu_color;
+    --thm_main_width-with-sidebar: calc(100vw - var(--thm_sidebar_width) - 48px );
+    --thm_caption_height: $caption_height;
+    
+    --thm_social_icon_color:$general_link_color;
+    --thm_social_icon_bg_color:transparent;
+    
+    --thm_i18n_no_title:$i18n_no_title;//Not Work Now( .hoge:before{content:var(--thm_i18n_no_title,'No Title');}). Please use SCSS variables(.hoge:before{content:'#{$i18n_no_title}';})
+    --thm_footer_widget_width: $footer_widget_width;
+    --thm_gallery_section_link_color: $gallery_section_link_color;
+    --thm_gallery_section_color: $gallery_section_color;
+    --thm_gallery_section_bg: $gallery_section_bg;
+    --thm_gallery_section_height:$gallery_section_height;
+    
+    --thm_columns_section_link_color: $columns_section_link_color;
+    --thm_columns_section_color: $columns_section_color;
+    --thm_columns_section_bg: $columns_section_bg;
+    --thm_columns_section_height:$columns_section_height;
+
+    --thm_media_text_section_link_color: $media_text_section_link_color;
+    --thm_media_text_section_color: $media_text_section_color;
+    --thm_media_text_section_bg: $media_text_section_bg;
+    --thm_media_text_section_height:$media_text_section_height;
+
+    --thm_relate_posts_link_color:$relate_posts_link_color;
+    --thm_relate_posts_color:$relate_posts_color;
+    --thm_relate_posts_bg:$relate_posts_bg;
+
+    --thm_comments_link_color:$comments_link_color;
+    --thm_comments_color:$comments_color;
+    --thm_comments_bg:$comments_bg;
+
+}
+
+.emulsion-has-sidebar{
+    .has-column{
+        .page-wrapper{
+            main{
+                max-width:100%;
+            }
+        }
+        .wp-nav-menu{
+            --thm_main_width:calc(100vw - var(--thm_sidebar_width) - 48px );
+        }
+    }
+}
+.has-column{
+    main{
+        .grid{
+            --thm_main_width:calc(100vw - var(--thm_sidebar_width) - 48px );
+        }
+        .stream{
+            --thm_main_width:calc(100vw - var(--thm_sidebar_width) - 48px );
+
+            --thm_content_width:410px;
+
+        }
+    }
+}
+main{
+    // for customizer
+    .grid{
+        --thm_content_width: 300px;
+        article{
+            --thm_content_width: 100%;
+        }
+    }
+    .stream{
+        --thm_content_width: 400px;
+        article{
+            --thm_content_width: 100%;
+        }
+    }
+}
+
+#{$stream-condition},
+#{$grid-condition}{
+    .has-column{
+        main{
+            .grid{
+                --thm_main_width:calc(100vw - var(--thm_sidebar_width) - 48px );
+            }
+            .stream{
+                --thm_main_width:calc(100vw - var(--thm_sidebar_width) - 48px );
+
+                --thm_content_width:410px;
+
+            }
+        }
+    }
+    main{
+        .grid{
+            --thm_content_width: 300px;
+            article{
+                --thm_content_width: 100%;
+            }
+        }
+        .stream{
+            --thm_content_width: 400px;
+            article{
+                --thm_content_width: 100%;
+            }
+        }
+    }
+}

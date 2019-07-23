@@ -1,0 +1,166 @@
+/**
+ * CSS for print
+ */
+@media print {
+
+    @page{
+        margin:2cm;
+    }
+    #document{
+        body{
+            font-size:10pt;
+            background:#fff;
+            color:#333;
+            line-height:1.5;
+            .menu-main-container{
+                display:none!important;
+            }
+            .primary-menu-wrapper{
+                display:none !important;
+            }
+            & > header{
+
+                .has-post-image{
+                    background-image:none !important;
+                    background:transparent!important;
+                }
+                display:none !important;
+                #site-title{
+                    font-size:10pt!important;
+                    font-weight:bold;
+                }
+                #site-title-text{
+                    font-size:10pt;
+                }
+                img,
+                iframe,
+                video{
+                    display:none;
+                }
+                .entry-title{
+
+                }
+                .posted-on{
+                    font-size:10pt;
+                }
+                .entry-meta{
+                    display:none;
+                }
+            }
+        } 
+    }
+
+    .sidebar-widget-area{
+        display:none;
+    }
+    .footer-layer{
+        width:100%;
+        float:none;
+    }
+    .article-wrapper{
+        border:none;
+    }
+    #main{
+        article{
+            .has-post-image{
+                background-image:none !important;
+                background:transparent!important;
+            }
+            header{
+                width:100%; 
+                text-align:left;
+                width:auto;
+                border-bottom:1px solid #ccc;
+                &.screen-reader-text{
+                    clip:auto!important;
+                    position:static!important;
+                    clip-path:none!important;
+                    height:auto!important;
+
+                    .entry-title{
+                        font-size:16px;
+                        font-size:10pt!important;
+                        font-weight:bold!important;
+                        width:100% !important;
+                        text-align:left!important;
+                        .text-link{
+                            width:100%;                      
+                        }
+                        &:before{
+                            content:'';
+                            display:none;
+                            position:static!important;
+                        }
+                        &:after{
+                            width:100%;
+                            display:block;
+                        }
+                    }
+                    .posted-on{
+                        font-size:10pt;
+                        width:auto;
+                        text-align:left!important;
+
+                        a[href^=http]:after {
+                            content:" url: " attr(href) " ";
+
+                            font-size:8pt;
+                            display:block;
+                        }
+                    }
+                    .entry-meta{
+                        display:none;
+                    }
+                }
+                #site-title-text{
+                    font-size:10pt;
+                }
+                img,
+                iframe,
+                video{
+                    display:none;
+                }
+            }
+            .entry-content{
+                width:100%;
+                a.text-link[href^=http]:after {
+                    content:" url: " attr(href) " ";
+
+                    font-size:8pt;
+                    display:inline-block;
+                }
+                .wp-block-cover{
+                    background-image:none!important;
+                    background-color:transparent!important;
+                    color:#333!important;
+                    height:auto!important;
+                    max-height:none!important;
+                    min-height:0!important;
+                    h1,h2,h3,h4,h5,h6{
+                        color:#333!important;
+                    }
+                    p{
+                        color:#333!important
+                    }
+                    *{
+                         color:#333!important;
+                    }
+
+                }
+                .has-background-dim:before{
+                    display:none!important;
+                }
+            }
+
+            footer{
+                display:none;
+            }
+        }
+        .relate-content-wrapper{
+            display:none;
+        }
+        .post-navigation{
+            display:none!important;
+        }  
+    }
+}

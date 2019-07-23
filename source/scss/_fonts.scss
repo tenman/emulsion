@@ -1,0 +1,428 @@
+body{
+    font-family:'Arial', 'Helvetica', 'Clean', sans-serif;
+    font-feature-settings: 'palt';
+    font-kerning: auto;
+    font-family: var(--thm_common_font_family);
+}
+.entry-title a,
+h1,h2,h3,h4,h5,h6,
+.h1,.h2,.h3,.h4,.h5,.h6{
+    font-family:var(--thm_heading_font_family);
+    font-weight:var(--thm_heading_font_weight);
+    text-transform:var(--thm_heading-font-transform);
+    a{
+        text-transform:var(--thm_heading-font-transform);
+    }
+}
+
+/**
+ * Monospaced font
+ */
+
+.wp-block-code,
+pre[class],
+pre code,
+.form-allowed-tags code,
+code, kbd, samp,
+tt {
+    font-family:'Osaka', 'Consolas', 'Courier New', 'Courier', 'MS Gothic', monospace;
+}
+kbd, samp,tt {
+    line-height:100%;
+}
+.form-allowed-tags code,
+code{
+    line-height: var(--thm_content_line_height, 1.5 );
+}
+
+pre.wp-block-verse{
+    lin-height:var(--thm_common_line_height);   
+    font-size:var(--thm_common_font_size);
+    font-family: var(--thm_common_font_family);
+
+}
+
+/**
+ * Absolute Font Sizes
+ * Override the relative font size and change it to absolute font size.
+ *
+ *If you change the base font size, overwrite it to suppress the font of the sidebar and menu from becoming large.
+ */
+
+body{
+    .primary-menu-wrapper a{
+        font-size:var(--thm_meta_data_font_size);
+        text-transform:var(--thm_meta_data_font_transform);
+    }
+    .menu-placeholder{
+        font-size:16px;
+    }
+    & > header{
+        .taxonomy-description{
+            font-size:var(--thm_meta_data_font_size);
+            text-transform:var(--thm_meta_data_font_transform);
+        }
+    }
+    .trancate{
+        font-size:var(--thm_meta_data_font_size);
+        text-transform:var(--thm_meta_data_font_transform);
+    }
+    &.emulsion-has-sidebar{
+        &.on-scroll{
+            .template-part-widget-sidebar{
+            }
+        }
+        .template-part-widget-sidebar{
+            font-size:var(--thm_meta_data_font_size);
+            text-transform:var(--thm_meta_data_font_transform);
+
+            .sidebar-widget-area-lists{
+                li{
+                    line-height:calc( var(--thm_common_font_size) * var( --thm_content_line_height, 1.5 ) );
+                    font-size:var(--thm_meta_data_font_size);
+                    text-transform:var(--thm_meta_data_font_transform);                   
+
+                    #wp-calendar caption,
+                    .widgettitle{
+                        font-size:20px;
+                    }
+
+                    .emulsion-archive-count,
+                    .emulsion-cat-count,
+                    a{
+                        font-size:var(--thm_meta_data_font_size);
+                        text-transform:var(--thm_meta_data_font_transform);
+                    }
+                    .calendar_wrap{
+                        #wp-calendar{
+                            th,
+                            td{
+                                font-size:var(--thm_meta_data_font_size);
+                                text-transform:var(--thm_meta_data_font_transform);  
+                            }
+                        }
+                    }
+                    [name="cat"],
+                    [name="archive-dropdown"]{
+                        font-size:var(--thm_meta_data_font_size);
+                        text-transform:var(--thm_meta_data_font_transform);                          
+                    }
+                    &.widget_rss{
+                        .rss-date,
+                        cite{
+
+                            font-size:var(--thm_meta_data_font_size);
+                            text-transform:var(--thm_meta_data_font_transform);
+                        }
+
+                    }
+                    &.widget_recent_comments{
+                        .recentcomments{
+                            font-size:var(--thm_meta_data_font_size);
+                            text-transform:var(--thm_meta_data_font_transform);
+                        }
+                    }
+
+
+                }
+            }
+
+        }
+
+
+    }
+
+    article{
+        .skin-button{
+            font-size:var(--thm_meta_data_font_size);
+            text-transform:var(--thm_meta_data_font_transform);
+        }
+        &.post-password-required{
+            .message{
+                font-size:var(--thm_meta_data_font_size);
+                text-transform:var(--thm_meta_data_font_transform);               
+            }
+        }
+    }
+    .wp-block-search{
+        .wp-block-search__button{
+            font-size:var(--thm_meta_data_font_size);
+            text-transform:var(--thm_meta_data_font_transform);        
+
+        }
+
+    } 
+
+}
+.footer-widget-area{
+    &.template-part-widget-footer{
+        .footer-widget-area-lists{
+            li{
+                #wp-calendar caption,
+                .widgettitle{
+                    font-size:20px
+                }
+                line-height:calc( var(--thm_common_font_size) * var( --thm_content_line_height, 1.5 ) );
+                font-size:var(--thm_meta_data_font_size);
+                text-transform:var(--thm_meta_data_font_transform);
+            }
+            font-size:var(--thm_meta_data_font_size);
+            text-transform:var(--thm_meta_data_font_transform);
+        }
+        .emulsion-archive-count,
+        .emulsion-cat-count,
+        a{
+            font-size:var(--thm_meta_data_font_size);
+            text-transform:var(--thm_meta_data_font_transform);
+        }
+        .calendar_wrap{
+            #wp-calendar{
+                th,
+                td{
+                    font-size:var(--thm_meta_data_font_size);
+                    text-transform:var(--thm_meta_data_font_transform);  
+                }
+            }
+        }
+        [name="cat"],
+        [name="archive-dropdown"]{
+            font-size:var(--thm_meta_data_font_size);
+            text-transform:var(--thm_meta_data_font_transform);                          
+        }
+        &.widget_rss{
+            .rss-date,
+            cite{
+
+                font-size:var(--thm_meta_data_font_size);
+                text-transform:var(--thm_meta_data_font_transform);
+            }
+
+        }
+        &.widget_recent_comments{
+            .recentcomments{
+                font-size:var(--thm_meta_data_font_size);
+                text-transform:var(--thm_meta_data_font_transform);
+            }
+        }
+    }
+}
+.relate-content-wrapper{
+    font-size:var(--thm_meta_data_font_size);
+    font-family:var(--thm_meta_data_font_family);
+    .relate-posts-title{
+        font-size:calc(var(--thm_meta_data_font_size) * 1.4);
+        text-transform:var(--thm_meta_data_font_transform);
+    }
+}
+article{
+    footer{
+        font-size:var(--thm_common_font_size);
+    }
+}
+.post-navigation{
+    a{
+        font-size:var(--thm_meta_data_font_size);
+        text-transform:var(--thm_meta_data_font_transform);
+    }
+}
+footer.banner{
+    font-size:var(--thm_meta_data_font_size);
+    .privacy-policy-link{
+        font-size:var(--thm_meta_data_font_size);
+    }
+    a{
+        font-size:var(--thm_meta_data_font_size);
+        text-transform:var(--thm_meta_data_font_transform);
+    }
+}
+.entry-meta{
+    a{
+        font-size:var(--thm_meta_data_font_size);
+        text-transform:var(--thm_meta_data_font_transform);
+    }
+}
+.posted-on{
+    a{
+        font-size:var(--thm_meta_data_font_size);
+        text-transform:var(--thm_meta_data_font_transform);
+    }
+}
+.footer-widget-area{
+    .footer-widget-area-lists{
+        a{
+            font-size:var(--thm_meta_data_font_size);
+            text-transform:var(--thm_meta_data_font_transform);
+        }
+    }
+}
+&.layout-grid{
+    .entry-title{
+        font-size:22px;
+    } 
+}
+&.layout-stream{
+    .entry-title{
+        font-size:22px;
+    } 
+}
+.relate-posts-title{
+    font-size:22px;
+}
+
+/**
+ * wp-block
+ */
+
+.wp-block-columns{
+    .wp-block-column{
+        @include font_size(5);
+        h1,h2,h3,h4,h5,h6,p,ul,ol,table,.emulsion-table-wrapper{
+            margin-top:20px;
+            margin-bottom:20px;
+        }
+        h1{
+            font-size: 26px;
+        }
+        h2{
+            font-size:18px; 
+        }
+        h3{
+            font-size:15px;
+        }
+        h4{
+            font-size:13px;
+        }
+    }
+}
+.entry-content > .sectionized-wp-block-columns > .wp-block-columns{
+    /**
+     * Page Layout
+     */
+    .wp-block-column{
+        &.sidebar{
+            @include font_size(5);
+            font-size:var(--thm_meta_data_font_size);
+            text-transform:var(--thm_meta_data_font_transform);
+            
+            .wp-block-latest-comments__comment-meta{
+                font-size:var(--thm_meta_data_font_size);
+                text-transform:var(--thm_meta_data_font_transform);
+            }
+        }
+        &.main{
+            @include font_size(4);
+            line-height:var( --thm_content_line_height );
+            font-size:var(--thm_common_font_size);
+            line-height:var(--thm_content_line_height);
+
+            .entry-title a,
+            h1,h2,h3,h4,h5,h6,
+            .h1,.h2,.h3,.h4,.h5,.h6{
+                font-weight:var(--thm_heading_font_weight);
+                text-transform:var(--thm_heading-font-transform);
+                a{
+                    text-transform:var(--thm_heading-font-transform);
+                }
+            }
+        }
+    }
+}
+
+/**
+ * font size classes
+ */
+
+@for $i from 10 through 48 {
+    
+    .layout-list.font-heading-sans-serif .f-#{$i},
+    .layout-list.font-heading-serif .f-#{$i},
+    .layout-list.font-common-sans-serif .f-#{$i},
+    .layout-list.font-common-serif .f-#{$i}{
+        font-size:#{$i}px;
+    }
+}
+/**
+ * Editor font sizes
+ */
+@each $font_size in $editor_font_sizes {
+    $slug: nth($font_size, 1);
+    $size: nth($font_size, 2);
+    .entry-content .has-#{$slug}-font-size {
+        font-size:#{$size}px;
+        margin-top:1.5em;
+        margin-bottom:.75em
+    }
+}
+
+/**
+ * SVG Sizes
+ */
+@for $i from 13 through 48 {
+    .icon.f-#{$i}{
+        width:#{$i}px;
+        height:#{$i}px;
+    }
+}
+
+/**
+ * Editor Style
+ --thm_heading_font_weight: $heading_font_weight;
+    --thm_heading_font_family: $heading_font_family;
+*/
+
+.gutenberg__editor{
+    @if $language == ja {
+        .editor-post-title__block{
+            .editor-post-title__input{
+                font-family: "-apple-system", "Helvetica Neue", "Yu Gothic", YuGothic, "Noto Sans JP", Verdana, Meiryo, sans-serif;
+                font-family: var(--thm_heading_font_family);
+                font-weight: var(--thm_heading_font_weight);
+                line-height: var(--thm_common_line_height);
+                @include font_size(2);
+            }
+        }
+        .editor-block-list__block{
+            font-family: "-apple-system", "Helvetica Neue", "Yu Gothic", YuGothic, "Noto Sans JP", Verdana, Meiryo, sans-serif;
+            font-family:var(--thm_common_font_family);
+            font-size:var(--thm_common_font_size);
+            line-height:var(--thm_content_line_height);
+        }
+        .edit-post-visual-editor{
+            font-family: "-apple-system", "Helvetica Neue", "Yu Gothic", YuGothic, "Noto Sans JP", Verdana, Meiryo, sans-serif;
+            p{
+                font-family: "-apple-system", "Helvetica Neue", "Yu Gothic", YuGothic, "Noto Sans JP", Verdana, Meiryo, sans-serif;
+                font-family:var(--thm_common_font_family);
+                font-size:var(--thm_common_font_size);
+                line-height:var(--thm_content_line_height);
+            }
+        }
+    } @else {
+        .editor-post-title__block{
+            .editor-post-title__input{
+                font-family: 'Roboto', sans-serif;
+                font-family: var(--thm_heading_font_family);
+                font-weight: var(--thm_heading_font_weight);
+                line-height: var(--thm_common_line_height);
+                @include font_size(2);
+            }
+        }
+        .editor-block-list__block{
+            font-family: 'Roboto', sans-serif;
+            font-family:var(--thm_common_font_family);
+            font-size:var(--thm_common_font_size);
+            line-height:var(--thm_content_line_height);
+        }
+        .edit-post-visual-editor{
+            font-family: 'Roboto', sans-serif;
+            font-family:var(--thm_common_font_family);
+            font-size:var(--thm_common_font_size);
+            line-height:var(--thm_content_line_height);
+            p{
+                font-family: 'Roboto', sans-serif;
+                font-family:var(--thm_common_font_family);
+                font-size:var(--thm_common_font_size);
+                line-height:var(--thm_content_line_height);
+            }
+        }
+    }
+}
