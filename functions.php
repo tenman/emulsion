@@ -34,18 +34,7 @@ if( is_admin() && current_user_can( 'edit_theme_options' )  ) {
 	}
 }
 
-/*
 
-  add_filter( 'wp_insert_post_data', 'change_content', 99, 2 );
-
-  function change_content( $data, $postarr ) {
-
-  $data['post_content'] = preg_replace_callback( '!<(p|li)>(.+)?</(p|li)>!', function ($matches) {
-  return htmlspecialchars_decode( $matches[0] );
-  }, $data['post_content'] );
-
-  return $data;
-  } */
 
 /**
  * Theme Supports
