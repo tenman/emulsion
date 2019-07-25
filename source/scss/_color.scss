@@ -256,6 +256,12 @@ body{
             }
         }
     }
+    .header-layer.template-part-header .menu-main-container{
+        border-bottom:none;
+    }
+    .header-layer.template-part-header{
+        border-bottom: 1px solid rgba(188, 188, 188, .5);
+    }
 }
 input[type="checkbox"][data-skin="inset"] + label span{
     background:rgba(188,188,188,.5);
@@ -2006,6 +2012,9 @@ body{
                             .site-title-text{
                                 color:#fff;
                             }
+                            .site-description{
+                                color:#fff;
+                            }
                             .nav-menu-child-opener-label{
                                 &:before{
                                     background: url(#{$theme_image_dir}svg/arrow-down.svg#white);
@@ -2732,12 +2741,12 @@ a.skin-button{
 .is-dark .header-is-default-color ~ .layout-block{ 
     // 2col
     a.skin-button{
-       // color:var( --thm_general_link_color );
+        // color:var( --thm_general_link_color );
     }
     .template-part-content-attachment,
     .template-part-content{
         a.skin-button{
-         //   color:var( --thm_general_link_color );
+            //   color:var( --thm_general_link_color );
         }
     }
 }
