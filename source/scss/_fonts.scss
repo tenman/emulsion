@@ -143,6 +143,10 @@ body{
                 text-transform:var(--thm_meta_data_font_transform);               
             }
         }
+        figcaption{
+            font-size:var(--thm_meta_data_font_size);
+            text-transform:var(--thm_meta_data_font_transform);
+        }
     }
     .wp-block-search{
         .wp-block-search__button{
@@ -303,7 +307,7 @@ footer.banner{
             @include font_size(5);
             font-size:var(--thm_meta_data_font_size);
             text-transform:var(--thm_meta_data_font_transform);
-            
+
             .wp-block-latest-comments__comment-meta{
                 font-size:var(--thm_meta_data_font_size);
                 text-transform:var(--thm_meta_data_font_transform);
@@ -333,7 +337,7 @@ footer.banner{
  */
 
 @for $i from 10 through 48 {
-    
+
     .layout-list.font-heading-sans-serif .f-#{$i},
     .layout-list.font-heading-serif .f-#{$i},
     .layout-list.font-common-sans-serif .f-#{$i},

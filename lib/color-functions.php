@@ -71,6 +71,7 @@ if ( ! function_exists( 'emulsion_get_css_variables_values' ) ) {
 		}
 
 		$settings = array(
+			'header_media_max_height'			 => array( 'value' => emulsion_get_var( 'emulsion_header_media_max_height' ), 'unit' => 'vh' ),
 			'post_display_date'					 => array( 'value' => emulsion_get_var( 'emulsion_post_display_date' ), 'unit' => '' ),
 			'post_display_author'				 => array( 'value' => emulsion_get_var( 'emulsion_post_display_author' ), 'unit' => '' ),
 			'post_display_category'				 => array( 'value' => emulsion_get_var( 'emulsion_post_display_category' ), 'unit' => '' ),

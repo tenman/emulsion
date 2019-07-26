@@ -5,10 +5,15 @@ jQuery(function ($) {
 
     // element wrap
     /**
-     * Since the table element can not be controlled with max-width,
-     * it displays a scroll bar if it is overflowing from the region.
+     * the table element can not be controlled with max-width,
+     *
+     * All table elements wrapping with <div class="emulsion-table-wrapper"></div>
+     * emulsion-table-wrapper is set CSS overflow-x auto
+     * 
+     * If the table width exceeds the size of the content area, display scroll bars to maintain readability.
+     * If the table width is smaller than the content area, the stretch class displays the content width.
+     * 
      */
-
     jQuery("table").each(function (i) {
         jQuery(this).wrap('<div class="emulsion-table-wrapper"></div>');
 
@@ -45,6 +50,9 @@ jQuery(function ($) {
 
     /**
      * wp_block wrap
+     * WordPress block is wrapping with <section class="sectionized-[block name]"></section>
+     * and if possible add unique id for each block can do indivisual CSS design
+     * Note:We can not guarantee that id is a completely unique value. After editing, the id value also changes.
      */
     if (true == emulsion_script_vars.block_sectionize) {
 
@@ -58,17 +66,15 @@ jQuery(function ($) {
             }
 
             $(this).wrap('<section class="sectionized-' + classes + ' ' + brightness_class + '" ></section>');
-            if ($.isFunction(window.uniqueId)) {
-                // customizer error
-                $(this).parent().uniqueId();
+            var string = $(this).html().slice(0, 4);
+            var id = $(this).html().length;
+                id = classes + '-' + parseInt( emulsion_script_vars.post_id ) + '-' +  parseInt( id );
+            if( 'is_preview' !== emulsion_script_vars.is_customize_preview ) {
+                $(this).parent().attr('id', id );
             }
         });
     }
 
-    $('.sectionized-wp-block-columns').each(function(){
-        $(this).addClass(  );
-
-    });
     /**
      * wp-block unwrap
      */

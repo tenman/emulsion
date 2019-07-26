@@ -352,7 +352,19 @@ function emulsion_box_gap_validate( $input ) {
 	);
 	return filter_var( $input, FILTER_VALIDATE_INT, array( 'options' => $options ) );
 }
+function emulsion_header_media_max_height_validate( $input ) {
 
+	$name			 = str_replace( '_validate', '', __FUNCTION__ );
+	$values			 = emulsion_get_var( $name, 'input_attrs' );
+	$default_value	 = (int) emulsion_get_var( $name, 'default' );
+
+	$options = array(
+		'min_range'	 => $values['min'],
+		'max_range'	 => $values['max'],
+		'default'	 => $default_value,
+	);
+	return filter_var( $input, FILTER_VALIDATE_INT, array( 'options' => $options ) );
+}
 function emulsion_sidebar_width_validate( $input ) {
 
 	$name			 = str_replace( '_validate', '', __FUNCTION__ );
