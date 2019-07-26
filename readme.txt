@@ -103,3 +103,5 @@ Please see changelog.txt
 
 * Released: august 1 2019
 Initial release
+
+https://github.com/WPTRT/sample-theme-readme

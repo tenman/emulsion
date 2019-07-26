@@ -421,6 +421,8 @@
             display:grid;
             &.alignfull{
                 @extend %no-sidebar-alignfull;
+                margin-left:auto;
+                margin-right:auto;
             }
         }
         .wp-block-latest-comments{
@@ -2526,6 +2528,11 @@ hr{
 
 .emulsion-has-sidebar,
 .emulsion-no-sidebar{
+    .wp-block-column{
+        .wp-block-image{
+            position:relative;
+        }
+    }
     .wp-block-image{
         margin-top:1.5rem;
         margin-bottom:.75rem;
@@ -2717,9 +2724,17 @@ hr{
     -moz-tab-size: 4;
     -o-tab-size: 4;
     tab-size: 4;
+    
+    
 }
 .entry-content > .wp-block-code{
-    margin: 3rem auto;
+    margin: 1.5rem auto .75rem;
+    &.alignleft{
+        @extend %alignleft;
+    }
+    &.alignright{
+        @extend %alignright;
+    }
 }
 /**
  * Block RSS

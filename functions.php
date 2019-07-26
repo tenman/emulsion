@@ -34,8 +34,6 @@ if( is_admin() && current_user_can( 'edit_theme_options' )  ) {
 	}
 }
 
-
-
 /**
  * Theme Supports
  *
@@ -484,6 +482,8 @@ function emulsion_add_stylesheet() {
 		'force_contrast'		 => true,
 		'block_columns_class'	 => emulsion_sectionized_class( 'columns' ),
 		'meta_description' => emulsion_meta_description(),
+		'is_customize_preview'   => is_customize_preview() ? 'is_preview':'',
+		'post_id'                => get_the_Id(),
 
 
 	) );

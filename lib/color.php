@@ -10,7 +10,8 @@ function emulsion__css_variables( $css = '' ) {
 	/**
 	 * CSS variables
 	 */
-	//'sidebar_hover_color'	=>  array( 'value' => $sidebar_hover_color, 'unit' => '' ),
+
+	$header_media_max_height			 = emulsion_get_css_variables_values( 'header_media_max_height' );
 	$post_display_date					 = emulsion_get_css_variables_values( 'post_display_date' );
 	$post_display_author				 = emulsion_get_css_variables_values( 'post_display_author' );
 	$post_display_category				 = emulsion_get_css_variables_values( 'post_display_category' );
@@ -104,6 +105,7 @@ function emulsion__css_variables( $css = '' ) {
 	$style = <<<CSS
 body{
 	/* dinamic */
+	--thm_header_media_max_height:$header_media_max_height;
 	--thm_post_display_date:$post_display_date;
 	--thm_post_display_author:$post_display_author;
 	--thm_post_display_category:$post_display_category;

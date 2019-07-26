@@ -127,11 +127,11 @@ function wp_scss_set_variables() {
 	$grid_condition		 = emulsion_get_css_variables_values( 'grid' );
 //
 	$variables			 = array(
-		'post_display_date'		 => emulsion_get_css_variables_values( 'post_display_date' ),		
-		'post_display_author'		 => emulsion_get_css_variables_values( 'post_display_author' ),
-		'post_display_category'		 => emulsion_get_css_variables_values( 'post_display_category' ),
-		'post_display_tag'		 => emulsion_get_css_variables_values( 'post_display_tag' ),		
-		
+		'header_media_max_height'			 => emulsion_get_css_variables_values( 'header_media_max_height' ),
+		'post_display_date'					 => emulsion_get_css_variables_values( 'post_display_date' ),
+		'post_display_author'				 => emulsion_get_css_variables_values( 'post_display_author' ),
+		'post_display_category'				 => emulsion_get_css_variables_values( 'post_display_category' ),
+		'post_display_tag'					 => emulsion_get_css_variables_values( 'post_display_tag' ),
 		'sub_background_color_lighten'		 => emulsion_get_css_variables_values( 'sub_background_color_lighten' ),
 		'sub_background_color_darken'		 => emulsion_get_css_variables_values( 'sub_background_color_darken' ),
 		'favorite_color_palette'			 => emulsion_get_css_variables_values( 'favorite_color_palette' ),
@@ -174,7 +174,7 @@ function wp_scss_set_variables() {
 		'image_sizes'						 => emulsion_get_images_width_for_scss(), // Old gallery caliculate wrapper width
 		'header_text_color'					 => emulsion_get_css_variables_values( 'header_text_color' ),
 		'header_link_color'					 => emulsion_get_css_variables_values( 'header_link_color' ),
-		'header_hover_color'					 => emulsion_get_css_variables_values( 'header_hover_color' ),
+		'header_hover_color'				 => emulsion_get_css_variables_values( 'header_hover_color' ),
 		'header_bg_color'					 => emulsion_get_css_variables_values( 'header_background_color' ),
 		'header_background_gradient_color'	 => emulsion_get_css_variables_values( 'header_background_gradient_color' ),
 		'theme_image_dir'					 => emulsion_get_css_variables_values( 'theme_image_dir' ),

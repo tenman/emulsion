@@ -38,6 +38,18 @@
  * ========================================================================== */
 
 .layout-list{
+    &.home{
+        &.page{
+            article{
+                header{
+                    display:none;
+                    &.has-post-image{
+                        display:block;
+                    }                 
+                }               
+            }
+        }
+    }
     article{
         header{
 
@@ -316,7 +328,7 @@ article{
             position:relative;
             left:-5px;
             width:calc(100vw - 17px);
-            max-height:75vh;
+            max-height:var(--thm_header_media_max_height);
         }
         .posted-on{
             @include clearfix;         
@@ -934,13 +946,13 @@ article{
             }
             .wp-block-image{
                 margin:var(--thm_box_gap) auto ;
-                figcaption{
+               /* figcaption{
                     position:absolute;
                     bottom:0;
                     left:1rem;
                     color:#ffffff;
                     background-color:rgba(0,0,0,.5);
-                }
+                }*/
             }
             .wp-block-cover{
                 box-sizing:border-box;
