@@ -4,38 +4,41 @@ add_action( 'template_redirect', 'emulsion_snippet_functions' );
 /**
  * register snippet functions
  */
-
 function emulsion_snippet_functions() {
 
 	if ( 'custom' == get_theme_mod( 'emulsion_header_layout', emulsion_get_var( 'emulsion_header_layout' ) ) ) {
-		
-	/**
-	 * Header CTA Button
-	 */
-		
+
+		/**
+		 * Header CTA Button
+		 */
 		emulsion_append_header_layer_snippet( 'emulsion_append_header_layer', 'action' );
 	}
-	
+
 	/**
 	 * Plugin Breadcrumb NavXT
 	 * https://ja.wordpress.org/plugins/breadcrumb-navxt/
 	 */
-	if( ! is_front_page() ) {
+	if ( ! is_front_page() ) {
 		emulsion_article_after( 'emulsion_prepend_page_wrapper', 'action' );
 	}
+	
+	/**
+	 * background CSS patturen
+	 * Experimental filters for future updates
+	 */
+	emulsion_background_css_pattern( 'body_class', $type = 'filter' );
 }
 
 /**
  * Snippet Functions
  */
-
 if ( ! function_exists( 'emulsion_append_header_layer_snippet' ) ) {
 
 	/**
 	 * Header CTA Button
 	 */
-	
-	function emulsion_append_header_layer_snippet( $hook, $type = 'action', $css = '', $js = '', $html = '' ) {
+	function emulsion_append_header_layer_snippet( $hook, $type = 'action',
+			$css = '', $js = '', $html = '' ) {
 
 		$defaults = array(
 			'menu_class'		 => 'cta',
@@ -70,8 +73,8 @@ if ( ! function_exists( 'emulsion_article_after' ) ) {
 	 * Plugin Breadcrumb NavXT
 	 * https://ja.wordpress.org/plugins/breadcrumb-navxt/
 	 */
-	
-	function emulsion_article_after( $hook, $type = 'action', $css = '', $js = '',	$html = '' ) {
+	function emulsion_article_after( $hook, $type = 'action', $css = '', $js = '',
+			$html = '' ) {
 
 		if ( function_exists( 'bcn_display' ) ) {
 			$html	 = '<div class="breadcrumbs fit" typeof="BreadcrumbList" vocab="https://schema.org/BreadcrumbList">';
@@ -84,12 +87,12 @@ if ( ! function_exists( 'emulsion_article_after' ) ) {
 
 		emulsion_do_snippet( $hook, $type, $css, $js, $html );
 	}
+
 }
 
 /**
  * Snippet helper function
  */
-
 if ( ! class_exists( 'emulsion_Cta_Layer_Nav_Menu_Walker' ) ) {
 
 	class emulsion_Cta_Layer_Nav_Menu_Walker extends Walker_Nav_Menu {
@@ -121,6 +124,45 @@ if ( ! class_exists( 'emulsion_Cta_Layer_Nav_Menu_Walker' ) ) {
 				$n	 = "\n";
 			}
 			$output .= "{$n}";
+		}
+
+	}
+
+}
+
+function emulsion_background_css_pattern( $hook, $type = 'action', $css = '', $js = '',	$html = '' ) {
+
+	if ( emulsion_get_supports( 'background_css_pattern' ) ) {
+		
+		
+		
+		$html							 = array();
+		$css							 = '';
+		$js								 = '';
+		$background_css_pattern_class	 = get_theme_mod( 'emulsion_background_css_pattern', emulsion_get_var( 'emulsion_background_css_pattern' ) );
+
+		if ( 'none' !== $background_css_pattern_class ) {
+			
+			$class_name = 'background-css-pattern-' . $background_css_pattern_class;
+
+			$html[] = $class_name;
+
+			/**
+			 * carbon-fiber
+			 */
+			if ( $background_css_pattern_class == 'carbon-fiber' ) {
+				$css = <<<CSS
+						
+					body.is-dark.custom-background.background-css-pattern-carbon-fiber{
+						
+					}
+
+					body.is-light.custom-background.background-css-pattern-carbon-fiber{
+
+					}
+CSS;
+			}
+			emulsion_do_snippet( $hook, $type, $css, $js, $html );
 		}
 	}
 }

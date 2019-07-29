@@ -19,14 +19,5 @@
 	<th style="border:1px solid #ccc;text-align:center;"><?php esc_html_e('Minimum PHP version', 'emulsion'); ?></th>
 	<td style="border:1px solid #ccc">PHP5.6</td>
 </tr>
-<tr>
-	<th style="border:1px solid #ccc;text-align:center;"><?php esc_html_e('Changes', 'emulsion'); ?></th>
-	<td style="border:1px solid #ccc">
-		<ul>
-			<li><a href="<?php echo esc_url( get_theme_file_uri( '/changelog.txt' ) );?>">change log</a></li>
-			<li><a href="https://themes.trac.wordpress.org/search?q=emulsion">Theme Trac</a></li>
-		</ul>
-	</td>
-</tr>
 </table>
 

@@ -15,7 +15,7 @@ function emulsion_set_wp_scss_options() {
 
 	$wpscss_options = get_option( 'wpscss_options', false );
 
-	if ( $wpscss_options ) {
+	if ( false == $wpscss_options ) {
 
 		$emulsion_scss_dir	 = '/source/scss/';
 		$emulsion_css_dir	 = '/css/';

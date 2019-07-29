@@ -34,6 +34,7 @@ if( is_admin() && current_user_can( 'edit_theme_options' )  ) {
 	}
 }
 
+
 /**
  * Theme Supports
  *
@@ -224,7 +225,7 @@ if ( ! function_exists( 'emulsion_setup' ) ) {
 		}
 		add_theme_support( 'custom-header', apply_filters( 'emulsion_custom_header_defaults', $emulsion_custom_header_defaults ) );
 
-		$emulsion_description_for_translation = __( 'description', 'emulsion' );
+		$emulsion_description_for_translation = __( 'block editor, classic editor both supports. Conventional, Image Media New Block Type Image Both media can be displayed correctly. Theme can stop at each theme style page for page builder users. Customizer can easily view changes with automatic preview redirection.Theme is designed with the goal of minimizing user frustration.', 'emulsion' );
 		
 		
 		do_action( 'emulsion_setup_after' );

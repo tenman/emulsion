@@ -3230,5 +3230,21 @@ div.amp-block-latest-stories{
         margin-left:0;
     }
 }
-
+/**
+ * blocktype.js relate css
+ */
+.emulsion-has-sidebar.enable-alignfull .entry-content > .wp-block-cover.alignfull, .emulsion-has-sidebar.enable-alignfull [class|="sectionized"],
+.emulsion-no-sidebar.enable-alignfull .entry-content > .wp-block-cover.alignfull[style] .wp-block-cover__inner-container,
+.emulsion-no-sidebar.enable-alignfull .entry-content > .alignfull:not(.wp-block-cover),
+.emulsion-has-sidebar.enable-alignfull .entry-content > .alignfull:not(.wp-block-cover){
+    display:none;
+}
+.emulsion-has-sidebar.enable-alignfull.noscript .entry-content > .wp-block-cover.alignfull, .emulsion-has-sidebar.enable-alignfull [class|="sectionized"],
+.emulsion-no-sidebar.enable-alignfull.noscript .entry-content > .wp-block-cover.alignfull[style] .wp-block-cover__inner-container,
+.emulsion-no-sidebar.enable-alignfull.noscript .entry-content > .alignfull:not(.wp-block-cover),
+.emulsion-has-sidebar.enable-alignfull.noscript .entry-content > .alignfull:not(.wp-block-cover){
+    position:static;
+    display:flex;
+    max-width:100%;
+}
 
