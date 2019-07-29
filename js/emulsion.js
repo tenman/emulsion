@@ -482,11 +482,13 @@ jQuery(function ($) {
         });
 
         $(".emulsion-has-sidebar.enable-alignfull .entry-content > .alignfull").not('.wp-block-cover').each(function (i) {
+
             var article_width = $(this).parents('article').width();
             var parent_width = $(this).parents('.entry-content').width();
             var negative_margin = parseInt(article_width) - parseInt(parent_width);
             negative_margin = negative_margin / -2;
-            $(this).css({'width': article_width, 'left': negative_margin});
+            $(this).css({'width': article_width, 'left': negative_margin}).show();
+
 
         });
 
@@ -499,7 +501,7 @@ jQuery(function ($) {
             negative_margin = parseInt(main_width) - parseInt(article_width) + parseInt(negative_margin);
             negative_margin = negative_margin / -2;
 
-            $(this).css({'width': article_width, 'left': negative_margin, 'position': 'relative'});
+            $(this).css({'width': article_width, 'left': negative_margin, 'position': 'relative'}).show();
 
         });
 
@@ -512,7 +514,7 @@ jQuery(function ($) {
             negative_margin = parseInt(main_width) - parseInt(article_width) + parseInt(negative_margin);
             negative_margin = negative_margin / -2;
 
-            $(this).css({'width': article_width, 'left': negative_margin, 'position': 'relative'});
+            $(this).css({'width': article_width, 'left': negative_margin, 'position': 'relative'}).show();
 
         });
 
@@ -523,7 +525,7 @@ jQuery(function ($) {
             var parent_width = $(this).parents('.entry-content').width();
             var negative_margin = parseInt(article_width) - parseInt(parent_width);
             var negative_margin = negative_margin / -2;
-            $(this).css({'width': article_width, 'left': negative_margin, 'position': 'relative'});
+            $(this).css({'width': article_width, 'left': negative_margin, 'position': 'relative'}).show();
         });
 
         /**

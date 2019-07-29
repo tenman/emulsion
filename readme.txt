@@ -16,6 +16,13 @@ Theme is designed with the goal of minimizing user frustration.
 
 Supported languages Japanese - JAPAN (ja)
 
+## Frequently Asked Questions
+
+* How to change color when link hover ( example of question )
+	* link to tips url
+* How to change background when category 'product' ( example of question )
+        * link to tips url
+
 ## Copyright
 
 ### Images
@@ -97,11 +104,12 @@ screenshot.png
 
 ## Changelog
 
-Please see changelog.txt
+### august 2 2019 ( example of change )
+        * 0.9.1
+        * Dummy(  description or link )
 
-### 0.9.0
-
-* Released: august 1 2019
-Initial release
+### august 1 2019
+        * 0.9.0
+        * Initial release
 
 https://github.com/WPTRT/sample-theme-readme
