@@ -936,7 +936,7 @@ if ( ! function_exists( 'emulsion_styles' ) ) {
 		$style	 .= emulsion_heading_font_css( '' );
 		$style	 .= emulsion_widget_meta_font_css( '' );
 
-		if ( 'active' !== get_theme_mod( 'emulsion_wp_scss_status' ) ) {
+		if ( 'active' !== get_theme_mod( 'emulsion_wp_scss_status' ) || is_customize_preview() ) {
 
 			$style .= emulsion_dinamic_css( '' );
 		}
