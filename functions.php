@@ -259,7 +259,7 @@ function emulsion_add_stylesheet() {
 	wp_enqueue_style( 'emulsion' );
 	
 	$inline_style_pre = apply_filters( 'emulsion_inline_style_pre', '@charset "UTF-8";' );
-
+	
 	/**
 	 * style and script version query only when logged in.
 	 * In an environment where you do not log in, it will be cached successfully.
@@ -311,23 +311,23 @@ function emulsion_add_stylesheet() {
 
 	if ( ! empty( $emulsion_common_google_font_url ) ) {
 
-		wp_register_style( 'common-google-font', $emulsion_common_google_font_url, array( 'emulsion' ), null, 'all' );
-		wp_enqueue_style( 'common-google-font' );
+		wp_register_style( 'emulsion-common-google-font', $emulsion_common_google_font_url, array( 'emulsion' ), null, 'all' );
+		wp_enqueue_style( 'emulsion-common-google-font' );
 	}
 
 	$emulsion_heading_google_font_url = esc_url( get_theme_mod( 'emulsion_heading_google_font_url', emulsion_get_var( 'emulsion_heading_google_font_url' ) ) );
 
 	if ( ! empty( $emulsion_heading_google_font_url ) ) {
 
-		wp_register_style( 'heading-google-font', $emulsion_heading_google_font_url, array( 'emulsion' ), null, 'all' );
-		wp_enqueue_style( 'heading-google-font' );
+		wp_register_style( 'emulsion-heading-google-font', $emulsion_heading_google_font_url, array( 'emulsion' ), null, 'all' );
+		wp_enqueue_style( 'emulsion-heading-google-font' );
 	}
 	$emulsion_widget_meta_google_font_url = esc_url( get_theme_mod( 'emulsion_widget_meta_google_font_url', emulsion_get_var( 'emulsion_widget_meta_google_font_url' ) ) );
 
 	if ( ! empty( $emulsion_widget_meta_google_font_url ) ) {
 
-		wp_register_style( 'widget-meta-google-font', $emulsion_widget_meta_google_font_url, array( 'emulsion' ), null, 'all' );
-		wp_enqueue_style( 'widget-meta-google-font' );
+		wp_register_style( 'emulsion-widget-meta-google-font', $emulsion_widget_meta_google_font_url, array( 'emulsion' ), null, 'all' );
+		wp_enqueue_style( 'emulsion-widget-meta-google-font' );
 	}
 	if ( ! empty( $inline_style_pre ) ) {
 

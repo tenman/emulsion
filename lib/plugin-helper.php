@@ -73,7 +73,6 @@ function emulsion_wp_scss_needs_compiling( $compile ) {
 		}
 		return true;
 	}
-	emulsion_write_log('worked compiling');
 	return $compile;
 }
 /**

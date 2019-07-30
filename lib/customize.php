@@ -115,9 +115,15 @@ if ( $wp_customize ) {
 	$wp_customize->selective_refresh->add_partial( 'emulsion_footer_credit', array(
 		'selector' => '.banner address',
 	) );
+	$wp_customize->selective_refresh->add_partial( 'emulsion_header_media_max_height', array(
+		'selector' => '.header-layer',
+	) );
+	
 	$wp_customize->selective_refresh->add_partial( 'display_header_text', array(
 		'selector' => '.site-title-text, .site-description',
 	) );
+
+
 }
 
 /**
@@ -174,6 +180,7 @@ function emulsion_customizer_translate_css( $css ) {
 	$layout_tag_archive		 = esc_html__( 'layout tag archive', 'emulsion' );
 	$excerpt_length			 = esc_html__( 'excerpt length', 'emulsion' );
 	$gallery_block_settings	 = esc_html__( 'gallery block settings', 'emulsion' );
+	$header_media_height	 = esc_html__( 'header media height', 'emulsion' );
 
 	$css .= <<<CSS
 body.home .customize-partial-edit-shortcut-custom_header:hover:after{
@@ -243,7 +250,13 @@ body .relate-content-wrapper .customize-partial-edit-shortcut-emulsion_relate_po
     text-align:right;
 
 }
-body .drawer .customize-partial-edit-shortcut-emulsion_search_drawer:hover:after{
+body .header-image-active .customize-partial-edit-shortcut-emulsion_header_media_max_height:hover:after{
+	content:'{$header_media_height}';
+}
+body.home .header-layer .customize-partial-edit-shortcut-emulsion_header_media_max_height:hover:after{
+	content:'{$header_media_height}';
+}	
+body.home .drawer .customize-partial-edit-shortcut-emulsion_search_drawer:hover:after{
     content:'{$search_drawer}';
     left:24px;
 }

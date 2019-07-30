@@ -14,14 +14,21 @@ block editor, classic editor both supports. Conventional, Image Media New Block 
 Theme can stop at each theme style page for page builder users. Customizer can easily view changes with automatic preview redirection.
 Theme is designed with the goal of minimizing user frustration.
 
-Supported languages Japanese - JAPAN (ja)
+## Translations
+
+* You can translate the theme on the following channels
+	* [translate.wordpress.org](https://translate.wordpress.org/projects/wp-themes/emulsion/)
 
 ## Frequently Asked Questions
 
-* How to change color when link hover ( example of question )
-	* link to tips url
-* How to change background when category 'product' ( example of question )
-        * link to tips url
+* You can contact bugs and ask questions in the following channels
+	* [Docs](https://www.tenman.info/wp3/emulsion/category/docs/)
+	* [FAQ](https://www.tenman.info/wp3/emulsion/category/docs/)
+	* [Support Forum](https://wordpress.org/support/theme/emulsion/)
+
+## Screenshots
+
+* emulsion/screenshot.png
 
 ## Copyright
 
@@ -111,5 +118,10 @@ screenshot.png
 ### august 1 2019
         * 0.9.0
         * Initial release
+
+## Upgrade Notice
+
+### 0.9.0
+Read the [release announcement post](https://www.tenman.info/wp3/emulsion/category/releases/)
 
 https://github.com/WPTRT/sample-theme-readme
