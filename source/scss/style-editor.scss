@@ -459,6 +459,12 @@
 }
 .gutenberg__editor .edit-post-visual-editor,
 .block__editor .edit-post-visual-editor{
+
+    .block-editor-block-list__block[data-type="core/paragraph"]{
+        p[data-is-placeholder-visible=true] + p{ 
+            min-height:0;
+        }     
+    } 
     .wp-block-latest-posts{
         li{
             list-style:none;
@@ -3521,10 +3527,13 @@ body{
      */
     .wp-block-columns{
         width:100%;
+        margin-top:3rem;
+        margin-bottom:3rem;
     }
 }
 .block-editor-block-list__layout{
-    > .block-editor-block-list__block{
+    & > .block-editor-block-list__block{
+
         &[data-type="core/column"]{
             //Line 1520
 
@@ -3535,21 +3544,23 @@ body{
         &[data-type="core/columns"]{
 
             height:auto;
-            // overflow:hidden;
+            overflow:visible;
             max-width: calc(var( --thm_content_width ) + var( --thm_align_offset ));
             padding-left:0;
             padding-right:0;
             .block-editor-block-list__block-edit{
-
+                overflow:visible;
                 .block-editor-block-contextual-toolbar{
                     top:3rem;
                 }
             }
             [data-type="core/column"]:not(:first-child){
-                margin-left:0;
-            }
+                margin-left:24px;
+            }            
 
             [data-type="core/column"]{
+                border:1px solid rgba(188,188,188,.3);
+                overflow:visible;
                 margin-left:0;
                 margin-right:0;
                 .block-editor-block-list__layout{
@@ -3567,7 +3578,7 @@ body{
                         &[data-type] {
                             overflow:visible;
                             [data-block]{
-                                margin-top:32px;
+                                margin-top:32px;                                
                             }
                             .editor-block-mover{
                                 top:0;
@@ -3576,6 +3587,42 @@ body{
                             .block-editor-block-contextual-toolbar{
                                 top:64px;
                                 margin-left:32px;
+                            }
+                        }
+                        &[data-align="full"]{
+                            .block-editor-block-list__block-edit{
+                                overflow:visible;
+                            }
+                        }
+                        &[data-align="wide"]{
+                            .block-editor-block-list__block-edit{
+                                overflow:visible;
+                            }
+                        }
+                        &[data-type="core/paragraph"]{
+                            [data-block]{
+                                margin-left:24px;
+                                margin-right:24px;
+                                padding-left:24px;
+                                max-width:calc(100% - 24px);
+                            }
+                            .editor-block-mover{
+                            }
+                            .block-editor-block-contextual-toolbar{
+                            }
+                        }
+                        &[data-type="core/heading"]{
+                            [data-block]{
+                                margin-left:24px;
+                                margin-right:24px;
+                                padding-left:24px;
+                                max-width:calc(100% - 24px);
+                            }
+                            .editor-block-mover{
+
+                            }
+                            .block-editor-block-contextual-toolbar{
+
                             }
                         }
                         &[data-type="core/cover"] {
@@ -3780,7 +3827,7 @@ body{
               }
               &[data-align="full"]{
                   .wp-block-columns{
-  
+    
                       & > .editor-inner-blocks{
                           padding-left:0;
                           padding-right:0;
@@ -3823,7 +3870,6 @@ body{
               }*/
         }
     }
-
 }
 .has-fixed-toolbar{
     .block-editor-block-list__layout{

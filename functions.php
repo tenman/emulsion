@@ -381,7 +381,14 @@ function emulsion_add_stylesheet() {
 	/**
 	 * if child theme has parent name.js( js/emulsion.js ) Read the file of the child theme ( for replace script )
 	 */
-	wp_register_script( 'emulsion-js', get_theme_file_uri( 'js/emulsion.js' ), array( 'jquery', 'jquery-migrate' ), $emulsion_current_data_version, true );
+	//
+	if( true == WP_DEBUG ) {
+		
+		wp_register_script( 'emulsion-js', get_theme_file_uri( 'js/emulsion.js' ), array( 'jquery', 'jquery-migrate' ), $emulsion_current_data_version, true );
+	} else {
+	
+		wp_register_script( 'emulsion-js', get_theme_file_uri( 'js/emulsion.min.js' ), array( 'jquery', 'jquery-migrate' ), $emulsion_current_data_version, true );
+	}
 	wp_enqueue_script( 'emulsion-js' );
 
 	$inline_script = apply_filters( 'emulsion_inline_script', "" );
