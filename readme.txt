@@ -1,11 +1,11 @@
 # Emulsion
-
+ 
 Contributors: nobita
 Requires at least: WordPress 5.0
 Tested up to: WordPress 5.2.2
 Requires PHP: 5.6
-License: GPLv2
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+License: GPL-2.0-or-later
+License URI: http://spdx.org/licenses/GPL-2.0-or-later.json
 Tags: one-column, two-columns, left-sidebar, right-sidebar, custom-colors, custom-header, custom-background, custom-menu, editor-style, theme-options, threaded-comments, sticky-post, translation-ready, post-formats, featured-images, full-width-template, grid-layout, flexible-header, custom-logo, featured-image-header, footer-widgets
 
 ## Description
