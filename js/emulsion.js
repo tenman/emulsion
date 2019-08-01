@@ -514,7 +514,7 @@ jQuery(function ($) {
             negative_margin = parseInt(main_width) - parseInt(article_width) + parseInt(negative_margin);
             negative_margin = negative_margin / -2;
 
-            $(this).css({'width': article_width, 'left': negative_margin, 'position': 'relative'}).show();
+            $(this).css({'width': article_width, 'left': negative_margin, 'position': 'relative','display':'flex'});
 
         });
 
@@ -525,7 +525,7 @@ jQuery(function ($) {
             var parent_width = $(this).parents('.entry-content').width();
             var negative_margin = parseInt(article_width) - parseInt(parent_width);
             var negative_margin = negative_margin / -2;
-            $(this).css({'width': article_width, 'left': negative_margin, 'position': 'relative'}).show();
+            $(this).css({'width': article_width, 'left': negative_margin, 'position': 'relative','display':'flex'});
         });
 
         /**

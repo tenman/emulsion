@@ -146,9 +146,22 @@
             & > .wp-block-media-text{
                 margin-top:1.5rem;
                 margin-bottom:.75rem;
+                margin-top:0;
+                margin-bottom:0;
                 display:grid;
                 &.alignfull{
                     @extend %has-sidebar-alignfull;
+                    width:100%;
+                    margin-left:0;
+                    margin-right:0;
+                }
+            }
+            & > .sectionized-wp-block-media-text .wp-block-media-text{
+                margin-top:0;
+                margin-bottom:0;
+                display:grid;
+                &.alignfull{
+                    width:100%;
                     margin-left:0;
                     margin-right:0;
                 }
@@ -423,6 +436,12 @@
                 @extend %no-sidebar-alignfull;
                 margin-left:auto;
                 margin-right:auto;
+            }
+            &.alignwide{
+                @extend %alignwide;
+                margin-left:auto;
+                margin-right:auto;
+
             }
         }
         .wp-block-latest-comments{
@@ -966,7 +985,7 @@ figure{
             padding-left:0;
             padding-right:0;
             max-width:100%;
-            min-height:50vh;
+         //   min-height:50vh;
             background-size:cover;
             background-position:center center;
             background-repeat:no-repeat;
@@ -979,7 +998,7 @@ figure{
             }
         }
         &.alignfull{
-            min-height:50vh;
+         //   min-height:50vh;
             background-size:cover;
             background-position:center center;
             background-repeat:no-repeat;
@@ -1212,11 +1231,11 @@ figure{
     &.alignleft{
         height:calc( var(--thm_content_width) / 2 - 1rem);
         @extend %alignleft;
-        //background-size:cover;
         background-position:center center;
         background-repeat:no-repeat;
         position:relative;
         background-size:60vw;
+
         @media screen and (max-width: 640px){
             // static break point
             background-position:center center !important;
@@ -1237,14 +1256,9 @@ figure{
     &.alignright{
         height:calc( var(--thm_content_width) / 2 - 1rem );
         @extend %alignright;
-        // background-size:cover;
         background-position:center center;
         background-repeat:no-repeat;
-        //   background-attachment:fixed;
         position:relative;
-
-        //core overwrite
-        @extend %alignright;
         background-size:60vw;
 
         @media screen and (max-width: 640px){
@@ -1252,6 +1266,8 @@ figure{
             background-position:center center !important;
             background-size:cover;
         }
+
+
         &.has-parallax{
             background-attachment: fixed;
         }
@@ -1286,11 +1302,15 @@ figure{
         position:relative;
         display:block;
         width:auto;
-        height:100%;
+
         max-width:100%;
         padding-left:var(--thm_content_gap);
         padding-right:var(--thm_content_gap);
         box-sizing:border-box;
+        color: #f8f9f9;
+        height:auto;
+        height: -moz-fit-content;
+        height:fit-content;
     }
 
 }
@@ -1461,7 +1481,7 @@ figure{
     margin-right:auto;
     max-width:calc( var(--thm_content_width) - 80px );
     width: -moz-fit-content;
-
+    width:fit-content;
     cite{
         text-align:left;
         width: -moz-fit-content;
@@ -2724,8 +2744,8 @@ hr{
     -moz-tab-size: 4;
     -o-tab-size: 4;
     tab-size: 4;
-    
-    
+
+
 }
 .entry-content > .wp-block-code{
     margin: 1.5rem auto .75rem;
