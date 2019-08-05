@@ -32,24 +32,3 @@ $emulsion_metabox_post_header_control	 = emulsion_metabox_display_control( 'head
 		}
 		?>
 			<main id="main">
-<?php
-/*
-$color ="#ff0000";
-printf('<div style="background:%1$s; color:#fff;padding:1em;">hello</div>', $color );
-printf('<div style="background:%1$s; color:#fff;padding:1em;">hello</div>',emulsion_accent_color( $color ) );
-
-echo emulsion_the_hex2hsla($color);*/
-
-
-//echo get_theme_mod("emulsion_general_link_color");
-
-//echo get_theme_mod('emulsion_common_google_font_url');
-
-//echo get_rest_url();
-
-$content = '<!-- wp:heading {"className":"hello"} -->
-<h2 class="hello" id="hi">hello world</h2>
-<!-- /wp:heading -->';
-//echo esc_html(var_export(  parse_blocks( $content ),true)  );
-
-

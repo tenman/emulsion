@@ -34,7 +34,6 @@ if( is_admin() && current_user_can( 'edit_theme_options' )  ) {
 	}
 }
 
-
 /**
  * Theme Supports
  *
@@ -772,36 +771,6 @@ if ( ! function_exists( 'emulsion_theme_info' ) ) {
 
 }
 
-/*
-if ( ! function_exists( 'emulsion_is_custom_post_type' ) ) {
-
-	function emulsion_is_custom_post_type( $post = null ) {
-		global $post;
-		$all_custom_post_types = get_post_types( array( '_builtin' => false ) );
-
-		$custom_types = array_keys( $all_custom_post_types );
-
-		if ( empty( $all_custom_post_types ) ) {
-
-			return false;
-		}
-		if ( isset( $post ) && ! empty( $post ) ) {
-
-			$current_post_type = trim( get_post_type( $post ) );
-
-			if ( ! $current_post_type ) {
-
-				return false;
-			}
-
-			return in_array( $current_post_type, $custom_types );
-		}
-
-		return false;
-	}
-
-}*/
-
 if ( ! function_exists( 'emulsion_class_name_sanitize' ) ) {
 
 	/**
@@ -1064,15 +1033,17 @@ if ( ! function_exists( 'emulsion_template_identification_class' ) ) {
 	}
 
 }
+if ( ! function_exists( 'emulsion_video_controls' ) ) {
 
-function emulsion_video_controls( $settings ) {
+	function emulsion_video_controls( $settings ) {
 
-	$settings['l10n']['play']	 = '<span class="screen-reader-text">' . __( 'Play header video', 'emulsion' ) . '</span>' . emulsion_svg_icon( array( 'icon' => 'play' ) );
-	$settings['l10n']['pause']	 = '<span class="screen-reader-text">' . __( 'Pause header video', 'emulsion' ) . '</span>' . emulsion_svg_icon( array( 'icon' => 'pause' ) );
-	
-	return $settings;
+		$settings['l10n']['play']	 = '<span class="screen-reader-text">' . __( 'Play header video', 'emulsion' ) . '</span>' . emulsion_svg_icon( array( 'icon' => 'play' ) );
+		$settings['l10n']['pause']	 = '<span class="screen-reader-text">' . __( 'Pause header video', 'emulsion' ) . '</span>' . emulsion_svg_icon( array( 'icon' => 'pause' ) );
+
+		return $settings;
+	}
+
 }
-
 if ( ! function_exists( 'emulsion_request_url' ) ) {
 
 	/**

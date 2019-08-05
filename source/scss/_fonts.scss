@@ -332,18 +332,19 @@ footer.banner{
     }
 }
 
+
 /**
- * font size classes
+ * font weight class
  */
 
-@for $i from 10 through 48 {
-
-    .layout-list.font-heading-sans-serif .f-#{$i},
-    .layout-list.font-heading-serif .f-#{$i},
-    .layout-list.font-common-sans-serif .f-#{$i},
-    .layout-list.font-common-serif .f-#{$i}{
-        font-size:#{$i}px;
-    }
+@for $i from 100 through 900 {
+    
+    .layout-list.font-heading-sans-serif .fw-#{$i},
+    .layout-list.font-heading-serif .fw-#{$i},
+    .layout-list.font-common-sans-serif .fw-#{$i},
+    .layout-list.font-common-serif .fw-#{$i}{
+        font-weight:#{$i};
+    }  
 }
 /**
  * Editor font sizes

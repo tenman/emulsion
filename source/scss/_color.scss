@@ -16,9 +16,9 @@ body{
     &.emulsion-has-sidebar{
         .primary-menu-wrapper{
             border-top:1px solid rgba(188,188,188,.5);
-        }
-        .menu-main-container{
-            border-bottom:1px solid rgba(188,188,188,.5);
+            nav[class|="menu"]{
+                border-bottom:1px solid rgba(188,188,188,.5);
+            }
         }
     }
     .side-right{
@@ -256,15 +256,15 @@ body{
             }
         }
     }
-    .header-layer.template-part-header .menu-main-container{
-        border-bottom:none;
-    }
     .header-layer.template-part-header{
         border-bottom: 1px solid rgba(188, 188, 188, .5);
+        .header-layer-nav-menu nav[class|="menu"]{
+            border-bottom:none;
+        }
     }
 }
 input[type="checkbox"][data-skin="inset"] + label span{
-    background:rgba(188,188,188,.5);
+    background:rgba(188, 188, 188, .5);
 }
 //.header-is-light,
 //.header-is-dark{
@@ -355,9 +355,9 @@ input[type="checkbox"][data-skin="inset"] + label span{
     &.emulsion-has-sidebar{
         .primary-menu-wrapper{
             border:none;
-        }
-        .menu-main-container{
-            border:none;
+            nav[class|="menu"]{
+                border:none;
+            }
         }
     }
     .side-right{
@@ -595,7 +595,7 @@ input[type="checkbox"][data-skin="inset"] + label span{
                 border-bottom:$border;
             }
         }
-    }   
+    }
 }
 .sidebar-is-light{
     $border:1px solid rgba(188,188,188,.5);
@@ -900,7 +900,7 @@ body{
         }
     }
     .header-layer{
-        color:var(--thm_header_text_color);       
+        color:var(--thm_header_text_color);
         a{
             color:var(--thm_header_link_color);
             &:hover{
@@ -1104,7 +1104,7 @@ body{
             background:var(--thm_sidebar_bg_color);
             color:var(--thm_sidebar_text_color);
             a{
-                color:var(--thm_sidebar_link_color);               
+                color:var(--thm_sidebar_link_color);
             }
             .widget_nav_menu{
                 .menu-item{
@@ -2257,7 +2257,7 @@ body{
                 &:hover{
                     color:var(--thm_sidebar_hover_color);
                 }
-            }            
+            }
         }
     }
 }
@@ -2736,9 +2736,9 @@ a.skin-button{
         background: rgba(188, 188, 188, .2);
     }
 }
-.is-dark .header-is-default-color ~ .page-wrapper, 
+.is-dark .header-is-default-color ~ .page-wrapper,
 // 1col
-.is-dark .header-is-default-color ~ .layout-block{ 
+.is-dark .header-is-default-color ~ .layout-block{
     // 2col
     a.skin-button{
         // color:var( --thm_general_link_color );
