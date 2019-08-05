@@ -9,7 +9,7 @@
 </tr>
 <tr>
 	<th style="border:1px solid #ccc;text-align:center;"><?php esc_html_e('Theme Home Page', 'emulsion'); ?></th>
-	<td style="border:1px solid #ccc"><a href="<?php echo esc_url(emulsion_theme_info( 'AuthorURI',false )); ?>"><?php echo esc_url( emulsion_theme_info( 'AuthorURI',false )); ?></a></td>
+	<td style="border:1px solid #ccc"><a href="<?php echo esc_url(emulsion_theme_info( 'ThemeURI',false )); ?>"><?php echo esc_url( emulsion_theme_info( 'ThemeURI',false )); ?></a></td>
 </tr>
 <tr>
 	<th style="border:1px solid #ccc;text-align:center;">Reports bug, any questions</th>

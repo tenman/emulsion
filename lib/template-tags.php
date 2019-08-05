@@ -155,6 +155,11 @@ if ( ! function_exists( 'emulsion_meta_description' ) ) {
 
 	function emulsion_meta_description() {
 		
+		if( false == emulsion_add_supports( 'meta_description' ) ) {
+			
+			__return_empty_string();
+		}
+		
 		if ( is_singular() ) {
 
 			$excerpt = get_the_excerpt();
@@ -165,8 +170,19 @@ if ( ! function_exists( 'emulsion_meta_description' ) ) {
 
 				return $excerpt;
 			}
+		} else {
+			
+			$excerpt =  term_description();
+			$excerpt = wp_html_excerpt( $excerpt, 160, '' );
+
+			if ( ! empty( $excerpt ) ) {
+
+				return $excerpt;
+			}
+			
 		}
-		return false;
+		
+		__return_empty_string();
 	}
 
 }

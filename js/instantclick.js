@@ -315,11 +315,11 @@ var InstantClick = function(document, location) {
           elem,
           data
 
-      for (var i = elems.length - 1; i >= 0; i--thm_) {
+      for (var i = elems.length - 1; i >= 0; i--) {
         elem = elems[i]
         if (elem.hasAttribute('data-instant-track')) {
           data = elem.getAttribute('href') || elem.getAttribute('src') || elem.innerHTML
-          for (var j = $trackedAssets.length - 1; j >= 0; j--thm_) {
+          for (var j = $trackedAssets.length - 1; j >= 0; j--) {
             if ($trackedAssets[j] == data) {
               found++
             }
@@ -679,7 +679,7 @@ var InstantClick = function(document, location) {
       triggerPageEvent('change', true)
       return
     }
-    for (var i = arguments.length - 1; i >= 0; i--thm_) {
+    for (var i = arguments.length - 1; i >= 0; i--) {
       var arg = arguments[i]
       if (arg === true) {
         $useWhitelist = true
@@ -701,7 +701,7 @@ var InstantClick = function(document, location) {
     var elems = document.head.children,
         elem,
         data
-    for (var i = elems.length - 1; i >= 0; i--thm_) {
+    for (var i = elems.length - 1; i >= 0; i--) {
       elem = elems[i]
       if (elem.hasAttribute('data-instant-track')) {
         data = elem.getAttribute('href') || elem.getAttribute('src') || elem.innerHTML

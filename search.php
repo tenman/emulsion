@@ -14,4 +14,3 @@
 	emulsion_pagination();
 	
 	get_footer();
-

@@ -1117,7 +1117,6 @@ function emulsion_resuponsive_css() {
     position: relative;
     z-index: 1;
     flex-basis: var(--thm_sidebar_width, 400px);
-    /*max-width: var(--thm_sidebar_width, 400px);*/
     flex: 0 0;
   }
   body .template-part-widget-footer.footer-widget-area {
@@ -1202,7 +1201,7 @@ function emulsion_resuponsive_css() {
 		width: 100vw;
 		height: 53px;
 	}
-	body header.template-part-header .header-layer-site-title-navigation .header-layer-nav-menu .menu-main-container {
+	body header.template-part-header .header-layer-site-title-navigation .header-layer-nav-menu nav[class|="menu"] {
 		width: calc(100vw - 48px);
 	}
 	body header.template-part-header .header-layer-site-title-navigation .header-layer-nav-menu input[type="checkbox"][data-skin="hamburger"]:checked ~ nav {
