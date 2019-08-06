@@ -111,9 +111,9 @@ screenshot.png
 
 ## Changelog
 
-### august 2 2019 ( example of change )
-        * 0.9.1
-        * Dummy(  description or link )
+### august 6 2019
+        * 0.9.2
+        * https://github.com/tenman/emulsion/releases
 
 ### august 1 2019
         * 0.9.0
