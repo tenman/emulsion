@@ -1047,8 +1047,8 @@ if ( ! function_exists( 'emulsion_smart_category_highlight' ) ) {
 
 		$count_terms = count( $terms );
 		$radian		 = 270 / $count_terms;
+		$body_id	 = '.has-category-colors .layout-block';
 
-		$body_id = '.has-category-colors';
 		foreach ( $terms as $key => $term ) {
 
 			$v			 = $key + 1;

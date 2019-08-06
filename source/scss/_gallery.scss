@@ -4,19 +4,12 @@
     }
 }
 /* shortcode gallery */
-.gallery,
-.entry-content .gallery{
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-    -webkit-box-align: stretch;
-    -ms-flex-align: stretch;
-    align-items: stretch;
-}
-.gallery{
+div.gallery{
+    @extend %block;
     clear: both;
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
     .gallery-icon{
         display:flex;
         flex-wrap: wrap;
@@ -24,11 +17,17 @@
         justify-content: center;
         height:100%;
     }
+    &.gallery-size-thumbnail{
+        .gallery-item{
+            background:transparent!important;
+        }
+    }    
     .gallery-item {
         position:relative;
         margin-bottom:-4px;
         display:inline-block;
         text-align: center;
+        vertical-align:top;
     }
     .gallery-caption {
         @include font_size(5);
@@ -43,19 +42,36 @@
     }
     .gallery figcaption{
     }
-    &:after{
+    /**
+     * small gallery item figcaption
+     * gallery-item hover show
+     */
+    &.gallery-columns-9 .gallery-item,
+    &.gallery-columns-8 .gallery-item,
+    &.gallery-columns-7 .gallery-item,
+    &.gallery-columns-6 .gallery-item,
+    &.gallery-columns-5 .gallery-item {
+        margin-top:var(--thm_box_gap);
+        margin-bottom:var(--thm_box_gap);
     }
-    figure:focus figcaption{
+    &.gallery-columns-9 .gallery-item figcaption,
+    &.gallery-columns-8 .gallery-item figcaption,
+    &.gallery-columns-7 .gallery-item figcaption,
+    &.gallery-columns-6 .gallery-item figcaption,
+    &.gallery-columns-5 .gallery-item figcaption{
+        visibility:hidden;
+        position:absolute;
     }
-    .gallery-item:hover figcaption{
-    }
-}
-div.gallery{
-    @extend %block;
-    &.gallery-size-thumbnail{
-        .gallery-item{
-            background:transparent!important;
-        }
+    &.gallery-columns-9 .gallery-item:hover figcaption,
+        &.gallery-columns-8 .gallery-item:hover figcaption,
+        &.gallery-columns-7 .gallery-item:hover figcaption,
+        &.gallery-columns-6 .gallery-item:hover figcaption,
+        &.gallery-columns-5 .gallery-item:hover figcaption{
+        visibility:visible;
+        background:#fff;
+        z-index:200;
+        width:290px;
+        max-width:290px;
     }
 }
 .sidebar-widget-area,

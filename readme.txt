@@ -23,7 +23,7 @@ Theme is designed with the goal of minimizing user frustration.
 
 * You can contact bugs and ask questions in the following channels
 	* [Docs](https://www.tenman.info/wp3/emulsion/category/docs/)
-	* [FAQ](https://www.tenman.info/wp3/emulsion/category/docs/)
+	* [FAQ](https://www.tenman.info/wp3/emulsion/category/faq/)
 	* [Support Forum](https://wordpress.org/support/theme/emulsion/)
 
 ## Screenshots
@@ -111,9 +111,9 @@ screenshot.png
 
 ## Changelog
 
-### august 2 2019 ( example of change )
-        * 0.9.1
-        * Dummy(  description or link )
+### august 6 2019
+        * 0.9.2
+        * https://github.com/tenman/emulsion/releases
 
 ### august 1 2019
         * 0.9.0
@@ -124,4 +124,3 @@ screenshot.png
 ### 0.9.0
 Read the [release announcement post](https://www.tenman.info/wp3/emulsion/category/releases/)
 
-https://github.com/WPTRT/sample-theme-readme
