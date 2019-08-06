@@ -141,22 +141,11 @@ class emulsion_add_meta_boxes {
 					);
 				}
 			}
-			/* 	register_post_meta( $screen['post_type'], $key, array(
-		  'show_in_rest'	 => true,
-		  'single'		 => true,
-		  'type'			 => 'string',
-		  'auth_callback'	 => function() {
-		  return current_user_can( 'edit_posts' );
-		  },
-		  'sanitize_callback' => 'wp_filter_nohtml_kses',
-		  ) ); */
 		}
 	}
-
 	public function rest_save( $post_id ) {
 		
 	}
-
 	public function save( $post_id ) {
 
 		if ( ! current_user_can( 'edit_posts' ) ) {
