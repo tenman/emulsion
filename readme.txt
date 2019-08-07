@@ -112,7 +112,7 @@ screenshot.png
 ## Changelog
 
 ### august 6 2019
-        * 0.9.2
+        * 0.9.3
         * https://github.com/tenman/emulsion/releases
 
 ### august 1 2019
