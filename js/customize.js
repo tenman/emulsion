@@ -42,23 +42,23 @@
 (function ($) {
 
     function sub_color(color, percent) {
-        var r = parseInt(color.substring(1,3),16);
-        var g = parseInt(color.substring(3,5),16);
-        var b = parseInt(color.substring(5,7),16);
+        var r = parseInt(color.substring(1, 3), 16);
+        var g = parseInt(color.substring(3, 5), 16);
+        var b = parseInt(color.substring(5, 7), 16);
 
         r = parseInt(r * (100 + percent) / 100);
         g = parseInt(g * (100 + percent) / 100);
         b = parseInt(b * (100 + percent) / 100);
 
-        r = (r<255)?r:255;
-        g = (g<255)?g:255;
-        b = (b<255)?b:255;
+        r = (r < 255) ? r : 255;
+        g = (g < 255) ? g : 255;
+        b = (b < 255) ? b : 255;
 
-        var rr = ((r.toString(16).length==1)?"0"+r.toString(16):r.toString(16));
-        var gg = ((g.toString(16).length==1)?"0"+g.toString(16):g.toString(16));
-        var bb = ((b.toString(16).length==1)?"0"+b.toString(16):b.toString(16));
+        var rr = ((r.toString(16).length == 1) ? "0" + r.toString(16) : r.toString(16));
+        var gg = ((g.toString(16).length == 1) ? "0" + g.toString(16) : g.toString(16));
+        var bb = ((b.toString(16).length == 1) ? "0" + b.toString(16) : b.toString(16));
 
-        return "#"+rr+gg+bb;
+        return "#" + rr + gg + bb;
     }
 
     function emulsion_text_color(newval) {
@@ -194,34 +194,29 @@
                 var current_sidebar_color = $('.sidebar-widget-area').css("background-color");
             }
 
-            if ( $(".sidebar-widget-area").css("background-color") == "rgb(255,255,255)" ||
-                 $(".sidebar-widget-area").css("background-color") == "rgb(255, 255, 255)" ||
-                 $(".sidebar-widget-area").css("background-color") == "#ffffff" ||
-                 $(".sidebar-widget-area").css("background-color") == "rgb(0,0,0)" ||
-                 $(".sidebar-widget-area").css("background-color") == "rgb(0, 0, 0)" ||
-                 $(".sidebar-widget-area").css("background-color") == "#000000"){
+            if ($(".sidebar-widget-area").css("background-color") == "rgb(255,255,255)" ||
+                    $(".sidebar-widget-area").css("background-color") == "rgb(255, 255, 255)" ||
+                    $(".sidebar-widget-area").css("background-color") == "#ffffff" ||
+                    $(".sidebar-widget-area").css("background-color") == "rgb(0,0,0)" ||
+                    $(".sidebar-widget-area").css("background-color") == "rgb(0, 0, 0)" ||
+                    $(".sidebar-widget-area").css("background-color") == "#000000") {
 
-                    $('.sidebar-widget-area, .sidebar-widget-area a').css({'background-color': sidebar_bg, 'color': text_color});
+                $('.sidebar-widget-area, .sidebar-widget-area a').css({'background-color': sidebar_bg, 'color': text_color});
             }
 
-            if ( $(".primary-menu-wrapper").css("background-color") == "rgb(255,255,255)" ||
-                 $(".primary-menu-wrapper").css("background-color") == "rgb(255, 255, 255)" ||
-                 $(".primary-menu-wrapper").css("background-color") == "#ffffff" ||
-                 $(".primary-menu-wrapper").css("background-color") == "rgb(0,0,0)" ||
-                 $(".primary-menu-wrapper").css("background-color") == "rgb(0, 0, 0)" ||
-                 $(".primary-menu-wrapper").css("background-color") == "#000000"){
+            if ($(".primary-menu-wrapper").css("background-color") == "rgb(255,255,255)" ||
+                    $(".primary-menu-wrapper").css("background-color") == "rgb(255, 255, 255)" ||
+                    $(".primary-menu-wrapper").css("background-color") == "#ffffff" ||
+                    $(".primary-menu-wrapper").css("background-color") == "rgb(0,0,0)" ||
+                    $(".primary-menu-wrapper").css("background-color") == "rgb(0, 0, 0)" ||
+                    $(".primary-menu-wrapper").css("background-color") == "#000000") {
 
-                     $('.primary-menu-wrapper, .primary-menu-wrapper a').css({'background-color': sidebar_bg, 'color': text_color});
+                $('.primary-menu-wrapper, .primary-menu-wrapper a').css({'background-color': sidebar_bg, 'color': text_color});
             }
 
-            $('article a,.placeholder-header a, .entry-date').css({'color':text_color,'background':'transparent'});
+            $('article a,.placeholder-header a, .entry-date').css({'color': text_color, 'background': 'transparent'});
             $('body, .custom-background.background-css-pattern-seigaiha').css('background-color', newval);
-            $('.menu-placeholder').css({'background':'transparent'});
-
-          /**
-           * Grid
-           */
-
+            $('.menu-placeholder').css({'background': 'transparent'});
 
         });
     });
@@ -230,39 +225,39 @@
             $('#site-title a').html(newval);
         });
     });
-     wp.customize('emulsion_alignfull', function (value) {
+    wp.customize('emulsion_alignfull', function (value) {
         value.bind(function (newval) {
-            if('disable' == newval) {
+            if ('disable' == newval) {
                 $('body').removeClass('enable-alignfull').addClass('disable-alignfull');
-                $('.alignfull, .alignwide').removeAttr('style').css({'max-width':'100%'});
+                $('.alignfull, .alignwide').removeAttr('style').css({'max-width': '100%'});
             }
-            if('enable' == newval) {
+            if ('enable' == newval) {
                 $('body').removeClass('disable-alignfull').addClass('enable-alignfull');
-                $('.alignfull, .alignwide').removeAttr('style').css({'max-width':'none'});
+                $('.alignfull, .alignwide').removeAttr('style').css({'max-width': 'none'});
             }
         });
     });
-    wp.customize( 'header_textcolor', function( value ) {
-            value.bind( function( newval ) {
-                console.log( newval );
-                //    $( '.header-text' ).html( newval );
-            } );
-    } );
+    wp.customize('header_textcolor', function (value) {
+        value.bind(function (newval) {
+            console.log(newval);
+            //    $( '.header-text' ).html( newval );
+        });
+    });
     wp.customize('display_header_text', function (value) {
         value.bind(function (newval) {
-            console.log( newval );
-            if( true !== newval ) {
-                 $('.site-title-text, .site-description').css({'display':'none'});
+            console.log(newval);
+            if (true !== newval) {
+                $('.site-title-text, .site-description').css({'display': 'none'});
             }
         });
     });
-    
+
     wp.customize('blogdescription', function (value) {
         value.bind(function (newval) {
             $('.site-description').html(newval);
         });
     });
-    
+
     //
     wp.customize('header_textcolor', function (value) {
         value.bind(function (newval) {
@@ -272,26 +267,26 @@
     wp.customize('background_color', function (value) {
         value.bind(function (newval) {
             document.documentElement.style.setProperty('--thm_background_color', newval);
-            document.documentElement.style.setProperty('--thm_sub_background_color_lighten', sub_color(newval,125));
-            document.documentElement.style.setProperty('--thm_sub_background_color_darken', sub_color(newval,75));
+            document.documentElement.style.setProperty('--thm_sub_background_color_lighten', sub_color(newval, 125));
+            document.documentElement.style.setProperty('--thm_sub_background_color_darken', sub_color(newval, 75));
+            
+            $( 'article, .entry-title, .entry-content *').css({'color': emulsion_text_color(newval) });
 
         });
     });
 
-     wp.customize('emulsion_background_css_pattern', function (value) {
+    wp.customize('emulsion_background_css_pattern', function (value) {
         value.bind(function (newval) {
 
             $('body').removeClass('background-css-pattern-carbon-fiber background-css-pattern-seigaiha background-css-pattern-cicada background-css-pattern-lattice background-css-pattern-hexagonal');
-
-            $('body').addClass('background-css-pattern-' + newval );
+            $('body').addClass('background-css-pattern-' + newval);
         });
     });
-
     //
     wp.customize('emulsion_header_gradient', function (value) {
         value.bind(function (newval) {
 
-            if( 'disable' == newval ) {
+            if ('disable' == newval) {
                 $('header.header-layer').removeAttr('style');
                 $('.header-layer').css('background', 'var( --thm_header_bg_color )');
 
@@ -303,7 +298,7 @@
     });
     wp.customize('emulsion_category_colors', function (value) {
         value.bind(function (newval) {
-            if( 'disable' == newval ) {
+            if ('disable' == newval) {
                 $('body').removeClass('has-category-colors');
                 $('body').addClass('disable-category-colors');
             } else {
@@ -322,7 +317,7 @@
         value.bind(function (newval) {
             document.documentElement.style.setProperty('--thm_background_color', newval);
         });
-    });  
+    });
     wp.customize('emulsion_post_display_date', function (value) {
         value.bind(function (newval) {
 
@@ -355,18 +350,14 @@
     });
     wp.customize('emulsion_heading_font_family', function (value) {
         value.bind(function (newval) {
-           document.documentElement.style.setProperty('--thm_heading_font_family', newval);
-           
+            document.documentElement.style.setProperty('--thm_heading_font_family', newval);
+
         });
     });
 
     wp.customize('emulsion_heading_font_weight', function (value) {
         value.bind(function (newval) {
-         
-          // $( '.entry-title, h1,h2,h3,h4,.h1,.h2,.h3,h4,.site-title' ).css('font-weight', newval);
-          //  console.log(newval);
-           document.documentElement.style.setProperty('--thm_heading_font_weight', newval);
-
+            document.documentElement.style.setProperty('--thm_heading_font_weight', newval);
         });
     });
     wp.customize('emulsion_heading_font_size', function (value) {
@@ -604,11 +595,11 @@
     });
     wp.customize('emulsion_relate_posts', function (value) {
         value.bind(function (newval) {
-           if ('disable' == newval) {
+            if ('disable' == newval) {
                 $('.relate-content-wrapper').css({'display': 'none'});
             }
             if ('enable' == newval) {
-                 $('.relate-content-wrapper').css({'display': 'block'});
+                $('.relate-content-wrapper').css({'display': 'block'});
             }
         });
     });
@@ -654,9 +645,9 @@
 
     wp.customize('emulsion_header_media_max_height', function (value) {
         value.bind(function (newval) {
-        //    document.documentElement.style.setProperty('--thm_header_media_max_height', newval + 'vh');
-            $('header.header-image-active, .header-video-active, .wp-custom-header img, .header-image-active .wp-post-image,.header-video-active video#wp-custom-header-video').css({'max-height': newval + 'vh','height':newval + 'vh' })
-            
+            //    document.documentElement.style.setProperty('--thm_header_media_max_height', newval + 'vh');
+            $('header.header-image-active, .header-video-active, .wp-custom-header img, .header-image-active .wp-post-image,.header-video-active video#wp-custom-header-video').css({'max-height': newval + 'vh', 'height': newval + 'vh'})
+
             setTimeout(function () {
 
                 var div = $('.header-layer');
@@ -766,7 +757,7 @@
 
                 console.log(newval);
 
-               $('article').css({'border': '2px dashed', 'margin-top': newval + 'px'});
+                $('article').css({'border': '2px dashed', 'margin-top': newval + 'px'});
 
                 setTimeout(function () {
                     var elm = $('article');
@@ -806,59 +797,12 @@
 
     wp.customize('emulsion_header_background_color', function (value) {
         value.bind(function (newval) {
-            var hex = newval;
 
-            if (hex.indexOf('#') === 0) {
-                hex = hex.slice(1);
-            }
-
-            if (hex.length === 3) {
-                hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
-            }
-            if (hex.length !== 6) {
-                var rgb = hex.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
-
-                var r = rgb[1];
-                var g = rgb[2];
-                var r = rgb[3];
-
-            } else {
-                var r = parseInt(hex.slice(0, 2), 16);
-                var g = parseInt(hex.slice(2, 4), 16);
-                var b = parseInt(hex.slice(4, 6), 16);
-            }
-
-            var result = (r * 0.299 + g * 0.587 + b * 0.114) > 186
-                    ? 'light'
-                    : 'dark';
-
-
-            if ('light' == result) {
-
-
-                var hue = 5;
-                var saturation = 20;
-                var lightness = 90;
-                var text_color = '#333333';
-
-            }
-            if ('dark' == result) {
-
-                var hue = 5;
-                var saturation = 20;
-                var lightness = 15;
-                var text_color = '#ffffff';
-
-            }
-            if ('dark' !== result && 'light' !== result) {
-
-            }
-            var text_color = emulsion_text_color(newval);
             document.documentElement.style.setProperty('--thm_header_bg_color', newval);//fx
 
-            $('header.header-layer').css({'background': newval });
+            $('header.header-layer').css({'background': newval});
 
-            $('.header-layer #site-title .site-title-text, .header-layer .site-description, .header-layer .entry-title, .header-layer .text-link, .header-layer .posted-on .entry-date, .header-layer .taxonomy-description').css({'color': text_color});
+            $('.header-layer .site-title-text, .header-layer .site-description, .header-layer .entry-title, .header-layer .text-link, .header-layer .posted-on .entry-date, .header-layer .taxonomy-description').css({'color': emulsion_text_color(newval)});
 
         });
     });
@@ -868,14 +812,14 @@
             document.documentElement.style.setProperty('--thm_header_background_gradient_color', newval);
 
             var start_color = getComputedStyle(document.documentElement).getPropertyValue('--thm_header_bg_color');
-            
+
             $('header.header-layer').css({'background': 'linear-gradient(90deg, ' + start_color + ',' + newval + ')'});
-           
+
         });
     });
     wp.customize('emulsion_header_gradient', function (value) {
         value.bind(function (newval) {
-            if('enable' == newval) {
+            if ('enable' == newval) {
                 var start_color = getComputedStyle(document.documentElement).getPropertyValue('--thm_header_bg_color');
                 var to_color = getComputedStyle(document.documentElement).getPropertyValue('--thm_header_background_gradient_color');
                 $('header.header-layer').css({'background': 'linear-gradient(90deg, ' + start_color + ',' + to_color + ')'});
@@ -884,4 +828,3 @@
         });
     });
 })(jQuery);
-

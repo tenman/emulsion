@@ -28,7 +28,8 @@ if ( ! function_exists( 'emulsion_get_css_variables_values' ) ) {
 		
 		if( false !== get_theme_mod( 'header_textcolor', false ) ){
 			
-			$header_text_color = get_theme_mod( 'header_textcolor', get_theme_support( 'custom-header', 'default-text-color' ) );
+			$header_text_color = '#'. get_theme_mod( 'header_textcolor' );
+			
 		} else {
 			
 			$header_text_color		 = emulsion_contrast_color( $header_background_color );

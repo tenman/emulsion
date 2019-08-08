@@ -178,7 +178,8 @@ $emulsion_customize_args = array(
 		'transport'					 => 'postMessage',
 		'unit'						 => '',
 		'label'						 => esc_html__( 'Background Pattern', 'emulsion' ),
-		'description'				 => esc_html__( 'The background color must be set in advance', 'emulsion' ),
+		'description'				 => esc_html__( 'The background color must be set in advance', 'emulsion' ).'<br />'. 
+										esc_html__( 'This setting does not support preview.Please open a blog and check it.', 'emulsion' ),
 		'validate'					 => 'emulsion_background_css_pattern_validate',
 		'active_callback'			 => '',
 		'sanitize_callback'			 => 'wp_filter_nohtml_kses',
