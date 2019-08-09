@@ -259,19 +259,14 @@
     });
 
     //
-    wp.customize('header_textcolor', function (value) {
-        value.bind(function (newval) {
-            $('#site-title a, #site-title .site-title-text, .site-description').css('color', newval);
-        });
-    });
+
     wp.customize('background_color', function (value) {
         value.bind(function (newval) {
             document.documentElement.style.setProperty('--thm_background_color', newval);
             document.documentElement.style.setProperty('--thm_sub_background_color_lighten', sub_color(newval, 125));
             document.documentElement.style.setProperty('--thm_sub_background_color_darken', sub_color(newval, 75));
-            
-            $( 'article, .entry-title, .entry-content *').css({'color': emulsion_text_color(newval) });
 
+            $( 'article, .entry-title, .entry-content *').css({'color': emulsion_text_color(newval) });
         });
     });
 
@@ -536,6 +531,14 @@
             var color = emulsion_text_color(newval);
             $('.primary-menu-wrapper').css({'background': newval, 'color': color});
             $('.primary-menu-wrapper a').css({'color': color, 'background': 'transparent'});
+
+            $('.primary-menu-wrapper').removeClass('menu-is-light menu-is-dark');
+
+           if('#ffffff' == emulsion_text_color( newval) ){
+               $('.primary-menu-wrapper').addClass('menu-is-dark');
+           } else {
+               $('.primary-menu-wrapper').addClass('menu-is-light');
+           }
         });
     });
     wp.customize('emulsion_sidebar_background', function (value) {
@@ -544,6 +547,16 @@
             $('.sidebar-widget-area').css({'background': newval, 'color': color});
             $('.sidebar-widget-area a').css({'color': color, 'background': 'transparent'});
             $('.emulsion-has-sidebar .primary-menu-wrapper .menu-placeholder').css({'background': newval, 'color': color});
+
+            $('.sidebar-widget-area, .footer-widget-area').removeClass('sidebar-is-light sidebar-is-dark sidebar-is-default');
+
+           if('#ffffff' == newval) {
+               $('.sidebar-widget-area, .footer-widget-area').addClass('sidebar-is-default');
+           } else if('#ffffff' == emulsion_text_color( newval) ){
+               $('.sidebar-widget-area, .footer-widget-area').addClass('sidebar-is-dark');
+           } else {
+               $('.sidebar-widget-area, .footer-widget-area').addClass('sidebar-is-light');
+           }
         });
     });
     //emulsion_sidebar_background
@@ -804,6 +817,31 @@
 
             $('.header-layer .site-title-text, .header-layer .site-description, .header-layer .entry-title, .header-layer .text-link, .header-layer .posted-on .entry-date, .header-layer .taxonomy-description').css({'color': emulsion_text_color(newval)});
 
+            $('.header-layer').removeClass('header-is-light header-is-dark header-is-default-color');
+
+           if('#ffffff' == newval) {
+                $('.header-layer').addClass('header-is-default-color');
+
+           } else if('#ffffff' == emulsion_text_color( newval) ){
+
+               $('.header-layer').addClass('header-is-dark');
+           } else {
+               $('.header-layer').addClass('header-is-light');
+           }
+        });
+    });
+    wp.customize('header_textcolor', function (value) {
+        value.bind(function (newval) {
+            // Todo: more check need
+
+            if( newval !== emulsion_script_vars.header_default_color ) {
+
+                $('#site-title a, #site-title .site-title-text, .site-description').css('color', newval);
+            } else {
+
+                $('.header-is-dark #site-title a, .header-is-dark  #site-title .site-title-text,.header-is-dark .site-description').css({'color':'#ffffff'});
+                $('.header-is-light #site-title a, .header-is-light  #site-title .site-title-text,.header-is-light .site-description').css({'color':'#333333'});
+            }
         });
     });
     wp.customize('emulsion_header_sub_background_color', function (value) {

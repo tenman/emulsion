@@ -491,6 +491,7 @@ function emulsion_add_stylesheet() {
 		'meta_description' => emulsion_meta_description(),
 		'is_customize_preview'   => is_customize_preview() ? 'is_preview':'',
 		'post_id'                => get_the_Id(),
+		'header_default_text_color' => get_theme_support( 'custom-header', 'default-text-color' ),
 
 
 	) );
