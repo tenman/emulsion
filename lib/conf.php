@@ -89,7 +89,8 @@ $emulsion_customize_args = array(
 		'transport'					 => 'postMessage',
 		'unit'						 => '',
 		'label'						 => esc_html__( 'Category Color', 'emulsion' ),
-		'description'				 => esc_html__( 'Add category colors to headers and links', 'emulsion' ),
+		'description'				 => esc_html__( 'Add category colors to headers and links', 'emulsion' ). '<br />'.
+										emulsion_control_description( 'emulsion_category_colors' ),
 		'validate'					 => 'emulsion_category_colors_validate',
 		'active_callback'			 => '',
 		'sanitize_callback'			 => 'wp_filter_nohtml_kses',
@@ -143,8 +144,7 @@ $emulsion_customize_args = array(
 		'transport'					 => 'postMessage',
 		'unit'						 => '',
 		'label'						 => esc_html__( 'Relate Posts background Color', 'emulsion' ),
-		'description'				 => emulsion_control_description( 'emulsion_relate_posts_bg' ),
-		
+		'description'				 => emulsion_control_description( 'emulsion_relate_posts_bg' ),	
 		'active_callback'			 => '',
 		'sanitize_callback'			 => 'sanitize_hex_color',
 		'validate'					 => 'emulsion_relate_posts_bg_validate',
@@ -2005,28 +2005,22 @@ function emulsion_control_description( $control ) {
 	
 	$customizer_url = 'javascript:var url = wp.customize.settings.url.home + \'?%1$s\'; wp.customize.previewer.previewUrl.set( url );';
 	$preview_text = esc_html__('Move preview to ', 'emulsion');
+	
 	switch ( $control ) {
 		case 'emulsion_relate_posts_bg':
 
 			$link_id	 = emulsion_get_customize_post_id( 'latest-post' );
 			$url		 = sprintf( $customizer_url, 'p=' . $link_id );
 			$link_text	 = esc_html__( 'latest post', 'emulsion' );
+				
+				return sprintf( '%1$s<a href="%2$s">%3$s</a>', $preview_text, $url, $link_text );		
+			break;
+		case 'emulsion_category_colors':
 			
-			$status = get_theme_mod('emulsion_relate_posts', emulsion_get_var( 'emulsion_relate_posts' ) );
-			
-			if( 'enable' == $status ) {
+			$url		 = sprintf( $customizer_url, 'cat=1' );
+			$link_text	 = esc_html__( 'category archive', 'emulsion' );
 				
 				return sprintf( '%1$s<a href="%2$s">%3$s</a>', $preview_text, $url, $link_text );
-			} 
-			if( 'disable' == $status ) {
-				
-				$preview_text	 = esc_html__( 'Move preview to ', 'emulsion' );
-				$preview_text	 = esc_html__( 'This feature is set to disabled.', 'emulsion' );
-				$link_text		 = esc_html__( 'change setting', 'emulsion' );
-				$url			 = 'javascript:wp.customize.control( \'emulsion_relate_posts\' ).focus();';
-				
-				return sprintf( '%1$s<a href="%2$s">%3$s</a>', $preview_text, $url, $link_text );
-			} 
 			
 			break;
 		case 'emulsion_comments_bg':
