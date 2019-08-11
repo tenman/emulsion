@@ -459,6 +459,7 @@
             if ('yes' == newval) {
                 $('article header').addClass('screen-reader-text');
                 $('header .entry-text').css('display', 'flex');
+              //  $('header .entry-text').removeClass('screen-reader-text');
             }
             if ('no' == newval) {
                 $('article header').removeClass('screen-reader-text');
