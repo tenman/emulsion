@@ -985,7 +985,7 @@ figure{
             padding-left:0;
             padding-right:0;
             max-width:100%;
-         //   min-height:50vh;
+            //   min-height:50vh;
             background-size:cover;
             background-position:center center;
             background-repeat:no-repeat;
@@ -998,7 +998,7 @@ figure{
             }
         }
         &.alignfull{
-         //   min-height:50vh;
+            //   min-height:50vh;
             background-size:cover;
             background-position:center center;
             background-repeat:no-repeat;
@@ -2124,10 +2124,12 @@ ul.wp-block-categories{
             }
         }
     }
+
     &.wp-block-categories-dropdown{
         overflow:visible;
         padding-left:var( --thm_content_gap );
         padding-right:var( --thm_content_gap );
+
         select{
             display:block;
             margin-left:auto;
@@ -2139,10 +2141,26 @@ ul.wp-block-categories{
 
 }
 .wp-block-categories-dropdown select{
-    padding:.625rem;
     max-width:100%;
+    display:block;
+    position: relative;
+    width:auto;
+    height:auto;
+    margin-left:auto;
+    margin-right:auto;
+    margin-top:1.5rem;
+    margin-bottom:.75rem;
+    padding-top:.69rem;
+    padding-bottom:.69rem;
 }
-
+div.wp-block-categories.alignleft{
+    //cire override
+    margin-right:1rem;
+}
+div.wp-block-categories.alignright{
+    //cire override
+    margin-left:1rem;
+}
 /**
  * Block button
  * ========================================================================== */

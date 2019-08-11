@@ -283,7 +283,7 @@ jQuery(function ($) {
                     $(".blog #post-" + single_id + ",.home #post-" + single_id + ",.archive #post-" + single_id).parents('.article-wrapper').css({'flex-basis': '100%'});
                 });
                 $(document).ajaxComplete(function () {
-
+                    
                     $("#loading").css("display", "none").removeAttr('style');
 
                     $("#post-" + single_id + " .entry-content").css("display", "block").addClass('archive-preview');

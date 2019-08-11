@@ -31,5 +31,4 @@ $emulsion_metabox_post_header_control	 = emulsion_metabox_display_control( 'head
 			?><div class="placeholder-header"><?php do_action( 'emulsion_prepend_page_wrapper' ); ?></div><?php
 		}
 		?>
-			<main id="main">
-				
+			<main id="main">				
