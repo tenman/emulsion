@@ -1317,6 +1317,10 @@ if ( ! function_exists( 'emulsion_get_google_font_family_from_url' ) ) {
 
 
 if ( ! function_exists( 'emulsion_elements_assert_equal' ) ) {
+	/**
+	 * In debug mode, the theme compares HTML before sanitization and after sanitization, and if there are deleted elements, logs them to debug.log
+	 * 
+	 */
 
 	function emulsion_elements_assert_equal( $value_raw = '', $value_validate = '',	$message = '' ) {
 		global $template, $post;
