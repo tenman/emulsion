@@ -686,7 +686,8 @@ function emulsion_customizer_script() {
 			. '<span class="emulsion-spinner"></span>' . esc_html__( 'moving preview to home', 'emulsion' ) . '</span>' . $emulsion_section_notification_message;
 	$emulsion_code__section_layout_main_notification					 = '<span class="emulsion_fadeout_message__section_layout_main">'
 			. '<span class="emulsion-spinner"></span>' . esc_html__( 'moving preview to latest post', 'emulsion' ) . '</span>' . $emulsion_section_notification_message;
-
+	$emulsion_code_fadeout_message_background_image = '<p>' . esc_html__( 'A background image has been set', 'emulsion' ). '</p>';
+	$emulsion_code_fadeout_message_background_image .= '<p>' . esc_html__( 'If the contrast between the text and the background image is insufficient, it may be easier to read by changing the background color.', 'emulsion' ) . '</p>';
 
 	$script = <<<CUSTOMIZE_CSS
 
@@ -1112,7 +1113,25 @@ function emulsion_customizer_script() {
 			} ) );
 
 	} );
-//
+
+	wp.customize( 'background_image', function( setting ) {
+        setting.bind( function( value ) {
+            var code = 'background image';
+
+            if ( '' !== value  ) {
+
+                setting.notifications.add( code, new wp.customize.Notification(
+                    code,
+                    {
+                        type: 'warning',
+						message: '{$emulsion_code_fadeout_message_background_image}'
+                    }
+                ) );
+            } else {
+                setting.notifications.remove( code );
+            }
+        } );
+    } );
 	
 	wp.customize( 'emulsion_header_gradient', function( setting ) {
         setting.bind( function( value ) {
