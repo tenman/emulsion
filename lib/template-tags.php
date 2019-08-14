@@ -1263,12 +1263,12 @@ if ( ! function_exists( 'emulsion_sidebar_manager' ) ) {
 
 			if ( is_page() && $page_sidebar ) {
 
-				printf( '<div class="layout-block has-column%2$s side-%1$s">', esc_html( $position ), esc_html( $suffix ) );
+				printf( '<div class="layout layout-block has-column%2$s side-%1$s">', esc_html( $position ), esc_html( $suffix ) );
 			}
 
 			if ( $post_sidebar && ! is_page() ) {
 
-				printf( '<div class="layout-block has-column%2$s side-%1$s">', esc_html( $position ), esc_html( $suffix ) );
+				printf( '<div class="layout layout-block has-column%2$s side-%1$s">', esc_html( $position ), esc_html( $suffix ) );
 			}
 		}
 	}
