@@ -10,6 +10,8 @@ $mime_type						 = get_post_mime_type( $emulsion_post_id ); // if you needs atta
 $excerpt						 = get_the_excerpt();
 $image_content					 = '';
 $image_content_html				 = '<h3 class="section-title">%1$s</h3><div class="image-description" id="image-description">%2$s</div>';
+
+//var_dump( $post_info ); post_excerpt - caption post_content - description
 ?>
 <div class="article-wrapper <?php emulsion_template_identification_class( __FILE__ ) ?>">
 	<?php
@@ -52,7 +54,10 @@ $image_content_html				 = '<h3 class="section-title">%1$s</h3><div class="image-
 					<p class="parent-entry-title h4">
 						<a href="<?php echo esc_url( get_permalink( $post_info->post_parent ) ); ?>" rev="attachment"><?php echo wp_kses_post( get_the_title( $post_info->post_parent ) ); ?></a>
 					</p>
-				</div><?php
+					<?php 
+						empty($post_info->post_excerpt) ? '': printf('<p class="caption-text">%1$s : %2$s</p>', esc_html__('Image caption', 'emulsion'), $post_info->post_excerpt ) ;
+						empty($post_info->post_content) ? '': printf('<p class="caption-text">%1$s : %2$s</p>', esc_html__('Image content', 'emulsion'), $post_info->post_content ) ;
+				?></div><?php
 		}
 
 		wp_link_pages( 'before=<div class="wp-link-pages page-break-links clearfix">&after=</div>&next_or_number=number&pagelink=<span>%</span>' );
