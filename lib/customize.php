@@ -15,10 +15,6 @@ if ( ! current_user_can( 'edit_theme_options' ) ) {
 
 if ( $wp_customize ) {
 
-	$wp_customize->add_setting( 'header_textcolor', array( 'transport' => 'postMessage', 'sanitize_callback' => 'sanitize_hex_color' ) );
-	$wp_customize->selective_refresh->add_partial( 'header_textcolor', array(
-		'selector' => '.header-text',
-	) );
 	/**
 	 * Preview link icon
 	 */
