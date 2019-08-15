@@ -111,6 +111,10 @@ screenshot.png
 
 ## Changelog
 
+### august 15 2019
+        * 0.9.6
+        * https://github.com/tenman/emulsion/releases
+
 ### august 6 2019
         * 0.9.4
         * https://github.com/tenman/emulsion/releases
