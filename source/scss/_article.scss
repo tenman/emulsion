@@ -45,8 +45,8 @@
                     display:none;
                     &.has-post-image{
                         display:block;
-                    }                 
-                }               
+                    }
+                }
             }
         }
     }
@@ -72,7 +72,7 @@
                         }
                     }
                 }
-            } 
+            }
         }
     }
     &.search article.has-post-thumbnail,
@@ -134,7 +134,7 @@
     article{
         footer{
             margin-left:auto;
-            margin-right:auto;           
+            margin-right:auto;
         }
     }
 }
@@ -331,7 +331,7 @@ article{
             max-height:var(--thm_header_media_max_height);
         }
         .posted-on{
-            @include clearfix;         
+            @include clearfix;
         }
     }
     footer{
@@ -458,9 +458,7 @@ main > .post{
         }
     }
     .aligncenter {
-        clear: both;
-        float: none;
-        display: block;
+        @extend %aligncenter;
     }
     blockquote.alignnone {
         display: block;
@@ -482,8 +480,7 @@ main > .post{
     .wp-block-search,
     .wp-playlist,
     .gist,
-    .aligncenter,
-    // .search-form,
+    //.aligncenter,
     .social,
     .shortcode-wrapper,
     & > address,
@@ -534,6 +531,7 @@ main > .post{
     img.aligncenter{
         width: -moz-fit-content;
         width:fit-content;
+        max-width:66.666%;
     }
     video{
         //shortcode video
@@ -573,7 +571,7 @@ main > .post{
         &.size2of5,
         &.size3of5,
         &.size4of5{
-            margin-bottom:calc( var(--thm_box_gap) * 2 );          
+            margin-bottom:calc( var(--thm_box_gap) * 2 );
             &.wp-block-embed{
                 display:inline-block;
                 height:auto;
@@ -867,7 +865,6 @@ article{
                     padding-top:0;
                     padding-bottom:0;
                 }
-
                 figcaption{
                     position:absolute;
                     bottom:0;
@@ -913,7 +910,7 @@ article{
                     margin-top:var(--thm_box_gap);
                     margin-bottom:var(--thm_box_gap);
                 }
-            } 
+            }
         }
     }
 }
@@ -982,28 +979,28 @@ article{
  */
 .posted-on{
     [rel="date"]{
-        display:$post_display_date; //fallback no support css variables  
+        display:$post_display_date; //fallback no support css variables
         display:var(--thm_post_display_date);
 
 
     }
     .author{
-        display:$post_display_author; //fallback no support css variables  
-        display:var(--thm_post_display_author);   
+        display:$post_display_author; //fallback no support css variables
+        display:var(--thm_post_display_author);
 
     }
 
 }
 .post-category{
     .cat-item{
-        display:$post_display_category; //fallback no support css variables  
+        display:$post_display_category; //fallback no support css variables
         display:var(--thm_post_display_category);
 
     }
 }
 .post-tag{
     li{
-        display:$post_display_tag; //fallback no support css variables  
+        display:$post_display_tag; //fallback no support css variables
         display:var(--thm_post_display_tag);
 
     }

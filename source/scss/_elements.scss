@@ -96,8 +96,10 @@ article{
             margin-left:auto;
             margin-right:auto;
         }
+
     }
 }
+
 blockquote{
     @extend %block;
     width: calc( var( --thm_content_width, 720px ) - 80px );
@@ -314,6 +316,11 @@ figure{
         width:fit-content;
         margin-left:auto;
         margin-right:auto;
+        img{
+            display:inline;
+            margin-left:.5rem;
+            margin-right:.5rem;
+        }
     }
 }
 /**
@@ -795,7 +802,7 @@ input{
     height:48px;
     padding-left:var(--thm_content_gap);
     padding-right:var(--thm_content_gap);
-    
+
     input{
         flex:1 1 auto;
         min-width:0;
@@ -876,7 +883,6 @@ option{
     padding-left:.625rem;
     padding-right:.625rem;
 }
-
 textarea{
     vertical-align:top;
     max-width:calc( 100% - 4px);

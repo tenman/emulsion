@@ -182,15 +182,15 @@
                 margin-left:0;
                 position:static;
             }
-            & > .wp-block-image{
-                &.alignfull{
-                    position:relative;
-                    max-width:none;
-                    padding-left:0;
-                    padding-right:0;
-
-                }
-            }
+            /*      & > .wp-block-image{
+                      &.alignfull{
+                          position:relative;
+                          max-width:none;
+                          padding-left:0;
+                          padding-right:0;
+      
+                      }
+                  }*/
             & > .wp-block-cover{
 
                 &.alignfull{
@@ -2522,9 +2522,6 @@ hr{
     padding-right:var(--thm_content_gap);
 
     .wp-block-column{
-
-        // min-width:150px;
-
         &.sidebar{
             .wp-block-latest-comments{
                 li{
@@ -2537,10 +2534,9 @@ hr{
                     }
                 }
             }
-
         }
         &.main{
-            // min-width:400px
+            
         }
     }
 }
@@ -2564,192 +2560,61 @@ hr{
  * Block image
  * ========================================================================== */
 
-.emulsion-has-sidebar,
-.emulsion-no-sidebar{
-    .wp-block-column{
-        .wp-block-image{
-            position:relative;
+.entry-content{
+    //0819
+    & > div.wp-block-image{
+        &.is-resized{
+            width:auto;
+            text-align:center;
+
+            &.alignleft{
+                margin-left:var(--thm_content_gap);
+                margin-right:1rem;
+            }
+            &.alignright{
+                margin-right:var(--thm_content_gap);
+                margin-left:1rem;
+            }
+
+            figure{
+                max-width:100%;
+                width:auto;
+            }
+        }
+        &.aligncenter{
+            @extend %aligncenter;
         }
     }
-    .wp-block-image{
+    figure.wp-block-image{
+        // no set width, alignwide, alignfull style
         margin-top:1.5rem;
         margin-bottom:.75rem;
         margin-left:auto;
         margin-right:auto;
-        position:static;
-        // width:var( --thm_content_width, 720px );
-        //デリケートな変更
-        // fit-contentだと、floatしない
-        // width: -moz-fit-content;
-        //width:fit-content;
-        img{
-            display:block;
-            margin-left:auto;
-            margin-right:auto;
-        }
-        &.alignfull{
-            width:100%;
-        }
-        &figure{
-            &.alignleft{
-                @extend %alignleft;
-            }
-            &.alignright{
-                @extend %alignright;
-            }
-            &.aligncenter{
-                width:var( --thm_content_width, 720px );
-                clear:both;
-                img{
-                    max-width:100%;
-                    height:auto;
-                }
-            }
-            figcaption{
-                padding-left:var(--thm_content_gap, 24px);
-                padding-right:var(--thm_content_gap, 24px);
-                text-align:left;
-            }
-            &.is-resized{
-                max-width:fit-content;
-                max-width: -moz-fit-content;
-                width: -moz-fit-content;
-                width:fit-content;
-                overflow:visible;//edge
-                display:flex;
-                flex-direction: column;
-                padding:0;
-                box-sizing:border-box;
-                max-width:100%;
-                img{
-                    margin-left:auto;
-                    margin-right:auto;
-                    flex:1 1 auto;
-                }
-                figcaption{
-                    flex:1 1 auto;
-                    width: -moz-fit-content;
-                    width:fit-content;
-                }
-            }
-        }
+
+        width:var( --thm_content_width, 720px );
+
         &.is-resized{
-            //fallback html structure complex alignleft alignright aligncenter
-            max-width:fit-content;
-            max-width: -moz-fit-content;
-            width: -moz-fit-content;
-            width:fit-content;
-            overflow:visible;//edge
-            display:flex;
-            flex-direction: column;
-            padding:0;
-            box-sizing:border-box;
-            max-width:100%;
-            img{
-                margin-left:auto;
-                margin-right:auto;
-                flex:1 1 auto;
-            }
-            figcaption{
-                flex:1 1 auto;
-                width: -moz-fit-content;
-                width:fit-content;
-                img{
-                    display:inline;
-                    margin-left:.5rem;
-                    margin-right:.5rem;
-                }
-            }
-        }
-        &.alignleft{
-            @extend %alignleft;
-            margin-top:0;
-            margin-bottom:0;
-            figure{
-                margin-top:0;
-            }
-        }
-        &.alignright{
-            @extend %alignright;
-            margin-top:0;
-            margin-bottom:0;
-            figure{
-                margin-top:0;
-            }
-        }
-        figcaption{
-            // external alignwide alignfull
-            padding-left:var(--thm_content_gap, 24px);
-            padding-right:var(--thm_content_gap, 24px);
-            img{
-                display:inline;
-                margin-left:.5rem;
-                margin-right:.5rem;
-            }
-        }
-        &.alignfull{
-            margin-left:0;
-            margin-right:0;
-        }
-        @supports (-ms-ime-align: auto) {
-            // edge
-            &.is-resized{
-                max-width:100%;
-                display:table;
-                table-layout:fixed;
-                width:auto;
-                flex-direction: column;
-                padding:10px;
-                box-sizing:border-box;
-                img{
-                    margin-left:auto;
-                    margin-right:auto;
-                }
-                figcaption{
-                    display:table-caption;
-                }
-            }
-        }
-        @media screen and (-ms-high-contrast: active),(-ms-high-contrast: none) {
-            // ie
-            max-width:100%;
-            display:table;
-            table-layout:fixed;
             width:auto;
-            caption-side: bottom;
-            flex-direction: column;
-            padding:10px;
-            box-sizing:border-box;
-            img{
-                margin-left:auto;
-                margin-right:auto;
-            }
-            figcaption{
-                display:table-caption;
-            }
-            &.is-resized{
-                max-width:100%;
-                display:table;
-                table-layout:fixed;
-                width:auto;
-                flex-direction: column;
-                padding:10px;
-                box-sizing:border-box;
-                img{
-                    margin-left:auto;
-                    margin-right:auto;
-                }
-                figcaption{
-                    display:table-caption;
-                }
-            }
+        }
+        &.alignwide{
+            @extend %alignwide
         }
     }
 }
-.entry-content .wp-block-image.is-resized > figcaption,
-.entry-content div.wp-block-image > figure > figcaption{
-    //overwrite gutenberg style
-    display:block;
+.emulsion-has-sidebar{
+    figure.wp-block-image{
+        &.alignfull{
+            @extend %has-sidebar-alignfull;
+        }
+    }
+}
+.emulsion-no-sidebar{
+    figure.wp-block-image{
+        &.alignfull{
+            @extend %no-sidebar-alignfull;
+        }
+    }
 }
 
 /**
