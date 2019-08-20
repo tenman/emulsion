@@ -439,7 +439,7 @@ body.page{
          * breack point 1249px responsive order issue (sidebar page first)
          */
         order:2;
-         .widget{
+        .widget{
             overflow:hidden;
         }
     }
@@ -451,9 +451,65 @@ body.page{
          * breack point 1249px responsive order issue (sidebar page first)
          */
         order:0;
-         .widget{
+        .widget{
             overflow:hidden;
         }
     }
-   
+
 }
+/**
+ * Attachment Page
+ * ========================================================================== */
+.template-part-content-attachment{
+    article{
+        padding-left:0;
+        padding-right:0;
+
+        .attachment-image{
+            width:100%;
+            max-width:100%;
+            margin:0;
+            a{
+                display:block;
+                overflow:hidden;
+                margin-left:auto;
+                margin-right:auto;
+                width: -moz-fit-content;
+                width:fit-content;
+            }
+            img{
+                display:block;
+                margin-left:auto;
+                margin-right:auto;
+            }
+        }
+        .attachment-content{
+            @extend %block;
+            margin-left:auto;
+            margin-right:auto;
+            
+            .attachment-metadata{
+                width:var(--thm_content_width);
+                max-width:100%;
+                margin-top:1.5rem;
+                margin-bottom:.75rem;
+                .relate-post-title{
+                    margin-bottom:.75rem;
+                }
+                .caption-text{
+                    font-size:var(--thm_meta_data_font_size);
+                    text-transform:var(--thm_meta_data_font_transform);
+                }
+                .description-text{
+                    font-size:var(--thm_meta_data_font_size);
+                    text-transform:var(--thm_meta_data_font_transform);
+                }
+                .label{
+                    width:120px;
+                    display:inline-block;
+                }
+            }
+        }
+    }
+}
+
