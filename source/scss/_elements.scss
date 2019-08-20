@@ -1296,36 +1296,7 @@ body .fit{
 .clip{
     @include clip;
 }
-.attachment{
-    article{
-        @extend %block;
-    }
-    .image-description{
-        @extend %block;
-    }
-    .attachment-image{
-        margin:0;
-        a{
-            display:block;
-            overflow:hidden;
-            margin-left:auto;
-            margin-right:auto;
-            width: -moz-fit-content;
-            width:fit-content;
-        }
-        img{
-            display:block;
-            margin-left:auto;
-            margin-right:auto;
-        }
-    }
-    p.attachment{
-        @extend %block;
-        @extend .attachment-image;
-        margin-left:auto;
-        margin-right:auto;
-    }
-}
+
 [class|="placeholder"]{
     //[class*=" placeholder"]{
     padding-left:var(--thm_content_gap);

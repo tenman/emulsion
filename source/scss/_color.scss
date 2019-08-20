@@ -1100,6 +1100,24 @@ body{
                 color:var(--thm_general_link_color);
 
             }
+            .widget_nav_menu{
+                .menu-item{
+                    .nav-menu-child-opener-label{
+                        &:before{
+                            content:' ';
+                            background: url(#{$theme_image_dir}svg/arrow-down.svg);
+                            background-size: contain;
+                            filter:none;
+                            -webkit-filter:none;
+                        }
+                    }
+                    .nav-menu-child-opener[type="checkbox"]:checked ~ label:before {
+                        content:' ';
+                        background:url('#{$theme_image_dir}svg/arrow-up.svg');
+                        background-size:contain;
+                    }
+                }
+            }
         }
         &.sidebar-is-dark{
             background:var(--thm_sidebar_bg_color);
@@ -1151,6 +1169,7 @@ body{
                 }
             }
         }
+        
     }
     .footer-widget-area{
         &.sidebar-is-default{

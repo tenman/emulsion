@@ -1120,21 +1120,18 @@ if ( ! function_exists( 'emulsion_attachment_image' ) ) {
 			$alt_text				 = empty( $alt ) ? '' : esc_attr( $alt );
 			$attachment_image_html	 = '<a href="%1$s"><img src="%1$s" width="%2$s" height="%3$s" alt="%4$s" describedby="%5$s" /></a>';
 			?>
-			<figure class="attachment-image alignfull">
+			<figure class="attachment-image">
 				<?php
-
 				// check lost element
 				$emulsion_place = basename(__FILE__). ' line:'. __LINE__. ' '.  __FUNCTION__ .'()';
 				true === WP_DEBUG ? emulsion_elements_assert_equal(  $attachment_image_html, wp_kses_post( $attachment_image_html ), $emulsion_place ) : '';
-
 				printf( wp_kses_post( $attachment_image_html ), esc_url( $image[0] ), esc_attr( $image[1] ), esc_attr( $image[2] ), esc_attr( $alt_text ), esc_attr( $aria_describedby )
 				);
-
 				// check lost element
 				$emulsion_place = basename(__FILE__). ' line:'. __LINE__. ' '.  __FUNCTION__ .'()';
 				true === WP_DEBUG ? emulsion_elements_assert_equal(  $excerpt, wp_kses_post( $excerpt ), $emulsion_place ) : '';
 				?>
-				<figcaption><?php empty( $excerpt ) ? '': wp_kses_post( $excerpt ); ?></figcaption>
+				<figcaption><?php echo empty( $excerpt ) ? '': wp_kses_post( $excerpt ); ?></figcaption>
 			</figure><?php
 	}
 }
