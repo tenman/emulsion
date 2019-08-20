@@ -2,11 +2,7 @@
  * Core
  * ========================================================================== */
 .aligncenter{
-    width:var(--thm_content_width);
-    display:block;
-    margin-left:auto;
-    margin-right:auto;
-    padding:10px;
+  @extend %aligncenter;
 }
 blockquote,
 a,
@@ -58,6 +54,8 @@ img{
     display:inline-block;
     clear:both;
     float:none;
+    margin-top:1.5rem;
+    margin-bottom:.75rem;
 }
 article  blockquote.alignnone {
     display:block;
@@ -79,10 +77,7 @@ article  blockquote.alignnone {
     margin-right:auto;
     padding:10px;
 }
-.wp-block-image .is-resized{
-    max-width:100%;
-    width:auto;
-}
+
 .new-line,
 .clear{
     clear:both;

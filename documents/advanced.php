@@ -99,6 +99,7 @@
 	<li>alignright</li>
 	<li>alignwide</li>
 	<li>alignfull</li>
+	
 </ul>
 <ul class="additional-class">
 	<li class="label"><?php esc_html_e('Width Control Class', 'emulsion' ) ?></li>
@@ -147,10 +148,17 @@
 	<li>size1of4</li>
 	<li>size1of5</li>
 	<li>size2of5</li>
+	<li>&nbsp;</li>
+	<li>dark</li>
 </ul>
 <h4><?php esc_html_e('Layout Elements', 'emulsion' ) ?></h4>
 <h4 class="block-name"><?php esc_html_e( 'button', 'emulsion' ) ?></h4>
 <h4 class="block-name"><?php esc_html_e( 'columns', 'emulsion' ) ?></h4>
+<ul class="additional-class">
+	<li class="label">block-column class</li>
+	<li>main</li>
+	<li>sidebar</li>
+</ul>
 <h4 class="block-name"><?php esc_html_e( 'group', 'emulsion' ) ?></h4>
 <h4 class="block-name"><?php esc_html_e( 'media text', 'emulsion' ) ?></h4>
 <h4 class="block-name"><?php esc_html_e( 'more', 'emulsion' ) ?></h4>

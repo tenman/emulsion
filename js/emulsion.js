@@ -92,9 +92,16 @@ jQuery(function ($) {
         }
         if( $(this).hasClass('aligncenter')){
             $(this).removeClass('aligncenter');
-            $(this).addClass('alligncenter');
+            $(this).parent().addClass('aligncenter');
 
         }
+        if( $(this).hasClass('is-resized')){
+            //0819
+            $(this).removeClass('is-resized');          
+            $(this).parent().addClass('is-resized');
+        }
+        
+        
 
     });
 });
@@ -779,11 +786,18 @@ jQuery(function ($) {
         }
         if (hex.length !== 6) {
             // console.log( hex.length );
-            var rgb = hex.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
-
-            var r = parseInt(rgb[1]);
-            var g = parseInt(rgb[2]);
-            var b = parseInt(rgb[3]);
+            if(  hex.match(/^rgb\(/) ) {
+                var rgb = hex.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+                var r = parseInt(rgb[1]);
+                var g = parseInt(rgb[2]);
+                var b = parseInt(rgb[3]);
+            }
+            if(  hex.match(/^rgba\(/) ) {
+                var rgb = hex.match(/^rgb\((\d+),\s*(\d+),\s*(\d+),\s*(\d+)\)$/);
+                var r = parseInt(rgb[1]);
+                var g = parseInt(rgb[2]);
+                var b = parseInt(rgb[3]);
+            }
 
         } else {
             var r = parseInt(hex.slice(0, 2), 16);
@@ -808,7 +822,6 @@ jQuery(function ($) {
 });
 jQuery(function ($) {
     var userAgent = window.navigator.userAgent.toLowerCase( );
-
     if (userAgent.match(/Edge\/\d+/i)) {
         jQuery('body').addClass('agent-edge');
 

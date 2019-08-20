@@ -2119,6 +2119,20 @@ body{
                 .alignright{
                     float:none;
                 }
+                [data-block]{
+                    .wp-block-code{
+                        background:#fff;
+                        padding:1rem;
+                        &.dark{
+                            color: #a9b7c6;
+                            background: #282b2e;
+                            .block-editor-plain-text{
+                                color: #a9b7c6;
+                                background: #282b2e;
+                            }
+                        }
+                    }
+                }
             }
         }
         &[data-type="core/verse"]{
@@ -3560,7 +3574,7 @@ body{
             }            
 
             [data-type="core/column"]{
-              //  border:1px solid rgba(188,188,188,.3);
+                //  border:1px solid rgba(188,188,188,.3);
                 overflow:visible;
                 margin-left:0;
                 margin-right:0;
