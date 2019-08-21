@@ -660,15 +660,19 @@ function emulsion_resuponsive_css() {
 
 }
 @media screen and (max-width: $content_width) {
-  body.home .header-video-active .site-title-text, body.home .header-image-active .site-title-text {
-    font-size: 1.5rem;
-  }
-			
-.emulsion-has-sidebar.enable-alignfull .wp-block-media-text.alignfull{
-	display:grid;
-}
+    .entry-content > div.wp-block-image.is-resized.alignright,
+    .entry-content > div.wp-block-image.is-resized.alignleft{
+        margin-right:auto;
+        margin-left:auto;
+    }
+	body.home .header-video-active .site-title-text, body.home .header-image-active .site-title-text {
+	  font-size: 1.5rem;
+	}			
+	.emulsion-has-sidebar.enable-alignfull .wp-block-media-text.alignfull{
+		display:grid;
+	}
 
-  ul.wp-nav-menu[data-direction="horizontal"], .entry-content .alignright, .entry-content .alignleft, .entry-content .aligncenter, .aligncenter, div.alignleft, img.alignleft, .alignleft, div.alignright, img.alignright, .alignrigh, .wp-block-cover.alignright, .wp-block-cover.alignleft, .page .entry-content figure.alignfull, .post .entry-content figure.alignfull, .wp-block-embed.alignleft, .wp-block-embed.alignright, .archive-title, .social, main > nav, article footer, article address, article aside, article canvas, article menu, article dl, article figure > figcaption, article form, article nav, article noscript, article ol, article p, article pre, article section, article tfoot, article ul, article video, article cite, .entry-content figure.alignwide img, .entry-content figure.alignfull img .entry-content ul.alignright .rd-table-wrapper, .entry-content ul.alignleft .rd-table-wrapper, ol.alignright, ul.alignright, ol.alignleft, ul.alignleft, .entry-content :not([class|="wp-block"]) a > img.alignleft, .entry-content :not(.wp-caption) a > img.alignleft, .entry-content > p > a > img.alignleft, .line .size1of2, .line .size1of3, .line .size1of4, .line .size1of5, .line .size2of3, .line .size2of5, .line .size3of4, .line .size3of5, .line .size4of5, .entry-content .size1of2, .entry-content .size1of3, .entry-content .size1of4, .entry-content .size1of5, .entry-content .size2of3, .entry-content .size2of5, .entry-content .size3of4, .entry-content .size3of5, .entry-content .size4of5, article .entry-content p.alignleft, article .entry-content p.alignright, article .entry-content p.aligncenter, article .entry-content p.alignfull, .hentry .entry-content .alignleft, .hentry .entry-content .alignright, .hentry .entry-content .aligncenter, .hentry .entry-content .alignfull, .entry-content .alignfull, .hentry .entry-content .is-resized, .hentry .entry-content .wp-block-image.alignleft, .hentry .entry-content .wp-block-image.alignright, .hentry .entry-content .wp-block-image.aligncenter, .hentry .entry-content .wp-block-image.alignfull, .hentry .entry-content .wp-block-image.is-resized {
+  ul.wp-nav-menu[data-direction="horizontal"], .entry-content .alignright, .entry-content .alignleft, .entry-content .aligncenter, .aligncenter, div.alignleft, img.alignleft, .alignleft, div.alignright, img.alignright, .alignrigh, .wp-block-cover.alignright, .wp-block-cover.alignleft, .page .entry-content figure.alignfull, .post .entry-content figure.alignfull, .wp-block-embed.alignleft, .wp-block-embed.alignright, .archive-title, .social, main > nav, article footer, article address, article aside, article canvas, article menu, article dl, article form, article nav, article noscript, article ol, article p, article pre, article section, article tfoot, article ul, article video, article cite, .entry-content figure.alignwide img, .entry-content figure.alignfull img .entry-content ul.alignright .rd-table-wrapper, .entry-content ul.alignleft .rd-table-wrapper, ol.alignright, ul.alignright, ol.alignleft, ul.alignleft, .entry-content :not([class|="wp-block"]) a > img.alignleft, .entry-content :not(.wp-caption) a > img.alignleft, .entry-content > p > a > img.alignleft, .line .size1of2, .line .size1of3, .line .size1of4, .line .size1of5, .line .size2of3, .line .size2of5, .line .size3of4, .line .size3of5, .line .size4of5, .entry-content .size1of2, .entry-content .size1of3, .entry-content .size1of4, .entry-content .size1of5, .entry-content .size2of3, .entry-content .size2of5, .entry-content .size3of4, .entry-content .size3of5, .entry-content .size4of5, article .entry-content p.alignleft, article .entry-content p.alignright, article .entry-content p.aligncenter, article .entry-content p.alignfull, .hentry .entry-content .alignleft, .hentry .entry-content .alignright, .hentry .entry-content .aligncenter, .hentry .entry-content .alignfull, .entry-content .alignfull, .hentry .entry-content .is-resized, .hentry .entry-content .wp-block-image.alignleft, .hentry .entry-content .wp-block-image.alignright, .hentry .entry-content .wp-block-image.aligncenter, .hentry .entry-content .wp-block-image.alignfull, .hentry .entry-content .wp-block-image.is-resized {
     display: block;
     margin-left: auto;
     margin-right: auto;

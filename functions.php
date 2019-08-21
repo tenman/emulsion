@@ -380,6 +380,7 @@ function emulsion_add_stylesheet() {
 	/**
 	 * if child theme has parent name.js( js/emulsion.js ) Read the file of the child theme ( for replace script )
 	 */
+
 	if( true == WP_DEBUG ) {
 		
 		wp_register_script( 'emulsion-js', get_theme_file_uri( 'js/emulsion.js' ), array( 'jquery', 'jquery-migrate' ), $emulsion_current_data_version, true );
