@@ -494,8 +494,7 @@ jQuery(function ($) {
             var parent_width = $(this).parents('.entry-content').width();
             var negative_margin = parseInt(article_width) - parseInt(parent_width);
             negative_margin = negative_margin / -2;
-            $(this).css({'width': article_width, 'left': negative_margin}).show();
-
+            $(this).css({'width': article_width, 'left': negative_margin,'visibility':'visible'});
 
         });
 
@@ -508,7 +507,7 @@ jQuery(function ($) {
             negative_margin = parseInt(main_width) - parseInt(article_width) + parseInt(negative_margin);
             negative_margin = negative_margin / -2;
 
-            $(this).css({'width': article_width, 'left': negative_margin, 'position': 'relative'}).show();
+            $(this).css({'width': article_width, 'left': negative_margin, 'position': 'relative','visibility':'visible'});
 
         });
 
@@ -521,8 +520,7 @@ jQuery(function ($) {
             negative_margin = parseInt(main_width) - parseInt(article_width) + parseInt(negative_margin);
             negative_margin = negative_margin / -2;
 
-            $(this).css({'width': article_width, 'left': negative_margin, 'position': 'relative','display':'flex'});
-
+            $(this).css({'width': article_width, 'left': negative_margin, 'position': 'relative','display':'flex','visibility':'visible'});
         });
 
         $('.emulsion-has-sidebar.enable-alignfull .entry-content > .wp-block-cover.alignfull, .emulsion-has-sidebar.enable-alignfull [class|="sectionized"]').each(function (i) {
@@ -532,7 +530,7 @@ jQuery(function ($) {
             var parent_width = $(this).parents('.entry-content').width();
             var negative_margin = parseInt(article_width) - parseInt(parent_width);
             var negative_margin = negative_margin / -2;
-            $(this).css({'width': article_width, 'left': negative_margin, 'position': 'relative','display':'flex'});
+            $(this).css({'width': article_width, 'left': negative_margin, 'position': 'relative','display':'flex','visibility':'visible'});
         });
 
         /**
@@ -755,7 +753,7 @@ jQuery(function ($) {
 
                 if (contrast_color == '#ffffff') {
                     $(this).addClass('emulsion-add-dark-color has-background');
-                } else {
+                } else if(contrast_color == '#333333') {
                     $(this).addClass('emulsion-add-light-color has-background');
                 }
             }
@@ -792,11 +790,11 @@ jQuery(function ($) {
                 var g = parseInt(rgb[2]);
                 var b = parseInt(rgb[3]);
             }
-            if(  hex.match(/^rgba\(/) ) {
-                var rgb = hex.match(/^rgb\((\d+),\s*(\d+),\s*(\d+),\s*(\d+)\)$/);
-                var r = parseInt(rgb[1]);
-                var g = parseInt(rgb[2]);
-                var b = parseInt(rgb[3]);
+
+            if(  hex.match(/^transparent/) ) {
+                // todo
+                
+                return 'transparent';
             }
 
         } else {

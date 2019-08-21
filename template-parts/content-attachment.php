@@ -28,7 +28,7 @@ $excerpt						 = get_the_excerpt();
 		// check lost element
 		if( wp_attachment_is_image( $emulsion_post_id ) ) {
 			$emulsion_place = basename(__FILE__). ' line:'. __LINE__. ' '.  __FUNCTION__ .'()';
-			true === WP_DEBUG ? emulsion_elements_assert_equal(  $image_content, wp_kses_post( $image_content ), $emulsion_place ) : '';
+			true === WP_DEBUG ? emulsion_elements_assert_equal(  $post_info->post_content, wp_kses_post( $post_info->post_content ), $emulsion_place ) : '';
 		}
 
 		if ( $post_info->post_parent > 0 ) {

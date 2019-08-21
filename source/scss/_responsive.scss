@@ -86,6 +86,11 @@
 }
 //fonts.css
 @media screen and ( max-width : $content_width ) {
+    .entry-content > div.wp-block-image.is-resized.alignright,
+    .entry-content > div.wp-block-image.is-resized.alignleft{
+        margin-right:auto;
+        margin-left:auto;
+    }
     body.home .header-video-active .site-title-text,
     body.home .header-image-active .site-title-text{
         @include font_size( 3, no-margin );
@@ -178,7 +183,6 @@
     article canvas,
     article menu ,
     article dl,
-    article figure > figcaption,
     article form,
     article nav,
     article noscript,
@@ -199,7 +203,6 @@
     ol.alignleft,
     ul.alignleft,
     .entry-content :not([class|="wp-block"]) a > img.alignleft,
-  //  .entry-content :not([class*=" wp-block"]) a > img.alignleft,
     .entry-content :not(.wp-caption) a > img.alignleft,
     .entry-content :not(.wp-caption) a > img.alignleft,
     .entry-content > p > a > img.alignleft,
