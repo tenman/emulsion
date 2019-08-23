@@ -403,7 +403,7 @@ $emulsion_customize_args = array(
 		' ' . esc_html__( '( new tab )', 'emulsion' ),
 		'validate'					 => 'emulsion_heading_google_font_url_validate',
 		'active_callback'			 => '',
-		'sanitize_callback'			 => 'esc_attr',
+		'sanitize_callback'			 => 'esc_url',
 		'extend_customize_control'	 => '',
 		'type'						 => 'url',
 		'input_attrs'				 => array(
@@ -490,7 +490,7 @@ $emulsion_customize_args = array(
 		' ' . esc_html__( '( new tab )', 'emulsion' ),
 		'validate'					 => 'emulsion_widget_meta_google_font_url_validate',
 		'active_callback'			 => '',
-		'sanitize_callback'			 => 'esc_attr',
+		'sanitize_callback'			 => 'esc_url',
 		'extend_customize_control'	 => '',
 		'type'						 => 'url',
 		'input_attrs'				 => array(
@@ -553,7 +553,7 @@ $emulsion_customize_args = array(
 		),
 		'validate'					 => 'emulsion_header_html_validate',
 		'active_callback'			 => 'emulsion_header_html_active_callback',
-		'sanitize_callback'			 => 'esc_attr',
+		'sanitize_callback'			 => 'esc_url',
 		'extend_customize_control'	 => '',
 		'type'						 => 'textarea',
 		'input_attrs'				 => array(
@@ -1909,7 +1909,9 @@ function emulsion_post_display_method_date_example_value( $type = 'defaul' ){
 
 //latest-post, gallery, columns, media-text, alignwide, comments-open tag-slug
 function emulsion_get_customize_post_id( $type = '' ) {
-
+	/**
+	 * phpcs:ignore WPThemeReview.CoreFunctionality.PostsPerPage.posts_per_page_posts_per_page
+	 */
 	$posts_args	 = array(
 		'posts_per_page' => -1,
 		'date_query'	 => array(

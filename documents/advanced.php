@@ -1,6 +1,9 @@
 
-<p>Post Editor/ Select Block / Editor Menu ( Advanced Tab ) / Additional CSS Class</p>
 
+<div class="document-description">
+	<p><?php esc_html_e( 'Setting location : ', 'emulsion' ) ?><?php esc_html_e( 'Post Editor/ Select Block / Editor Menu ( Advanced Tab ) / Additional CSS Class', 'emulsion' ) ?></p>
+	<p><?php esc_html_e( 'The following custom classes do not work on the block editor. Works only on the front end', 'emulsion' ) ?></p>
+</div>
  <h3><?php esc_html_e('Common Blocks', 'emulsion' ) ?>
 <h4 class="block-name"><?php esc_html_e( 'paragraph', 'emulsion' ) ?></h4>
 <ul class="additional-class">
@@ -101,12 +104,17 @@
 	<li>alignfull</li>
 	
 </ul>
+
 <ul class="additional-class">
 	<li class="label"><?php esc_html_e('Width Control Class', 'emulsion' ) ?></li>
 	<li>size1of3</li>
 	<li>size1of4</li>
 	<li>size1of5</li>
 	<li>size2of5</li>
+</ul>
+<ul class="additional-class">
+	<li class="label"><?php esc_html_e('Color Class', 'emulsion' ) ?></li>
+	<li>dark</li>
 </ul>
 <h4 class="block-name"><?php esc_html_e( 'classic', 'emulsion' ) ?></h4>
 <h4 class="block-name"><?php esc_html_e( 'custom HTML', 'emulsion' ) ?></h4>
@@ -148,16 +156,19 @@
 	<li>size1of4</li>
 	<li>size1of5</li>
 	<li>size2of5</li>
-	<li>&nbsp;</li>
-	<li>dark</li>
 </ul>
+<ul>
+
 <h4><?php esc_html_e('Layout Elements', 'emulsion' ) ?></h4>
 <h4 class="block-name"><?php esc_html_e( 'button', 'emulsion' ) ?></h4>
 <h4 class="block-name"><?php esc_html_e( 'columns', 'emulsion' ) ?></h4>
 <ul class="additional-class">
 	<li class="label">block-column class</li>
-	<li>main</li>
-	<li>sidebar</li>
+	<li><p>main</p>
+		<p><?php esc_html_e('It is displayed in the same font size and font family as the post text.', 'emulsion' ) ?></p></li>
+	<li><p>sidebar</p>
+		<p><?php esc_html_e('It is displayed in the same font size and font family as the sidebar widgets.', 'emulsion' ) ?></p>
+	</li>
 </ul>
 <h4 class="block-name"><?php esc_html_e( 'group', 'emulsion' ) ?></h4>
 <h4 class="block-name"><?php esc_html_e( 'media text', 'emulsion' ) ?></h4>
@@ -238,4 +249,28 @@
 	<li>size1of4</li>
 	<li>size1of5</li>
 	<li>size2of5</li>
+</ul>
+<h4><?php esc_html_e('Generic class', 'emulsion' ) ?></h4>
+<ul class="additional-class">
+	<li class="label"><?php esc_html_e('alignwide, alignfull in custom html', 'emulsion' ) ?></li>
+	<li>emulsion-wide</li>
+	<li>emulsion-full</li>
+	
+</ul>
+<ul class="additional-class">
+<li class="label"><?php esc_html_e('child elements centerling in custom html', 'emulsion' ) ?></li>
+	<li ><?php esc_html_e('child elements centerling in custom html', 'emulsion' ) ?></li>
+	<li>centered</li>
+	<li ><?php esc_html_e('Required height style, use with the following height classes or the style attribute', 'emulsion' ) ?></li>
+</ul>
+<ul class="additional-class">
+<li class="label"><?php esc_html_e('box height class in custom html', 'emulsion' ) ?></li>
+<li><p>vh25</p>
+	<p> <?php esc_html_e('1of4 browser height', 'emulsion' ) ?></p></li>
+<li><p>vh50</p>
+	<p> <?php esc_html_e('1of2 browser height', 'emulsion' ) ?></p></li>
+<li><p>vh75</p>
+	<p> <?php esc_html_e('3of4 browser height', 'emulsion' ) ?></p></li>
+<li><p>vh100</p>
+	<p><?php esc_html_e('browser height', 'emulsion' ) ?></p></li>
 </ul>

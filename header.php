@@ -11,7 +11,7 @@ $emulsion_metabox_post_header_control	 = emulsion_metabox_display_control( 'head
 		<meta http-equiv="content-type" content="<?php bloginfo( 'html_type' ); ?>; charset=<?php bloginfo( 'charset' ); ?>" />
 		<?php wp_head(); ?>
 	</head>
-	<body id="<?php emulsion_theme_info( 'Slug' ); ?>" <?php body_class(); ?>><?php has_action( 'wp_body_open' ) ? do_action( 'wp_body_open' ) : ''; ?>
+	<body id="<?php echo esc_attr( emulsion_theme_info( 'Slug', false ) ); ?>" <?php body_class(); ?>><?php has_action( 'wp_body_open' ) ? do_action( 'wp_body_open' ) : ''; ?>
 		<?php
 		if ( is_page() ) {
 
@@ -32,3 +32,4 @@ $emulsion_metabox_post_header_control	 = emulsion_metabox_display_control( 'head
 		}
 		?>
 			<main id="main">
+				

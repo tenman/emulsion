@@ -872,13 +872,18 @@ function emulsion_common_google_font_url_validate( $input ) {
 	if ( 'fonts.googleapis.com' !== parse_url( $input, PHP_URL_HOST ) ) {
 		return '';
 	}
-
+	if ( ! wp_http_validate_url( $input ) ) {
+		return '';
+	}
 	return esc_url_raw( $input );
 }
 
 function emulsion_heading_google_font_url_validate( $input ) {
 
 	if ( 'fonts.googleapis.com' !== parse_url( $input, PHP_URL_HOST ) ) {
+		return '';
+	}
+	if ( ! wp_http_validate_url( $input ) ) {
 		return '';
 	}
 
@@ -890,7 +895,9 @@ function emulsion_widget_meta_google_font_url_validate( $input ) {
 	if ( 'fonts.googleapis.com' !== parse_url( $input, PHP_URL_HOST ) ) {
 		return '';
 	}
-
+	if ( ! wp_http_validate_url( $input ) ) {
+		return '';
+	}
 	return esc_url_raw( $input );
 }
 
