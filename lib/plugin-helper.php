@@ -113,7 +113,7 @@ function emulsion_get_images_width_for_scss() {
  * @global type $emulsion_custom_header_defaults
  * @return string
  */
-function wp_scss_set_variables() {
+function emulsion_wp_scss_set_variables() {
 
 	global $emulsion_custom_header_defaults;
 
@@ -354,7 +354,10 @@ if ( function_exists( 'amp_init' ) ) {
 			$css_variables	 = emulsion__css_variables();
 			$get_css		 = file( get_theme_file_path( 'css/amp.css' ) );
 			$css			 = implode( '', $get_css );
-
+			/**
+			 * @see emulsion_sanitize_css() in functions.php
+			 * For sanitization, you can add any processing you need
+			 */
 			echo emulsion_sanitize_css( $css_variables . $css );
 		}
 

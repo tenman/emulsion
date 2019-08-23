@@ -35,6 +35,9 @@ if ( !function_exists( 'emulsion_archive_year_navigation' ) ) {
 		$separator		 = '<div class="%1$s">%2$s</div>';
 		$result			 = '<div class="archive-year-links nav-links">';
 		$year_current	 = absint( get_query_var( 'year' ) );
+		/**
+		 * phpcs:ignore WPThemeReview.CoreFunctionality.PostsPerPage.posts_per_page_posts_per_page
+		 */
 		$year_list		 = get_posts( array( 'post_status' => 'publish', 'posts_per_page' => -1, 'order' => 'ASC' ) );
 
 		foreach ( $year_list as $list ) {
@@ -144,14 +147,12 @@ if ( !function_exists( 'emulsion_archive_year_navigation' ) ) {
 if ( !function_exists( 'emulsion_monthly_archive_prev_next_navigation' ) ) {
 
 	/**
+	 * Note:Theme sniffer1.2.4 plugin output SQL error
+	 * I can't find a suitable function for this purpose, so I'm writing a code based on the core implementation.
 	 * 
-	 * @global type $wpdb
-	 * @global type $wp_query
-	 * @global type $wp_locale
-	 * @param type $echo
-	 * @param type $show_year
-	 * @return type
+	 * This function is a pluggable function. You can modify the behavior by creating a function with the same name at the beginning of functions.php.
 	 */
+	
 	function emulsion_monthly_archive_prev_next_navigation( $echo = true, $show_year = false ) {
 
 		global $wpdb, $wp_query, $wp_locale;

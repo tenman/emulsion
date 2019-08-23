@@ -14,7 +14,7 @@ function emulsion_search_from_terms( $target_terms = array( 'category', 'post_ta
 	foreach ( $target_terms as $target_term ) {
 
 		$result	 = '';
-		$args	 = apply_filters( 'function search_from_terms_args', array(), $target_term );
+		$args	 = apply_filters( 'emulsion_search_from_terms_args', array(), $target_term );
 		$terms	 = get_terms( $target_term, $args );
 
 		foreach ( $terms as $term ) {

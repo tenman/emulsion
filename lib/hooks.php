@@ -39,7 +39,7 @@ function emulsion_hooks_setup() {
 	add_filter( 'do_shortcode_tag', 'emulsion_shortcode_wrapper', 10, 4 );
 	add_filter( 'emulsion_lazyload_script', 'emulsion_lazyload' );
 	add_filter( 'emulsion_instantclick_script', 'emulsion_instantclick' );
-	add_filter( 'script_loader_tag', 'disable_instantclick', 10, 3 );
+	add_filter( 'script_loader_tag', 'emulsion_disable_instantclick', 10, 3 );
 	add_filter( 'emulsion_toc_script', 'emulsion_toc' );
 	add_filter( 'the_excerpt_embed', 'emulsion_the_excerpt_embed', 99 );
 	add_filter( 'oembed_default_width', 'emulsion_oembed_default_width', 99 );
@@ -693,9 +693,9 @@ if ( ! function_exists( 'emulsion_instantclick' ) ) {
 	}
 
 }
-if ( ! function_exists( 'disable_instantclick' ) ) {
+if ( ! function_exists( 'emulsion_disable_instantclick' ) ) {
 
-	function disable_instantclick( $tag, $handle, $src ) {
+	function emulsion_disable_instantclick( $tag, $handle, $src ) {
 		$support = emulsion_get_supports( 'instantclick' );
 		if ( 'emulsion-instantclick-js' === $handle && $support ) {
 			$tag = str_replace( 'src=', 'data-no-instant src=', $tag );
@@ -920,7 +920,7 @@ if ( ! function_exists( 'emulsion_get_the_excerpt_filter' ) ) {
 			if ( empty( $excerpt ) ) {
 				$excerpt = $post->post_content;
 				$excerpt = apply_filters( 'the_content', $excerpt );
-				//最初の段落を返す場合
+
 				//$excerpt = emulsion_get_first_paragraph( $excerpt );
 			}
 
@@ -1451,7 +1451,7 @@ if ( ! function_exists( 'emulsion_do_snippet' ) ) {
 							}
 						} ) : '';
 		$type == 'action' ? add_action( $hook, function() use( $html ) {
-
+						/* $html output action hook results */
 							echo $html;
 						} ) : '';
 	}

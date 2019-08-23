@@ -198,7 +198,13 @@ CSS;
  */
 function emulsion_admin_tabs( $current = 'homepage' ) {
 
-	$tabs	 = array( 'homepage' => 'Home', 'customizer' => 'Customizer', 'embed' => 'Embed Media', 'advanced'=>'Advanced Class', 'templatetag' => 'Template Tag' );
+	$tabs	 = array( 
+		'homepage'		 => esc_html__( 'Home', 'emulsion' ),
+		'customizer'	 => esc_html__( 'Customizer', 'emulsion' ),
+		'embed'			 => esc_html__( 'Embed Media', 'emulsion' ),
+		'advanced'		 => esc_html__( 'Advanced Class', 'emulsion' ),
+		'templatetag'	 => esc_html__( 'Template Tag', 'emulsion' ),
+	);
 	$links	 = array();
 
 	echo '<h2 class="nav-tab-wrapper">';

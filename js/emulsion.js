@@ -59,18 +59,18 @@ jQuery(function ($) {
         $('.entry-content > [class|="wp-block"]').not('.alignleft, .alignright, .wp-block-image,.wp-block-image,.wp-block-cover, .wp-block-embed, .wp-block-group').wrap(function () {
             var classes = $(this).attr('class').match(/wp-block-\S+/);
 
-            var  brightness_class = '';
+            var brightness_class = '';
 
-            if( 'wp-block-columns' == classes ) {
+            if ('wp-block-columns' == classes) {
                 brightness_class = 'columns-' + emulsion_script_vars.block_columns_class;
             }
 
             $(this).wrap('<section class="sectionized-' + classes + ' ' + brightness_class + '" ></section>');
             var string = $(this).html().slice(0, 4);
             var id = $(this).html().length;
-                id = classes + '-' + parseInt( emulsion_script_vars.post_id ) + '-' +  parseInt( id );
-            if( 'is_preview' !== emulsion_script_vars.is_customize_preview ) {
-                $(this).parent().attr('id', id );
+            id = classes + '-' + parseInt(emulsion_script_vars.post_id) + '-' + parseInt(id);
+            if ('is_preview' !== emulsion_script_vars.is_customize_preview) {
+                $(this).parent().addClass(id);
             }
         });
     }
@@ -79,29 +79,29 @@ jQuery(function ($) {
      * wp-block unwrap
      */
 
-    $('.entry-content .wp-block-image figure').each(function( ) {
-        if( $(this).hasClass('alignleft')){
+    $('.entry-content .wp-block-image figure').each(function ( ) {
+        if ($(this).hasClass('alignleft')) {
             $(this).removeClass('alignleft');
             $(this).removeAttr('style');
             $(this).parent().addClass('alignleft');
         }
-        if( $(this).hasClass('alignright')){
+        if ($(this).hasClass('alignright')) {
             $(this).removeClass('alignright');
             $(this).removeAttr('style');
             $(this).parent().addClass('alignright');
         }
-        if( $(this).hasClass('aligncenter')){
+        if ($(this).hasClass('aligncenter')) {
             $(this).removeClass('aligncenter');
             $(this).parent().addClass('aligncenter');
 
         }
-        if( $(this).hasClass('is-resized')){
+        if ($(this).hasClass('is-resized')) {
             //0819
-            $(this).removeClass('is-resized');          
+            $(this).removeClass('is-resized');
             $(this).parent().addClass('is-resized');
         }
-        
-        
+
+
 
     });
 });
@@ -245,7 +245,7 @@ jQuery(function ($) {
 
     $(document).on("click", ".show-content", function (event) {
 
-        if (!$('body').hasClass('home') || !$('body').hasClass('archive') || !$('body').hasClass('blog') ) {
+        if (!$('body').hasClass('home') || !$('body').hasClass('archive') || !$('body').hasClass('blog')) {
             event.preventDefault();
         }
 
@@ -256,7 +256,7 @@ jQuery(function ($) {
         switch (state) {
             case 1 :
             case undefined :
-              var content_base = $("#post-" + single_id + " .entry-content").html();
+                var content_base = $("#post-" + single_id + " .entry-content").html();
                 break;
         }
 
@@ -282,7 +282,7 @@ jQuery(function ($) {
 
                 $.getJSON(request_url, function (results) {
 
-                    if ($("#post-" + single_id + " div").hasClass('entry-content') ) {
+                    if ($("#post-" + single_id + " div").hasClass('entry-content')) {
                     } else {
                         $("#post-" + single_id + " .content").after('<div class="entry-content">' + results.content.rendered + '</div>');
                         $("#post-" + single_id + " .content").hide();
@@ -290,7 +290,7 @@ jQuery(function ($) {
                     $(".blog #post-" + single_id + ",.home #post-" + single_id + ",.archive #post-" + single_id).parents('.article-wrapper').css({'flex-basis': '100%'});
                 });
                 $(document).ajaxComplete(function () {
-                    
+
                     $("#loading").css("display", "none").removeAttr('style');
 
                     $("#post-" + single_id + " .entry-content").css("display", "block").addClass('archive-preview');
@@ -304,9 +304,9 @@ jQuery(function ($) {
                 $(this).removeClass('is-active');
                 $(this).parents('article').removeClass('preview-is-active');
                 $("#post-" + single_id + " .content").show();
-                $( "#post-" + single_id + " .entry-content").removeAttr('style');
+                $("#post-" + single_id + " .entry-content").removeAttr('style');
                 $("#post-" + single_id + " .entry-content").remove();
-                $("#post-" + single_id ).parents('.article-wrapper').removeAttr('style');
+                $("#post-" + single_id).parents('.article-wrapper').removeAttr('style');
 
                 break;
         }
@@ -350,19 +350,19 @@ jQuery(function ($) {
     $('[class|="ico"],[class*=" ico-"]').each(function (index) {
 
         var classes = $(this).attr('class');
-        console.log( classes );
+        console.log(classes);
         var target_class = classes.match(/^.*(ico-\S+).*$/);
         target_class = target_class[1];
         target_class = target_class.split('-');
 
-       var tag_name = $(this).prop("tagName");
+        var tag_name = $(this).prop("tagName");
 
-       if('UL' == tag_name ) {
-           $(this).children('li').css({'list-style': 'none'}).prepend('<svg class="icon ' + target_class[1] + '" aria-hidden="true" style="width:1em;height:1em" role="img"><use xlink:href="#' + target_class[1] + '" /></svg>');
-       } else {
+        if ('UL' == tag_name) {
+            $(this).children('li').css({'list-style': 'none'}).prepend('<svg class="icon ' + target_class[1] + '" aria-hidden="true" style="width:1em;height:1em" role="img"><use xlink:href="#' + target_class[1] + '" /></svg>');
+        } else {
 
-        $(this).prepend('<svg class="icon ' + target_class[1] + '" aria-hidden="true" style="width:1em;height:1em" role="img"><use xlink:href="#' + target_class[1] + '" /></svg>');
-    }
+            $(this).prepend('<svg class="icon ' + target_class[1] + '" aria-hidden="true" style="width:1em;height:1em" role="img"><use xlink:href="#' + target_class[1] + '" /></svg>');
+        }
 
     });
 
@@ -420,7 +420,7 @@ jQuery(function ($) {
         var scrolle_y = $(window).scrollTop();
         var offset_primary_menu = $('body > .header-layer').height();
 
-        if (parseInt(scrolle_y) < parseInt(offset_primary_menu) || parseInt( scrolle_y ) < 20 ) {
+        if (parseInt(scrolle_y) < parseInt(offset_primary_menu) || parseInt(scrolle_y) < 20) {
 
             $('body').removeClass('on-scroll');
         }
@@ -429,7 +429,7 @@ jQuery(function ($) {
 
         }
     });
-    
+
 });
 jQuery(function ($) {
     "use strict";
@@ -494,7 +494,7 @@ jQuery(function ($) {
             var parent_width = $(this).parents('.entry-content').width();
             var negative_margin = parseInt(article_width) - parseInt(parent_width);
             negative_margin = negative_margin / -2;
-            $(this).css({'width': article_width, 'left': negative_margin,'visibility':'visible'});
+            $(this).css({'width': article_width, 'left': negative_margin, 'visibility': 'visible'});
 
         });
 
@@ -507,11 +507,21 @@ jQuery(function ($) {
             negative_margin = parseInt(main_width) - parseInt(article_width) + parseInt(negative_margin);
             negative_margin = negative_margin / -2;
 
-            $(this).css({'width': article_width, 'left': negative_margin, 'position': 'relative','visibility':'visible'});
+            $(this).css({'width': article_width, 'left': negative_margin, 'position': 'relative', 'visibility': 'visible'});
 
         });
+        
+        $(".emulsion-has-sidebar.enable-alignfull .entry-content > .emulsion-full").not('.wp-block-cover').each(function (i) {
 
-         $(".emulsion-no-sidebar.enable-alignfull .entry-content > .wp-block-cover.alignfull[style] .wp-block-cover__inner-container").each(function (i) {
+            var article_width = $(this).parents('article').width();
+            var parent_width = $(this).parents('.entry-content').width();
+            var negative_margin = parseInt(article_width) - parseInt(parent_width);
+            negative_margin = negative_margin / -2;
+            $(this).css({'width': article_width, 'left': negative_margin, 'visibility': 'visible'});
+
+        });
+        
+        $(".emulsion-no-sidebar.enable-alignfull .entry-content > .emulsion-full").each(function (i) {
 
             var article_width = $(this).parents('article').width();
             var parent_width = $(this).parents('.entry-content').width();
@@ -520,7 +530,20 @@ jQuery(function ($) {
             negative_margin = parseInt(main_width) - parseInt(article_width) + parseInt(negative_margin);
             negative_margin = negative_margin / -2;
 
-            $(this).css({'width': article_width, 'left': negative_margin, 'position': 'relative','display':'flex','visibility':'visible'});
+            $(this).css({'width': article_width, 'left': negative_margin, 'position': 'relative', 'visibility': 'visible'});
+
+        });
+
+        $(".emulsion-no-sidebar.enable-alignfull .entry-content > .wp-block-cover.alignfull[style] .wp-block-cover__inner-container").each(function (i) {
+
+            var article_width = $(this).parents('article').width();
+            var parent_width = $(this).parents('.entry-content').width();
+            var negative_margin = parseInt(article_width) - parseInt(parent_width);
+            var main_width = $(this).parents('main').width();
+            negative_margin = parseInt(main_width) - parseInt(article_width) + parseInt(negative_margin);
+            negative_margin = negative_margin / -2;
+
+            $(this).css({'width': article_width, 'left': negative_margin, 'position': 'relative', 'display': 'flex', 'visibility': 'visible'});
         });
 
         $('.emulsion-has-sidebar.enable-alignfull .entry-content > .wp-block-cover.alignfull, .emulsion-has-sidebar.enable-alignfull [class|="sectionized"]').each(function (i) {
@@ -530,7 +553,7 @@ jQuery(function ($) {
             var parent_width = $(this).parents('.entry-content').width();
             var negative_margin = parseInt(article_width) - parseInt(parent_width);
             var negative_margin = negative_margin / -2;
-            $(this).css({'width': article_width, 'left': negative_margin, 'position': 'relative','display':'flex','visibility':'visible'});
+            $(this).css({'width': article_width, 'left': negative_margin, 'position': 'relative', 'display': 'flex', 'visibility': 'visible'});
         });
 
         /**
@@ -546,7 +569,7 @@ jQuery(function ($) {
             $('body').addClass('agent-mobile-phone');
 
             //wp_nav_menu() change from horizontal menu to vertical menu
-          //  $('.primary').attr('data-direction', 'vertical');
+            //  $('.primary').attr('data-direction', 'vertical');
 
         } else if (ua.indexOf('iPad') > 0 || ua.indexOf('Android') > 0) {
 
@@ -742,31 +765,34 @@ jQuery(function ($) {
 });
 jQuery(function ($) {
     if (emulsion_script_vars.force_contrast) {
-        $('.entry-content > div,.entry-content > .has-background:not(.has-text-color)').not('.wp-block-button').each(function (i) {
+
+        $('.entry-content > div:not(.shortcode-wrapper),.entry-content > .shortcode-wrapper > div, .entry-content > .has-background:not(.has-text-color)').not('.wp-block-button').each(function (i) {
 
             var background_color_rgb = $(this).css("background-color");
             var general_background_color = emulsion_script_vars.background_color;
 
-            if (general_background_color !== background_color_rgb && !background_color_rgb.match(/rgba/)) {
+            if (general_background_color !== background_color_rgb && background_color_rgb.match(/^rgb\(/)) {
 
                 var contrast_color = emulsion_text_color(background_color_rgb);
 
                 if (contrast_color == '#ffffff') {
                     $(this).addClass('emulsion-add-dark-color has-background');
-                } else if(contrast_color == '#333333') {
+                } else if (contrast_color == '#333333') {
                     $(this).addClass('emulsion-add-light-color has-background');
                 }
             }
-            if (background_color_rgb.match(/rgba/)) {
+            if (background_color_rgb.match(/^rgba\(/)) {
+                console.log(background_color_rgb);
                 //TODO
-                if ($(this).is('[id]')) {
-
+                if ($(this).is('[id="bbpress-forums"]')) {
                     $(this).addClass('has-background emulsion-initial-color').css({'position': 'relative', 'z-index': '1'});
+                    return;
 
-                } else if (background_color_rgb !== 'rgba(0, 0, 0, 0)') {
-                    $(this).addClass('emulsion-initial-color').css({'backgroud': background_color_rgb});
-                } else {
+                }
+                if (background_color_rgb == "rgba(0, 0, 0, 0)" || 'transparent' == background_color_rgb) {
                     $(this).addClass('emulsion-current-color');
+                } else {
+                    $(this).addClass('emulsion-initial-color').css({'backgroud': background_color_rgb, 'position': 'relative', 'z-index': '1'});
                 }
             }
         });
@@ -784,16 +810,16 @@ jQuery(function ($) {
         }
         if (hex.length !== 6) {
             // console.log( hex.length );
-            if(  hex.match(/^rgb\(/) ) {
+            if (hex.match(/^rgb\(/)) {
                 var rgb = hex.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
                 var r = parseInt(rgb[1]);
                 var g = parseInt(rgb[2]);
                 var b = parseInt(rgb[3]);
             }
 
-            if(  hex.match(/^transparent/) ) {
+            if (hex.match(/^transparent/)) {
                 // todo
-                
+
                 return 'transparent';
             }
 
@@ -841,6 +867,18 @@ jQuery(function ($) {
         });
     });
 });
+jQuery(function ($) {
+    /**
+     * wp-block-search
+     * Request should not be made even if field is blank
+     */
+    $('.wp-block-search .wp-block-search__input').each(function (i) {
+        
+        $(this).attr({
+            'required': 'required'
+        });
+    });
+});
 
 //drawer-wrapper
 jQuery(function ($) {
@@ -849,27 +887,27 @@ jQuery(function ($) {
     });
 });
 
-jQuery( document ).ready(function( $ ) {
+jQuery(document).ready(function ($) {
     /**
      * when not exists meta description tag, add meta description tag
      * 
      */
     function emulsion_get_meta(metaName) {
-      const metas = document.getElementsByTagName('meta');
+        const metas = document.getElementsByTagName('meta');
 
-      for (let i = 0; i < metas.length; i++) {
-        if (metas[i].getAttribute('name') === metaName) {
-          return metas[i].getAttribute('content');
+        for (let i = 0; i < metas.length; i++) {
+            if (metas[i].getAttribute('name') === metaName) {
+                return metas[i].getAttribute('content');
+            }
         }
-      }
 
-      return '';
+        return '';
     }
-    
-    if( '' == emulsion_get_meta('description') &&  '' !== emulsion_script_vars.meta_description ) {
-        
-        $( "head" ).append( '<meta name="description" content="' + emulsion_script_vars.meta_description +'" />' );
+
+    if ('' == emulsion_get_meta('description') && '' !== emulsion_script_vars.meta_description) {
+
+        $("head").append('<meta name="description" content="' + emulsion_script_vars.meta_description + '" />');
     }
-    
-    
+
+
 });

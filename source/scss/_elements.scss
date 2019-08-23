@@ -96,7 +96,6 @@ article{
             margin-left:auto;
             margin-right:auto;
         }
-
     }
 }
 
@@ -337,6 +336,19 @@ h1,h2,h3,h4,h5,h6{
     & > img{
         margin-left:8px;
         margin-right:8px;
+    }
+}
+picture{
+    display:block;
+    margin-top:1.5rem;
+    margin-bottom:.75rem;
+    img,
+    source{
+        display:block;
+        margin-left:auto;
+        margin-right:auto;
+        max-width:100%;
+        height:auto;
     }
 }
 /**
@@ -1228,8 +1240,6 @@ body .fit{
     display:-ms-flexbox;
     display:flex;
     max-width:100%;
-    margin-top:3rem;
-    margin-bottom:3rem; 
     padding-bottom:1px;
     overflow:hidden;
     width:var(--thm_content_width);
@@ -1243,20 +1253,7 @@ body .fit{
         padding-right:0!important;
     }
 }
-/*
-.emulsion-has-sidebar{
-    &.enable-alignfull{
-        .emulsion-table-wrapper{
-            .alignfull{
-                width:100%;
-                margin-left:0;
-                margin-right:0;
-                position:static;
-            }
-        }
-    }
-}
-*/
+
 .clip{
     @include clip;
 }
@@ -1276,4 +1273,24 @@ body .fit{
     text-align:left;
     width: -moz-fit-content;
     width:fit-content;
+}
+/**
+ * theme .alignwide .alignfull
+ * for custom html 
+ */
+.enable-alignfull{
+
+    .emulsion-wide{
+        @extend %alignwide;
+    }
+    &.emulsion-has-sidebar{
+        .emulsion-full{
+            @extend %has-sidebar-alignfull;
+        }
+    }
+    &.emulsion-no-sidebar{
+        .emulsion-full{
+            @extend %no-sidebar-alignfull;
+        }
+    }
 }

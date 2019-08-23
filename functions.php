@@ -165,7 +165,7 @@ if ( ! function_exists( 'emulsion_setup' ) ) {
 		 */
 		if ( function_exists( 'wp_scss_compile' ) ) {
 
-			add_filter( 'wp_scss_variables', 'wp_scss_set_variables' );
+			add_filter( 'wp_scss_variables', 'emulsion_wp_scss_set_variables' );
 		}
 
 		/**

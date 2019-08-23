@@ -3195,22 +3195,19 @@ body{
 #{$body_id}{
     .entry-content{
         & > .wp-block-group[style|="background"],
-        // & > .wp-block-group[style*=" background"],
         & > .emulsion-table-wrapper > table,
+        & > .shortcode-wrapper > div,
         & > p:not(.has-text-color),
-            & > div:not([class|="wp-block"]){
-            // & > div:not([class*=" wp-block"]){
+        & > div:not([class|="wp-block"]):not(.shortcode-wrapper) {
+
             &.emulsion-initial-color{
                 padding:1rem;
-                color:initial;
-                a{
-                    color:initial;
-                }
-            }
-            &.emulsion-initial-color{
                 color:#333;
                 a{
                     color: #777;
+                }
+                *{
+                    color:#333;
                 }
             }
             &.emulsion-current-color{
@@ -3226,9 +3223,7 @@ body{
                     background:transparent;
                 }
             }
-            &.emulsion-initial-color{
-                color:initial;
-            }
+
             &.emulsion-add-light-color{
                 color:#333 ! important;
                 a{
