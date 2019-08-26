@@ -879,7 +879,17 @@ jQuery(function ($) {
         });
     });
 });
-
+//
+jQuery(function ($) {
+    /**
+     * wp-block-search
+     * Request should not be made even if field is blank
+     */
+    $('.wp-block-tag-cloud.flat-button a').each(function (i) {
+        
+        $(this).removeAttr('style');
+    });
+});
 //drawer-wrapper
 jQuery(function ($) {
     $(".drawer-wrapper .icon").on("click", function () {

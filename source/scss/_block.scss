@@ -1160,12 +1160,12 @@ figure{
                 transform: translate(75px,25px);
             }
             .emulsion-archive-count{
-                @include font_size(5);
+                @include font_size(6);
                 border-radius: 50%;
                 padding: .2rem .4rem;
                 white-space: pre;
                 position: absolute;
-                top: -.9rem
+                top: -.6875rem;
             }
             .emulsion-archive-count:empty{
                 height:.4rem;
@@ -1176,6 +1176,9 @@ figure{
     & > .sectionized-wp-block-archives > ul.wp-block-archives{
         margin-top:0;
         margin-bottom:0;
+        &.alignfull{
+            width:100%;
+        }
     }
     /**
      * Blockquote
@@ -1939,7 +1942,11 @@ pre.wp-block-verse{
                 .wp-block-latest-posts{
                     &.wp-block-latest-posts__list{
                         & > li{
+                            --thm_content_gap:3px;
+                            
+                            text-align:center;
                             .wp-block-latest-posts__post-full-content{
+                                text-align:left;
                                 @extend %die-aligns;
 
                                 .wp-block-cover{
@@ -1949,12 +1956,19 @@ pre.wp-block-verse{
                                         }
                                     }
                                 }
+                                
+                            }
+                            .wp-block-latest-posts__post-excerpt{
+                                text-align:left;
                             }
                             li{
                                 display:list-item;
                                 width:100%;
+                                
                             }
                             .wp-block-latest-posts__post-date{
+                               margin-left:auto;
+                               margin-right:auto;
 
                                 display:var(--thm_post_display_date);
                             }

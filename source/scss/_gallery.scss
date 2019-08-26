@@ -6,8 +6,18 @@
 /* shortcode gallery */
 div.gallery{
     @extend %block;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-align: stretch;
+    -ms-flex-align: stretch;
+    align-items: stretch;
     clear: both;
-    display:block;
+    float:none;
+    padding-left:0;
+    padding-right:0;
     margin-left:auto;
     margin-right:auto;
     .gallery-icon{
@@ -21,13 +31,30 @@ div.gallery{
         .gallery-item{
             background:transparent!important;
         }
-    }    
+    }
     .gallery-item {
+        flex:1 1 auto;
         position:relative;
         margin-bottom:-4px;
         display:inline-block;
         text-align: center;
-        vertical-align:top;
+        vertical-align:middle;
+
+        .gallery-icon{
+            
+            img{
+                object-fit:contain;
+            }
+
+            &.portrait{
+
+            }
+            &.landscape{
+
+            }           
+
+        }
+
     }
     .gallery-caption {
         @include font_size(5);

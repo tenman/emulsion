@@ -562,7 +562,7 @@ body{
             display: inline;
         }       
     }
-    
+
     /**
      * .background css pattern
      */
@@ -585,7 +585,7 @@ body{
         background-color:var(--thm_background_color);
         background-size:16px 16px;
     }
-    
+
     &.custom-background.background-css-pattern-seigaiha{		
         background-color:var(--thm_background_color);
         background-image:
@@ -596,7 +596,7 @@ body{
             radial-gradient(circle at 0    50%, var(--thm_sub_background_color_lighten) 5%, var(--thm_background_color) 6%, var(--thm_background_color) 15%, var(--thm_sub_background_color_lighten) 16%, var(--thm_sub_background_color_lighten) 20%, var(--thm_background_color) 21%, var(--thm_background_color) 30%, var(--thm_sub_background_color_lighten) 31%, var(--thm_sub_background_color_lighten) 35%, var(--thm_background_color) 36%, var(--thm_background_color) 45%, var(--thm_sub_background_color_lighten) 46%, var(--thm_sub_background_color_lighten) 49%, transparent 50%, transparent);
         background-size: 50px 25px !important;
     }
-    
+
     &.is-light.custom-background.background-css-pattern-cicada{		
         background-color:var(--thm_background_color);
         background-image: -webkit-gradient(linear, left top, right top, color-stop(50%, rgba(255,255,255,.07)), color-stop(50%, transparent)),
@@ -638,7 +638,7 @@ body{
             linear-gradient(90deg, transparent 50%, rgba(0,0,0,.19) 50%);
         background-size: 13px, 29px, 37px, 53px;
     }
-    
+
     &.custom-background.background-css-pattern-lattice{		
         background:
             linear-gradient(var(--thm_sub_background_color_lighten) 8px, transparent 8px) 0 -4px,
@@ -646,7 +646,7 @@ body{
         background-color: var(--thm_background_color);
         background-size:128px 128px, 128px 128px;
     }
-    
+
     &.is-light.custom-background.background-css-pattern-hexagonal{
         background:
             radial-gradient(circle farthest-side at 0% 50%,var(--thm_background_color) 23.5%,rgba(0,0,0,0) 0)21px 30px,
@@ -667,6 +667,21 @@ body{
             linear-gradient(30deg,var(--thm_background_color) 24%,var(--thm_sub_background_color_darken) 0,var(--thm_sub_background_color_darken) 26%,rgba(0,0,0,0) 0,rgba(0,0,0,0) 74%,var(--thm_sub_background_color_darken) 0,var(--thm_sub_background_color_darken) 76%,var(--thm_background_color) 0)0 0,
             linear-gradient(90deg,var(--thm_sub_background_color_darken) 2%,var(--thm_background_color) 0,var(--thm_background_color) 98%,var(--thm_sub_background_color_darken) 0%)0 0 var(--thm_background_color);
         background-size: 40px 60px;
+    }
+}
+/**
+ * wp-block-tag-cloud flat-button
+ */
+.flat-button{
+    display:flex;
+    flex-wrap:wrap;
+    a{
+        flex:1 1 auto;
+        z-index: 2;
+        display: inline-block;
+        text-align: center;
+        padding: 2px 4px;
+        margin: var(--thm_box_gap, 3px);
     }
 }
 @media(hover: hover) and (pointer: fine) {

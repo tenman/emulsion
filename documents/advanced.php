@@ -233,6 +233,7 @@
 	<li>size1of5</li>
 	<li>size2of5</li>
 </ul>
+
 <h4 class="block-name"><?php esc_html_e( 'search', 'emulsion' ) ?></h4>
 <h4 class="block-name"><?php esc_html_e( 'tagcloud', 'emulsion' ) ?></h4>
 <ul class="additional-class">
@@ -242,6 +243,11 @@
 	<li>size1of5</li>
 	<li>size2of5</li>
 </ul>
+<ul class="additional-class">
+	<li class="label"><?php esc_html_e('Custom Format Class', 'emulsion' ) ?></li>
+	<li><p>flat-button</p>
+		<p><?php esc_html_e('Remove the font size effect of the tag cloud and display it with a flat button.', 'emulsion' ) ?></li>
+</ul>
 <h4><?php esc_html_e('Embed', 'emulsion' ) ?></h4>
 <ul class="additional-class">
 	<li class="label"><?php esc_html_e('Width Control Class', 'emulsion' ) ?></li>
@@ -250,7 +256,7 @@
 	<li>size1of5</li>
 	<li>size2of5</li>
 </ul>
-<h4><?php esc_html_e('Generic class', 'emulsion' ) ?></h4>
+<h4><?php esc_html_e('Generic class for Custom HTML', 'emulsion' ) ?></h4>
 <ul class="additional-class">
 	<li class="label"><?php esc_html_e('alignwide, alignfull in custom html', 'emulsion' ) ?></li>
 	<li>emulsion-wide</li>
@@ -259,7 +265,6 @@
 </ul>
 <ul class="additional-class">
 <li class="label"><?php esc_html_e('child elements centerling in custom html', 'emulsion' ) ?></li>
-	<li ><?php esc_html_e('child elements centerling in custom html', 'emulsion' ) ?></li>
 	<li>centered</li>
 	<li ><?php esc_html_e('Required height style, use with the following height classes or the style attribute', 'emulsion' ) ?></li>
 </ul>
@@ -273,4 +278,11 @@
 	<p> <?php esc_html_e('3of4 browser height', 'emulsion' ) ?></p></li>
 <li><p>vh100</p>
 	<p><?php esc_html_e('browser height', 'emulsion' ) ?></p></li>
+</ul>
+<ul class="additional-class">
+	<li class="label"><?php esc_html_e('font size and weight class in custom html', 'emulsion' ) ?></li>
+	<li><p>f-10 f-11 f-12 ...　f-48</p>
+		<p><?php esc_html_e('font size class from 10px to 48px', 'emulsion' ) ?></p></li>
+	<li><p>fw-100 fw-200 fw-300 ... fw-900</p>
+	<p><?php esc_html_e('font weight class', 'emulsion' ) ?></p></li>
 </ul>
