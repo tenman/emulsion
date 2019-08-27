@@ -685,20 +685,7 @@
         clear:both;
         float:none;
     }
-    .block-editor-block-list__layout .editor-block-list__block[data-align=left] .editor-block-list__block-edit{
-        width:calc(50% - 1rem);
-        margin-right:1rem;
-        .wp-block-gallery.alignleft{
-            max-width:100%;
-        }
-    }
-    .block-editor-block-list__layout .editor-block-list__block[data-align=right] .editor-block-list__block-edit{
-        width:calc(50% - 1rem);
-        margin-left:1rem;
-        .wp-block-gallery.alignright{
-            max-width:100%;
-        }
-    }
+
     .editor-block-list__block{
         .block-editor-block-list__insertion-point{
             left:0;
@@ -1658,7 +1645,11 @@ body{
         &[data-align=left]:first-child,
             &[data-align=right]:first-child{
             margin-top:0;
+            &[data-type="core/archives"]{
+                margin-top:0;// core overwite
+            }
         }
+
         &[data-align="left"]{
             clear:left;
             float:left;
@@ -1669,10 +1660,7 @@ body{
             margin-right:1rem;
             padding-left:0;
             padding-right:0;
-            .block-editor-block-list__block-edit{
-                float:none;
-                margin-right:0;
-            }
+
             .block-editor-block-list__block-edit{
                 float:none;
                 margin-right:0;
@@ -1700,10 +1688,6 @@ body{
             margin-left:1rem;
             padding-left:0;
             padding-right:0;
-            .block-editor-block-list__block-edit{
-                float:none;
-                margin-right:0;
-            }
             .block-editor-block-list__block-edit{
                 float:none;
                 margin-right:0;
@@ -1850,6 +1834,17 @@ body{
                     }
                 }
             }
+        }
+
+        &[data-type="core/video"]{
+            &[data-align="left"]{
+                overflow-y:hidden;
+                border:1px solid red;
+            } 
+            &[data-align="right"]{
+                overflow-y:hidden;
+                border:1px solid red;
+            }       
         }
         /**
          * Group Container

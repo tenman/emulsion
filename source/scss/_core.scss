@@ -2,7 +2,7 @@
  * Core
  * ========================================================================== */
 .aligncenter{
-  @extend %aligncenter;
+    @extend %aligncenter;
 }
 blockquote,
 a,
@@ -110,7 +110,12 @@ article  blockquote.alignnone {
 .wp-caption {
     height:auto;
     padding:0 2px 0;
-    text-align:center
+    text-align:center;
+
+}
+.wp-block-latest-posts li .wp-caption > a{
+    margin-top:0;
+    margin-bottom:0;
 }
 .wp-caption.alignnone {
     float:none;

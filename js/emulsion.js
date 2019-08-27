@@ -543,7 +543,7 @@ jQuery(function ($) {
             negative_margin = parseInt(main_width) - parseInt(article_width) + parseInt(negative_margin);
             negative_margin = negative_margin / -2;
 
-            $(this).css({'width': article_width, 'left': negative_margin, 'position': 'relative', 'display': 'flex', 'visibility': 'visible'});
+            $(this).css({'width': article_width, 'left': negative_margin, 'position': 'relative', 'display': 'block', 'visibility': 'visible'});
         });
 
         $('.emulsion-has-sidebar.enable-alignfull .entry-content > .wp-block-cover.alignfull, .emulsion-has-sidebar.enable-alignfull [class|="sectionized"]').each(function (i) {
@@ -785,14 +785,14 @@ jQuery(function ($) {
                 console.log(background_color_rgb);
                 //TODO
                 if ($(this).is('[id="bbpress-forums"]')) {
-                    $(this).addClass('has-background emulsion-initial-color').css({'position': 'relative', 'z-index': '1'});
+                    $(this).addClass('has-background emulsion-initial-color').css({'position': 'relative', 'z-index': 'auto'});// chnge 1 to auto 8/27
                     return;
 
                 }
                 if (background_color_rgb == "rgba(0, 0, 0, 0)" || 'transparent' == background_color_rgb) {
                     $(this).addClass('emulsion-current-color');
                 } else {
-                    $(this).addClass('emulsion-initial-color').css({'backgroud': background_color_rgb, 'position': 'relative', 'z-index': '1'});
+                    $(this).addClass('emulsion-initial-color').css({'backgroud': background_color_rgb, 'position': 'relative', 'z-index': 'auto'});// chnge 1 to auto 8/27
                 }
             }
         });
