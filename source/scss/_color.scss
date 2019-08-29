@@ -31,20 +31,55 @@ body{
     .footer-layer{
         border-top:var(--thm_common_border);
     }
-    blockquote{
-        border-left:6px solid currentColor;
+    blockquote:not([class]){
+        // old tinymce quote
+        border-left:6px solid rgba(188,188,188,.5);
         max-width:100%;
     }
+    .wp-block-quote{
+        border:none;
+        max-width:100%;
+        border-left:2px solid rgba(188,188,188,.5);
+        &.has-text-align-left{
+            border:none;
+            border-left:2px solid rgba(188,188,188,.5);
+        }
+        &.has-text-align-center{
+            border:none;
+            border-top:2px solid rgba(188,188,188,.5);
+        }
+        &.has-text-align-right{
+            border:none;
+            border-right:2px solid rgba(188,188,188,.5);
+        }
+    }
     .wp-block-pullquote{
-        border-left:none;
-        border-right:none;
+        border:none;
         border-top:2px solid;
         border-bottom:2px solid;
         border-color:rgba(188,188,188,.5);
-        & > blockquote{
-            border-left:none;
+        .is-style-solid-color{
+            &.has-success-background-color{
+                color:#333;
+            }
+            &.has-notice-background-color{
+                color:#333;
+            }
+            &.has-info-background-color{
+                color:#333;
+            }
+            &.has-alert-background-color{
+                color:#333;
+            }
+            &.has-cool-background-color{
+                color:#333;
+            }
         }
+        & > blockquote{
+            border:none;
+        }    
     }
+
     .flat-button a,
     .wp-block-tag-cloud{
         border:var(--thm_common_border);

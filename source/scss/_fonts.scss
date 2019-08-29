@@ -48,6 +48,15 @@ pre.wp-block-verse{
  *
  *If you change the base font size, overwrite it to suppress the font of the sidebar and menu from becoming large.
  */
+[lang="ja"]{
+    blockquote{
+        cite{
+            font-size:var(--thm_meta_data_font_size);
+            text-transform:var(--thm_meta_data_font_transform);
+            font-style:normal;
+        }
+    }
+}
 
 body{
     .flat-button a{
@@ -61,6 +70,7 @@ body{
     .menu-placeholder{
         font-size:16px;
     }
+
     & > header{
         .taxonomy-description{
             font-size:var(--thm_meta_data_font_size);
