@@ -287,7 +287,6 @@ strong{
 }
 /* itaric elements */
 [lang="ja"] i, 
-[lang="ja"] cite, 
 [lang="ja"] em, 
 [lang="ja"] var, 
 [lang="ja"] address, 
@@ -1282,15 +1281,21 @@ body .fit{
 
     .emulsion-wide{
         @extend %alignwide;
+        clear:both;
+        float:none;
     }
     &.emulsion-has-sidebar{
         .emulsion-full{
             @extend %has-sidebar-alignfull;
+            clear:both;
+            float:none;
         }
     }
     &.emulsion-no-sidebar{
         .emulsion-full{
             @extend %no-sidebar-alignfull;
+            clear:both;
+            float:none;
         }
     }
 }
