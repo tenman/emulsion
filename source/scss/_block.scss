@@ -215,7 +215,24 @@
             }
 
         }
-
+        .wp-block-pullquote{
+            &.alignfull{
+                width:calc(100% - 40px);
+                blockquote{
+                    p{
+                        width: -moz-fit-content;
+                        width:fit-content;
+                    }
+                    cite{
+                        width: -moz-fit-content;
+                        width:fit-content;
+                        margin-left:auto;
+                        margin-right:auto;
+                        display:block;
+                    }
+                }
+            }
+        }
         ul.wp-block-gallery{
             &.alignfull{
                 width: calc( var(--thm_main_width-with-sidebar) + 40px );
@@ -1213,6 +1230,45 @@ figure{
             p{
                 font-style:normal;
             }
+            &.has-text-align-left{
+                cite,
+                p{
+                    text-align:left;
+                    width:auto;
+                    margin:.75rem 0 .75rem;
+                }
+            }
+            &.has-text-align-right{
+                cite,
+                p{
+                    text-align:right;
+                    width:auto;
+                    margin-top:.75rem;
+                    margin-bottom:.75rem;
+                }
+            }
+            &.has-text-align-center{
+                cite,
+                p{
+                    text-align:center;
+                    width:auto;
+                    margin-top:.75rem;
+                    margin-bottom:.75rem;
+                }
+            }
+            p{
+                text-align:left;
+                width: -moz-fit-content;
+                width:fit-content;
+                margin-top:.75rem;
+                margin-bottom:.75rem;
+            }
+            cite{
+                @include font_size(5);
+                margin-top:.75rem;
+                margin-bottom:.75rem;
+            }
+
         }
         &.is-style-default{
 
@@ -1221,6 +1277,13 @@ figure{
 
 
         &.has-text-align-left{
+            cite,
+            p{
+                text-align:left;
+                width:auto;
+                margin:.75rem 0 .75rem;
+
+            }
 
         }
         &.has-text-align-right{
@@ -1532,6 +1595,7 @@ figure{
                 position:relative;
                 blockquote{
                     overflow:hidden;
+                    max-width:100%;
                 }
             }
         }
@@ -1543,8 +1607,8 @@ figure{
     text-align:left;
     margin-left:auto;
     margin-right:auto;
-    max-width:calc( var(--thm_content_width) - 80px );
-   // width: -moz-fit-content;
+   // max-width:calc( var(--thm_content_width) - 80px );
+    // width: -moz-fit-content;
     //width:fit-content;
     cite{
         text-align:left;
@@ -1579,7 +1643,7 @@ figure{
             line-height:var(--thm_content_line_height);
         }
     }
- 
+
     blockquote{
         margin-top:0;
         margin-bottom:0;
@@ -1612,9 +1676,11 @@ figure{
         }
     }
     &.is-style-solid-color{
-            p:first-of-type{
-                margin-top:1.5rem;
-            }  
+        overflow:hidden;
+        p:first-of-type{
+            margin-top:1.5rem;
+
+        }  
     } 
     &.alignfull{
         p{
@@ -1882,7 +1948,96 @@ pre.wp-block-verse{
     }
 
 }
+.wp-block-table {
 
+    table{
+        &.stretch{
+            width:calc(99.9% - var( --thm_content_gap ) * 2);
+        }
+
+        th {
+            padding:.7rem;
+            &.right,
+            &.left,
+            &.right,
+            &.left{
+                float:none;
+            }
+        }
+        td {
+            padding:.7rem;
+            p{
+                line-height:var( --thm_common_line_height, 1.15 );
+                text-align:left;
+                margin-top:.75rem;
+            }
+            p:first-child:last-child{
+                margin-top:0;
+            }
+            p:last-child{
+                margin-bottom:0;
+            }
+        }
+    }
+    /**
+     * Theme Table Classes
+     */
+    &.auto {
+        table{
+            table-layout:auto;
+        }
+    }
+    &.left{
+        table{
+            float:none;
+        }
+    } 
+    &.left{
+        table{
+            th,td{
+                text-align:left;
+            }
+        }
+    }
+    &.center{   
+        table{
+            th,td{
+                text-align:center;
+            }
+        }
+    }
+    &.right{
+        table{
+            th,td{
+                text-align:right;
+            }
+        }
+    }
+    /**
+     * vertical align
+     */
+    &.top{
+        table{
+            th,td{
+                vertical-align:top;
+            }
+        }   
+    }
+    &.middle{
+         table{
+            th,td{
+                vertical-align:middle;
+            }
+        }
+    }
+    &.bottom{
+        table{
+            th,td{
+                 vertical-align:bottom;
+            }
+        }
+    }
+}
 /**
  * Block media text
  * ========================================================================== */

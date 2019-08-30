@@ -747,6 +747,7 @@
         }
     }
     [data-type="core/cover"]{
+
         .wp-block-cover{
             max-width:100%;
             box-sizing:border-box;
@@ -769,11 +770,13 @@
             }
         }
         &[data-align="left"]{
+            overflow:hidden;
             .editor-block-list__block-edit{
                 // max-width:50%;
             }
         }
         &[data-align="right"]{
+            overflow:hidden;
             .editor-block-list__block-edit{
                 // max-width:50%;
             }
@@ -806,7 +809,7 @@
     img{
         vertical-align:middle;
     }
-    .wp-block-latest-posts__post-date,
+ /*   .wp-block-latest-posts__post-date,
     .horizontal-list-group li,
     .attachment-pdf .attachment img,
     .wp-list-comments > li,
@@ -833,13 +836,13 @@
         del:hover:before,
         figcaption,
         hr{
-        color:#23282d;
-        background:inherit;
-    }
-    table{
-        &.wp-block-table{
-            color:#23282d;
-            background:inherit;
+       // color:#23282d;
+       // background:inherit;
+    }*/
+
+    .wp-block-table{
+        table{
+
             &.has-background{
                 th{
                     color:#333;
@@ -956,25 +959,61 @@ html body.block-editor-page{
  */
 body{
     &.emulsion-color-enable{
-        blockquote {
-            border-left: 6px solid currentColor;
-            &.is-style-large{
-                // todo left border
-                border-left: 6px solid currentColor;
+        blockquote:not([class]){
+            // old tinymce quote
+            border-left:6px solid rgba(188,188,188,.5);
+            max-width:100%;
+        }
+        .wp-block-quote{
+            border:none;
+            max-width:100%;
+            border-left:2px solid rgba(188,188,188,.5);
+            &.has-text-align-left{
+                border:none;
+                border-left:2px solid rgba(188,188,188,.5);
+            }
+            &.has-text-align-center{
+                border:none;
+                border-top:2px solid rgba(188,188,188,.5);
+            }
+            &.has-text-align-right{
+                border:none;
+                border-right:2px solid rgba(188,188,188,.5);
             }
         }
         .wp-block-pullquote{
-            blockquote {
-                border-left:none;
+            border:none;
+            border-top:2px solid;
+            border-bottom:2px solid;
+            border-color:rgba(188,188,188,.5);
+            .is-style-solid-color{
+                &.has-success-background-color{
+                    color:#333;
+                }
+                &.has-notice-background-color{
+                    color:#333;
+                }
+                &.has-info-background-color{
+                    color:#333;
+                }
+                &.has-alert-background-color{
+                    color:#333;
+                }
+                &.has-cool-background-color{
+                    color:#333;
+                }
             }
+            & > blockquote{
+                border:none;
+            }    
         }
         .block-editor-block-list__block{
-            &:not([data-align=wide]){
+            &:not([data-align="wide"]){
                 .block-editor-block-mover{
                     top:16px;
                 }
             }
-            &:not([data-align=full]) {
+            &:not([data-align="full"]) {
                 .block-editor-block-mover{
                     top:16px;
                 }
@@ -1052,6 +1091,9 @@ body{
             p{
                 color:var(--thm_general_text_color);
             }
+            .has-text-color p{
+                color:currentColor;
+            }
             h1,h2,h3,h4,h5.h6{
                 color:var(--thm_general_text_color);
             }
@@ -1061,6 +1103,7 @@ body{
             .editor-inserter-with-shortcuts__block{
                 color:var(--thm_general_text_color);
             }
+
         }
 
         &.block-editor-page{
@@ -1153,7 +1196,7 @@ body{
             background:transparent;
             color:var(--thm_general_text_color);
         }
-        .wp-block-pullquote{
+        .wp-block-pullquote:not(.has-text-color){
             background:transparent;
             color:var(--thm_general_text_color);
         }
@@ -2310,20 +2353,24 @@ body{
             }
         }
         &[data-type="core/table"]{
+
             height:auto;
             // overflow:hidden;
             overflow:visible;
-            [data-align="right"]{
+            &[data-align="left"]{
                 height:auto;
                 overflow:hidden;
             }
-            [data-align="right"]{
+            &[data-align="right"]{
                 height:auto;
                 overflow:hidden;
             }
             .block-editor-block-list__block-edit{
                 .wp-block-table{
                     width:100%;
+                    table{
+                        width:100%;
+                    }
                 }
             }
         }
