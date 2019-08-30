@@ -142,6 +142,18 @@
 	<li>size1of5</li>
 	<li>size2of5</li>
 </ul>
+<ul class="additional-class">
+	<li class="label"><?php esc_html_e('Cell text align Class', 'emulsion' ) ?></li>
+	<li>left</li>
+	<li>center</li>
+	<li>right</li>
+</ul>
+<ul class="additional-class">
+	<li class="label"><?php esc_html_e('Cell Vertical align Class', 'emulsion' ) ?></li>
+	<li>top</li>
+	<li>middle</li>
+	<li>bottom</li>
+</ul>
 <h4 class="block-name"><?php esc_html_e( 'verse', 'emulsion' ) ?></h4>
 <ul class="additional-class">
 	<li class="label"><?php esc_html_e('Position Control Class', 'emulsion' ) ?></li>

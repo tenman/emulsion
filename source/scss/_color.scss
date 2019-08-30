@@ -58,7 +58,9 @@ body{
         border-top:2px solid;
         border-bottom:2px solid;
         border-color:rgba(188,188,188,.5);
+
         .is-style-solid-color{
+
             &.has-success-background-color{
                 color:#333;
             }
@@ -75,8 +77,12 @@ body{
                 color:#333;
             }
         }
-        & > blockquote{
+        
+        blockquote{
+            max-width:100%;
+            width:auto;
             border:none;
+
         }    
     }
 
@@ -2206,6 +2212,13 @@ body{
 /**
  * Main
  * ========================================================================== */
+.wp-block-table.is-style-stripes:not(.has-background) tbody tr:nth-child(odd) {
+    background-color: #f3f4f5;
+    color:#333;
+    td{
+        color:#333;
+    }
+}
 a{
     color:var(--thm_general_link_color);
     &:hover{
