@@ -117,14 +117,9 @@ function emulsion_wp_scss_set_variables() {
 
 	global $emulsion_custom_header_defaults;
 
-	//if ( ! current_user_can( 'edit_theme_options' ) ) {
-	//return array();
-	//ログアウトのときにエラーになるので一時停止
-	//}
-
 	$stream_condition	 = emulsion_get_css_variables_values( 'stream' );
 	$grid_condition		 = emulsion_get_css_variables_values( 'grid' );
-//
+
 	$variables			 = array(
 		'header_media_max_height'			 => emulsion_get_css_variables_values( 'header_media_max_height' ),
 		'post_display_date'					 => emulsion_get_css_variables_values( 'post_display_date' ),

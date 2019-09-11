@@ -14,6 +14,7 @@ jQuery(function ($) {
      * If the table width is smaller than the content area, the stretch class displays the content width.
      * 
      */
+
     jQuery("table").each(function (i) {
         jQuery(this).wrap('<div class="emulsion-table-wrapper"></div>');
 
@@ -56,7 +57,7 @@ jQuery(function ($) {
      */
     if (true == emulsion_script_vars.block_sectionize) {
 
-        $('.entry-content > [class|="wp-block"]').not('.alignleft, .alignright, .wp-block-image,.wp-block-image,.wp-block-cover, .wp-block-embed, .wp-block-group').wrap(function () {
+        $('.entry-content > [class|="wp-block"]').not('.alignleft, .alignright, .wp-block-image,.wp-block-cover, .wp-block-embed, .wp-block-group, .wp-block-table, .wp-block-spacer').wrap(function () {
             var classes = $(this).attr('class').match(/wp-block-\S+/);
 
             var brightness_class = '';
@@ -203,6 +204,43 @@ jQuery(function ($) {
             $(this).addClass('off-trancate');
             $(this).removeClass('on-trancate');
         }
+    });
+    $('.trancate-heading').each(function (index) {
+        
+        /**
+         * If the title is long, reduce the font size and display the title as much as possible
+         * @type {Number}
+         */
+
+        var rows = $(this).data('rows');
+        if (!rows) {
+            rows = 8;
+        }
+
+        var line_height = parseInt($(this).css('line-height'));
+        var box_height = parseInt(Math.ceil(rows * line_height));
+        $(this).wrapInner("<span class='multiline-text-overflow'></span>");
+        if (parseInt($('.multiline-text-overflow', this).height()) < box_height) {
+            $(this).addClass('off-trancate');
+            $(this).removeClass('on-trancate');
+        }
+        if (parseInt($('.multiline-text-overflow', this).height()) > box_height) {
+
+            $(this).css("fontSize", '1rem');
+            line_height = parseInt($(this).css('line-height'));
+            box_height = parseInt(Math.ceil(rows * line_height));
+
+            if (parseInt($('.multiline-text-overflow', this).height()) > box_height) {
+            $(this).css({'max-height': box_height});
+                $(this).addClass('on-trancate');
+                $(this).removeClass('off-trancate');
+            } else {
+                $(this).addClass('off-trancate');
+                $(this).removeClass('on-trancate');
+            }
+        }
+        
+        $(this).css({'visibility':'visible'});
     });
 
     $('.related-posts .on-trancate > span').each(function (index) {
@@ -510,7 +548,7 @@ jQuery(function ($) {
             $(this).css({'width': article_width, 'left': negative_margin, 'position': 'relative', 'visibility': 'visible'});
 
         });
-        
+
         $(".emulsion-has-sidebar.enable-alignfull .entry-content > .emulsion-full").not('.wp-block-cover').each(function (i) {
 
             var article_width = $(this).parents('article').width();
@@ -520,7 +558,7 @@ jQuery(function ($) {
             $(this).css({'width': article_width, 'left': negative_margin, 'visibility': 'visible'});
 
         });
-        
+
         $(".emulsion-no-sidebar.enable-alignfull .entry-content > .emulsion-full").each(function (i) {
 
             var article_width = $(this).parents('article').width();
@@ -533,18 +571,18 @@ jQuery(function ($) {
             $(this).css({'width': article_width, 'left': negative_margin, 'position': 'relative', 'visibility': 'visible'});
 
         });
-
-        $(".emulsion-no-sidebar.enable-alignfull .entry-content > .wp-block-cover.alignfull[style] .wp-block-cover__inner-container").each(function (i) {
-
-            var article_width = $(this).parents('article').width();
-            var parent_width = $(this).parents('.entry-content').width();
-            var negative_margin = parseInt(article_width) - parseInt(parent_width);
-            var main_width = $(this).parents('main').width();
-            negative_margin = parseInt(main_width) - parseInt(article_width) + parseInt(negative_margin);
-            negative_margin = negative_margin / -2;
-
-            $(this).css({'width': article_width, 'left': negative_margin, 'position': 'relative', 'display': 'block', 'visibility': 'visible'});
-        });
+        /*
+         $(".emulsion-no-sidebar.enable-alignfull .entry-content > .wp-block-cover.alignfull[style] .wp-block-cover__inner-container").each(function (i) {
+         
+         var article_width = $(this).parents('article').width();
+         var parent_width = $(this).parents('.entry-content').width();
+         var negative_margin = parseInt(article_width) - parseInt(parent_width);
+         var main_width = $(this).parents('main').width();
+         negative_margin = parseInt(main_width) - parseInt(article_width) + parseInt(negative_margin);
+         negative_margin = negative_margin / -2;
+         
+         $(this).css({'width': article_width, 'left': negative_margin, 'position': 'relative', 'display': 'block', 'visibility': 'visible'});
+         });*/
 
         $('.emulsion-has-sidebar.enable-alignfull .entry-content > .wp-block-cover.alignfull, .emulsion-has-sidebar.enable-alignfull [class|="sectionized"]').each(function (i) {
 
@@ -873,7 +911,7 @@ jQuery(function ($) {
      * Request should not be made even if field is blank
      */
     $('.wp-block-search .wp-block-search__input').each(function (i) {
-        
+
         $(this).attr({
             'required': 'required'
         });
@@ -886,7 +924,7 @@ jQuery(function ($) {
      * Request should not be made even if field is blank
      */
     $('.wp-block-tag-cloud.flat-button a').each(function (i) {
-        
+
         $(this).removeAttr('style');
     });
 });

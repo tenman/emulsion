@@ -437,8 +437,19 @@ CSS;
 					margin-right: 0;
 				  }
 				$class .stream .article-wrapper article .stream-wrapper .show-content:before {
-					top: -100px;
+				//	top: -100px;
+					top:-64px;
 				}
+				$class .stream .article-wrapper article.has-post-thumbnail .show-content:before {
+					top:-64px;
+                    right:-150px;				
+				}
+				$class .stream .article-wrapper article.has-post-thumbnail .show-content.is-active:before {	
+					top:-64px;
+                    right:0;				
+				}
+					
+			   
 CSS2;
 	}
 

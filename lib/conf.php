@@ -18,6 +18,7 @@
  */
 define( 'EMULSION_MIN_PHP_VERSION', '5.6' );
 
+
 $content_width			 = ! isset( $content_width ) ? 720 : $content_width;
 $emulsion_setting_type	 = 'theme_mod';
 $emulsion_customize_cap	 = 'edit_theme_options';

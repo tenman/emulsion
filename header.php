@@ -26,10 +26,10 @@ $emulsion_metabox_post_header_control	 = emulsion_metabox_display_control( 'head
 		?>
 		<?php emulsion_sidebar_manager(); ?>
 		<div class="page-wrapper layout">
-		<?php
-		if ( has_action( 'emulsion_prepend_page_wrapper' ) ) {
-			?><div class="placeholder-header"><?php do_action( 'emulsion_prepend_page_wrapper' ); ?></div><?php
-		}
-		?>
+			<?php
+			if ( has_action( 'emulsion_prepend_page_wrapper' ) ) {
+				?><div class="placeholder-header"><?php do_action( 'emulsion_prepend_page_wrapper' ); ?></div><?php
+			}
+			?>
 			<main id="main">
 				

@@ -3,7 +3,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 ?>
-<div class="comments <?php emulsion_template_identification_class( __FILE__ ); ?>" id="comments">
+<div class="comments <?php emulsion_template_identification_class( __FILE__ ); ?> <?php emulsion_comment_brightness_class(); ?>" id="comments">
 	<?php if ( post_password_required() ) { ?>
 		<p class="nopassword">
 			<?php esc_html_e( 'This post is password protected.', 'emulsion' ); ?>

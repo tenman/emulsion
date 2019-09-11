@@ -116,7 +116,23 @@ const EMULSION_POST_META_DATA_ALLOWED_ELEMENTS = array(
 				'alt'=> array(),
 			)
 		);
-
+const EMULSION_ANCHOR_ALLOWED_ELEMENTS = array(
+	/* posted on */
+			'a'		 => array(
+				'href'	 => array(),
+				'class'	 => array(),
+				'rel'	 => array(),
+				'data-title' => array(),
+				'title' => array(),
+				'download' => array(),
+				'hreflang' => array(),
+				'ping' => array(),
+				'target' => array(),
+				'id' => array(),
+				'style' => array(),
+				'data-no-instant' => array(),
+			),
+		);
 /**
  * Customizer sanitize callback
  *

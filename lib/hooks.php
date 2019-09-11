@@ -367,7 +367,11 @@ if ( ! function_exists( 'emulsion_body_class' ) ) {
 			$layout_type = emulsion_current_layout_type();
 			$classes[]	 = 'layout-' . sanitize_html_class( $layout_type );
 		}
-
+		/**
+		 * Content type
+		 */
+			$content_type = emulsion_content_type();
+			$classes[]	 =  sanitize_html_class( $content_type );
 		/**
 		 * Font family class
 		 */

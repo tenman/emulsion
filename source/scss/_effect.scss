@@ -9,7 +9,7 @@ a{
     width: 0;
     display:block;
     transition: width .5s;
-    border-bottom: 1px solid var(--thm_sub_background_color_darken);
+    border-bottom:1px solid var(--thm_general_text_color);
 }
 .entry-title a:hover:after {
     width: 100%;
@@ -43,16 +43,9 @@ a{
         align-self: flex-start;
     }
     &.on-scroll{
-        .menu-inactive{
-            & ~ .has-column{
-                .sidebar-widget-area{
-                }
-            }
-        }
+
         &.logged-in{
-            .sidebar-widget-area{
-                //top: 80px;
-            }
+
             .menu-inactive{
                 & ~ .has-column{
                     .sidebar-widget-area{
@@ -129,11 +122,6 @@ a{
  * Primary Menu
  */
 body{
-    .menu-is-dark{
-        .primary{
-
-        }       
-    }
     .menu-is-light{
         //wp_nav_menu() primary
         .primary{
@@ -182,7 +170,7 @@ body{
     }
     .wp-block-rss.is-grid li:hover{
         background:var(--thm_background_color);
-        filter: brightness(130%);       
+        filter: brightness(130%);
     }
     .wp-block-rss.is-grid{
         li{
@@ -207,14 +195,14 @@ body{
 
     }
     .emulsion-initial-color{
-        //todo 
+        //todo
     }
 }
 
 .single,
 .page{
     .header-image-active{
-        -webkit-transition:  background 1s ease; 
+        -webkit-transition:  background 1s ease;
         transition: background 1s ease;
     }
 }
@@ -560,7 +548,7 @@ body{
     .primary-menu-wrapper{
         .icon {
             display: inline;
-        }       
+        }
     }
 
     /**
@@ -586,7 +574,7 @@ body{
         background-size:16px 16px;
     }
 
-    &.custom-background.background-css-pattern-seigaiha{		
+    &.custom-background.background-css-pattern-seigaiha{
         background-color:var(--thm_background_color);
         background-image:
             radial-gradient(circle at 100% 150%, var(--thm_background_color) 24%, var(--thm_sub_background_color_lighten) 25%, var(--thm_sub_background_color_lighten) 28%, var(--thm_background_color) 29%, var(--thm_background_color) 36%, var(--thm_sub_background_color_lighten) 36%, var(--thm_sub_background_color_lighten) 40%, transparent 40%, transparent),
@@ -597,7 +585,7 @@ body{
         background-size: 50px 25px !important;
     }
 
-    &.is-light.custom-background.background-css-pattern-cicada{		
+    &.is-light.custom-background.background-css-pattern-cicada{
         background-color:var(--thm_background_color);
         background-image: -webkit-gradient(linear, left top, right top, color-stop(50%, rgba(255,255,255,.07)), color-stop(50%, transparent)),
             -webkit-gradient(linear, left top, right top, color-stop(50%, rgba(255,255,255,.13)), color-stop(50%, transparent)),
@@ -618,7 +606,7 @@ body{
         background-size: 13px, 29px, 37px, 53px;
     }
 
-    &.is-dark.custom-background.background-css-pattern-cicada{		
+    &.is-dark.custom-background.background-css-pattern-cicada{
         background-color:var(--thm_background_color);
         background-image: -webkit-gradient(linear, left top, right top, color-stop(50%, rgba(0,0,0,.07)), color-stop(50%, transparent)),
             -webkit-gradient(linear, left top, right top, color-stop(50%, rgba(0,0,0,.13)), color-stop(50%, transparent)),
@@ -639,7 +627,7 @@ body{
         background-size: 13px, 29px, 37px, 53px;
     }
 
-    &.custom-background.background-css-pattern-lattice{		
+    &.custom-background.background-css-pattern-lattice{
         background:
             linear-gradient(var(--thm_sub_background_color_lighten) 8px, transparent 8px) 0 -4px,
             linear-gradient(90deg, var(--thm_sub_background_color_lighten) 8px, transparent 8px) -4px 0;
@@ -690,7 +678,7 @@ body{
      */
     .sidebar-widget-area a[data-title]:hover:after{
         opacity:1;
-        @extend %boxshadow;     
+        @extend %boxshadow;
     }
     /**
      * Sticky Sidebar
@@ -711,12 +699,7 @@ body{
             align-self: flex-start;
         }
         &.on-scroll{
-            .menu-inactive{
-                & ~ .has-column{
-                    .sidebar-widget-area{
-                    }
-                }
-            }
+
             &.logged-in{
                 .sidebar-widget-area{
                     //top: 80px;
@@ -766,7 +749,7 @@ body{
                     &:hover{
                         background:#fff;
                         @extend %boxshadow;
-                    } 
+                    }
                 }
             }
         }
@@ -798,7 +781,7 @@ body{
                     li{
                         &:hover{
                             background:#fff;
-                        } 
+                        }
                     }
                 }
             }
@@ -811,7 +794,7 @@ body{
                 .wp-block-column:hover{
                     // background:#fff;
                 }
-            }       
+            }
         }
     }
     .emulsion-add-dark-color{
@@ -825,7 +808,7 @@ body{
                 li{
                     &:hover{
                         background:rgba(222,222,222,.1);
-                    } 
+                    }
                 }
             }
         }
@@ -850,7 +833,7 @@ body{
                     .children li:hover{
                     background:var(--thm_background_color);
                 }
-            }       
+            }
         }
     }
     .is-dark{
@@ -881,7 +864,7 @@ body{
         }
         .wp-block-rss.is-grid li:hover{
             background:var(--thm_background_color);
-            filter: brightness(130%);       
+            filter: brightness(130%);
         }
         .wp-block-rss.is-grid{
             li:target,
@@ -912,7 +895,7 @@ body{
             }
         }
         .emulsion-initial-color{
-            //todo 
+            //todo
         }
     }
     .emulsion-add-light-color{
@@ -928,7 +911,7 @@ body{
                     &:target,
                         &:hover{
                         background:#fff;
-                    } 
+                    }
                 }
             }
         }
@@ -1006,7 +989,7 @@ body{
                         background:transparent;
                         filter: none;
                         box-shadow:none;
-                        transition:none;                       
+                        transition:none;
                     }
                     .wp-block-latest-comments{
 

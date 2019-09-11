@@ -10,8 +10,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 do_action('emulsion_template_pre');
 do_action('emulsion_template_pre_'.basename(__FILE__, '.php' ) );
 
-//$emulsion_title_in_page_header = emulsion_get_supports( 'title_in_page_header' );
-
 global $template;
 
 get_header();
