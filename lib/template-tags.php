@@ -89,20 +89,37 @@ if ( ! function_exists( 'emulsion_get_post_title' ) ) {
 	function emulsion_get_post_title( $with_thumbnail = true,	$size = 'large' ) {
 
 		global $post;
-		$html	 = '';
-		$post_id = absint( get_the_ID() );
+		$html				 = '';
+		$post_id			 = absint( get_the_ID() );
+		$entry_title_status	 = get_theme_mod( 'emulsion_title_in_header', emulsion_get_var( 'emulsion_title_in_header' ) );
+
+		if ( 'yes' == $entry_title_status ) {
+			
+			/**
+			 * When the title is displayed in the site header, 
+			 * the display area is limited. For exceptionally long titles, 
+			 * limit the font size and the number of lines to display the full title as much as possible.
+			 */
+
+			$insert_start_tag	 = '<span class="trancate-heading" data-rows="8">';
+			$insert_end_tag		 = '</span>';
+		} else {
+
+			$insert_start_tag	 = '';
+			$insert_end_tag		 = '';
+		}
 
 		if ( is_singular() ) {
 
-			return the_title( '<h2 class="entry-title">', '</h2>', false );
+			return the_title( '<h2 class="entry-title">'.$insert_start_tag, $insert_end_tag.'</h2>', false );
 		} else {
 
 			if ( has_post_thumbnail() && true == $with_thumbnail && ! post_password_required( $post_id ) ) {
 
-				$html		 = '<h2 class="entry-title" ><a href="%1$s">%2$s</a></h2>';
+				$html = '<h2 class="entry-title"><a href="%1$s">'. $insert_start_tag.'%2$s'. $insert_end_tag.'</a></h2>';
 			} else {
 
-				$html = '<h2 class="entry-title"><a href="%1$s">%2$s</a></h2>';
+				$html = '<h2 class="entry-title"><a href="%1$s">'. $insert_start_tag.'%2$s'. $insert_end_tag.'</a></h2>';
 			}
 
 			return sprintf( $html, esc_url( get_permalink() ), the_title( '', '', false ) );
@@ -121,12 +138,13 @@ if ( ! function_exists( 'emulsion_the_post_title' ) ) {
 
 }
 
-/**
- *
- * @global type $post
- */
 if ( ! function_exists( 'emulsion_entry_text_markup' ) ) {
-
+	/**
+	 * Print title block in header
+	 * 
+	 * Entry title, Archive title, Search results
+	 * @global type $post
+	 */
 	function emulsion_entry_text_markup() {
 		global $post;
 
@@ -152,7 +170,14 @@ if ( ! function_exists( 'emulsion_entry_text_markup' ) ) {
 	}
 }
 if ( ! function_exists( 'emulsion_meta_description' ) ) {
-
+	/**
+	 * fallback head meta element description
+	 * 
+	 * This summary statement is added after javascript is loaded, 
+	 * so if the SEO plug-in has already added a meta description, it will not add it.
+	 * 
+	 * @return type
+	 */
 	function emulsion_meta_description() {
 		
 		if( false == emulsion_add_supports( 'meta_description' ) ) {
@@ -187,8 +212,16 @@ if ( ! function_exists( 'emulsion_meta_description' ) ) {
 
 }
 
-if ( ! function_exists( 'emulsion_post_content' ) ) {
 
+
+
+
+if ( ! function_exists( 'emulsion_post_content' ) ) {
+	/**
+	 * The summary sentence displays the text that removes the table element, 
+	 * the figure element excluded from the HTML5 outline, etc., 
+	 * which significantly impairs readability when the text is extracted.
+	 */
 	function emulsion_post_content() {
 
 		$use_excerpt = emulsion_get_supports( 'excerpt' );
@@ -210,8 +243,6 @@ if ( ! function_exists( 'emulsion_post_content' ) ) {
 		$has_more	 = stristr( $post_text, '<!--more-->' );
 
 		if ( ! empty( $post_text ) ) {
-
-			//$post_text = do_shortcode( $post_text );
 
 			/**
 			 * Delete deactivated short code
@@ -425,9 +456,13 @@ if ( ! function_exists( 'emulsion_post_excerpt_more' ) ) {
 
 }
 if ( ! function_exists( 'emulsion_has_archive_format' ) ) {
-
+	/**
+	 * Determine whether the archive page is full text or summary
+	 * 
+	 * @param type $supports_stream
+	 * @return string
+	 */
 	function emulsion_has_archive_format( $supports_stream = array() ) {
-
 		$post_id = absint( get_the_ID() );
 
 		$post_body_type = emulsion_get_supports( 'excerpt' );
@@ -479,7 +514,7 @@ if ( ! function_exists( 'emulsion_has_archive_format' ) ) {
 if ( ! function_exists( 'emulsion_get_post_meta_in' ) ) {
 
 	/**
-	 *
+	 * get posted in block
 	 * @return stringCategory and Tags in Article
 	 */
 	function emulsion_get_post_meta_in() {
@@ -529,7 +564,10 @@ if ( ! function_exists( 'emulsion_get_post_meta_in' ) ) {
 
 }
 if ( ! function_exists( 'emulsion_the_post_meta_in' ) ) {
-
+	/**
+	 * Santize Posted in block and filter
+	 * @return type
+	 */
 	function emulsion_the_post_meta_in() {
 
 		if ( post_password_required() ) {
@@ -549,7 +587,7 @@ if ( ! function_exists( 'emulsion_the_post_meta_in' ) ) {
 if ( ! function_exists( 'emulsion_get_post_meta_on' ) ) {
 
 	/**
-	 *
+	 * get posted in block
 	 * @return typePost Date and Author in Article
 	 */
 	function emulsion_get_post_meta_on() {
@@ -616,11 +654,11 @@ if ( ! function_exists( 'emulsion_get_post_meta_on' ) ) {
 		$comment_link	   = '';
 
 		if ( 0 < $emulsion_post_id && comments_open( $emulsion_post_id ) ) {
-
-			$comment_link = emulsion_comment_link();
+			;
+			$comment_link = wp_kses( emulsion_comment_link() , EMULSION_POST_META_DATA_ALLOWED_ELEMENTS );
 		}
-
-		$entry_month_html = emulsion_get_month_link();
+			
+			$entry_month_html =  wp_kses( emulsion_get_month_link(), EMULSION_POST_META_DATA_ALLOWED_ELEMENTS );
 
 		$result = sprintf( $html, $text_1, $entry_month_html, $text_2, $author, $comment_link, $class );
 
@@ -628,8 +666,33 @@ if ( ! function_exists( 'emulsion_get_post_meta_on' ) ) {
 	}
 
 }
-if ( ! function_exists( 'emulsion_comment_link' ) ) {
+if ( ! function_exists( 'emulsion_the_post_meta_on' ) ) {
+	/**
+	 * Santize Posted on block and filter
+	 * @return type
+	 */
+	function emulsion_the_post_meta_on() {
 
+		if ( post_password_required() ) {
+
+			return;
+		}
+
+		$posted_on = apply_filters( 'emulsion_the_post_meta_on', emulsion_get_post_meta_on() );
+
+		// check lost element
+		$emulsion_place = basename(__FILE__). ' line:'. __LINE__. ' '.  __FUNCTION__ .'()';
+		true === WP_DEBUG ? emulsion_elements_assert_equal(  $posted_on, wp_kses( $posted_on, EMULSION_POST_META_DATA_ALLOWED_ELEMENTS ), $emulsion_place ) : '';
+
+		echo wp_kses( $posted_on, EMULSION_POST_META_DATA_ALLOWED_ELEMENTS );
+	}
+
+}
+if ( ! function_exists( 'emulsion_comment_link' ) ) {
+	/**
+	 * Get comment link elements
+	 * @return type
+	 */	
 	function emulsion_comment_link() {
 
 		$html	 = '<a href="%1$s" class="comment-link">%2$s</a>';
@@ -643,6 +706,12 @@ if ( ! function_exists( 'emulsion_comment_link' ) ) {
 
 }
 if ( ! function_exists( 'emulsion_get_month_link' ) ) {
+	/**
+	 * Posted on date link
+	 * datelink text date format value. link href url to month archive
+	 * Todo: Paged link not support yet, a fragment identifier not work when paged..
+	 * @return type
+	 */
 
 	function emulsion_get_month_link() {
 
@@ -676,7 +745,15 @@ if ( ! function_exists( 'emulsion_get_month_link' ) ) {
 	}
 }
 if ( ! function_exists( 'emulsion_get_day_link' ) ) {
-
+	/**
+	 * Link post date link to date archive.
+	 * 
+	 * This function is not currently used in the theme, 
+	 * but is prepared for use as a fallback link if the title is blank.
+	 * Posted on date link
+	 * datelink text date format value. link href url to date archive
+	 * @return type
+	 */
 	function emulsion_get_day_link() {
 
 		$type = get_theme_mod( 'emulsion_post_display_date_format', emulsion_get_var( 'emulsion_post_display_date_format' ) );
@@ -708,29 +785,13 @@ if ( ! function_exists( 'emulsion_get_day_link' ) ) {
 		return apply_filters( 'emulsion_get_day_link', $entry_date_html, $type );
 	}
 }
-if ( ! function_exists( 'emulsion_the_post_meta_on' ) ) {
 
-	function emulsion_the_post_meta_on() {
-
-		if ( post_password_required() ) {
-
-			return;
-		}
-
-		$posted_on = apply_filters( 'emulsion_the_post_meta_on', emulsion_get_post_meta_on() );
-
-		// check lost element
-		$emulsion_place = basename(__FILE__). ' line:'. __LINE__. ' '.  __FUNCTION__ .'()';
-		true === WP_DEBUG ? emulsion_elements_assert_equal(  $posted_on, wp_kses( $posted_on, EMULSION_POST_META_DATA_ALLOWED_ELEMENTS ), $emulsion_place ) : '';
-
-		echo wp_kses( $posted_on, EMULSION_POST_META_DATA_ALLOWED_ELEMENTS );
-	}
-
-}
 if ( ! function_exists( 'emulsion_archive_title' ) ) {
 
 	/**
-	 * Archive Title
+	 * print archive title block
+	 * @global type $wp_query
+	 * @return type
 	 */
 	function emulsion_archive_title() {
 		global $wp_query;
@@ -785,40 +846,45 @@ if ( ! function_exists( 'emulsion_archive_title' ) ) {
 		}
 	}
 }
+if ( ! function_exists( 'emulsion_customizer_have_posts_class_helper' ) ) {
 
-function emulsion_customizer_have_posts_class_helper() {
+	function emulsion_customizer_have_posts_class_helper() {
 
-	//Note is_front_page()) is false on customize preview
+		//Note is_front_page()) is false on customize preview
 
-	if ( emulsion_is_posts_page() ) {
-		return get_theme_mod( 'emulsion_layout_posts_page', emulsion_get_var('emulsion_layout_posts_page') );
-	}	elseif ( is_home()  ) {
+		if ( emulsion_is_posts_page() ) {
+			
+			return get_theme_mod( 'emulsion_layout_posts_page', emulsion_get_var( 'emulsion_layout_posts_page' ) );
+		} elseif ( is_home() ) {
 
-		return get_theme_mod( 'emulsion_layout_homepage', emulsion_get_var('emulsion_layout_homepage') );
-	}
-
-	if ( is_date() ) {
-		return get_theme_mod( 'emulsion_layout_date_archives', emulsion_get_var('emulsion_layout_date_archives') );
-	}
-	if ( is_category() ) {
-		return get_theme_mod( 'emulsion_layout_category_archives', emulsion_get_var('emulsion_layout_category_archives') );
-	}
-	if ( is_tag() ) {
-		return get_theme_mod( 'emulsion_layout_tag_archives' , emulsion_get_var('emulsion_layout_tag_archives') );
-	}
-
-	if ( is_author() ) {
-		return get_theme_mod( 'emulsion_layout_author_archives', emulsion_get_var('emulsion_layout_author_archives') );
+			return get_theme_mod( 'emulsion_layout_homepage', emulsion_get_var( 'emulsion_layout_homepage' ) );
+		}
+		if ( is_date() ) {
+			
+			return get_theme_mod( 'emulsion_layout_date_archives', emulsion_get_var( 'emulsion_layout_date_archives' ) );
+		}
+		if ( is_category() ) {
+			
+			return get_theme_mod( 'emulsion_layout_category_archives', emulsion_get_var( 'emulsion_layout_category_archives' ) );
+		}
+		if ( is_tag() ) {
+			
+			return get_theme_mod( 'emulsion_layout_tag_archives', emulsion_get_var( 'emulsion_layout_tag_archives' ) );
+		}
+		if ( is_author() ) {
+			
+			return get_theme_mod( 'emulsion_layout_author_archives', emulsion_get_var( 'emulsion_layout_author_archives' ) );
+		}
 	}
 
 }
 if ( ! function_exists( 'emulsion_is_posts_page' ) ) {
 	/**
-	 *
+	 * Conditional function. Determine if it is posts_page
+	 * 
 	 * @return boolean
 	 */
 	function emulsion_is_posts_page() {
-
 
 		if ( ! is_front_page() && is_home() ) {
 
@@ -830,6 +896,7 @@ if ( ! function_exists( 'emulsion_is_posts_page' ) ) {
 if ( ! function_exists( 'emulsion_home_type' ) ) {
 	/**
 	 * Check if homepage is static page or default
+	 * 
 	 * @return boolean|string
 	 */
 	function emulsion_home_type() {
@@ -851,6 +918,11 @@ if ( ! function_exists( 'emulsion_home_type' ) ) {
 }
 
 if ( ! function_exists( 'emulsion_have_posts' ) ) {
+	
+	/**
+	 * Rendering posts
+	 * 
+	 */
 
 	function emulsion_have_posts() {
 
@@ -929,10 +1001,11 @@ if ( ! function_exists( 'emulsion_have_posts' ) ) {
 
 }
 if ( ! function_exists( 'emulsion_have_comments' ) ) {
-
+	/**
+	 * Rendering comments
+	 */
 	function emulsion_have_comments() {
 
-		//if ( is_singular() && ( comments_open() || get_comments_number() ) ) {
 		if( is_singular() ) {
 			$emulsion_post_id = absint( get_the_ID() );
 			if ( comments_open( $emulsion_post_id ) ) {
@@ -943,7 +1016,9 @@ if ( ! function_exists( 'emulsion_have_comments' ) ) {
 	}
 }
 if ( ! function_exists( 'emulsion_pagination' ) ) {
-
+	/**
+	 * Print pagination
+	 */
 	function emulsion_pagination() {
 		$post_id = get_the_ID();
 		// test
@@ -964,6 +1039,13 @@ if ( ! function_exists( 'emulsion_pagination' ) ) {
 }
 
 if ( ! function_exists( 'emulsion_get_template_part_file_detector' ) ) {
+	/**
+	 * Get the required template file
+	 * 
+	 * @param type $name
+	 * @param type $template_slug
+	 * @return string
+	 */
 
 	function emulsion_get_template_part_file_detector( $name = null,	$template_slug = 'template-parts/content.php' ) {
 
@@ -1052,6 +1134,10 @@ if ( ! function_exists( 'emulsion_get_template_part_file_detector' ) ) {
 	}
 }
 if ( ! function_exists( 'emulsion_article_header' ) ) {
+	
+	/**
+	 * Print Article header block
+	 */
 
 	function emulsion_article_header() {
 
@@ -1090,7 +1176,9 @@ if ( ! function_exists( 'emulsion_article_header' ) ) {
 
 }
 if ( ! function_exists( 'emulsion_attachment_pagination' ) ) {
-
+	/**
+	 * Print attachment image pagination
+	 */
 	function emulsion_attachment_pagination() {
 		?>
 		<nav class="navigation attachment-navigation">
@@ -1105,6 +1193,16 @@ if ( ! function_exists( 'emulsion_attachment_pagination' ) ) {
 
 }
 if ( ! function_exists( 'emulsion_attachment_image' ) ) {
+	
+	/**
+	 * Print Attachment Image
+	 * 
+	 * @param type $post_id
+	 * @param type $size
+	 * @param type $excerpt
+	 * @param string $aria_describedby
+	 * @return type
+	 */
 
 	function emulsion_attachment_image( $post_id = '', $size = 'full', $excerpt = '', $aria_describedby = 'image-description') {
 
@@ -1136,7 +1234,11 @@ if ( ! function_exists( 'emulsion_attachment_image' ) ) {
 	}
 }
 if ( ! function_exists( 'emulsion_is_active_nav_menu' ) ) {
-
+	/**
+	 * Conditional function menu is active
+	 * @param type $location
+	 * @return boolean
+	 */
 	function emulsion_is_active_nav_menu( $location ) {
 
 		if( ! has_nav_menu( $location ) ) {
@@ -1155,6 +1257,11 @@ if ( ! function_exists( 'emulsion_is_active_nav_menu' ) ) {
 	}
 }
 if ( ! function_exists( 'emulsion_the_header_layer_class' ) ) {
+	
+	/**
+	 * The CSS class is added by judging whether the image or video is set in the header.
+	 * @param type $class
+	 */
 
 	function emulsion_the_header_layer_class( $class = '' ) {
 
@@ -1237,7 +1344,8 @@ if ( ! function_exists( 'emulsion_the_header_layer_class' ) ) {
 if ( ! function_exists( 'emulsion_sidebar_manager' ) ) {
 
 	/**
-	 * Echo the classified div element to inform the position of the sidebar
+	 * Print the classified div element to inform the position of the sidebar
+	 * 
 	 * @param type $position
 	 * @param string $suffix
 	 */
@@ -1274,7 +1382,8 @@ if ( ! function_exists( 'emulsion_sidebar_manager' ) ) {
 if ( ! function_exists( 'emulsion_footer_text' ) ) {
 
 	/**
-	 * echo Footer text
+	 * Print footer text
+	 * 
 	 * @global type $raindrops_current_theme_name
 	 * @global type $raindrops_current_data_theme_uri
 	 * @global type $template

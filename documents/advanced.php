@@ -59,14 +59,7 @@
 	<li>size1of5</li>
 	<li>size2of5</li>
 </ul>
-<ul class="additional-class">
-	<li class="label"><?php esc_html_e('Custom Format Class', 'emulsion' ) ?></li>
-	<li>tab
-		<ul><li>Nested List level:0 tab title, level:1 tab contents</li></ul></li>
-	<li>emulsion-inline
-		<ul><li>Show Inline List</li></ul></li>
-	</li>
-</ul>
+
 <h4 class="block-name"><?php esc_html_e( 'quote', 'emulsion' ) ?></h4>
 <ul class="additional-class">
 	<li class="label"><?php esc_html_e('Position Control Class', 'emulsion' ) ?></li>
@@ -293,7 +286,7 @@
 </ul>
 <ul class="additional-class">
 	<li class="label"><?php esc_html_e('font size and weight class in custom html', 'emulsion' ) ?></li>
-	<li><p>f-10 f-11 f-12 ...　f-48</p>
+	<li><p>f-10 f-11 f-12 ... f-48</p>
 		<p><?php esc_html_e('font size class from 10px to 48px', 'emulsion' ) ?></p></li>
 	<li><p>fw-100 fw-200 fw-300 ... fw-900</p>
 	<p><?php esc_html_e('font weight class', 'emulsion' ) ?></p></li>

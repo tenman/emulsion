@@ -505,7 +505,13 @@ if ( ! function_exists( 'emulsion_get_hex2hsl_array' ) ) {
 		}
 	}
 }
-
+function emulsion_comment_brightness_class(){
+	$comment_bg_color = get_theme_mod('emulsion_comments_bg', emulsion_get_var( 'emulsion_comments_bg' ) );
+	
+	$class = '#ffffff' == emulsion_contrast_color( $comment_bg_color ) ? 'comment-is-dark': 'comment-is-light';
+	
+	echo esc_attr( $class );
+}
 
 
 if ( ! function_exists( 'emulsion_brightness_dark_class' ) ) {
@@ -544,6 +550,9 @@ if ( ! function_exists( 'emulsion_brightness_light_class' ) ) {
 		return $classes;
 	}
 }
+
+
+
 
 if ( ! function_exists( 'emulsion_the_background_color' ) ) {
 
