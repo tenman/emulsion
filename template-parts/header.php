@@ -2,6 +2,11 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
+/**
+ * Simple header template
+ */
+
 $current_post_type	 = trim( get_post_type() );
 emulsion_remove_supports( 'title_in_page_header' );
 

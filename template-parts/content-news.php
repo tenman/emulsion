@@ -3,7 +3,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 $emulsion_title_in_page_header = emulsion_get_supports( 'title_in_page_header' );
+
+/**
+ * This template is a sample template for custom post types.
+ * This template is used when there is a custom post type 'news'.
+ */
 ?>
+
 <div class="article-wrapper <?php emulsion_template_identification_class( __FILE__ ) ?>">
 	<?php
 	if ( 'list' == emulsion_current_layout_type() && has_action( 'emulsion_article_before' ) ) {
@@ -12,11 +18,9 @@ $emulsion_title_in_page_header = emulsion_get_supports( 'title_in_page_header' )
 	?> 	
 	<article id="post-<?php the_ID() ?>" <?php post_class(); ?>>
 		<?php emulsion_article_header(); ?>
-		<div class="entry-content">
-			<?php emulsion_post_content(); ?>
-			<?php wp_link_pages( 'before=<div class="wp-link-pages page-break-links clearfix">&after=</div>&next_or_number=number&pagelink=<span>%</span>' ); ?>
-		</div>
-		<?php //example<span><a href="" class="skin-button">test</a></span> ?>
+		<div class="entry-content"><?php 
+			emulsion_post_content();
+			wp_link_pages( 'before=<div class="wp-link-pages page-break-links clearfix">&after=</div>&next_or_number=number&pagelink=<span>%</span>' ); ?></div>
 		<footer><?php emulsion_post_excerpt_more(); ?>
 			<?php 
 			if ( has_nav_menu( 'social' ) && is_singular() && emulsion_get_supports( 'social-link-menu' ) ) {

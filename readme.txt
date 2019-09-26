@@ -2,7 +2,7 @@
  
 Contributors: nobita
 Requires at least: WordPress 5.0
-Tested up to: WordPress 5.2.2
+Tested up to: WordPress 5.2.3
 Requires PHP: 5.6
 License: GPL-2.0-or-later
 License URI: http://spdx.org/licenses/GPL-2.0-or-later.json

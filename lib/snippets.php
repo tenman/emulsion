@@ -82,7 +82,7 @@ if ( ! function_exists( 'emulsion_article_after' ) ) {
 			$html	 .= '</div>';
 		}
 
-		$css = 'div.breadcrumbs{font-size:var(--thm_meta_data_font_size);margin-top:0;margin-bottom:0; }';
+		$css = 'div.breadcrumbs{font-size:var(--thm_meta_data_font_size);color:var(--thm_general_text_color);margin-top:0;margin-bottom:0; }';
 		$js	 = '';
 
 		emulsion_do_snippet( $hook, $type, $css, $js, $html );

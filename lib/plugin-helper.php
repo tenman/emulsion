@@ -109,7 +109,7 @@ function emulsion_get_images_width_for_scss() {
 }
 
 /**
- * Creating SCSS variables
+ * Creating SCSS variables for wp-scss plugin
  * @global type $emulsion_custom_header_defaults
  * @return string
  */
@@ -299,8 +299,8 @@ function emulsion_plugins_style_change_inline( $css ) {
 	global $wp_style;
 
 	$add_css = '';
-
-	if ( 'active' !== get_theme_mod( 'emulsion_wp_scss_status' ) ) {
+//'active' !== get_theme_mod( 'emulsion_wp_scss_status' ) &&
+	if (  is_user_logged_in() || is_admin() ) {
 
 		return $css;
 	}
@@ -317,7 +317,7 @@ function emulsion_plugins_style_change_inline( $css ) {
 		return;
 	}
 
-	if ( ! is_admin() ) {
+	if ( ! is_admin() || ! is_user_logged_in() ) {
 
 		$get_css = file( get_theme_file_path( 'css/common.css' ) );
 		$add_css .= implode( '', $get_css );

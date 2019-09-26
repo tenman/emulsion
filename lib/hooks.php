@@ -1,6 +1,7 @@
 <?php
 add_action( 'after_switch_theme', 'emulsion_test_for_min_php' );
 add_action( 'after_setup_theme', 'emulsion_hooks_setup' );
+add_action( 'widgets_init', 'emulsion_unregister_default_widgets', 11);
 
 function emulsion_hooks_setup() {
 
@@ -43,7 +44,7 @@ function emulsion_hooks_setup() {
 	add_filter( 'emulsion_toc_script', 'emulsion_toc' );
 	add_filter( 'the_excerpt_embed', 'emulsion_the_excerpt_embed', 99 );
 	add_filter( 'oembed_default_width', 'emulsion_oembed_default_width', 99 );
-	add_filter( 'excerpt_length', 'emulsion_excerpt_length' );
+	add_filter( 'excerpt_length', 'emulsion_excerpt_length', 99 );
 	add_filter( 'tiny_mce_before_init', 'emulsion_remove_verify_html', 10, 2 );
 	add_filter( 'tiny_mce_before_init', 'emulsion_tiny_mce_before_init' );
 	add_filter( 'admin_body_class', 'emulsion_admin_body_class' );
@@ -253,158 +254,7 @@ function emulsion_archive_title_filter( $title ) {
 	return $title;
 }
 
-if ( ! function_exists( 'emulsion_body_class' ) ) {
 
-	function emulsion_body_class( $classes ) {
-		global $_wp_theme_features;
-
-
-		$metabox_flag = false;
-
-		if ( is_page() && false == emulsion_metabox_display_control( 'page_style' ) ) {
-
-			$classes[]		 = 'metabox-removed-emulsion-presentation';
-			$metabox_flag	 = true;
-			return $classes;
-		}
-		if ( is_single() && false == emulsion_metabox_display_control( 'style' ) ) {
-
-			$classes[]		 = 'metabox-removed-emulsion-presentation';
-			$metabox_flag	 = true;
-			return $classes;
-		}
-		if ( ! emulsion_get_supports( 'enqueue' ) ) {
-
-			$classes[]		 = 'removed-emulsion-presentation';
-			$metabox_flag	 = true;
-			return $classes;
-		}
-
-		$classes[] = 'noscript';
-
-		if ( is_singular() ) {
-			$post_id = get_the_ID();
-			if ( 'no_bg' == get_post_meta( $post_id, 'emulsion_page_theme_style_script', true ) ) {
-				$classes[] = 'metabox-reset-page-presentation';
-			}
-
-			if ( 'no_bg' == get_post_meta( $post_id, 'emulsion_post_theme_style_script', true ) ) {
-				$classes[] = 'metabox-reset-post-presentation';
-			}
-
-			if ( 'no_menu' == get_post_meta( $post_id, 'emulsion_post_primary_menu', true ) ) {
-
-				$classes[] = 'metabox-removed-post-menu';
-			}
-			if ( 'no_menu' == get_post_meta( $post_id, 'emulsion_page_primary_menu', true ) ) {
-
-				$classes[] = 'metabox-removed-page-menu';
-			}
-		}
-		if ( is_page() ) {
-			unset( $classes['emulsion-no-sidebar'] );
-			unset( $classes['emulsion-has-sidebar'] );
-
-			$sidebar_condition		 = get_theme_mod( 'emulsion_condition_display_page_sidebar', emulsion_get_var( 'emulsion_condition_display_page_sidebar' ) );
-			$logged_in				 = 'logged_in_user' == $sidebar_condition && ! is_user_logged_in() ? false : true;
-			$metabox_page_control	 = emulsion_metabox_display_control( 'page_sidebar' );
-
-			if ( is_active_sidebar( 'sidebar-3' ) && emulsion_get_supports( 'sidebar_page' ) && $logged_in && $metabox_page_control ) {
-
-				$classes[] = 'emulsion-has-sidebar';
-			} else {
-
-				$classes[] = 'emulsion-no-sidebar';
-			}
-		} else {
-
-			unset( $classes['emulsion-no-sidebar'] );
-			unset( $classes['emulsion-has-sidebar'] );
-
-			$sidebar_condition		 = get_theme_mod( 'emulsion_condition_display_posts_sidebar', emulsion_get_var( 'emulsion_condition_display_posts_sidebar' ) );
-			$logged_in				 = 'logged_in_user' == $sidebar_condition && ! is_user_logged_in() ? false : true;
-			$metabox_post_control	 = emulsion_metabox_display_control( 'sidebar' );
-
-			if ( is_active_sidebar( 'sidebar-1' ) && emulsion_get_supports( 'sidebar' ) && $logged_in && $metabox_post_control ) {
-
-				$classes[] = 'emulsion-has-sidebar';
-			} else {
-
-				$classes[] = 'emulsion-no-sidebar';
-			}
-		}
-
-		/**
-		 * full width image
-		 */
-		if ( true == emulsion_get_supports( 'alignfull' ) ) {
-
-			$classes[] = 'enable-alignfull';
-		} else {
-
-			$classes[] = 'disable-alignfull';
-		}
-
-		/**
-		 * Custom background image
-		 */
-		$page_bg_image_url = get_background_image();
-
-		if ( ! empty( $page_bg_image_url ) ) {
-
-			$classes[] = 'emulsion-has-custom-background-image';
-		}
-
-		/**
-		 * Current Page layout type
-		 */
-		if ( is_customize_preview() ) {
-
-			$layout_type = emulsion_customizer_have_posts_class_helper();
-			$classes[]	 = 'layout-' . sanitize_html_class( $layout_type );
-		} else {
-
-			$layout_type = emulsion_current_layout_type();
-			$classes[]	 = 'layout-' . sanitize_html_class( $layout_type );
-		}
-		/**
-		 * Content type
-		 */
-			$content_type = emulsion_content_type();
-			$classes[]	 =  sanitize_html_class( $content_type );
-		/**
-		 * Font family class
-		 */
-		$heading_font_family = get_theme_mod( 'emulsion_heading_font_family', emulsion_get_var( 'emulsion_heading_font_family' ) );
-		$classes[]			 = sanitize_html_class( 'font-heading-' . $heading_font_family );
-
-		$common_font_family	 = emulsion_get_css_variables_values( 'common_font_family' );
-		$classes[]			 = sanitize_html_class( 'font-common-' . $common_font_family );
-
-		/**
-		 * Category Colors
-		 */
-		if ( 'enable' == get_theme_mod( 'emulsion_category_colors', emulsion_get_var( 'emulsion_category_colors' ) ) ) {
-
-			$classes[] = 'has-category-colors';
-		} else {
-
-			$classes[] = 'disable-category-colors';
-		}
-		if ( emulsion_get_supports( 'background_css_pattern' ) ) {
-
-			$background_css_pattern_class = get_theme_mod( 'emulsion_background_css_pattern', emulsion_get_var( 'emulsion_background_css_pattern' ) );
-
-			if ( 'none' !== $background_css_pattern_class ) {
-				$class_name	 = 'background-css-pattern-' . $background_css_pattern_class;
-				$classes[]	 = $class_name;
-			}
-		}
-
-		return $classes;
-	}
-
-}
 if ( ! function_exists( 'emulsion_entry_content_html_cleaner' ) ) {
 
 	/**
@@ -763,7 +613,7 @@ if ( ! function_exists( 'emulsion_excerpt_length' ) ) {
 
 		$length = get_theme_mod( 'emulsion_excerpt_length', 256 );
 
-		return $length;
+		return absint( $length );
 	}
 
 }
@@ -924,8 +774,6 @@ if ( ! function_exists( 'emulsion_get_the_excerpt_filter' ) ) {
 			if ( empty( $excerpt ) ) {
 				$excerpt = $post->post_content;
 				$excerpt = apply_filters( 'the_content', $excerpt );
-
-				//$excerpt = emulsion_get_first_paragraph( $excerpt );
 			}
 
 			$excerpt = strip_shortcodes( $excerpt );
@@ -948,10 +796,13 @@ if ( ! function_exists( 'emulsion_styles' ) ) {
 		$style	 .= emulsion_heading_font_css( '' );
 		$style	 .= emulsion_widget_meta_font_css( '' );
 
-		if ( 'active' !== get_theme_mod( 'emulsion_wp_scss_status' ) || is_customize_preview() ) {
+		//if ( 'active' !== get_theme_mod( 'emulsion_wp_scss_status' ) || is_customize_preview() ) {
+		
+		if ( is_user_logged_in() || is_admin() || is_customize_preview() ) {
 
 			$style .= emulsion_dinamic_css( '' );
 		}
+		$style = emulsion_sanitize_css( $style );
 		return $style;
 	}
 
@@ -976,6 +827,9 @@ if ( ! function_exists( 'emulsion_inline_style_filter' ) ) {
 		div.header-layer .site-title .site-title-text,
 		div.header-layer .header-text a{ color:#' . $header_text_color . ';}';
 		}
+		
+		$style = emulsion_sanitize_css( $style );
+		
 		return $style;
 	}
 
@@ -1081,41 +935,41 @@ if ( ! function_exists( 'emulsion_smart_category_highlight' ) ) {
 
 						$gradient_hue = $hue + 30;
 
-						$result .= '.on-scroll.has-category-colors.category-' . $term->term_id . ' .header-layer-site-title-navigation, '
-								. '.on-scroll.has-category-colors.category.archive.category-' . $term->term_id . ' .header-layer,'
-								. '.has-category-colors.category.archive.category-' . $term->term_id . ' .header-layer{'
-								. 'color:' . $color . ';'
+						$result .= '.on-scroll.has-category-colors.category-' . $term->term_id . " .header-layer-site-title-navigation, \n"
+								. '.on-scroll.has-category-colors.category.archive.category-' . $term->term_id . " .header-layer,\n"
+								. '.has-category-colors.category.archive.category-' . $term->term_id . " .header-layer{\n"
+								. 'color:' . $color . ";\n"
 								. 'background: linear-gradient(90deg,  hsl(' . $hue . ',' . $saturation . ',' . $lightness . '),'
-								. ' hsl(' . $gradient_hue . ',' . $saturation . ',' . $lightness . ') );'
-								. '}';
+								. ' hsl(' . $gradient_hue . ',' . $saturation . ',' . $lightness . ") );\n"
+								. "\n}\n";
 					} else {
 
-						$result .= '.on-scroll.has-category-colors.category-' . $term->term_id . ' .header-layer-site-title-navigation, '
-								. '.on-scroll.has-category-colors.category-' . $term->term_id . ' .header-layer, '
-								. '.has-category-colors.category-' . $term->term_id . ' .header-layer{color:' . $color . ';background:hsla(' . $hue . ',' . $saturation . ',' . $lightness . ',' . $alpha . ');} ';
+						$result .= '.on-scroll.has-category-colors.category-' . $term->term_id . " .header-layer-site-title-navigation, \n"
+								. '.on-scroll.has-category-colors.category-' . $term->term_id . " .header-layer, \n"
+								. '.has-category-colors.category-' . $term->term_id . " .header-layer{\n color:" . $color . ";\nbackground:hsla(" . $hue . ',' . $saturation . ',' . $lightness . ',' . $alpha . ");\n} \n";
 					}
 					/* cta link button */
-					$result					 .= '.category.has-category-colors.archive.category-' . $term->term_id . ' .header-layer .cta-layer a{color:' . $color . ';background:hsla(' . $hue . ',' . $saturation . ',' . $lightness . ',' . $alpha . ');}';
+					$result					 .= '.category.has-category-colors.archive.category-' . $term->term_id . " .header-layer .cta-layer a{\n color:" . $color . ';background:hsla(' . $hue . ',' . $saturation . ',' . $lightness . ',' . $alpha . ");\n}\n";
 					$hover_hue				 = $hue + 180;
 					$link_lightness			 = '90%';
 					$description_lightness	 = '100%';
 
-					$result	 .= '.has-category-colors.category.archive.category-' . $term->term_id . ' .header-layer .drawer-wrapper .icon:hover{'
-							. 'fill: hsla(' . $hover_hue . ',' . $saturation . ',' . $lightness . ',' . $alpha . '); '
-							. 'stroke: hsla(' . $hover_hue . ',' . $saturation . ',' . $lightness . ',' . $alpha . ');}';
-					$result	 .= '.has-category-colors.category.archive.category-' . $term->term_id . ' .header-layer a{color: hsla(' . $hover_hue . ',' . $saturation . ',' . $link_lightness . ',' . $alpha . '); }';
-					$result	 .= '.has-category-colors.category.archive.category-' . $term->term_id . ' .header-layer a:hover{color: hsla(' . $hover_hue . ',' . $saturation . ',' . $link_lightness . ',' . $alpha . '); }';
-					$result	 .= '.has-category-colors.category.archive.category-' . $term->term_id . ' .header-layer .taxonomy-description{color: hsla(' . $hover_hue . ',' . $saturation . ',' . $description_lightness . ',' . $alpha . '); }';
+					$result	 .= '.has-category-colors.category.archive.category-' . $term->term_id . " .header-layer .drawer-wrapper .icon:hover{\n"
+							. 'fill: hsla(' . $hover_hue . ',' . $saturation . ',' . $lightness . ',' . $alpha . "); \n"
+							. 'stroke: hsla(' . $hover_hue . ',' . $saturation . ',' . $lightness . ',' . $alpha . ");\n}\n";
+					$result	 .= '.has-category-colors.category.archive.category-' . $term->term_id . " .header-layer a{\n color: hsla(" . $hover_hue . ',' . $saturation . ',' . $link_lightness . ',' . $alpha . ");\n }\n";
+					$result	 .= '.has-category-colors.category.archive.category-' . $term->term_id . " .header-layer a:hover{\n color: hsla(" . $hover_hue . ',' . $saturation . ',' . $link_lightness . ',' . $alpha . "); \n}\n";
+					$result	 .= '.has-category-colors.category.archive.category-' . $term->term_id . " .header-layer .taxonomy-description{\n color: hsla(" . $hover_hue . ',' . $saturation . ',' . $description_lightness . ',' . $alpha . ");\n }\n";
 
 
 
 
 					/* category header style end */
 
-					$result	 .= $body_id . ' .cat-item-' . $term->term_id . ':hover {background:hsla(' . $hue . ',' . $saturation . ',' . $lightness . ',' . $alpha . ');} ';
-					$result	 .= $body_id . ' .cat-item-' . $term->term_id . '{transition:all .5s ease-in-out;} ';
-					$result	 .= $body_id . ' .cat-item-' . $term->term_id . ':hover, .cat-item-' . $term->term_id . ':hover a{color:#fff;} ';
-					$result	 .= $body_id . ' .cat-item-' . $term->term_id . ':hover a{color:#eee;} ';
+					$result	 .= $body_id . ' .cat-item-' . $term->term_id . ":hover {\n background:hsla(" . $hue . ',' . $saturation . ',' . $lightness . ',' . $alpha . ');} ';
+					$result	 .= $body_id . ' .cat-item-' . $term->term_id . "{\n transition:all .5s ease-in-out;\n} \n";
+					$result	 .= $body_id . ' .cat-item-' . $term->term_id . ':hover, .cat-item-' . $term->term_id . ":hover a{\n color:#fff;} \n";
+					$result	 .= $body_id . ' .cat-item-' . $term->term_id . ":hover a{\n color:#eee;\n} \n";
 
 					/* link before icon style */
 
@@ -1126,18 +980,22 @@ if ( ! function_exists( 'emulsion_smart_category_highlight' ) ) {
 
 					/* relate style effect.scss */
 
-					$result	 .= $body_id . ' .cat-item-' . $term->term_id . '.current-cat a,' . $body_id . ' .cat-item-' . $term->term_id . '.current-cat{color:#fff;} ';
-					$result	 .= $body_id . ' .cat-item-' . $term->term_id . '.current-cat {background:hsla(' . $hue . ',' . $saturation . ',' . $lightness . ',' . $alpha . ');} ';
-					$result	 .= $body_id . '.hilight-cat-item-' . $term->term_id . ' .cat-item-' . $term->term_id . ' {background:hsla(' . $hue . ',' . $saturation . ',' . $lightness . ',' . $alpha . ');} ';
-					$result	 .= $body_id . '.hilight-cat-item-' . $term->term_id . ' .cat-item-' . $term->term_id . '{color:#fff;} ';
-					$result	 .= $body_id . '.hilight-cat-item-' . $term->term_id . ' .cat-item-' . $term->term_id . ' li{color:#fff;} ';
-					$result	 .= $body_id . '.hilight-cat-item-' . $term->term_id . ' .cat-item-' . $term->term_id . ' a{color:#fff!important;} ';
+					$result	 .= $body_id . ' .cat-item-' . $term->term_id . '.current-cat a,' . $body_id . ' .cat-item-' . $term->term_id . ".current-cat{\n color:#fff;} \n";
+					$result	 .= $body_id . ' .cat-item-' . $term->term_id . ".current-cat {\n background:hsla(" . $hue . ',' . $saturation . ',' . $lightness . ',' . $alpha . ");\n} \n";
+					$result	 .= $body_id . '.hilight-cat-item-' . $term->term_id . ' .cat-item-' . $term->term_id . " {\n background:hsla(" . $hue . ',' . $saturation . ',' . $lightness . ',' . $alpha . ");\n} \n";
+					$result	 .= $body_id . '.hilight-cat-item-' . $term->term_id . ' .cat-item-' . $term->term_id . "{color:#fff;\n} \n";
+					$result	 .= $body_id . '.hilight-cat-item-' . $term->term_id . ' .cat-item-' . $term->term_id . " li{color:#fff;\n} \n";
+					$result	 .= $body_id . '.hilight-cat-item-' . $term->term_id . ' .cat-item-' . $term->term_id . " a{color:#fff!important;\n } \n";
 				} else {
-					$result	 .= $body_id . ' .cat-item.cat-item-' . $term->term_id . ' {display:none;} ';
-					$result	 .= $body_id . '.category-archives .cat-item.cat-item-' . $term->term_id . ' {display:none;} ';
+					$result	 .= $body_id . ' .cat-item.cat-item-' . $term->term_id . " {\n display:none;\n} \n";
+					$result	 .= $body_id . '.category-archives .cat-item.cat-item-' . $term->term_id . " {\n display:none; \n } \n";
 				}
 			}
 		}
+		
+		$result	 = emulsion_sanitize_css( $result );
+		$result	 = emulsion_remove_spaces_from_css( $result );
+
 		set_transient( $transient_name, $result, 60 * 60 * 24 );
 		return $css . $result;
 	}
@@ -1146,6 +1004,24 @@ if ( ! function_exists( 'emulsion_smart_category_highlight' ) ) {
 if ( ! function_exists( 'emulsion_add_common_font_css' ) ) {
 
 	function emulsion_add_common_font_css( $css ) {
+		
+		$transient_name = __FUNCTION__;
+				
+		if ( is_customize_preview() ) {
+
+			delete_transient( $transient_name );			
+		}
+	/*	if( 'active' == get_theme_mod( 'emulsion_wp_scss_status' ) ){
+
+			return;
+		}*/
+		
+		$transient_val = get_transient( $transient_name );
+
+		if ( false !== ( $transient_val ) && ! is_user_logged_in() ) {
+
+			return $css. $transient_val;
+		}
 
 		$inline_style			 = emulsion_sanitize_css( $css );
 		$font_google_family_url	 = get_theme_mod( 'emulsion_common_google_font_url', emulsion_get_var( 'emulsion_common_google_font_url' ) );
@@ -1171,8 +1047,9 @@ if ( ! function_exists( 'emulsion_add_common_font_css' ) ) {
 				font-size:{$font_size}px;
 			}
 CSS;
+		$inline_style	 = emulsion_sanitize_css( $inline_style );
 		$inline_style	 = emulsion_remove_spaces_from_css( $inline_style );
-
+		set_transient( $transient_name, $inline_style, 60 * 60 * 24 );
 		return $css . $inline_style;
 	}
 
@@ -1180,6 +1057,25 @@ CSS;
 if ( ! function_exists( 'emulsion_heading_font_css' ) ) {
 
 	function emulsion_heading_font_css( $css ) {
+		
+		$transient_name = __FUNCTION__;
+				
+		if ( is_customize_preview() ) {
+
+			delete_transient( $transient_name );			
+		}
+	/*	if( 'active' == get_theme_mod( 'emulsion_wp_scss_status' ) ){
+		
+			return;
+		}*/
+		
+		$transient_val = get_transient( $transient_name );
+
+		if ( false !== ( $transient_val ) && ! is_user_logged_in() ) {
+
+			return $css. $transient_val;
+		}
+		
 
 		$inline_style			 = emulsion_sanitize_css( $css );
 		$font_google_family_url	 = get_theme_mod( 'emulsion_heading_google_font_url', emulsion_get_var( 'emulsion_heading_google_font_url' ) );
@@ -1263,8 +1159,12 @@ if ( ! function_exists( 'emulsion_heading_font_css' ) ) {
 			}
 		}
 CSS;
+		
+		
+		$inline_style	 = emulsion_sanitize_css( $inline_style );
 		$inline_style	 = emulsion_remove_spaces_from_css( $inline_style );
-
+		
+		set_transient( $transient_name, $inline_style, 60 * 60 * 24 );
 		return $css . $inline_style;
 	}
 
@@ -1272,6 +1172,20 @@ CSS;
 if ( ! function_exists( 'emulsion_widget_meta_font_css' ) ) {
 
 	function emulsion_widget_meta_font_css( $css ) {
+		
+		$transient_name = __FUNCTION__;
+				
+		if ( is_customize_preview() ) {
+
+			delete_transient( $transient_name );			
+		}
+		
+		$transient_val = get_transient( $transient_name );
+
+		if ( false !== ( $transient_val ) && ! is_user_logged_in() ) {
+
+			return $css. $transient_val;
+		}
 
 		$inline_style = emulsion_sanitize_css( $css );
 
@@ -1415,9 +1329,10 @@ if ( ! function_exists( 'emulsion_widget_meta_font_css' ) ) {
 		}
 CSS;
 
-		$inline_style = emulsion_remove_spaces_from_css( $inline_style );
-
-		return $inline_style;
+		$inline_style	 = emulsion_sanitize_css( $inline_style );
+		$inline_style	 = emulsion_remove_spaces_from_css( $inline_style );
+		set_transient( $transient_name, $inline_style, 60 * 60 * 24 );
+		return $css. $inline_style;
 	}
 
 }
@@ -1432,7 +1347,7 @@ if ( ! function_exists( 'emulsion_do_snippet' ) ) {
 		}
 
 		empty( $css ) ? '' : add_filter( 'emulsion_inline_style', function( $current_css ) use( $css ) {
-
+							$css	 = emulsion_sanitize_css( $css );
 							return $current_css . ' ' . $css;
 						} );
 
@@ -1515,6 +1430,16 @@ if ( ! function_exists( 'emulsion_svg' ) ) {
 
 			get_template_part( 'images/svg' );
 		}
+	}
+
+}
+if ( ! function_exists( 'emulsion_unregister_default_widgets' ) ) {
+
+	function emulsion_unregister_default_widgets() {
+		/**
+		 * Core broken widget
+		 */
+		unregister_widget( 'WP_Widget_Text' );
 	}
 
 }

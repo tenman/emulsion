@@ -271,8 +271,7 @@
     });
 
     wp.customize('emulsion_background_css_pattern', function (value) {
-        value.bind(function (newval) {
-
+        value.bind(function (newval) {            
             $('body').removeClass('background-css-pattern-carbon-fiber background-css-pattern-seigaiha background-css-pattern-cicada background-css-pattern-lattice background-css-pattern-hexagonal');
             $('body').addClass('background-css-pattern-' + newval);
         });

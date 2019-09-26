@@ -26,7 +26,6 @@ p.aligncenter {
 p.aligncenter.has-drop-cap {
     display:block
 }
-
 .alignleft {
     @extend %alignleft;
 }
@@ -57,16 +56,10 @@ img{
     margin-top:1.5rem;
     margin-bottom:.75rem;
 }
-
 .alignfull,
 .alignwide {
     clear:both
 }
-
-.alignfull{
-    // width:100%;
-}
-
 .page-featured-image {
     padding:0;
     display:block;
@@ -74,7 +67,6 @@ img{
     margin-right:auto;
     padding:10px;
 }
-
 .new-line,
 .clear{
     clear:both;
@@ -108,7 +100,7 @@ img{
     height:auto;
     padding:0 2px 0;
     text-align:center;
-
+    max-width:100%;
 }
 .wp-block-latest-posts li .wp-caption > a{
     margin-top:0;
@@ -130,7 +122,6 @@ figure.wp-caption.aligncenter {
     margin:5px auto;
     padding:0
 }
-
 .wp-caption.aligncenter a[rel~="attachment"] img {
     margin:0;
 }
@@ -141,8 +132,7 @@ figure.wp-caption.aligncenter {
     text-align:left
 }
 .wp-caption p.wp-caption-text {
-    line-height:var( --thm_content_line_height,
-        1.5 );
+    line-height:var( --thm_content_line_height, 1.5 );
     margin:0;
     padding:0 4px 5px
 }
@@ -185,7 +175,6 @@ figure.wp-caption.aligncenter {
  * ========================================================================== */
 :root{
     --thm_comment_author_content:'Author';
-
     .bypostauthor{
         .comment-author{
             .fn:before{
@@ -201,7 +190,6 @@ figure.wp-caption.aligncenter {
 /**
  * skin-button
  * ========================================================================== */
-
 a.skin-button{
     @include clearfix;
     clear:both;
@@ -224,7 +212,6 @@ a.skin-button:hover{
     padding:0 1rem;
     line-height:calc(var(--thm_common_font_size) * 3);
 }
-
 #wp-calendar{
     margin-left:auto;
     margin-right:auto;

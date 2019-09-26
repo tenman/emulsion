@@ -1,7 +1,6 @@
 /**
  * element
  * ========================================================================== */
-
 a:-webkit-any-link,
 a{
     text-decoration:none;
@@ -12,7 +11,6 @@ a:link {
 a:visited {
     text-decoration:none;
 }
-
 article,address,aside,blockquote,canvas,dd,article div,dl,dt,fieldset,figure,
 figcaption,footer,form,h1,h2,h3,h4,h5,h6,header,hr,iframe,img,li,main,nav,
 noscript,ol,output,p,pre,section,table,tfoot,ul,video{
@@ -22,7 +20,6 @@ noscript,ol,output,p,pre,section,table,tfoot,ul,video{
 html{
     font-size:var(--thm_common_font_size);
 }
-
 body{
     margin-left:auto;
     margin-right:auto;
@@ -36,9 +33,8 @@ body{
     -webkit-hyphens: auto;
     -moz-hyphens: auto;
     hyphens: auto;
-
     &.page{
-        article{          
+        article{
             .has-post-thumbnail{
                 .entry-title{
                     margin-top:0;
@@ -78,7 +74,6 @@ footer{
         }
     }
 }
-
 article{
     & > div{
         & > div{
@@ -88,7 +83,6 @@ article{
         }
     }
 }
-
 blockquote{
     @extend %block;
     width: calc( var( --thm_content_width, 720px ) - 80px );
@@ -111,7 +105,7 @@ blockquote{
     }
     &.alignright{
         @extend %alignright
-    }    
+    }
 }
 .entry-content{
     blockquote.content-excerpt{
@@ -137,7 +131,6 @@ blockquote{
     margin-left:auto;
     margin-right:auto;
 }
-
 .noscript{
     /**
      * when disabled javascript
@@ -234,17 +227,14 @@ del{
         padding:0 .5rem;
     }
 }
-
 /**
  * Inline text semantics
  * ========================================================================== */
-
 abbr[title] {
     border-bottom: none;
     text-decoration: underline;
     text-transform: uppercase;
 }
-
 i.toc-text{
     font-style: normal;
 }
@@ -267,19 +257,17 @@ strong{
     }
 }
 /* itaric elements */
-[lang="ja"] i, 
-[lang="ja"] em, 
-[lang="ja"] var, 
-[lang="ja"] address, 
+[lang="ja"] i,
+[lang="ja"] em,
+[lang="ja"] var,
+[lang="ja"] address,
 [lang="ja"] dfn{
     font-style:normal;
-    font-weight:700; 
+    font-weight:700;
 }
-
 /**
  * Figure
  * ========================================================================== */
-
 figure{
     position:relative;
     display:block;
@@ -302,7 +290,6 @@ figure{
         }
     }
 }
-
 /**
  * Img
  * ========================================================================== */
@@ -334,7 +321,6 @@ picture{
 /**
  * Heading
  * ========================================================================== */
-
 .h1,
 h1{
     @include font_size(1);
@@ -419,7 +405,6 @@ h1,h2,h3,h4,h5,h6{
         margin-right:auto;
     }
 }
-
 // hash link( #hoo ) position ajust
 h1,h2,h3,h4,h5,h6{
     &:target{
@@ -435,11 +420,9 @@ h1,h2,h3,h4,h5,h6{
         }
     }
 }
-
 /**
  * Paragraph
  * ========================================================================== */
-
 p{
     @extend %block;
     margin-left:auto;
@@ -459,7 +442,6 @@ p{
         margin-bottom:.75rem;
     }
 }
-
 p:empty{
     display:none;
 }
@@ -475,11 +457,9 @@ p.has-drop-cap:not(:focus):first-letter {
     padding: .2rem .4rem 0 .3rem;
     font-family:serif;
 }
-
 /**
  * details
  * ========================================================================== */
-
 details{
     @extend %block;
     margin-left:auto;
@@ -490,11 +470,9 @@ summary{
     font-weight:700;
     outline-color:transparent;
 }
-
 /**
  * Data List
  * ========================================================================== */
-
 dl{
     @extend %block;
     margin-left:auto;
@@ -511,11 +489,9 @@ dt{
 dd{
     max-width:calc( 100% - 40px);
 }
-
 /**
  * List
  * ========================================================================== */
-
 ol,ul{
     @extend %block;
     padding-left:40px;
@@ -527,7 +503,7 @@ ol,ul{
         margin-bottom:.375rem;
         ol,
         ul{
-            margin-top:0;
+            margin-top:.375rem;
             margin-bottom:0;
         }
         &:empty{
@@ -535,11 +511,9 @@ ol,ul{
         }
     }
 }
-
 /**
  * Pre Format
  * ========================================================================== */
-
 pre {
     @extend %block;
     margin-left:auto;
@@ -562,11 +536,9 @@ pre code{
     font-size:var(--thm_common_font_size);
     padding:var(--thm_common_font_size);
 }
-
 /**
  * Table
  * ========================================================================== */
-
 table {
     display:table;
     box-sizing:border-box;
@@ -576,6 +548,15 @@ table {
     &.stretch{
         //  width:calc(99.9% - var( --thm_content_gap ) * 2);
         width:100%;
+    }
+    thead{
+        display:table-header-group;
+    }
+    tbody{
+        display:table-row-group;
+    }
+    tfoot{
+        display:table-footer-group;
     }
     th {
         padding:.7rem;
@@ -672,7 +653,6 @@ table {
     padding-bottom:1px;
     overflow:hidden;
     width:calc(var(--thm_content_width) - var(--thm_content_gap) * 2);
-
 }
 .wp-block-table > .emulsion-table-wrapper{
     margin-top:0;
@@ -689,11 +669,14 @@ table {
         padding-right:0!important;
     }
 }
-
 /**
  * Forms
  * ========================================================================== */
-
+button, [type="button"], [type="reset"], [type="submit"] {
+    &:hover{
+        cursor:pointer;
+    }
+}
 button{
     clear: both;
     float: none;
@@ -731,7 +714,7 @@ input{
     padding:.625rem;
     box-sizing:border-box;
 }
-.wp-block-search{   
+.wp-block-search{
     display:flex;
     flex-direction:row;
     flex-wrap:nowrap;
@@ -742,7 +725,6 @@ input{
     height:48px;
     padding-left:var(--thm_content_gap);
     padding-right:var(--thm_content_gap);
-
     input{
         flex:1 1 auto;
         min-width:0;
@@ -780,7 +762,6 @@ input{
         width:1px;
         z-index:-1;
     }
-
 }
 body{
     .layout-block{
@@ -829,7 +810,6 @@ textarea{
     padding:.625rem;
     box-sizing:border-box;
     width: calc(var(--thm_common_font_size) * 40 );
-
 }
 [type="email"],
 [type="text"]{
@@ -838,20 +818,19 @@ textarea{
 /**
  * Form type attribute
  * ========================================================================== */
-
 [type="checkbox"]{
     margin-right:.3em;
     margin-left:.3em;
+    vertical-align:middle;
 }
 [type="radio"]{
     margin-right:.3em;
     margin-left:.3em;
+    vertical-align:middle;
 }
-
 /**
  * Classes
  * ========================================================================== */
-
 .clearfix{
     @include clearfix;
 }
@@ -869,16 +848,13 @@ body .fit{
     margin-left:auto;
     margin-right:auto;
 }
-
 .trancate{
     max-width:100%;
 }
-
 .on-trancate{
     display:block;
     overflow:hidden;
 }
-
 .is-style-emulsion-inline{
     @include clearfix;
     @extend %block;
@@ -927,7 +903,6 @@ body .fit{
         &:nth-child(n + 8) {
             flex:1 1 auto;
         }
-        
     }
 }
 .is-style-emulsion-inline{
@@ -937,7 +912,7 @@ body .fit{
     &:hover{
         a{
             cursor:pointer;
-        } 
+        }
     }
 }
 .widget_tag_cloud{
@@ -1000,11 +975,9 @@ body .fit{
         transition: all 1s ease-in-out;
     }
 }
-
 /**
  * Centerling child elements
  * ========================================================================== */
-
 .vertically,
 .centered{
     display: -webkit-box;
@@ -1036,7 +1009,7 @@ body .fit{
     -ms-flex-direction:row;
     flex-direction:row;
     flex-wrap:wrap;
-    box-sizing:border-box;   
+    box-sizing:border-box;
 }
 /* height classes */
 .vh25{
@@ -1052,7 +1025,7 @@ body .fit{
     min-height:100vh;
 }
 /**
- * 
+ *
  * ========================================================================== */
 .show-content{
     position:absolute;
@@ -1099,6 +1072,16 @@ body .fit{
     .theme-message.aligncenter{
         max-width:100%;
         border:none;
+    }
+    article{
+        header{
+            &.has-post-image{
+                /**
+                 * grid header background position  must be center
+                 */
+                background-position:49.5% 50% ! important;
+            }
+        }
     }
 }
 .relate-content-wrapper{
@@ -1159,7 +1142,6 @@ body .fit{
 .clip{
     @include clip;
 }
-
 [class|="placeholder"]{
     padding-left:var(--thm_content_gap);
     padding-right:var(--thm_content_gap);
@@ -1177,10 +1159,9 @@ body .fit{
 }
 /**
  * theme .alignwide .alignfull
- * for custom html 
+ * for custom html
  */
 .enable-alignfull{
-
     .emulsion-wide{
         @extend %alignwide;
         clear:both;

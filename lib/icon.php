@@ -5,11 +5,11 @@ if( ! emulsion_get_supports( 'social-link-menu' ) ) {
 /**
  * SVG icons related functions and filters
  * The social icons refer to those used in the Twenty_Seventeen theme.
- * 
+ *
  */
 register_nav_menus( array(
-	'social'	 => esc_html__( 'Social Links Menu', 'emulsion' ) 
-	) 
+	'social'	 => esc_html__( 'Social Links Menu', 'emulsion' )
+	)
 );
 /**
  * Return SVG markup.
@@ -200,7 +200,7 @@ function emulsion_social_links_icons() {
 		'tel:'			  => 'phone',
 		'mailto:'         => 'email',
 		'amazon.'         => 'amazon',
-		
+
 	);
 
 	/**
@@ -216,9 +216,9 @@ function emulsion_social_links_icons() {
 add_filter( 'emulsion_icon_svg_symbols' , 'emulsion_icon_svg_symbols');
 
 function emulsion_icon_svg_symbols( $symbol ){
-	
+
 	$symbols =<<<SYMBOL
-	
+
 		<symbol id="icon-deviantart" viewBox="0 0 18 32">
 			<path class="path1" fill="var(--thm_social_icon_color)"  d="M18.286 5.411l-5.411 10.393 0.429 0.554h4.982v7.411h-9.054l-0.786 0.536-2.536 4.875-0.536 0.536h-5.375v-5.411l5.411-10.411-0.429-0.536h-4.982v-7.411h9.054l0.786-0.536 2.536-4.875 0.536-0.536h5.375v5.411z"></path>
 		</symbol>
@@ -382,23 +382,24 @@ function emulsion_icon_svg_symbols( $symbol ){
 			<path d="M22.106 23.675l0.006 0.006c0.775-0.681 2.169-1.9 2.956-2.556 0.313-0.25 0.256-0.669 0.012-1.019-0.706-0.975-1.456-1.769-1.456-3.569v-6c0-2.544 0.175-4.875-1.694-6.625-1.475-1.413-3.925-1.913-5.8-1.913-3.662 0-7.75 1.369-8.606 5.894-0.094 0.481 0.263 0.738 0.575 0.806l3.731 0.406c0.35-0.019 0.6-0.363 0.669-0.713 0.319-1.556 1.625-2.313 3.094-2.313 0.794 0 1.694 0.287 2.163 1 0.538 0.794 0.469 1.875 0.469 2.794v0.5c-2.231 0.25-5.15 0.412-7.238 1.331-2.412 1.044-4.106 3.169-4.106 6.294 0 4 2.519 6 5.763 6 2.738 0 4.231-0.644 6.344-2.806 0.7 1.012 0.925 1.506 2.206 2.569 0.294 0.156 0.656 0.144 0.913-0.087zM18.225 14.287c0 1.5 0.038 2.75-0.719 4.081-0.613 1.087-1.581 1.75-2.662 1.75-1.475 0-2.338-1.125-2.338-2.788 0-3.281 2.944-3.875 5.725-3.875v0.831z"></path>
 		</symbol>
 SYMBOL;
-	
-	if( emulsion_get_supports( 'social-link-menu') ) { 
-		
+
+	if( emulsion_get_supports( 'social-link-menu') ) {
+
 		return $symbols;
 	}
 }
 add_filter( 'emulsion_inline_style',  'emulsion_icon_svg_styles' );
 
-function emulsion_icon_svg_styles($css){
-	$css .=<<<CSS
-.social-navigation {
+function emulsion_icon_svg_styles( $css ) {
+
+	$style =<<<CSS
+.social-navigation{
     font-size: 16px;
     font-size: var(--thm_common_font_size);
     margin-bottom: 1em;
 }
 @media screen and (min-width: 48em) {
-    .social-navigation {
+    .social-navigation{
         clear: left;
         float: left;
         margin-bottom: 0;
@@ -406,12 +407,12 @@ function emulsion_icon_svg_styles($css){
         margin-top: 1.5rem;
         overflow:visible;
     }
-	.social-navigation ul {
-		text-align:left;
-	}
+    .social-navigation ul{
+        text-align:left;
+    }
 }
 
-.social-navigation ul {
+.social-navigation ul{
     list-style: none;
     margin-bottom: 0;
     margin: 0 auto;
@@ -419,11 +420,11 @@ function emulsion_icon_svg_styles($css){
     display:inline-block;
 }
 
-.social-navigation li {
+.social-navigation li{
     display: inline-block;
 }
 
-.social-navigation a {
+.social-navigation a{
     -webkit-border-radius: calc( var(--thm_common_font_size) * 2 + 8px);
     border-radius: calc(  var(--thm_common_font_size) * 2 + 8px);
     display: inline-block;
@@ -432,16 +433,16 @@ function emulsion_icon_svg_styles($css){
     text-align: center;
     width: calc(  var(--thm_common_font_size) * 2 + 6px);
     position:relative;
-	border:2px solid rgba(188,188,188,.5);
-	background:var(--thm_social_icon_bg_color);
+    border:2px solid rgba(188,188,188,.5);
+    background:var(--thm_social_icon_bg_color);
 }
 
 .social-navigation a:hover,
-.social-navigation a:focus {
+.social-navigation a:focus{
 
 }
 
-.social-navigation .icon {
+.social-navigation .icon{
     height: var(--thm_common_font_size);
     top: 0;
     bottom: 0;
@@ -455,14 +456,14 @@ function emulsion_icon_svg_styles($css){
 }
 /* Social Menu fallbacks */
 
-.no-svg .social-navigation a {
+.no-svg .social-navigation a{
     background: transparent;
     color: #222;
     height: auto;
     width: auto;
 }
 
-@media print {
+@media print{
     /* Hide elements */
     .social-navigation{
         display: none !important;
@@ -474,13 +475,13 @@ a[href^="tel:"]{
     text-decoration:none;
 }
 a[href^="tel:"] span{
-	clip:auto;
+    clip:auto;
 }
 body:not(.agent-tablet):not(.agent-mobile-phone) a[href^="tel:"]{
-	width:236px;	
-}			
+    width:236px;
+}
 body:not(.agent-tablet):not(.agent-mobile-phone) a[href^="tel:"] .screen-reader-text{
-	clip: auto;
+    clip: auto;
     clip-path: initial;
     height: auto;
     width: auto;
@@ -488,17 +489,18 @@ body:not(.agent-tablet):not(.agent-mobile-phone) a[href^="tel:"] .screen-reader-
     left: 3rem;
 }
 body:not(.agent-tablet):not(.agent-mobile-phone) a[href^="tel:"] .icon{
-	position: absolute;
+    position: absolute;
     margin-left: 1rem;
-}				
+}
 .agent-tablet a[href^="tel:"],
 .agent-mobile-phone a[href^="tel:"]{
     pointer-events:auto;
     cursor: pointer;
-	display:inline-block;
+    display:inline-block;
 }
 CSS;
-	
-	return emulsion_remove_spaces_from_css( $css );
-	
+	$style	 = emulsion_sanitize_css( $style );
+	$style	 = emulsion_remove_spaces_from_css( $style );
+
+	return $css. $style;
 }
