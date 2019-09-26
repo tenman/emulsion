@@ -19,7 +19,6 @@ function emulsion_search_from_terms( $target_terms = array( 'category', 'post_ta
 
 		foreach ( $terms as $term ) {
 
-
 			$id			 = $term->term_id;
 			$term_link	 = get_category_link( $id );
 			$term_name	 = mb_strtolower( $term->name );

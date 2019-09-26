@@ -121,14 +121,9 @@ if ( ! function_exists( 'emulsion_post_relate_contents' ) ) {
 
 	/**
 	 * 
-	 * @global type $post
 	 */
 	
 	function emulsion_post_relate_contents() {
-		
-		/**
-		 * @since 1.459
-		 */
 		
 		global $post;
 

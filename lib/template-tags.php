@@ -94,10 +94,10 @@ if ( ! function_exists( 'emulsion_get_post_title' ) ) {
 		$entry_title_status	 = get_theme_mod( 'emulsion_title_in_header', emulsion_get_var( 'emulsion_title_in_header' ) );
 
 		if ( 'yes' == $entry_title_status ) {
-			
+
 			/**
-			 * When the title is displayed in the site header, 
-			 * the display area is limited. For exceptionally long titles, 
+			 * When the title is displayed in the site header,
+			 * the display area is limited. For exceptionally long titles,
 			 * limit the font size and the number of lines to display the full title as much as possible.
 			 */
 
@@ -141,7 +141,7 @@ if ( ! function_exists( 'emulsion_the_post_title' ) ) {
 if ( ! function_exists( 'emulsion_entry_text_markup' ) ) {
 	/**
 	 * Print title block in header
-	 * 
+	 *
 	 * Entry title, Archive title, Search results
 	 * @global type $post
 	 */
@@ -172,19 +172,19 @@ if ( ! function_exists( 'emulsion_entry_text_markup' ) ) {
 if ( ! function_exists( 'emulsion_meta_description' ) ) {
 	/**
 	 * fallback head meta element description
-	 * 
-	 * This summary statement is added after javascript is loaded, 
+	 *
+	 * This summary statement is added after javascript is loaded,
 	 * so if the SEO plug-in has already added a meta description, it will not add it.
-	 * 
+	 *
 	 * @return type
 	 */
 	function emulsion_meta_description() {
-		
+
 		if( false == emulsion_add_supports( 'meta_description' ) ) {
-			
+
 			__return_empty_string();
 		}
-		
+
 		if ( is_singular() ) {
 
 			$excerpt = get_the_excerpt();
@@ -196,7 +196,7 @@ if ( ! function_exists( 'emulsion_meta_description' ) ) {
 				return $excerpt;
 			}
 		} else {
-			
+
 			$excerpt =  term_description();
 			$excerpt = wp_html_excerpt( $excerpt, 160, '' );
 
@@ -204,9 +204,9 @@ if ( ! function_exists( 'emulsion_meta_description' ) ) {
 
 				return $excerpt;
 			}
-			
+
 		}
-		
+
 		__return_empty_string();
 	}
 
@@ -218,8 +218,8 @@ if ( ! function_exists( 'emulsion_meta_description' ) ) {
 
 if ( ! function_exists( 'emulsion_post_content' ) ) {
 	/**
-	 * The summary sentence displays the text that removes the table element, 
-	 * the figure element excluded from the HTML5 outline, etc., 
+	 * The summary sentence displays the text that removes the table element,
+	 * the figure element excluded from the HTML5 outline, etc.,
 	 * which significantly impairs readability when the text is extracted.
 	 */
 	function emulsion_post_content() {
@@ -347,8 +347,6 @@ if ( ! function_exists( 'emulsion_post_content' ) ) {
 		} else {
 
 			$excerpt_plain_text = trim( wp_strip_all_tags( $has_excerpt ) );
-
-
 		}
 
 		if ( ! post_password_required( $post_id ) ) {
@@ -358,6 +356,8 @@ if ( ! function_exists( 'emulsion_post_content' ) ) {
 				$lines = absint( get_theme_mod('emulsion_excerpt_length_grid', 4 ) );
 
 				$result = sprintf( '<p class="%2$s" data-rows="%3$d">%1$s</p>', wp_kses_post( $excerpt_plain_text ), 'trancate', $lines );
+
+				$result = apply_filters('emulsion_post_excerpt', $result );
 
 				// check lost element
 				$emulsion_place = basename(__FILE__). ' line:'. __LINE__. ' '.  __FUNCTION__ .'()';
@@ -370,6 +370,7 @@ if ( ! function_exists( 'emulsion_post_content' ) ) {
 
 
 				$result = sprintf( '<p class="%2$s" data-rows="%3$d">%1$s</p>', wp_kses_post( $excerpt_plain_text ), 'trancate', $lines );
+				$result = apply_filters('emulsion_post_excerpt', $result );
 
 				// check lost element
 				$emulsion_place = basename(__FILE__). ' line:'. __LINE__. ' '.  __FUNCTION__ .'()';
@@ -389,7 +390,8 @@ if ( ! function_exists( 'emulsion_post_content' ) ) {
 						if ( ! $has_excerpt && $excerpt_from_content ) {
 
 							if ( false === $has_more ) {
-
+								
+								$excerpt_from_content  = apply_filters('emulsion_post_excerpt', $excerpt_from_content );
 								// check lost element
 								$emulsion_place = basename(__FILE__). ' line:'. __LINE__. ' '.  __FUNCTION__ .'()';
 								true === WP_DEBUG ? emulsion_elements_assert_equal( $excerpt_from_content, wp_kses_post( $excerpt_from_content ), $emulsion_place ) : '';
@@ -407,6 +409,7 @@ if ( ! function_exists( 'emulsion_post_content' ) ) {
 								// if not contain html tags
 								//
 								// check lost element
+								$has_excerpt  = apply_filters('emulsion_post_excerpt', $has_excerpt );
 								$emulsion_place = basename(__FILE__). ' line:'. __LINE__. ' '.  __FUNCTION__ .'()';
 								true === WP_DEBUG ? emulsion_elements_assert_equal(  wpautop( $has_excerpt ), wp_kses( wpautop( $has_excerpt ), EMULSION_EXCERPT_ALLOWED_ELEMENTS ), $emulsion_place ) : '';
 
@@ -414,7 +417,7 @@ if ( ! function_exists( 'emulsion_post_content' ) ) {
 							} else {
 							    //Wrap with fit class to match content_width
 								$has_excerpt = sprintf('<div class="post-excerpt-html fit">%1$s</div>', $has_excerpt );
-
+								$has_excerpt  = apply_filters('emulsion_post_excerpt', $has_excerpt );
 								// check lost element
 								$emulsion_place = basename(__FILE__). ' line:'. __LINE__. ' '.  __FUNCTION__ .'()';
 								true === WP_DEBUG ? emulsion_elements_assert_equal(  $has_excerpt, wp_kses_post( $has_excerpt ), $emulsion_place ) : '';
@@ -458,7 +461,7 @@ if ( ! function_exists( 'emulsion_post_excerpt_more' ) ) {
 if ( ! function_exists( 'emulsion_has_archive_format' ) ) {
 	/**
 	 * Determine whether the archive page is full text or summary
-	 * 
+	 *
 	 * @param type $supports_stream
 	 * @return string
 	 */
@@ -657,7 +660,7 @@ if ( ! function_exists( 'emulsion_get_post_meta_on' ) ) {
 			;
 			$comment_link = wp_kses( emulsion_comment_link() , EMULSION_POST_META_DATA_ALLOWED_ELEMENTS );
 		}
-			
+
 			$entry_month_html =  wp_kses( emulsion_get_month_link(), EMULSION_POST_META_DATA_ALLOWED_ELEMENTS );
 
 		$result = sprintf( $html, $text_1, $entry_month_html, $text_2, $author, $comment_link, $class );
@@ -692,7 +695,7 @@ if ( ! function_exists( 'emulsion_comment_link' ) ) {
 	/**
 	 * Get comment link elements
 	 * @return type
-	 */	
+	 */
 	function emulsion_comment_link() {
 
 		$html	 = '<a href="%1$s" class="comment-link">%2$s</a>';
@@ -747,8 +750,8 @@ if ( ! function_exists( 'emulsion_get_month_link' ) ) {
 if ( ! function_exists( 'emulsion_get_day_link' ) ) {
 	/**
 	 * Link post date link to date archive.
-	 * 
-	 * This function is not currently used in the theme, 
+	 *
+	 * This function is not currently used in the theme,
 	 * but is prepared for use as a fallback link if the title is blank.
 	 * Posted on date link
 	 * datelink text date format value. link href url to date archive
@@ -853,26 +856,26 @@ if ( ! function_exists( 'emulsion_customizer_have_posts_class_helper' ) ) {
 		//Note is_front_page()) is false on customize preview
 
 		if ( emulsion_is_posts_page() ) {
-			
+
 			return get_theme_mod( 'emulsion_layout_posts_page', emulsion_get_var( 'emulsion_layout_posts_page' ) );
 		} elseif ( is_home() ) {
 
 			return get_theme_mod( 'emulsion_layout_homepage', emulsion_get_var( 'emulsion_layout_homepage' ) );
 		}
 		if ( is_date() ) {
-			
+
 			return get_theme_mod( 'emulsion_layout_date_archives', emulsion_get_var( 'emulsion_layout_date_archives' ) );
 		}
 		if ( is_category() ) {
-			
+
 			return get_theme_mod( 'emulsion_layout_category_archives', emulsion_get_var( 'emulsion_layout_category_archives' ) );
 		}
 		if ( is_tag() ) {
-			
+
 			return get_theme_mod( 'emulsion_layout_tag_archives', emulsion_get_var( 'emulsion_layout_tag_archives' ) );
 		}
 		if ( is_author() ) {
-			
+
 			return get_theme_mod( 'emulsion_layout_author_archives', emulsion_get_var( 'emulsion_layout_author_archives' ) );
 		}
 	}
@@ -881,7 +884,7 @@ if ( ! function_exists( 'emulsion_customizer_have_posts_class_helper' ) ) {
 if ( ! function_exists( 'emulsion_is_posts_page' ) ) {
 	/**
 	 * Conditional function. Determine if it is posts_page
-	 * 
+	 *
 	 * @return boolean
 	 */
 	function emulsion_is_posts_page() {
@@ -896,7 +899,7 @@ if ( ! function_exists( 'emulsion_is_posts_page' ) ) {
 if ( ! function_exists( 'emulsion_home_type' ) ) {
 	/**
 	 * Check if homepage is static page or default
-	 * 
+	 *
 	 * @return boolean|string
 	 */
 	function emulsion_home_type() {
@@ -918,10 +921,10 @@ if ( ! function_exists( 'emulsion_home_type' ) ) {
 }
 
 if ( ! function_exists( 'emulsion_have_posts' ) ) {
-	
+
 	/**
 	 * Rendering posts
-	 * 
+	 *
 	 */
 
 	function emulsion_have_posts() {
@@ -1041,7 +1044,7 @@ if ( ! function_exists( 'emulsion_pagination' ) ) {
 if ( ! function_exists( 'emulsion_get_template_part_file_detector' ) ) {
 	/**
 	 * Get the required template file
-	 * 
+	 *
 	 * @param type $name
 	 * @param type $template_slug
 	 * @return string
@@ -1134,7 +1137,7 @@ if ( ! function_exists( 'emulsion_get_template_part_file_detector' ) ) {
 	}
 }
 if ( ! function_exists( 'emulsion_article_header' ) ) {
-	
+
 	/**
 	 * Print Article header block
 	 */
@@ -1157,8 +1160,12 @@ if ( ! function_exists( 'emulsion_article_header' ) ) {
 			$required_password = post_password_required( );
 
 			if ( ! empty( $thumbnail_url ) && ! $required_password) {
-
-				printf( '<header class="%1$s" style="%2$s">', 'has-post-image', 'background-image:url(' . esc_url( $thumbnail_url ) . ' );' );
+				
+				$header_element = sprintf( '<header class="%1$s" style="%2$s">', 'has-post-image', 'background-image:url(' . esc_url( $thumbnail_url ) . ' );' );
+				
+				$header_element = apply_filters('emulsion_article_header', $header_element, 'has-post-image', esc_url( $thumbnail_url ) );
+				
+				echo wp_kses_post( $header_element );
 			} else {
 
 				print('<header>' );
@@ -1193,10 +1200,10 @@ if ( ! function_exists( 'emulsion_attachment_pagination' ) ) {
 
 }
 if ( ! function_exists( 'emulsion_attachment_image' ) ) {
-	
+
 	/**
 	 * Print Attachment Image
-	 * 
+	 *
 	 * @param type $post_id
 	 * @param type $size
 	 * @param type $excerpt
@@ -1257,7 +1264,7 @@ if ( ! function_exists( 'emulsion_is_active_nav_menu' ) ) {
 	}
 }
 if ( ! function_exists( 'emulsion_the_header_layer_class' ) ) {
-	
+
 	/**
 	 * The CSS class is added by judging whether the image or video is set in the header.
 	 * @param type $class
@@ -1345,7 +1352,7 @@ if ( ! function_exists( 'emulsion_sidebar_manager' ) ) {
 
 	/**
 	 * Print the classified div element to inform the position of the sidebar
-	 * 
+	 *
 	 * @param type $position
 	 * @param string $suffix
 	 */
@@ -1383,7 +1390,7 @@ if ( ! function_exists( 'emulsion_footer_text' ) ) {
 
 	/**
 	 * Print footer text
-	 * 
+	 *
 	 * @global type $raindrops_current_theme_name
 	 * @global type $raindrops_current_data_theme_uri
 	 * @global type $template
@@ -1436,8 +1443,7 @@ if ( ! function_exists( 'emulsion_footer_text' ) ) {
 		$html = ' <span class="sep">|</span> <span class="powered-by">%1$s</span> <a href="%2$s" class="theme-site">%3$s</a>';
 
 		$powered_by = sprintf(
-				apply_filters( 'emulsion_powered_by', $html ), esc_html__( 'Powered by', 'emulsion' ), $theme_uri, $theme_name
-		);
+				apply_filters( 'emulsion_powered_by', $html ), esc_html__( 'Designed with the ', 'emulsion' ), $theme_uri, $theme_name );
 
 		$footer_text = '<address>' . $copyright_text . $powered_by . $privacy_policy_link . '</address>';
 
@@ -1454,7 +1460,7 @@ if ( ! function_exists( 'emulsion_footer_text' ) ) {
 
 		$address_html = apply_filters( 'emulsion_footer_text', $address_html );
 
-		// check lost element			
+		// check lost element
 		$emulsion_place = basename( __FILE__ ) . ' line:' . __LINE__ . ' ' . __FUNCTION__ . '()';
 		true === WP_DEBUG ? emulsion_elements_assert_equal( $address_html, wp_kses_post( $address_html ), $emulsion_place ) : '';
 

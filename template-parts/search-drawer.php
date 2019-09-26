@@ -34,8 +34,8 @@ if ( ! emulsion_get_supports( 'enqueue' ) ) {
 			}
 
 			echo '<ul class="taxonomy ">';
-			wp_list_categories( array( 'hierarchical' => false, 'title_li' => '<p>' . esc_html__( 'Categories', 'emulsion' ) . '</p>' ) );
-			wp_list_categories( array( 'taxonomy' => 'post_tag', 'hierarchical' => false, 'title_li' => '<p>' . esc_html__( 'Tags', 'emulsion' ) . '</p>' ) );
+			wp_list_categories( array( 'hierarchical' => false, 'title_li' => '<h4>' . esc_html__( 'Categories', 'emulsion' ) . '</h4>' ) );
+			wp_list_categories( array( 'taxonomy' => 'post_tag', 'hierarchical' => false, 'title_li' => '<h4>' . esc_html__( 'Tags', 'emulsion' ) . '</h4>' ) );
 			echo '</ul>';
 			?></div>
 		<?php do_action('emulsion_drawer_after');?>

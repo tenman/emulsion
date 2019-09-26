@@ -6,6 +6,29 @@
  */
 
 function emulsion__css_variables( $css = '' ) {
+	
+	$transient_name = __FUNCTION__;
+				
+		if ( is_customize_preview() ) {
+
+			delete_transient( $transient_name );			
+		}
+		if( is_singular() ) {
+			
+			$post_id = absint( get_the_ID() );
+			
+			if( 'no_bg' == get_post_meta($post_id, 'emulsion_post_theme_style_script', true) ) {
+				
+				return $css;
+			}
+		
+		}
+		$transient_val = get_transient( $transient_name );
+
+		if ( false !==  $transient_val && ! is_user_logged_in() ) {
+
+			return $css. $transient_val;
+		}
 
 	/**
 	 * CSS variables
@@ -177,6 +200,12 @@ body{
     --thm_background_color: $background_color;
 }
 CSS;
+	
+	$style =  apply_filters( 'emulsion__css_variables', $style );
+	
+	$style = emulsion_sanitize_css( $style );
+	
+	set_transient( $transient_name, $style, 60 * 60 * 24 );
 
 	return $css. $style;
 }
@@ -881,12 +910,7 @@ function emulsion_resuponsive_css() {
   article header.fit .wrapper-in-the-loop .entry-title {
     padding-left: var(--thm_content_gap, 24px);
   }
-  .entry-content p.wp-block-subhead {
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 100%;
-  }
+
   .emulsion-has-sidebar .entry-content .wp-block-columns.alignwide {
     position: static;
     width: calc(  var(--thm_content_width) + var(--thm_align_offset));
@@ -1296,5 +1320,8 @@ function emulsion_resuponsive_css() {
 	}
 }
 CSS;
+	
+	$css = emulsion_sanitize_css( $css );
+	
 	return $css;
 }

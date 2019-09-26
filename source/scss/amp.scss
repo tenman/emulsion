@@ -1,14 +1,10 @@
 @import 'scss-@';
 @import 'core';
 body{
-
-
     background:var(--thm_background_color);
     color:var(--thm_general_text_color);
     font-family:var(--thm_common_font_family);
     font-size:var(--thm_common_font_size);
-
-
     a{
         color:var(--thm_general_link_color);
         a:hover{
@@ -27,7 +23,6 @@ body{
             overflow-x:auto;
         }
     }
-
     table{
         display:table;
         border-spacing:0;
@@ -44,7 +39,6 @@ body{
                 font-weight:700;
             }
         }
-
     }
     .wp-block-calendar{
         table{
@@ -64,8 +58,6 @@ body{
         margin-top: 0;
         margin-bottom: 0;
     }
-
-
     .has-stripe-background-color,
     .mark-stripe{
         background:repeating-linear-gradient( 45deg, #606dbc, #606dbc 10px, #465298 10px, #465298 20px );
@@ -110,11 +102,9 @@ body{
         padding:1em;
         box-sizing:border-box;
     }
-
     [class^="color"]{
         padding:1em;
     }
-
     figure{
         max-width:100%;
     }
@@ -133,13 +123,11 @@ body{
         margin-left:auto;
         margin-right:auto;
     }
-
     .amp-wp-content{
         min-height:100vh;
         width:var(--thm_content_width);
         max-width:100%;
         color:var(--thm_general_text_color);
-
         a{
             color:var(--thm_general_link_color);
             a:hover{
@@ -151,14 +139,14 @@ body{
         }
         .amp-wp-meta{
             color:var(--thm_general_link_color);
+            li{
+                list-style-type:none;
+            }
         }
-
     }
-
     /**
      * font size classes
      */
-
     @for $i from 13 through 48 {
         .f-#{$i}{
             font-size:#{$i}px;
@@ -191,7 +179,7 @@ body{
         display:flex;
         flex-direction: column;
         justify-content:safe center;
-        align-items:safe center; 
+        align-items:safe center;
         &.has-background-dim:before{
             content:' ';
             position:absolute;
@@ -207,18 +195,15 @@ body{
             z-index:100;
         }
     }
-    
     .wp-block-latest-posts{
         .wp-block-latest-posts__post-full-content{
             .wp-block-cover{
                 @extend .wp-block-cover;
             }
         }
-
     }
     .wp-block-pullquote{
             clear:both;
             float:none;
     }
-
 }
