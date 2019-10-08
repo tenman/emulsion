@@ -5,16 +5,27 @@ jQuery(function ($) {
     /**
      * the table element can not be controlled with max-width,
      *
-     * All table elements wrapping with <div class="emulsion-table-wrapper"></div>
+     * without WordPress 5.3 figure.wp-block-table. table elements wrapping with <div class="emulsion-table-wrapper"></div>
      * emulsion-table-wrapper bais set CSS overflow-x auto
      *
      * If the table width exceeds the size of the content area, display scroll bars to maintain readability.
      * If the table width is smaller than the content area, the stretch class displays the content width.
      *
      */
-    jQuery("table").each(function (i) {
+    jQuery(".gist table,.sidebar-widget-area table, .footer-widget-area table").each(function (i) {
         jQuery(this).wrap('<div class="emulsion-table-wrapper"></div>');
         var parent_width = $(this).parent('.emulsion-table-wrapper').width();
+        var table_width = $(this).width();
+        if (parent_width > table_width) {
+            $(this).addClass('stretch');
+        }
+    });
+    jQuery("table.wp-block-table, .entry-content > table").each(function (i) {
+        /**
+         * WordPress 5.0 old gutenberg block
+         */
+        jQuery(this).wrap('<figure class="wp-block-table exception"></figure>');
+         var parent_width = $(this).parent('.wp-block-table').width();
         var table_width = $(this).width();
         if (parent_width > table_width) {
             $(this).addClass('stretch');
@@ -47,7 +58,8 @@ jQuery(function ($) {
      * Note:We can not guarantee that id is a completely unique value. After editing, the id value also changes.
      */
     if (true == emulsion_script_vars.block_sectionize) {
-        $('.entry-content > [class|="wp-block"]').not('.alignleft, .alignright, .wp-block-image,.wp-block-cover, .wp-block-embed, .wp-block-group, .wp-block-table, .wp-block-spacer, .wp-block-button').wrap(function () {
+        $('.entry-content > [class|="wp-block"]').not('.alignleft, .alignright, .wp-block-image,.wp-block-cover, \n\
+            .wp-block-embed, .wp-block-group, .wp-block-table, .wp-block-spacer, .wp-block-button, .wp-block-separator').wrap(function () {
             var classes = $(this).attr('class').match(/wp-block-\S+/);
             var brightness_class = '';
             if ('wp-block-columns' == classes) {
@@ -367,8 +379,8 @@ jQuery(function ($) {
     /**
      * Anchor Type
      */
-    $("a:not(:has(*))").addClass('text-link');
-    $('img').parent('a').addClass('image-link');
+    $("a:not(:has(*))").addClass('has-text');
+    $('img').parent('a').addClass('has-image');
 });
 jQuery(function ($) {
     "use strict";

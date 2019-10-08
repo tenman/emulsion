@@ -42,6 +42,7 @@ body{
             }
         }
     }
+    
     & > header{
         .custom-logo-wrap{
             vertical-align:middle;
@@ -69,8 +70,12 @@ footer{
     }
     &.banner{
         text-align:center;
+        .privacy-policy{
+            padding:1rem;
+            margin:.5rem;
+        }
         .privacy-policy-link{
-            margin-left:1rem;
+
         }
     }
 }
@@ -81,6 +86,9 @@ article{
             margin-left:auto;
             margin-right:auto;
         }
+    }
+    .entry-title{
+        max-width:100%;
     }
 }
 blockquote{
@@ -211,6 +219,7 @@ hr{
     width: 100px;
     margin: 3em auto;
 }
+
 /**
  * Demarcating edits
  */
@@ -233,6 +242,7 @@ del{
 abbr[title] {
     border-bottom: none;
     text-decoration: underline;
+    text-decoration-style: dotted;
     text-transform: uppercase;
 }
 i.toc-text{
@@ -457,6 +467,7 @@ p.has-drop-cap:not(:focus):first-letter {
     padding: .2rem .4rem 0 .3rem;
     font-family:serif;
 }
+
 /**
  * details
  * ========================================================================== */
@@ -499,6 +510,9 @@ ol,ul{
     margin-left:auto;
     margin-right:auto;
     li{
+        &:first-child{
+            padding-top:0;
+        }
         margin-top:.375rem;
         margin-bottom:.375rem;
         ol,
@@ -511,6 +525,7 @@ ol,ul{
         }
     }
 }
+
 /**
  * Pre Format
  * ========================================================================== */
@@ -636,7 +651,8 @@ table {
         vertical-align:bottom;
     }
 }
-.emulsion-table-wrapper{
+.wp-block-table{
+//.emulsion-table-wrapper{
     /**
      * Required to support TinyMCE and custom HTML other than the block editor
      */
@@ -654,7 +670,8 @@ table {
     overflow:hidden;
     width:calc(var(--thm_content_width) - var(--thm_content_gap) * 2);
 }
-.wp-block-table > .emulsion-table-wrapper{
+.wp-block-table > table{
+//.wp-block-table > .emulsion-table-wrapper{
     margin-top:0;
     margin-bottom:0;
 }
@@ -996,6 +1013,7 @@ body .fit{
     box-sizing:border-box;
 }
 .horizontally{
+    text-align:center;
     display: -webkit-box;
     -webkit-box-pack: center;
     -webkit-box-align: center;
@@ -1182,3 +1200,4 @@ body .fit{
         }
     }
 }
+

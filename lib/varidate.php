@@ -186,7 +186,97 @@ function emulsion_general_text_color_validate( $input ) {
 
 	return sanitize_hex_color( $input );
 }
+function emulsion_layout_search_results_post_image_validate( $input ) {
 
+	$name			 = str_replace( '_validate', '', __FUNCTION__ );
+	$values			 = emulsion_get_var( $name, 'choices' );
+	$default_value	 = emulsion_get_var( $name, 'default' );
+
+	if ( array_key_exists( $input, $values ) ) {
+
+		return $input;
+	}
+
+	return $default_value;
+}
+function emulsion_layout_author_archives_post_image_validate( $input ) {
+
+	$name			 = str_replace( '_validate', '', __FUNCTION__ );
+	$values			 = emulsion_get_var( $name, 'choices' );
+	$default_value	 = emulsion_get_var( $name, 'default' );
+
+	if ( array_key_exists( $input, $values ) ) {
+
+		return $input;
+	}
+
+	return $default_value;
+}
+function emulsion_layout_tag_archives_post_image_validate( $input ) {
+
+	$name			 = str_replace( '_validate', '', __FUNCTION__ );
+	$values			 = emulsion_get_var( $name, 'choices' );
+	$default_value	 = emulsion_get_var( $name, 'default' );
+
+	if ( array_key_exists( $input, $values ) ) {
+
+		return $input;
+	}
+
+	return $default_value;
+}
+function emulsion_layout_category_archives_post_image_validate( $input ) {
+
+	$name			 = str_replace( '_validate', '', __FUNCTION__ );
+	$values			 = emulsion_get_var( $name, 'choices' );
+	$default_value	 = emulsion_get_var( $name, 'default' );
+
+	if ( array_key_exists( $input, $values ) ) {
+
+		return $input;
+	}
+
+	return $default_value;
+}
+function emulsion_layout_date_archives_post_image_validate( $input ) {
+
+	$name			 = str_replace( '_validate', '', __FUNCTION__ );
+	$values			 = emulsion_get_var( $name, 'choices' );
+	$default_value	 = emulsion_get_var( $name, 'default' );
+
+	if ( array_key_exists( $input, $values ) ) {
+
+		return $input;
+	}
+
+	return $default_value;
+}
+function emulsion_layout_posts_page_post_image_validate( $input ) {
+
+	$name			 = str_replace( '_validate', '', __FUNCTION__ );
+	$values			 = emulsion_get_var( $name, 'choices' );
+	$default_value	 = emulsion_get_var( $name, 'default' );
+
+	if ( array_key_exists( $input, $values ) ) {
+
+		return $input;
+	}
+
+	return $default_value;
+}
+function emulsion_layout_homepage_post_image_validate( $input ) {
+
+	$name			 = str_replace( '_validate', '', __FUNCTION__ );
+	$values			 = emulsion_get_var( $name, 'choices' );
+	$default_value	 = emulsion_get_var( $name, 'default' );
+
+	if ( array_key_exists( $input, $values ) ) {
+
+		return $input;
+	}
+
+	return $default_value;
+}
 function emulsion_customizer_preview_redirect_validate( $input ) {
 
 	$name			 = str_replace( '_validate', '', __FUNCTION__ );

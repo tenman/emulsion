@@ -5,7 +5,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 global $template;
 
-$emulsion_post_id = get_the_ID();
+$emulsion_post_id			 = get_the_ID();
+$emulsion_show_post_image	 = emulsion_is_display_featured_image_in_the_loop();
 ?>
 <div class="article-wrapper <?php emulsion_template_identification_class( __FILE__ ) ?>">
 
@@ -13,7 +14,7 @@ $emulsion_post_id = get_the_ID();
 		<?php if ( ! is_singular() ) { ?>
 			<div  class="stream-wrapper">
 				<div class="post-thumb-col"><?php
-					if ( has_post_thumbnail() && ! post_password_required( absint($emulsion_post_id) ) ) {
+					if ( has_post_thumbnail() && ! post_password_required( absint($emulsion_post_id) ) && $emulsion_show_post_image ) {
 						echo get_the_post_thumbnail( null, 'medium', array( 'class' => 'post-thumbnail-in-the-loop' ) );
 					}
 					?></div>
