@@ -965,7 +965,11 @@ if ( ! function_exists( 'emulsion_smart_category_highlight' ) ) {
 
 
 					/* category header style end */
-
+					$result	 .= $body_id . ' .entry-meta .cat-item-' . $term->term_id . " {\n background:hsla(" . $hue . ',' . $saturation . ',' . $lightness . ',' . $alpha . ');} ';
+					$result	 .= $body_id . ' .entry-meta .cat-item-' . $term->term_id . "{\n transition:all .5s ease-in-out;\n} \n";
+					$result	 .= $body_id . ' .entry-meta .cat-item-' . $term->term_id . ', .cat-item-' . $term->term_id . " a{\n color:#fff;} \n";
+					$result	 .= $body_id . ' .entry-meta .cat-item-' . $term->term_id . " a{\n color:#eee;\n} \n";					
+					/* hover */ 
 					$result	 .= $body_id . ' .cat-item-' . $term->term_id . ":hover {\n background:hsla(" . $hue . ',' . $saturation . ',' . $lightness . ',' . $alpha . ');} ';
 					$result	 .= $body_id . ' .cat-item-' . $term->term_id . "{\n transition:all .5s ease-in-out;\n} \n";
 					$result	 .= $body_id . ' .cat-item-' . $term->term_id . ':hover, .cat-item-' . $term->term_id . ":hover a{\n color:#fff;} \n";
@@ -1064,11 +1068,7 @@ if ( ! function_exists( 'emulsion_heading_font_css' ) ) {
 
 			delete_transient( $transient_name );			
 		}
-	/*	if( 'active' == get_theme_mod( 'emulsion_wp_scss_status' ) ){
-		
-			return;
-		}*/
-		
+	
 		$transient_val = get_transient( $transient_name );
 
 		if ( false !== ( $transient_val ) && ! is_user_logged_in() ) {

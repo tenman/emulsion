@@ -14,6 +14,32 @@ block editor, classic editor both supports. Conventional, Image Media New Block 
 Theme can stop at each theme style page for page builder users. Customizer can easily view changes with automatic preview redirection.
 Theme is designed with the goal of minimizing user frustration.
 
+### Theme-specific presentation
+
+* Archives layout
+	* Archive has 3 layout. list, grid and stream
+        * list : Displays posts in list format. You can set whether to display featured image.
+        * grid : Displays posts in grid format. You can set whether to display featured image.
+        * stream : Displays posts in stream format. You can set whether to display featured image.The contents can be displayed simply by operating the buttons. In this case, page transition is not performed and Rest API is used.
+
+* Entry Title
+	* In grid layout and stream layout, long titles are displayed up to two lines. If there are more than 2 lines in length, reduce the font size
+        * When the post title is displayed in the header, it will be displayed in up to 8 lines.If there are more than 2 lines in length, reduce the font size
+
+* Entry Content
+	* excerpt: Summary is not counted by word count. Based on the number of characters. This is to support CJK languages with no spaces between words.
+        * <table> <del> <figure> <blockquote> These elements are not included in excerpt.
+
+* Back END and Front END CSS relation
+	* Customizer CSS settings are communicated to the front end, editor style, classic editor using CSS variables.
+	* SCSS PHP compiler (wp-scss plugin) can be used to easily compile SCSS on the server.( wp-scss has not been updated for a long time,Whether to use it is at your own discretion )
+	* For each post or page, you can completely stop the CSS and script of the theme. This feature may be useful when using a page builder.
+	* In browsers such as IE11 that do not support CSS varialbes, simple display that supports only readability is performed.
+
+* Page Spead ( apply front end and not logged in )
+	* In order to harmonize the Rich Media created by the block editor with the Respose of the site, there are lazyload of images and pre-during functions at link hover.
+	* If there is a similar function in a plug-in, etc., there is a possibility of conflict. You can stop these functions in the customizer.
+
 ## Translations
 
 * You can translate the theme on the following channels

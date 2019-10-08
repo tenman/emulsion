@@ -33,9 +33,9 @@ if ( ! emulsion_get_supports( 'enqueue' ) ) {
 				return str_replace( '<ul>', '<ul class="horizontal-list-group">', $html );
 			}
 
-			echo '<ul class="taxonomy ">';
-			wp_list_categories( array( 'hierarchical' => false, 'title_li' => '<h4>' . esc_html__( 'Categories', 'emulsion' ) . '</h4>' ) );
-			wp_list_categories( array( 'taxonomy' => 'post_tag', 'hierarchical' => false, 'title_li' => '<h4>' . esc_html__( 'Tags', 'emulsion' ) . '</h4>' ) );
+			echo '<ul class="taxonomy">';
+			wp_list_categories( array( 'hierarchical' => false, 'title_li' => '<h4>' . esc_html__( 'Categories', 'emulsion' ) . '</h4>', 'hide_title_if_empty' => true ) );
+			wp_list_categories( array( 'taxonomy' => 'post_tag', 'hierarchical' => false, 'title_li' => '<h4>' . esc_html__( 'Tags', 'emulsion' ) . '</h4>', 'hide_title_if_empty' => true ) );
 			echo '</ul>';
 			?></div>
 		<?php do_action('emulsion_drawer_after');?>

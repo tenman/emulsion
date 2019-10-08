@@ -1,51 +1,32 @@
-.widget{
-    h1,h2,h3,h4,h5,div,form{
-        padding-left:0;
-        padding-right:0;
-    }
-    p{
-        line-height:1.5;
-        padding-left:0;
-        padding-right:0;
-        img{
-            margin-left:0;
-            margin-right:0;
-            max-width:100%;
-            height:auto;
+/**
+ * Sidebar Sequential Control
+ * ========================================================================== */
+body{
+    &.emulsion-has-sidebar{
+        .sidebar-widget-area {
+            min-height:calc(100vh - 80px);
+            padding-bottom:80px;
+        }
+        .has-column{
+            max-width:calc( var(--thm_sidebar_width) + var(--thm_main_width) );
+            margin-left:auto;
+            margin-right:auto;
         }
     }
-    li{
-        position:relative;
+    .emulsion-no-sidebar{
+        .sidebar-widget-area{
+            display:none;
+        }
+
     }
-    img{
-        max-width:100%;
-        height:auto;
-    }
-}
-/**
- * Sidebar, Footer Widget Area
- */
-.emulsion-no-sidebar .sidebar-widget-area{
-    display:none;
-}
-body:not(.emulsion-has-sidebar) .sidebar-widget-area{
-    visibility:hidden;
-    position:absolute;
-    right:0;
-}
-body.emulsion-has-sidebar .sidebar-widget-area {
-    min-height:calc(100vh - 80px);
-    padding-bottom:80px;
-}
-body.emulsion-has-sidebar{
-    .has-column{
-        max-width:calc( var(--thm_sidebar_width) + var(--thm_main_width) );
-        margin-left:auto;
-        margin-right:auto;
+    &:not(.emulsion-has-sidebar) .sidebar-widget-area{
+        visibility:hidden;
+        position:absolute;
+        right:0;
     }
 }
 /**
- * Sidebar
+ * Sidebar table wrapper
  * ========================================================================== */
 /**
  * table wrapper
@@ -63,6 +44,7 @@ body.emulsion-has-sidebar{
     margin-bottom:2em;
     padding-bottom:1px;
     width:100%;
+    padding-top:3px;
 }
 .textwidget .emulsion-table-wrapper.alignleft,
 .textwidget .emulsion-table-wrapper.alignright{
@@ -98,7 +80,39 @@ body.emulsion-has-sidebar{
     background-color: #333;
     outline: 1px solid #333;
 }
+.safari .widgettext .emulsion-table-wrapper{
+    display:block;
+}
+/**
+ * Sidebar fallback
+ * ========================================================================== */
+
 .widget{
+    h1,h2,h3,h4,h5,div,form{
+        padding-left:0;
+        padding-right:0;
+    }
+    p{
+        line-height:1.5;
+        padding-left:0;
+        padding-right:0;
+        img{
+            margin-left:0;
+            margin-right:0;
+            max-width:100%;
+            height:auto;
+        }
+    }
+    li{
+        position:relative;
+    }
+    img{
+        max-width:100%;
+        height:auto;
+    }
+    .widget_media_image{
+        text-align:center;
+    }
     .textwidget{
         ol,
         ul{
@@ -151,9 +165,6 @@ body.emulsion-has-sidebar{
             }
         }
     }
-}
-.footer-widget-area,
-.sidebar-widget-area{
     .widget[id]{
         & > .gallery{
             padding-left:0;
@@ -162,55 +173,10 @@ body.emulsion-has-sidebar{
         }
     }
 }
-.safari .widgettext .emulsion-table-wrapper{
-    display:block;
-}
-.sidebar-widget-area{
-    .widget_rss{
-        ul{
-            li{
-                max-width:100%;
-                a.rsswidget{
-                    display:block;
-                    text-align:center;
-                    margin-bottom:0;
-                    padding-left:var(--thm_content_gap);
-                    padding-right:var(--thm_content_gap);
-                    width:auto;
-                    font-size:var(--thm_common_font_size);
-                    font-weight:bold;
-                    line-height:var(--thm_common_line_height);
-                }
-                .rss-date{
-                    display:block;
-                    margin-top:0;
-                    margin-bottom:0;
-                    padding-left:var(--thm_content_gap);
-                    padding-right:var(--thm_content_gap);
-                    width:auto;
-                    text-align:center;
-                }
-                .rssSummary{
-                    padding-left:var(--thm_content_gap);
-                    padding-right:var(--thm_content_gap);
-                    line-height:1.5;
-                    margin-top:.75rem;
-                    margin-bottom:.75rem;
-                }
-                .rssSummary:empty{
-                    display:none;
-                }
-                cite{
-                    padding-left:var(--thm_content_gap);
-                    padding-right:var(--thm_content_gap);
-                }
-            }
-        }
-    }
-}
-.widget_media_image{
-    text-align:center;
-}
+/**
+ * Sidebar widget
+ * ========================================================================== */
+
 .sidebar-widget-area{
     position:relative;
     z-index:1;
@@ -287,9 +253,50 @@ body.emulsion-has-sidebar{
                 }
             }
         }
-    }
+    }  
     .current-cat{
         list-style-type:disc;
+    }
+    .widget_rss{
+        ul{
+            li{
+                max-width:100%;
+                a.rsswidget{
+                    display:block;
+                    text-align:center;
+                    margin-bottom:0;
+                    padding-left:var(--thm_content_gap);
+                    padding-right:var(--thm_content_gap);
+                    width:auto;
+                    font-size:var(--thm_common_font_size);
+                    font-weight:bold;
+                    line-height:var(--thm_common_line_height);
+                }
+                .rss-date{
+                    display:block;
+                    margin-top:0;
+                    margin-bottom:0;
+                    padding-left:var(--thm_content_gap);
+                    padding-right:var(--thm_content_gap);
+                    width:auto;
+                    text-align:center;
+                }
+                .rssSummary{
+                    padding-left:var(--thm_content_gap);
+                    padding-right:var(--thm_content_gap);
+                    line-height:1.5;
+                    margin-top:.75rem;
+                    margin-bottom:.75rem;
+                }
+                .rssSummary:empty{
+                    display:none;
+                }
+                cite{
+                    padding-left:var(--thm_content_gap);
+                    padding-right:var(--thm_content_gap);
+                }
+            }
+        }
     }
     .widget_media_gallery{
         .gallery{

@@ -23,8 +23,8 @@ $emulsion_metabox_post_header_control	 = emulsion_metabox_display_control( 'head
 
 			emulsion_get_supports( 'header' ) ? get_template_part( 'template-parts/header', emulsion_header_layout() ) : '';
 		}
+		emulsion_sidebar_manager(); 
 		?>
-		<?php emulsion_sidebar_manager(); ?>
 		<div class="page-wrapper layout">
 			<?php
 			if ( has_action( 'emulsion_prepend_page_wrapper' ) ) {
@@ -32,4 +32,3 @@ $emulsion_metabox_post_header_control	 = emulsion_metabox_display_control( 'head
 			}
 			?>
 			<main id="main">
-

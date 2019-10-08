@@ -815,7 +815,7 @@
 
             $('header.header-layer').css({'background': newval});
 
-            $('.header-layer .site-title-text, .header-layer .site-description, .header-layer .entry-title, .header-layer .text-link, .header-layer .posted-on .entry-date, .header-layer .taxonomy-description').css({'color': emulsion_text_color(newval)});
+            $('.header-layer .site-title-text, .header-layer .site-description, .header-layer .entry-title, .header-layer .has-text, .header-layer .posted-on .entry-date, .header-layer .taxonomy-description').css({'color': emulsion_text_color(newval)});
 
             $('.header-layer').removeClass('header-is-light header-is-dark header-is-default-color');
 
