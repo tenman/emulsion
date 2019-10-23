@@ -652,7 +652,8 @@ article{
         }
     }
     footer{
-        @extend %block_wide;
+      //  @extend %block_wide;
+       @extend %block_main_wide;
         @include clearfix;
         clear: both;
         display: block;
@@ -1036,6 +1037,8 @@ main > .post{
             max-width: calc( 40% - 1rem - var(--thm_content_gap) - var(--thm_box_gap) * 2 );
         }
     }
+    
+    
 }
 /**
  * Handmade Layout helper

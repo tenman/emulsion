@@ -2086,7 +2086,7 @@ function emulsion_get_customize_post_id( $type = '' ) {
 	if ( 'gallery' == $type ) {
 		
 		foreach ( $all_posts as $post ) {
-			//esclude alignleft alignright
+			//exclude alignleft alignright
 			if ( preg_match( '#wp:gallery {(.+)?[^(left|right)]+}#', $post->post_content ) ) {
 
 				$result = absint( $post->ID );

@@ -130,7 +130,8 @@ header{
 }
 nav[class|="menu"]{
     //nav[class*=" menu"]{
-    @extend %block_wide;
+   // @extend %block_wide;
+     @extend %block_main_wide;
     @include font_size(5, no-margin);
     margin:0 auto 0;
     padding-left:0;
@@ -175,7 +176,8 @@ nav[class|="menu"]{
         }
     }
     ul.wp-nav-menu{
-        @extend %block_wide;
+        //@extend %block_wide;
+         @extend %block_main_wide;
         padding-left:0;
         padding-right:0;
         margin-top:0;
@@ -547,7 +549,8 @@ nav[class|="menu"]{
         margin-top:0;
         margin-bottom:0;
         .primary{
-            @extend %block_wide;
+           // @extend %block_wide;
+             @extend %block_main_wide;
             margin-top:0;
             margin-bottom:0;
             & > li{

@@ -159,7 +159,21 @@
  * @extend %block_wide;
  */
 %block_wide {
+    //  width: var( --thm_main_width, 1280px );
+    width:calc( var(--thm_content_width) + var(--thm_align_offset) );
+    margin-top:1.5rem;
+    margin-bottom:.75rem;
+    padding-left:var( --thm_content_gap, 24px );
+    padding-right:var( --thm_content_gap, 24px );
+    box-sizing:border-box;
+}
+/**
+ * Wide Block Elements
+ * @extend %block_main_wide;
+ */
+%block_main_wide {
     width: var( --thm_main_width, 1280px );
+    // width:calc( var(--thm_content_width) + var(--thm_align_offset) );
     margin-top:1.5rem;
     margin-bottom:.75rem;
     padding-left:var( --thm_content_gap, 24px );
@@ -239,7 +253,7 @@
                         justify-content:flex-end;
                         display:inline-block;
                         vertical-align:baseline;
-                        max-height:3rem;
+                        max-height:calc( 3rem - 2px);
                     }
                 }
             }
@@ -278,13 +292,15 @@
     box-sizing:border-box;
     clear:left;
     float:left;
-    margin-left:0;
-    max-width:calc( 50% - 1rem );
-    margin-right:1rem;
-    &[style="max-width:50%"]{
+  //  margin-left:0;
+  //  max-width:calc( 50% - 1rem );
+    max-width:calc( 50% - var(--thm_content_gap) * 2);
+    margin:var(--thm_content_gap);
+  //  margin-right:1rem;
+  /*  &[style="max-width:50%"]{
         margin-right:0;
         margin-left:0;
-    }
+    }*/
     @media screen and ( max-width : 640px ) {
         // static break point
         width:100%;
@@ -301,13 +317,15 @@
     box-sizing:border-box;
     clear:right;
     float:right;
-    max-width:calc( 50% - 1rem );
-    margin-left:1rem;
-    margin-right:0;
-    &[style="max-width:50%"]{
+  //  max-width:calc( 50% - 1rem );
+ //   margin-left:1rem;
+ //   margin-right:0;
+     max-width:calc( 50% - var(--thm_content_gap) * 2);
+    margin:var(--thm_content_gap);
+ /*   &[style="max-width:50%"]{
         margin-right:0;
         margin-left:0;
-    }
+    }*/
     @media screen and ( max-width : 640px ) {
         // static break point
         width:100%;
@@ -395,7 +413,7 @@
         }
     }
     [class|="wp-block"]:not(.wp-block-gallery){
-   // [class*=" wp-block"]:not(.wp-block-gallery){
+        // [class*=" wp-block"]:not(.wp-block-gallery){
         &.size1of2,
         &.size1of3,
         &.size2of3,
@@ -446,7 +464,10 @@
     .wp-block-column {
         width:100%;
         max-width:100%;
+
     }
+
+
     .wp-block-pullquote,
     .wp-block-cover{
         height:auto;
@@ -472,6 +493,7 @@
             display:none!important;
         }
     }
+
 }
 /**
  * Download button file type

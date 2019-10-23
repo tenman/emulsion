@@ -250,7 +250,7 @@
 </ul>
 <ul class="additional-class">
 	<li class="label"><?php esc_html_e('Custom Format Class', 'emulsion' ) ?></li>
-	<li><p>flat-button</p>
+	<li><p>tag-cloud-style-flat</p>
 		<p><?php esc_html_e('Remove the font size effect of the tag cloud and display it with a flat button.', 'emulsion' ) ?></li>
 </ul>
 <h4><?php esc_html_e('Embed', 'emulsion' ) ?></h4>
