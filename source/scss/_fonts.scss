@@ -4,6 +4,7 @@ body{
     font-kerning: auto;
     font-family: var(--thm_common_font_family);
 }
+
 .entry-title a,
 h1,h2,h3,h4,h5,h6,
 .h1,.h2,.h3,.h4,.h5,.h6{
@@ -14,6 +15,33 @@ h1,h2,h3,h4,h5,h6,
         text-transform:var(--thm_heading-font-transform);
     }
 }
+
+div[data-block],
+.entry-content{
+
+    h1,h2,h3,h4,h5,h6,
+    .h1,.h2,.h3,.h4,.h5,.h6{
+        line-height:var( --thm_common_line_height, 1.15 );
+    }   
+    .use-font-heading{
+        font-family:var(--thm_heading_font_family);
+        font-weight:var(--thm_heading_font_weight);
+        text-transform:var(--thm_heading-font-transform); 
+        line-height:var( --thm_common_line_height, 1.15 );
+    }
+    .use-font-common{
+        font-family:var(--thm_common_font_family);
+        line-height:var( --thm_content_line_height );
+        font-size:var(--thm_common_font_size);
+        line-height:var(--thm_content_line_height);
+    }
+    .use-font-meta{
+        font-family:var(--thm_meta_data_font_family);
+        font-size:var(--thm_meta_data_font_size);
+        text-transform:var(--thm_meta_data_font_transform);
+    }
+}
+
 /**
  * Monospaced font
  */
@@ -28,15 +56,7 @@ tt {
 kbd, samp,tt {
     line-height:100%;
 }
-.form-allowed-tags code,
-code{
-    line-height: var(--thm_content_line_height, 1.5 );
-}
-pre.wp-block-verse{
-    lin-height:var(--thm_common_line_height);
-    font-size:var(--thm_common_font_size);
-    font-family: var(--thm_common_font_family);
-}
+
 /**
  * Absolute Font Sizes
  * Override the relative font size and change it to absolute font size.
@@ -51,9 +71,39 @@ pre.wp-block-verse{
             font-style:normal;
         }
     }
+    @font-face {
+        font-family:italicJa;
+        src: local('Meiryo');
+    }
+    pre.wp-block-verse{
+        font-family:italicJa;
+    }
+
+}
+.form-allowed-tags code,
+code{
+    line-height: var(--thm_content_line_height, 1.5 );
+}
+pre.wp-block-preformatted{
+    lin-height:var(--thm_common_line_height);
+    font-size:var(--thm_common_font_size);
+    font-family: var(--thm_common_font_family);  
+}
+pre.wp-block-verse{
+    @include font_size(3);
+    margin-top:calc( var(--thm_common_font_size) * var(--thm_content_line_height) );
+    margin-bottom:calc( var(--thm_common_font_size) * var(--thm_content_line_height) / 2 );
+    line-height:var(--thm_content_line_height);
+    font-family: var(--thm_common_font_family);
+    font-style:italic;
+
 }
 body{
-    .flat-button a{
+    .has-large-font-size,
+    .has-extra-large-font-size{
+        line-height:var(--thm_common_line_height);
+    }
+    .tag-cloud-style-flat a{
         font-size:var(--thm_meta_data_font_size);
         text-transform:var(--thm_meta_data_font_transform);
     }
@@ -271,8 +321,8 @@ footer.banner{
 .wp-block-columns{
     .wp-block-column{
         @include font_size(5);
-       // h1,h2,h3,h4,h5,h6,p,ul,ol,table,.emulsion-table-wrapper{
-       h1,h2,h3,h4,h5,h6,p,ul,ol,table,.wp-block-table{
+        // h1,h2,h3,h4,h5,h6,p,ul,ol,table,.emulsion-table-wrapper{
+        h1,h2,h3,h4,h5,h6,p,ul,ol,table,.wp-block-table{
             margin-top:20px;
             margin-bottom:20px;
         }
@@ -295,8 +345,10 @@ footer.banner{
      * Page Layout
      */
     .wp-block-column{
+        margin-top:0;
         &.sidebar{
             @include font_size(5);
+            margin-top:0;
             font-size:var(--thm_meta_data_font_size);
             text-transform:var(--thm_meta_data_font_transform);
             .wp-block-latest-comments__comment-meta{
@@ -306,6 +358,7 @@ footer.banner{
         }
         &.main{
             @include font_size(4);
+            margin-top:0;
             line-height:var( --thm_content_line_height );
             font-size:var(--thm_common_font_size);
             line-height:var(--thm_content_line_height);
@@ -324,6 +377,7 @@ footer.banner{
 /**
  * font size class
  */
+/*
 @for $i from 10 through 48 {
     .layout-list.font-heading-sans-serif .f-#{$i},
     .layout-list.font-heading-serif .f-#{$i},
@@ -331,7 +385,7 @@ footer.banner{
     .layout-list.font-common-serif .f-#{$i}{
         font-size:#{$i}px;
     }
-}
+}*/
 /**
  * font weight class
  */

@@ -15,6 +15,21 @@ Theme can stop at each theme style page for page builder users. Customizer can e
 Theme is designed with the goal of minimizing user frustration.
 
 ### Theme-specific presentation
+* Moduled presentation
+
+The theme consists of the following modules:
+'enqueue','primary_menu','search_drawer','search_keyword_highlight','sidebar','sidebar_page','footer','footer_page',
+'alignfull','title_in_page_header','toc','header','background','custom-logo','social-link-menu',
+'footer-svg','excerpt','relate_posts','tooltip','amp','entry_content_html_cleaner','block_sectionize','background_css_pattern',
+'meta_description','TGMPA',
+
+A theme can enable or disable these features on a per-template basis.
+
+Since WordPress 5.0, CSS has been integrated into the core.
+Prior to that, CSS had the theme of defining presentations.
+Due to this change, the CSS settings for presentations that have traditionally become more complex and useless.
+For example, the social link menu was a theme function, but if you use the social menu in the block editor, it may not be necessary anymore.
+This is why I tried modularization.
 
 * Archives layout
 	* Archive has 3 layout. list, grid and stream

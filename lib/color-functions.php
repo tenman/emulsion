@@ -330,7 +330,7 @@ if ( ! function_exists( 'emulsion_sub_background_color_darken' ) ) {
 		$alpha = 1;
 	
 		if ( 0 == $hue ) {
-			$lightness = $lightness > 0 ? $lightness * 0.75: 0;			
+			$lightness = $lightness > 0 ? $lightness * 0.80: 0;			
 			return emulsion_accent_color( $hex, $alpha, $hue, $saturation, $lightness );
 		} else {
 			//$saturation = $saturation > 0 ? $saturation * 0.9: 0;

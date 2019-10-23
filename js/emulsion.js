@@ -20,12 +20,12 @@ jQuery(function ($) {
             $(this).addClass('stretch');
         }
     });
-    jQuery("table.wp-block-table, .entry-content > table").each(function (i) {
+    jQuery("table.wp-block-table, .entry-content > table").not('shrink').each(function (i) {
         /**
          * WordPress 5.0 old gutenberg block
          */
         jQuery(this).wrap('<figure class="wp-block-table exception"></figure>');
-         var parent_width = $(this).parent('.wp-block-table').width();
+        var parent_width = $(this).parent('.wp-block-table').width();
         var table_width = $(this).width();
         if (parent_width > table_width) {
             $(this).addClass('stretch');
@@ -204,7 +204,7 @@ jQuery(function ($) {
             line_height = parseInt($(this).css('line-height'));
             box_height = parseInt(Math.ceil(rows * line_height));
             if (parseInt($('.multiline-text-overflow', this).height()) > box_height) {
-            $(this).css({'max-height': box_height});
+                $(this).css({'max-height': box_height});
                 $(this).addClass('on-trancate');
                 $(this).removeClass('off-trancate');
             } else {
@@ -212,7 +212,7 @@ jQuery(function ($) {
                 $(this).removeClass('on-trancate');
             }
         }
-        $(this).css({'visibility':'visible'});
+        $(this).css({'visibility': 'visible'});
     });
     $('.related-posts .on-trancate > span').each(function (index) {
         var text = $(this).text();
@@ -395,7 +395,7 @@ jQuery(function ($) {
         if (parseInt(scrolle_y) < parseInt(offset_primary_menu) || parseInt(scrolle_y) < 20) {
             $('body').removeClass('on-scroll');
         }
-        if (parseInt(scrolle_y) > parseInt(offset_primary_menu) ) {
+        if (parseInt(scrolle_y) > parseInt(offset_primary_menu)) {
             $('body').addClass('on-scroll');
         }
     });
@@ -581,6 +581,9 @@ jQuery(function ($) {
     });
 });
 jQuery(function ($) {
+    /**
+     * Highlight related links when hovering category links
+     */
     $('.cat-item a').hover(function () {
         var link = $(this).parent().attr('class').replace('cat-item', '');
         link = link.replace(' ', '');
@@ -592,6 +595,9 @@ jQuery(function ($) {
     });
 });
 jQuery(function ($) {
+    /**
+     * detect if there is a link to the current page
+     */
     var request_url = window.location.href;
     $("a").each(function (i) {
         var link_url = $(this).attr('href');
@@ -640,11 +646,17 @@ jQuery(function ($) {
     }
 });
 jQuery(function ($) {
+    /**
+     * detect paragraph only inline image
+     */
     $('.wp-block-column  p > img:only-child').each(function (i) {
         $(this).parent().addClass('has-only-image');
     });
 });
 jQuery(function ($) {
+    /**
+     * detect button has background
+     */
     $('.wp-block-button a').each(function (i) {
         if ($(this).hasClass('has-background')) {
             $(this).parent().addClass('button-has-background');
@@ -652,6 +664,9 @@ jQuery(function ($) {
     });
 });
 jQuery(function ($) {
+    /**
+     * customizer sticky sidebar setting relate class
+     */
     if ('disable' == emulsion_script_vars.sticky_sidebar) {
         $('body').addClass('disable-sidebar-sticky');
     }
@@ -660,6 +675,9 @@ jQuery(function ($) {
     }
 });
 jQuery(function ($) {
+    /**
+     * contrast check
+     */
     if (emulsion_script_vars.force_contrast) {
         $('.entry-content > div:not(.shortcode-wrapper),.entry-content > .shortcode-wrapper > div, .entry-content > .has-background:not(.has-text-color)').not('.wp-block-button').each(function (i) {
             var background_color_rgb = $(this).css("background-color");
@@ -673,7 +691,7 @@ jQuery(function ($) {
                 }
             }
             if (background_color_rgb.match(/^rgba\(/)) {
-                console.log(background_color_rgb);
+
                 //TODO
                 if ($(this).is('[id="bbpress-forums"]')) {
                     $(this).addClass('has-background emulsion-initial-color').css({'position': 'relative', 'z-index': 'auto'});// chnge 1 to auto 8/27
@@ -717,6 +735,9 @@ jQuery(function ($) {
     }
 });
 jQuery(function ($) {
+    /**
+     * Stop alignwide support if browser too old
+     */
     var userAgent = window.navigator.userAgent.toLowerCase( );
     if (userAgent.match(/Trident/i) && userAgent.match(/rv:11/i)) {
         $('body').removeClass('enable-alignfull');
@@ -724,6 +745,9 @@ jQuery(function ($) {
     }
 });
 jQuery(function ($) {
+    /**
+     * detect IE,EDGE browser
+     */
     var userAgent = window.navigator.userAgent.toLowerCase( );
     if (userAgent.match(/Edge\/\d+/i)) {
         jQuery('body').addClass('agent-edge');
@@ -732,16 +756,34 @@ jQuery(function ($) {
     }
 });
 jQuery(function ($) {
-    $('.transform-tab > li,.is-style-tab > li').each(function (i) {
-        var height = Math.round($(this).children().height()) + 32;
+    /**
+     * Display nested list elements like tabs. experimental
+     * title depth 0
+     * content depth 1
+     */
+    $('.list-style-tab > li').each(function (i) {
         $(this).attr({
             'tabindex': '0',
-            'style': 'margin-bottom:' + height + 'px'
+            'role': 'tab',
         });
         $(this).parent().attr({
             'tabindex': '0',
+            'role': 'tabgroup',
         });
     });
+
+    $('.list-style-tab > li')
+            .focusin(function (e) {
+                var height = Math.round($(this).children().height()) + 36;
+                $(this).attr({
+                    'style': 'margin-bottom:' + height + 'px',
+                    'class': 'active',
+                    'aria-selected': 'true',
+                });
+            })
+            .focusout(function (e) {
+                $(this).removeAttr('style aria-selected').removeClass('active');
+            });
 });
 jQuery(function ($) {
     /**
@@ -757,19 +799,64 @@ jQuery(function ($) {
 //
 jQuery(function ($) {
     /**
-     * wp-block-search
-     * Request should not be made even if field is blank
+     * wp-block-tagcloud
+     * If the block class has a tag-cloud-style-flat, remove the style and stop highlighting the text size
      */
-    $('.wp-block-tag-cloud.flat-button a').each(function (i) {
+    $('.wp-block-tag-cloud.tag-cloud-style-flat a').each(function (i) {
         $(this).removeAttr('style');
     });
 });
-//drawer-wrapper
+
 jQuery(function ($) {
+    /**
+     * detect is search drawer active
+     */
     $(".drawer-wrapper .icon").on("click", function () {
         $('body').toggleClass("drawer-is-active");
     });
 });
+jQuery(function ($) {
+    /**
+     * link add when heading has id
+     * for allow user to copy link
+     * Only singular page 
+     */
+    $('.is-singular .entry-content h1[id],.is-singular .entry-content h2[id],.is-singular .entry-content h3[id],.is-singular .entry-content h4[id],.is-singular .entry-content h5[id],.is-singular .entry-content h6[id]').each(function (i) {
+        var fragment = $(this).attr('id');
+        $(this).wrapInner($('<a href="#' + fragment + '"></a>'));
+    });
+});
+
+jQuery(function ($) {
+    
+    /**
+     * Add a wrapper block whose diameter is the diagonal length of the block
+     */
+
+    $('.badge').each(function (i) {
+    
+        var width_raw =  $(this).outerWidth();
+        var width = Math.pow(width_raw , 2  );
+        var height_raw = $(this).outerHeight();
+        var height = Math.pow( height_raw, 2 );
+        var diagonal_length = Math.pow( width + height, 1 / 2 ) ;
+        var class_name = $(this).attr('class');
+        var style = $(this).attr('style');
+        
+    var image = $(this).find('img');
+    
+    if(image.length){
+        $(this).css({'width':width_raw}).addClass('has-image-badge');
+        $(image).css({'width':image.width(),'height':image.width()}); 
+    }
+    if( !image.length){       
+        $(this).wrap($('<div class="badge '+ class_name + '" style="'+ style +'"></div>')).removeClass(class_name).removeAttr('style');
+        $(this).parent().css({'width':diagonal_length,'height':diagonal_length});
+    }
+                
+    });
+});
+
 jQuery(document).ready(function ($) {
     /**
      * when not exists meta description tag, add meta description tag

@@ -25,6 +25,7 @@ body{
         right:0;
     }
 }
+
 /**
  * Sidebar table wrapper
  * ========================================================================== */
@@ -170,6 +171,30 @@ body{
             padding-left:0;
             padding-right:0;
             max-width:100%;
+        }
+    }
+}
+/**
+ * Widget tag cloud
+ * ========================================================================== */
+.widget_tag_cloud{
+    .tagcloud{
+        @extend %block;
+        max-width:100%;
+        padding-left:var(--thm_content_gap, 24px);
+        padding-right:var(--thm_content_gap, 24px);
+        display:flex;
+        flex-wrap:wrap;
+        a{
+            flex:1 1 auto;
+            margin-bottom:2px;
+            vertical-align:middle;
+            display:inline-block;
+            text-align:center;
+            padding:2px 3px;
+            &:hover{
+                background:rgba(188, 188, 188, .2);
+            }
         }
     }
 }
@@ -468,7 +493,8 @@ body{
             padding-left:0;
             padding-right:0;
             .footer-widget-area-lists{
-                @extend %block_wide;
+                //@extend %block_wide;
+                 @extend %block_main_wide;
                 padding-left:0;
                 padding-right:0;
                 width:100%;
