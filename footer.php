@@ -1,8 +1,10 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-global $template;
+
+/**
+ * Theme emulsion
+ * footer template part file
+ */
+
 ?>
 			</main>
 <?php do_action( 'emulsion_append_page_wrapper' ); ?> 

@@ -39,7 +39,8 @@
         margin-right:auto;
         &.gallery-size-thumbnail{
             .gallery-item{
-                //  background:transparent!important;
+                justify-content: start;
+                align-items: stretch;
             }
         }
         .gallery-item {
@@ -135,8 +136,8 @@ div.gallery-columns-1.gallery-size-thumbnail{
     width:calc(150px + var(--thm_content_gap, 24px) * 2 );
     box-sizing:border-box;
 }
-.gallery-columns-1 .gallery-item,
-ul.wp-block-gallery.columns-1 .blocks-gallery-item{
+.gallery-columns-1 .gallery-item/*,
+ul.wp-block-gallery.columns-1 .blocks-gallery-item*/{
     width:100%;
 }
 
@@ -144,11 +145,11 @@ ul.wp-block-gallery.columns-1 .blocks-gallery-item{
  * Block gallery WordPress 5.0 - 5.2
  */
 @for $i from 2 through 10 {
-    ul.wp-block-gallery.columns-#{$i} .blocks-gallery-item{
-        width: calc( 99.9% / #{$i} - var( --thm_box_gap, 3px ) * 2);// 99.9% for edge lauout broken when figcaption scroll
-        padding:0;
-        margin: var( --thm_box_gap, 3px );
-    }
+    /* ul.wp-block-gallery.columns-#{$i} .blocks-gallery-item{
+         width: calc( 99.9% / #{$i} - var( --thm_box_gap, 3px ) * 2);// 99.9% for edge lauout broken when figcaption scroll
+         padding:0;
+         margin: var( --thm_box_gap, 3px );
+     }*/
     .gallery-columns-#{$i} .gallery-item{
         width: calc( 100% / #{$i} - var( --thm_box_gap, 3px ) * 2);
         padding:0;
@@ -157,9 +158,10 @@ ul.wp-block-gallery.columns-1 .blocks-gallery-item{
 }
 
 /* Gutenberg Gallery */
+/*
 ul.wp-block-gallery{
     left:0;
-}
+}*/
 .wp-block-gallery li.blocks-gallery-item{
     margin:var( --thm_box_gap, 3px );
     -ms-flex-positive: 0;
@@ -261,7 +263,7 @@ ul.wp-block-gallery{
  */
 
 @for $i from 2 through 10 {
-   figure.wp-block-gallery.columns-#{$i} .blocks-gallery-item{
+    figure.wp-block-gallery.columns-#{$i} .blocks-gallery-item{
         width: calc( 99.9% / #{$i} - var( --thm_box_gap, 3px ) * 2);// 99.9% for edge lauout broken when figcaption scroll
         padding:0;
         margin: var( --thm_box_gap, 3px );

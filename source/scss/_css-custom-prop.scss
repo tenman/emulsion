@@ -1,3 +1,6 @@
+/**
+ * Customizer relate Dinamic CSS
+ */
 :root{
     --thm_post_display_date: $post_display_date;
     --thm_post_display_author:$post_display_author;
@@ -71,6 +74,74 @@
     --thm_comments_bg:$comments_bg;
     --thm_common_border:1px solid rgba(188,188,188,.5);
 }
+/**
+ *  Static Core Colors
+ */
+.wp-block-table{
+    $table_light_gray_background:#f3f4f5;
+    $table_pale_green_background:#e9fbe5;
+    $table_pale_blue_background:#e7f5fe;
+    $table_pale_pink_background:#ffccf8;
+    --thm_table_light_gray_background:$table_light_gray_background;
+    --thm_table_pale_green_background:$table_pale_green_background;
+    --thm_table_pale_blue_background:$table_pale_blue_background;
+    --thm_table_pale_pink_background:$table_pale_pink_background;
+}
+/**
+ * Static Theme Colors
+ */
+:root{  
+    --thm_black_color:#333;
+    --thm_gray_color:#727477;
+    --thm_white_color:#ffffff;
+    --thm_alert_color:rgba(231, 76, 60, 1);
+    --thm_notice_color:rgba(163, 140, 8, 1);
+    --thm_info_color:rgba(22, 160, 133, 1);
+    --thm_cool_color:rgba(52, 152, 219, 1);
+    --thm_alert_color_alpha:rgba(231, 76, 60, .4);
+    --thm_notice_color_alpha:rgba(163, 140, 8, .4);
+    --thm_info_color_alpha:rgba(22, 160, 133, .4);
+    --thm_cool_color_alpha:rgba(52, 152, 219, .4);
+}
+/**
+ * For System Theme Color
+ * default false
+ * @see wp_localize_script( 'emulsion-js', 'emulsion_script_vars', array(...) );
+ */
+@media (prefers-color-scheme: dark) {
+    // example
+    .prefers-color-scheme-dark {  
+        --thm_general_text_color:#eee;
+        --thm_general_link_color:#bbb;
+        --thm_general_link_hover_color:#eee;
+        --thm_background_color:#333;
+        --thm_sub_background_color_lighten:#666;
+        --thm_sub_background_color_darken:#000;
+        --thm_primary_menu_background:#000;
+        --thm_primary_menu_link_color:#bbb;
+        --thm_primary_menu_color:#eee;
+        --thm_sidebar_bg_color:#000;
+    }
+}    
+@media (prefers-color-scheme: light) {
+    // example
+    .prefers-color-scheme-light{
+        --thm_general_text_color:#333;
+        --thm_general_link_color:#666;
+        --thm_general_link_hover_color:#333;
+        --thm_background_color:#eee;
+        --thm_sub_background_color_lighten:#fff;
+        --thm_sub_background_color_darken:#aaa;
+        --thm_primary_menu_background:#333;
+        --thm_primary_menu_link_color:#bbb;
+        --thm_primary_menu_color:#eee;
+        --thm_sidebar_bg_color:#333;
+        --thm_social_icon_color:#666;
+    }
+}
+
+
+
 .emulsion-has-sidebar{
     .has-column{
         .page-wrapper{
@@ -133,7 +204,21 @@ main{
             --thm_content_width: 400px;
             article{
                 --thm_content_width: 100%;
+
+
             }
         }
     }
+}
+/**
+ * Template gallery main width
+ */
+#document{
+    .enable-alignfull{
+        &.emulsion-no-sidebar{
+            &.post-template-gallery{
+                --thm_main_width:100vw;
+            }
+        }
+    }   
 }

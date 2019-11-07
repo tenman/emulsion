@@ -28,7 +28,7 @@ if ( ! function_exists( 'emulsion_get_css_variables_values' ) ) {
 		
 		$has_set_header_textcolor = get_theme_mod( 'header_textcolor', false );
 		
-		if( false !== $has_set_header_textcolor && $has_set_header_textcolor !== get_theme_support( 'custom-header', 'default-text-color' ) ){
+		if( false !== $has_set_header_textcolor && $has_set_header_textcolor !== get_theme_support( 'custom-header', 'default-text-color' ) && 'blank' !== $has_set_header_textcolor ){
 			
 			$header_text_color = '#'. get_theme_mod( 'header_textcolor' );
 			
@@ -160,25 +160,13 @@ if ( ! function_exists( 'emulsion_get_css_variables_values' ) ) {
 			'color_palette'						 => array( 'value' => emulsion_get_color_palette(), 'unit' => '' ),
 		);
 		
-		/** TODO worked improperly
-		$old_setting = (array) get_theme_mod( 'css_variables_values', array() );
-		$is_changed	 = false;
+		$check_customizer_change = get_theme_mod('emulsion_customizer_is_changed');
 
-		$diff		 = array_map( 'unserialize', array_diff_assoc( array_map( 'implode', $old_setting ), array_map( 'implode', $settings ) ) );
-
-		if ( is_array( $diff ) && ! empty( $diff ) ) {
+		if ( 'is_changed' == $name && 'yes' == $check_customizer_change ) {
 			
-			$is_changed = true;
+			set_theme_mod('emulsion_customizer_is_changed','no');
 			
-		}*/
-		if ( current_user_can( 'edit_theme_options' ) ) {
-			set_theme_mod( 'css_variables_values', $settings );
-		}
-		// now always return true;
-		$is_changed	 = true;
-		if ( 'is_changed' == $name && true == $is_changed ) {
-			
-			return $is_changed;
+			return true;
 		}
 
 		/**

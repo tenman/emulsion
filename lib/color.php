@@ -331,6 +331,11 @@ CSS;
  */
 
 function emulsion_stream_layout_css() {
+	
+	/**
+	 * Theme main CSS is a compiled static file described in common.css. 
+	 * If you do not use the wp-scss plugin, this function will need to dynamically override common.css.
+	 */
 
 	$stream_condition	 = emulsion_get_css_variables_values( 'stream' );
 	$content_width		 = emulsion_get_css_variables_values( 'content_width' );
@@ -408,23 +413,7 @@ function emulsion_stream_layout_css() {
 		$class .stream .article-wrapper article .stream-wrapper .content-col .entry-content p {
 			margin-top: 0.75rem;
 		  }
-		 $class .stream .article-wrapper article .stream-wrapper .content-col .archive-preview div, .stream .article-wrapper article .stream-wrapper .content-col .archive-preview p, .stream .article-wrapper article .stream-wrapper .content-col .archive-preview h1, .stream .article-wrapper article .stream-wrapper .content-col .archive-preview h2, .stream .article-wrapper article .stream-wrapper .content-col .archive-preview h3, .stream .article-wrapper article .stream-wrapper .content-col .archive-preview h4, .stream .article-wrapper article .stream-wrapper .content-col .archive-preview h5, .stream .article-wrapper article .stream-wrapper .content-col .archive-preview table, .stream .article-wrapper article .stream-wrapper .content-col .archive-preview ul, .stream .article-wrapper article .stream-wrapper .content-col .archive-preview ol, .stream .article-wrapper article .stream-wrapper .content-col .archive-preview figure {
-			width:var(--thm_content_width);
-			max-width: 100%;
-			margin-left: auto;
-			margin-right: auto;
-		  }
-		$class .stream .article-wrapper article .stream-wrapper .content-col .archive-preview .alignwide,
-		$class .stream .article-wrapper article .stream-wrapper .content-col .archive-preview .alignfull {
-			width:var(--thm_content_width);
-			max-width: 100%;
-			position: static;
-			left: 0;
-			margin-left: auto;
-			margin-right: auto;
-			box-sizing: border-box;
-			transform: none;
-		  }
+		
 		$class .stream .article-wrapper article .stream-wrapper .content-col .content .trancate {
 			padding-left: var(--thm_content_gap, 24px);
 			padding-right: var(--thm_content_gap, 24px);
@@ -492,6 +481,11 @@ CSS2;
  * @return type
  */
 function emulsion_grid_layout_css() {
+	
+	/**
+	 * Theme main CSS is a compiled static file described in common.css. 
+	 * If you do not use the wp-scss plugin, this function will need to dynamically override common.css.
+	 */
 
 	$grid_condition	 = emulsion_get_css_variables_values( 'grid' );
 	$main_width		 = emulsion_get_css_variables_values( 'main_width' );
@@ -640,6 +634,11 @@ CSSRES;
 //add_filter('emulsion_the_background_color',function($color){return "#336699";});
 
 function emulsion_resuponsive_css() {
+	
+	/**
+	 * Theme main CSS is a compiled static file described in common.css. 
+	 * If you do not use the wp-scss plugin, this function will need to dynamically override common.css.
+	 */
 	
 	$main_width								 = emulsion_get_css_variables_values( 'main_width' );
 	$content_width							 = emulsion_get_css_variables_values( 'content_width' );
@@ -1052,20 +1051,20 @@ function emulsion_resuponsive_css() {
   }
   .header-layer-nav-menu input[type="checkbox"][data-skin="hamburger"]:checked ~ nav {
     display: block;
-    background: #333;
+   /* background: #333;*/
     z-index: 10;
     position: absolute;
     right: 48px;
     top: 1.5rem;
   }
-  .header-layer-nav-menu input[type="checkbox"][data-skin="hamburger"]:checked ~ nav .primary.wp-nav-menu[data-direction] li > .children, .header-layer-nav-menu input[type="checkbox"][data-skin="hamburger"]:checked ~ nav .primary.wp-nav-menu[data-direction] li > .sub-menu {
+/*  .header-layer-nav-menu input[type="checkbox"][data-skin="hamburger"]:checked ~ nav .primary.wp-nav-menu[data-direction] li > .children, .header-layer-nav-menu input[type="checkbox"][data-skin="hamburger"]:checked ~ nav .primary.wp-nav-menu[data-direction] li > .sub-menu {
     background: #333;
-  }
+  }*/
   .header-layer-nav-menu input[type="checkbox"][data-skin="hamburger"]:checked ~ nav .menu {
     width: 100%;
   }
   .header-layer-nav-menu input[type="checkbox"][data-skin="hamburger"]:checked ~ nav .menu a {
-    color: #fff;
+   /* color: #fff;*/
   }
   .header-layer-nav-menu input[type="checkbox"][data-skin="hamburger"]:checked ~ nav .menu .nav-menu-child-opener-label:before {
     background: url("/wp-37/wp-content/themes/emulsion/images/svg/arrow-down.svg#white");
@@ -1106,7 +1105,6 @@ function emulsion_resuponsive_css() {
   .template-part-header-custom ~ .primary-menu-wrapper input[type="checkbox"][data-skin="hamburger"]:checked ~ nav {
     display: block;
     visibility: visible;
-    background: #333;
     z-index: 10;
     position: absolute;
     left: 72px;
@@ -1114,16 +1112,16 @@ function emulsion_resuponsive_css() {
     width: calc(100vw - 96px);
   }
   .template-part-header-custom ~ .primary-menu-wrapper input[type="checkbox"][data-skin="hamburger"]:checked ~ nav .primary.wp-nav-menu[data-direction] li > .children, .template-part-header-custom ~ .primary-menu-wrapper input[type="checkbox"][data-skin="hamburger"]:checked ~ nav .primary.wp-nav-menu[data-direction] li > .sub-menu {
-    background: #333;
+		/*background: #333;*\
   }
   .template-part-header-custom ~ .primary-menu-wrapper input[type="checkbox"][data-skin="hamburger"]:checked ~ nav.has-chckbox-control .primary.wp-nav-menu[data-direction] .children li:hover, .template-part-header-custom ~ .primary-menu-wrapper input[type="checkbox"][data-skin="hamburger"]:checked ~ nav.has-chckbox-control .primary.wp-nav-menu[data-direction] .sub-menu li:hover {
-    background: #333;
+    /*background: #333;*/
   }
   .template-part-header-custom ~ .primary-menu-wrapper input[type="checkbox"][data-skin="hamburger"]:checked ~ nav.has-chckbox-control .primary.wp-nav-menu[data-direction] .children:hover, .template-part-header-custom ~ .primary-menu-wrapper input[type="checkbox"][data-skin="hamburger"]:checked ~ nav.has-chckbox-control .primary.wp-nav-menu[data-direction] .sub-menu:hover {
-    background: #444;
+    /*background: #444;*/
   }
   .template-part-header-custom ~ .primary-menu-wrapper input[type="checkbox"][data-skin="hamburger"]:checked ~ nav ul li a {
-    color: #fff;
+   /* color: #fff;*/
   }
   .template-part-header-custom ~ .primary-menu-wrapper input[type="checkbox"][data-skin="hamburger"]:checked ~ nav ul li .nav-menu-child-opener-label:before {
     background: url("/wp-37/wp-content/themes/emulsion/images/svg/arrow-down.svg#white");

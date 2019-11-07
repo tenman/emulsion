@@ -1,14 +1,9 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 /**
  * default header template
  */
 
 $current_post_type = trim( get_post_type() );
-
 $metabox_menu_control = true;
 
 if( is_page() ) {

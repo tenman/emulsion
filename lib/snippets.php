@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is the first place where features added experimentally with theme updates are created.
+ * Scripts and styles are processed in a lump without being distributed to each CSS and PHP.
+ * 
+ */
 add_action( 'template_redirect', 'emulsion_snippet_functions' );
 
 /**
@@ -129,29 +134,29 @@ if ( ! class_exists( 'emulsion_Cta_Layer_Nav_Menu_Walker' ) ) {
 	}
 
 }
+if ( ! function_exists( 'emulsion_background_css_pattern' ) ) {
 
-function emulsion_background_css_pattern( $hook, $type = 'action', $css = '', $js = '',	$html = '' ) {
+	function emulsion_background_css_pattern( $hook, $type = 'action', $css = '',
+			$js = '', $html = '' ) {
 
-	if ( emulsion_get_supports( 'background_css_pattern' ) ) {
-		
-		
-		
-		$html							 = array();
-		$css							 = '';
-		$js								 = '';
-		$background_css_pattern_class	 = get_theme_mod( 'emulsion_background_css_pattern', emulsion_get_var( 'emulsion_background_css_pattern' ) );
+		if ( emulsion_get_supports( 'background_css_pattern' ) ) {
 
-		if ( 'none' !== $background_css_pattern_class ) {
-			
-			$class_name = 'background-css-pattern-' . $background_css_pattern_class;
+			$html							 = array();
+			$css							 = '';
+			$js								 = '';
+			$background_css_pattern_class	 = get_theme_mod( 'emulsion_background_css_pattern', emulsion_get_var( 'emulsion_background_css_pattern' ) );
 
-			$html[] = $class_name;
+			if ( 'none' !== $background_css_pattern_class ) {
 
-			/**
-			 * carbon-fiber
-			 */
-			if ( $background_css_pattern_class == 'carbon-fiber' ) {
-				$css = <<<CSS
+				$class_name = 'background-css-pattern-' . $background_css_pattern_class;
+
+				$html[] = $class_name;
+
+				/**
+				 * carbon-fiber
+				 */
+				if ( $background_css_pattern_class == 'carbon-fiber' ) {
+					$css = <<<CSS
 						
 					body.is-dark.custom-background.background-css-pattern-carbon-fiber{
 						
@@ -161,8 +166,10 @@ function emulsion_background_css_pattern( $hook, $type = 'action', $css = '', $j
 
 					}
 CSS;
+				}
+				emulsion_do_snippet( $hook, $type, $css, $js, $html );
 			}
-			emulsion_do_snippet( $hook, $type, $css, $js, $html );
 		}
 	}
+
 }

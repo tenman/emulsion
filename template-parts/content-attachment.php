@@ -1,16 +1,9 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 $emulsion_title_in_page_header	 = emulsion_get_supports( 'title_in_page_header' );
 $emulsion_post_id				 = get_the_ID();
 $post_info						 = get_post( $emulsion_post_id );
 $mime_type						 = get_post_mime_type( $emulsion_post_id ); // if you needs attachment mime type
 $excerpt						 = get_the_excerpt();
-
-
-//var_dump( $post_info ); post_excerpt - caption post_content - description
 ?>
 <div class="article-wrapper <?php emulsion_template_identification_class( __FILE__ ) ?>">
 	<?php
