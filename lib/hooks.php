@@ -6,13 +6,9 @@ add_action( 'widgets_init', 'emulsion_unregister_default_widgets', 11);
 function emulsion_hooks_setup() {
 
 	add_action( 'tgmpa_register', 'emulsion_theme_register_required_plugins' );
-
 	add_action( 'wp_head', 'emulsion_meta_elements' );
 	add_action( 'wp_head', 'emulsion_pingback_header' );
 	add_action( 'wp_body_open', 'emulsion_skip_link' );
-	add_filter( 'wp_resource_hints', 'emulsion_resource_hints', 10, 2 );
-	add_filter( 'body_class', 'emulsion_body_class' );
-	add_filter( 'emulsion_inline_style', 'emulsion_styles' );
 	
 	$wp_scss_status = get_theme_mod( 'emulsion_wp_scss_status' );
 	
@@ -20,6 +16,14 @@ function emulsion_hooks_setup() {
 		add_action( 'wp_ajax_emulsion_tiny_mce_css_variables', 'emulsion_tiny_mce_css_variables_callback' );
 	}
 	add_action( 'widgets_init', 'emulsion_widgets_init' );
+	add_action( 'edit_post_link', 'emulsion_custom_gutenberg_edit_link', 10, 3 );
+	add_action( 'emulsion_template_pre_index', 'emulsion_customizer_add_supports_excerpt' );
+	add_action( 'init', 'emulsion_plugins' );
+	add_action( 'customize_save_after', 'emulsion_customizer_is_changed' );
+	
+	add_filter( 'wp_resource_hints', 'emulsion_resource_hints', 10, 2 );
+	add_filter( 'body_class', 'emulsion_body_class' );
+	add_filter( 'emulsion_inline_style', 'emulsion_styles' );	
 	add_filter( 'wp_list_categories', 'emulsion_category_link_format', 10, 2 );
 	add_filter( 'get_the_archive_title', 'emulsion_archive_title_filter' );
 	add_filter( 'the_title', 'emulsion_keyword_with_mark_elements_title', 99999 );
@@ -30,12 +34,10 @@ function emulsion_hooks_setup() {
 	add_filter( 'do_shortcode_tag', 'emulsion_shortcode_tag_filter', 99, 4 );
 	add_filter( 'get_archives_link', 'emulsion_archive_link_format', 10, 6 );
 	add_filter( 'the_content_more_link', 'emulsion_read_more_link' );
-	add_action( 'edit_post_link', 'emulsion_custom_gutenberg_edit_link', 10, 3 );
 	add_filter( 'emulsion_footer_text', 'capital_P_dangit', 11 );
 	add_filter( 'emulsion_footer_text', 'wptexturize' );
 	add_filter( 'emulsion_footer_text', 'convert_smilies', 20 );
 	add_filter( 'emulsion_footer_text', 'wpautop' );
-	add_action( 'emulsion_template_pre_index', 'emulsion_customizer_add_supports_excerpt' );
 	add_filter( 'the_password_form', 'emulsion_get_the_password_form', 11 );
 	add_filter( 'do_shortcode_tag', 'emulsion_shortcode_wrapper', 10, 4 );
 	add_filter( 'emulsion_lazyload_script', 'emulsion_lazyload' );
@@ -50,7 +52,7 @@ function emulsion_hooks_setup() {
 	add_filter( 'admin_body_class', 'emulsion_admin_body_class' );
 	add_filter( 'body_class', 'emulsion_brightness_class', 15 );
 	add_filter( 'dynamic_sidebar_params', 'emulsion_footer_widget_params' );
-	add_action( 'init', 'emulsion_plugins' );
+	add_filter( 'post_class', 'emulsion_add_woocommerce_shortcode_class_to_post' );
 }
 
 if ( ! function_exists( 'emulsion_test_for_min_php' ) ) {
@@ -233,7 +235,7 @@ if ( ! function_exists( 'emulsion_category_link_format' ) ) {
 
 		if ( isset( $args['show_count'] ) && ! empty( $args['show_count'] ) ) {
 
-			return preg_replace( '!\(([0-9]+)\)!', "<span class=\"emulsion-cat-count\">$1</span>", $output );
+			return preg_replace( '!\(([0-9]+)\)!', "<span class=\"emulsion-cat-count counter\">$1</span>", $output );
 		}
 
 		return $output;
@@ -363,7 +365,7 @@ if ( ! function_exists( 'emulsion_archive_link_format' ) ) {
 			$after = str_replace( array( '(', ')', '&nbsp;' ), '', $after );
 
 			$link_html = '<li><a href="%1$s" class="emulsion-archive-link"><span class="emulsion-archive-date">%2$s</span></a>
-<span class="emulsion-archive-count">%3$s</span></li>';
+<span class="emulsion-archive-count counter badge circle">%3$s</span></li>';
 
 			return sprintf( $link_html, $url, $text, $after );
 		}
@@ -375,21 +377,21 @@ if ( ! function_exists( 'emulsion_archive_link_format' ) ) {
 if ( ! function_exists( 'emulsion_read_more_link' ) ) {
 
 	/**
-	 *
+	 * layout type list
 	 * @return type
 	 */
 	function emulsion_read_more_link() {
 
 		$post_id	 = get_the_ID();
 		$title_text	 = the_title_attribute(
-				array( 'before' => esc_html__( 'link to:', 'emulsion' ),
+				array( 'before' => esc_html__( 'link to ', 'emulsion' ),
 					'echo'	 => false, )
 		);
 
 		if ( is_int( $post_id ) ) {
 
 			return sprintf(
-					'<p class="read-more"><a class="skin-button" href="%1$s" aria-label="%3$s">%2$s<span class="screen-reader-text">%3$s</span></a></p>', get_permalink(), esc_html__( 'Read more', 'emulsion' ), $title_text
+					'<p class="read-more"><a class="skin-button" href="%1$s" aria-label="%3$s">%2$s<span class="screen-reader-text read-more-context">%3$s</span></a></p>', get_permalink(), esc_html__( 'Read more', 'emulsion' ), $title_text
 			);
 		}
 	}
@@ -802,6 +804,12 @@ if ( ! function_exists( 'emulsion_styles' ) ) {
 
 			$style .= emulsion_dinamic_css( '' );
 		}
+		$wp_scss_status = get_theme_mod( 'emulsion_wp_scss_status' );
+
+		if ( 'active' !== $wp_scss_status && ! is_user_logged_in() ) {
+			
+			$style .= emulsion__css_variables('');
+		}
 		$style = emulsion_sanitize_css( $style );
 		return $style;
 	}
@@ -961,8 +969,10 @@ if ( ! function_exists( 'emulsion_smart_category_highlight' ) ) {
 					$result	 .= '.has-category-colors.category.archive.category-' . $term->term_id . " .header-layer a:hover{\n color: hsla(" . $hover_hue . ',' . $saturation . ',' . $link_lightness . ',' . $alpha . "); \n}\n";
 					$result	 .= '.has-category-colors.category.archive.category-' . $term->term_id . " .header-layer .taxonomy-description{\n color: hsla(" . $hover_hue . ',' . $saturation . ',' . $description_lightness . ',' . $alpha . ");\n }\n";
 
-
-
+					/* header simple wp_nav_menu() sub-menu, children*/
+					
+					$result	 .= '.has-category-colors.category.archive.category-' . $term->term_id . " .template-part-header .wp-nav-menu .sub-menu{\n background: hsla(" . $hue . ',' . $saturation . ',' . $lightness . ',' . $alpha . ");\n }\n";
+					$result	 .= '.has-category-colors.category.archive.category-' . $term->term_id . " .template-part-header .wp-nav-menu .children{\n background: hsla(" . $hue . ',' . $saturation . ',' . $lightness . ',' . $alpha . ");\n }\n";
 
 					/* category header style end */
 					$result	 .= $body_id . ' .entry-meta .cat-item-' . $term->term_id . " {\n background:hsla(" . $hue . ',' . $saturation . ',' . $lightness . ',' . $alpha . ');} ';

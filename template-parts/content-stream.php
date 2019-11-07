@@ -1,9 +1,5 @@
 <?php
-
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-global $template;
+//global $template;
 
 $emulsion_post_id			 = get_the_ID();
 $emulsion_show_post_image	 = emulsion_is_display_featured_image_in_the_loop();

@@ -1,15 +1,11 @@
 <?php
 /**
- * Template Name: Galery
- *  Template Post Type: page
+ * Template Name: Galery template
+ * Template Post Type: post, page
  *
  */
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
 do_action('emulsion_template_pre');
 do_action('emulsion_template_pre_'.basename(__FILE__, '.php' ) );
-
 global $template;
 
 get_header();

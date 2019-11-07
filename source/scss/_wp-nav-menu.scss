@@ -172,6 +172,14 @@ nav[class|="menu"]{
                     .nav-menu-child-opener:checked ~ .sub-menu  .menu-item-has-children .nav-menu-child-opener-label:before{
                     transform: rotate(-90deg);
                 }
+                
+            }
+            &[data-direction="vertical"]{
+                .nav-menu-child-opener:checked ~ .children  .menu-item-has-children .nav-menu-child-opener-label:before,
+                    .nav-menu-child-opener:checked ~ .sub-menu  .menu-item-has-children .nav-menu-child-opener-label:before{
+                    transform: rotate(0deg);
+                }
+                
             }
         }
     }

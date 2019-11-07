@@ -71,7 +71,10 @@ function emulsion_wp_scss_needs_compiling( $compile ) {
 		if ( 'reset' == $reset_val ) {
 			return true;
 		}
-		return true;
+
+		if( 'yes' == emulsion_get_css_variables_values( 'is_changed' ) ) {
+			return true;
+		}
 	}
 	return $compile;
 }

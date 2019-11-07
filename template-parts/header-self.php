@@ -1,7 +1,4 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
 /**
  * header template 'Do it myself template'
  * 

@@ -65,6 +65,12 @@ jQuery(function ($) {
             if ('wp-block-columns' == classes) {
                 brightness_class = 'columns-' + emulsion_script_vars.block_columns_class;
             }
+            if ('wp-block-gallery' == classes) {
+                brightness_class = 'gallery-' + emulsion_script_vars.block_gallery_class;
+            }
+             if ('wp-block-media-text' == classes) {
+                brightness_class = 'media-text-' + emulsion_script_vars.block_media_text_class;
+            }
             $(this).wrap('<section class="sectionized-' + classes + ' ' + brightness_class + '" ></section>');
             var string = $(this).html().slice(0, 4);
             var id = $(this).html().length;
@@ -700,7 +706,8 @@ jQuery(function ($) {
                 if (background_color_rgb == "rgba(0, 0, 0, 0)" || 'transparent' == background_color_rgb) {
                     $(this).addClass('emulsion-current-color');
                 } else {
-                    $(this).addClass('emulsion-initial-color').css({'backgroud': background_color_rgb, 'position': 'relative', 'z-index': 'auto'});// chnge 1 to auto 8/27
+                    $(this).addClass('emulsion-initial-color').css({'backgroud': background_color_rgb, 'position': 'relative', 'z-index': '-1'});// chnge 1 to auto 8/27
+                    //11/5 change auto to -1
                 }
             }
         });
@@ -770,6 +777,7 @@ jQuery(function ($) {
             'tabindex': '0',
             'role': 'tabgroup',
         });
+        $(this).parent().addClass('success-js');
     });
 
     $('.list-style-tab > li')
@@ -819,7 +827,7 @@ jQuery(function ($) {
     /**
      * link add when heading has id
      * for allow user to copy link
-     * Only singular page 
+     * Only singular page
      */
     $('.is-singular .entry-content h1[id],.is-singular .entry-content h2[id],.is-singular .entry-content h3[id],.is-singular .entry-content h4[id],.is-singular .entry-content h5[id],.is-singular .entry-content h6[id]').each(function (i) {
         var fragment = $(this).attr('id');
@@ -828,13 +836,13 @@ jQuery(function ($) {
 });
 
 jQuery(function ($) {
-    
+
     /**
      * Add a wrapper block whose diameter is the diagonal length of the block
      */
 
     $('.badge').each(function (i) {
-    
+
         var width_raw =  $(this).outerWidth();
         var width = Math.pow(width_raw , 2  );
         var height_raw = $(this).outerHeight();
@@ -842,19 +850,51 @@ jQuery(function ($) {
         var diagonal_length = Math.pow( width + height, 1 / 2 ) ;
         var class_name = $(this).attr('class');
         var style = $(this).attr('style');
-        
+
     var image = $(this).find('img');
-    
+
     if(image.length){
         $(this).css({'width':width_raw}).addClass('has-image-badge');
-        $(image).css({'width':image.width(),'height':image.width()}); 
+        $(image).css({'width':image.width(),'height':image.width()});
     }
-    if( !image.length){       
-        $(this).wrap($('<div class="badge '+ class_name + '" style="'+ style +'"></div>')).removeClass(class_name).removeAttr('style');
+    if( !image.length){
+        $(this).wrap($('<div class="'+ class_name + '" style="'+ style +'"></div>')).removeClass(class_name).removeAttr('style');
         $(this).parent().css({'width':diagonal_length,'height':diagonal_length});
     }
-                
+
     });
+});
+jQuery(function ($) {
+
+    /**
+     * System Theme Color
+     */
+
+    if (true == emulsion_script_vars.prefers_color_scheme) {
+
+        const is_dark = window.matchMedia('(prefers-color-scheme: dark)');
+
+        if (is_dark.matches) {
+            if ($('body').hasClass('is-light')) {
+
+                $('body').removeClass('is-light').addClass('is-dark prefers-color-scheme-dark');
+                return;
+            } else {
+                $('body').removeClass('is-dark prefers-color-scheme-dark').addClass('is-light');
+
+            }
+        } else {
+
+            const is_light = window.matchMedia('(prefers-color-scheme: light)');
+            
+            if (is_light.matches && $('body').hasClass('is-dark')) {
+
+                $('body').removeClass('is-dark').addClass('is-light prefers-color-scheme-light');
+            } else {
+                $('body').removeClass('is-light prefers-color-scheme-light').addClass('is-dark');
+            }
+        }
+    }
 });
 
 jQuery(document).ready(function ($) {

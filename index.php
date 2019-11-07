@@ -1,10 +1,17 @@
 <?php
+
+/**
+ * Theme emulsion
+ * fallback template file
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
 do_action('emulsion_template_pre');
 do_action('emulsion_template_pre_'.basename(__FILE__, '.php' ) );
+
 is_post_type_archive() ? emulsion_remove_supports( 'excerpt' ) : '';
 
 global $template;

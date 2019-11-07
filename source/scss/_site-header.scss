@@ -27,11 +27,9 @@
     }
     .header-text{
         .site-title{
-            @include font_size(3);
             padding-top:0;
         }
         .site-description{
-            @include font_size(4,no-margin);
             padding-left:var(--thm_content_gap, 24px);
             padding-right:var(--thm_content_gap, 24px);
             padding-bottom:0;
@@ -70,6 +68,10 @@
         .taxonomy-description{
             @extend %block;
             margin:0 auto 24px;
+            p{
+                width: -moz-fit-content;
+                width:fit-content;
+            }
             p:first-child{
                 margin-top:0;
             }
@@ -696,6 +698,7 @@ button.wp-custom-header-video-button{
     }
     .emulsion-scroll{
         display:inline-block;
+        width: -moz-fit-content;
         width:fit-content;
     }
 }
@@ -945,7 +948,7 @@ input[type="checkbox"][data-skin] + label[for="primary-menu-controll"],
     vertical-align:middle;
     clear:both;
     position:relative;
-    left:calc(100% - 3rem);
+    left:calc(100% - 2rem);
     top:1rem;
 }
 input[type="checkbox"][data-skin],
@@ -1060,6 +1063,9 @@ input[type="checkbox"][data-skin="hamburger"]:checked + label[for="primary-menu-
                     }
                 }
             }
+        }
+        .custom-logo-wrap img{
+            height:auto;
         }
     }
 }

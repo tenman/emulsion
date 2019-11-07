@@ -93,7 +93,7 @@ pre.wp-block-verse{
     @include font_size(3);
     margin-top:calc( var(--thm_common_font_size) * var(--thm_content_line_height) );
     margin-bottom:calc( var(--thm_common_font_size) * var(--thm_content_line_height) / 2 );
-    line-height:var(--thm_content_line_height);
+    line-height:2;
     font-family: var(--thm_common_font_family);
     font-style:italic;
 
@@ -121,9 +121,17 @@ body{
         font-size:16px;
     }
     & > header{
-        .taxonomy-description{
-            font-size:var(--thm_meta_data_font_size);
-            text-transform:var(--thm_meta_data_font_transform);
+        &.header-layer{
+            .site-title{
+                @include font_size(3);
+            }
+            .site-description{
+                @include font_size(4,no-margin);
+            }
+            .taxonomy-description{
+                font-size:var(--thm_meta_data_font_size);
+                text-transform:var(--thm_meta_data_font_transform);
+            } 
         }
     }
     .trancate{
@@ -389,13 +397,16 @@ footer.banner{
 /**
  * font weight class
  */
-@for $i from 100 through 900 {
-    .layout-list.font-heading-sans-serif .fw-#{$i},
-    .layout-list.font-heading-serif .fw-#{$i},
-    .layout-list.font-common-sans-serif .fw-#{$i},
-    .layout-list.font-common-serif .fw-#{$i}{
-        font-weight:#{$i};
+
+$step: 100;
+@while $step < 1000 {
+    .layout-list.font-heading-sans-serif .fw-#{$step},
+    .layout-list.font-heading-serif .fw-#{$step},
+    .layout-list.font-common-sans-serif .fw-#{$step},
+    .layout-list.font-common-serif .fw-#{$step}{
+        font-weight:#{$step};
     }
+    $step: $step + 100;
 }
 /**
  * Editor font sizes

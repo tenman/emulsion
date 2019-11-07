@@ -1,9 +1,25 @@
 <?php
-/**
- *
- *
- */
 if ( ! function_exists( 'emulsion_get_site_title' ) ) {
+
+	/**
+	 * Get site title with html structure
+	 * @return html
+	 */
+	/**
+	 * HTML
+			<h1 class="site-title" id="site-title">
+				<a href="" rel="home" class="site-title-link">
+					<span class="site-title-text">Site Title</span>
+				</a>
+			</h1>
+	 * Has Logo
+			<h1 class="site-title" id="site-title">
+				<a href="https://www.tenman.info/wp-37/" rel="home" class="site-title-link">
+					<span class="custom-logo-wrap"><img width="600" height="60" src="" class="custom-logo" alt="Site Title"></span>
+					<span class="site-title-text">Site Title</span>
+				</a>
+			</h1>
+	 */
 
 	function emulsion_get_site_title( ) {
 
@@ -30,11 +46,18 @@ if ( ! function_exists( 'emulsion_get_site_title' ) ) {
 
 		$html			 = sprintf( $title_format, 'h1', esc_url( home_url( '/' ) ), "home", get_bloginfo( 'name', 'display' ), apply_filters( 'emulsion_get_site_title_class', 'site-title' ), $logo
 		, $site_title_text_class );
+
 		return $html;
 	}
 
 }
 if ( ! function_exists( 'emulsion_the_site_title' ) ) {
+
+	/**
+	 * Print site title
+	 * @see emulsion_get_site_title()
+	 * filter: emulsion_the_site_title
+	 */
 
 	function emulsion_the_site_title() {
 
@@ -47,7 +70,24 @@ if ( ! function_exists( 'emulsion_the_site_title' ) ) {
 		echo wp_kses_post( $title );
 	}
 }
+
 if ( ! function_exists( 'emulsion_site_text_markup' ) ) {
+
+	/**
+	 *
+	 * HTML
+			<div class="header-text">
+				<h1 class="site-title" id="site-title">
+					<a href="https://www.tenman.info/wp-37/" rel="home" class="site-title-link">
+						<span class="custom-logo-wrap">
+							<img width="600" height="60" src="custom_logo.png" class="custom-logo" alt="Site Title">
+						</span>
+						<span class="site-title-text">Site Title</span>
+					</a>
+				</h1>
+				<p class="site-description">Site description</p>
+			</div>
+	 */
 
 	function emulsion_site_text_markup() {
 
@@ -85,6 +125,18 @@ if ( ! function_exists( 'emulsion_site_text_markup' ) ) {
  * @return string
  */
 if ( ! function_exists( 'emulsion_get_post_title' ) ) {
+	/**
+	 *
+	 * HTML
+			<h2 class="entry-title">
+				<a href="">
+					<span class="trancate-heading" data-rows="[2,4,8]">Post Title</span>
+				</a>
+			</h2>
+	 * data-rows: Maximum number of display lines
+	 * If the post title exceeds the maximum number of display lines,
+	 * change the font size to the same size as the post content by CSS,
+	 */
 
 	function emulsion_get_post_title( $with_thumbnail = true,	$size = 'large' ) {
 
@@ -93,7 +145,7 @@ if ( ! function_exists( 'emulsion_get_post_title' ) ) {
 		$post_id			 = absint( get_the_ID() );
 		$entry_title_status	 = get_theme_mod( 'emulsion_title_in_header', emulsion_get_var( 'emulsion_title_in_header' ) );
 		$layout_type		 = emulsion_current_layout_type();
-		
+
 		switch( $layout_type ) {
 				case 'grid':
 					$data_rows = 2;
@@ -105,7 +157,7 @@ if ( ! function_exists( 'emulsion_get_post_title' ) ) {
 					$data_rows = 2;
 					break;
 				default:
-					$data_rows = 4;					
+					$data_rows = 4;
 			}
 
 		if ( 'yes' == $entry_title_status ) {
@@ -115,12 +167,12 @@ if ( ! function_exists( 'emulsion_get_post_title' ) ) {
 			 * the display area is limited. For exceptionally long titles,
 			 * limit the font size and the number of lines to display the full title as much as possible.
 			 */
-						
+
 			$insert_start_tag	 = '<span class="trancate-heading" data-rows="'. $data_rows. '">';
 			$insert_end_tag		 = '</span>';
-			
+
 		} elseif ('grid' == $layout_type || 'stream'  == $layout_type ) {
-			
+
 			$insert_start_tag	 = '<span class="trancate-heading" data-rows="'. $data_rows. '">';
 			$insert_end_tag		 = '</span>';
 		} else {
@@ -149,6 +201,12 @@ if ( ! function_exists( 'emulsion_get_post_title' ) ) {
 }
 if ( ! function_exists( 'emulsion_the_post_title' ) ) {
 
+	/**
+	 * Print post title
+	 * @see emulsion_get_post_title()
+	 * filter: emulsion_the_post_title
+	 */
+
 	function emulsion_the_post_title( $with_thumbnail = true,	$size = 'large' ) {
 
 		$title = apply_filters( 'emulsion_the_post_title', emulsion_get_post_title( $with_thumbnail, $size ) );
@@ -164,6 +222,38 @@ if ( ! function_exists( 'emulsion_entry_text_markup' ) ) {
 	 *
 	 * Entry title, Archive title, Search results
 	 * @global type $post
+	 *
+	 * HTML
+	 *
+			<div class="entry-text">
+				<div>
+					<a class="emulsion-scroll" href="#post-1">
+						<h2 class="entry-title">
+							<span class="trancate-heading" data-rows="8">gallery</span>
+						</h2>
+					</a>
+					<div class="posted-on">
+						<span class="meta-prep meta-prep-author">
+							<span class="posted-on-string screen-reader-text">Posted on</span> </span>
+							<a href="" rel="date">
+								<time class="entry-date updated" datetime="2019-10-31T18:33:14+09:00">formatted date</time>
+							</a> <span class="meta-sep">
+							<span class="posted-by-string screen-reader-text">by</span>
+						</span>
+						<span class="author vcard">
+							<a href="" rel="author" class="url fn nickname">tenman</a>
+						</span>
+					</div>
+					<div class="entry-meta taxonomy">
+						<ul class="post-category horizontal-list-group ">
+							<li class="cat-item cat-item-1">
+								<a href="" title="Post Title">uncategorized</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+	 *
 	 */
 	function emulsion_entry_text_markup() {
 		global $post;
@@ -232,18 +322,15 @@ if ( ! function_exists( 'emulsion_meta_description' ) ) {
 
 }
 
-
-
-
-
 if ( ! function_exists( 'emulsion_post_content' ) ) {
 	/**
 	 * The summary sentence displays the text that removes the table element,
 	 * the figure element excluded from the HTML5 outline, etc.,
 	 * which significantly impairs readability when the text is extracted.
 	 */
-	function emulsion_post_content() {
 
+	function emulsion_post_content() {
+		
 		$use_excerpt = emulsion_get_supports( 'excerpt' );
 
 		$supports_stream		 = emulsion_get_supports( 'stream' );
@@ -261,6 +348,12 @@ if ( ! function_exists( 'emulsion_post_content' ) ) {
 		// Create excerpt from entry content
 		$post_text = strip_shortcodes( $get_post->post_content );
 		$has_more	 = stristr( $post_text, '<!--more-->' );
+		
+		if( empty( $post_id ) && ! empty( $post_text ) ) {
+			//case bbpress forums, woocommerce product-category
+			echo wp_kses_post( $get_post->post_content );
+			return;
+		}
 
 		if ( ! empty( $post_text ) ) {
 
@@ -348,7 +441,7 @@ if ( ! function_exists( 'emulsion_post_content' ) ) {
 
 			$post_text = trim( $post_text );
 
-			if ( $read_more_text !== $post_text ) {
+			if ( $read_more_text !== $post_text && ! empty( $post_id ) ) {
 
 				$excerpt_from_content = sprintf( $excerpt_html_wrapper, wpautop( $post_text ), get_permalink( $post_id ) );
 			} else {
@@ -410,7 +503,7 @@ if ( ! function_exists( 'emulsion_post_content' ) ) {
 						if ( ! $has_excerpt && $excerpt_from_content ) {
 
 							if ( false === $has_more ) {
-								
+
 								$excerpt_from_content  = apply_filters('the_excerpt', $excerpt_from_content );
 								// check lost element
 								$emulsion_place = basename(__FILE__). ' line:'. __LINE__. ' '.  __FUNCTION__ .'()';
@@ -418,7 +511,9 @@ if ( ! function_exists( 'emulsion_post_content' ) ) {
 
 								echo wp_kses_post( $excerpt_from_content );
 							} else {
-
+								/**
+								 * The HTML element from the beginning of the post to the read-more tag is displayed without being deleted.
+								 */
 								the_content();
 							}
 						} elseif ( $has_excerpt ) {
@@ -460,23 +555,28 @@ if ( ! function_exists( 'emulsion_post_content' ) ) {
 			echo wp_kses( get_the_password_form( $post_id ), EMULSION_FORM_ALLOWED_ELEMENTS );
 		}
 	}
-
 }
 if ( ! function_exists( 'emulsion_post_excerpt_more' ) ) {
-
+	/**
+	 * grid layout read more
+	 */
 	function emulsion_post_excerpt_more() {
 		$supports_grid	 = emulsion_get_supports( 'grid' );
 		$grid			 = emulsion_has_archive_format( $supports_grid );
 		$post_id		 = get_the_ID();
 		$permalink		 = get_permalink( $post_id );
 		$article		 = get_post( $post_id );
+		
 		if ( $article ) {
 			if ( preg_match( '$<!--more-->$', $article->post_content ) && 'excerpt' == $grid ) {
-				printf( '<span><a href="%1$s#top" class="skin-button">Read More</a></span>', esc_url( $permalink ) );
+				printf( '<span><a href="%1$s#top" class="skin-button">%2$s<span class="screen-reader-text read-more-context">%3$s</span></a></span>',
+						esc_url( $permalink ),
+						esc_html__( 'Read More', 'emulsion' ),
+						/* translators: %1$s entry title */
+						sprintf( esc_html__('link to post %1$s' ,'emulsion'), wp_kses_post( $article->post_title ) ) );
 			}
 		}
 	}
-
 }
 if ( ! function_exists( 'emulsion_has_archive_format' ) ) {
 	/**
@@ -870,7 +970,13 @@ if ( ! function_exists( 'emulsion_archive_title' ) ) {
 		}
 	}
 }
+
 if ( ! function_exists( 'emulsion_customizer_have_posts_class_helper' ) ) {
+
+	/**
+	 * If the displayed page is grid layout or stream layout, grid or stream are return
+	 * @return type
+	 */
 
 	function emulsion_customizer_have_posts_class_helper() {
 
@@ -899,6 +1005,8 @@ if ( ! function_exists( 'emulsion_customizer_have_posts_class_helper' ) ) {
 
 			return get_theme_mod( 'emulsion_layout_author_archives', emulsion_get_var( 'emulsion_layout_author_archives' ) );
 		}
+
+		return false;
 	}
 
 }
@@ -945,7 +1053,7 @@ if ( ! function_exists( 'emulsion_have_posts' ) ) {
 
 	/**
 	 * Rendering posts
-	 *
+	 * Call the required template part file.
 	 */
 
 	function emulsion_have_posts() {
@@ -962,6 +1070,7 @@ if ( ! function_exists( 'emulsion_have_posts' ) ) {
 		if( is_customize_preview() ){
 
 			$extend_template_part = emulsion_customizer_have_posts_class_helper();
+			//$extend_template_part = emulsion_content_type();
 		}
 
 
@@ -1161,6 +1270,7 @@ if ( ! function_exists( 'emulsion_article_header' ) ) {
 
 	/**
 	 * Print Article header block
+	 * Article header is displayed when title_in_page_header is set to false.
 	 */
 
 	function emulsion_article_header() {
@@ -1174,18 +1284,18 @@ if ( ! function_exists( 'emulsion_article_header' ) ) {
 			if( 'list' == emulsion_current_layout_type() ) {
 				$thumbnail_url     = get_the_post_thumbnail_url();
 			} else {
-				$thumbnail_url     = get_the_post_thumbnail_url(null, 'large');
+				$thumbnail_url     = get_the_post_thumbnail_url(null, 'medium_large');
 			}
 
 			$required_password	= post_password_required( );
 			$show_post_image	= emulsion_is_display_featured_image_in_the_loop();
 
 			if ( ! empty( $thumbnail_url ) && ! $required_password && $show_post_image ) {
-				
+
 				$header_element = sprintf( '<header class="%1$s" style="%2$s">', 'has-post-image', 'background-image:url(' . esc_url( $thumbnail_url ) . ' );' );
-				
+
 				$header_element = apply_filters('emulsion_article_header', $header_element, 'has-post-image', esc_url( $thumbnail_url ) );
-				
+
 				echo wp_kses_post( $header_element );
 			} else {
 
@@ -1223,7 +1333,8 @@ if ( ! function_exists( 'emulsion_attachment_pagination' ) ) {
 if ( ! function_exists( 'emulsion_attachment_image' ) ) {
 
 	/**
-	 * Print Attachment Image
+	 * Print Attachment Image in content-attachment.php template.
+	 *
 	 *
 	 * @param type $post_id
 	 * @param type $size
@@ -1287,7 +1398,8 @@ if ( ! function_exists( 'emulsion_is_active_nav_menu' ) ) {
 if ( ! function_exists( 'emulsion_the_header_layer_class' ) ) {
 
 	/**
-	 * The CSS class is added by judging whether the image or video is set in the header.
+	 * Header Classes
+	 * The CSS class is added by judging whether the image or video is set in the Site header.
 	 * @param type $class
 	 */
 
@@ -1323,7 +1435,9 @@ if ( ! function_exists( 'emulsion_the_header_layer_class' ) ) {
 				// Post using featured image
 				if ( has_post_thumbnail( $post_id ) &&
 						'yes' == get_theme_mod( 'emulsion_title_in_header', emulsion_get_var( 'emulsion_title_in_header' ) ) &&
-						'custom' == get_theme_mod( 'emulsion_header_layout', emulsion_get_var( 'emulsion_header_layout' ) ) ) {
+						'custom' == get_theme_mod( 'emulsion_header_layout', emulsion_get_var( 'emulsion_header_layout' ) ) &&
+						! empty( get_the_post_thumbnail() ) // like woocommerce
+						) {
 
 					$add_class .= ' header-image-active';
 				} else {
@@ -1372,6 +1486,7 @@ if ( ! function_exists( 'emulsion_the_header_layer_class' ) ) {
 if ( ! function_exists( 'emulsion_sidebar_manager' ) ) {
 
 	/**
+	 * Sidebar left or right control
 	 * Print the classified div element to inform the position of the sidebar
 	 *
 	 * @param type $position
@@ -1411,6 +1526,10 @@ if ( ! function_exists( 'emulsion_footer_text' ) ) {
 
 	/**
 	 * Print footer text
+	 * filter:
+	 * emulsion_prepend_footer_address add something footer text before
+	 * emulsion_append_footer_address add something footer text after
+	 * emulsion_footer_text costomize all footer text
 	 *
 	 * @global type $raindrops_current_theme_name
 	 * @global type $raindrops_current_data_theme_uri

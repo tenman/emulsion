@@ -115,7 +115,7 @@ $emulsion_customize_args = array(
 		'active_callback'			 => '',
 		'sanitize_callback'			 => 'sanitize_hex_color',
 		'validate'					 => 'emulsion_sidebar_background_validate',
-		'extend_customize_control'	 => '',
+		//'extend_customize_control'	 => '',
 		'extend_customize_control'	 => 'WP_Customize_Color_Control',
 		'extend_customize_setting'	 => '',
 	),
@@ -128,11 +128,11 @@ $emulsion_customize_args = array(
 		'transport'					 => 'postMessage',
 		'unit'						 => '',
 		'label'						 => esc_html__( 'Primary Menu Background Color', 'emulsion' ),
-		'description'				 => '',
+		'description'				 => emulsion_control_description('emulsion_primary_menu_background'),
 		'active_callback'			 => '',
 		'sanitize_callback'			 => 'sanitize_hex_color',
 		'validate'					 => 'emulsion_primary_menu_background_validate',
-		'extend_customize_control'	 => '',
+		//'extend_customize_control'	 => '',
 		'extend_customize_control'	 => 'WP_Customize_Color_Control',
 		'extend_customize_setting'	 => '',
 	),
@@ -149,7 +149,7 @@ $emulsion_customize_args = array(
 		'active_callback'			 => '',
 		'sanitize_callback'			 => 'sanitize_hex_color',
 		'validate'					 => 'emulsion_relate_posts_bg_validate',
-		'extend_customize_control'	 => '',
+		//'extend_customize_control'	 => '',
 		'extend_customize_control'	 => 'WP_Customize_Color_Control',
 		'extend_customize_setting'	 => '',
 	),
@@ -166,7 +166,7 @@ $emulsion_customize_args = array(
 		'active_callback'			 => '',
 		'sanitize_callback'			 => 'sanitize_hex_color',
 		'validate'					 => 'emulsion_comments_bg_validate',
-		'extend_customize_control'	 => '',
+		//'extend_customize_control'	 => '',
 		'extend_customize_control'	 => 'WP_Customize_Color_Control',
 		'extend_customize_setting'	 => '',
 	),
@@ -1712,7 +1712,7 @@ $emulsion_theme_customize_panels = array(
 		'priority'		 => 59,
 		'capability'	 => $emulsion_customize_cap,
 		'theme_supports' => '',
-		'title'			 => __( 'Post', 'emulsion' ),
+		'title'			 => __( 'Post and Block Editor', 'emulsion' ),
 		'description'	 => '',
 	),
 
@@ -2164,6 +2164,20 @@ function emulsion_control_description( $control ) {
 				
 				return sprintf( '%1$s<a href="%2$s">%3$s</a>', $preview_text, $url, $link_text );
 			
+			break;
+		case 'emulsion_primary_menu_background':
+			
+			$header_layout = get_theme_mod( 'emulsion_header_layout');
+	
+			if( 'custom' !== $header_layout) {
+				
+				$notification_titile = esc_html__( 'This setting is not currently available. Header background color applied', 'emulsion' );
+				$notification_text = esc_html__( 'If you want to specify your own color, Requred header layout settings to custom ', 'emulsion');
+				$link_text	 = esc_html__( 'Header Layout', 'emulsion' );
+				$customizer_url = 'javascript:wp.customize.section( \'emulsion_section_layout_header\' ).focus()';
+
+					return sprintf( '<p>%4$s</p>%1$s<a href="%2$s">%3$s</a>', $notification_text, $customizer_url, $link_text, $notification_titile );
+			}
 			break;
 		case 'emulsion_comments_bg':
 			$preview_text			 = esc_html__('Change preview ', 'emulsion');
