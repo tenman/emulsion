@@ -187,6 +187,7 @@
                 .sub-menu{
                     li{
                         padding:1rem;
+                        box-sizing:border-box;
                     }
                 }
             }
@@ -225,7 +226,10 @@
                 text-align:left;
                 .menu{
                     margin-right:auto;
-                    margin-left:auto;
+                    margin-left:auto;                 
+                    &[data-direction="vertical"]{
+                        margin-top:-.685rem;
+                    }
                 }
             }
         }
@@ -951,8 +955,11 @@ input[type="checkbox"][data-skin] + label[for="primary-menu-controll"],
     left:calc(100% - 2rem);
     top:1rem;
 }
-input[type="checkbox"][data-skin],
+//input[type="checkbox"][data-skin],
 .header-layer-nav-menu input[type="checkbox"][data-skin] {
+    display:none;
+}
+input[type="checkbox"][id="toc-toggle"]{
     display:none;
 }
 input[type="checkbox"][data-skin="hamburger"] + label[for="primary-menu-controll"] span,

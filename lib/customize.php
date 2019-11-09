@@ -3,6 +3,9 @@
  * Customizer Settings
  *
  */
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 if ( ! isset( $wp_customize ) ) {
 	return;
 }
@@ -12,6 +15,10 @@ if ( ! current_user_can( 'edit_theme_options' ) ) {
 
 if ( $wp_customize ) {
 
+	$wp_customize->add_setting( 'header_textcolor', array( 'transport' => 'postMessage', 'sanitize_callback' => 'sanitize_hex_color' ) );
+	$wp_customize->selective_refresh->add_partial( 'header_textcolor', array(
+		'selector' => '.header-text',
+	) );
 	/**
 	 * Preview link icon
 	 */
@@ -174,6 +181,8 @@ function emulsion_customizer_translate_css( $css ) {
 	$excerpt_length			 = esc_html__( 'excerpt length', 'emulsion' );
 	$gallery_block_settings	 = esc_html__( 'gallery block settings', 'emulsion' );
 	$header_media_height	 = esc_html__( 'header media height', 'emulsion' );
+	
+	
 
 	$css .= <<<CSS
 body.home .customize-partial-edit-shortcut-custom_header:hover:after{
@@ -633,7 +642,8 @@ function emulsion_customizer_script() {
 	 */
 	$last_post_date							 = strtotime( get_lastpostdate() );
 	$date_archive_query						 = date( 'Ym', $last_post_date );
-	$header_gradient_setting				 = get_theme_mod( 'emulsion_header_gradient', emulsion_get_var( 'emulsion_header_gradient' ) );
+	
+	$header_gradient_setting = get_theme_mod( 'emulsion_header_gradient', emulsion_get_var( 'emulsion_header_gradient' ) );
 
 	$emulsion_code_box_gap_not_found_notification						 = esc_html__( 'Gallery block was not found. Please display a preview with culumns block.', 'emulsion' );
 	$emulsion_code_narrow_width_notification							 = esc_html__( 'The Main width must be the same as or greater than the Content width.', 'emulsion' );
@@ -641,15 +651,13 @@ function emulsion_customizer_script() {
 	$emulsion_code_gallery_not_found_notification						 = esc_html__( 'Gallery block was not found. Please display a preview with gallery block.', 'emulsion' );
 	$emulsion_code_columns_not_found_notification						 = esc_html__( 'Columns block was not found. Please display a preview with columns block.', 'emulsion' );
 	$emulsion_code_media_text_not_found_notification					 = esc_html__( 'Media text block was not found. Please display a preview with media text block.', 'emulsion' );
-	$emulsion_code_reset_theme_setting_notification						 = esc_html__( 'The theme settings are reset. It can not be undone.', 'emulsion' );
-	$emulsion_code_relate_setting_alert									 = esc_html__( 'This change does not reflect the settings for header media, Display title in header.', 'emulsion' );
+	$emulsion_code_reset_theme_setting_notification					 = esc_html__( 'The theme settings are reset. It can not be undone.', 'emulsion' );
+	$emulsion_code_relate_setting_alert								 = esc_html__( 'This change does not reflect the settings for header media, Display title in header.', 'emulsion' );
 	$emulsion_code_fadeout_message_category_colors						 = '<span class="emulsion_fadeout_message emulsion_fadeout_message_category_colors">'
 			. '<span class="emulsion-spinner"></span>' . esc_html__( 'moving preview to category', 'emulsion' ) . '</span>'
 			. esc_html__( 'You can move to another page by clicking the preview link', 'emulsion' );
 	$emulsion_code_widgets_panel_notification							 = '<p>' . esc_html__( 'When setting up the post sidebar, the post must be displayed in preview.', 'emulsion' ) . '</p>';
 	$emulsion_code_widgets_panel_notification							 .= '<p>' . esc_html__( 'When setting up the page sidebar, the page must be displayed in preview.', 'emulsion' ) . '</p>';
-	$emulsion_code_fadeout_message_header_gradient						 = '<p>' . esc_html__( 'Header gradation was enabled.', 'emulsion' ) . '</p>';
-	$emulsion_code_fadeout_message_header_gradient						 .= '<p>' . esc_html__( 'Reset Header Background Color. Next, set Header Sub Background Color again.', 'emulsion' ) . '</p>';
 	$emulsion_code_header_image_notification							 = esc_html__( 'Header media can not be displayed because the header layout is set to something other than custom.', 'emulsion' );
 	$emulsion_section_notification_message								 = '<p>' . esc_html__( 'You can move to another page by clicking the preview link', 'emulsion' ) . '</p>';
 	$emulsion_code_section_block_editor_box_gap_notification			 = '<span class="emulsion_fadeout_message_section_block_editor_box_gap">'
@@ -663,7 +671,7 @@ function emulsion_customizer_script() {
 	$emulsion_code_section_block_editor_alignwide_notification			 = '<span class="emulsion_fadeout_message_section_block_editor_alignwide">'
 			. '<span class="emulsion-spinner"></span>' . esc_html__( 'moving preview to has alignwide, alignfull post', 'emulsion' ) . '</span>' . $emulsion_section_notification_message;
 	$emulsion_code_section_block_editor_not_found_notification			 = '<p>' . esc_html__( 'No posts found related to settings', 'emulsion' ) . '</p>';
-	$emulsion_code_section_layout_homepage_notification					 = '<span class="emulsion_fadeout_message_section_layout_homepage">'
+	$emulsion_code_section_layout_homepage_notification				 = '<span class="emulsion_fadeout_message_section_layout_homepage">'
 			. '<span class="emulsion-spinner"></span>' . esc_html__( 'moving preview to home', 'emulsion' ) . '</span>' . $emulsion_section_notification_message;
 	$emulsion_code_section_layout_category_archives_notification		 = '<span class="emulsion_fadeout_message_section_layout_category_archives">'
 			. '<span class="emulsion-spinner"></span>' . esc_html__( 'moving preview to category archives', 'emulsion' ) . '</span>' . $emulsion_section_notification_message;
@@ -671,7 +679,7 @@ function emulsion_customizer_script() {
 			. '<span class="emulsion-spinner"></span>' . esc_html__( 'moving preview to author archives', 'emulsion' ) . '</span>' . $emulsion_section_notification_message;
 	$emulsion_code_section_layout_date_archives_notification			 = '<span class="emulsion_fadeout_message_section_layout_date_archives">'
 			. '<span class="emulsion-spinner"></span>' . esc_html__( 'moving preview to date archives', 'emulsion' ) . '</span>' . $emulsion_section_notification_message;
-	$emulsion_code_section_layout_tag_archives_notification				 = '<span class="emulsion_fadeout_message_section_layout_tag_archives">'
+	$emulsion_code_section_layout_tag_archives_notification			 = '<span class="emulsion_fadeout_message_section_layout_tag_archives">'
 			. '<span class="emulsion-spinner"></span>' . esc_html__( 'moving preview to tag archives', 'emulsion' ) . '</span>' . $emulsion_section_notification_message;
 	$emulsion_code_section_header_image_notification					 = '<span class="emulsion_fadeout_message_section_header_image">'
 			. '<span class="emulsion-spinner"></span>' . esc_html__( 'moving preview to home', 'emulsion' ) . '</span>' . $emulsion_section_notification_message;
@@ -679,8 +687,7 @@ function emulsion_customizer_script() {
 			. '<span class="emulsion-spinner"></span>' . esc_html__( 'moving preview to home', 'emulsion' ) . '</span>' . $emulsion_section_notification_message;
 	$emulsion_code__section_layout_main_notification					 = '<span class="emulsion_fadeout_message__section_layout_main">'
 			. '<span class="emulsion-spinner"></span>' . esc_html__( 'moving preview to latest post', 'emulsion' ) . '</span>' . $emulsion_section_notification_message;
-	$emulsion_code_fadeout_message_background_image = '<p>' . esc_html__( 'A background image has been set', 'emulsion' ). '</p>';
-	$emulsion_code_fadeout_message_background_image .= '<p>' . esc_html__( 'If the contrast between the text and the background image is insufficient, it may be easier to read by changing the background color.', 'emulsion' ) . '</p>';
+
 
 	$script = <<<CUSTOMIZE_CSS
 
@@ -896,7 +903,7 @@ function emulsion_customizer_script() {
 	/**
 	 * customizer value conditional change
 	 */
-	wp.customize( 'emulsion_header_layout', 'emulsion_title_in_header', 'function(emulsion_header_layout, emulsion_title_in_header ) {
+	wp.customize( 'emulsion_header_layout', 'emulsion_title_in_header', function(emulsion_header_layout, emulsion_title_in_header ) {
         emulsion_header_layout.bind( function ( newval ) {
 			if( 'custom' !== newval ) {
 				emulsion_title_in_header.set( 'no' );
@@ -907,10 +914,10 @@ function emulsion_customizer_script() {
 					message: '{$emulsion_code_header_image_notification}',
 					type: 'warning'
 				} ) );
+
 			}
 		});
     } );
-
 
 	if ( Number.isInteger( $alignwide_post_id ) && 0 < $alignwide_post_id ) {
 		wp.customize.section( 'emulsion_section_block_editor_alignwide', function( section ) {
@@ -1107,44 +1114,6 @@ function emulsion_customizer_script() {
 
 	} );
 
-	wp.customize( 'background_image', function( setting ) {
-        setting.bind( function( value ) {
-            var code = 'background image';
-
-            if ( '' !== value  ) {
-
-                setting.notifications.add( code, new wp.customize.Notification(
-                    code,
-                    {
-                        type: 'warning',
-						message: '{$emulsion_code_fadeout_message_background_image}'
-                    }
-                ) );
-            } else {
-                setting.notifications.remove( code );
-            }
-        } );
-    } );
-	
-	wp.customize( 'emulsion_header_gradient', function( setting ) {
-        setting.bind( function( value ) {
-            var code = 'header gradient';
-
-            if ( 'enable' == value  ) {
-
-                setting.notifications.add( code, new wp.customize.Notification(
-                    code,
-                    {
-                        type: 'warning',
-						message: '{$emulsion_code_fadeout_message_header_gradient}'
-                    }
-                ) );
-            } else {
-                setting.notifications.remove( code );
-            }
-        } );
-    } );
-					
 	wp.customize( 'emulsion_category_colors', function( setting ) {
         setting.bind( function( value ) {
             var code = 'category colors';

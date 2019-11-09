@@ -496,23 +496,41 @@ a{
             }
         }
     }
+    .wp-block-latest-posts{
+        .woocommerce{
+            .products{
+                padding-left:0;
+                .product{
 
+                }
+            }
+        }
+    }
     .woocommerce{
         .products{
             margin-left:auto;
             margin-right:auto;
             .product{
-
                 text-indent:0;
                 &:before{
                     display:none;
                 }
-
+               
                 [data-product_id]{
                     &.button{
                         color: var(--thm_header_text_color);
                         background: var(--thm_header_bg_color);
                     }
+                }
+                .price,
+                .woocommerce-loop-product__title{
+                    padding-left:var(--thm_content_gap);
+                    padding-right:var(--thm_content_gap);
+                }
+                .button{
+                    margin-left:var(--thm_content_gap);
+                    margin-right:var(--thm_content_gap);
+                    margin-bottom:var(--thm_content_gap);
                 }
             }
         }
