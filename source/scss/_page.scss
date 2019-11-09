@@ -156,7 +156,7 @@ wp-block-media-text.archive{
                         }
                     }
                     .archive-preview{
-                        
+
                         overflow:hidden;
                         /**
                          * A different style is required because javascript is not working.
@@ -182,14 +182,14 @@ wp-block-media-text.archive{
                         .emulsion-full,
                         .alignfull{
                             position:relative;
-                          //  left:calc( var(--thm_content_width) - var(--thm_main_width) / 2);
-                          left:0;
+                            //  left:calc( var(--thm_content_width) - var(--thm_main_width) / 2);
+                            left:0;
                             width:calc( var(--thm_main_width) - 24px);
                             max-width:none;
                             margin-left:auto;
                             margin-right:auto;
                         }
-                        
+
                         .wp-block-image{
                             // display:block;
                         }
@@ -216,8 +216,8 @@ wp-block-media-text.archive{
                         figure.wp-block-image{
                             &.alignfull{
                                 position:relative;
-                               // left:calc( var(--thm_content_width) - var(--thm_main_width) / 2);
-                               left:0;
+                                // left:calc( var(--thm_content_width) - var(--thm_main_width) / 2);
+                                left:0;
                                 width:calc( var(--thm_main_width) - 24px);
                                 max-width:none;
                             }
@@ -354,7 +354,8 @@ div.emulsion-monthly-archive-prev-next-navigation{
 }
 main .nav-links > div{
     text-align:center;
-    margin:var( --thm_box_gap, 3px );
+    // margin:var( --thm_box_gap, 3px );
+    margin:3px;
     padding:.685rem;
     flex-basis: auto;
     flex-grow: 1;
@@ -396,7 +397,8 @@ main .nav-links > div > a{
 .pagination .nav-links a{
     flex:1 1 5%;
     text-align:center;
-    margin:var( --thm_box_gap, 3px );
+    //margin:var( --thm_box_gap, 3px );
+    margin:3px;
     padding:.685rem;
     width: -moz-fit-content;
     width:fit-content;
@@ -612,7 +614,20 @@ body.page{
                 figure{
                     margin:0;
                     //margin-block-start:0;
-                   // margin-block-end:0;
+                    // margin-block-end:0;
+                }
+                figcaption{
+                    position: absolute;
+                    bottom: 1rem;
+                    right: 1rem;
+                    width: calc(100% - var(--thm_content_gap));
+                    text-align: right;
+                    color: #fff;
+                    background: transparent;
+                    text-shadow: #000 1px 0 10px;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
                 }
                 &.alignleft{
                     margin-top:var(--thm_box_gap);
@@ -630,6 +645,8 @@ body.page{
                 }
             }
             .wp-block-cover{
+                margin-top:var(--thm_box_gap);
+                margin-bottom:var(--thm_box_gap);
                 &.alignfull{
                     margin-top:var(--thm_box_gap);
                     margin-bottom:var(--thm_box_gap);
