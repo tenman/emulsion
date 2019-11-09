@@ -2,7 +2,7 @@
  
 Contributors: nobita
 Requires at least: WordPress 5.0
-Tested up to: WordPress 5.2.3
+Tested up to: WordPress 5.2.4
 Requires PHP: 5.6
 License: GPL-2.0-or-later
 License URI: http://spdx.org/licenses/GPL-2.0-or-later.json
@@ -152,6 +152,9 @@ screenshot.png
 
 ## Changelog
 
+### nobember 10 2019
+		* 0.9.7
+        * https://github.com/tenman/emulsion/releases		
 ### august 15 2019
         * 0.9.6
         * https://github.com/tenman/emulsion/releases
