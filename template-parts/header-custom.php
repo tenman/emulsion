@@ -34,7 +34,7 @@ if( is_single() ) {
 </header>
 <?php if( emulsion_get_supports( 'primary_menu' ) && $metabox_menu_control ) { ?>
 <div class="<?php echo esc_attr( emulsion_element_classes( 'primary' ) ) ?>"> 
-	<input type="checkbox" id="primary-menu-controll" name="primary-menu-controll" data-skin="hamburger" data-mod="button" /><label for="primary-menu-controll"><span></span></label><?php
+	<input type="checkbox" id="primary-menu-controll" name="primary-menu-controll" data-skin="hamburger" data-mod="button" /><label for="primary-menu-controll"><span tabindex="0"></span></label><?php
 	$defaults = array(
 		'menu_class'	 => 'menu wp-nav-menu primary',
 		'container'		 => 'nav',
@@ -44,7 +44,7 @@ if( is_single() ) {
 		'echo'			 => true,
 		'depth'			 => 0,
 		'theme_location' => 'primary',
-		'items_wrap'	 => '<ul id="%1$s" class="%2$s" data-direction="horizontal"><h2 class="screen-reader-text">'.esc_html__('Primary navigation','emulsion').'</h2>%3$s</ul>',
+		'items_wrap'	 => '<ul id="%1$s" class="%2$s" data-direction="horizontal" data-type="accordion"><h2 class="screen-reader-text">'.esc_html__('Primary navigation','emulsion').'</h2>%3$s</ul>',
 		'walker'         => '',
 		'item_spacing'   => 'discard',
 	);
@@ -52,5 +52,5 @@ if( is_single() ) {
 	?>
 	<div class="menu-placeholder"><?php if( emulsion_get_supports( 'toc' ) ) { print '<div class="toc"></div>'; }?></div>
 </div>
-<?php } ?>
+<?php }   ?>
 

@@ -10,8 +10,8 @@ if ( is_single() && false == emulsion_metabox_display_control( 'style' ) ) {
 if ( ! emulsion_get_supports( 'enqueue' ) ) {
 	return;
 }
-?><div class="drawer-wrapper <?php emulsion_template_identification_class( __FILE__ ) ?>">
-	<input type="checkbox" id="c1" name="c1"  /><label for="c1"><svg class="icon" width="24" height="24"><use xlink:href="#search" /></svg></label>
+?><div class="drawer-wrapper <?php emulsion_template_identification_class( __FILE__ ) ?>" tabindex="0">
+	<input type="checkbox" id="c1" name="c1"  /><label for="c1"><svg class="icon" width="24" height="24" tabindex="0"><use xlink:href="#search" /></svg></label>
 	<div class="drawer search-drawer">
 		<div class="drawer-block">
 		<label for="c1" class="close"><svg class="icon" width="24" height="24"><use xlink:href="#cross" /></svg></label>
@@ -38,7 +38,7 @@ if ( ! emulsion_get_supports( 'enqueue' ) ) {
 			wp_list_categories( array( 'taxonomy' => 'post_tag', 'hierarchical' => false, 'title_li' => '<h4>' . esc_html__( 'Tags', 'emulsion' ) . '</h4>', 'hide_title_if_empty' => true ) );
 			echo '</ul>';
 			?></div>
-		<?php do_action('emulsion_drawer_after');?>
+		<?php do_action('emulsion_drawer_after');?><span class="drawer-end" tabindex="0"></span>
 		</div>
 	</div>
 </div>

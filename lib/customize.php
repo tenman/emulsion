@@ -14,7 +14,6 @@ if ( ! current_user_can( 'edit_theme_options' ) ) {
 }
 
 if ( $wp_customize ) {
-
 	$wp_customize->add_setting( 'header_textcolor', array( 'transport' => 'postMessage', 'sanitize_callback' => 'sanitize_hex_color' ) );
 	$wp_customize->selective_refresh->add_partial( 'header_textcolor', array(
 		'selector' => '.header-text',
@@ -486,11 +485,11 @@ function emulsion_customizer_style() {
     font-size: 14px;
 	font-weight:bold;
 }
-#_customize-input-emulsion_heading_font_size-radio-2x + label{
+#_customize-input-emulsion_heading_font_scale-radio-2x + label{
     font-size: 14px;
 	font-weight:normal;
 }
-#_customize-input-emulsion_heading_font_size-radio-3x + label{
+#_customize-input-emulsion_heading_font_scale-radio-3x + label{
 	font-size: 14px;
 	font-weight:normal;
 }
@@ -637,6 +636,8 @@ function emulsion_customizer_script() {
 	$most_used_tag_slug = emulsion_get_customize_post_id( 'tag-slug' );
 
 	$emulsion_customizer_preview_redirect	 = get_theme_mod( 'emulsion_customizer_preview_redirect', emulsion_get_var( 'emulsion_customizer_preview_redirect' ) );
+	
+	$emulsion_customizer_redirect_setting_url = "javascript:wp.customize.control( \'emulsion_customizer_preview_redirect\' ).focus()";
 	/**
 	 * date archive
 	 */
@@ -655,11 +656,14 @@ function emulsion_customizer_script() {
 	$emulsion_code_relate_setting_alert								 = esc_html__( 'This change does not reflect the settings for header media, Display title in header.', 'emulsion' );
 	$emulsion_code_fadeout_message_category_colors						 = '<span class="emulsion_fadeout_message emulsion_fadeout_message_category_colors">'
 			. '<span class="emulsion-spinner"></span>' . esc_html__( 'moving preview to category', 'emulsion' ) . '</span>'
-			. esc_html__( 'You can move to another page by clicking the preview link', 'emulsion' );
+			. esc_html__( 'You can move to another page by clicking the preview link', 'emulsion' )
+			. sprintf(' <a href="%1$s">%2$s</a>', $emulsion_customizer_redirect_setting_url, esc_html__('Redirect setting', 'emulsion'));
 	$emulsion_code_widgets_panel_notification							 = '<p>' . esc_html__( 'When setting up the post sidebar, the post must be displayed in preview.', 'emulsion' ) . '</p>';
 	$emulsion_code_widgets_panel_notification							 .= '<p>' . esc_html__( 'When setting up the page sidebar, the page must be displayed in preview.', 'emulsion' ) . '</p>';
 	$emulsion_code_header_image_notification							 = esc_html__( 'Header media can not be displayed because the header layout is set to something other than custom.', 'emulsion' );
-	$emulsion_section_notification_message								 = '<p>' . esc_html__( 'You can move to another page by clicking the preview link', 'emulsion' ) . '</p>';
+	$emulsion_section_notification_message								 = '<p>' . esc_html__( 'You can move to another page by clicking the preview link', 'emulsion' ) . '</p>'
+			. sprintf(' <a href="%1$s">%2$s</a>', $emulsion_customizer_redirect_setting_url, esc_html__('Redirect setting', 'emulsion'));
+	
 	$emulsion_code_section_block_editor_box_gap_notification			 = '<span class="emulsion_fadeout_message_section_block_editor_box_gap">'
 			. '<span class="emulsion-spinner"></span>' . esc_html__( 'moving preview to has gallery block post', 'emulsion' ) . '</span>' . $emulsion_section_notification_message;
 	$emulsion_code_section_block_editor_block_gallery_notification		 = '<span class="emulsion_fadeout_message_section_block_editor_block_gallery">'
@@ -687,8 +691,10 @@ function emulsion_customizer_script() {
 			. '<span class="emulsion-spinner"></span>' . esc_html__( 'moving preview to home', 'emulsion' ) . '</span>' . $emulsion_section_notification_message;
 	$emulsion_code__section_layout_main_notification					 = '<span class="emulsion_fadeout_message__section_layout_main">'
 			. '<span class="emulsion-spinner"></span>' . esc_html__( 'moving preview to latest post', 'emulsion' ) . '</span>' . $emulsion_section_notification_message;
-
-
+	
+	$emulsion_background_image_notification					 = '<span class="emulsion_fadeout_message__section_background_image">'
+			. '<span class="emulsion-spinner"></span>' . esc_html__( 'moving preview to latest post', 'emulsion' ) . '</span>' . $emulsion_section_notification_message;
+	$emulsion_background_image_notification					.= '<p>'. esc_html__( 'The background image is display only for single posts and pages.', 'emulsion' ).'</p>';
 	$script = <<<CUSTOMIZE_CSS
 
 (function ( $ ) {
@@ -724,6 +730,25 @@ function emulsion_customizer_script() {
 
         return result;
     }
+	
+	wp.customize.section( 'background_image', function( section ) {
+        section.expanded.bind( function( isExpanded ) {
+			 var url;
+            if ( isExpanded && PREVIEW_REDIRECT == "enable" ) {
+				url = wp.customize.settings.url.home + '?p={$latest_post_id}';
+				wp.customize.previewer.previewUrl.set( url );
+				
+				var code = 'background_image';
+				wp.customize.section( 'background_image' ).notifications.add( code, new wp.customize.Notification( code , {
+				dismissible: true,
+				message: '{$emulsion_background_image_notification}',
+				type: 'info'
+				} ) );				
+				
+				setTimeout(function() {	$('.emulsion_fadeout_message__section_background_image').fadeOut();},5000);
+			}
+        } );
+    } );
 
     wp.customize.section( 'emulsion_section_layout_homepage', function( section ) {
         section.expanded.bind( function( isExpanded ) {

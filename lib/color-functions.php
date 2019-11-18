@@ -74,6 +74,7 @@ if ( ! function_exists( 'emulsion_get_css_variables_values' ) ) {
 		}
 
 		$settings = array(
+			'heading_font_base'					 => array( 'value' => emulsion_get_var( 'emulsion_heading_font_base' ), 'unit' => '' ),
 			'header_media_max_height'			 => array( 'value' => emulsion_get_var( 'emulsion_header_media_max_height' ), 'unit' => 'vh' ),
 			'post_display_date'					 => array( 'value' => emulsion_get_var( 'emulsion_post_display_date' ), 'unit' => '' ),
 			'post_display_author'				 => array( 'value' => emulsion_get_var( 'emulsion_post_display_author' ), 'unit' => '' ),
@@ -136,7 +137,7 @@ if ( ! function_exists( 'emulsion_get_css_variables_values' ) ) {
 			'widget_meta_font_family'			 => array( 'value' => emulsion_get_var( 'emulsion_widget_meta_font_family' ), 'unit' => '' ),
 			'widget_meta_font_size'				 => array( 'value' => emulsion_get_var( 'emulsion_widget_meta_font_size' ), 'unit' => 'px' ),
 			'heading_font_transform'			 => array( 'value' => emulsion_get_var( 'emulsion_heading_font_transform' ), 'unit' => '' ),
-			'heading_font_size'					 => array( 'value' => emulsion_get_var( 'emulsion_heading_font_size' ), 'unit' => '' ),
+			'heading_font_scale'					 => array( 'value' => emulsion_get_var( 'emulsion_heading_font_scale' ), 'unit' => '' ),
 			'heading_font_weight'				 => array( 'value' => emulsion_get_var( 'emulsion_heading_font_weight' ), 'unit' => '' ),
 			'heading_font_family'				 => array( 'value' => $heading_font_family, 'unit' => '' ),
 			'common_font_family'				 => array( 'value' => emulsion_get_var( 'emulsion_common_font_family' ), 'unit' => '' ),

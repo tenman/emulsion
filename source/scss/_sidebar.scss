@@ -330,7 +330,7 @@ body{
         }
     }
     .widget_archive{
-        select[id^="archives-dropdown"]{
+        select[name="archive-dropdown"]{
             margin-top:1.5rem;
             margin-bottom:.75rem;
             width:calc( 100% - var( --thm_content_gap, 24px ) * 2 );
@@ -494,7 +494,7 @@ body{
             padding-right:0;
             .footer-widget-area-lists{
                 //@extend %block_wide;
-                 @extend %block_main_wide;
+                @extend %block_main_wide;
                 padding-left:0;
                 padding-right:0;
                 width:100%;
@@ -683,4 +683,51 @@ body{
             }
         }
     }
+}
+
+/**
+ * bbpress
+ */
+.widget{
+    &.widget_display_stats{
+        display:block;
+        max-width:100%;
+        margin-top:0;
+        margin-bottom:0;
+        dt{
+            float:left;
+            clear:left;
+            margin-top:1.5rem;
+            margin-bottom:.75rem;
+        }
+        dd{
+            float:left;
+            margin-top:1.5rem;
+            margin-bottom:.75rem;
+        }
+
+    }
+    &.widget_display_search{
+        .bbp-search-form{
+            #bbp_search{
+                width:calc(100% - 70px);
+            }
+        }
+    }
+}
+
+/**
+ * woocommerce
+ */
+.widget{
+    &.widget_shopping_cart{
+        .cart_list{
+            li{
+                a.remove{
+                    line-height: calc(var(--thm_common_font_size) * var( --thm_content_line_height, 1.5 ));                   
+                }               
+            }
+        }      
+    }
+    
 }

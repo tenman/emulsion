@@ -3521,6 +3521,10 @@ p.has-drop-cap:not(:focus):first-letter {
             height:auto;
             // overflow:hidden;
             [data-block]{
+                .wp-block-gallery{
+                    max-widht:100%;
+                    
+                }
                 .blocks-gallery-item{
                     &:before{
                         display:none;
@@ -3528,6 +3532,9 @@ p.has-drop-cap:not(:focus):first-letter {
                     figure{
                         img{
                             align-self: center;
+                        }
+                        figcaption{
+                            color:#fff;
                         }
                     }
                 }

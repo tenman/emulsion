@@ -316,7 +316,7 @@ $emulsion_customize_args = array(
 		'capability'				 => $emulsion_customize_cap,
 		'transport'					 => 'postMessage',
 		'unit'						 => '',
-		'label'						 => esc_html__( 'Heading Font Family', 'emulsion' ),
+		'label'						 => esc_html__( 'Font Family', 'emulsion' ),
 		'description'				 => '',
 		'validate'					 => 'emulsion_title_fonts_family_validate',
 		'active_callback'			 => '',
@@ -336,7 +336,7 @@ $emulsion_customize_args = array(
 		'capability'				 => $emulsion_customize_cap,
 		'transport'					 => 'postMessage',
 		'unit'						 => '',
-		'label'						 => esc_html__( 'Heading Font Weight', 'emulsion' ),
+		'label'						 => esc_html__( 'Font Weight', 'emulsion' ),
 		'description'				 => '',
 		'validate'					 => 'emulsion_heading_font_weight_validate',
 		'active_callback'			 => '',
@@ -349,7 +349,28 @@ $emulsion_customize_args = array(
 			'700'	 => esc_html__( 'bold', 'emulsion' ),
 		),
 	),
-	"emulsion_heading_font_size"				 => array(
+	"emulsion_heading_font_base"				 => array(
+		'section'					 => 'emulsion_section_fonts_heading',
+		'priority'					 => 10,
+		'default'					 => get_theme_mod( "emulsion_common_font_size", 16 ),
+		'data_type'					 => $emulsion_setting_type,
+		'capability'				 => $emulsion_customize_cap,
+		'transport'					 => 'refresh',
+		'unit'						 => '',
+		'label'						 => esc_html__( 'Base font size', 'emulsion' ),
+		'description'				 => esc_html__( 'heading base font size', 'emulsion' ),
+		'validate'					 => 'emulsion_heading_font_base_validate', 
+		'active_callback'			 => '',
+		'sanitize_callback'			 => 'absint',
+		'extend_customize_control'	 => '',
+		'type'						 => 'number',
+		'input_attrs'				 => array(
+			'min'	 => 10,
+			'max'	 => 48,
+			'step'	 => 1,
+		),
+	),
+	"emulsion_heading_font_scale"				 => array(
 		'section'					 => 'emulsion_section_fonts_heading',
 		'priority'					 => 10,
 		'default'					 => 'xxx',
@@ -357,9 +378,9 @@ $emulsion_customize_args = array(
 		'capability'				 => $emulsion_customize_cap,
 		'transport'					 => 'refresh',
 		'unit'						 => '',
-		'label'						 => esc_html__( 'Font Size h1-h6', 'emulsion' ),
-		'description'				 => esc_html__( 'h1 element font size, 3 times or 2 times normal character.', 'emulsion' ),
-		'validate'					 => 'emulsion_heading_font_size_validate', //ch
+		'label'						 => esc_html__( 'Font Scale', 'emulsion' ),
+		'description'				 => esc_html__( 'h1 element font size, 3 times or 2 times heading base font size.', 'emulsion' ),
+		'validate'					 => 'emulsion_heading_font_scale_validate', //ch
 		'active_callback'			 => '',
 		'sanitize_callback'			 => 'wp_filter_nohtml_kses',
 		'extend_customize_control'	 => '',
@@ -1723,6 +1744,7 @@ $emulsion_theme_customize_panels = array(
  */
 
 $emulsion_theme_customize_sections = array(
+
 	'emulsion_section_fonts_general'					 => array(
 		'priority'		 => 25,
 		'panel'			 => 'emulsion_theme_settings_fonts_panel',
@@ -2049,11 +2071,10 @@ function emulsion_post_display_method_date_example_value( $type = 'defaul' ){
 
 //latest-post, gallery, columns, media-text, alignwide, comments-open tag-slug
 function emulsion_get_customize_post_id( $type = '' ) {
-	/**
-	 * phpcs:ignore WPThemeReview.CoreFunctionality.PostsPerPage.posts_per_page_posts_per_page
-	 */
+
+	$count_posts = wp_count_posts();
 	$posts_args	 = array(
-		'posts_per_page' => -1,
+		'posts_per_page' => absint( $count_posts ),
 		'date_query'	 => array(
 			array(
 				'after' => '2018/12/1'
@@ -2203,6 +2224,5 @@ function emulsion_control_description( $control ) {
 			}
 
 			break;
-
 	}
 }

@@ -52,7 +52,7 @@ function emulsion_hooks_setup() {
 	add_filter( 'admin_body_class', 'emulsion_admin_body_class' );
 	add_filter( 'body_class', 'emulsion_brightness_class', 15 );
 	add_filter( 'dynamic_sidebar_params', 'emulsion_footer_widget_params' );
-	add_filter( 'post_class', 'emulsion_add_woocommerce_shortcode_class_to_post' );
+	add_filter( 'post_class', 'emulsion_add_woocommerce_class_to_post' );
 }
 
 if ( ! function_exists( 'emulsion_test_for_min_php' ) ) {
@@ -1090,15 +1090,20 @@ if ( ! function_exists( 'emulsion_heading_font_css' ) ) {
 		$inline_style			 = emulsion_sanitize_css( $css );
 		$font_google_family_url	 = get_theme_mod( 'emulsion_heading_google_font_url', emulsion_get_var( 'emulsion_heading_google_font_url' ) );
 		$fallback_font_family	 = get_theme_mod( 'emulsion_heading_font_family', emulsion_get_var( 'emulsion_heading_font_family' ) );
-		$font_size				 = get_theme_mod( 'emulsion_heading_font_size', emulsion_get_var( 'emulsion_heading_font_size' ) );
-		// 変換
-		$heading_font_base		 = 16;
-		if ( 'xx' == $font_size ) {
+		$font_scale				 = get_theme_mod( 'emulsion_heading_font_scale', emulsion_get_var( 'emulsion_heading_font_scale' ) );
+		$heading_font_base		 = get_theme_mod( 'emulsion_heading_font_base', emulsion_get_var( 'emulsion_heading_font_base' ) );
+		if ( 'xx' == $font_scale ) {
+			$h6 = $heading_font_base * 0.6875 . 'px';
+			$h5 = $heading_font_base * 0.8125 . 'px';
+			$h4 = $heading_font_base * 1 . 'px';
 			$h3	 = $heading_font_base * 1.17 . 'px';  // H3
 			$h2	 = $heading_font_base * 1.4 . 'px';   // H2
 			$h1	 = $heading_font_base * 2 . 'px';   // H1
 		}
-		if ( 'xxx' == $font_size ) {
+		if ( 'xxx' == $font_scale ) {
+			$h6 = $heading_font_base * 0.6875 . 'px';
+			$h5 = $heading_font_base * 0.8125 . 'px';
+			$h4 = $heading_font_base * 1 . 'px';
 			$h3	 = $heading_font_base * 1.5 . 'px';  // H3
 			$h2	 = $heading_font_base * 2 . 'px';   // H2
 			$h1	 = $heading_font_base * 3 . 'px';   // H1
@@ -1151,6 +1156,18 @@ if ( ! function_exists( 'emulsion_heading_font_css' ) ) {
 		body.font-heading-$fallback_font_family h3{
 			font-size:{$h3};
 		}
+		body.font-heading-$fallback_font_family .h4,
+		body.font-heading-$fallback_font_family h4{
+			font-size:{$h4};
+		}
+		body.font-heading-$fallback_font_family .h5,
+		body.font-heading-$fallback_font_family h5{
+			font-size:{$h5};
+		}
+		body.font-heading-$fallback_font_family .h6,
+		body.font-heading-$fallback_font_family h6{
+			font-size:{$h6};
+		}
 		@media screen and ( max-width : 640px ) {
 
 			body.font-heading-$fallback_font_family .h1,
@@ -1163,10 +1180,20 @@ if ( ! function_exists( 'emulsion_heading_font_css' ) ) {
 			body.font-heading-$fallback_font_family h2{
 				font-size:{$h3};
 			}
+			body.font-heading-$fallback_font_family .h4,
+			body.font-heading-$fallback_font_family h4,
 			body.font-heading-$fallback_font_family .h3,
 			body.font-heading-$fallback_font_family h3{
 				font-size:var(--thm_common_font_size);
 			}
+			body.font-heading-$fallback_font_family .h5,
+			body.font-heading-$fallback_font_family h5{
+				font-size:{$h5};
+			}
+			body.font-heading-$fallback_font_family .h6,
+			body.font-heading-$fallback_font_family h6{
+				font-size:{$h6};
+			}		
 		}
 CSS;
 		

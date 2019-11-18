@@ -163,25 +163,26 @@ jQuery(function ($) {
             }
         });
     });
-    
+
     //Keyboad navigation when mobile humberger menu
-/*
-    $('#primary-menu-controll').focusin(function (e) {     
-       $(this).prop('checked', true);
-    });
-    $('.layout a').focusin(function () {
-        $('#primary-menu-controll').prop('checked', false);
-    });  
-    $('.layout,.header-layer').on('click',function () {
-        $('#primary-menu-controll').prop('checked', false);
-    });
-    $('#primary-menu-controll').on('click', function (e) {
-         if ( ! $(this).is(':checked') ) {            
-            $(this).prop('checked', true);
-        } 
-    });
-*/
-    
+    /*
+     $('#primary-menu-controll').focusin(function (e) {     
+     $(this).prop('checked', true);
+     });
+     $('.layout a').focusin(function () {
+     $('#primary-menu-controll').prop('checked', false);
+     });  
+     $('.layout,.header-layer').on('click',function () {
+     $('#primary-menu-controll').prop('checked', false);
+     });
+     $('#primary-menu-controll').on('click', function (e) {
+     if ( ! $(this).is(':checked') ) {            
+     $(this).prop('checked', true);
+     } 
+     });
+     */
+
+
 });
 jQuery(function ($) {
     "use strict";
@@ -324,7 +325,7 @@ jQuery(function ($) {
                 $("#post-" + single_id).parents('.article-wrapper').removeAttr('style');
                 break;
         }
-    });   
+    });
 });
 jQuery(function ($) {
     "use strict";
@@ -518,11 +519,11 @@ jQuery(function ($) {
         $('body').removeClass('agent-mobile-phone agent-tablet');
         var emulsion_window_width = parseInt(jQuery(window).width());
         var break_point = parseInt(emulsion_script_vars.content_width) + parseInt(emulsion_script_vars.content_gap) * 2;
-        
+
         if (ua.indexOf('iPhone') > 0 || ua.indexOf('Android') > 0 && ua.indexOf('Mobile') > 0) {
             $('body').addClass('agent-mobile-phone');
             //wp_nav_menu() change from horizontal menu to vertical menu
-              $('.primary').attr('data-direction', 'vertical');
+            $('.primary').attr('data-direction', 'vertical');
         } else if (ua.indexOf('iPad') > 0 || ua.indexOf('Android') > 0) {
             $('body').addClass('agent-tablet');
             if (emulsion_window_width < break_point) {
@@ -530,8 +531,8 @@ jQuery(function ($) {
             }
             if (emulsion_window_width > break_point) {
                 $('.primary').attr('data-direction', 'horizontal');
-            }           
-        } else {           
+            }
+        } else {
             if (emulsion_window_width < break_point) {
                 $('.primary').attr('data-direction', 'vertical');
             }
@@ -824,13 +825,53 @@ jQuery(function ($) {
     });
 });
 jQuery(function ($) {
+
     /**
-     * detect is search drawer active
+     * search drawer tab navigation
+     * @since 0.98
      */
-    $(".drawer-wrapper .icon").on("click", function () {
+    $(".drawer-wrapper .icon").focusin(function (e) {
+        $('body').addClass("drawer-is-active");
+        /**
+         * wai-aria
+         */
+        $(this).parent().next().attr({
+            'area-expanded': true,
+            'id': 'search-drawer',
+        });
+        $(this).attr({
+            'area-expanded': true,
+            'aria-controls': 'search-drawer',
+        });
+        $('.drawer-wrapper input').prop("checked", true);
+    });
+    $('.drawer-end').focusin(function (e) {
+        $('body').removeClass("drawer-is-active");
+        $('.drawer-wrapper input').prop("checked", false);
+        /**
+         * wai-aria
+         */
+        $('.drawer-wrapper .icon').attr({
+            'area-expanded': false,
+            'aria-controls': 'search-drawer',
+            'area-hidden': true,
+        });
+        $('#search-drawer').attr({
+            'area-expanded': false,
+            'area-hidden': true,
+        });
+    });
+    
+    /**
+     * search drawer toggle
+     */
+    $(".drawer-wrapper .icon").on("click", function (e) {
+        $('.drawer-wrapper .icon').removeAttr( 'area-expanded aria-controls search-drawer area-hidden' );
+        $('#search-drawer').removeAttr( 'area-expanded area-hidden' );
         $('body').toggleClass("drawer-is-active");
     });
 });
+
 jQuery(function ($) {
     /**
      * link add when heading has id

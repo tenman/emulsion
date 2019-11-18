@@ -354,7 +354,7 @@
             document.documentElement.style.setProperty('--thm_heading_font_weight', newval);
         });
     });
-    wp.customize('emulsion_heading_font_size', function (value) {
+    wp.customize('emulsion_heading_font_scale', function (value) {
         value.bind(function (newval) {
 
             if (newval == '3x') {

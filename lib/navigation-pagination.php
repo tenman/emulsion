@@ -34,11 +34,24 @@ if ( !function_exists( 'emulsion_archive_year_navigation' ) ) {
 		$html			 = '<div class="%2$s"><a href="%1$s"><span class="screen-reader-text">%3$s</span>%4$s</a></div>';
 		$separator		 = '<div class="%1$s">%2$s</div>';
 		$result			 = '<div class="archive-year-links nav-links">';
-		$year_current	 = absint( get_query_var( 'year' ) );
-		/**
-		 * phpcs:ignore WPThemeReview.CoreFunctionality.PostsPerPage.posts_per_page_posts_per_page
-		 */
-		$year_list		 = get_posts( array( 'post_status' => 'publish', 'posts_per_page' => -1, 'order' => 'ASC' ) );
+		$year_current	 = absint( get_query_var( 'year' ) );	
+		$count_posts	 = wp_count_posts();
+		$transient_name	 = 'emulsion_archive_year_navigation_' . absint( $count_posts );
+		$transient_val	 = get_transient( $transient_name );
+
+		if ( false !== $transient_val ) {
+
+			if ( true !== $echo ) {
+
+				return wp_kses_post( $result );
+			} else {
+
+				echo wp_kses_post( $result );
+			}
+		}
+
+		$published_posts_count = absint( $count_posts->publish );
+		$year_list		 = get_posts( array( 'post_status' => 'publish', 'posts_per_page' => $published_posts_count, 'order' => 'ASC' ) );
 
 		foreach ( $year_list as $list ) {
 
@@ -133,6 +146,8 @@ if ( !function_exists( 'emulsion_archive_year_navigation' ) ) {
 		// check lost element			
 		$emulsion_place = basename(__FILE__). ' line:'. __LINE__. ' '.  __FUNCTION__ .'()';
 		true === WP_DEBUG ? emulsion_elements_assert_equal( $result, wp_kses_post( $result ), $emulsion_place ) : '';
+		
+		set_transient( $transient_name ,  $result, 48 * HOUR_IN_SECONDS );
 
 		if ( true !== $echo ) {
 
@@ -142,7 +157,6 @@ if ( !function_exists( 'emulsion_archive_year_navigation' ) ) {
 			echo wp_kses_post( $result );
 		}
 	}
-
 }
 if ( !function_exists( 'emulsion_monthly_archive_prev_next_navigation' ) ) {
 
@@ -214,6 +228,7 @@ LIMIT 1" );
 			}
 
 			if ( $next ) {
+				
 				$next_label = $wp_locale->get_month( $next->month );
 
 				$calendar_output .= sprintf( $html, get_month_link( $next->year, $next->month ),
