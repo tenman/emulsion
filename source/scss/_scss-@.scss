@@ -104,7 +104,7 @@
  * @include font_size(1);
  */
 @mixin font_size( $level , $margin: default-margin) {
-    $heading_font_base:16px;
+   // $heading_font_base:16px;
     $line-heights: (
         6: $content_line_height,  // h6
         5: $content_line_height,  // H5
@@ -114,25 +114,25 @@
         2: $common_line_height,   // H2
         1: $common_line_height,      // H1
         );
-    @if $heading-font-size == 'xxx' {
+    @if $heading_font_scale == 'xxx' {
         $type-scale: (
-            6: 0.6875rem,  // h6
-            5: 0.8125rem,  // H5
-            4: 1rem,      // H4
+            6: $heading_font_base * 0.6875px,  // h6
+            5: $heading_font_base * 0.8125px,  // H5
+            4: $heading_font_base * 1px,      // H4
             0: 1rem,      // p
-            3: $heading_font_base * 1.5,  // H3
-            2: $heading_font_base * 2,   // H2
-            1: $heading_font_base * 3      // H1
+            3: $heading_font_base * 1.5px,  // H3
+            2: $heading_font_base * 2px,   // H2
+            1: $heading_font_base * 3px     // H1
             );
     } @else {
         $type-scale: (
-            6: 0.6875rem,  // h6
-            5: 0.8125rem,  // H5
-            4: 1rem,      // H4
+            6: $heading_font_base * 0.6875px,  // h6
+            5: $heading_font_base * 0.8125px,  // H5
+            4: $heading_font_base * 1px,      // H4
             0: 1rem,      // p
-            3: $heading_font_base * 1.17,  // H3
-            2: $heading_font_base * 1.4,   // H2
-            1: $heading_font_base * 2      // H1
+            3: $heading_font_base * 1.17px,  // H3
+            2: $heading_font_base * 1.4px,   // H2
+            1: $heading_font_base * 2px      // H1
             );
     }
     font-size: map-get($type-scale, $level);

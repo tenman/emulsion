@@ -668,11 +668,11 @@
                // color:#fff;
             }
             .nav-menu-child-opener-label:before{
-                background:url('#{$theme_image_dir}svg/arrow-down.svg#white');
+              //  background:url('#{$theme_image_dir}svg/arrow-down.svg#white');
                 background-size:contain;
             }
             .nav-menu-child-opener[type="checkbox"]:checked ~ label:before {
-                background:url('#{$theme_image_dir}svg/arrow-up.svg#white');
+               // background:url('#{$theme_image_dir}svg/arrow-up.svg#white');
                 background-size:contain;
             }
         }
@@ -708,35 +708,20 @@
     .template-part-header-custom ~ .primary-menu-wrapper input[type="checkbox"][data-skin="hamburger"]:checked ~ nav{
         display:block;
         visibility:visible;
-       // background:#333;
-       
         z-index:10;
         position:absolute;
         left:72px;
         top:auto;
-        width:calc(100vw - 96px);
-        .primary.wp-nav-menu[data-direction] li > .children,
-        .primary.wp-nav-menu[data-direction] li > .sub-menu{
-           // background:#333;
-        }
-        &.has-chckbox-control .primary.wp-nav-menu[data-direction]  .children li:hover,
-            &.has-chckbox-control  .primary.wp-nav-menu[data-direction]  .sub-menu li:hover{
-           // background:#333;
-        }
+        width:calc(100vw - 72px - 1rem);
+        
+        
         ul{
-          //  border:none;
             li{
-               // background:#333;
-                a{
-                  //  color:#fff;
-                }
                 &.menu-item{
                     .nav-menu-child-opener-label:before{
-                        background:url('#{$theme_image_dir}svg/arrow-down.svg#white');
                         background-size:contain;
                     }
                     .nav-menu-child-opener[type="checkbox"]:checked ~ label:before {
-                        background:url('#{$theme_image_dir}svg/arrow-up.svg#white');
                         background-size:contain;
                     }
                 }
@@ -771,7 +756,6 @@
         position:relative;
         z-index:1;
         flex-basis:var( --thm_sidebar_width, 400px );
-        //  max-width:var( --thm_sidebar_width, 400px );
         flex:0 0;
     }
 }

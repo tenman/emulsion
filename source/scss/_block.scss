@@ -460,7 +460,8 @@
             & > [class|="wp-block"]{
                 margin-top:0;
                 margin-bottom:0;
-                position:static;
+                //position:static;
+                position:relative;
             }
         }
         .wp-block-cover {
@@ -873,6 +874,7 @@
 .wp-block-video{
     margin-top:1.5rem;
     margin-bottom:.75rem;
+
     &.alignfull{
         video{
             width:100%;
@@ -1155,6 +1157,10 @@ figure{
             //core overwrite
             @extend %alignleft;
         }
+        video.wp-block-cover__video-background{
+            padding-left:0;
+            padding-right:0;
+        }
     }
     .wp-block-file{
         &.alignwide{
@@ -1407,6 +1413,7 @@ figure{
     background-size: cover;
     background-position: 50%;
     width:var(--thm_content_width);
+    height:auto;
     min-height:400px;
     margin-top: 0;
     margin-bottom:1.5rem;
@@ -1421,7 +1428,7 @@ figure{
         background-attachment: fixed;
     }
     &.alignleft{
-        height:calc( var(--thm_content_width) / 2 - 1rem);
+        //  height:calc( var(--thm_content_width) / 2 - 1rem);
         @extend %alignleft;
         background-position:center center;
         background-repeat:no-repeat;
@@ -1440,7 +1447,7 @@ figure{
         }
     }
     &.alignright{
-        height:calc( var(--thm_content_width) / 2 - 1rem );
+        //  height:calc( var(--thm_content_width) / 2 - 1rem );
         @extend %alignright;
         background-position:center center;
         background-repeat:no-repeat;
@@ -1771,6 +1778,7 @@ figure{
     margin:1px;
     position:relative;
     flex:1 1 auto;
+    padding:0;
 }
 .mce-content-body .blocks-gallery-item figure,
 .entry-content .blocks-gallery-item figure{
@@ -2495,8 +2503,8 @@ ul.wp-block-categories{
     margin-right:auto;
     margin-top:1.5rem;
     margin-bottom:.75rem;
-    padding-top:.69rem;
-    padding-bottom:.69rem;
+    padding:.69rem;
+
 }
 div.wp-block-categories.alignleft{
     //cire override
@@ -3062,6 +3070,9 @@ figure.wp-block-image{
  * Block preformatted
  * Block verse
  * ========================================================================== */
+.wp-block-verse{
+    padding: 1em 1em 0;
+}
 .wp-block-preformatted,
 .wp-block-verse{
     margin:1.5rem auto .75rem;

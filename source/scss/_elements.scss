@@ -41,6 +41,12 @@ html{
     .search-drawer .search-info{
         display:none;
     }
+    .template-part-header{
+        .menu-item-has-children .menu-item-has-children > a:after{
+            vertical-align:top;
+            transform: rotate(90deg);
+        }      
+    }
 }
 body{
     margin-left:auto;
@@ -845,13 +851,16 @@ progress{
 }
 form select,
 .widget_categories form select,
-[id^="archives-dropdown"]{
+[name="archive-dropdown"]{
     display:inline-block;
     margin-left:auto;
     margin-right:auto;
     padding-top:.625rem;
     padding-bottom:.625rem;
+    padding-left:0.625rem;
+    padding-right:0.625rem;
     max-width:100%;
+    box-sizing:border-box;
 }
 form > p{
     padding-left:0;
@@ -944,8 +953,8 @@ body .fit{
         width: -moz-fit-content;
         width:fit-content;
         text-indent:0;       
-       // margin:var( --thm_box_gap,3px );
-       margin:3px;
+        // margin:var( --thm_box_gap,3px );
+        margin:3px;
         &:nth-child(n + 8) {
             flex:1 1 auto;
         }
@@ -1139,6 +1148,7 @@ body .fit{
             img{
                 vertical-align:middle;
                 width:auto;
+                max-width:48px;
                 height:48px;
                 margin-left:0;
                 margin-right:0;

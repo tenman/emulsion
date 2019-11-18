@@ -34,6 +34,8 @@ function emulsion__css_variables( $css = '' ) {
 	 * CSS variables
 	 */
 
+	$heading_font_scale					 = emulsion_get_css_variables_values( 'heading_font_scale' );
+	$heading_font_base			 = emulsion_get_css_variables_values( 'heading_font_base' );
 	$header_media_max_height			 = emulsion_get_css_variables_values( 'header_media_max_height' );
 	$post_display_date					 = emulsion_get_css_variables_values( 'post_display_date' );
 	$post_display_author				 = emulsion_get_css_variables_values( 'post_display_author' );
@@ -101,7 +103,7 @@ function emulsion__css_variables( $css = '' ) {
 	$common_font_family					 = emulsion_get_css_variables_values( 'common_font_family' );
 	$heading_font_family				 = emulsion_get_css_variables_values( 'heading_font_family' );
 	$heading_font_weight				 = emulsion_get_css_variables_values( 'heading_font_weight' );
-	$heading_font_size					 = emulsion_get_css_variables_values( 'heading_font_size' );
+
 	$heading_font_transform				 = emulsion_get_css_variables_values( 'heading_font_transform' );
 	$meta_data_font_size				 = emulsion_get_css_variables_values( 'widget_meta_font_size' );
 	$meta_data_font_family				 = emulsion_get_css_variables_values( 'widget_meta_font_family' );
@@ -128,6 +130,8 @@ function emulsion__css_variables( $css = '' ) {
 	$style = <<<CSS
 body{
 	/* dinamic */
+	--thm_heading_font_scale:$heading_font_scale;
+	--thm_heading_font_base:$heading_font_base;
 	--thm_header_media_max_height:$header_media_max_height;
 	--thm_post_display_date:$post_display_date;
 	--thm_post_display_author:$post_display_author;
@@ -1051,25 +1055,16 @@ function emulsion_resuponsive_css() {
   }
   .header-layer-nav-menu input[type="checkbox"][data-skin="hamburger"]:checked ~ nav {
     display: block;
-   /* background: #333;*/
     z-index: 10;
     position: absolute;
     right: 48px;
     top: 1.5rem;
   }
-/*  .header-layer-nav-menu input[type="checkbox"][data-skin="hamburger"]:checked ~ nav .primary.wp-nav-menu[data-direction] li > .children, .header-layer-nav-menu input[type="checkbox"][data-skin="hamburger"]:checked ~ nav .primary.wp-nav-menu[data-direction] li > .sub-menu {
-    background: #333;
-  }*/
+
   .header-layer-nav-menu input[type="checkbox"][data-skin="hamburger"]:checked ~ nav .menu {
     width: 100%;
   }
-  .header-layer-nav-menu input[type="checkbox"][data-skin="hamburger"]:checked ~ nav .menu a {
-   /* color: #fff;*/
-  }
-  .header-layer-nav-menu input[type="checkbox"][data-skin="hamburger"]:checked ~ nav .menu .nav-menu-child-opener-label:before {
-    background: url("/wp-37/wp-content/themes/emulsion/images/svg/arrow-down.svg#white");
-    background-size: contain;
-  }
+
   .header-layer-nav-menu input[type="checkbox"][data-skin="hamburger"]:checked ~ nav .menu .nav-menu-child-opener[type="checkbox"]:checked ~ label:before {
     background: url("/wp-37/wp-content/themes/emulsion/images/svg/arrow-up.svg#white");
     background-size: contain;
@@ -1109,28 +1104,9 @@ function emulsion_resuponsive_css() {
     position: absolute;
     left: 72px;
     top: auto;
-    width: calc(100vw - 96px);
+    width:calc(100vw - 72px - 1rem);
   }
-  .template-part-header-custom ~ .primary-menu-wrapper input[type="checkbox"][data-skin="hamburger"]:checked ~ nav .primary.wp-nav-menu[data-direction] li > .children, .template-part-header-custom ~ .primary-menu-wrapper input[type="checkbox"][data-skin="hamburger"]:checked ~ nav .primary.wp-nav-menu[data-direction] li > .sub-menu {
-		/*background: #333;*\
-  }
-  .template-part-header-custom ~ .primary-menu-wrapper input[type="checkbox"][data-skin="hamburger"]:checked ~ nav.has-chckbox-control .primary.wp-nav-menu[data-direction] .children li:hover, .template-part-header-custom ~ .primary-menu-wrapper input[type="checkbox"][data-skin="hamburger"]:checked ~ nav.has-chckbox-control .primary.wp-nav-menu[data-direction] .sub-menu li:hover {
-    /*background: #333;*/
-  }
-  .template-part-header-custom ~ .primary-menu-wrapper input[type="checkbox"][data-skin="hamburger"]:checked ~ nav.has-chckbox-control .primary.wp-nav-menu[data-direction] .children:hover, .template-part-header-custom ~ .primary-menu-wrapper input[type="checkbox"][data-skin="hamburger"]:checked ~ nav.has-chckbox-control .primary.wp-nav-menu[data-direction] .sub-menu:hover {
-    /*background: #444;*/
-  }
-  .template-part-header-custom ~ .primary-menu-wrapper input[type="checkbox"][data-skin="hamburger"]:checked ~ nav ul li a {
-   /* color: #fff;*/
-  }
-  .template-part-header-custom ~ .primary-menu-wrapper input[type="checkbox"][data-skin="hamburger"]:checked ~ nav ul li .nav-menu-child-opener-label:before {
-    background: url("/wp-37/wp-content/themes/emulsion/images/svg/arrow-down.svg#white");
-    background-size: contain;
-  }
-  .template-part-header-custom ~ .primary-menu-wrapper input[type="checkbox"][data-skin="hamburger"]:checked ~ nav ul li .nav-menu-child-opener[type="checkbox"]:checked ~ label:before {
-    background: url("/wp-37/wp-content/themes/emulsion/images/svg/arrow-up.svg#white");
-    background-size: contain;
-  }
+
   body.on-scroll .primary-menu-wrapper .menu-placeholder {
     padding-top: 0;
     margin-left: 48px;

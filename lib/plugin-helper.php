@@ -124,6 +124,8 @@ function emulsion_wp_scss_set_variables() {
 	$grid_condition		 = emulsion_get_css_variables_values( 'grid' );
 
 	$variables			 = array(
+		'heading_font_scale'				 => emulsion_get_css_variables_values( 'heading_font_scale' ),
+		'heading_font_base'					 => emulsion_get_css_variables_values( 'heading_font_base' ),
 		'header_media_max_height'			 => emulsion_get_css_variables_values( 'header_media_max_height' ),
 		'post_display_date'					 => emulsion_get_css_variables_values( 'post_display_date' ),
 		'post_display_author'				 => emulsion_get_css_variables_values( 'post_display_author' ),
@@ -193,7 +195,7 @@ function emulsion_wp_scss_set_variables() {
 		'common_font_family'				 => emulsion_get_css_variables_values( 'common_font_family' ),
 		'heading_font_family'				 => emulsion_get_css_variables_values( 'heading_font_family' ),
 		'heading_font_weight'				 => emulsion_get_css_variables_values( 'heading_font_weight' ),
-		'heading-font-size'					 => emulsion_get_css_variables_values( 'heading_font_size' ),
+		'heading_font_scale'					 => emulsion_get_css_variables_values( 'heading_font_scale' ),
 		'heading_font_transform'			 => emulsion_get_css_variables_values( 'heading_font_transform' ),
 		'meta_data_font_size'				 => emulsion_get_css_variables_values( 'widget_meta_font_size' ),
 		'meta_data_font_family'				 => emulsion_get_css_variables_values( 'widget_meta_font_family' ),

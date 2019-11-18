@@ -388,6 +388,19 @@ function emulsion_common_font_family_validate( $input ) {
 
 	return $default_value;
 }
+function emulsion_heading_font_base_validate( $input ) {
+
+	$name			 = str_replace( '_validate', '', __FUNCTION__ );
+	$values			 = emulsion_get_var( $name, 'input_attrs' );
+	$default_value	 = (int) emulsion_get_var( $name, 'default' );
+
+	$options = array(
+		'min_range'	 => $values['min'],
+		'max_range'	 => $values['max'],
+		'default'	 => $default_value,
+	);
+	return filter_var( $input, FILTER_VALIDATE_INT, array( 'options' => $options ) );
+}
 
 function emulsion_common_font_size_validate( $input ) {
 
@@ -653,7 +666,7 @@ function emulsion_widget_meta_font_transform_validate( $input ) {
 	return $default_value;
 }
 
-function emulsion_heading_font_size_validate( $input ) {
+function emulsion_heading_font_scale_validate( $input ) {
 
 	$name			 = str_replace( '_validate', '', __FUNCTION__ );
 	$values			 = emulsion_get_var( $name, 'choices' );

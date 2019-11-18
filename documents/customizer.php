@@ -133,8 +133,8 @@
 		<th><?php esc_html_e( 'description', 'emulsion' ); ?></th>
 	</tr>
 	<tr>
-		<td><span class="dashicons dashicons-editor-paragraph"></span> <?php emulsion_get_customizer_link_element( 'control', 'emulsion_heading_font_size' ); ?></td>
-		<td ><?php echo wp_kses_post( emulsion_get_var( 'emulsion_heading_font_size', 'description' ) ); ?></td>
+		<td><span class="dashicons dashicons-editor-paragraph"></span> <?php emulsion_get_customizer_link_element( 'control', 'emulsion_heading_font_scale' ); ?></td>
+		<td ><?php echo wp_kses_post( emulsion_get_var( 'emulsion_heading_font_scale', 'description' ) ); ?></td>
 	</tr>
 	<tr>
 		<td><span class="dashicons dashicons-editor-paragraph"></span> <?php emulsion_get_customizer_link_element( 'control', 'emulsion_heading_font_family' ); ?></td>

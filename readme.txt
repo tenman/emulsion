@@ -4,8 +4,8 @@ Contributors: nobita
 Requires at least: WordPress 5.0
 Tested up to: WordPress 5.2.4
 Requires PHP: 5.6
-License: GPL-2.0-or-later
-License URI: http://spdx.org/licenses/GPL-2.0-or-later.json
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: one-column, two-columns, left-sidebar, right-sidebar, custom-colors, custom-header, custom-background, custom-menu, editor-style, theme-options, threaded-comments, sticky-post, translation-ready, post-formats, featured-images, full-width-template, grid-layout, flexible-header, custom-logo, featured-image-header, footer-widgets
 
 ## Description
@@ -79,8 +79,8 @@ screenshot.png
 
 * Above images License
 	* Copyright: Copyright (c) 2010-2017, Tenman
-	* License: GNU General Public License v2.0
-	* License URI: http://www.gnu.org/licenses/gpl-2.0.html
+	* License: GNU General Public License v2 or later
+        * License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 ### SVG
 

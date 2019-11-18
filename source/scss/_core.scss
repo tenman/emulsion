@@ -26,6 +26,10 @@ p.aligncenter {
 p.aligncenter.has-drop-cap {
     display:block
 }
+p.has-drop-cap:not(:focus):after{
+    // core over write
+    padding-top:0;
+}
 .alignleft {
     @extend %alignleft;
 }

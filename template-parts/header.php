@@ -18,7 +18,7 @@ if( is_single() ) {
 		<?php  emulsion_site_text_markup(); ?>
 		<?php if( emulsion_get_supports( 'primary_menu' ) && $metabox_menu_control ) { ?>
 		<div class="header-layer-nav-menu" >
-			<input type="checkbox" id="primary-menu-controll" name="primary-menu-controll" data-skin="hamburger" data-mod="button" /><label for="primary-menu-controll"><span></span></label>
+			<input type="checkbox" id="primary-menu-controll" name="primary-menu-controll" data-skin="hamburger" data-mod="button" /><label for="primary-menu-controll"><span tabindex="0"></span></label>
 			<?php
 			$defaults			 = array(
 				'menu_class'	 => 'menu wp-nav-menu primary top-right',
@@ -29,7 +29,7 @@ if( is_single() ) {
 				'echo'			 => true,
 				'depth'			 => 0,
 				'theme_location' => 'primary',
-				'items_wrap'	 => '<ul id="%1$s" class="%2$s" data-direction="horizontal">%3$s</ul>',
+				'items_wrap'	 => '<ul id="%1$s" class="%2$s" data-direction="horizontal"  data-type="accordion">%3$s</ul>',
 				'item_spacing'   => 'discard',
 			);
 			wp_nav_menu( $defaults );

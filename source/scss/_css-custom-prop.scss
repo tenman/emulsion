@@ -10,6 +10,8 @@
     --thm_hover_color:$hover_color;
     --thm_excerpt_linebreak: $excerpt_linebreak;
     // when header media not exists
+   --thm_heading_font_scale: $heading_font_scale;
+    --thm_heading_font_base: $heading_font_base;
     --thm_default_header_height: $default_header_height;
     --thm_header_text_color: $header_text_color;
     --thm_header_link_color: $header_link_color;
@@ -139,8 +141,62 @@
         --thm_social_icon_color:#666;
     }
 }
-
-
+/**
+ * Exception setting when background image is specified
+ */
+.emulsion-has-custom-background-image.is-light.post,
+.emulsion-has-custom-background-image.is-light.single{
+    /**
+     * has background image
+     */
+    article,
+    .entry-content,
+    .placeholder-header{
+        --thm_social_icon_color:#fff;
+        color:#fff;
+        text-shadow: #000 1px 0 10px;
+        a{
+            color:#fff;
+            text-shadow: #000 1px 0 10px;
+        }
+        svg{
+            fill:#fff;
+        }
+        .mark-cool,
+        .mark-notice,
+        .mark-info,
+        .nark-alert,
+        .wp-block-calendar,
+        .product,
+        .skin-button,
+        pre,
+        .has-background:not(.has-text-color){
+            text-shadow:none;
+            color:var(--thm_general_text_color);
+            a{
+                color:var(--thm_general_link_color);
+                text-shadow:none;
+            }
+        }
+        .wp-block-table{
+            text-shadow:none;
+        }
+        
+        .shortcode-wrapper,
+        .wp-block-latest-posts li,
+        .wp-block-group.has-background:not(.has-text-color),
+        .wp-block-verse,
+        figcaption,
+        .wp-block-column,
+        .wp-block-button.is-style-outline a:not(.has-text-color),
+        .wp-block-button__link.has-background:not(.has-text-color){
+            color:#fff;
+        }
+        .wp-block-latest-posts li:hover{
+            background:transparent;
+        }
+    }
+}
 
 .emulsion-has-sidebar{
     .has-column{
