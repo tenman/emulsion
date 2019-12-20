@@ -1,6 +1,4 @@
 <?php
-//global $template;
-
 $emulsion_post_id			 = get_the_ID();
 $emulsion_show_post_image	 = emulsion_is_display_featured_image_in_the_loop();
 ?>
@@ -16,7 +14,7 @@ $emulsion_show_post_image	 = emulsion_is_display_featured_image_in_the_loop();
 					?></div>
 				<div class="content-col" >
 
-					<?php emulsion_the_post_title( false ); ?>										
+					<?php emulsion_the_post_title( false ); ?>
 					<?php emulsion_the_post_meta_on(); ?>
 					<?php echo ! post_password_required( absint($emulsion_post_id) ) ? '<p class="fit"><span class="show-content" data-type="post" data-id="' . absint($emulsion_post_id)  . '">'
 							. '</span></p>': '';  ?>
@@ -29,7 +27,6 @@ $emulsion_show_post_image	 = emulsion_is_display_featured_image_in_the_loop();
 
 				<footer>
 					<?php emulsion_the_post_meta_in(); ?>
-					<?php //edit_post_link( esc_html__('Edit', 'emulsion'), '<span class="editor">', '</span>' );  ?>
 				</footer>
 
 				<?php if ( ! is_singular() ) { ?>

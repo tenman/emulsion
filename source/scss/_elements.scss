@@ -45,8 +45,9 @@ html{
         .menu-item-has-children .menu-item-has-children > a:after{
             vertical-align:top;
             transform: rotate(90deg);
-        }      
+        }
     }
+    
 }
 body{
     margin-left:auto;
@@ -69,7 +70,7 @@ body{
                 }
             }
         }
-    }    
+    }
     & > header{
         .custom-logo-wrap{
             display:inline-block;
@@ -348,7 +349,7 @@ picture{
  * Heading
  * ========================================================================== */
 /**
- * The p element in blockquote does not have the font order adjustment function like other paragraphs. 
+ * The p element in blockquote does not have the font order adjustment function like other paragraphs.
  * in gutenberg ver6.8 This function assists font-size customization.
  */
 .wp-block-pullquote.h1 blockquote p,
@@ -607,7 +608,6 @@ table {
     margin:auto;
     border-collapse: collapse;
     &.stretch{
-        //  width:calc(99.9% - var( --thm_content_gap ) * 2);
         width:calc(100% - 2px);
     }
     thead{
@@ -698,7 +698,7 @@ table {
     }
 }
 .wp-block-table{
-    //.emulsion-table-wrapper{
+
     /**
      * Required to support TinyMCE and custom HTML other than the block editor
      */
@@ -711,13 +711,13 @@ table {
     display:block;
     display:-ms-flexbox;
     display:flex;
+    flex-direction:column-reverse;
     max-width:100%;
     padding-bottom:1px;
     overflow:hidden;
     width:calc(var(--thm_content_width) - var(--thm_content_gap) * 2);
 }
 .wp-block-table > table{
-    //.wp-block-table > .emulsion-table-wrapper{
     margin-top:0;
     margin-bottom:0;
 }
@@ -952,8 +952,7 @@ body .fit{
         padding:2px 4px;
         width: -moz-fit-content;
         width:fit-content;
-        text-indent:0;       
-        // margin:var( --thm_box_gap,3px );
+        text-indent:0;
         margin:3px;
         &:nth-child(n + 8) {
             flex:1 1 auto;

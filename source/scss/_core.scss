@@ -30,6 +30,9 @@ p.has-drop-cap:not(:focus):after{
     // core over write
     padding-top:0;
 }
+p.has-drop-cap{
+    min-height:calc(var(--thm_common_font_size) * var(--thm_content_line_height) * 4);
+}
 .alignleft {
     @extend %alignleft;
 }
@@ -96,6 +99,23 @@ img{
     display:block;
     margin-left:auto;
     margin-right:auto
+}
+article{
+    &.sticky{
+        .content-col,
+        header{
+            .entry-title{
+                padding-left:calc(var(--thm_content_gap) * 2);
+                &:before{
+                    content:'\1f4cc';
+                    position:absolute;
+                    color:currentColor;
+                    display:inline-block;
+                    left:0;
+                }
+            }
+        }
+    }
 }
 /**
  * Caption short code

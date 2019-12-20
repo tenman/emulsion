@@ -20,13 +20,19 @@
 
 	</tr>
 	<tr>
+		<td><span class="dashicons dashicons-admin-customizer"></span> <?php emulsion_get_customizer_link_element( 'control', 'custom_logo' ); ?></td>
+		<td><?php esc_html_e( 'Setting custom-logo will replace site-title site-description with the logo', 'emulsion' ); ?></td>
+
+	</tr>
+	<tr>
 		<td><span class="dashicons dashicons-admin-customizer"></span> <?php emulsion_get_customizer_link_element( 'control', 'emulsion_category_colors' ); ?></td>
-		<td><?php echo wp_kses_post( emulsion_get_var( 'emulsion_category_colors', 'description' ) ); ?></td>
+		<td><?php esc_html_e( 'Set the color for each category in the header and link', 'emulsion' ); ?></td>
 
 	</tr>
 	<tr>
 		<td><span class="dashicons dashicons-admin-customizer"></span> <?php emulsion_get_customizer_link_element( 'control', 'header_textcolor' ); ?></td>
-		<td><?php echo wp_kses_post( emulsion_get_var( '', 'description' ) ); ?></td>
+		<td><?php esc_html_e( "The header is automatically colored according to the image, video, and background color", 'emulsion' ); ?>
+			</td>
 
 	</tr>
 	<tr>
@@ -65,10 +71,7 @@
 		<th><?php esc_html_e( 'control', 'emulsion' ); ?></th>
 		<th><?php esc_html_e( 'description', 'emulsion' ); ?></th>
 	</tr>
-	<?php /*<tr>
-		<td><?php emulsion_get_customizer_link_element( 'section', 'emulsion_section_fonts_widget_meta' ); ?></td>
-		<td><?php echo wp_kses_post( emulsion_get_var( 'emulsion_section_fonts_widget_meta', 'description' ) ); ?></td>
-	</tr>*/ ?>
+	
 	<tr>
 		<td><span class="dashicons dashicons-editor-paragraph"></span> <?php emulsion_get_customizer_link_element( 'control', 'emulsion_widget_meta_font_size' ); ?></td>
 		<td><?php esc_html_e( 'Ajust post text font size', 'emulsion' ) ?></td>
@@ -109,7 +112,11 @@
 	</tr>
 	<tr>
 		<td>  <span class="dashicons dashicons-admin-customizer"></span> <?php emulsion_get_customizer_link_element( 'control', 'background_color' ); ?></td>
-		<td><?php echo wp_kses_post( emulsion_get_var( 'background_color', 'description' ) ); ?></td>
+		<td><?php esc_html_e( 'It applies to all pages. you can reset the setting in the editor menu.', 'emulsion' ); ?></td>
+	</tr>
+	<tr>
+		<td>  <span class="dashicons dashicons-admin-customizer"></span> <?php emulsion_get_customizer_link_element( 'control', 'background_image' ); ?></td>
+		<td><?php esc_html_e( 'The background image is only displayed as a single post or page. you can reset the setting in the editor menu.', 'emulsion' ) ?></td>
 	</tr>
 	<tr class="sub-title"><td colspan="2"><h3><?php esc_html_e( 'General fonts', 'emulsion' ) ?></h3></td></tr>
 		<tr class="item-title">
@@ -278,11 +285,11 @@
 	</tr>
 	<tr>
 		<td><span class="dashicons dashicons-admin-customizer"></span> <?php emulsion_get_customizer_link_element( 'control', 'emulsion_relate_posts_bg' ); ?></td>
-		<td><?php echo wp_kses_post( emulsion_get_var( 'emulsion_relate_posts_bg', 'description' ) ); ?></td>
+		<td><?php esc_html_e('Set the background of related articles block', 'emulsion')?></td>
 	</tr>
 	<tr>
 		<td><span class="dashicons dashicons-admin-customizer"></span> <?php emulsion_get_customizer_link_element( 'control', 'emulsion_comments_bg' ); ?></td>
-		<td><?php echo wp_kses_post( emulsion_get_var( 'emulsion_comments_bg', 'description' ) ); ?></td>
+		<td><?php esc_html_e('Set the background of comment block', 'emulsion')?></td>
 	</tr>
 </table>
 

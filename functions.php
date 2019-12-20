@@ -39,7 +39,6 @@ if ( is_admin() && current_user_can( 'edit_theme_options' ) ) {
 		require_once ( get_template_directory() . '/lib/class-tgm-plugin-activation.php' );
 	}
 }
-
 /**
  * Theme Supports
  */
@@ -58,7 +57,7 @@ if ( ! function_exists( 'emulsion_setup' ) ) {
 
 		add_theme_support( 'title-tag' );
 		add_theme_support( 'automatic-feed-links' );
-		add_theme_support( 'html5', array( 'comment-list', 'comment-form', 'search-form', 'gallery', 'caption' ) );
+		add_theme_support( 'html5', array( 'comment-list', 'comment-form', 'search-form', 'gallery', 'caption', 'style', 'script' ) );
 		add_theme_support( 'post-thumbnails' );
 		add_theme_support( 'post-formats', array( 'gallery' ) );
 		add_theme_support( 'customize-selective-refresh-widgets' );
@@ -75,6 +74,14 @@ if ( ! function_exists( 'emulsion_setup' ) ) {
 		if ( $emulsion_custom_background_defaults ) {
 
 			add_theme_support( 'custom-background', $emulsion_custom_background_defaults );
+		}
+		
+		if( empty( get_theme_mod( 'background_image') ) ) {
+
+			add_filter('emulsion_custom_background_cb', '__return_false' );
+			add_filter('body_class','emulsion_remove_background_img_class');
+			
+			
 		}
 
 		add_theme_support( 'editor-font-sizes', array(
@@ -531,7 +538,7 @@ function emulsion_add_stylesheet() {
 		'is_customize_preview'		 => is_customize_preview() ? 'is_preview' : '',
 		'post_id'					 => get_the_Id(),
 		'header_default_text_color'	 => get_theme_support( 'custom-header', 'default-text-color' ),
-		'prefers_color_scheme'       => false,
+		'prefers_color_scheme'       => EMULSION_DARK_MODE_SUPPORT,
 	) );
 }
 
@@ -563,7 +570,7 @@ if ( ! function_exists( 'emulsion_body_class' ) ) {
 
 		$classes[] = 'noscript';
 
-		if ( is_singular() ) {
+		if ( is_singular( 'post' ) ) {
 
 			$post_id = get_the_ID();
 
@@ -585,8 +592,9 @@ if ( ! function_exists( 'emulsion_body_class' ) ) {
 
 				$classes[] = 'metabox-removed-page-menu';
 			}
-
-			$classes[] = 'is-singular';
+		
+				$classes[] = 'is-singular';
+				
 		} else {
 			
 			switch( false ) {
@@ -629,7 +637,15 @@ if ( ! function_exists( 'emulsion_body_class' ) ) {
 				$classes[] = 'emulsion-no-sidebar';
 			}
 		}
-
+		$title_in_header = get_theme_mod("emulsion_title_in_header", emulsion_get_var( 'emulsion_title_in_header' ) );
+		if ( 'yes' == $title_in_header ) {
+			
+			$classes[] = 'emulsion-header-has-title';
+		}
+		if ( 'no' == $title_in_header ) {
+			
+			$classes[] = 'emulsion-layout-has-title';
+		}
 		/**
 		 * full width image
 		 */
@@ -644,20 +660,25 @@ if ( ! function_exists( 'emulsion_body_class' ) ) {
 		/**
 		 * Custom background image
 		 */
-		$page_bg_image_url = get_background_image();
-
-		if ( ! empty( $page_bg_image_url ) ) {
+		$page_bg_image_url	 = get_background_image();
+		$supports_background = emulsion_get_supports( 'background' );
+		$has_background_img_relate_color = get_theme_mod('emulsion_bg_image_text');
+		if ( ! empty( $page_bg_image_url ) && $supports_background ) {
 
 			$classes[] = 'emulsion-has-custom-background-image';
+			
+			if( 'white' == $has_background_img_relate_color ) {
+				
+				$classes[] = 'has-background-img-text-white';
+			}
 		}
-
+		
 		/**
 		 * Current Page layout type
 		 */
 		if ( is_customize_preview() ) {
 
 			$layout_type = emulsion_customizer_have_posts_class_helper();
-			//$layout_type = emulsion_content_type();
 			$classes[]	 = 'layout-' . sanitize_html_class( $layout_type );
 		} else {
 
@@ -1468,7 +1489,9 @@ if ( ! function_exists( 'emulsion_reset_customizer_settings' ) ) {
 		}
 
 		remove_theme_mod( 'background_color' );
-		remove_theme_mod( 'header_textcolor' );
+		remove_theme_mod( 'background_image' );
+		
+		set_theme_mod( 'header_textcolor', '333333' );
 
 		/**
 		 * keep user setting
@@ -1818,33 +1841,254 @@ if ( ! function_exists( 'emulsion_customizer_is_changed' ) ) {
 	}
 }
 
+if ( ! function_exists( 'emulsion_add_woocommerce_class_to_post' ) ) {
+	/**
+	 * If woocommerce content exists, add class to post_class ()
+	 * @global type $post
+	 * @param type $classes
+	 * @return string
+	 */
 
-function emulsion_add_woocommerce_class_to_post( $classes ) {
-	global $post;
-	
-	$block_classes = array('wc-block', 'wp-block-woocommerce');
-	
-	foreach( $block_classes as $class ){	
-		if( preg_match('/'.$class.'/', $post->post_content ) ) {
-			$classes[] = 'has-wc-block';
-			$classes[] = 'has-wc';
+	function emulsion_add_woocommerce_class_to_post( $classes ) {
+		global $post;
+
+		$block_classes = array( 'wc-block', 'wp-block-woocommerce' );
+
+		foreach ( $block_classes as $class ) {
+			if ( preg_match( '/' . $class . '/', $post->post_content ) ) {
+				$classes[]	 = 'has-wc-block';
+				$classes[]	 = 'has-wc';
+				return $classes;
+			}
+		}
+
+		$shortcodes = array( 'product', 'products', 'product_attribute',
+			'product_category', 'product_categories', 'recent_products',
+			'featured_products', 'sale_products', 'best_selling_products',
+			'top_rated_products' );
+
+		foreach ( $shortcodes as $tag ) {
+			if ( has_shortcode( $post->post_content, $tag ) ) {
+				$classes[]	 = 'has-wc-shotcode';
+				$classes[]	 = 'has-wc';
+				break;
+			}
+		}
+		return $classes;
+	}
+
+}
+if ( ! function_exists( 'emulsion_hover_color_filter' ) ) {
+
+	function emulsion_hover_color_filter( $color ) {
+		/**
+		 * apply customizer setting value
+		 * Reflect when a color different from the default color is set in the customizer
+		 */
+		$current_value	 = get_theme_mod( 'emulsion_general_link_hover_color', emulsion_get_var( 'emulsion_general_link_hover_color' ) );
+		$default_value	 = emulsion_get_var( 'emulsion_general_link_hover_color', 'default' );
+
+		if ( $current_value !== $default_value ) {
+
+			return $current_value;
+		}
+
+		return $color;
+	}
+
+}
+if ( ! function_exists( 'emulsion_link_color_filter' ) ) {
+	/**
+	 * Reflect when a color different from the default color is set in the customizer
+	 * @param type $color
+	 * @return type
+	 */
+	function emulsion_link_color_filter( $color ) {
+
+		$current_value	 = get_theme_mod( 'emulsion_general_link_color', emulsion_get_var( 'emulsion_general_link_color' ) );
+		$default_value	 = emulsion_get_var( 'emulsion_general_link_color', 'default' );
+
+		if ( $current_value !== $default_value ) {
+
+			return $current_value;
+		}
+
+		return $color;
+	}
+
+}
+
+if ( ! function_exists( 'emulsion_custom_background_cb' ) ) {
+		/**
+		 * Differences from the core function
+		 * Change background image to multiple background
+		 * filter add emulsion_custom_background_cb
+		 */
+
+	function emulsion_custom_background_cb() {
+
+		// $background is the saved custom image, or the default image.
+		$background = set_url_scheme( get_background_image() );
+
+		// $color is the saved custom color.
+		// A default has to be specified in style.css. It will not be printed here.
+		$color = get_background_color();
+
+		if ( $color === get_theme_support( 'custom-background', 'default-color' ) ) {
+			$color = false;
+		}
+
+		$type_attr = current_theme_supports( 'html5', 'style' ) ? '' : ' type="text/css"';
+
+		if ( ! $background && ! $color ) {
+			if ( is_customize_preview() ) {
+				
+				printf( '<style%s id="custom-background-css"></style>', wp_kses( $type_attr,array() ) );
+			}
+			return;
+		}
+
+		$style = $color ? "background-color: #$color;" : '';
+
+		if ( $background ) {
+			
+			$image = ' background-image:linear-gradient(var(--thm_background_image_dim), var(--thm_background_image_dim)), url("' . esc_url_raw( $background ) . '");';
+
+			// Background Position.
+			$position_x	 = get_theme_mod( 'background_position_x', get_theme_support( 'custom-background', 'default-position-x' ) );
+			$position_y	 = get_theme_mod( 'background_position_y', get_theme_support( 'custom-background', 'default-position-y' ) );
+
+			if ( ! in_array( $position_x, array( 'left', 'center', 'right' ), true ) ) {
+				$position_x = 'left';
+			}
+
+			if ( ! in_array( $position_y, array( 'top', 'center', 'bottom' ), true ) ) {
+				$position_y = 'top';
+			}
+
+			$position = " background-position: $position_x $position_y;";
+
+			// Background Size.
+			$size = get_theme_mod( 'background_size', get_theme_support( 'custom-background', 'default-size' ) );
+
+			if ( ! in_array( $size, array( 'auto', 'contain', 'cover' ), true ) ) {
+				$size = 'auto';
+			}
+
+			$size = " background-size: $size ! important;";
+
+			// Background Repeat.
+			$repeat = get_theme_mod( 'background_repeat', get_theme_support( 'custom-background', 'default-repeat' ) );
+
+			if ( ! in_array( $repeat, array( 'repeat-x', 'repeat-y', 'repeat', 'no-repeat' ), true ) ) {
+				$repeat = 'repeat';
+			}
+
+			$repeat = " background-repeat: $repeat;";
+
+			// Background Scroll.
+			$attachment = get_theme_mod( 'background_attachment', get_theme_support( 'custom-background', 'default-attachment' ) );
+
+			if ( 'fixed' !== $attachment ) {
+				$attachment = 'scroll';
+			}
+
+			$attachment = " background-attachment: $attachment;";
+
+			$style .= $image . $position . $size . $repeat . $attachment;
+			/**
+			 * The CSS specificity is related to the custom background pattern. ( Customizer setting color )
+			 */
+			$rule_set = sprintf( ' html body.single-post.custom-background.emulsion-has-custom-background-image, html body.page.custom-background.emulsion-has-custom-background-image  { %1$s }', $style );
+
+			$rule_set = apply_filters( 'emulsion_custom_background_cb', $rule_set, $image, $position, $size, $repeat, $attachment );
+
+			if ( ! empty( $rule_set ) && ! empty( $background ) ) {
+				printf( '<style%1$s id="custom-background-css" class="emulsion-callback-css">%2$s</style>', wp_kses( $type_attr,array() ), emulsion_remove_spaces_from_css( $rule_set ) );
+			}
+			
+		}
+	}
+
+}
+
+if ( ! function_exists( 'emulsion_remove_background_img_class' ) ) {
+	/**
+	 * background image relate function
+	 * Delete class related to background image when filter theme_mod_background_image return empty
+	 * @param type $classes
+	 * @return type
+	 */
+	function emulsion_remove_background_img_class( $classes ) {
+
+		foreach ( $classes as $key => $value ) {
+			if ( $value == 'emulsion-has-custom-background-image' )
+				unset( $classes[$key] );
+		}
+		return $classes;
+	}
+
+}
+
+if ( ! function_exists( 'emulsion_remove_custom_background_class' ) ) {
+	/**
+	 * If you reset the theme color in the Editor menu, the state will not come out of a custom-background
+	 */
+	function emulsion_remove_custom_background_class( $classes ) {
+		
+		$post_id = get_the_ID();
+		
+		if ( is_singular() && 'no_bg' == get_post_meta( $post_id, 'emulsion_post_theme_style_script', true ) ) {
+			
+			foreach ( $classes as $key => $value ) {
+				if ( $value == 'custom-background' )
+					unset( $classes[$key] );
+			}
 			return $classes;
-		}	
+		}
+		
+		return $classes;		
 	}
+}
+
 	
-	$shortcodes = array( 'product', 'products', 'product_attribute', 
-						'product_category', 'product_categories', 'recent_products',
-						'featured_products', 'sale_products', 'best_selling_products', 
-						'top_rated_products' );
-	
-	foreach( $shortcodes as $tag ){	
-		if( has_shortcode( $post->post_content, $tag ) ) {
-			$classes[] = 'has-wc-shotcode';
-			$classes[] = 'has-wc';
-			break;
-		}	
+if ( ! function_exists( 'emulsion_bg_img_display_hide_post_editor' ) ) {
+
+	function emulsion_bg_img_display_hide_post_editor( $url ) {
+
+		$post_id = get_the_ID();
+
+		$post_meta_setting_post = get_post_meta( $post_id, 'emulsion_post_background_image', true );
+		$post_meta_setting_page = get_post_meta( $post_id, 'emulsion_page_background_image', true );
+
+		if ( 'no_background' == $post_meta_setting_post || 'no_background' == $post_meta_setting_page ) {
+
+			add_filter( 'theme_mod_background_image', '__return_false' );
+			add_filter( 'emulsion_custom_background_cb', '__return_false' );
+			add_filter( 'body_class', 'emulsion_remove_background_img_class' );
+		}
+		return $url;
 	}
-	return $classes;
+}
+if ( ! function_exists( 'emulsion_cjk_excerpt' ) ) {
+
+	function emulsion_cjk_excerpt( $text ) {
+
+		/**
+		 * Languages that do not separate words with spaces
+		 * block latest post excerpt. not support
+		 */
+		$locale = get_locale();
+
+		$length = apply_filters( 'emulsion_cjk_excerpt_length', 110 );
+
+		if ( 'ja' == $locale || 'ko-KR' == $locale || 'zh-CN' == $locale ) {
+			return wp_html_excerpt( $text, $length, '...' );
+		}
+		return $text;
+	}
+
 }
 
 do_action( 'emulsion_functions_after' );
+

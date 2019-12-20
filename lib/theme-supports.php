@@ -60,14 +60,16 @@ get_theme_mod( 'emulsion_table_of_contents', emulsion_get_var( 'emulsion_table_o
  */
 emulsion_add_supports( 'header', array(
 	'default' => array(
-		'default-text-color' => '#333333',
-		'width'				 => 0,
-		'flex-width'		 => true,
-		'height'			 => 0,
-		'flex-height'		 => true,
-		'header-text'		 => true,
-		'default-image'		 => '',
-		'wp-head-callback'	 => apply_filters( 'emulsion_wp_head_callback', '' ),
+		'default-text-color'	 => '333333',
+		'width'					 => 0,
+		'flex-width'			 => true,
+		'height'				 => 0,
+		'flex-height'			 => true,
+		'header-text'			 => true,
+		'default-image'			 => '',
+		'wp-head-callback'		 => apply_filters( 'emulsion_wp_head_callback', '' ),
+		'admin-head-callback'	 => '',
+		'admin-preview-callback' => '',
 	),
 		)
 );
@@ -87,13 +89,12 @@ emulsion_add_supports( 'background', array(
 		'default-size'			 => 'auto',
 		'default-repeat'		 => 'repeat',
 		'default-attachment'	 => 'scroll',
-		'wp-head-callback'		 => '_custom_background_cb',
+		'wp-head-callback'		 => 'emulsion_custom_background_cb',
 		'admin-head-callback'	 => '',
 		'admin-preview-callback' => '',
 	),
 		)
 );
-
 /**
  * Custom Logo
  */

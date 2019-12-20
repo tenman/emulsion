@@ -13,11 +13,25 @@ if ( ! current_user_can( 'edit_theme_options' ) ) {
 	return;
 }
 
+add_action( 'customize_register', 'emulsion_remove_display_header_text', 11 );
+
+function emulsion_remove_display_header_text( $wp_customize ) {
+	/**
+	 * Tneme not using header_textcolor blank
+	 * Setting custom-logo will replace site-title site-description with the logo.
+	 */	
+	$wp_customize->remove_control( 'display_header_text' );
+}
+
 if ( $wp_customize ) {
-	$wp_customize->add_setting( 'header_textcolor', array( 'transport' => 'postMessage', 'sanitize_callback' => 'sanitize_hex_color' ) );
+		
+	$wp_customize->add_setting( 'header_textcolor', array( 'transport' => 'postMessage', 
+		'sanitize_callback' => 'sanitize_hex_color' ) );
+	
 	$wp_customize->selective_refresh->add_partial( 'header_textcolor', array(
 		'selector' => '.header-text',
 	) );
+	
 	/**
 	 * Preview link icon
 	 */
@@ -73,7 +87,6 @@ if ( $wp_customize ) {
 	$wp_customize->selective_refresh->add_partial( 'emulsion_layout_tag_archives', array(
 		'selector' => '.tag .page-wrapper',
 	) );
-	//
 	$wp_customize->selective_refresh->add_partial( 'emulsion_layout_homepage', array(
 		'selector' => '.home:not(.page) .page-wrapper',
 	) );
@@ -98,7 +111,6 @@ if ( $wp_customize ) {
 	$wp_customize->selective_refresh->add_partial( 'emulsion_relate_posts', array(
 		'selector' => '.relate-content-wrapper',
 	) );
-	//
 	$wp_customize->selective_refresh->add_partial( 'emulsion_post_display_date_format', array(
 		'selector' => '.posted-on',
 	) );
@@ -117,12 +129,20 @@ if ( $wp_customize ) {
 	$wp_customize->selective_refresh->add_partial( 'emulsion_header_media_max_height', array(
 		'selector' => '.header-layer',
 	) );
-	
+
 	$wp_customize->selective_refresh->add_partial( 'display_header_text', array(
 		'selector' => '.site-title-text, .site-description',
 	) );
-
-
+	$wp_customize->selective_refresh->add_partial( 'emulsion_bg_image_text', array(
+		'selector' => 'article',
+	) );
+	$wp_customize->selective_refresh->add_partial( 'emulsion_bg_image_blend_color', array(
+		'selector' => 'html',
+	) );
+	$wp_customize->selective_refresh->add_partial( 'emulsion_bg_image_blend_color_amount', array(
+		'selector' => 'html',
+	) );
+	
 }
 
 /**
@@ -132,7 +152,6 @@ function emulsion_customize_preview_js() {
 
 	$emulsion_current_data_version = emulsion_theme_info( 'Version', false );
 	// need no cache
-	//$emulsion_current_data_version = time();
 
 	if ( is_customize_preview() ) {
 
@@ -147,7 +166,7 @@ function emulsion_customize_preview_js() {
 }
 
 function emulsion_customizer_translate_css( $css ) {
-	
+
 	if( ! is_customize_preview() ){
 		return $css;
 	}
@@ -180,17 +199,21 @@ function emulsion_customizer_translate_css( $css ) {
 	$excerpt_length			 = esc_html__( 'excerpt length', 'emulsion' );
 	$gallery_block_settings	 = esc_html__( 'gallery block settings', 'emulsion' );
 	$header_media_height	 = esc_html__( 'header media height', 'emulsion' );
-	
-	
+	$emulsion_bg_image       = esc_html__( 'background image', 'emulsion' );
+
 
 	$css .= <<<CSS
+body.is-singular .customize-partial-edit-shortcut-emulsion_bg_image_text:hover:after{
+    content:'{$emulsion_bg_image}';
+    left:24px;
+}			
 body.home .customize-partial-edit-shortcut-custom_header:hover:after{
     content:'{$header_media}';
     left:24px;
 }
 body .header-layer .customize-partial-edit-shortcut-emulsion_header_layout:hover:after,
 body .template-part-header .customize-partial-edit-shortcut-emulsion_header_layout:hover:after{
-    content:'{$layout_header}';   
+    content:'{$layout_header}';
     top:1.5rem;
 }
 
@@ -256,7 +279,7 @@ body .header-image-active .customize-partial-edit-shortcut-emulsion_header_media
 }
 body.home .header-layer .customize-partial-edit-shortcut-emulsion_header_media_max_height:hover:after{
 	content:'{$header_media_height}';
-}	
+}
 body.home .drawer .customize-partial-edit-shortcut-emulsion_search_drawer:hover:after{
     content:'{$search_drawer}';
     left:24px;
@@ -320,7 +343,7 @@ body.archive .customize-partial-edit-shortcut-emulsion_excerpt_length_stream:hov
     content:'{$excerpt_length}';
     top:6px;
 }
-		
+
 CSS;
 	return $css;
 }
@@ -591,7 +614,13 @@ function emulsion_customizer_style() {
 	color:#333;
 	display:block;
 }
-
+.customize-section-title .customize-section-back{
+	position:absolute;
+}
+.customize-section-title .customize-section-back + h3{
+	position:relative;
+	left:48px;
+}
 .emulsion-spinner {
      width: 1em;
      height: 1em;
@@ -636,14 +665,14 @@ function emulsion_customizer_script() {
 	$most_used_tag_slug = emulsion_get_customize_post_id( 'tag-slug' );
 
 	$emulsion_customizer_preview_redirect	 = get_theme_mod( 'emulsion_customizer_preview_redirect', emulsion_get_var( 'emulsion_customizer_preview_redirect' ) );
-	
+
 	$emulsion_customizer_redirect_setting_url = "javascript:wp.customize.control( \'emulsion_customizer_preview_redirect\' ).focus()";
 	/**
 	 * date archive
 	 */
 	$last_post_date							 = strtotime( get_lastpostdate() );
 	$date_archive_query						 = date( 'Ym', $last_post_date );
-	
+
 	$header_gradient_setting = get_theme_mod( 'emulsion_header_gradient', emulsion_get_var( 'emulsion_header_gradient' ) );
 
 	$emulsion_code_box_gap_not_found_notification						 = esc_html__( 'Gallery block was not found. Please display a preview with culumns block.', 'emulsion' );
@@ -663,7 +692,7 @@ function emulsion_customizer_script() {
 	$emulsion_code_header_image_notification							 = esc_html__( 'Header media can not be displayed because the header layout is set to something other than custom.', 'emulsion' );
 	$emulsion_section_notification_message								 = '<p>' . esc_html__( 'You can move to another page by clicking the preview link', 'emulsion' ) . '</p>'
 			. sprintf(' <a href="%1$s">%2$s</a>', $emulsion_customizer_redirect_setting_url, esc_html__('Redirect setting', 'emulsion'));
-	
+
 	$emulsion_code_section_block_editor_box_gap_notification			 = '<span class="emulsion_fadeout_message_section_block_editor_box_gap">'
 			. '<span class="emulsion-spinner"></span>' . esc_html__( 'moving preview to has gallery block post', 'emulsion' ) . '</span>' . $emulsion_section_notification_message;
 	$emulsion_code_section_block_editor_block_gallery_notification		 = '<span class="emulsion_fadeout_message_section_block_editor_block_gallery">'
@@ -691,15 +720,17 @@ function emulsion_customizer_script() {
 			. '<span class="emulsion-spinner"></span>' . esc_html__( 'moving preview to home', 'emulsion' ) . '</span>' . $emulsion_section_notification_message;
 	$emulsion_code__section_layout_main_notification					 = '<span class="emulsion_fadeout_message__section_layout_main">'
 			. '<span class="emulsion-spinner"></span>' . esc_html__( 'moving preview to latest post', 'emulsion' ) . '</span>' . $emulsion_section_notification_message;
-	
+
 	$emulsion_background_image_notification					 = '<span class="emulsion_fadeout_message__section_background_image">'
 			. '<span class="emulsion-spinner"></span>' . esc_html__( 'moving preview to latest post', 'emulsion' ) . '</span>' . $emulsion_section_notification_message;
 	$emulsion_background_image_notification					.= '<p>'. esc_html__( 'The background image is display only for single posts and pages.', 'emulsion' ).'</p>';
+	$emulsion_background_image_notification					.= '<p>'. esc_html__( 'If the image is not displayed in the preview, press the save button once and reload.', 'emulsion' ).'</p>';
+	
 	$script = <<<CUSTOMIZE_CSS
 
 (function ( $ ) {
 	const PREVIEW_REDIRECT = "{$emulsion_customizer_preview_redirect}";
-			
+
 	function emulsion_text_color(newval) {
 
         var hex = newval;
@@ -730,21 +761,21 @@ function emulsion_customizer_script() {
 
         return result;
     }
-	
+
 	wp.customize.section( 'background_image', function( section ) {
         section.expanded.bind( function( isExpanded ) {
 			 var url;
             if ( isExpanded && PREVIEW_REDIRECT == "enable" ) {
 				url = wp.customize.settings.url.home + '?p={$latest_post_id}';
 				wp.customize.previewer.previewUrl.set( url );
-				
+
 				var code = 'background_image';
 				wp.customize.section( 'background_image' ).notifications.add( code, new wp.customize.Notification( code , {
 				dismissible: true,
 				message: '{$emulsion_background_image_notification}',
 				type: 'info'
-				} ) );				
-				
+				} ) );
+
 				setTimeout(function() {	$('.emulsion_fadeout_message__section_background_image').fadeOut();},5000);
 			}
         } );
@@ -756,7 +787,7 @@ function emulsion_customizer_script() {
             if ( isExpanded && PREVIEW_REDIRECT == "enable" ) {
                 url = wp.customize.settings.url.home;
                 wp.customize.previewer.previewUrl.set( url );
-	
+
 				var code = 'emulsion_section_layout_homepage';
 				wp.customize.section( 'emulsion_section_layout_homepage' ).notifications.add( code, new wp.customize.Notification( code , {
 				dismissible: true,
@@ -774,7 +805,7 @@ function emulsion_customizer_script() {
             if ( isExpanded && PREVIEW_REDIRECT == "enable" ) {
                 url = wp.customize.settings.url.home + '?cat=1';
                 wp.customize.previewer.previewUrl.set( url );
-				
+
 				var code = 'emulsion_section_layout_category_archives';
 				wp.customize.section( 'emulsion_section_layout_category_archives' ).notifications.add( code, new wp.customize.Notification( code , {
 				dismissible: true,
@@ -792,7 +823,7 @@ function emulsion_customizer_script() {
             if ( isExpanded && PREVIEW_REDIRECT == "enable" ) {
                 url = wp.customize.settings.url.home + '?author=1';
                 wp.customize.previewer.previewUrl.set( url );
-				
+
 				var code = 'emulsion_section_layout_author_archives';
 				wp.customize.section( 'emulsion_section_layout_author_archives' ).notifications.add( code, new wp.customize.Notification( code , {
 				dismissible: true,
@@ -816,7 +847,7 @@ function emulsion_customizer_script() {
 				dismissible: true,
 				message: '{$emulsion_code_section_layout_date_archives_notification}',
 				type: 'info'
-				} ) );				
+				} ) );
 				setTimeout(function() {	$('.emulsion_fadeout_message_section_layout_date_archives').fadeOut();},5000);
             }
         } );
@@ -827,14 +858,14 @@ function emulsion_customizer_script() {
             if ( isExpanded && PREVIEW_REDIRECT == "enable" ) {
 				url = wp.customize.settings.url.home + '?tag={$most_used_tag_slug}';
 				wp.customize.previewer.previewUrl.set( url );
-				
+
 				var code = 'emulsion_section_layout_tag_archives';
 				wp.customize.section( 'emulsion_section_layout_tag_archives' ).notifications.add( code, new wp.customize.Notification( code , {
 				dismissible: true,
 				message: '{$emulsion_code_section_layout_tag_archives_notification}',
 				type: 'info'
-				} ) );							
-			
+				} ) );
+
 				setTimeout(function() {	$('.emulsion_fadeout_message_section_layout_tag_archives').fadeOut();},5000);
 			}
         } );
@@ -845,7 +876,7 @@ function emulsion_customizer_script() {
             if ( isExpanded && PREVIEW_REDIRECT == "enable" ) {
 				url = wp.customize.settings.url.home;
 				wp.customize.previewer.previewUrl.set( url );
-	/* todo message not work */			
+	/* todo message not work */
 			/*	var code = 'emulsion_section_header_image';
 				wp.customize.section( 'header_image' ).notifications.add( code, new wp.customize.Notification( code , {
 				dismissible: true,
@@ -853,7 +884,7 @@ function emulsion_customizer_script() {
 				type: 'info'
 				} ) );
 				setTimeout(function() {	$('.emulsion_fadeout_message_section_header_image').fadeOut();},5000);*/
-				
+
 			}
         } );
     } );
@@ -870,17 +901,17 @@ function emulsion_customizer_script() {
         section.expanded.bind( function( isExpanded ) {
 			 var url;
             if ( isExpanded && PREVIEW_REDIRECT == "enable" ) {
-		/* todo navigate stream or */				
+		/* todo navigate stream or */
 		/*		url = wp.customize.settings.url.home;
 				wp.customize.previewer.previewUrl.set( url );
-				
+
 				var code = 'emulsion_section_advanced_excerpt';
 				wp.customize.section( 'emulsion_section_advanced_excerpt' ).notifications.add( code, new wp.customize.Notification( code , {
 				dismissible: true,
 				message: '{$emulsion_code_section_advanced_excerpt_notification}',
 				type: 'info'
 				} ) );
-				
+
 				setTimeout(function() {	$('.emulsion_fadeout_message_section_advanced_excerpt').fadeOut();},5000);*/
 			}
         } );
@@ -891,14 +922,14 @@ function emulsion_customizer_script() {
             if ( isExpanded && PREVIEW_REDIRECT == "enable" ) {
 				url = wp.customize.settings.url.home + '?p={$latest_post_id}';
 				wp.customize.previewer.previewUrl.set( url );
-				
+
 				var code = 'emulsion_section_layout_main';
 				wp.customize.section( 'emulsion_section_layout_main' ).notifications.add( code, new wp.customize.Notification( code , {
 				dismissible: true,
 				message: '{$emulsion_code__section_layout_main_notification}',
 				type: 'info'
-				} ) );				
-				
+				} ) );
+
 				setTimeout(function() {	$('.emulsion_fadeout_message__section_layout_main').fadeOut();},5000);
 			}
         } );
@@ -909,7 +940,7 @@ function emulsion_customizer_script() {
 			var gradient_setting = '{$header_gradient_setting}';
 			if( gradient_setting == 'disable' ) {
 				$('#customize-control-emulsion_header_sub_background_color').css({'visibility':'hidden'});
-			}			
+			}
         } );
     } );
 
@@ -1116,13 +1147,13 @@ function emulsion_customizer_script() {
 					message: '{$emulsion_code_section_block_editor_not_found_notification}',
 					type: 'warning'
 					} ) );
-					
+
 
 				}
 			} );
 		} );
 	}
-	
+
 
 /**
  * Notification
@@ -1352,7 +1383,7 @@ function emulsion_customizer_script() {
             }
         } );
     } );
-						
+
 	/**
 	 * Alternative to Active Callback
 	 *  active callback works only refresh
@@ -1360,14 +1391,14 @@ function emulsion_customizer_script() {
 
     wp.customize.bind( 'ready', function() {
 
-		wp.customize( 'emulsion_header_gradient' , function( emulsion_header_gradient ) {					
+		wp.customize( 'emulsion_header_gradient' , function( emulsion_header_gradient ) {
 			emulsion_header_gradient.bind( function ( newval ) {
-						
-				if( 'enable' !== newval ) {		
-					$('#customize-control-emulsion_header_sub_background_color').css({'visibility':'hidden'});					
-				}	
-				if( 'enable' == newval ) {	
-					$('#customize-control-emulsion_header_sub_background_color').css({'visibility':'visible'});					
+
+				if( 'enable' !== newval ) {
+					$('#customize-control-emulsion_header_sub_background_color').css({'visibility':'hidden'});
+				}
+				if( 'enable' == newval ) {
+					$('#customize-control-emulsion_header_sub_background_color').css({'visibility':'visible'});
 				}
 			});
 		});
@@ -1404,7 +1435,6 @@ function emulsion_message_layout_posts_page() {
 	$is_show_on_front	 = get_option( 'show_on_front' );
 	$page_for_posts_id	 = get_option( 'page_for_posts' );
 	$customizer_url		 = '';
-
 
 	if ( $page_for_posts_id && 'page' == $is_show_on_front ) {
 
@@ -1446,7 +1476,6 @@ function emulsion_message_sidebar_position() {
 
 	$page_sidebar				 = is_active_sidebar( 'sidebar-3' ) && emulsion_get_supports( 'sidebar_page' ) ? true : false;
 	$post_sidebar				 = is_active_sidebar( 'sidebar-1' ) && emulsion_get_supports( 'sidebar' ) ? true : false;
-	$page						 = get_pages( array( 'number' => '1', 'sort_column' => 'post_date' ) );
 	$post_id					 = emulsion_get_customize_post_id( 'latest-post' );
 	$each_post_sidebar_setting	 = get_post_meta( $post_id, 'emulsion_post_sidebar', true );
 	$widgets					 = get_option( 'sidebars_widgets', array() );
@@ -1460,19 +1489,19 @@ function emulsion_message_sidebar_position() {
 		printf( '<li id="%4$s" class="%5$s" >
 				<label>
 					<span class="customize-control-title">%1$s</span>
-					<div class="emulsion-customize-control-content">						
-						<a href="%2$s" class="tooltip">%3$s</a>						
+					<div class="emulsion-customize-control-content">
+						<a href="%2$s" class="tooltip">%3$s</a>
 					</div>
 				</label>
-			</li>', 
+			</li>',
 				esc_html__( 'Have you finished setting up your sidebar ?', 'emulsion' ) .
 				'<p style="font-weight:normal">' .
 				sprintf( /* translators: 1: post sidebar widget count 2: page sidebar count */
 						esc_html__( 'Maybe post sidebar: %1$d. page sidebar: %2$d. ', 'emulsion' ), absint( $post_sidebar_widget ), absint( $page_sidebar_widget ) ) .
-				'</p>', 
-				esc_attr( $customizer_url ), 
+				'</p>',
+				esc_attr( $customizer_url ),
 				esc_html__( 'Go Setting: Sidebar Widgets', 'emulsion' ),
-				esc_attr( __FUNCTION__ ), 
+				esc_attr( __FUNCTION__ ),
 				esc_attr( 'notice emulsion-notice' )
 		);
 	}
@@ -1482,6 +1511,9 @@ function emulsion_message_footer_columns() {
 	$footer_widget_page	 = is_active_sidebar( 'sidebar-4' ) && emulsion_get_supports( 'footer_page' ) ? true : false;
 	$footer_widget		 = is_active_sidebar( 'sidebar-2' ) && emulsion_get_supports( 'footer' ) ? true : false;
 	$page				 = get_pages( array( 'number' => '1', 'sort_column' => 'post_date' ) );
+	if( empty( $page ) ) {
+		return;
+	}
 	$page_id			 = absint( $page[0]->ID );
 	$class				 = 'notice emulsion-notice';
 	$widgets			 = get_option( 'sidebars_widgets', array() );
@@ -1510,8 +1542,11 @@ function emulsion_message_footer_columns() {
 
 function emulsion_message_post_display_date() {
 
-	$page			 = get_posts( array( 'number' => '1', 'sort_column' => 'post_date' ) );
-	$post_id		 = absint( $page[0]->ID );
+	$post_id		 = emulsion_get_customize_post_id( 'latest-post' );
+	if( empty( $page ) ) {
+		return;
+	}	
+	
 	$customizer_url	 = 'javascript:var url = wp.customize.settings.url.home + \'?p=' . absint( $post_id ) . '\'; wp.customize.previewer.previewUrl.set( url );';
 
 	printf( '<li id="%4$s" class="%5$s" >
@@ -1526,12 +1561,14 @@ function emulsion_message_post_display_date() {
 }
 
 function emulsion_message_header_layout() {
-
-	$page						 = get_posts( array( 'number' => '1', 'sort_column' => 'post_date' ) );
-	$post_id					 = absint( $page[0]->ID );
+	$post_id					 = emulsion_get_customize_post_id( 'latest-post' );
+	if( empty( $page ) ) {
+		return;
+	}	
 	$customizer_url_single_post	 = 'javascript:var url = wp.customize.settings.url.home + \'?p=' . absint( $post_id ) . '\'; wp.customize.previewer.previewUrl.set( url );';
 	$default_category			 = get_option( 'default_category' );
 	$customizer_url_category	 = 'javascript:var url_cat = wp.customize.settings.url.home + \'?cat=' . absint( $default_category ) . '\'; wp.customize.previewer.previewUrl.set( url_cat );';
+	
 
 	printf( '<li id="%4$s" class="%5$s" >
 				<label>
@@ -1649,11 +1686,7 @@ if ( ! function_exists( 'emulsion_extend_customize_register' ) ) {
 				$wp_customize->get_setting( $key )->transport = 'postMessage';
 			}
 		}
-	/*	$wp_customize->add_section( 'widgets', array(
-			'description' => 'hello world', // Before Widgets.
-		) );*/
 	}
-
 }
 
 if ( ! function_exists( 'emulsion_argument_completion' ) ) {

@@ -22,11 +22,11 @@ div[data-block],
     h1,h2,h3,h4,h5,h6,
     .h1,.h2,.h3,.h4,.h5,.h6{
         line-height:var( --thm_common_line_height, 1.15 );
-    }   
+    }
     .use-font-heading{
         font-family:var(--thm_heading_font_family);
         font-weight:var(--thm_heading_font_weight);
-        text-transform:var(--thm_heading-font-transform); 
+        text-transform:var(--thm_heading-font-transform);
         line-height:var( --thm_common_line_height, 1.15 );
     }
     .use-font-common{
@@ -87,7 +87,7 @@ code{
 pre.wp-block-preformatted{
     lin-height:var(--thm_common_line_height);
     font-size:var(--thm_common_font_size);
-    font-family: var(--thm_common_font_family);  
+    font-family: var(--thm_common_font_family);
 }
 pre.wp-block-verse{
     @include font_size(3);
@@ -131,8 +131,12 @@ body{
             .taxonomy-description{
                 font-size:var(--thm_meta_data_font_size);
                 text-transform:var(--thm_meta_data_font_transform);
-            } 
+            }
         }
+    }
+    .taxonomy-description{
+        font-size:var(--thm_meta_data_font_size);
+        text-transform:var(--thm_meta_data_font_transform);
     }
     .trancate{
         font-size:var(--thm_meta_data_font_size);
@@ -329,7 +333,6 @@ footer.banner{
 .wp-block-columns{
     .wp-block-column{
         @include font_size(5);
-        // h1,h2,h3,h4,h5,h6,p,ul,ol,table,.emulsion-table-wrapper{
         h1,h2,h3,h4,h5,h6,p,ul,ol,table,.wp-block-table{
             margin-top:20px;
             margin-bottom:20px;
@@ -429,6 +432,28 @@ $step: 100;
         height:#{$i}px;
     }
 }
+
+.entry-content{
+    .wp-block-latest-posts{
+        .h1,
+        h1{
+            font-size:calc(var(--thm_meta_data_font_size) * 2);            
+        }
+        .h2,
+        h2{
+            font-size:calc(var(--thm_meta_data_font_size) * 1.4);
+        }
+        .h3,
+        h3{
+            font-size:calc(var(--thm_meta_data_font_size) * 1.17);
+        }
+        .h4,
+        h4{
+            font-size:calc(var(--thm_meta_data_font_size) * 1);
+        }
+    }
+}
+
 /**
  * Editor Style
  --thm_heading_font_weight: $heading_font_weight;

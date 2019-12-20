@@ -13,7 +13,7 @@ if ( ! emulsion_get_supports( 'enqueue' ) ) {
 ?><div class="drawer-wrapper <?php emulsion_template_identification_class( __FILE__ ) ?>" tabindex="0">
 	<input type="checkbox" id="c1" name="c1"  /><label for="c1"><svg class="icon" width="24" height="24" tabindex="0"><use xlink:href="#search" /></svg></label>
 	<div class="drawer search-drawer">
-		<div class="drawer-block">
+		<div class="drawer-block" >
 		<label for="c1" class="close"><svg class="icon" width="24" height="24"><use xlink:href="#cross" /></svg></label>
 		<div class="search-box">
 			<form role="search" method="get" class="search-form" action="<?php echo esc_url( home_url( '/' ) ) ?>">

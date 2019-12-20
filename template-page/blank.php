@@ -12,9 +12,6 @@ emulsion_remove_supports( 'sidebar_page' );
 emulsion_remove_supports( 'relate_posts' );
 emulsion_remove_supports( 'search_drawer' );
 
-
-//global $template;
-
 get_header();
 
 emulsion_have_posts();

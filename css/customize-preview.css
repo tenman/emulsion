@@ -311,8 +311,16 @@ sectionized-wp-block-columns .customize-partial-edit-shortcut-emulsion_block_col
 .header-layer .customize-partial-edit-shortcut-emulsion_header_layout:hover:after{
     content:'layout header';
 }
-
-
+body.is-singular .customize-partial-edit-shortcut-emulsion_bg_image_text:hover:after{
+    content:'background image';
+    left:24px;
+}
+body.is-singular .customize-partial-edit-shortcut[class*="customize-partial-edit-shortcut-emulsion_bg_image_text"] button{
+    left:2px;
+}
+body.is-loop.customize-partial-edit-shortcuts-shown .customize-partial-edit-shortcut-emulsion_bg_image_text{
+    display:none;
+}
 .posted-on .customize-partial-edit-shortcut-emulsion_post_display_date_format:hover:after,
 .header-layer .customize-partial-edit-shortcut-emulsion_post_display_date_format:hover:after{
     content:'post metadata';

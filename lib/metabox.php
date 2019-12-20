@@ -29,7 +29,7 @@ class emulsion_add_meta_boxes {
 			'html'		 => 'emulsion_post_metabox_html',
 			'args'		 => array(
 				'icon'			 => '<span class="dashicons dashicons-lightbulb"></span>',
-				'fields'		 => array( 'Default' => 'default', 'Remove All Style, Script' => "no_style", "Reset All Color Settings" => 'no_bg' ),
+				'fields'		 => array( 'Default' => 'default', 'Remove All Style, Script' => "no_style", "Reset Background Color" => 'no_bg' ),
 				'description'	 => 'This setting is mainly for page builder users.',
 			),
 		),
@@ -43,6 +43,17 @@ class emulsion_add_meta_boxes {
 				'description'	 => 'Remove Primary Menu',
 			),
 		),
+		'emulsion_post_background_image'		 => array(
+			'post_type'	 => 'post',
+			'title'		 => 'Background Image',
+			'html'		 => 'emulsion_post_metabox_html',
+			'args'		 => array(
+				'icon'			 => '<span class="dashicons dashicons-lightbulb"></span>',
+				'fields'		 => array( 'Default' => 'default', 'Remove Background Image' => "no_background" ),
+				'description'	 => 'Remove Background Image',
+			),
+		),
+		
 		// Page
 		'emulsion_page_sidebar'			 => array(
 			'post_type'	 => 'page',
@@ -70,7 +81,7 @@ class emulsion_add_meta_boxes {
 			'html'		 => 'emulsion_post_metabox_html',
 			'args'		 => array(
 				'icon'			 => '<span class="dashicons dashicons-lightbulb"></span>',
-				'fields'		 => array( 'Default' => 'default', 'Remove All Style, Script' => "no_style", "Reset All Color Settings" => 'no_bg'  ),
+				'fields'		 => array( 'Default' => 'default', 'Remove All Style, Script' => "no_style", "Reset Background Color" => 'no_bg'  ),
 				'description'	 => 'This setting is mainly for page builder users.',
 			),
 		),
@@ -82,6 +93,16 @@ class emulsion_add_meta_boxes {
 				'icon'			 => '<span class="dashicons dashicons-lightbulb"></span>',
 				'fields'		 => array( 'Default' => 'default', 'Remove Primary Menu' => "no_menu" ),
 				'description'	 => 'Remove Primary Menu',
+			),
+		),
+		'emulsion_page_background_image'		 => array(
+			'post_type'	 => 'page',
+			'title'		 => 'Background Image',
+			'html'		 => 'emulsion_post_metabox_html',
+			'args'		 => array(
+				'icon'			 => '<span class="dashicons dashicons-lightbulb"></span>',
+				'fields'		 => array( 'Default' => 'default', 'Remove Background Image' => "no_background" ),
+				'description'	 => 'Remove Background Image',
 			),
 		),
 	);
@@ -105,7 +126,7 @@ class emulsion_add_meta_boxes {
 
 		$this->screens = $this->screens;
 	}
-	
+
 	public function add_meta_box() {
 
 		$args			 = $this->screens[key( $this->screens )]['args'];
@@ -134,6 +155,11 @@ class emulsion_add_meta_boxes {
 					add_meta_box(
 							$key, esc_html__( 'Menu', 'emulsion' ), $screen['html'], $screen['post_type'], 'side', 'low', $screen['args']
 					);
+				} elseif ( 'Background Image' == $screen['title'] ) {
+
+					add_meta_box(
+							$key, esc_html__( 'Background Image', 'emulsion' ), $screen['html'], $screen['post_type'], 'side', 'low', $screen['args']
+					);
 				} else {
 
 					add_meta_box(
@@ -144,7 +170,7 @@ class emulsion_add_meta_boxes {
 		}
 	}
 	public function rest_save( $post_id ) {
-		
+
 	}
 	public function save( $post_id ) {
 
@@ -156,14 +182,14 @@ class emulsion_add_meta_boxes {
 		if ( isset( $this->screens ) ) {
 
 			foreach ( $this->screens as $key => $screen ) {
-				
+
 				$key_check = filter_input(INPUT_POST, $key );
 				if ( isset( $key_check ) && ! empty( $key_check ) ) {
-					
+
 					$nonce		 = $key . '-nonce';
 					$nonce =  filter_input(INPUT_POST, $nonce );
 					$post_type	 = filter_input(INPUT_POST, 'post_type' );
-					
+
 					if ( ! isset( $nonce ) ||
 							! wp_verify_nonce( $nonce, $key ) ||
 							defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ||
@@ -191,10 +217,10 @@ function emulsion_metabox_display_control( $location ) {
 	if ( 'style' == $location && metadata_exists( 'post', $post_id, 'emulsion_post_theme_style_script' ) ) {
 
 		$setting = get_post_meta( $post_id, 'emulsion_post_theme_style_script', true );
-		
-		
+
+
 		if ( 'no_bg' == $setting && is_single() ) {
-			
+
 			add_filter('emulsion_inline_style','emulsion_reset_no_bg' );
 		}
 		if ( 'no_style' == $setting && is_single() ) {
@@ -206,8 +232,8 @@ function emulsion_metabox_display_control( $location ) {
 	if ( 'sidebar' == $location && metadata_exists( 'post', $post_id, 'emulsion_post_sidebar' ) ) {
 
 		$setting = get_post_meta( $post_id, 'emulsion_post_sidebar', true );
-		
-		
+
+
 		if ( 'no_sidebar' == $setting && is_single() ) {
 
 			return false;
@@ -218,7 +244,7 @@ function emulsion_metabox_display_control( $location ) {
 	if ( 'header' == $location && metadata_exists( 'post', $post_id, 'emulsion_post_header' ) ) {
 
 		$setting = get_post_meta( $post_id, 'emulsion_post_header', true );
-		
+
 		if ( 'no_bg' == $setting && is_single() ) {
 			add_filter( 'theme_mod_emulsion_header_background_color', 'emulsion_header_background_color_reset' );
 		}
@@ -230,19 +256,27 @@ function emulsion_metabox_display_control( $location ) {
 	if ( 'menu' == $location && metadata_exists( 'post', $post_id, 'emulsion_post_primary_menu' ) ) {
 
 		$setting = get_post_meta( $post_id, 'emulsion_post_primary_menu', true );
-		
+
 		if ( 'no_menu' == $setting && is_single() ) {
 
 			return false;
 		}
 	}
+	if ( 'Background Image' == $location && metadata_exists( 'post', $post_id, 'emulsion_post_background_image' ) ) {
 
-	////////
+		$setting = get_post_meta( $post_id, 'emulsion_post_background_image', true );
+
+		if ( 'no_background' == $setting && is_single() ) {
+
+			return false;
+		}
+	}
+
 
 	if ( 'page_header' == $location && metadata_exists( 'post', $post_id, 'emulsion_page_header' ) ) {
 
 		$setting = get_post_meta( $post_id, 'emulsion_page_header', true );
-		
+
 		if ( 'no_bg' == $setting && is_page() ) {
 			add_filter( 'theme_mod_emulsion_header_background_color', 'emulsion_header_background_color_reset' );
 		}
@@ -266,8 +300,8 @@ function emulsion_metabox_display_control( $location ) {
 	if ( 'page_style' == $location && metadata_exists( 'post', $post_id, 'emulsion_page_theme_style_script' ) ) {
 
 		$setting = get_post_meta( $post_id, 'emulsion_page_theme_style_script', true );
-		
-		if ( 'no_bg' == $setting && is_page() ) {			
+
+		if ( 'no_bg' == $setting && is_page() ) {
 			add_filter('emulsion_inline_style','emulsion_reset_no_bg' );
 		}
 
@@ -279,8 +313,17 @@ function emulsion_metabox_display_control( $location ) {
 	if ( 'page_menu' == $location && metadata_exists( 'post', $post_id, 'emulsion_page_primary_menu' ) ) {
 
 		$setting = get_post_meta( $post_id, 'emulsion_page_primary_menu', true );
-		
+
 		if ( 'no_menu' == $setting && is_page() ) {
+
+			return false;
+		}
+	}
+	if ( 'Background Image' == $location && metadata_exists( 'post', $post_id, 'emulsion_page_background_image' ) ) {
+
+		$setting = get_post_meta( $post_id, 'emulsion_page_background_image', true );
+
+		if ( 'no_background' == $setting && is_single() ) {
 
 			return false;
 		}
@@ -290,10 +333,10 @@ function emulsion_metabox_display_control( $location ) {
 }
 
 function emulsion_reset_no_bg( $css ){
-	
+
 	$post_id = get_the_ID();
-	
-		
+
+
 	$sidebar_background		 = emulsion_sidebar_background_reset();
 	$header_bg_color		 = emulsion_header_background_color_reset();
 	$background_color		 = emulsion_background_color_reset();
@@ -310,10 +353,10 @@ function emulsion_reset_no_bg( $css ){
 
 	$css_reset = <<<CSS
 
-		.page-id-{$post_id}.metabox-reset-page-presentation,	
+		.page-id-{$post_id}.metabox-reset-page-presentation,
 		.postid-{$post_id}.metabox-reset-post-presentation{
-			
-				
+
+
 			--thm_general_text_color:{$general_text_color};
 			--thm_general_link_color:{$general_link_color};
 			--thm_primary_menu_background:{$primary_menu_background};
@@ -333,26 +376,26 @@ CSS;
 	$setting = get_post_meta( $post_id, 'emulsion_post_theme_style_script', true );
 	$setting_page = get_post_meta( $post_id, 'emulsion_page_theme_style_script', true );
 
-	if ( 'no_bg' == $setting && is_single() || 'no_bg' == $setting_page && is_page()) {	
+	if ( 'no_bg' == $setting && is_single() || 'no_bg' == $setting_page && is_page()) {
 
 			return $css. $css_reset;
 	}
 
 	return $css;
-	
+
 }
 
 function emulsion_post_metabox_html( $post, $callback_args ) {
 
 	$checked = get_post_meta( $post->ID, $callback_args["id"], true );
-	
+
 	if ( empty( $checked ) ) {
 		$checked = 'default';
 	}
-	
+
 	$echo = true;
 	$nonce = $callback_args['id'] . '-nonce';
-	
+
 	echo '<input type="hidden" '
 	. 'name="' . esc_attr( $nonce ) . '"'
 	. ' id="' . esc_attr( $nonce ) . '"'
@@ -375,7 +418,11 @@ function emulsion_post_metabox_html( $post, $callback_args ) {
 			'emulsion_page_primary_menu' == $callback_args['id'] ) {
 		$description = esc_html__( 'Remove Primary Menu', 'emulsion' );
 	}
-	// check lost element			
+	if ( 'emulsion_post_background_image' == $callback_args['id'] ||
+			'emulsion_page_background_image' == $callback_args['id'] ) {
+		$description = esc_html__( 'Remove Background Image', 'emulsion' );
+	}
+	// check lost element
 	$emulsion_place = basename(__FILE__). ' line:'. __LINE__. ' '.  __FUNCTION__ .'()';
 	true === WP_DEBUG ? emulsion_elements_assert_equal( $callback_args['args']['icon'],  wp_kses( $callback_args['args']['icon'], array('span' => array('class' => array() ) ) ), $emulsion_place ) : '';
 	?>
@@ -387,82 +434,82 @@ function emulsion_post_metabox_html( $post, $callback_args ) {
 function emulsion_radio_fields( $group_name = '', $fields = array(), $current_field ) {
 
 	foreach ( $fields as $key => $val ) {
-		
+
 		if( 'Default' == $key ) {
-			
-			printf( '<p><input type="radio" id="%1$s" name="%2$s" value="%3$s" %4$s><label for="%5$s">%6$s</label></p>', 
-					esc_attr( $val ), 
-					esc_attr( $group_name ), 
-					esc_attr( $val ), 
+
+			printf( '<p><input type="radio" id="%1$s" name="%2$s" value="%3$s" %4$s><label for="%5$s">%6$s</label></p>',
+					esc_attr( $val ),
+					esc_attr( $group_name ),
+					esc_attr( $val ),
 					checked( $current_field, $val, false ),
 					esc_attr( $val ),
 					esc_html__( 'Default', 'emulsion' )
-					);			
+					);
 		}elseif( 'Remove Sidebar' == $key ) {
-			
-			printf( '<p><input type="radio" id="%1$s" name="%2$s" value="%3$s" %4$s><label for="%5$s">%6$s</label></p>', 
-					esc_attr( $val ), 
-					esc_attr( $group_name ), 
-					esc_attr( $val ), 
+
+			printf( '<p><input type="radio" id="%1$s" name="%2$s" value="%3$s" %4$s><label for="%5$s">%6$s</label></p>',
+					esc_attr( $val ),
+					esc_attr( $group_name ),
+					esc_attr( $val ),
 					checked( $current_field, $val, false ),
 					esc_attr( $val ),
 					esc_html__( 'Remove Sidebar', 'emulsion' )
 					);
 		}elseif( 'Reset Header Color Settings' == $key ) {
-			
-			printf( '<p><input type="radio" id="%1$s" name="%2$s" value="%3$s" %4$s><label for="%5$s">%6$s</label></p>', 
-					esc_attr( $val ), 
-					esc_attr( $group_name ), 
-					esc_attr( $val ), 
+
+			printf( '<p><input type="radio" id="%1$s" name="%2$s" value="%3$s" %4$s><label for="%5$s">%6$s</label></p>',
+					esc_attr( $val ),
+					esc_attr( $group_name ),
+					esc_attr( $val ),
 					checked( $current_field, $val, false ),
 					esc_attr( $val ),
 					esc_html__( 'Reset Header Color Settings', 'emulsion' )
-					);	
-		}elseif( 'Reset All Color Settings' == $key ) {
-			
-			printf( '<p><input type="radio" id="%1$s" name="%2$s" value="%3$s" %4$s><label for="%5$s">%6$s</label></p>', 
-					esc_attr( $val ), 
-					esc_attr( $group_name ), 
-					esc_attr( $val ), 
+					);
+		}elseif( 'Reset Background Color' == $key ) {
+
+			printf( '<p><input type="radio" id="%1$s" name="%2$s" value="%3$s" %4$s><label for="%5$s">%6$s</label></p>',
+					esc_attr( $val ),
+					esc_attr( $group_name ),
+					esc_attr( $val ),
 					checked( $current_field, $val, false ),
 					esc_attr( $val ),
-					esc_html__( 'Reset All Color Settings', 'emulsion' )
-					);			
+					esc_html__( 'Reset Background Color', 'emulsion' )
+					);
 		}elseif( 'Remove Header' == $key ) {
-			
-			printf( '<p><input type="radio" id="%1$s" name="%2$s" value="%3$s" %4$s><label for="%5$s">%6$s</label></p>', 
-					esc_attr( $val ), 
-					esc_attr( $group_name ), 
-					esc_attr( $val ), 
+
+			printf( '<p><input type="radio" id="%1$s" name="%2$s" value="%3$s" %4$s><label for="%5$s">%6$s</label></p>',
+					esc_attr( $val ),
+					esc_attr( $group_name ),
+					esc_attr( $val ),
 					checked( $current_field, $val, false ),
 					esc_attr( $val ),
 					esc_html__( 'Remove Header', 'emulsion' )
-					);			
+					);
 		}elseif( 'Remove All Style, Script' == $key ) {
-			
-			printf( '<p><input type="radio" id="%1$s" name="%2$s" value="%3$s" %4$s><label for="%5$s">%6$s</label></p>', 
-					esc_attr( $val ), 
-					esc_attr( $group_name ), 
-					esc_attr( $val ), 
+
+			printf( '<p><input type="radio" id="%1$s" name="%2$s" value="%3$s" %4$s><label for="%5$s">%6$s</label></p>',
+					esc_attr( $val ),
+					esc_attr( $group_name ),
+					esc_attr( $val ),
 					checked( $current_field, $val, false ),
 					esc_attr( $val ),
 					esc_html__( 'Remove All Style, Script', 'emulsion' )
-					);			
+					);
 		}elseif( 'Remove Primary Menu' == $key ) {
-			
-			printf( '<p><input type="radio" id="%1$s" name="%2$s" value="%3$s" %4$s><label for="%5$s">%6$s</label></p>', 
-					esc_attr( $val ), 
-					esc_attr( $group_name ), 
-					esc_attr( $val ), 
+
+			printf( '<p><input type="radio" id="%1$s" name="%2$s" value="%3$s" %4$s><label for="%5$s">%6$s</label></p>',
+					esc_attr( $val ),
+					esc_attr( $group_name ),
+					esc_attr( $val ),
 					checked( $current_field, $val, false ),
 					esc_attr( $val ),
 					esc_html__( 'Remove Primary Menu', 'emulsion' )
-					);			
+					);
 		} else {
-			printf( '<p><input type="radio" id="%1$s" name="%2$s" value="%3$s" %4$s><label for="%5$s">%6$s</label></p>', 
-					esc_attr( $val ), 
-					esc_attr( $group_name ), 
-					esc_attr( $val ), 
+			printf( '<p><input type="radio" id="%1$s" name="%2$s" value="%3$s" %4$s><label for="%5$s">%6$s</label></p>',
+					esc_attr( $val ),
+					esc_attr( $group_name ),
+					esc_attr( $val ),
 					checked( $current_field, $val, false ),
 					esc_attr( $val ),
 					esc_html( $key )

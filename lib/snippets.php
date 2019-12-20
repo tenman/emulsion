@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is the first place where features added experimentally with theme updates are created.
  * Scripts and styles are processed in a lump without being distributed to each CSS and PHP.
@@ -26,12 +27,12 @@ function emulsion_snippet_functions() {
 	if ( ! is_front_page() ) {
 		emulsion_article_after( 'emulsion_prepend_page_wrapper', 'action' );
 	}
-	
+
 	/**
 	 * background CSS patturen
 	 * Experimental filters for future updates
 	 */
-	emulsion_background_css_pattern( 'body_class', $type = 'filter' );
+	//emulsion_background_css_pattern( 'body_class', $type = 'filter' );
 }
 
 /**
@@ -64,9 +65,9 @@ if ( ! function_exists( 'emulsion_append_header_layer_snippet' ) ) {
 
 		$css = '.cta-layer { text-align:center;position:absolute;bottom:0;z-index:10;width:100%;}'
 				. '.cta-layer-active{padding-bottom:6rem;}'
-				. '.cta-layer-active .cta-layer a{margin-left:3px;margin-right:3px;border:1px solid rgba(188,188,188,.5);}'
-				. '.cta-layer-active .cta-layer a:hover{filter: brightness(130%);}';
-		$js	 = '';
+				. '.cta-layer-active .cta-layer a{margin-left:3px;margin-right:3px;border:1px solid rgba(188,188,188,.5);}';
+
+		$js = '';
 
 		emulsion_do_snippet( $hook, $type, $css, $js, $html );
 	}
@@ -136,40 +137,23 @@ if ( ! class_exists( 'emulsion_Cta_Layer_Nav_Menu_Walker' ) ) {
 }
 if ( ! function_exists( 'emulsion_background_css_pattern' ) ) {
 
-	function emulsion_background_css_pattern( $hook, $type = 'action', $css = '',
-			$js = '', $html = '' ) {
+	function emulsion_background_css_pattern( $hook, $type = 'action', $css = '', $js = '',
+			$html = '' ) {
 
 		if ( emulsion_get_supports( 'background_css_pattern' ) ) {
 
 			$html							 = array();
-			$css							 = '';
-			$js								 = '';
 			$background_css_pattern_class	 = get_theme_mod( 'emulsion_background_css_pattern', emulsion_get_var( 'emulsion_background_css_pattern' ) );
 
 			if ( 'none' !== $background_css_pattern_class ) {
-
-				$class_name = 'background-css-pattern-' . $background_css_pattern_class;
-
-				$html[] = $class_name;
-
-				/**
-				 * carbon-fiber
-				 */
-				if ( $background_css_pattern_class == 'carbon-fiber' ) {
-					$css = <<<CSS
-						
-					body.is-dark.custom-background.background-css-pattern-carbon-fiber{
-						
-					}
-
-					body.is-light.custom-background.background-css-pattern-carbon-fiber{
-
-					}
-CSS;
-				}
-				emulsion_do_snippet( $hook, $type, $css, $js, $html );
+				$class_name	 = 'background-css-pattern-' . $background_css_pattern_class;
+				$html[]		 = $class_name;
 			}
 		}
+
+
+		$js = '';
+		emulsion_do_snippet( $hook, $type, $css, $js, $html );
 	}
 
 }

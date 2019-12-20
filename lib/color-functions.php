@@ -15,21 +15,26 @@ if ( ! function_exists( 'emulsion_get_css_variables_values' ) ) {
 	function emulsion_get_css_variables_values( $name = '' ) {
 
 		global $emulsion_custom_header_defaults, $wp_filter, $content_width, $emulsion_customize_args;
-		
+
 		if ( 'enable' == emulsion_get_var( 'emulsion_header_gradient' ) ) {
-			
+
 			$header_background_color			 = emulsion_get_var( 'emulsion_header_background_color' );
 			$header_background_gradient_color	 = emulsion_get_var( 'emulsion_header_sub_background_color' );
 		} else {
-			
+
 			$header_background_gradient_color = emulsion_get_var( 'emulsion_header_background_color' );
 		}
+		$emulsion_bg_image_blend_color =  emulsion_get_var( 'emulsion_bg_image_blend_color' );
+		$emulsion_bg_image_blend_color_amount =  emulsion_get_var( 'emulsion_bg_image_blend_color_amount' ) / 100;
+		
+		$background_image_dim = emulsion_the_hex2rgba( $emulsion_bg_image_blend_color, $emulsion_bg_image_blend_color_amount );
+		
 		$header_background_color = emulsion_get_var( 'emulsion_header_background_color' );
-		
+
 		$has_set_header_textcolor = get_theme_mod( 'header_textcolor', false );
-		
+
 		if( false !== $has_set_header_textcolor && $has_set_header_textcolor !== get_theme_support( 'custom-header', 'default-text-color' ) && 'blank' !== $has_set_header_textcolor ){
-			
+
 			$header_text_color = '#'. get_theme_mod( 'header_textcolor' );
 			
 		} else {
@@ -55,7 +60,7 @@ if ( ! function_exists( 'emulsion_get_css_variables_values' ) ) {
 		$sidebar_color					 = emulsion_contrast_color( $sidebar_background );
 		$sidebar_link_color				 = emulsion_link_colors( $sidebar_background, 'sidebar' );
 		$sidebar_hover_color             = emulsion_hover_colors( $sidebar_background, 'sidebar' );
-		
+
 		$primary_menu_background		 = emulsion_get_var( 'emulsion_primary_menu_background' );
 		$primary_menu_color				 = emulsion_contrast_color( $primary_menu_background );
 		$primary_menu_link_color		 = emulsion_link_colors( $primary_menu_background, 'primary_menu' );
@@ -74,6 +79,7 @@ if ( ! function_exists( 'emulsion_get_css_variables_values' ) ) {
 		}
 
 		$settings = array(
+			'background_image_dim'				 => array( 'value' => $background_image_dim, 'unit' => '' ),
 			'heading_font_base'					 => array( 'value' => emulsion_get_var( 'emulsion_heading_font_base' ), 'unit' => '' ),
 			'header_media_max_height'			 => array( 'value' => emulsion_get_var( 'emulsion_header_media_max_height' ), 'unit' => 'vh' ),
 			'post_display_date'					 => array( 'value' => emulsion_get_var( 'emulsion_post_display_date' ), 'unit' => '' ),
@@ -91,10 +97,8 @@ if ( ! function_exists( 'emulsion_get_css_variables_values' ) ) {
 			'content_margin_top'				 => array( 'value' => emulsion_get_var( 'emulsion_content_margin_top' ), 'unit' => 'px' ),
 			'colors_for_editor'					 => array( 'value' => emulsion_get_var( 'emulsion_colors_for_editor' ), 'unit' => '' ),
 			'general_text_color'				 => array( 'value' => emulsion_get_var( 'emulsion_general_text_color' ), 'unit' => '' ),
-			//'general_link_hover_color'			 => array( 'value' => emulsion_get_var( 'emulsion_general_link_hover_color' ), 'unit' => '' ),
-			'general_link_hover_color'			 => array( 'value' => emulsion_hover_colors(), 'unit' => '' ),		
-			//'general_link_color'				 => array( 'value' => emulsion_get_var( 'emulsion_general_link_color' ), 'unit' => '' ),
-			'general_link_color'				 => array( 'value' => emulsion_link_colors(), 'unit' => '' ),	
+			'general_link_hover_color'			 => array( 'value' => emulsion_hover_colors(), 'unit' => '' ),
+			'general_link_color'				 => array( 'value' => emulsion_link_colors(), 'unit' => '' ),
 			'excerpt_linebreak'					 => array( 'value' => emulsion_get_var( 'emulsion_excerpt_linebreak' ), 'unit' => '' ),
 			'comments_link_color'				 => array( 'value' => $comments_link_color, 'unit' => '' ),
 			'comments_color'					 => array( 'value' => $comments_color, 'unit' => '' ),
@@ -118,7 +122,7 @@ if ( ! function_exists( 'emulsion_get_css_variables_values' ) ) {
 			'sidebar_link_color'				 => array( 'value' => $sidebar_link_color, 'unit' => '' ),
 			'sidebar_color'						 => array( 'value' => $sidebar_color, 'unit' => '' ),
 			'sidebar_background'				 => array( 'value' => $sidebar_background, 'unit' => '' ),
-						'sidebar_hover_color'	=>  array( 'value' => $sidebar_hover_color, 'unit' => '' ),
+			'sidebar_hover_color'				 => array( 'value' => $sidebar_hover_color, 'unit' => '' ),
 			'primary_menu_link_color'			 => array( 'value' => $primary_menu_link_color, 'unit' => '' ),
 			'primary_menu_color'				 => array( 'value' => $primary_menu_color, 'unit' => '' ),
 			'primary_menu_background'			 => array( 'value' => $primary_menu_background, 'unit' => '' ),
@@ -137,7 +141,7 @@ if ( ! function_exists( 'emulsion_get_css_variables_values' ) ) {
 			'widget_meta_font_family'			 => array( 'value' => emulsion_get_var( 'emulsion_widget_meta_font_family' ), 'unit' => '' ),
 			'widget_meta_font_size'				 => array( 'value' => emulsion_get_var( 'emulsion_widget_meta_font_size' ), 'unit' => 'px' ),
 			'heading_font_transform'			 => array( 'value' => emulsion_get_var( 'emulsion_heading_font_transform' ), 'unit' => '' ),
-			'heading_font_scale'					 => array( 'value' => emulsion_get_var( 'emulsion_heading_font_scale' ), 'unit' => '' ),
+			'heading_font_scale'				 => array( 'value' => emulsion_get_var( 'emulsion_heading_font_scale' ), 'unit' => '' ),
 			'heading_font_weight'				 => array( 'value' => emulsion_get_var( 'emulsion_heading_font_weight' ), 'unit' => '' ),
 			'heading_font_family'				 => array( 'value' => $heading_font_family, 'unit' => '' ),
 			'common_font_family'				 => array( 'value' => emulsion_get_var( 'emulsion_common_font_family' ), 'unit' => '' ),
@@ -160,21 +164,21 @@ if ( ! function_exists( 'emulsion_get_css_variables_values' ) ) {
 			'font_sizes'						 => array( 'value' => emulsion_get_font_sizes(), 'unit' => '' ),
 			'color_palette'						 => array( 'value' => emulsion_get_color_palette(), 'unit' => '' ),
 		);
-		
+
 		$check_customizer_change = get_theme_mod('emulsion_customizer_is_changed');
 
 		if ( 'is_changed' == $name && 'yes' == $check_customizer_change ) {
-			
+
 			set_theme_mod('emulsion_customizer_is_changed','no');
-			
+
 			return true;
 		}
 
 		/**
 		 * full_width_nagative_margin
 		 */
-		
-		if ( 'full_width_nagative_margin' == $name ) {
+
+		if ( 'full_width_nagative_margin' == $name && ! empty( $settings['main_width']['value'] ) && ! empty( $settings['content_width']['value'] )) {
 
 			return ( absint( $settings['main_width']['value'] ) - absint( $settings['content_width']['value'] ) ) / -2 . $settings['content_width']['unit'];
 		}
@@ -182,7 +186,7 @@ if ( ! function_exists( 'emulsion_get_css_variables_values' ) ) {
 		/**
 		 * get from $settings
 		 */
-		
+
 		if ( array_key_exists( $name, $settings ) ) {
 
 			return $settings[$name]['value'] . $settings[$name]['unit'];
@@ -317,9 +321,9 @@ if ( ! function_exists( 'emulsion_sub_background_color_darken' ) ) {
 		$saturation	 = emulsion_get_hex2hsl_array( $hex )[1];
 		$lightness	 = emulsion_get_hex2hsl_array( $hex )[2];
 		$alpha = 1;
-	
+
 		if ( 0 == $hue ) {
-			$lightness = $lightness > 0 ? $lightness * 0.80: 0;			
+			$lightness = $lightness > 0 ? $lightness * 0.80: 0;
 			return emulsion_accent_color( $hex, $alpha, $hue, $saturation, $lightness );
 		} else {
 			//$saturation = $saturation > 0 ? $saturation * 0.9: 0;
@@ -339,19 +343,18 @@ if ( ! function_exists( 'emulsion_sub_background_color_lighten' ) ) {
 		$lightness	 = intval(emulsion_get_hex2hsl_array( $hex )[2]);
 		$alpha = 1;
 
-	
+
 		if ( 0 == $hue ) {
-			$lightness = $lightness > 0 ? $lightness * 1.25: 0;	
+			$lightness = $lightness > 0 ? $lightness * 1.25: 0;
 			if( $lightness > 100 ){
 				$lightness = 100;
 			}
 
 			return emulsion_accent_color( $hex, $alpha, $hue, $saturation, $lightness );
 		} else {
-			//$saturation = $saturation > 0 ? $saturation * 1.1: 0;
 			if( $saturation > 100 ){
 				$saturation = 100;
-			}			
+			}
 			$lightness = $lightness > 0 ? $lightness * 1.25: 0;
 			if( $lightness > 100 ){
 				$lightness = 100;
@@ -381,13 +384,13 @@ function emulsion_accent_color( $hex = '', $alpha = 1, $hue = '',
 		$hex		 = emulsion_the_background_color();
 		$hsl_array	 = emulsion_get_hex2hsl_array( $hex );
 		$hue		 = (int) $hsl_array[0] + $hue;
-		
+
 	}
 	if ( ! empty( $hex ) && empty( $hue )) {
 
 		$hsl_array	 = emulsion_get_hex2hsl_array( $hex );
 		$hue		 = (int) $hsl_array[0];
-		
+
 	}
 
 	if ( '#ffffff' == $emulsion_contrast_color && empty( $saturation ) && empty( $lightness ) ) {
@@ -401,7 +404,7 @@ function emulsion_accent_color( $hex = '', $alpha = 1, $hue = '',
 		$saturation	 = empty( $saturation ) ? 70 : $saturation;
 		$lightness	 = empty( $lightness ) ? 30 : $lightness;
 	}
-	
+
 	if( $hue > 360 ){
 		$hue = $hue - 360;
 	}
@@ -411,8 +414,8 @@ function emulsion_accent_color( $hex = '', $alpha = 1, $hue = '',
 	if( $lightness > 100 ){
 		$lightness = 100;
 	}
-	
-	
+
+
 	$hue		 = absint( $hue ) . 'deg';
 	$saturation	 = absint( $saturation ) . '%';
 	$lightness	 = absint( $lightness ) . '%';
@@ -496,9 +499,9 @@ if ( ! function_exists( 'emulsion_get_hex2hsl_array' ) ) {
 }
 function emulsion_comment_brightness_class(){
 	$comment_bg_color = get_theme_mod('emulsion_comments_bg', emulsion_get_var( 'emulsion_comments_bg' ) );
-	
+
 	$class = '#ffffff' == emulsion_contrast_color( $comment_bg_color ) ? 'comment-is-dark': 'comment-is-light';
-	
+
 	echo esc_attr( $class );
 }
 
@@ -559,13 +562,13 @@ if ( ! function_exists( 'emulsion_the_background_color' ) ) {
 			$background_color = sprintf('#%1$s', emulsion_get_supports( 'background' )[0]['default']['default-color'] );
 		}
 		$background_color = apply_filters( 'emulsion_the_background_color', $background_color );
-		
+
 		return $background_color;
 	}
 }
 if ( ! function_exists( 'emulsion_get_background_color' ) ) {
 	/**
-	 * 
+	 *
 	 * @return type
 	 */
 	function emulsion_get_background_color() {
@@ -576,45 +579,10 @@ if ( ! function_exists( 'emulsion_get_background_color' ) ) {
 			$background_color = emulsion_get_supports( 'background' )[0]['default']['default-color'];
 			$background_color = str_replace('#','', $background_color);
 		}
-		//%1$s to %1$x
 		$background_color	 = sprintf( '#%1$s', $background_color );
 		$background_color	 = sanitize_hex_color( $background_color );
 
 		return apply_filters( 'emulsion_get_background_color' , $background_color );
-	}
-}
-
-if ( ! function_exists( 'emulsion_get_header_text_color' ) ) {
-
-	/**
-	 * 
-	 * @global type $emulsion_custom_header_defaults
-	 * @return boolean
-	 */
-	function emulsion_get_header_text_color() {
-
-		global $emulsion_custom_header_defaults;
-
-		$header_color		 = get_header_textcolor();
-		/**
-		 * Header Text Color Control
-		 */
-		$default_color_val	 = str_replace( '#', '', $emulsion_custom_header_defaults['default-text-color'] );
-
-		if ( ctype_xdigit( $header_color ) && $default_color_val !== $header_color ) {
-			$header_color = '#' . $header_color;
-		} else {
-			// IMPORTANT TODO
-			$background = emulsion_get_css_variables_values( 'header_background_color' );
-
-			$header_color = emulsion_contrast_color( $background );
-
-			if ( false == $header_color ) {
-
-				$header_color = $emulsion_custom_header_defaults['default-text-color'];
-			}
-		}
-		return $header_color;
 	}
 }
 
@@ -677,7 +645,7 @@ if ( ! function_exists( 'emulsion_theme_image_dir' ) ) {
 	/**
 	 * Theme Image Directory
 	 * for scss variable
-	 */	
+	 */
 	function emulsion_theme_image_dir() {
 
 
@@ -716,9 +684,9 @@ if ( ! function_exists( 'emulsion_header_image_ratio' ) ) {
 	 * Currently, I want the size of the header image to be unified
 	 */
 	function emulsion_header_image_ratio() {
-		
-		$header_width		 = absint( get_custom_header()->width );
-		$header_height		 = absint( get_custom_header()->height );
+
+		$header_width		 = get_custom_header()->width;
+		$header_height		 = get_custom_header()->height;
 		$header_image_ratio	 = 0.5625;
 
 		if ( is_singular() && has_post_thumbnail() ) {
@@ -726,8 +694,8 @@ if ( ! function_exists( 'emulsion_header_image_ratio' ) ) {
 			$post_id			 = absint( get_the_ID() );
 			$post_thumbnail_id	 = get_post_thumbnail_id( $post_id );
 			$attachment			 = wp_get_attachment_image_src( $post_thumbnail_id, 'full' );
-			$header_width		 = absint( $attachment[1] );
-			$header_height		 = absint( $attachment[2] );
+			$header_width		 = $attachment[1];
+			$header_height		 = $attachment[2];
 			$header_image_ratio	 = floatval( $header_height / $header_width );
 		}
 
@@ -735,7 +703,13 @@ if ( ! function_exists( 'emulsion_header_image_ratio' ) ) {
 
 			$header_image_ratio = floatval( $header_height / $header_width );
 		}
-		return $header_image_ratio;
+		
+		if( is_float( $header_image_ratio ) ) {
+			
+			return $header_image_ratio;
+		} else {
+			return 0.5625;
+		}
 	}
 }
 
@@ -751,12 +725,12 @@ if ( ! function_exists( 'emulsion_sidebar_background' ) ) {
 		$text_color			 = emulsion_contrast_color();
 
 		if ( '#ffffff' == $text_color ) {
-			
+
 			if ( $background_default !== $background_color ) {
 
 				$sidebar_background = '#000000';
 			} else {
-				
+
 				$sidebar_background = 'inherit';
 			}
 			$sidebar_background = apply_filters( 'emulsion_sidebar_background_light', $sidebar_background );
@@ -767,14 +741,14 @@ if ( ! function_exists( 'emulsion_sidebar_background' ) ) {
 
 
 				$sidebar_background = '#ffffff';
-				
+
 			} else {
-				
+
 				$sidebar_background = 'inherit';
 			}
 			$sidebar_background = apply_filters( 'emulsion_sidebar_background_light', $sidebar_background );
 		}
-		
+
 		return apply_filters('emulsion_sidebar_background', $sidebar_background );
 	}
 }
@@ -799,12 +773,13 @@ if ( ! function_exists( 'emulsion_hover_colors' ) ) {
 			$hover_color = apply_filters( 'emulsion_hover_color_article_light', $text_color );
 		}
 		if( ! empty( $location ) ) {
-			
+
 			$hover_color = apply_filters('emulsion_link_color_'. $location , $hover_color );
 		}
 		return apply_filters( 'emulsion_hover_color', $hover_color );
 	}
 }
+
 
 if ( ! function_exists( 'emulsion_link_colors' ) ) {
 
@@ -813,13 +788,13 @@ if ( ! function_exists( 'emulsion_link_colors' ) ) {
 	 * CSS variables
 	 * @return hex color
 	 */
-	
+
 	function emulsion_link_colors( $hex_color = '' , $location = '' ) {
 
 		$text_color = emulsion_contrast_color( $hex_color );
-				
+
 		if( 'gallery' == $location ) {
-			
+
 			return apply_filters('emulsion_link_color_gallery', '#cccccc' );
 		}
 
@@ -831,12 +806,12 @@ if ( ! function_exists( 'emulsion_link_colors' ) ) {
 
 			$link_color = apply_filters( 'emulsion_link_color_light'. $location, '#666666' );
 		}
-		
+
 		if( ! empty( $location ) ) {
-			
+
 			$link_color = apply_filters('emulsion_link_color_'. $location , $link_color );
 		}
-		
+
 		return apply_filters( 'emulsion_link_color', $link_color );
 	}
 
@@ -844,14 +819,16 @@ if ( ! function_exists( 'emulsion_link_colors' ) ) {
 
 
 if ( ! function_exists( 'emulsion_element_classes' ) ) {
-	
+
 /**
  * Adds a class according to the primary menu background color,sidebar background color specified in the customizer.
  * Return the class specified by location
  * @param type $location
  * @return string
+ * 
+ * @since 0.99 class name change from menu-has-column to menu-active
  */
-	
+
 	function emulsion_element_classes( $location = '' ) {
 
 		if ( 'primary' == $location ) {
@@ -872,7 +849,7 @@ if ( ! function_exists( 'emulsion_element_classes' ) ) {
 			}
 
 			$class	 = 'primary-menu-wrapper';
-			$class	 .= $is_active_menu ? ' menu-has-column' : ' menu-inactive';
+			$class	 .= $is_active_menu ? ' menu-active' : ' menu-inactive';
 			$class	 .= ' ' . sanitize_html_class( 'side-' . $sidebar_position );
 			$class	 .= ' ' . $menu_color_class;
 
@@ -885,7 +862,7 @@ if ( ! function_exists( 'emulsion_element_classes' ) ) {
 			$text_color			 = emulsion_contrast_color( $background );
 			$text_color_class	 = '';
 			$footer_cols_class   = '';
-			
+
 			if ( '#ffffff' == $text_color ) {
 
 				$text_color_class = 'sidebar-is-dark';
@@ -897,14 +874,14 @@ if ( ! function_exists( 'emulsion_element_classes' ) ) {
 			if( get_theme_mod( 'emulsion_sidebar_background', false ) == emulsion_get_var( 'emulsion_sidebar_background', 'default' ) ||
 				false === get_theme_mod( 'emulsion_sidebar_background', false ) ) {
 				$text_color_class = 'sidebar-is-default';
-			}	
-			
+			}
+
 			if ( 'footer-widget-area' == $location ) {
-				
-				$footer_cols_class = get_theme_mod( 'emulsion_footer_columns', emulsion_get_var( 'emulsion_footer_columns' ) );
+
+				$footer_cols_class = get_theme_mod( 'emulsion_footer_columns', emulsion_get_var( 'emulsion_footer_columns' ) );				
 				$footer_cols_class = 'footer-cols-'. absint( $footer_cols_class );
 			}
-			
+
 			return ' ' . $text_color_class . ' '. $footer_cols_class;
 		}
 	}
@@ -916,18 +893,18 @@ function emulsion_sidebar_background_reset(  ) {
 	return '#'. emulsion_get_supports( 'background' )[0]['default']['default-color'];
 }
 function emulsion_sidebar_text_color_reset(  ) {
-	
+
 	$background = emulsion_sidebar_background_reset();
 
 	return emulsion_contrast_color( $background );
 
 }
 function emulsion_sidebar_link_color_reset(  ) {
-	
+
 	$background = emulsion_sidebar_background_reset();
-	
+
 	return emulsion_link_colors( $background );
-	
+
 }
 
 function emulsion_header_background_color_reset(  ) {
@@ -936,16 +913,16 @@ function emulsion_header_background_color_reset(  ) {
 }
 
 function emulsion_header_text_color_reset(  ) {
-	
+
 	$background = emulsion_header_background_color_reset();
 
 	return emulsion_contrast_color( $background );
 
 }
 function emulsion_header_link_color_reset(  ) {
-	
+
 	$background = emulsion_sidebar_background_reset();
-	
+
 	return emulsion_link_colors( $background );
 
 }
@@ -956,9 +933,9 @@ function emulsion_background_color_reset(  ) {
 }
 
 function emulsion_general_text_color_reset(  ) {
-	
+
 	$default_bacckground = '#'. emulsion_get_supports( 'background' )[0]['default']['default-color'];
-	
+
 	return emulsion_contrast_color( $default_bacckground );
 }
 
@@ -972,18 +949,18 @@ function emulsion_general_link_color_reset(  ) {
 }
 
 function emulsion_primary_menu_background_reset( ) {
-	
+
 	return '#'. emulsion_get_supports( 'background' )[0]['default']['default-color'];
-	
+
 }
 function emulsion_primary_menu_link_color_reset( ) {
-	
+
 	$background = emulsion_primary_menu_background_reset( );
-	
+
 	return emulsion_link_colors( $background );
 }
 function emulsion_primary_menu_text_color_reset( ) {
-	
+
 	$background =emulsion_primary_menu_background_reset();
 
 	return emulsion_contrast_color( $background );
