@@ -42,9 +42,20 @@
     }
     .wpview[data-wpview-type="gallery"],
     .wp-gallery{
+        width:auto;
         width: -moz-fit-content;
         width:fit-content;
-        margin:auto;
+        max-width:var(--thm_content_width);
+        margin-left:auto;
+        margin-right:auto;
+        .gallery-item{          
+            img{
+                vertical-align:middle;
+            }
+        }
+        .gallery-caption{
+            text-align:center;
+        }
     }
     .mceTemp{
         //wp-caption wrapper
@@ -65,4 +76,14 @@
     width:var(--thm_content_width);
     margin-left:auto;
     margin-right:auto;
+}
+#mceResizeHandlese,
+#mceResizeHandlesw,
+#mceResizeHandlenw,
+#mceResizeHandlene{
+    width:7px;
+}
+.blocks-gallery-grid{
+    display:flex;
+    flex-wrap:wrap;
 }

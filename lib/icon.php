@@ -150,8 +150,6 @@ function emulsion_dropdown_icon_to_menu_link( $title, $item, $args, $depth ) {
 
 	return $title;
 }
-//add_filter( 'nav_menu_item_title', 'emulsion_dropdown_icon_to_menu_link', 10, 4 );
-
 /**
  * Returns an array of supported social links (URL and icon name).
  *

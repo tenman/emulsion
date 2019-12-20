@@ -59,7 +59,7 @@ jQuery(function ($) {
      */
     if (true == emulsion_script_vars.block_sectionize) {
         $('.entry-content > [class|="wp-block"]').not('.alignleft, .alignright, .wp-block-image,.wp-block-cover, \n\
-            .wp-block-embed, .wp-block-group, .wp-block-table, .wp-block-spacer, .wp-block-button, .wp-block-separator').wrap(function () {
+            .wp-block-embed, .wp-block-group, .wp-block-table, .wp-block-spacer, .wp-block-button, .wp-block-separator, .wp-block-navigation').wrap(function () {
             var classes = $(this).attr('class').match(/wp-block-\S+/);
             var brightness_class = '';
             if ('wp-block-columns' == classes) {
@@ -131,6 +131,7 @@ jQuery(function ($) {
         $(this).after('<input id="' + text_id + '" type="checkbox" class="nav-menu-child-opener" /><label tabindex="0" class="nav-menu-child-opener-label" for="' + text_id + '"></label>');
     });
 });
+
 jQuery(function ($) {
     /**
      * Keyboard navigation for accessibility
@@ -164,25 +165,33 @@ jQuery(function ($) {
         });
     });
 
-    //Keyboad navigation when mobile humberger menu
-    /*
-     $('#primary-menu-controll').focusin(function (e) {     
-     $(this).prop('checked', true);
-     });
-     $('.layout a').focusin(function () {
-     $('#primary-menu-controll').prop('checked', false);
-     });  
-     $('.layout,.header-layer').on('click',function () {
-     $('#primary-menu-controll').prop('checked', false);
-     });
-     $('#primary-menu-controll').on('click', function (e) {
-     if ( ! $(this).is(':checked') ) {            
-     $(this).prop('checked', true);
-     } 
-     });
-     */
+    //tab navigation when mobile humberger menu
 
-
+    $('#primary-menu-controll').focusin(function (e) {
+        var chk_status = $(this).prop("checked");
+        if (chk_status) {
+            $(this).prop('checked', false);
+        } else {
+            $(this).prop('checked', true);
+        }
+    });
+    $('.layout a').focusin(function () {
+        // close tab navigation
+        $('#primary-menu-controll').prop('checked', false);
+    });
+    $('.layout,.header-layer').on('click', function () {
+        // close Click around the button
+        $('#primary-menu-controll').prop('checked', false);
+    });
+    $('#primary-menu-controll').on('click', function (e) {
+        // button click 
+        var chk_status = $(this).prop("checked");
+        if (chk_status) {
+            $(this).prop('checked', false);
+        } else {
+            $(this).prop('checked', true);
+        }
+    });
 });
 jQuery(function ($) {
     "use strict";
@@ -357,20 +366,56 @@ jQuery(function ($) {
     /**
      * Add lnline SVG
      */
-    $('[class|="ico"],[class*=" ico-"]').each(function (index) {
+    $('[class|="ico"],[class*=" ico-"]').not('svg').each(function (index) {
         var classes = $(this).attr('class');
-        console.log(classes);
         var target_class = classes.match(/^.*(ico-\S+).*$/);
         target_class = target_class[1];
-        target_class = target_class.split('-');
-        var tag_name = $(this).prop("tagName");
-        if ('UL' == tag_name) {
-            $(this).children('li').css({'list-style': 'none'}).prepend('<svg class="icon ' + target_class[1] + '" aria-hidden="true" style="width:1em;height:1em" role="img"><use xlink:href="#' + target_class[1] + '" /></svg>');
-        } else {
-            $(this).prepend('<svg class="icon ' + target_class[1] + '" aria-hidden="true" style="width:1em;height:1em" role="img"><use xlink:href="#' + target_class[1] + '" /></svg>');
-        }
+        target_class = target_class.replace("ico-", "");
+        var icon_classes = ["icon-expand", "enlarge", "shrink", "search", "cross", "lock",
+            "play", "pause", "icon-behance", "phone", "email", "rss", "embed", "bell", "location",
+            "pdf", "zip", "html5", "category", "tag", "clock", "contrast", "home", "bookmark",
+            "quote", "edit", "web", "human", "new-tab", "checkbox_checked", "checkbox", "radio_checked",
+            "radio", "notice", "info", "block", "icon-deviantart", "icon-medium", "icon-slideshare",
+            "icon-snapchat-ghost", "icon-yelp", "icon-vine", "icon-vk", "icon-search", "icon-envelope-o",
+            "icon-close", "icon-angle-down", "icon-folder-open", "icon-twitter", "icon-facebook", "icon-github",
+            "icon-bars", "icon-google-plus", "icon-linkedin", "icon-quote-right", "icon-mail-reply",
+            "icon-youtube", "icon-dropbox", "icon-instagram", "icon-flickr", "icon-tumblr", "icon-dockerhub",
+            "icon-dribbble", "icon-skype", "icon-foursquare", "icon-wordpress", "icon-stumbleupon", "icon-digg",
+            "icon-spotify", "icon-soundcloud", "icon-codepen", "icon-twitch", "icon-meanpath", "icon-pinterest-p",
+            "icon-periscope", "icon-get-pocket", "icon-vimeo", "icon-reddit-alien", "icon-hashtag", "icon-chain",
+            "icon-thumb-tack", "icon-arrow-left", "icon-arrow-right", "icon-play", "icon-pause", "icon-phone",
+            "icon-email", "icon-rss", "icon-amazon"];
+        
+            if ($.inArray(target_class, icon_classes)) {
+
+                var tag_name = $(this).prop("tagName");
+
+                if ('UL' == tag_name) {
+                    $(this).addClass('list-style-none').children('li').prepend('<svg class="icon ico-' + target_class + '" aria-hidden="true" style="width:1em;height:1em" role="img"><use xlink:href="#' + target_class + '" /></svg>');
+
+                } else {
+                    $(this).prepend('<svg class="icon ico-' + target_class + '" aria-hidden="true" style="width:1em;height:1em" role="img"><use xlink:href="#' + target_class + '" /></svg>');
+                }
+            }
+        
     });
 });
+jQuery(function ($) {
+    
+    /**
+     * Repaire block editor wordpress 5.3.1 + gutenberg 7.1
+     * block latest posts ( full content ) inline code decoded
+     * Since tags such as script are removed, the code cannot be reproduced accurately,
+     * but it is better than being decoded
+     */
+   
+   $('.wp-block-latest-posts__post-full-content code').each(function (index) {    
+        var html = $(this).html();
+        
+        $(this).text(html);
+    });   
+});
+
 jQuery(function ($) {
     "use strict";
     /**
@@ -717,8 +762,10 @@ jQuery(function ($) {
                 if (background_color_rgb == "rgba(0, 0, 0, 0)" || 'transparent' == background_color_rgb) {
                     $(this).addClass('emulsion-current-color');
                 } else {
-                    $(this).addClass('emulsion-initial-color').css({'backgroud': background_color_rgb, 'position': 'relative', 'z-index': '-1'}); // chnge 1 to auto 8/27
+                    $(this).addClass('emulsion-initial-color');
+                    //.css({'backgroud': background_color_rgb, 'position': 'relative', 'z-index': '-1'}); // chnge 1 to auto 8/27
                     //11/5 change auto to -1
+                    //11/25 remove css pullquote
                 }
             }
         });
@@ -814,7 +861,6 @@ jQuery(function ($) {
         });
     });
 });
-//
 jQuery(function ($) {
     /**
      * wp-block-tagcloud
@@ -825,7 +871,6 @@ jQuery(function ($) {
     });
 });
 jQuery(function ($) {
-
     /**
      * search drawer tab navigation
      * @since 0.98
@@ -861,13 +906,13 @@ jQuery(function ($) {
             'area-hidden': true,
         });
     });
-    
+
     /**
      * search drawer toggle
      */
     $(".drawer-wrapper .icon").on("click", function (e) {
-        $('.drawer-wrapper .icon').removeAttr( 'area-expanded aria-controls search-drawer area-hidden' );
-        $('#search-drawer').removeAttr( 'area-expanded area-hidden' );
+        $('.drawer-wrapper .icon').removeAttr('area-expanded aria-controls search-drawer area-hidden');
+        $('#search-drawer').removeAttr('area-expanded area-hidden');
         $('body').toggleClass("drawer-is-active");
     });
 });
@@ -880,7 +925,9 @@ jQuery(function ($) {
      */
     $('.is-singular .entry-content h1[id],.is-singular .entry-content h2[id],.is-singular .entry-content h3[id],.is-singular .entry-content h4[id],.is-singular .entry-content h5[id],.is-singular .entry-content h6[id]').each(function (i) {
         var fragment = $(this).attr('id');
-        $(this).wrapInner($('<a href="#' + fragment + '"></a>'));
+        if ($(this).find("a").length == 0) {
+            $(this).wrapInner($('<a href="#' + fragment + '"></a>'));
+        }
     });
 });
 jQuery(function ($) {
@@ -939,6 +986,26 @@ jQuery(function ($) {
         }
     }
 });
+jQuery(function ($) {
+    /**
+     * Accessibility tab navigation
+     * 
+     * When focus visible. default hidden content 
+     */
+    $('.blocks-gallery-item, details:not([open])').attr('tabindex', 0);
+
+    $('details').on('focus', function () {
+        $(this).attr({
+            'open': true,
+        });
+    });
+    $('details').on('blur', function () {
+        $(this).attr({
+            'open': false,
+        });
+    });
+
+});
 jQuery(document).ready(function ($) {
     /**
      * when not exists meta description tag, add meta description tag
@@ -957,3 +1024,4 @@ jQuery(document).ready(function ($) {
         $("head").append('<meta name="description" content="' + emulsion_script_vars.meta_description + '" />');
     }
 });
+

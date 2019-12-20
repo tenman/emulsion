@@ -35,22 +35,25 @@ if ( !function_exists( 'emulsion_archive_year_navigation' ) ) {
 		$separator		 = '<div class="%1$s">%2$s</div>';
 		$result			 = '<div class="archive-year-links nav-links">';
 		$year_current	 = absint( get_query_var( 'year' ) );	
-		$count_posts	 = wp_count_posts();
-		$transient_name	 = 'emulsion_archive_year_navigation_' . absint( $count_posts );
+		$count_posts	 = intval( wp_count_posts()->publish );	
+		/* pending
+		 * @since 0.99
+		$transient_name	 = 'emulsion_archive_year_navigation_' . $count_posts;
 		$transient_val	 = get_transient( $transient_name );
 
 		if ( false !== $transient_val ) {
 
 			if ( true !== $echo ) {
 
-				return wp_kses_post( $result );
+				return wp_kses_post( $transient_val );
 			} else {
 
-				echo wp_kses_post( $result );
+				echo wp_kses_post( $transient_val );
+				return;
 			}
-		}
+		}*/
 
-		$published_posts_count = absint( $count_posts->publish );
+		$published_posts_count = $count_posts;
 		$year_list		 = get_posts( array( 'post_status' => 'publish', 'posts_per_page' => $published_posts_count, 'order' => 'ASC' ) );
 
 		foreach ( $year_list as $list ) {
@@ -87,6 +90,7 @@ if ( !function_exists( 'emulsion_archive_year_navigation' ) ) {
 
 		$class		 = 'separator dots';
 		$separator	 = sprintf( $separator, $class, esc_html__( '...', 'emulsion' ) );
+
 
 		$not_set_before = false;
 
@@ -147,7 +151,7 @@ if ( !function_exists( 'emulsion_archive_year_navigation' ) ) {
 		$emulsion_place = basename(__FILE__). ' line:'. __LINE__. ' '.  __FUNCTION__ .'()';
 		true === WP_DEBUG ? emulsion_elements_assert_equal( $result, wp_kses_post( $result ), $emulsion_place ) : '';
 		
-		set_transient( $transient_name ,  $result, 48 * HOUR_IN_SECONDS );
+		//set_transient( $transient_name ,  $result, 48 * HOUR_IN_SECONDS );
 
 		if ( true !== $echo ) {
 

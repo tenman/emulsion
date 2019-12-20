@@ -1,3 +1,10 @@
+.has-custom-logo{
+    .site-title-text,
+    .site-description{
+        position: absolute;
+        clip: rect(1px, 1px, 1px, 1px);
+    }
+}
 .header-layer{
     position:relative;
     margin-left:auto;
@@ -137,7 +144,7 @@
         }
         .header-layer-nav-menu{
             nav > ul > li > a{
-                color:#fff;
+                color:var(--thm_white_color);
             }
             .nav-menu-child-opener-label:before{
                 background:url('#{$theme_image_dir}svg/arrow-down.svg#white');
@@ -325,12 +332,13 @@
                 padding-top:var(--thm_content_gap, 24px);
                 padding-left:var(--thm_content_gap, 24px);
                 z-index:3;
+
             }
             .site-description{
                 margin-top:0;
                 margin-bottom:0;
                 padding-left:var(--thm_content_gap, 24px);
-                position:relative;
+                // position:relative;
                 z-index:7;
                 padding-bottom:.75rem;
             }
@@ -707,6 +715,10 @@ button.wp-custom-header-video-button{
     }
 }
 
+.taxonomy-description{
+    @extend %block;
+    margin:0 auto 24px;
+}
 /**
  * drawer
  * ========================================================================== */
@@ -807,6 +819,7 @@ button.wp-custom-header-video-button{
         padding:0;
         z-index:1;
     }
+  
     input[id="c1"]:checked~.drawer{
         display:block;
         width:100%;
@@ -830,7 +843,7 @@ button.wp-custom-header-video-button{
             }
         }
         .icon{
-            fill:#fff;
+            fill:var(--thm_white_color);
         }
     }
     .drawer{
@@ -929,6 +942,25 @@ button.wp-custom-header-video-button{
             margin-top:20vh;
         }
     }
+    &.emulsion-header-has-title,
+    &.emulsion-layout-has-title{
+        .no-header-media.cta-layer-active.template-part-header-custom{
+            min-height:300px;
+            .cta-layer{
+                top:6rem;
+            }
+        }
+    }
+}
+body.page{
+    &.emulsion-layout-has-title{
+        .no-header-media.cta-layer-active.template-part-header-custom{
+            min-height:300px;
+            .cta-layer{
+                top:6rem;
+            }
+        }
+    }
 }
 .cta-layer-active{
     .drawer-block{
@@ -971,7 +1003,7 @@ input[type="checkbox"][data-skin="hamburger"] + label[for="primary-menu-controll
     border-radius: 1px;
     height: 5px;
     width: 35px;
-    background:#777;
+    background:var(--thm_gray_color);
     position: absolute;
     content: '';
 }
@@ -983,7 +1015,7 @@ input[type="checkbox"][data-skin="hamburger"] + label[for="primary-menu-controll
     border-radius: 1px;
     height: 6px;
     width: 35px;
-    background:#777;
+    background:var(--thm_gray_color);
     position: absolute;
     display: block;
     content: '';

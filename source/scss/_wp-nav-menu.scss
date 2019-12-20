@@ -34,6 +34,7 @@
             flex-wrap:wrap;
         }
         &.menu-inactive{
+            display:none;
             .menu-placeholder{
                 display:none;
             }
@@ -90,6 +91,15 @@
         nav[class|="menu"]{
             flex:1 1 auto;
         }
+        &.menu-inactive{
+            display:none;
+            .menu-placeholder{
+                display:none;
+            }
+        }
+        .menu-placeholder:empty{
+            display:none;
+        }
         .menu-placeholder{
             flex:1 1 auto;
             position:absolute;
@@ -115,12 +125,26 @@
         }
     }
     &.on-scroll{
-        .menu-has-column{
+        .menu-active{
             max-width: 100vw;
         }
     }
 }
+/**
+ * menu-placeholder action basic style
+ * like on click something change.
+ * template part: header-custom.php
+ * action:header_menu_placeholder
+ */
 
+.menu-placeholder{
+    & > [id]:not(input){
+        display:inline-block;
+        box-sizing:content-box;
+        padding:.74rem;
+    }
+
+}
 /**
  * on scroll
  * ========================================================================== */
@@ -144,7 +168,7 @@
         }
     }
     &.logged-in{
-        .menu-has-column{
+        .menu-active{
             margin-top:32px;
         }
         &.customize-partial-edit-shortcuts-shown{
@@ -165,11 +189,11 @@
     }
     &.customize-partial-edit-shortcuts-hidden.logged-in,
     &.customize-partial-edit-shortcuts-shown.logged-in{
-        .menu-has-column{
+        .menu-active{
             margin-top:0;
         }
     }
-    .menu-has-column{
+    .menu-active{
         position: fixed;
         top: 0;
         max-width: calc(var(--thm_sidebar_width) + var(--thm_main_width));
@@ -195,7 +219,7 @@
             z-index: 10;
         }
     }
-} 
+}
 
 /**
  * Default header and menu. Simple header and menu.
@@ -217,7 +241,7 @@ header{
         }
         ul[data-direction="horizontal"]{
             justify-content: flex-end;
-        }              
+        }
         nav[class|="menu"]{
             background:transparent;
             &.has-chckbox-control{
@@ -225,7 +249,7 @@ header{
                     li{
                         .nav-menu-child-opener:checked ~ .children  .menu-item-has-children .nav-menu-child-opener-label:before,
                             .nav-menu-child-opener:checked ~ .sub-menu  .menu-item-has-children .nav-menu-child-opener-label:before{
-                            // transform: rotate(90deg);
+                            //example transform: rotate(90deg);
                         }
                     }
                 }
@@ -559,6 +583,24 @@ body:not(.noscript){
                         visibility:visible;
                     }
                 }
+                li:focus,   
+                    li:focus-within{
+                    .sub-menu,
+                    .children{
+                        visibility:visible;
+                        opacity: 1;
+                        display: block;
+                        margin-top:0;
+                        .sub-menu:focus,
+                        .children:focus{
+                            visibility:visible;
+                            opacity: 1;
+                            display: block;
+                            margin-left:0;
+                            margin-right:0;
+                        }
+                    }
+                }
             }
         }
     }
@@ -806,7 +848,7 @@ input[type="checkbox"][data-skin="inset"] + label span:after {
     background: transparent;
     top: 6px;
     left: 5px;
-    border: 3px solid #fff;
+    border: 3px solid var(--thm_white_color);
     border-top: none;
     border-right: none;
     -webkit-transform: rotate(-45deg);

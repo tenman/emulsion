@@ -6,22 +6,22 @@
  */
 
 function emulsion__css_variables( $css = '' ) {
-	
+
 	$transient_name = __FUNCTION__;
-				
+
 		if ( is_customize_preview() ) {
 
-			delete_transient( $transient_name );			
+			delete_transient( $transient_name );
 		}
 		if( is_singular() ) {
-			
+
 			$post_id = absint( get_the_ID() );
-			
+
 			if( 'no_bg' == get_post_meta($post_id, 'emulsion_post_theme_style_script', true) ) {
-				
+
 				return $css;
 			}
-		
+
 		}
 		$transient_val = get_transient( $transient_name );
 
@@ -34,8 +34,9 @@ function emulsion__css_variables( $css = '' ) {
 	 * CSS variables
 	 */
 
+	$background_image_dim				 = emulsion_get_css_variables_values( 'background_image_dim' );
 	$heading_font_scale					 = emulsion_get_css_variables_values( 'heading_font_scale' );
-	$heading_font_base			 = emulsion_get_css_variables_values( 'heading_font_base' );
+	$heading_font_base					 = emulsion_get_css_variables_values( 'heading_font_base' );
 	$header_media_max_height			 = emulsion_get_css_variables_values( 'header_media_max_height' );
 	$post_display_date					 = emulsion_get_css_variables_values( 'post_display_date' );
 	$post_display_author				 = emulsion_get_css_variables_values( 'post_display_author' );
@@ -103,7 +104,6 @@ function emulsion__css_variables( $css = '' ) {
 	$common_font_family					 = emulsion_get_css_variables_values( 'common_font_family' );
 	$heading_font_family				 = emulsion_get_css_variables_values( 'heading_font_family' );
 	$heading_font_weight				 = emulsion_get_css_variables_values( 'heading_font_weight' );
-
 	$heading_font_transform				 = emulsion_get_css_variables_values( 'heading_font_transform' );
 	$meta_data_font_size				 = emulsion_get_css_variables_values( 'widget_meta_font_size' );
 	$meta_data_font_family				 = emulsion_get_css_variables_values( 'widget_meta_font_family' );
@@ -130,6 +130,7 @@ function emulsion__css_variables( $css = '' ) {
 	$style = <<<CSS
 body{
 	/* dinamic */
+	--thm_background_image_dim:$background_image_dim;
 	--thm_heading_font_scale:$heading_font_scale;
 	--thm_heading_font_base:$heading_font_base;
 	--thm_header_media_max_height:$header_media_max_height;
@@ -204,11 +205,11 @@ body{
     --thm_background_color: $background_color;
 }
 CSS;
-	
+
 	$style =  apply_filters( 'emulsion__css_variables', $style );
-	
+
 	$style = emulsion_sanitize_css( $style );
-	
+
 	set_transient( $transient_name, $style, 60 * 60 * 24 );
 
 	return $css. $style;
@@ -222,19 +223,19 @@ function emulsion_dinamic_css( $css = '' ) {
 	/**
 	 * CSS variables
 	 */
-	
+
 	if( ! is_user_logged_in() ) {
-		
+
 		$saved_css = get_theme_mod( 'dinamic_css' );
-		
+
 		if( $saved_css !== false ){
-			
+
 			return $css . $saved_css;
-		}		
+		}
 	}
 
 
-	$make_boxed_style				 = '';	
+	$make_boxed_style				 = '';
 	$boxed_style_1					 = ' .has-column main .grid {	--thm_main_width: calc(100vw - var(--thm_sidebar_width) - 48px);}';
 	$boxed_style_2					 = ' main .grid {	--thm_content_width: 300px; }';
 	$boxed_style_3					 = ' main .grid article {--thm_content_width: 100%;}';
@@ -315,16 +316,16 @@ CSS;
 
 	set_theme_mod( 'dinamic_css', $css_result );
 	if( is_page() &&  emulsion_metabox_display_control( 'page_style' ) ) {
-		
-		return $css . $css_result;	
+
+		return $css . $css_result;
 	}
 	if( is_single() && emulsion_metabox_display_control( 'style' ) ) {
 
 		return $css . $css_result;
 	}
-	
+
 	if( emulsion_get_supports( 'enqueue' ) ) {
-		
+
 		return $css . $css_result;
 	}
 }
@@ -335,9 +336,9 @@ CSS;
  */
 
 function emulsion_stream_layout_css() {
-	
+
 	/**
-	 * Theme main CSS is a compiled static file described in common.css. 
+	 * Theme main CSS is a compiled static file described in common.css.
 	 * If you do not use the wp-scss plugin, this function will need to dynamically override common.css.
 	 */
 
@@ -417,7 +418,7 @@ function emulsion_stream_layout_css() {
 		$class .stream .article-wrapper article .stream-wrapper .content-col .entry-content p {
 			margin-top: 0.75rem;
 		  }
-		
+
 		$class .stream .article-wrapper article .stream-wrapper .content-col .content .trancate {
 			padding-left: var(--thm_content_gap, 24px);
 			padding-right: var(--thm_content_gap, 24px);
@@ -459,19 +460,18 @@ CSS;
 					margin-right: 0;
 				  }
 				$class .stream .article-wrapper article .stream-wrapper .show-content:before {
-				//	top: -100px;
 					top:-64px;
 				}
 				$class .stream .article-wrapper article.has-post-thumbnail .show-content:before {
 					top:-64px;
-                    right:-150px;				
+                    right:-150px;
 				}
-				$class .stream .article-wrapper article.has-post-thumbnail .show-content.is-active:before {	
+				$class .stream .article-wrapper article.has-post-thumbnail .show-content.is-active:before {
 					top:-64px;
-                    right:0;				
+                    right:0;
 				}
-					
-			   
+
+
 CSS2;
 	}
 
@@ -485,9 +485,9 @@ CSS2;
  * @return type
  */
 function emulsion_grid_layout_css() {
-	
+
 	/**
-	 * Theme main CSS is a compiled static file described in common.css. 
+	 * Theme main CSS is a compiled static file described in common.css.
 	 * If you do not use the wp-scss plugin, this function will need to dynamically override common.css.
 	 */
 
@@ -635,15 +635,13 @@ CSSRES;
 	return $css;
 }
 
-//add_filter('emulsion_the_background_color',function($color){return "#336699";});
-
 function emulsion_resuponsive_css() {
-	
+
 	/**
-	 * Theme main CSS is a compiled static file described in common.css. 
+	 * Theme main CSS is a compiled static file described in common.css.
 	 * If you do not use the wp-scss plugin, this function will need to dynamically override common.css.
 	 */
-	
+
 	$main_width								 = emulsion_get_css_variables_values( 'main_width' );
 	$content_width							 = emulsion_get_css_variables_values( 'content_width' );
 	$content_gap							 = emulsion_get_css_variables_values( 'content_gap' );
@@ -710,7 +708,7 @@ function emulsion_resuponsive_css() {
     }
 	body.home .header-video-active .site-title-text, body.home .header-image-active .site-title-text {
 	  font-size: 1.5rem;
-	}			
+	}
 	.emulsion-has-sidebar.enable-alignfull .wp-block-media-text.alignfull{
 		display:grid;
 	}
@@ -745,7 +743,7 @@ function emulsion_resuponsive_css() {
         display:flex;
         flex-wrap:wrap;
         flex-direction:row;
-        position:static;               
+        position:static;
     }
 	.entry-content .emulsion-table-wrapper{
         margin-left:0;
@@ -784,9 +782,9 @@ function emulsion_resuponsive_css() {
   .hentry .entry-content ul.wp-block-gallery .blocks-gallery-item {
     width: auto;
   }
-	.wp-caption.alignright, 
-	.wp-caption.aligncenter, 
-	.wp-caption.alignleft, 
+	.wp-caption.alignright,
+	.wp-caption.aligncenter,
+	.wp-caption.alignleft,
 	figure img {
 		margin-left: auto;
 		margin-right: auto;
@@ -799,7 +797,7 @@ function emulsion_resuponsive_css() {
     width: var(--thm_content_width, 100%);
     padding-right: 0;
   }
-	.emulsion-has-sidebar .sidebar-widget-area form.search-form, 
+	.emulsion-has-sidebar .sidebar-widget-area form.search-form,
 	.emulsion-has-sidebar body .template-part-widget-footer.footer-widget-area form.search-form,
 	body .emulsion-has-sidebar .template-part-widget-footer.footer-widget-area form.search-form {
 		padding-left: var(--thm_content_gap, 24px);
@@ -811,14 +809,14 @@ function emulsion_resuponsive_css() {
     margin-left: auto;
     margin-right: auto;
   }
-	figure.wp-block-embed-reddit.alignright, 
+	figure.wp-block-embed-reddit.alignright,
 	figure.wp-block-embed-reddit.alignleft {
 		width: 100vw;
 		float: none;
 		clear: both;
 		min-height: 260px;
 	}
-	figure.wp-block-embed-reddit.alignright .wp-block-embed__wrapper iframe, 
+	figure.wp-block-embed-reddit.alignright .wp-block-embed__wrapper iframe,
 	figure.wp-block-embed-reddit.alignleft .wp-block-embed__wrapper iframe {
 		min-height: 240px;
 	}
@@ -840,33 +838,33 @@ function emulsion_resuponsive_css() {
   .comment-form, .comment-respond {
     padding-left: 0;
   }
-	.comment-form .comment-form, 
+	.comment-form .comment-form,
 	.comment-respond .comment-form {
 		box-sizing: border-box;
 	}
-	.comment-form .comment-form textarea, 
+	.comment-form .comment-form textarea,
 	.comment-respond .comment-form textarea {
 		width: 100%;
 		max-width: 100%;
 		margin-left: auto;
 		margin-right: auto;
 	}
-	.comment-form .comment-form input[name="author"], 
-	.comment-respond .comment-form input[name="author"], 
-	.comment-form .comment-form input[type="url"], 
-	.comment-respond .comment-form input[type="url"], 
-	.comment-form .comment-form input[type="email"], 
-	.comment-respond .comment-form input[type="email"], 
-	.comment-form .comment-form input[type="author"], 
-	.comment-respond .comment-form input[type="author"], 
-	.comment-form .comment-form input[type="comment"], 
+	.comment-form .comment-form input[name="author"],
+	.comment-respond .comment-form input[name="author"],
+	.comment-form .comment-form input[type="url"],
+	.comment-respond .comment-form input[type="url"],
+	.comment-form .comment-form input[type="email"],
+	.comment-respond .comment-form input[type="email"],
+	.comment-form .comment-form input[type="author"],
+	.comment-respond .comment-form input[type="author"],
+	.comment-form .comment-form input[type="comment"],
 	.comment-respond .comment-form input[type="comment"] {
 		width: 100%;
 		max-width: 100%;
 		margin-left: auto;
 		margin-right: auto;
 	}
-	.comment-form .comment-form input[type="submit"], 
+	.comment-form .comment-form input[type="submit"],
 	.comment-respond .comment-form input[type="submit"] {
 		font-size: 0.8125rem;
 		line-height: 1.5;
@@ -875,9 +873,9 @@ function emulsion_resuponsive_css() {
 		margin-left: auto;
 		margin-right: auto;
 	}
-	.comment-form .comment-form label[for="url"], .comment-respond .comment-form label[for="url"], 
-	.comment-form .comment-form label[for="email"], .comment-respond .comment-form label[for="email"], 
-	.comment-form .comment-form label[for="author"], .comment-respond .comment-form label[for="author"], 
+	.comment-form .comment-form label[for="url"], .comment-respond .comment-form label[for="url"],
+	.comment-form .comment-form label[for="email"], .comment-respond .comment-form label[for="email"],
+	.comment-form .comment-form label[for="author"], .comment-respond .comment-form label[for="author"],
 	.comment-form .comment-form label[for="comment"], .comment-respond .comment-form label[for="comment"] {
 		vertical-align: top;
 		display: inline-block;
@@ -909,7 +907,7 @@ function emulsion_resuponsive_css() {
     padding-left: 0;
     padding-right: 0;
   }
-  article footer.fit .wrapper-in-the-loop .entry-title, 
+  article footer.fit .wrapper-in-the-loop .entry-title,
   article header.fit .wrapper-in-the-loop .entry-title {
     padding-left: var(--thm_content_gap, 24px);
   }
@@ -975,24 +973,24 @@ function emulsion_resuponsive_css() {
 	  width: calc(100vw - var(--thm_sidebar_width) - 1rem);
 	}
 	.emulsion-has-sidebar .primary-menu-wrapper .menu-placeholder{
-		background: var(--thm_sidebar_bg_color);       
+		background: var(--thm_sidebar_bg_color);
 	}
 }
 @media screen and ( max-width : $main_width ) {
-	nav[class|="menu"] ul.wp-nav-menu[data-direction="horizontal"] li .sub-menu .sub-menu, 
-	nav[class|="menu"] ul.wp-nav-menu[data-direction="horizontal"] li .children .sub-menu, 
-	nav[class|="menu"] ul.wp-nav-menu[data-direction="horizontal"] li .sub-menu .children, 
+	nav[class|="menu"] ul.wp-nav-menu[data-direction="horizontal"] li .sub-menu .sub-menu,
+	nav[class|="menu"] ul.wp-nav-menu[data-direction="horizontal"] li .children .sub-menu,
+	nav[class|="menu"] ul.wp-nav-menu[data-direction="horizontal"] li .sub-menu .children,
 	nav[class|="menu"] ul.wp-nav-menu[data-direction="horizontal"] li .children .children {
 		left: calc(-50% + 1rem);
 		top: 1.5rem;
 	}
-	nav[class|="menu"] ul.wp-nav-menu[data-direction="horizontal"] li .sub-menu .sub-menu .sub-menu, 
-	nav[class|="menu"] ul.wp-nav-menu[data-direction="horizontal"] li .children .sub-menu .sub-menu, 
-	nav[class|="menu"] ul.wp-nav-menu[data-direction="horizontal"] li .sub-menu .children .sub-menu, 
-	nav[class|="menu"] ul.wp-nav-menu[data-direction="horizontal"] li .children .children .sub-menu, 
-	nav[class|="menu"] ul.wp-nav-menu[data-direction="horizontal"] li .sub-menu .sub-menu .children, 
-	nav[class|="menu"] ul.wp-nav-menu[data-direction="horizontal"] li .children .sub-menu .children, 
-	nav[class|="menu"] ul.wp-nav-menu[data-direction="horizontal"] li .sub-menu .children .children, 
+	nav[class|="menu"] ul.wp-nav-menu[data-direction="horizontal"] li .sub-menu .sub-menu .sub-menu,
+	nav[class|="menu"] ul.wp-nav-menu[data-direction="horizontal"] li .children .sub-menu .sub-menu,
+	nav[class|="menu"] ul.wp-nav-menu[data-direction="horizontal"] li .sub-menu .children .sub-menu,
+	nav[class|="menu"] ul.wp-nav-menu[data-direction="horizontal"] li .children .children .sub-menu,
+	nav[class|="menu"] ul.wp-nav-menu[data-direction="horizontal"] li .sub-menu .sub-menu .children,
+	nav[class|="menu"] ul.wp-nav-menu[data-direction="horizontal"] li .children .sub-menu .children,
+	nav[class|="menu"] ul.wp-nav-menu[data-direction="horizontal"] li .sub-menu .children .children,
 	nav[class|="menu"] ul.wp-nav-menu[data-direction="horizontal"] li .children .children .children {
 		left: calc(50% + 1rem);
 		top: 1.5rem;
@@ -1169,14 +1167,14 @@ function emulsion_resuponsive_css() {
 	}
 }
 @media screen and (max-width: $content_width_plus_sidebar_width) {
-			
+
 	div.emulsion-has-sidebar .sidebar-widget-area,
 	div.emulsion-has-sidebar body .template-part-widget-footer.footer-widget-area,
 	body div.emulsion-has-sidebar .template-part-widget-footer.footer-widget-area {
 		min-width: 100vw;
 	}
-			
-	.enable-alignfull.emulsion-has-sidebar table.alignfull, 
+
+	.enable-alignfull.emulsion-has-sidebar table.alignfull,
 	.enable-alignfull.emulsion-no-sidebar table.alignfull {
 			width: calc(100vw - var( --thm_content_gap, 24px ) * 2);
 			margin-left: calc(-50vw + var( --thm_content_gap, 24px ));
@@ -1258,7 +1256,7 @@ function emulsion_resuponsive_css() {
 		grid-template-rows: 2;
 		grid-column: span 1;
 	}
-	.on-scroll.logged-in .menu-has-column {
+	.on-scroll.logged-in .menu-active {
 		margin-top: 0;
 	}
 }
@@ -1294,8 +1292,8 @@ function emulsion_resuponsive_css() {
 	}
 }
 CSS;
-	
+
 	$css = emulsion_sanitize_css( $css );
-	
+
 	return $css;
 }

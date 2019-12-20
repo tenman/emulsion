@@ -1,7 +1,7 @@
 <?php
 /**
  * Theme default settings
- * 
+ *
  * Background color
  * Fonts  General
  * Fonts Heading
@@ -17,7 +17,7 @@
  * Active Callback
  */
 define( 'EMULSION_MIN_PHP_VERSION', '5.6' );
-
+define( 'EMULSION_DARK_MODE_SUPPORT', false );
 
 $content_width			 = ! isset( $content_width ) ? 720 : $content_width;
 $emulsion_setting_type	 = 'theme_mod';
@@ -49,7 +49,6 @@ $emulsion_customize_args = array(
 	),
 	"emulsion_header_background_color"		 => array(
 		'section'					 => 'colors',
-		//'default'					 => '#f8f8ff',
 		'default'					 => '#ffffff',
 		'priority'					 => 8,
 		'data_type'					 => $emulsion_setting_type,
@@ -74,13 +73,12 @@ $emulsion_customize_args = array(
 		'unit'						 => '',
 		'label'						 => esc_html__( 'Header Sub Background Color', 'emulsion' ),
 		'description'				 => '',
-		//'active_callback'			 => 'emulsion_header_sub_background_color_active_callback',
 		'sanitize_callback'			 => 'sanitize_hex_color',
 		'validate'					 => 'emulsion_header_sub_background_color_validate',
 		'extend_customize_control'	 => 'WP_Customize_Color_Control',
 		'extend_customize_setting'	 => '',
 	),
-	
+
 	"emulsion_category_colors"					 => array(
 		'section'					 => 'colors',
 		'priority'					 => 9,
@@ -115,7 +113,6 @@ $emulsion_customize_args = array(
 		'active_callback'			 => '',
 		'sanitize_callback'			 => 'sanitize_hex_color',
 		'validate'					 => 'emulsion_sidebar_background_validate',
-		//'extend_customize_control'	 => '',
 		'extend_customize_control'	 => 'WP_Customize_Color_Control',
 		'extend_customize_setting'	 => '',
 	),
@@ -132,7 +129,6 @@ $emulsion_customize_args = array(
 		'active_callback'			 => '',
 		'sanitize_callback'			 => 'sanitize_hex_color',
 		'validate'					 => 'emulsion_primary_menu_background_validate',
-		//'extend_customize_control'	 => '',
 		'extend_customize_control'	 => 'WP_Customize_Color_Control',
 		'extend_customize_setting'	 => '',
 	),
@@ -145,11 +141,10 @@ $emulsion_customize_args = array(
 		'transport'					 => 'postMessage',
 		'unit'						 => '',
 		'label'						 => esc_html__( 'Relate Posts background Color', 'emulsion' ),
-		'description'				 => emulsion_control_description( 'emulsion_relate_posts_bg' ),	
+		'description'				 => emulsion_control_description( 'emulsion_relate_posts_bg' ),
 		'active_callback'			 => '',
 		'sanitize_callback'			 => 'sanitize_hex_color',
 		'validate'					 => 'emulsion_relate_posts_bg_validate',
-		//'extend_customize_control'	 => '',
 		'extend_customize_control'	 => 'WP_Customize_Color_Control',
 		'extend_customize_setting'	 => '',
 	),
@@ -166,9 +161,68 @@ $emulsion_customize_args = array(
 		'active_callback'			 => '',
 		'sanitize_callback'			 => 'sanitize_hex_color',
 		'validate'					 => 'emulsion_comments_bg_validate',
-		//'extend_customize_control'	 => '',
 		'extend_customize_control'	 => 'WP_Customize_Color_Control',
 		'extend_customize_setting'	 => '',
+	),
+	"emulsion_bg_image_text"		 => array(
+		'section'					 => 'background_image',
+		'default'					 => 'current',
+		'priority'					 => 10,
+		'data_type'					 => $emulsion_setting_type,
+		'capability'				 => $emulsion_customize_cap,
+		'transport'					 => 'postMessage',
+		'unit'						 => '',
+		'label'						 => esc_html__( 'Text Color', 'emulsion' ),
+		'description'				 => '',
+		'active_callback'			 => '',
+		'sanitize_callback'			 => 'wp_filter_nohtml_kses',
+		'validate'					 => 'emulsion_bg_image_text_validate',
+		'extend_customize_control'	 => '',
+		'extend_customize_setting'	 => '',
+		'type'						 => 'radio',
+		'choices'					 => array(
+			'current'			 => esc_html__( 'Current Setting Color', 'emulsion' ),
+			'white'	 => esc_html__( 'White', 'emulsion' ),
+		),
+	),
+	"emulsion_bg_image_blend_color"		 => array(
+		'section'					 => 'background_image',
+		'default'					 => '#000000',
+		'priority'					 => 10,
+		'data_type'					 => $emulsion_setting_type,
+		'capability'				 => $emulsion_customize_cap,
+		'transport'					 => 'postMessage',
+		'unit'						 => '',
+		'label'						 => esc_html__( 'Color to blend with image', 'emulsion' ),
+		'description'				 => '',
+		'active_callback'			 => '',
+		'sanitize_callback'			 => 'sanitize_hex_color',
+		'validate'					 => 'emulsion_bg_image_blend_color_validate',
+		'extend_customize_control'	 => 'WP_Customize_Color_Control',
+		'extend_customize_setting'	 => '',
+		
+	),
+	"emulsion_bg_image_blend_color_amount"	 => array(
+		'section'					 => 'background_image',
+		'default'					 => 30,
+		'priority'					 => 11,
+		'data_type'					 => $emulsion_setting_type,
+		'capability'				 => $emulsion_customize_cap,
+		'transport'					 => 'postMessage',
+		'unit'						 => '',
+		'label'						 => esc_html__( 'Blend Color Amount', 'emulsion' ),
+		'description'				 => '',
+		'active_callback'			 => '',
+		'sanitize_callback'			 => 'absint',
+		'validate'					 => 'emulsion_bg_image_blend_color_amount_validate',
+		'extend_customize_control'	 => '',
+		'extend_customize_setting'	 => '',
+		'type'						 => 'range',
+		'input_attrs'				 => array(
+			'min'	 => 1,
+			'max'	 => 100,
+			'step'	 => 1,
+		),
 	),
 	"emulsion_background_css_pattern"			 => array(
 		'section'					 => 'colors',
@@ -179,7 +233,7 @@ $emulsion_customize_args = array(
 		'transport'					 => 'postMessage',
 		'unit'						 => '',
 		'label'						 => esc_html__( 'Background Pattern', 'emulsion' ),
-		'description'				 => esc_html__( 'The background color must be set in advance', 'emulsion' ).'<br />'. 
+		'description'				 => esc_html__( 'The background color must be set in advance', 'emulsion' ).'<br />'.
 										esc_html__( 'This setting does not support preview.Please open a blog and check it.', 'emulsion' ),
 		'validate'					 => 'emulsion_background_css_pattern_validate',
 		'active_callback'			 => '',
@@ -195,6 +249,7 @@ $emulsion_customize_args = array(
 			'hexagonal'		 => esc_html__( 'Hexagon pattern', 'emulsion' ),
 		),
 	),
+	
 	"emulsion_general_link_color"				 => array(
 		'section'					 => 'colors',
 		'priority'					 => 10,
@@ -359,7 +414,7 @@ $emulsion_customize_args = array(
 		'unit'						 => '',
 		'label'						 => esc_html__( 'Base font size', 'emulsion' ),
 		'description'				 => esc_html__( 'heading base font size', 'emulsion' ),
-		'validate'					 => 'emulsion_heading_font_base_validate', 
+		'validate'					 => 'emulsion_heading_font_base_validate',
 		'active_callback'			 => '',
 		'sanitize_callback'			 => 'absint',
 		'extend_customize_control'	 => '',
@@ -548,7 +603,7 @@ $emulsion_customize_args = array(
 		'transport'					 => 'refresh',
 		'unit'						 => '',
 		'label'						 => esc_html__( 'Header Layout', 'emulsion' ),
-		'description'				 => sprintf('<span>%1$s</span><span class="notice emulsion-notice emulsion-control-desc-notice">%2$s</span>', 
+		'description'				 => sprintf('<span>%1$s</span><span class="notice emulsion-notice emulsion-control-desc-notice">%2$s</span>',
 													esc_html__( 'You can select two header types or write your own header html.', 'emulsion' ),
 													esc_html__( 'If you use header media, please select custom.', 'emulsion' )),
 		'validate'					 => 'emulsion_header_layout_validate',
@@ -717,7 +772,6 @@ $emulsion_customize_args = array(
 		'label'						 => esc_html__( 'Main width', 'emulsion' ),
 		'description'				 => '',
 		'validate'					 => 'emulsion_main_width_validate',
-		//'validate_callback'			=> 'emulsion_main_width_limit_value',
 		'active_callback'			 => '',
 		'sanitize_callback'			 => 'absint',
 		'extend_customize_control'	 => '',
@@ -830,7 +884,6 @@ $emulsion_customize_args = array(
 		'choices'					 => array(
 			'grid'		 => esc_html__( 'Grid', 'emulsion' ),
 			'stream'	 => esc_html__( 'Stream', 'emulsion' ),
-			//'post'		 => esc_html__( 'excerpt', 'emulsion' ),
 			'excerpt'		 => esc_html__( 'excerpt', 'emulsion' ),
 			'full_text'	 => esc_html__( 'Full text', 'emulsion' ),
 		),
@@ -1792,7 +1845,7 @@ $emulsion_theme_customize_sections = array(
 		'panel'			 => 'emulsion_theme_settings_layout_panel',
 		'theme_supports' => '',
 		'title'			 => esc_html__( 'Main content area', 'emulsion' ),
-		'description'	 => '', 
+		'description'	 => '',
 	),
 	'emulsion_section_layout_footer'					 => array(
 		'priority'		 => 25,
@@ -1806,7 +1859,7 @@ $emulsion_theme_customize_sections = array(
 		'panel'			 => 'emulsion_theme_settings_layout_panel',
 		'theme_supports' => '',
 		'title'			 => esc_html__( 'Homepage', 'emulsion' ),
-		'description'	 => '', 
+		'description'	 => '',
 	),
 	'emulsion_section_layout_posts_page'				 => array(
 		'priority'		 => 25,
@@ -1834,14 +1887,14 @@ $emulsion_theme_customize_sections = array(
 		'panel'			 => 'emulsion_theme_settings_layout_panel',
 		'theme_supports' => '',
 		'title'			 => esc_html__( 'Archives: Tag', 'emulsion' ),
-		'description'	 => '', 
+		'description'	 => '',
 	),
 	'emulsion_section_layout_author_archives'			 => array(
 		'priority'		 => 25,
 		'panel'			 => 'emulsion_theme_settings_layout_panel',
 		'theme_supports' => '',
 		'title'			 => esc_html__( 'Archives: Author', 'emulsion' ),
-		'description'	 => '', 
+		'description'	 => '',
 	),
 	'emulsion_section_layout_search_results'			 => array(
 		'priority'		 => 25,
@@ -2056,16 +2109,16 @@ function emulsion_content_width_limit_value( $validity, $value ) {
 function emulsion_post_display_method_date_example_value( $type = 'defaul' ){
 
 	$example_date = time() - 259200;
-	
+
 	$date_format	 = get_option( 'date_format' ) . ' ' . get_option( 'time_format' );
-	
+
 	if( $type == 'ago'){
 		/* translators: %s  human_time_diff() */
 		return sprintf( esc_html__( '%s ago', 'emulsion' ), human_time_diff( $example_date, current_time( 'timestamp' ) ) );
 	}
-	
+
 	return date( $date_format, $example_date );
-	
+
 }
 
 
@@ -2073,8 +2126,14 @@ function emulsion_post_display_method_date_example_value( $type = 'defaul' ){
 function emulsion_get_customize_post_id( $type = '' ) {
 
 	$count_posts = wp_count_posts();
+	
+	if( is_int( $count_posts->publish ) ) {
+		$post_count = absint(  $count_posts->publish );
+	} else {
+		$post_count = -1;
+	}
 	$posts_args	 = array(
-		'posts_per_page' => absint( $count_posts ),
+		'posts_per_page' => $post_count,
 		'date_query'	 => array(
 			array(
 				'after' => '2018/12/1'
@@ -2084,28 +2143,41 @@ function emulsion_get_customize_post_id( $type = '' ) {
 	$all_posts	 = get_posts( $posts_args );
 	
 	$result = 0;
-	
-	if ( 'latest-post' == $type ) {
-		$latest_post_id = absint( $all_posts[0]->ID );
+
+	if ( 'latest-post' == $type && isset( $all_posts ) ) {
 		
-		return $latest_post_id;
+		$latest_post_id = $all_posts[0]->ID;
+		
+		if( isset( $latest_post_id ) && is_int( $latest_post_id ) ) {
+			
+			return $latest_post_id;
+		}
+
+		return $result;
 	}
-	
-	if ( 'comments-open' == $type ) {
-		
+
+	if ( 'comments-open' == $type  && isset( $all_posts ) ) {
+
 		foreach ( $all_posts as $post ) {
-			$emulsion_post_id = absint( $post->ID );		
-			if( comments_open( $emulsion_post_id ) ) {		
+			
+			$emulsion_post_id = absint( $post->ID );
+			
+			if( comments_open( $emulsion_post_id ) ) {
+				
 				$result = absint( $emulsion_post_id );
 				break;
 			}
 		}
 		wp_reset_postdata();
-		return $result;
-			
-	}
-	if ( 'gallery' == $type ) {
 		
+		if( isset( $result ) && is_int( $result ) ) {
+			
+			return $result;
+		}
+
+	}
+	if ( 'gallery' == $type  && isset( $all_posts ) ) {
+
 		foreach ( $all_posts as $post ) {
 			//exclude alignleft alignright
 			if ( preg_match( '#wp:gallery {(.+)?[^(left|right)]+}#', $post->post_content ) ) {
@@ -2115,10 +2187,14 @@ function emulsion_get_customize_post_id( $type = '' ) {
 			}
 		}
 		wp_reset_postdata();
-		return $result;	
-	}
-	if ( 'columns' == $type ) {
 		
+		if( isset( $result ) && is_int( $result ) ) {
+			
+			return $result;
+		}
+	}
+	if ( 'columns' == $type  && isset( $all_posts ) ) {
+
 		foreach ( $all_posts as $post ) {
 			if ( strstr( $post->post_content, 'wp:columns' ) ) {
 				$result = absint( $post->ID );
@@ -2126,72 +2202,87 @@ function emulsion_get_customize_post_id( $type = '' ) {
 			}
 		}
 		wp_reset_postdata();
-		return $result;
-	}
-	if ( 'media-text' == $type ) {
 		
+		if( isset( $result ) && is_int( $result ) ) {
+			
+			return $result;
+		}
+	}
+	if ( 'media-text' == $type  && isset( $all_posts ) ) {
+
 		foreach ( $all_posts as $post ) {
 			if ( strstr( $post->post_content, 'wp:media-text' ) ) {
 				$result = absint( $post->ID );
 				break;
 			}
 		}
-		
+
 		wp_reset_postdata();
+		
 		return $result;
 	}
-	if ( 'alignwide' == $type ) {
-		
+	if ( 'alignwide' == $type  && isset( $all_posts ) ) {
+
 		foreach ( $all_posts as $post ) {
+			
 			if ( preg_match( '#{(.+)?("align":"full"|"align":"wide")(.+)?}#', $post->post_content )  ) {
+				
 				$result = absint( $post->ID );
 				break;
 			}
 		}
 		wp_reset_postdata();
-		return $result;
+		
+		if( isset( $result ) && is_int( $result ) ) {
+			
+			return $result;
+		}
 	}
 	if ( 'tag-slug' == $type ) {
 			// not post id. return most used tag slug
 			$args				 = array( 'order' => 'desc', 'orderby' => 'count', 'number' => 1, 'hide_empty' => true );
 			$tags				 = get_tags( $args );
 			if( isset($tags[0]) && ! empty( $tags[0]->slug ) ) {
+				
 				$most_used_tag_slug	 = sanitize_title( $tags[0]->slug );
+				
 				return $most_used_tag_slug;
+				
 			} else {
+				
 				return 0;
-			}		
+			}
 	}
 }
 
 function emulsion_control_description( $control ) {
-	
+
 	$customizer_url = 'javascript:var url = wp.customize.settings.url.home + \'?%1$s\'; wp.customize.previewer.previewUrl.set( url );';
 	$preview_text = esc_html__('Move preview to ', 'emulsion');
-	
+
 	switch ( $control ) {
 		case 'emulsion_relate_posts_bg':
 
 			$link_id	 = emulsion_get_customize_post_id( 'latest-post' );
 			$url		 = sprintf( $customizer_url, 'p=' . $link_id );
 			$link_text	 = esc_html__( 'latest post', 'emulsion' );
-				
-				return sprintf( '%1$s<a href="%2$s">%3$s</a>', $preview_text, $url, $link_text );		
+
+				return sprintf( '%1$s<a href="%2$s">%3$s</a>', $preview_text, $url, $link_text );
 			break;
 		case 'emulsion_category_colors':
-			
+
 			$url		 = sprintf( $customizer_url, 'cat=1' );
 			$link_text	 = esc_html__( 'category archive', 'emulsion' );
-				
+
 				return sprintf( '%1$s<a href="%2$s">%3$s</a>', $preview_text, $url, $link_text );
-			
+
 			break;
 		case 'emulsion_primary_menu_background':
-			
+
 			$header_layout = get_theme_mod( 'emulsion_header_layout');
-	
+
 			if( 'custom' !== $header_layout) {
-				
+
 				$notification_titile = esc_html__( 'This setting is not currently available. Header background color applied', 'emulsion' );
 				$notification_text = esc_html__( 'If you want to specify your own color, Requred header layout settings to custom ', 'emulsion');
 				$link_text	 = esc_html__( 'Header Layout', 'emulsion' );
@@ -2207,22 +2298,26 @@ function emulsion_control_description( $control ) {
 			$link_text				 = esc_html__( 'latest post', 'emulsion' );
 			$allow_comments_post	 = emulsion_get_customize_post_id( 'comments-open' );
 			$allow_comments_post_url = sprintf( $customizer_url, 'p=' . $allow_comments_post );
-		
-			$emulsion_post_id = absint( $link_id );
-		
-			if( 0 < $emulsion_post_id && comments_open( $link_id ) ) {
 
-				return sprintf( '%1$s<a href="%2$s">%3$s</a>', $preview_text, $url, $link_text );
-			} elseif( 0 !== $allow_comments_post ) {
+			$emulsion_post_id = absint( $link_id );
+			
+			if( isset( $emulsion_post_id) && is_int( $emulsion_post_id ) ) {
 				
-				$link_text = esc_html__( 'comments allowed post', 'emulsion' );
-				return sprintf( '%1$s<a href="%2$s">%3$s</a>', $preview_text, $allow_comments_post_url, $link_text );
-			} else {
-				
-				$link_text = esc_html__( 'Can not find comments allowed Post', 'emulsion' );
-				return sprintf( '%1$s %2$s', '', $link_text );
+				if( 0 < $emulsion_post_id && comments_open( $link_id ) ) {
+
+					return sprintf( '%1$s<a href="%2$s">%3$s</a>', $preview_text, $url, $link_text );
+				} elseif( 0 !== $allow_comments_post ) {
+
+					$link_text = esc_html__( 'comments allowed post', 'emulsion' );
+					return sprintf( '%1$s<a href="%2$s">%3$s</a>', $preview_text, $allow_comments_post_url, $link_text );
+				} else {
+
+					$link_text = esc_html__( 'Can not find comments allowed Post', 'emulsion' );
+					return sprintf( '%1$s %2$s', '', $link_text );
+				}
 			}
 
 			break;
 	}
 }
+

@@ -158,6 +158,9 @@ function emulsion_document_style() {
 		.emulsion-document-table pre code{
 			display:block;
 		}
+		.emulsion-document-table tbody tr{
+			border:1px solid #ccc;
+		}
 		.form-table.emulsion-document-table td{
 			vertical-align:top;
 		}
@@ -187,7 +190,46 @@ function emulsion_document_style() {
 		.additional-class{
 			margin-left:4rem;
 		}
-
+		.lvl-1{
+			text-indent:2rem;
+		}
+		.lvl-2{
+			text-indent:4rem;
+		}
+		.lvl-3{
+			text-indent:6rem;
+		}
+		.custom-classes{
+		}
+		.custom-classes h4,
+		.custom-classes h3{
+			margin-top:1.5rem;
+			margin-bottom:.75rem;
+		}
+		.icon{
+			width:18px;
+			height:18px;
+		}
+	svg.icon-cool{
+            --thm_social_icon_color:rgba(52, 152, 219, 1);
+            fill:var(--thm_social_icon_color);
+    }
+    svg.icon-notice{
+            --thm_social_icon_color:rgba(163, 140, 8, 1);
+            fill:var(--thm_social_icon_color);
+    }
+	svg.icon-info{
+            --thm_social_icon_color:rgba(22, 160, 133, 1);
+            fill:var(--thm_social_icon_color);
+    }
+	svg.icon-alert{
+            --thm_social_icon_color:rgba(231, 76, 60, 1);
+            fill:var(--thm_social_icon_color);
+    }
+	svg.icon.icon-dark{
+            --thm_social_icon_color:#000;
+            fill:#000;
+    }
 CSS;
 
 	printf( '<style type="text/css">%1$s</style>',esc_html( $css ) );
@@ -204,6 +246,7 @@ function emulsion_admin_tabs( $current = 'homepage' ) {
 		'embed'			 => esc_html__( 'Embed Media', 'emulsion' ),
 		'advanced'		 => esc_html__( 'Advanced Class', 'emulsion' ),
 		'templatetag'	 => esc_html__( 'Template Tag', 'emulsion' ),
+		'icon'	 => esc_html__( 'Theme Icon', 'emulsion' ),
 	);
 	$links	 = array();
 
@@ -261,6 +304,12 @@ function emulsion_get_customizer_link_element( $place, $name ) {
 				break;
 			case('emulsion_layout_author_archives'):
 				$label = esc_html__( 'Author Page', 'emulsion' );
+				break;
+			case('background_image'):
+				$label = esc_html__( 'Background Image', 'emulsion' );
+				break;
+			case('custom_logo'):
+				$label = esc_html__( 'Custom Logo', 'emulsion' );
 				break;
 		}
 
@@ -325,6 +374,9 @@ function emulsion_settings_page() {
 			case 'advanced':
 				get_template_part( 'documents/' . $tab );	
 				break;
+			case 'icon':
+				get_template_part( 'documents/' . $tab );	
+				break;
 		}
 	}
 	?>
@@ -332,7 +384,9 @@ function emulsion_settings_page() {
 		<footer class="emulsion-document-footer">
 		<p><?php echo esc_html( $theme_name ); ?></p>
 		</footer>
+
 	</div>
 			<?php
 		}
+		
 		?>

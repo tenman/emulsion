@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Theme emulsion
  * fallback template file
@@ -22,6 +21,6 @@ emulsion_get_supports( 'title_in_page_header' ) ? '' : emulsion_archive_title();
 
 emulsion_have_posts();
 
-emulsion_pagination(); 
+emulsion_pagination();
 
 get_footer();

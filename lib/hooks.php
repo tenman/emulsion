@@ -9,9 +9,9 @@ function emulsion_hooks_setup() {
 	add_action( 'wp_head', 'emulsion_meta_elements' );
 	add_action( 'wp_head', 'emulsion_pingback_header' );
 	add_action( 'wp_body_open', 'emulsion_skip_link' );
-	
+
 	$wp_scss_status = get_theme_mod( 'emulsion_wp_scss_status' );
-	
+
 	if ( 'active' !== $wp_scss_status ) {
 		add_action( 'wp_ajax_emulsion_tiny_mce_css_variables', 'emulsion_tiny_mce_css_variables_callback' );
 	}
@@ -20,10 +20,10 @@ function emulsion_hooks_setup() {
 	add_action( 'emulsion_template_pre_index', 'emulsion_customizer_add_supports_excerpt' );
 	add_action( 'init', 'emulsion_plugins' );
 	add_action( 'customize_save_after', 'emulsion_customizer_is_changed' );
-	
+
 	add_filter( 'wp_resource_hints', 'emulsion_resource_hints', 10, 2 );
 	add_filter( 'body_class', 'emulsion_body_class' );
-	add_filter( 'emulsion_inline_style', 'emulsion_styles' );	
+	add_filter( 'emulsion_inline_style', 'emulsion_styles' );
 	add_filter( 'wp_list_categories', 'emulsion_category_link_format', 10, 2 );
 	add_filter( 'get_the_archive_title', 'emulsion_archive_title_filter' );
 	add_filter( 'the_title', 'emulsion_keyword_with_mark_elements_title', 99999 );
@@ -51,8 +51,13 @@ function emulsion_hooks_setup() {
 	add_filter( 'tiny_mce_before_init', 'emulsion_tiny_mce_before_init' );
 	add_filter( 'admin_body_class', 'emulsion_admin_body_class' );
 	add_filter( 'body_class', 'emulsion_brightness_class', 15 );
+	add_filter( 'body_class', 'emulsion_remove_custom_background_class' );
 	add_filter( 'dynamic_sidebar_params', 'emulsion_footer_widget_params' );
 	add_filter( 'post_class', 'emulsion_add_woocommerce_class_to_post' );
+	add_filter( 'emulsion_hover_color', 'emulsion_hover_color_filter' );
+	add_filter( 'emulsion_link_color', 'emulsion_link_color_filter' );
+	add_filter( 'theme_mod_background_image','emulsion_bg_img_display_hide_post_editor' );
+	add_filter('wp_trim_words', 'emulsion_cjk_excerpt');
 }
 
 if ( ! function_exists( 'emulsion_test_for_min_php' ) ) {
@@ -452,6 +457,10 @@ if ( ! function_exists( 'emulsion_get_the_password_form' ) ) {
 	 */
 	function emulsion_get_the_password_form( $post = 0 ) {
 		global $post;
+		
+		if( ! isset( $post ) ) {
+			return;
+		}
 
 		$form_html = '<div class="theme-message aligncenter"><form action="%1$s" class="post-password-form" method="post">
 	<p class="message" id="%7$s">%2$s</p>
@@ -637,6 +646,11 @@ if ( ! function_exists( 'emulsion_admin_body_class' ) ) {
 
 	function emulsion_admin_body_class( $classes ) {
 		global $post;
+		
+		if( ! isset( $post ) ) {
+			return;
+		}
+		
 		if ( isset( $post ) && use_block_editor_for_post( $post ) ) {
 
 			$text_color							 = emulsion_contrast_color();
@@ -692,6 +706,10 @@ if ( ! function_exists( 'emulsion_brightness_class' ) ) {
 
 	function emulsion_brightness_class( $classes ) {
 		global $post;
+		
+		if( ! isset( $post ) ) {
+			return;
+		}
 
 		if ( ! is_singular() ) {
 			$text_color = emulsion_contrast_color();
@@ -798,8 +816,6 @@ if ( ! function_exists( 'emulsion_styles' ) ) {
 		$style	 .= emulsion_heading_font_css( '' );
 		$style	 .= emulsion_widget_meta_font_css( '' );
 
-		//if ( 'active' !== get_theme_mod( 'emulsion_wp_scss_status' ) || is_customize_preview() ) {
-		
 		if ( is_user_logged_in() || is_admin() || is_customize_preview() ) {
 
 			$style .= emulsion_dinamic_css( '' );
@@ -807,7 +823,7 @@ if ( ! function_exists( 'emulsion_styles' ) ) {
 		$wp_scss_status = get_theme_mod( 'emulsion_wp_scss_status' );
 
 		if ( 'active' !== $wp_scss_status && ! is_user_logged_in() ) {
-			
+
 			$style .= emulsion__css_variables('');
 		}
 		$style = emulsion_sanitize_css( $style );
@@ -835,9 +851,9 @@ if ( ! function_exists( 'emulsion_inline_style_filter' ) ) {
 		div.header-layer .site-title .site-title-text,
 		div.header-layer .header-text a{ color:#' . $header_text_color . ';}';
 		}
-		
+
 		$style = emulsion_sanitize_css( $style );
-		
+
 		return $style;
 	}
 
@@ -922,7 +938,7 @@ if ( ! function_exists( 'emulsion_smart_category_highlight' ) ) {
 		$count_terms = count( $terms );
 		$radian		 = 270 / $count_terms;
 		$body_id	 =  '#'. emulsion_theme_info( 'Slug' , false );
-	
+
 		foreach ( $terms as $key => $term ) {
 
 			$v			 = $key + 1;
@@ -970,7 +986,7 @@ if ( ! function_exists( 'emulsion_smart_category_highlight' ) ) {
 					$result	 .= '.has-category-colors.category.archive.category-' . $term->term_id . " .header-layer .taxonomy-description{\n color: hsla(" . $hover_hue . ',' . $saturation . ',' . $description_lightness . ',' . $alpha . ");\n }\n";
 
 					/* header simple wp_nav_menu() sub-menu, children*/
-					
+
 					$result	 .= '.has-category-colors.category.archive.category-' . $term->term_id . " .template-part-header .wp-nav-menu .sub-menu{\n background: hsla(" . $hue . ',' . $saturation . ',' . $lightness . ',' . $alpha . ");\n }\n";
 					$result	 .= '.has-category-colors.category.archive.category-' . $term->term_id . " .template-part-header .wp-nav-menu .children{\n background: hsla(" . $hue . ',' . $saturation . ',' . $lightness . ',' . $alpha . ");\n }\n";
 
@@ -978,8 +994,8 @@ if ( ! function_exists( 'emulsion_smart_category_highlight' ) ) {
 					$result	 .= $body_id . ' .entry-meta .cat-item-' . $term->term_id . " {\n background:hsla(" . $hue . ',' . $saturation . ',' . $lightness . ',' . $alpha . ');} ';
 					$result	 .= $body_id . ' .entry-meta .cat-item-' . $term->term_id . "{\n transition:all .5s ease-in-out;\n} \n";
 					$result	 .= $body_id . ' .entry-meta .cat-item-' . $term->term_id . ', .cat-item-' . $term->term_id . " a{\n color:#fff;} \n";
-					$result	 .= $body_id . ' .entry-meta .cat-item-' . $term->term_id . " a{\n color:#eee;\n} \n";					
-					/* hover */ 
+					$result	 .= $body_id . ' .entry-meta .cat-item-' . $term->term_id . " a{\n color:#eee;\n} \n";
+					/* hover */
 					$result	 .= $body_id . ' .cat-item-' . $term->term_id . ":hover {\n background:hsla(" . $hue . ',' . $saturation . ',' . $lightness . ',' . $alpha . ');} ';
 					$result	 .= $body_id . ' .cat-item-' . $term->term_id . "{\n transition:all .5s ease-in-out;\n} \n";
 					$result	 .= $body_id . ' .cat-item-' . $term->term_id . ':hover, .cat-item-' . $term->term_id . ":hover a{\n color:#fff;} \n";
@@ -1006,7 +1022,7 @@ if ( ! function_exists( 'emulsion_smart_category_highlight' ) ) {
 				}
 			}
 		}
-		
+
 		$result	 = emulsion_sanitize_css( $result );
 		$result	 = emulsion_remove_spaces_from_css( $result );
 
@@ -1018,18 +1034,18 @@ if ( ! function_exists( 'emulsion_smart_category_highlight' ) ) {
 if ( ! function_exists( 'emulsion_add_common_font_css' ) ) {
 
 	function emulsion_add_common_font_css( $css ) {
-		
+
 		$transient_name = __FUNCTION__;
-				
+
 		if ( is_customize_preview() ) {
 
-			delete_transient( $transient_name );			
+			delete_transient( $transient_name );
 		}
 	/*	if( 'active' == get_theme_mod( 'emulsion_wp_scss_status' ) ){
 
 			return;
 		}*/
-		
+
 		$transient_val = get_transient( $transient_name );
 
 		if ( false !== ( $transient_val ) && ! is_user_logged_in() ) {
@@ -1071,21 +1087,21 @@ CSS;
 if ( ! function_exists( 'emulsion_heading_font_css' ) ) {
 
 	function emulsion_heading_font_css( $css ) {
-		
+
 		$transient_name = __FUNCTION__;
-				
+
 		if ( is_customize_preview() ) {
 
-			delete_transient( $transient_name );			
+			delete_transient( $transient_name );
 		}
-	
+
 		$transient_val = get_transient( $transient_name );
 
 		if ( false !== ( $transient_val ) && ! is_user_logged_in() ) {
 
 			return $css. $transient_val;
 		}
-		
+
 
 		$inline_style			 = emulsion_sanitize_css( $css );
 		$font_google_family_url	 = get_theme_mod( 'emulsion_heading_google_font_url', emulsion_get_var( 'emulsion_heading_google_font_url' ) );
@@ -1193,14 +1209,14 @@ if ( ! function_exists( 'emulsion_heading_font_css' ) ) {
 			body.font-heading-$fallback_font_family .h6,
 			body.font-heading-$fallback_font_family h6{
 				font-size:{$h6};
-			}		
+			}
 		}
 CSS;
-		
-		
+
+
 		$inline_style	 = emulsion_sanitize_css( $inline_style );
 		$inline_style	 = emulsion_remove_spaces_from_css( $inline_style );
-		
+
 		set_transient( $transient_name, $inline_style, 60 * 60 * 24 );
 		return $css . $inline_style;
 	}
@@ -1209,14 +1225,14 @@ CSS;
 if ( ! function_exists( 'emulsion_widget_meta_font_css' ) ) {
 
 	function emulsion_widget_meta_font_css( $css ) {
-		
+
 		$transient_name = __FUNCTION__;
-				
+
 		if ( is_customize_preview() ) {
 
-			delete_transient( $transient_name );			
+			delete_transient( $transient_name );
 		}
-		
+
 		$transient_val = get_transient( $transient_name );
 
 		if ( false !== ( $transient_val ) && ! is_user_logged_in() ) {

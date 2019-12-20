@@ -10,7 +10,6 @@ wp-block-media-text.archive{
         .page-title-block{
             overflow:hidden;
             .archive-title{
-                //@extend %block_wide;
                 @extend %block_main_wide;
                 margin-left:auto;
                 margin-right:auto;
@@ -34,6 +33,11 @@ wp-block-media-text.archive{
     main{
         padding-left:var( --thm_content_gap);
         padding-right:var( --thm_content_gap);
+
+        .theme-message{
+            max-width:100%;
+            border:none;
+        }
     }
 }
 /**
@@ -41,7 +45,6 @@ wp-block-media-text.archive{
  * for customizer
  * ========================================================================== */
 .grid{
-    // @extend %block_wide;
     @extend %block_main_wide;
     @extend %grid;
     margin-left:auto;
@@ -85,7 +88,6 @@ wp-block-media-text.archive{
  * for customizer
  * ========================================================================== */
 .stream{
-    //@extend %block_wide;
     @extend %block_main_wide;
     @extend %grid;
     overflow:visible;
@@ -182,22 +184,18 @@ wp-block-media-text.archive{
                         .emulsion-full,
                         .alignfull{
                             position:relative;
-                            //  left:calc( var(--thm_content_width) - var(--thm_main_width) / 2);
                             left:0;
                             width:calc( var(--thm_main_width) - 24px);
                             max-width:none;
                             margin-left:auto;
                             margin-right:auto;
                         }
-
-                        .wp-block-image{
-                            // display:block;
-                        }
                         .is-style-circle-mask{
                             overflow:hidden;
                         }
                         div.wp-block-image{
                             display:inline;
+                            width: -moz-fit-content;
                             width:fit-content;
                             overflow:hidden;
                             &.badge{
@@ -216,7 +214,6 @@ wp-block-media-text.archive{
                         figure.wp-block-image{
                             &.alignfull{
                                 position:relative;
-                                // left:calc( var(--thm_content_width) - var(--thm_main_width) / 2);
                                 left:0;
                                 width:calc( var(--thm_main_width) - 24px);
                                 max-width:none;
@@ -286,10 +283,19 @@ wp-block-media-text.archive{
  * Pagination
  * ========================================================================== */
 div.archive-year-links{
-    @extend %block;
+    width: -moz-fit-content;
+    width:fit-content;
+    margin: 1.5em auto 0.75em;
     & > div{
-        margin-left:auto;
-        margin-right:auto;
+        margin-left:3px;
+        margin-right:3px;
+        a{
+            line-height:3rem;
+        }
+        &.current,
+        &.dots{
+            line-height:3rem;
+        }        
     }
 }
 div.emulsion-monthly-archive-prev-next-navigation{
@@ -309,7 +315,6 @@ div.emulsion-monthly-archive-prev-next-navigation{
 }
 .attachment-navigation{
     & > div{
-        // @extend %block_wide;
         @extend %block_main_wide;
     }
     .nav-links{
@@ -326,7 +331,6 @@ div.emulsion-monthly-archive-prev-next-navigation{
 }
 .emulsion-no-sidebar{
     .post-navigation{
-        //   @extend %block_wide;
         @extend %block_main_wide;
         margin-left:auto;
         margin-right:auto;
@@ -344,7 +348,6 @@ div.emulsion-monthly-archive-prev-next-navigation{
     }
 }
 .nav-links{
-    //  @extend %block_wide;
     @extend %block_main_wide;
     display:flex;
     margin:1.5em auto .75em;
@@ -354,7 +357,6 @@ div.emulsion-monthly-archive-prev-next-navigation{
 }
 main .nav-links > div{
     text-align:center;
-    // margin:var( --thm_box_gap, 3px );
     margin:3px;
     padding:.685rem;
     flex-basis: auto;
@@ -397,7 +399,6 @@ main .nav-links > div > a{
 .pagination .nav-links a{
     flex:1 1 5%;
     text-align:center;
-    //margin:var( --thm_box_gap, 3px );
     margin:3px;
     padding:.685rem;
     width: -moz-fit-content;
@@ -506,7 +507,6 @@ body.page{
     .page-wrapper{
         order:1;
         flex:1 1 auto;
-        //flex-basis:var( --thm_main_width-with-sidebar );
         min-width:var( --thm_content_width );
         //ブレークポイント調整テスト
         flex-basis:var(--thm_content_width);
@@ -607,13 +607,14 @@ body.page{
                     margin-top:var(--thm_box_gap);
                     margin-bottom:var(--thm_box_gap);
                 }
+
                 figcaption{
                     position: absolute;
                     bottom: 1rem;
                     right: 1rem;
                     width: calc(100% - var(--thm_content_gap));
                     text-align: right;
-                    color: #fff;
+                    color: var(--thm_white_color);
                     background: transparent;
                     text-shadow: #000 1px 0 10px;
                     overflow: hidden;
@@ -627,9 +628,8 @@ body.page{
             }
             div.wp-block-image{
                 figure{
-                    margin:0;
-                    //margin-block-start:0;
-                    // margin-block-end:0;
+                    margin-top:0;
+                    margin-bottom:0;
                 }
                 figcaption{
                     position: absolute;
@@ -637,7 +637,7 @@ body.page{
                     right: 1rem;
                     width: calc(100% - var(--thm_content_gap));
                     text-align: right;
-                    color: #fff;
+                    color: var(--thm_white_color);
                     background: transparent;
                     text-shadow: #000 1px 0 10px;
                     overflow: hidden;
@@ -770,7 +770,7 @@ body.page{
                     position:absolute;
                     bottom:3rem;
                     left:1rem;
-                    color:#ffffff;
+                    color:var(--thm_white_color);
                     background-color:rgba(0,0,0,.5);
                 }
 

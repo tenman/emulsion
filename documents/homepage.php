@@ -21,16 +21,19 @@
 	</tr>
 </table>
 
-<h3><?php esc_html_e( 'Theme-specific features', 'emulsion' ); ?></h3>
-<h4><?php esc_html_e( 'Social menu', 'emulsion' ); ?></h4>
+<h2><?php esc_html_e( 'Theme-specific features', 'emulsion' ); ?></h2>
+<h3><?php esc_html_e( 'Social menu', 'emulsion' ); ?></h3>
 <p><?php esc_html_e( 'Social menu supports phone links and email links', 'emulsion' ); ?></p>
 <p><?php esc_html_e( 'These features are closely related to your privacy protection. Please use it after careful consideration', 'emulsion' ); ?></p>
 <p><?php esc_html_e( 'The telephone number is displayed on the PC browser, but the link does not work. The link works only when access from a mobile browser is detected.', 'emulsion' ); ?></p>
 
-<h4><?php esc_html_e( 'Auto Contrast', 'emulsion' ); ?></h4>
+<h3><?php esc_html_e( 'Auto Contrast', 'emulsion' ); ?></h3>
 <p><?php esc_html_e( 'This theme will automatically set the text color suitable for the background color setting you made', 'emulsion' ); ?></p>
 <p><?php esc_html_e( 'For example, if a shortcode or plug-in has a background color, try to keep it as readable as possible, but it is not perfect', 'emulsion' ); ?></p>
 <p><?php esc_html_e( 'If you have any problems, please contact the above support', 'emulsion' ); ?></p>
+
+<h3><?php esc_html_e( 'Dark Mode', 'emulsion' ); ?></h3>
+<p><?php esc_html_e('It is not enabled by default, but can be enabled by changing the EMULSION_DARK_MODE_SUPPORT constant in lib / config.php to true.', 'emulsion'); ?></p>
 
 
 

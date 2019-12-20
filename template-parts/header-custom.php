@@ -50,7 +50,7 @@ if( is_single() ) {
 	);
 	wp_nav_menu( $defaults );
 	?>
-	<div class="menu-placeholder"><?php if( emulsion_get_supports( 'toc' ) ) { print '<div class="toc"></div>'; }?></div>
+	<div class="menu-placeholder"><?php do_action('emulsion_header_menu_placeholder'); if( emulsion_get_supports( 'toc' ) ) { print '<div class="toc"></div>'; }?></div>
 </div>
 <?php }   ?>
 

@@ -330,7 +330,7 @@ if ( ! function_exists( 'emulsion_post_content' ) ) {
 	 */
 
 	function emulsion_post_content() {
-		
+
 		$use_excerpt = emulsion_get_supports( 'excerpt' );
 
 		$supports_stream		 = emulsion_get_supports( 'stream' );
@@ -348,7 +348,7 @@ if ( ! function_exists( 'emulsion_post_content' ) ) {
 		// Create excerpt from entry content
 		$post_text = strip_shortcodes( $get_post->post_content );
 		$has_more	 = stristr( $post_text, '<!--more-->' );
-		
+
 		if( empty( $post_id ) && ! empty( $post_text ) ) {
 			//case bbpress forums, woocommerce product-category
 			echo wp_kses_post( $get_post->post_content );
@@ -508,7 +508,7 @@ if ( ! function_exists( 'emulsion_post_content' ) ) {
 								// check lost element
 								$emulsion_place = basename(__FILE__). ' line:'. __LINE__. ' '.  __FUNCTION__ .'()';
 								true === WP_DEBUG ? emulsion_elements_assert_equal( $excerpt_from_content, wp_kses_post( $excerpt_from_content ), $emulsion_place ) : '';
-
+								
 								echo wp_kses_post( $excerpt_from_content );
 							} else {
 								/**
@@ -566,7 +566,7 @@ if ( ! function_exists( 'emulsion_post_excerpt_more' ) ) {
 		$post_id		 = get_the_ID();
 		$permalink		 = get_permalink( $post_id );
 		$article		 = get_post( $post_id );
-		
+
 		if ( $article ) {
 			if ( preg_match( '$<!--more-->$', $article->post_content ) && 'excerpt' == $grid ) {
 				printf( '<span><a href="%1$s#top" class="skin-button">%2$s<span class="screen-reader-text read-more-context">%3$s</span></a></span>',
@@ -1458,6 +1458,15 @@ if ( ! function_exists( 'emulsion_the_header_layer_class' ) ) {
 		} else {
 			$add_class .= ' cta-layer-deactive';
 		}
+		
+		/**
+		 * Logo
+		 */
+		if ( has_custom_logo() ) {
+			
+			$add_class .= ' has-custom-logo';
+		}
+		
 
 		$header_background_color		 = emulsion_get_css_variables_values( 'header_background_color' );
 		$default_header_background_color = emulsion_get_var( 'emulsion_header_background_color', 'default' );

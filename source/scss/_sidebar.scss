@@ -78,8 +78,8 @@ body{
     height:.5em;
 }
 .textwidget .emulsion-table-wrapper::-webkit-scrollbar-thumb{
-    background-color: #333;
-    outline: 1px solid #333;
+    background-color: var(--thm_black_color);
+    outline: 1px solid var(--thm_black_color);
 }
 .safari .widgettext .emulsion-table-wrapper{
     display:block;
@@ -227,8 +227,8 @@ body{
         content: attr( data-title );
         max-width:100%;
         display:inline-block;
-        background:#fff;
-        color:#333;
+        background:var(--thm_white_color);
+        color:var(--thm_black_color);
         position:absolute;
         top:3rem;
         left:6em;
@@ -278,7 +278,7 @@ body{
                 }
             }
         }
-    }  
+    }
     .current-cat{
         list-style-type:disc;
     }
@@ -493,7 +493,6 @@ body{
             padding-left:0;
             padding-right:0;
             .footer-widget-area-lists{
-                //@extend %block_wide;
                 @extend %block_main_wide;
                 padding-left:0;
                 padding-right:0;
@@ -507,7 +506,6 @@ body{
                 & > li{
                     // Customizer relate cols
                     flex:1 1 calc( var( --thm_footer_widget_width ) * 1% );
-                    //padding:0;
                     padding-left:var(--thm_content_gap);
                     padding-right:var(--thm_content_gap);
                     margin-left:auto;
@@ -537,8 +535,8 @@ body{
                             height:100px;
                         }
                         &::-webkit-scrollbar-thumb{
-                            background-color: #333;
-                            outline: 1px solid #333;
+                            background-color: var(--thm_black_color);
+                            outline: 1px solid var(--thm_black_color);
                         }
                     }
                     & > ul{
@@ -552,8 +550,8 @@ body{
                             height:100px;
                         }
                         &::-webkit-scrollbar-thumb{
-                            background-color: #333;
-                            outline: 1px solid #333;
+                            background-color: var(--thm_black_color);
+                            outline: 1px solid var(--thm_black_color);
                         }
                     }
                     ul{
@@ -724,10 +722,10 @@ body{
         .cart_list{
             li{
                 a.remove{
-                    line-height: calc(var(--thm_common_font_size) * var( --thm_content_line_height, 1.5 ));                   
-                }               
+                    line-height: calc(var(--thm_common_font_size) * var( --thm_content_line_height, 1.5 ));
+                }
             }
-        }      
+        }
     }
-    
+
 }
