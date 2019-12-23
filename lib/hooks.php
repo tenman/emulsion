@@ -1,7 +1,7 @@
 <?php
 add_action( 'after_switch_theme', 'emulsion_test_for_min_php' );
 add_action( 'after_setup_theme', 'emulsion_hooks_setup' );
-add_action( 'widgets_init', 'emulsion_unregister_default_widgets', 11);
+add_action( 'widgets_init', 'emulsion_unregister_default_widgets', 11 );
 
 function emulsion_hooks_setup() {
 
@@ -56,8 +56,8 @@ function emulsion_hooks_setup() {
 	add_filter( 'post_class', 'emulsion_add_woocommerce_class_to_post' );
 	add_filter( 'emulsion_hover_color', 'emulsion_hover_color_filter' );
 	add_filter( 'emulsion_link_color', 'emulsion_link_color_filter' );
-	add_filter( 'theme_mod_background_image','emulsion_bg_img_display_hide_post_editor' );
-	add_filter('wp_trim_words', 'emulsion_cjk_excerpt');
+	add_filter( 'theme_mod_background_image', 'emulsion_bg_img_display_hide_post_editor' );
+	add_filter( 'wp_trim_words', 'emulsion_cjk_excerpt' );
 }
 
 if ( ! function_exists( 'emulsion_test_for_min_php' ) ) {
@@ -128,7 +128,7 @@ if ( ! function_exists( 'emulsion_tiny_mce_css_variables_callback' ) ) {
 	function emulsion_tiny_mce_css_variables_callback() {
 		global $post;
 
-		if ( isset( $post ) && function_exists('use_block_editor_for_post') && use_block_editor_for_post( $post ) ) {
+		if ( isset( $post ) && function_exists( 'use_block_editor_for_post' ) && use_block_editor_for_post( $post ) ) {
 			return;
 		}
 
@@ -260,7 +260,6 @@ function emulsion_archive_title_filter( $title ) {
 	}
 	return $title;
 }
-
 
 if ( ! function_exists( 'emulsion_entry_content_html_cleaner' ) ) {
 
@@ -455,11 +454,11 @@ if ( ! function_exists( 'emulsion_get_the_password_form' ) ) {
 	 * @param type $post
 	 * @return type
 	 */
-	function emulsion_get_the_password_form( $post = 0 ) {
+	function emulsion_get_the_password_form( $output ) {
 		global $post;
-		
-		if( ! isset( $post ) ) {
-			return;
+
+		if ( ! isset( $post ) ) {
+			return $output;
 		}
 
 		$form_html = '<div class="theme-message aligncenter"><form action="%1$s" class="post-password-form" method="post">
@@ -646,11 +645,11 @@ if ( ! function_exists( 'emulsion_admin_body_class' ) ) {
 
 	function emulsion_admin_body_class( $classes ) {
 		global $post;
-		
-		if( ! isset( $post ) ) {
-			return;
+
+		if ( ! isset( $post ) ) {
+			return $classes;
 		}
-		
+
 		if ( isset( $post ) && use_block_editor_for_post( $post ) ) {
 
 			$text_color							 = emulsion_contrast_color();
@@ -706,9 +705,9 @@ if ( ! function_exists( 'emulsion_brightness_class' ) ) {
 
 	function emulsion_brightness_class( $classes ) {
 		global $post;
-		
-		if( ! isset( $post ) ) {
-			return;
+
+		if ( ! isset( $post ) ) {
+			return $classes;
 		}
 
 		if ( ! is_singular() ) {
@@ -824,7 +823,7 @@ if ( ! function_exists( 'emulsion_styles' ) ) {
 
 		if ( 'active' !== $wp_scss_status && ! is_user_logged_in() ) {
 
-			$style .= emulsion__css_variables('');
+			$style .= emulsion__css_variables( '' );
 		}
 		$style = emulsion_sanitize_css( $style );
 		return $style;
@@ -937,7 +936,7 @@ if ( ! function_exists( 'emulsion_smart_category_highlight' ) ) {
 
 		$count_terms = count( $terms );
 		$radian		 = 270 / $count_terms;
-		$body_id	 =  '#'. emulsion_theme_info( 'Slug' , false );
+		$body_id	 = '#' . emulsion_theme_info( 'Slug', false );
 
 		foreach ( $terms as $key => $term ) {
 
@@ -985,7 +984,7 @@ if ( ! function_exists( 'emulsion_smart_category_highlight' ) ) {
 					$result	 .= '.has-category-colors.category.archive.category-' . $term->term_id . " .header-layer a:hover{\n color: hsla(" . $hover_hue . ',' . $saturation . ',' . $link_lightness . ',' . $alpha . "); \n}\n";
 					$result	 .= '.has-category-colors.category.archive.category-' . $term->term_id . " .header-layer .taxonomy-description{\n color: hsla(" . $hover_hue . ',' . $saturation . ',' . $description_lightness . ',' . $alpha . ");\n }\n";
 
-					/* header simple wp_nav_menu() sub-menu, children*/
+					/* header simple wp_nav_menu() sub-menu, children */
 
 					$result	 .= '.has-category-colors.category.archive.category-' . $term->term_id . " .template-part-header .wp-nav-menu .sub-menu{\n background: hsla(" . $hue . ',' . $saturation . ',' . $lightness . ',' . $alpha . ");\n }\n";
 					$result	 .= '.has-category-colors.category.archive.category-' . $term->term_id . " .template-part-header .wp-nav-menu .children{\n background: hsla(" . $hue . ',' . $saturation . ',' . $lightness . ',' . $alpha . ");\n }\n";
@@ -1041,16 +1040,16 @@ if ( ! function_exists( 'emulsion_add_common_font_css' ) ) {
 
 			delete_transient( $transient_name );
 		}
-	/*	if( 'active' == get_theme_mod( 'emulsion_wp_scss_status' ) ){
+		/* 	if( 'active' == get_theme_mod( 'emulsion_wp_scss_status' ) ){
 
-			return;
-		}*/
+		  return;
+		  } */
 
 		$transient_val = get_transient( $transient_name );
 
 		if ( false !== ( $transient_val ) && ! is_user_logged_in() ) {
 
-			return $css. $transient_val;
+			return $css . $transient_val;
 		}
 
 		$inline_style			 = emulsion_sanitize_css( $css );
@@ -1099,7 +1098,7 @@ if ( ! function_exists( 'emulsion_heading_font_css' ) ) {
 
 		if ( false !== ( $transient_val ) && ! is_user_logged_in() ) {
 
-			return $css. $transient_val;
+			return $css . $transient_val;
 		}
 
 
@@ -1109,17 +1108,17 @@ if ( ! function_exists( 'emulsion_heading_font_css' ) ) {
 		$font_scale				 = get_theme_mod( 'emulsion_heading_font_scale', emulsion_get_var( 'emulsion_heading_font_scale' ) );
 		$heading_font_base		 = get_theme_mod( 'emulsion_heading_font_base', emulsion_get_var( 'emulsion_heading_font_base' ) );
 		if ( 'xx' == $font_scale ) {
-			$h6 = $heading_font_base * 0.6875 . 'px';
-			$h5 = $heading_font_base * 0.8125 . 'px';
-			$h4 = $heading_font_base * 1 . 'px';
+			$h6	 = $heading_font_base * 0.6875 . 'px';
+			$h5	 = $heading_font_base * 0.8125 . 'px';
+			$h4	 = $heading_font_base * 1 . 'px';
 			$h3	 = $heading_font_base * 1.17 . 'px';  // H3
 			$h2	 = $heading_font_base * 1.4 . 'px';   // H2
 			$h1	 = $heading_font_base * 2 . 'px';   // H1
 		}
 		if ( 'xxx' == $font_scale ) {
-			$h6 = $heading_font_base * 0.6875 . 'px';
-			$h5 = $heading_font_base * 0.8125 . 'px';
-			$h4 = $heading_font_base * 1 . 'px';
+			$h6	 = $heading_font_base * 0.6875 . 'px';
+			$h5	 = $heading_font_base * 0.8125 . 'px';
+			$h4	 = $heading_font_base * 1 . 'px';
 			$h3	 = $heading_font_base * 1.5 . 'px';  // H3
 			$h2	 = $heading_font_base * 2 . 'px';   // H2
 			$h1	 = $heading_font_base * 3 . 'px';   // H1
@@ -1137,7 +1136,7 @@ if ( ! function_exists( 'emulsion_heading_font_css' ) ) {
 
 
 
-		$inline_style	 .= <<<CSS
+		$inline_style .= <<<CSS
 		body.font-heading-$fallback_font_family .h6,
 		body.font-heading-$fallback_font_family .h5,
 		body.font-heading-$fallback_font_family .h4,
@@ -1237,7 +1236,7 @@ if ( ! function_exists( 'emulsion_widget_meta_font_css' ) ) {
 
 		if ( false !== ( $transient_val ) && ! is_user_logged_in() ) {
 
-			return $css. $transient_val;
+			return $css . $transient_val;
 		}
 
 		$inline_style = emulsion_sanitize_css( $css );
@@ -1385,7 +1384,7 @@ CSS;
 		$inline_style	 = emulsion_sanitize_css( $inline_style );
 		$inline_style	 = emulsion_remove_spaces_from_css( $inline_style );
 		set_transient( $transient_name, $inline_style, 60 * 60 * 24 );
-		return $css. $inline_style;
+		return $css . $inline_style;
 	}
 
 }
@@ -1400,7 +1399,7 @@ if ( ! function_exists( 'emulsion_do_snippet' ) ) {
 		}
 
 		empty( $css ) ? '' : add_filter( 'emulsion_inline_style', function( $current_css ) use( $css ) {
-							$css	 = emulsion_sanitize_css( $css );
+							$css = emulsion_sanitize_css( $css );
 							return $current_css . ' ' . $css;
 						} );
 
@@ -1423,7 +1422,7 @@ if ( ! function_exists( 'emulsion_do_snippet' ) ) {
 							}
 						} ) : '';
 		$type == 'action' ? add_action( $hook, function() use( $html ) {
-						/* $html output action hook results */
+							/* $html output action hook results */
 							echo $html;
 						} ) : '';
 	}
@@ -1432,23 +1431,27 @@ if ( ! function_exists( 'emulsion_do_snippet' ) ) {
 if ( ! function_exists( 'emulsion_footer_widget_params' ) ) {
 
 	function emulsion_footer_widget_params( $params ) {
+		
+		if ( isset( $params[0]['id'] ) ) {
+			
+			$sidebar_id = $params[0]['id'];
 
-		$sidebar_id = $params[0]['id'];
+			if ( $sidebar_id == 'sidebar-2' ) {
+				static $count = 1;
 
-		if ( $sidebar_id == 'sidebar-2' ) {
-			static $count = 1;
+				$params[0]['before_widget'] = str_replace( 'class="', 'class="col-' . absint( $count ) . ' ', $params[0]['before_widget'] );
+				$count ++;
+			}
+			if ( $sidebar_id == 'sidebar-4' ) {
+				static $count_page = 1;
 
-			$params[0]['before_widget'] = str_replace( 'class="', 'class="col-' . absint( $count ) . ' ', $params[0]['before_widget'] );
-			$count ++;
+				$params[0]['before_widget'] = str_replace( 'class="', 'class="col-' . absint( $count_page ) . ' ', $params[0]['before_widget'] );
+				$count_page ++;
+			}
+			return $params;
 		}
-		if ( $sidebar_id == 'sidebar-4' ) {
-			static $count_page = 1;
-
-			$params[0]['before_widget'] = str_replace( 'class="', 'class="col-' . absint( $count_page ) . ' ', $params[0]['before_widget'] );
-			$count_page ++;
-		}
-
-		return $params;
+		
+		return $params;		
 	}
 
 }

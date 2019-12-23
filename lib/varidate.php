@@ -7,132 +7,147 @@
  */
 const EMULSION_FORM_ALLOWED_ELEMENTS = array(
 	'div'	 => array(
-		'class'	 => array(),
-		'id'	 => array(),
+		'class'	 => true,
+		'id'	 => true,
 	),
 	'form'	 => array(
-		'action' => array(),
-		'class'	 => array(),
-		'method' => array(),
-		'role'	 => array(),
+		'action' => true,
+		'class'	 => true,
+		'method' => true,
+		'role'	 => true,
 	),
 	'p'		 => array(
-		'class'	 => array(),
-		'id'	 => array(),
+		'class'	 => true,
+		'id'	 => true,
 	),
-	'wbr'	 => array(),
+	'wbr'	 => true,
 	'label'	 => array(
-		'for'	 => array(),
-		'class'	 => array(),
+		'for'	 => true,
+		'class'	 => true,
 	),
 	'input'	 => array(
-		'name'				 => array(),
-		'id'				 => array(),
-		'class'              => array(),
-		'type'				 => array(),
-		'size'				 => array(),
-		'placeholder'		 => array(),
-		'required'			 => array(),
-		'value'				 => array(),
-		'aria-required'		 => array(),
-		'aria-describedby'	 => array(),
-		'aria-label'		 => array(),
+		'name'				 => true,
+		'id'				 => true,
+		'class'				 => true,
+		'type'				 => true,
+		'size'				 => true,
+		'placeholder'		 => true,
+		'required'			 => true,
+		'value'				 => true,
+		'aria-required'		 => true,
+		'aria-describedby'	 => true,
+		'aria-label'		 => true,
 	),
 	'button' => array(
-		'type'	 => array(),
-		'class'	 => array(),
+		'type'	 => true,
+		'class'	 => true,
 	)
 );
+
 /**
  * Target inline svg
  */
 const EMULSION_ICON_SVG_SYMBOLS_ALLOWED_ELEMENTS = array(
-			'svg'	 => array( 
-				'class' => array(), 
-				'aria-labelledby' => array(), 
-				'role' => array(), 
-				'aria-hidden' => array(), 
-				'width' => array(), 
-				'height' => array() 
-			),
-			'symbol' => array(
-				'class'		 => array(),
-				'id'		 => array(),
-				'viewBox'	 => array(),
-				'viewbox'	 => array(),
-			),
-			'title'	 => array( 
-				'id' => array(), 
-				'desc' => array(),
-			),
-			'path'	 => array(
-				'd'		 => array(),
-				'class'	 => array(),
-				'fill'	 => array()
-			),
-			'circle' => array(
-				'cx' => array(),
-				'cy' => array(),
-				'r'	 => array(),
-			),
-			'use'	 => array( 
-				'href' => array(), 
-				'xlink:href' => array() 
-			),
-		);
-const EMULSION_EXCERPT_ALLOWED_ELEMENTS	= array( 
-	'p' => array( 
-		'data-rows' => array(), 
-		'class' => array(), 
-		'span' => array() 
-		), 
+	'svg'	 => array(
+		'class'				 => true,
+		'aria-labelledby'	 => true,
+		'role'				 => true,
+		'aria-hidden'		 => true,
+		'width'				 => true,
+		'height'			 => true
+	),
+	'symbol' => array(
+		'class'		 => true,
+		'id'		 => true,
+		'viewBox'	 => true,
+		'viewbox'	 => true,
+	),
+	'title'	 => array(
+		'id'	 => true,
+		'desc'	 => true,
+	),
+	'path'	 => array(
+		'd'		 => true,
+		'class'	 => true,
+		'fill'	 => true
+	),
+	'circle' => array(
+		'cx' => true,
+		'cy' => true,
+		'r'	 => true,
+	),
+	'use'	 => array(
+		'href'		 => true,
+		'xlink:href' => true
+	),
+);
+const EMULSION_EXCERPT_ALLOWED_ELEMENTS = array(
+	'p'	 => array(
+		'data-rows'	 => true,
+		'class'		 => true,
+		'span'		 => true
+	),
 	'br' => array(),
-	);
+);
 
 const EMULSION_POST_META_DATA_ALLOWED_ELEMENTS = array(
 	/* posted on */
-			'a'		 => array(
-				'href'	 => array(),
-				'class'	 => array(),
-				'rel'	 => array(),
-				'data-title' => array(),
-				'title' => array(),
+	'a'		 => array(
+		'href'		 => true,
+		'class'		 => true,
+		'rel'		 => true,
+		'data-title' => true,
+		'title'		 => true,
+	),
+	'time'	 => array(
+		'datetime'	 => true,
+		'class'		 => true,
+	),
+	'span'	 => array(
+		'class' => true,
+	),
+	'div'	 => array(
+		'class' => true,
+	),
+	'img'	 => array(
+		'class'	 => true,
+		'src'	 => true,
+		'width'	 => true,
+		'height' => true,
+		'alt'	 => true,
+	)
+);
+/**
+ * Theme wp_kses_post allowed tag and attribute
+ * filter page_menu_link_attributes
+ * @since 1.0.0
+ */
+
+add_filter( "wp_kses_allowed_html", function( $allowedposttags, $context ) {
+
+	if ( $context == "post" ) {
+
+		$emulsion_allowed_tag	 = array(
+			'a' => array(
+				'href'				 => true,
+				'rel'				 => true,
+				'rev'				 => true,
+				'name'				 => true,
+				'target'			 => true,
+				'download'			 => array(
+					'valueless' => 'y',
+				),
+				'aria-current'		 => true,
+				'data-no-instant'	 => true,
 			),
-			'time'	 => array(
-				'datetime'	 => array(),
-				'class'		 => array(),
-			),
-			'span'	 => array(
-				'class' => array(),
-			),
-			'div' => array(
-				'class' => array(),
-			),
-			'img' => array(
-				'class' => array(),
-				'src' => array(),
-				'width'=> array(),
-				'height'=>array(),
-				'alt'=> array(),
-			)
-		);
-const EMULSION_ANCHOR_ALLOWED_ELEMENTS = array(
-	/* posted on */
-			'a'		 => array(
-				'href'	 => array(),
-				'class'	 => array(),
-				'rel'	 => array(),
-				'data-title' => array(),
-				'title' => array(),
-				'download' => array(),
-				'hreflang' => array(),
-				'ping' => array(),
-				'target' => array(),
-				'id' => array(),
-				'style' => array(),
-				'data-no-instant' => array(),
-			),
-		);
+				);
+		$emulsion_allowed_tag	 = array_map( '_wp_add_global_attributes', $emulsion_allowed_tag );
+
+		return array_merge( $allowedposttags, $emulsion_allowed_tag );
+	}
+
+	return $allowedposttags; }, 99, 2 );
+
 /**
  * Customizer sanitize callback
  *
@@ -141,6 +156,7 @@ function emulsion_bg_image_blend_color_validate( $input ) {
 
 	return sanitize_hex_color( $input );
 }
+
 function emulsion_header_sub_background_color_validate( $input ) {
 
 	return sanitize_hex_color( $input );
@@ -190,16 +206,18 @@ function emulsion_general_text_color_validate( $input ) {
 
 	return sanitize_hex_color( $input );
 }
+
 function emulsion_bg_image_blend_color_amount_validate( $input ) {
-	
+
 	$name			 = str_replace( '_validate', '', __FUNCTION__ );
 	$default_value	 = emulsion_get_var( $name, 'default' );
-	
-	if( absint( $input ) && $input <= 100 ) {
+
+	if ( absint( $input ) && $input <= 100 ) {
 		return $input;
 	}
 	return $default_value;
 }
+
 function emulsion_layout_search_results_post_image_validate( $input ) {
 
 	$name			 = str_replace( '_validate', '', __FUNCTION__ );
@@ -227,6 +245,7 @@ function emulsion_bg_image_text_validate( $input ) {
 
 	return $default_value;
 }
+
 function emulsion_layout_author_archives_post_image_validate( $input ) {
 
 	$name			 = str_replace( '_validate', '', __FUNCTION__ );
@@ -240,6 +259,7 @@ function emulsion_layout_author_archives_post_image_validate( $input ) {
 
 	return $default_value;
 }
+
 function emulsion_layout_tag_archives_post_image_validate( $input ) {
 
 	$name			 = str_replace( '_validate', '', __FUNCTION__ );
@@ -253,6 +273,7 @@ function emulsion_layout_tag_archives_post_image_validate( $input ) {
 
 	return $default_value;
 }
+
 function emulsion_layout_category_archives_post_image_validate( $input ) {
 
 	$name			 = str_replace( '_validate', '', __FUNCTION__ );
@@ -266,6 +287,7 @@ function emulsion_layout_category_archives_post_image_validate( $input ) {
 
 	return $default_value;
 }
+
 function emulsion_layout_date_archives_post_image_validate( $input ) {
 
 	$name			 = str_replace( '_validate', '', __FUNCTION__ );
@@ -279,6 +301,7 @@ function emulsion_layout_date_archives_post_image_validate( $input ) {
 
 	return $default_value;
 }
+
 function emulsion_layout_posts_page_post_image_validate( $input ) {
 
 	$name			 = str_replace( '_validate', '', __FUNCTION__ );
@@ -292,6 +315,7 @@ function emulsion_layout_posts_page_post_image_validate( $input ) {
 
 	return $default_value;
 }
+
 function emulsion_layout_homepage_post_image_validate( $input ) {
 
 	$name			 = str_replace( '_validate', '', __FUNCTION__ );
@@ -305,6 +329,7 @@ function emulsion_layout_homepage_post_image_validate( $input ) {
 
 	return $default_value;
 }
+
 function emulsion_customizer_preview_redirect_validate( $input ) {
 
 	$name			 = str_replace( '_validate', '', __FUNCTION__ );
@@ -416,6 +441,7 @@ function emulsion_common_font_family_validate( $input ) {
 
 	return $default_value;
 }
+
 function emulsion_heading_font_base_validate( $input ) {
 
 	$name			 = str_replace( '_validate', '', __FUNCTION__ );
@@ -499,6 +525,7 @@ function emulsion_box_gap_validate( $input ) {
 	);
 	return filter_var( $input, FILTER_VALIDATE_INT, array( 'options' => $options ) );
 }
+
 function emulsion_header_media_max_height_validate( $input ) {
 
 	$name			 = str_replace( '_validate', '', __FUNCTION__ );
@@ -512,6 +539,7 @@ function emulsion_header_media_max_height_validate( $input ) {
 	);
 	return filter_var( $input, FILTER_VALIDATE_INT, array( 'options' => $options ) );
 }
+
 function emulsion_sidebar_width_validate( $input ) {
 
 	$name			 = str_replace( '_validate', '', __FUNCTION__ );
@@ -739,9 +767,9 @@ function emulsion_header_layout_validate( $input ) {
 function emulsion_header_html_validate( $input ) {
 
 	if ( ! empty( $input ) ) {
-		
+
 		// check lost element			
-		$emulsion_place = basename(__FILE__). ' line:'. __LINE__. ' '.  __FUNCTION__ .'()';
+		$emulsion_place = basename( __FILE__ ) . ' line:' . __LINE__ . ' ' . __FUNCTION__ . '()';
 		true === WP_DEBUG ? emulsion_elements_assert_equal( $input, wp_kses_post( $input ), $emulsion_place ) : '';
 
 		$input = wp_kses_post( $input );
@@ -878,10 +906,10 @@ function emulsion_layout_search_results_validate( $input ) {
 }
 
 function emulsion_footer_credit_validate( $input ) {
-	
+
 	// check lost element			
-	$emulsion_place = basename(__FILE__). ' line:'. __LINE__. ' '.  __FUNCTION__ .'()';
-	true === WP_DEBUG ? emulsion_elements_assert_equal(  $input, wp_kses_post( $input ), $emulsion_place ) : '';
+	$emulsion_place = basename( __FILE__ ) . ' line:' . __LINE__ . ' ' . __FUNCTION__ . '()';
+	true === WP_DEBUG ? emulsion_elements_assert_equal( $input, wp_kses_post( $input ), $emulsion_place ) : '';
 
 	$input = wp_kses_post( $input );
 

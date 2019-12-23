@@ -475,7 +475,7 @@ if ( ! function_exists( 'emulsion_post_content' ) ) {
 				// check lost element
 				$emulsion_place = basename(__FILE__). ' line:'. __LINE__. ' '.  __FUNCTION__ .'()';
 				true === WP_DEBUG ? emulsion_elements_assert_equal( $result, wp_kses( $result, EMULSION_EXCERPT_ALLOWED_ELEMENTS ), $emulsion_place ) : '';
-
+			
 				echo wp_kses( $result, EMULSION_EXCERPT_ALLOWED_ELEMENTS );
 			} elseif ( 'excerpt' == $stream ) {
 
@@ -508,7 +508,7 @@ if ( ! function_exists( 'emulsion_post_content' ) ) {
 								// check lost element
 								$emulsion_place = basename(__FILE__). ' line:'. __LINE__. ' '.  __FUNCTION__ .'()';
 								true === WP_DEBUG ? emulsion_elements_assert_equal( $excerpt_from_content, wp_kses_post( $excerpt_from_content ), $emulsion_place ) : '';
-								
+																								
 								echo wp_kses_post( $excerpt_from_content );
 							} else {
 								/**
@@ -782,7 +782,7 @@ if ( ! function_exists( 'emulsion_get_post_meta_on' ) ) {
 			$comment_link = wp_kses( emulsion_comment_link() , EMULSION_POST_META_DATA_ALLOWED_ELEMENTS );
 		}
 
-			$entry_month_html =  wp_kses( emulsion_get_month_link(), EMULSION_POST_META_DATA_ALLOWED_ELEMENTS );
+		$entry_month_html =  wp_kses( emulsion_get_month_link(), EMULSION_POST_META_DATA_ALLOWED_ELEMENTS );
 
 		$result = sprintf( $html, $text_1, $entry_month_html, $text_2, $author, $comment_link, $class );
 
@@ -1163,6 +1163,7 @@ if ( ! function_exists( 'emulsion_pagination' ) ) {
 		if ( is_singular() ) {
 
 			! is_page() && ! is_attachment() ? the_post_navigation( $post_navigation_args ) : '';
+			
 			wp_attachment_is_image( $post_id ) ? emulsion_attachment_pagination() : '';
 		} else {
 
@@ -1612,7 +1613,7 @@ if ( ! function_exists( 'emulsion_footer_text' ) ) {
 		// check lost element
 		$emulsion_place = basename( __FILE__ ) . ' line:' . __LINE__ . ' ' . __FUNCTION__ . '()';
 		true === WP_DEBUG ? emulsion_elements_assert_equal( $address_html, wp_kses_post( $address_html ), $emulsion_place ) : '';
-
+		
 		echo wp_kses_post( $address_html );
 	}
 

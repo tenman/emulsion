@@ -39,6 +39,7 @@ if ( is_admin() && current_user_can( 'edit_theme_options' ) ) {
 		require_once ( get_template_directory() . '/lib/class-tgm-plugin-activation.php' );
 	}
 }
+
 /**
  * Theme Supports
  */
@@ -660,9 +661,9 @@ if ( ! function_exists( 'emulsion_body_class' ) ) {
 		/**
 		 * Custom background image
 		 */
-		$page_bg_image_url	 = get_background_image();
-		$supports_background = emulsion_get_supports( 'background' );
-		$has_background_img_relate_color = get_theme_mod('emulsion_bg_image_text');
+		$page_bg_image_url				 = get_background_image();
+		$supports_background			 = emulsion_get_supports( 'background' );
+		$has_background_img_relate_color = get_theme_mod( 'emulsion_bg_image_text' );
 		if ( ! empty( $page_bg_image_url ) && $supports_background ) {
 
 			$classes[] = 'emulsion-has-custom-background-image';
@@ -718,8 +719,7 @@ if ( ! function_exists( 'emulsion_body_class' ) ) {
 				$classes[]	 = $class_name;
 			}
 		}
-
-		return $classes;
+		return $classes;		
 	}
 
 }
@@ -1177,6 +1177,12 @@ if ( ! function_exists( 'emulsion_block_editor_styles' ) ) {
 }
 
 if ( ! function_exists( 'emulsion_svg_icon' ) ) {
+	/**
+	 * rendor svg, Server Side
+	 * 
+	 * @param type $args
+	 * @return boolean
+	 */
 
 	function emulsion_svg_icon( $args = array() ) {
 
@@ -1248,6 +1254,8 @@ if ( ! function_exists( 'emulsion_svg_icon' ) ) {
 		// check lost element
 		$emulsion_place = basename( __FILE__ ) . ' line:' . __LINE__ . ' ' . __FUNCTION__ . '()';
 		true === WP_DEBUG ? emulsion_elements_assert_equal( $result, wp_kses( $result, EMULSION_ICON_SVG_SYMBOLS_ALLOWED_ELEMENTS ), $emulsion_place ) : '';
+		
+
 
 		if ( true == $args['fallback'] ) {
 
@@ -2091,4 +2099,3 @@ if ( ! function_exists( 'emulsion_cjk_excerpt' ) ) {
 }
 
 do_action( 'emulsion_functions_after' );
-

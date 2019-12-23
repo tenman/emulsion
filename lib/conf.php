@@ -2125,10 +2125,10 @@ function emulsion_post_display_method_date_example_value( $type = 'defaul' ){
 //latest-post, gallery, columns, media-text, alignwide, comments-open tag-slug
 function emulsion_get_customize_post_id( $type = '' ) {
 
-	$count_posts = wp_count_posts();
+	$count_posts = intval( wp_count_posts()->publish );
 	
-	if( is_int( $count_posts->publish ) ) {
-		$post_count = absint(  $count_posts->publish );
+	if( is_int( $count_posts ) ) {
+		$post_count = absint( $count_posts );
 	} else {
 		$post_count = -1;
 	}
