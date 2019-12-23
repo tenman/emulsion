@@ -17,6 +17,8 @@ a{
 /**
  * list
  * =================================================================== */
+
+.widget_custom_html,
 .editor-styles-wrapper,
 .entry-content{
     ol:not(.list-style-initial):not([id]):not([class|="wp-block"]){
@@ -358,6 +360,24 @@ a{
         }
     }
 }
+.widget.widget_custom_html{
+    ul,ol{
+        &[class*="ico-"]{
+            padding-left:0;
+        }
+    }
+    ol{
+        &:not(.list-style-initial):not([id]):not([class|="wp-block"]){
+            li{
+                &:before{
+                    font-size:calc( var(--thm_meta_data_font_size) - 3px);
+                    width: calc(var(--thm_meta_data_font_size) * var(--thm_content_line_height ));
+                    line-height: calc(var(--thm_meta_data_font_size) * var(--thm_content_line_height ));
+                }
+            }
+        }
+    }
+}
 .entry-content{
     /**
      * front end only style
@@ -424,6 +444,7 @@ a{
         }
     }
 }
+
 #document{
     .woocommerce-page{
         .woocommerce-ordering{

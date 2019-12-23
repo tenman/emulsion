@@ -327,30 +327,7 @@ footer.banner{
 .relate-posts-title{
     font-size:22px;
 }
-/**
- * wp-block
- */
-.wp-block-columns{
-    .wp-block-column{
-        @include font_size(5);
-        h1,h2,h3,h4,h5,h6,p,ul,ol,table,.wp-block-table{
-            margin-top:20px;
-            margin-bottom:20px;
-        }
-        h1{
-            font-size: 26px;
-        }
-        h2{
-            font-size:18px;
-        }
-        h3{
-            font-size:15px;
-        }
-        h4{
-            font-size:13px;
-        }
-    }
-}
+
 .entry-content > .sectionized-wp-block-columns > .wp-block-columns{
     /**
      * Page Layout
@@ -424,12 +401,36 @@ $step: 100;
     }
 }
 /**
- * SVG Sizes
+ * heading in meta font size block
  */
-@for $i from 13 through 48 {
-    .icon.f-#{$i}{
-        width:#{$i}px;
-        height:#{$i}px;
+
+/**
+ * wp-block
+ */
+
+.wp-block-columns{
+    .wp-block-column{
+        @include font_size(5);
+        h1,h2,h3,h4,h5,h6,p,ul,ol,table,.wp-block-table{
+            margin-top:20px;
+            margin-bottom:20px;
+        }
+        .h1,
+        h1{
+            font-size:calc(var(--thm_meta_data_font_size) * 2);
+        }
+        .h2,
+        h2{
+           font-size:calc(var(--thm_meta_data_font_size) * 1.4);
+        }
+        .h3,
+        h3{
+            font-size:calc(var(--thm_meta_data_font_size) * 1.17);
+        }
+        .h4,
+        h4{
+            font-size:calc(var(--thm_meta_data_font_size) * 1);
+        }
     }
 }
 
@@ -453,12 +454,10 @@ $step: 100;
         }
     }
 }
-
 /**
  * Editor Style
- --thm_heading_font_weight: $heading_font_weight;
-    --thm_heading_font_family: $heading_font_family;
-*/
+ *
+ */
 .gutenberg__editor{
     @if $language == ja {
         .editor-post-title__block{
