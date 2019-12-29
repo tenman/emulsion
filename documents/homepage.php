@@ -35,5 +35,5 @@
 <h3><?php esc_html_e( 'Dark Mode', 'emulsion' ); ?></h3>
 <p><?php esc_html_e('It is not enabled by default, but can be enabled by changing the EMULSION_DARK_MODE_SUPPORT constant in lib / config.php to true.', 'emulsion'); ?></p>
 
-
-
+<h3><?php printf('<a href="%1$s">%2$s</a>', esc_url('https://www.tenman.info/wp3/emulsion/en/2019/12/27/accsessibility-ui-2/'), esc_html__('Accessibility', 'emulsion' ) ); ?></h3>
+<p><?php esc_html_e( 'Themes have a tab navigation feature for accessibility', 'emulsion'); ?></p>

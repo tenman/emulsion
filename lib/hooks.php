@@ -27,6 +27,7 @@ function emulsion_hooks_setup() {
 	add_filter( 'wp_list_categories', 'emulsion_category_link_format', 10, 2 );
 	add_filter( 'get_the_archive_title', 'emulsion_archive_title_filter' );
 	add_filter( 'the_title', 'emulsion_keyword_with_mark_elements_title', 99999 );
+	add_filter( 'the_title', 'emulsion_empty_the_title_fallback' );
 	add_filter( 'the_content', 'emulsion_entry_content_html_cleaner', 11 );
 	add_filter( 'the_content', 'emulsion_keyword_with_mark_elements', 99999 );
 	add_filter( 'get_the_excerpt', 'emulsion_get_the_excerpt_filter', 10, 2 );
@@ -1496,6 +1497,17 @@ if ( ! function_exists( 'emulsion_unregister_default_widgets' ) ) {
 		 * Core broken widget
 		 */
 		unregister_widget( 'WP_Widget_Text' );
+	}
+
+}
+if ( ! function_exists( 'emulsion_empty_the_title_fallback' ) ) {
+
+	function emulsion_empty_the_title_fallback( $title ) {
+
+		if ( empty( $title ) ) {
+			return esc_html__( '...', 'emulsion' );
+		}
+		return $title;
 	}
 
 }

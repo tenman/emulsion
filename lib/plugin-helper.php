@@ -78,12 +78,6 @@ function emulsion_wp_scss_needs_compiling( $compile ) {
 	}
 	return $compile;
 }
-/**
- * Force recompile
- */
-//if ( current_user_can( 'edit_theme_options' ) ) {
-//define( 'WP_SCSS_ALWAYS_RECOMPILE', true );
-//}
 
 add_filter( 'emulsion_inline_style', 'emulsion_plugins_style_change_inline' );
 
@@ -307,7 +301,7 @@ function emulsion_plugins_style_change_inline( $css ) {
 	global $wp_style;
 
 	$add_css = '';
-//'active' !== get_theme_mod( 'emulsion_wp_scss_status' ) &&
+
 	if (  is_user_logged_in() || is_admin() ) {
 
 		return $css;
