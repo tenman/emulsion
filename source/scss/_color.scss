@@ -556,9 +556,7 @@ body{
         border-top:none;
     }
     &.is-dark{
-        /**
-         * dark border
-         */
+
         .layout *:not(.wp-block-separator){
             border-color:rgba(188,188,188,.3);
         }
@@ -628,6 +626,7 @@ body{
         }
     }
     &.is-light{
+
         .layout *:not(.wp-block-separator){
             border-color:var(--thm_sub_background_color_darken);
         }
@@ -1013,6 +1012,22 @@ body{
                 }
             }
         }
+
+        .ui-tooltip {
+            background:var(--thm_white_color);
+            color: var(--thm_black_color);
+            .ui-tooltip-content:before{
+                border-color:var(--thm_white_color);
+                border: 10px solid transparent;
+                border-top: 10px solid  var(--thm_white_color);
+            }
+            &.bottom-tooltip .ui-tooltip-content:before{
+                border: 10px solid transparent;
+                border-bottom: 10px solid  var(--thm_white_color);
+            }
+        }
+
+
     }
     /**
      * Custom background is light
@@ -3327,31 +3342,6 @@ article .has-my-color-background-color {
             border-color:var(--thm_cool_color);
         }
     }
-    /*
-    .wp-block-group{
-        &.has-black-background-color{
-            background:var(--thm_black_color);
-        }
-        &.has-gray-background-color{
-            background:var(--thm_gray_color);
-        }
-        &.has-white-background-color{
-            background:var(--thm_white_color);
-        }
-        &.has-alert-background-color{
-            background:var(--thm_alert_color);
-        }
-
-        &.has-notice-background-color{
-            background:var(--thm_notice_color);
-        }
-        &.has-info-background-color{
-            background:var(--thm_info_color);
-        }
-        &.has-cool-background-color{
-            background:var(--thm_cool_color);
-        }
-    }*/
 }
 /**
  * Theme Color Classes
@@ -3568,10 +3558,7 @@ p[class|="mark"]{
 [class^="color"]{
     padding:1em;
 }
-.scss_errors{
-    color:red!important;
-    background:#fff!important;
-}
+
 .search-info li ul li{
     display:none;
 }
@@ -3894,7 +3881,6 @@ body.custom-background{
         background:transparent;
     }
     &:focus-within{
-        //pending
         //pending
         // background:rgba(243, 156, 18,.1);
     }
@@ -4243,7 +4229,7 @@ body{
 
             &.emulsion-current-color{
                 color:var(--thm_general_text_color);
-                background:var(--thm_background_color);
+                background:transparent;
                 &.woocommerce,
                 &.wc-block-grid{
                     background:transparent;
@@ -5096,3 +5082,4 @@ body{
         }
     }
 }
+

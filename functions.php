@@ -571,7 +571,7 @@ if ( ! function_exists( 'emulsion_body_class' ) ) {
 
 		$classes[] = 'noscript';
 
-		if ( is_singular( 'post' ) ) {
+		if ( is_singular( ) ) {
 
 			$post_id = get_the_ID();
 
@@ -1934,6 +1934,11 @@ if ( ! function_exists( 'emulsion_custom_background_cb' ) ) {
 		 */
 
 	function emulsion_custom_background_cb() {
+		
+		if( ! is_user_logged_in() && false !== ( $result = get_transient( 'emulsion_custom_background_cb' ) ) ) {
+			
+			echo $result;		
+		}
 
 		// $background is the saved custom image, or the default image.
 		$background = set_url_scheme( get_background_image() );
@@ -2012,12 +2017,15 @@ if ( ! function_exists( 'emulsion_custom_background_cb' ) ) {
 			$rule_set = apply_filters( 'emulsion_custom_background_cb', $rule_set, $image, $position, $size, $repeat, $attachment );
 
 			if ( ! empty( $rule_set ) && ! empty( $background ) ) {
-				printf( '<style%1$s id="custom-background-css" class="emulsion-callback-css">%2$s</style>', wp_kses( $type_attr,array() ), emulsion_remove_spaces_from_css( $rule_set ) );
-			}
-			
+				$result = sprintf( '<style%1$s id="custom-background-css" class="emulsion-callback-css">%2$s</style>', wp_kses( $type_attr,array() ), emulsion_remove_spaces_from_css( $rule_set ) );
+				
+				set_transient( 'emulsion_custom_background_cb', $result, 24 * HOUR_IN_SECONDS );
+				
+				echo $result;
+				
+			}		
 		}
 	}
-
 }
 
 if ( ! function_exists( 'emulsion_remove_background_img_class' ) ) {

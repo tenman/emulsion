@@ -19,6 +19,11 @@
 define( 'EMULSION_MIN_PHP_VERSION', '5.6' );
 define( 'EMULSION_DARK_MODE_SUPPORT', false );
 
+/**
+ * Note:content width
+ * required smaller than emulsion_main_width value (default 1280)
+ * unit: px
+ */
 $content_width			 = ! isset( $content_width ) ? 720 : $content_width;
 $emulsion_setting_type	 = 'theme_mod';
 $emulsion_customize_cap	 = 'edit_theme_options';
@@ -784,7 +789,7 @@ $emulsion_customize_args = array(
 	),
 	"emulsion_content_width"					 => array(
 		'section'					 => 'emulsion_section_layout_main',
-		'default'					 => 720,
+		'default'					 => $content_width,
 		'priority'					 => 10,
 		'data_type'					 => $emulsion_setting_type,
 		'capability'				 => $emulsion_customize_cap,

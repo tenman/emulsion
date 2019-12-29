@@ -401,7 +401,7 @@ function emulsion_icon_svg_styles( $css ) {
         clear: left;
         float: left;
         margin-bottom: 0;
-        height:calc(  var(--thm_common_font_size) * 3 );
+        min-height:calc(  var(--thm_common_font_size) * 3 );
         margin-top: 1.5rem;
         overflow:visible;
     }
@@ -409,7 +409,10 @@ function emulsion_icon_svg_styles( $css ) {
         text-align:left;
     }
 }
-
+.menu-social-menu-container{
+	padding-left:var(--thm_content_gap);
+	padding-right:var(--thm_content_gap);	
+}
 .social-navigation ul{
     list-style: none;
     margin-bottom: 0;
@@ -420,6 +423,8 @@ function emulsion_icon_svg_styles( $css ) {
 
 .social-navigation li{
     display: inline-block;
+	padding-top:0.1925rem;
+	padding-bottom:0.1925rem;
 }
 
 .social-navigation a{

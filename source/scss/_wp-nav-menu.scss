@@ -785,8 +785,7 @@ body.on-scroll  input[type="checkbox"][data-skin="inset"][id="toc-toggle"]:check
     top:3rem;
 }
 .toc a:empty:before{
-    // CSS variables not work content:var(--thm_i18n_no_title,'No Title');
-    content:'#{$i18n_no_title}';
+    content:var(--thm_i18n_no_title, 'No Title');
 }
 span[id|="toc"]{
     width:1px;

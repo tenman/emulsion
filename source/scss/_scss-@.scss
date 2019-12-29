@@ -1,5 +1,6 @@
 /**
  * SCSS Server Side variabls mixin etc
+ * #{$upload_base_dir} required wp-scss plugin active
  */
 /**
  * Upload base URL
@@ -28,13 +29,13 @@
  * Gradient
  * @include bg-gradient;
  */
-@mixin bg-gradient($angle: 90deg,  $amount: 30%) {
-    background: $header_bg_color;
-    background-image: -ms-linear-gradient($angle, var(--thm_header_bg_color), var(--thm_header_background_gradient_color) );
-    background: -webkit-gradient(linear,  left top, left bottom,  from($angle),  color-stop(var(--thm_header_bg_color)), color-stop(var(--thm_header_background_gradient_color)) );
-    background: -webkit-linear-gradient($angle,  var(--thm_header_bg_color), var(--thm_header_background_gradient_color) );
-    background: -o-linear-gradient($angle,  var(--thm_header_bg_color), var(--thm_header_background_gradient_color));
-    background: linear-gradient($angle,  var(--thm_header_bg_color), var(--thm_header_background_gradient_color) );
+
+@mixin bg-gradient($angle: 90deg) {
+    @if( $header_background_gradient_color != $header_bg_color ) {
+        background-image: -ms-linear-gradient($angle, var(--thm_header_bg_color), var(--thm_header_background_gradient_color) );
+        background: -o-linear-gradient($angle,  var(--thm_header_bg_color), var(--thm_header_background_gradient_color));
+        background: linear-gradient($angle,  var(--thm_header_bg_color), var(--thm_header_background_gradient_color) );
+    }
 }
 /**
  * Contrast Color
@@ -48,20 +49,6 @@
     }
     @else {
         color: #333333;
-    }
-}
-/**
- * Contrast Color
- * @include border-color;
- */
-@mixin border-color( $background_color, $alpha: 0.5 ) {
-    $color-brightness: round((red($background_color) * 299) + (green($background_color) * 587) + (blue($background_color) * 114) / 1000);
-    $light-color: round((red(#ffffff) * 299) + (green(#ffffff) * 587) + (blue(#ffffff) * 114) / 1000);
-    @if abs($color-brightness) < ($light-color/2){
-        border-color: rgba(red(#ffffff), green(#ffffff), blue(#ffffff), $alpha );
-    }
-    @else {
-        border-color: rgba(red(#000000), green(#000000), blue(#000000), $alpha );;
     }
 }
 /**
@@ -174,7 +161,6 @@
  */
 %block_main_wide {
     width: var( --thm_main_width, 1280px );
-    // width:calc( var(--thm_content_width) + var(--thm_align_offset) );
     margin-top:1.5rem;
     margin-bottom:.75rem;
     padding-left:var( --thm_content_gap, 24px );
@@ -270,7 +256,6 @@
 %hyphenate {
     -ms-word-break: break-all;
     word-break: break-all;
-    // Non standard for webkit
     word-break: break-word;
     -webkit-hyphens: auto;
     -moz-hyphens: auto;
@@ -293,15 +278,10 @@
     box-sizing:border-box;
     clear:left;
     float:left;
-  //  margin-left:0;
-  //  max-width:calc( 50% - 1rem );
+
     max-width:calc( 50% - var(--thm_content_gap) * 2);
     margin:var(--thm_content_gap);
-  //  margin-right:1rem;
-  /*  &[style="max-width:50%"]{
-        margin-right:0;
-        margin-left:0;
-    }*/
+
     @media screen and ( max-width : 640px ) {
         // static break point
         width:100%;
@@ -318,15 +298,9 @@
     box-sizing:border-box;
     clear:right;
     float:right;
-  //  max-width:calc( 50% - 1rem );
- //   margin-left:1rem;
- //   margin-right:0;
-     max-width:calc( 50% - var(--thm_content_gap) * 2);
+    max-width:calc( 50% - var(--thm_content_gap) * 2);
     margin:var(--thm_content_gap);
- /*   &[style="max-width:50%"]{
-        margin-right:0;
-        margin-left:0;
-    }*/
+
     @media screen and ( max-width : 640px ) {
         // static break point
         width:100%;
@@ -414,7 +388,6 @@
         }
     }
     [class|="wp-block"]:not(.wp-block-gallery){
-        // [class*=" wp-block"]:not(.wp-block-gallery){
         &.size1of2,
         &.size1of3,
         &.size2of3,
@@ -506,5 +479,5 @@
     display:inline-block;
     margin:auto 1rem;
     padding:3px 6px;
-    border-bottom:var( --thm_common_border);
+    border-bottom:var(--thm_common_border);
 }
