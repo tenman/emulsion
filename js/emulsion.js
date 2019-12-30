@@ -403,7 +403,7 @@ jQuery(function ($) {
 jQuery(function ($) {
     
     /**
-     * Repaire block editor wordpress 5.3.1 + gutenberg 7.1
+     * Repaire block editor WordPress 5.3.1 + gutenberg 7.1
      * block latest posts ( full content ) inline code decoded
      * Since tags such as script are removed, the code cannot be reproduced accurately,
      * but it is better than being decoded

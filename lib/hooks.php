@@ -100,8 +100,10 @@ if ( ! function_exists( 'emulsion_pingback_header' ) ) {
 if ( ! function_exists( 'emulsion_skip_link' ) ) {
 
 	function emulsion_skip_link() {
+		
+		$skip_link_url = esc_url( emulsion_request_url().'#main' );
 
-		printf( '<div class="%1$s"><a href="%2$s" class="%3$s" title="%4$s">%5$s</a></div>', 'skip-link', '#main', 'screen-reader-text', esc_attr__( 'Skip to content', 'emulsion' ), esc_html__( 'Skip to content', 'emulsion' )
+		printf( '<div class="%1$s"><a href="%2$s" class="%3$s" title="%4$s">%5$s</a></div>', 'skip-link', $skip_link_url, 'screen-reader-text', esc_attr__( 'Skip to content', 'emulsion' ), esc_html__( 'Skip to content', 'emulsion' )
 		);
 	}
 
