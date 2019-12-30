@@ -151,6 +151,9 @@ screenshot.png
         * Source: https://github.com/LeaVerou/css3patterns
 
 ## Changelog
+### december 30 2019
+		* 1.0.2
+        * https://github.com/tenman/emulsion/releases
 ### december 29 2019
 		* 1.0.1
         * https://github.com/tenman/emulsion/releases
