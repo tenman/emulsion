@@ -1647,7 +1647,12 @@ body[class] .header-layer.header-image-active .header-layer-nav-menu .nav-menu-c
   background: url("../images/svg/arrow-up.svg#white");
   background-size: contain;
 }
-
+body[class] .wp-block-search .wp-block-search__button:before{
+	background: url("../images/svg/search.svg#white");
+	background-size:16px 16px;
+	background-position:16px 0;
+	background-repeat:no-repeat;
+}
 CSS;
 	
 	$style = emulsion_sanitize_css( $style );
