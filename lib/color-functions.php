@@ -658,10 +658,6 @@ if ( ! function_exists( 'emulsion_theme_image_dir' ) ) {
 
 			$theme_image_dir = wp_make_link_relative( $theme_image_dir );	
 
-			if( preg_match('!tenman\.info!', get_template_directory_uri() ) ) {
-				$theme_image_dir = '../images/';
-			}
-
 		return $theme_image_dir;
 	}
 }
