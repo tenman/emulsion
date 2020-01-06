@@ -1205,6 +1205,17 @@ body{
      * relate Customizer setting
      * ========================================================================== */
     .header-layer{
+        &.cta-layer-active{
+            .cta-layer{
+                .skin-button{
+                    border-left:var(--thm_common_border);
+                    &:hover{
+                        border-left:var(--thm_common_border);
+                    }
+                }
+            }
+        }
+
         &.template-part-header-custom + .primary-menu-wrapper{
             &.menu-is-dark{
                 .wp-nav-menu.primary[data-direction="horizontal"] .sub-menu,
@@ -1866,6 +1877,10 @@ body{
                     a{
                         color:var(--thm_header_text_color);
                         background:var(--thm_header_bg_color);
+                        &:focus{
+                            border:2px solid rgb(94, 158, 214);
+                            border:2px auto -webkit-focus-ring-color;
+                        }
                     }
                 }
             }
@@ -1886,7 +1901,7 @@ body{
             &.header-is-dark{
                 .cta-layer{
                     a{
-                        filter: brightness(130%);
+
                     }
                 }
             }
@@ -1906,7 +1921,6 @@ body{
                             a{
                                 color:var(--thm_header_text_color);
                                 background:var(--thm_header_bg_color);
-                                filter: brightness(130%);
                             }
                         }
                     }
@@ -1941,7 +1955,7 @@ body{
                             a{
                                 color:var(--thm_header_text_color);
                                 background:var(--thm_header_bg_color);
-                                filter: brightness(130%);
+
                             }
                         }
                     }
@@ -1954,9 +1968,8 @@ body{
                 .archive-year-links a,
                 .site-description,
                 .header-text a{
-                    position:relative;
                     color:var(--thm_white_color);
-                    background:transparent;
+                    background:transparent;                  
                 }
                 .entry-text,
                 .entry-text a{
@@ -4587,7 +4600,7 @@ body{
                             .cta-layer{
                                 a{
                                     &:hover{
-                                        filter: brightness(120%);
+
                                     }
                                 }
                             }

@@ -152,6 +152,9 @@ screenshot.png
 
 ## Changelog
 ### december 30 2019
+		* 1.0.5
+        * https://github.com/tenman/emulsion/releases
+### december 30 2019
 		* 1.0.4
         * https://github.com/tenman/emulsion/releases
 ### december 30 2019

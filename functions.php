@@ -207,14 +207,6 @@ if ( ! function_exists( 'emulsion_setup' ) ) {
 		add_editor_style( add_query_arg( 'action', 'emulsion_tiny_mce_css_variables', admin_url( 'admin-ajax.php' ) ) );
 
 		/**
-		 * Default Image Size
-		 */
-		update_option( 'image_default_align', 'center' );
-		update_option( 'image_default_size', 'medium_large' );
-		set_user_setting( 'align', 'center' );
-		set_user_setting( 'imgsize', 'medium_large' );
-
-		/**
 		 * Reset Theme mods
 		 * set default
 		 */
@@ -1495,10 +1487,13 @@ if ( ! function_exists( 'emulsion_reset_customizer_settings' ) ) {
 
 			remove_theme_mod( $name );
 		}
-
-		remove_theme_mod( 'background_color' );
-		remove_theme_mod( 'background_image' );
 		
+		/**
+		 * reset background color, background image
+		 */		
+		set_theme_mod( 'background_color', 'ffffff' );
+		set_theme_mod( 'background_image', '' );
+		set_theme_mod( 'background_image_thumb', '' );
 		set_theme_mod( 'header_textcolor', '333333' );
 
 		/**

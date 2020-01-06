@@ -648,15 +648,15 @@ if ( ! function_exists( 'emulsion_theme_image_dir' ) ) {
 	 */
 	function emulsion_theme_image_dir() {
 
-			$theme_image_dir = get_template_directory_uri() . '/images/';
-			$child_image_dir = get_stylesheet_directory_uri() . '/images/';
+		$theme_image_dir = esc_url( get_template_directory_uri() . '/images/' );
+		$child_image_dir = esc_url( get_stylesheet_directory_uri() . '/images/' );
 
-			if ( file_exists( $child_image_dir ) && is_child_theme() ) {
+		if ( file_exists( $child_image_dir ) && is_child_theme() ) {
 
-				$theme_image_dir = $child_image_dir;
-			}
+			$theme_image_dir = $child_image_dir;
+		}
 
-			$theme_image_dir = wp_make_link_relative( $theme_image_dir );	
+		$theme_image_dir = wp_make_link_relative( $theme_image_dir );
 
 		return $theme_image_dir;
 	}
@@ -666,17 +666,25 @@ if ( ! function_exists( 'emulsion_upload_base_dir' ) ) {
 	/**
 	 * Theme Image Directory
 	 * for scss variable
+	 * Not support uploads_use_yearmonth_folders
 	 */
 	function emulsion_upload_base_dir() {
-		
+
 		$upload_base_dir = '';
-		
-		if ( 'active' == get_theme_mod( 'emulsion_wp_scss_status' ) ) {
-			$upload_dir		 = wp_upload_dir();
-			$upload_base_dir = wp_make_link_relative( $upload_dir['baseurl'] . '/' );		
+
+		$holder = get_option( 'uploads_use_yearmonth_folders' );
+
+		if ( ! empty( $holder ) ) {
+			return $upload_base_dir;
 		}
+
+		$upload_dir		 = wp_upload_dir();
+		$url			 = esc_url( $upload_dir['baseurl'] . '/' );
+		$upload_base_dir = wp_make_link_relative( $url );
+
 		return $upload_base_dir;
 	}
+
 }
 
 if ( ! function_exists( 'emulsion_header_image_ratio' ) ) {
