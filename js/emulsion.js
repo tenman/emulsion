@@ -354,7 +354,8 @@ jQuery(function ($) {
      * Header Search box filter
      * Filter the list of categories and tags according to the search keyword.
      */
-    $(".search-drawer .search-form .search-field").on("keyup touchend", function () {
+    //$(".search-drawer .search-form .search-field").on("keyup touchend", function () {
+    $(".search-drawer .wp-block-search .wp-block-search__input").on("keyup touchend", function () {
         var value = $(this).val().toLowerCase();
         $(".search-info li ul li").filter(function () {
             $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
@@ -850,6 +851,17 @@ jQuery(function ($) {
                 $(this).removeAttr('style aria-selected').removeClass('active');
             });
 });
+jQuery(function ($) {
+    
+    $('.cta-layer').each(function (i) {
+        $(this).attr({
+            'tabindex': '0',       
+        });
+        
+    });
+});
+
+
 jQuery(function ($) {
     /**
      * wp-block-search

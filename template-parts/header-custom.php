@@ -29,8 +29,9 @@ if( is_single() ) {
 	?>
 	<?php emulsion_site_text_markup(); ?>
 	<?php emulsion_get_supports( 'title_in_page_header' ) ? emulsion_entry_text_markup() : ''; ?>
+	<?php do_action( 'emulsion_append_header_layer' ); ?>	
 	<?php emulsion_get_supports( 'search_drawer' ) ? emulsion_search_drawer() : ''; ?>
-	<?php do_action( 'emulsion_append_header_layer' ); ?>
+
 </header>
 <?php if( emulsion_get_supports( 'primary_menu' ) && $metabox_menu_control ) { ?>
 <div class="<?php echo esc_attr( emulsion_element_classes( 'primary' ) ) ?>"> 

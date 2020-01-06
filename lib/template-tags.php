@@ -1542,11 +1542,6 @@ if ( ! function_exists( 'emulsion_footer_text' ) ) {
 	 * emulsion_append_footer_address add something footer text after
 	 * emulsion_footer_text costomize all footer text
 	 *
-	 * @global type $raindrops_current_theme_name
-	 * @global type $raindrops_current_data_theme_uri
-	 * @global type $template
-	 * @global type $raindrops_accessibility_link
-	 * @return type
 	 */
 	function emulsion_footer_text() {
 

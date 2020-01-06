@@ -15,15 +15,7 @@ if ( ! emulsion_get_supports( 'enqueue' ) ) {
 	<div class="drawer search-drawer">
 		<div class="drawer-block" >
 		<label for="c1" class="close"><svg class="icon" width="24" height="24"><use xlink:href="#cross" /></svg></label>
-		<div class="search-box">
-			<form role="search" method="get" class="search-form" action="<?php echo esc_url( home_url( '/' ) ) ?>">
-				<label>
-					<span class="screen-reader-text"><?php esc_html_e( 'Search', 'emulsion' ) ?></span>
-					<input type="search" class="search-field" placeholder="<?php esc_html_e( 'Keyword...', 'emulsion' ) ?>" value="" name="s">
-				</label>
-				<input type="submit" class="search-submit" value="<?php esc_html_e( 'Search', 'emulsion' ) ?>">
-			</form>
-		</div>
+		<div class="search-box"><?php get_search_form(); ?></div>
 		<?php do_action('emulsion_drawer_before');?>
 		<div class="search-info" aria-hidden="true"><?php
 			/* hook only this point */
