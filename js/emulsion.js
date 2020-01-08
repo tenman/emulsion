@@ -1036,4 +1036,3 @@ jQuery(document).ready(function ($) {
         $("head").append('<meta name="description" content="' + emulsion_script_vars.meta_description + '" />');
     }
 });
-

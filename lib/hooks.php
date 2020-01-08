@@ -1,7 +1,6 @@
 <?php
 add_action( 'after_switch_theme', 'emulsion_test_for_min_php' );
 add_action( 'after_setup_theme', 'emulsion_hooks_setup' );
-add_action( 'widgets_init', 'emulsion_unregister_default_widgets', 11 );
 
 function emulsion_hooks_setup() {
 
@@ -1492,16 +1491,7 @@ if ( ! function_exists( 'emulsion_svg' ) ) {
 	}
 
 }
-if ( ! function_exists( 'emulsion_unregister_default_widgets' ) ) {
 
-	function emulsion_unregister_default_widgets() {
-		/**
-		 * Core broken widget
-		 */
-		unregister_widget( 'WP_Widget_Text' );
-	}
-
-}
 if ( ! function_exists( 'emulsion_empty_the_title_fallback' ) ) {
 
 	function emulsion_empty_the_title_fallback( $title ) {
