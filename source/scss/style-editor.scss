@@ -1132,6 +1132,7 @@ body{
     }
 }
 .block-editor-block-list__layout{
+    //gutenberg 7.2 new buttons block;
     .block-editor-block-list__block{
         max-width:var(--thm_editor_main_width);
         @media (min-width: 600px){
@@ -1139,7 +1140,37 @@ body{
                 top: 28px;
             }
         }
-        &[data-type="core/button"]{
+        &[data-type="core/buttons"]{
+            .block-editor-block-list__block-edit{
+                [data-block]{
+                    .wp-block-buttons{
+                        [data-type="core/button"]{
+                            display:inline-block;
+                            width:auto;
+                            .block-editor-block-list__block-edit{
+                                [data-block]{
+                                    //each button
+                                }
+                            }
+                        }
+
+                    }
+                }
+            }
+        }
+    }
+}
+.block-editor-block-list__layout{
+    
+    .block-editor-block-list__block{
+        max-width:var(--thm_editor_main_width);
+        @media (min-width: 600px){
+            .block-editor-block-contextual-toolbar{
+                top: 28px;
+            }
+        }
+        //WordPress 5.3 button block gutenberg < 7.2 but don't remove'
+        &[data-type="core/button"]{  
             &[data-align="left"]{
                 clear:none;
                 display:inline-block;
@@ -1205,7 +1236,7 @@ html body.block-editor-page{
     background:#FAFAF8;
     .has-stripe-background-color{
         background:repeating-linear-gradient( 45deg, #606dbc, #606dbc 10px, #465298 10px, #465298 20px );
-        
+
     }
 }
 @media (min-width: 960px){

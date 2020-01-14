@@ -391,9 +391,10 @@ jQuery(function ($) {
 
                 var tag_name = $(this).prop("tagName");
 
-                if ('UL' == tag_name) {
+                if ('UL' == tag_name  ) {
                     $(this).addClass('list-style-none').children('li').prepend('<svg class="icon ico-' + target_class + '" aria-hidden="true" style="width:1em;height:1em" role="img"><use xlink:href="#' + target_class + '" /></svg>');
-
+                } else if( $(this).hasClass( 'wp-block-navigation' ) ) {
+                    $(this).children('ul').addClass('list-style-none').children('li').prepend('<svg class="icon ico-' + target_class + '" aria-hidden="true" style="width:1em;height:1em" role="img"><use xlink:href="#' + target_class + '" /></svg>');
                 } else {
                     $(this).prepend('<svg class="icon ico-' + target_class + '" aria-hidden="true" style="width:1em;height:1em" role="img"><use xlink:href="#' + target_class + '" /></svg>');
                 }
@@ -918,7 +919,22 @@ jQuery(function ($) {
             'area-hidden': true,
         });
     });
-
+    $('.drawer-is-active .drawer-wrapper .icon').on("click", function (e) {
+        $('body').removeClass("drawer-is-active");
+        $('.drawer-wrapper input').prop("checked", false);
+        /**
+         * wai-aria
+         */
+        $('.drawer-wrapper .icon').attr({
+            'area-expanded': false,
+            'aria-controls': 'search-drawer',
+            'area-hidden': true,
+        });
+        $('#search-drawer').attr({
+            'area-expanded': false,
+            'area-hidden': true,
+        });
+    });
     /**
      * search drawer toggle
      */

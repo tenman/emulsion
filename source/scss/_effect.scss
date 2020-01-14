@@ -118,6 +118,19 @@ a{
             border-radius:50%;
         }
     }
+    .wp-block-navigation ul{
+        li{
+            margin-left:var(--thm_common_font_size);
+            list-style-type:none;
+            text-indent:0;
+            margin-left:0;
+            &:before{
+                content:''!important;
+                display:none!important;
+            }
+        }
+
+    }
     ul:not(.list-style-initial):not([id]):not([class|="wp-block"]){
         &.list-style-none{
             li{
@@ -955,6 +968,19 @@ $indent-classes:('5rem','10rem','15rem','20rem','right-5rem','right-10rem','righ
     .menu-inactive{
         &.primary-menu-wrapper{
             display:none;
+        }
+    }
+}
+/**
+ * Block Navigation
+ * =================================================================== */
+.wp-block-navigation{
+    & > ul{
+        & > .wp-block-navigation-link{
+            ul{
+                transition:box-shadow .5s ease-in-out;
+                box-shadow: -1px -1px 9px 9px rgba( 0, 0, 0, .3 );
+            }
         }
     }
 }
