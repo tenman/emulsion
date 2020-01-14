@@ -96,6 +96,8 @@
 :root{
     --thm_black_color:#333;
     --thm_gray_color:#727477;
+    --thm_silver_color:#bebebe;
+    --thm_cloud_color:#ecf0f1;
     --thm_white_color:#ffffff;
     --thm_alert_color:rgba(231, 76, 60, 1);
     --thm_notice_color:rgba(163, 140, 8, 1);
@@ -361,9 +363,14 @@
                     --thm_sub_background_color_darken:#000;
                 }
                 text-shadow: #000 1px 0 10px;
+                
                 a{
                     color:var(--thm_has_background_image_text_color);
                     text-shadow: #000 1px 0 10px;
+                }
+                .wp-block-navigation-link__content{
+
+                        text-shadow:none;
                 }
                 section[class|="sectionized"].sectionized-wp-block-columns *{
                     color:var(--thm_white_color);

@@ -3501,6 +3501,77 @@ body[class] .layout ul{
 }
 [data-block],
 .layout{
+
+    .wp-block-navigation{
+        & > ul{
+            & > .wp-block-navigation-link{
+                ul{
+                    li{
+                        color:var(--thm_gray_color);
+                        &:hover{
+                            color: var(--thm_black_color);
+                        }
+                    }                
+                }
+            }
+        }
+        &.is-style-dark{
+            color:var(--thm_white_color);
+            background:#000;
+            a{
+                color:var(--thm_silver_color);
+                &:hover{
+                    color:var(--thm_white_color);
+                }
+            }
+            & > ul{
+                & > .wp-block-navigation-link{
+                    ul{
+                        li{
+                            .wp-block-navigation-link__content{
+                                color:var(--thm_silver_color);
+                                &:hover{
+                                    color:var(--thm_white_color);
+                                }
+                            }                
+                        }
+                    }
+                }
+            }
+        }
+        &.is-style-light{
+            color:var(--thm_black_color);
+            background:var(--thm_cloud_color);
+            a{
+                color:var(--thm_black_color);
+                &:hover{
+                    color:#000;
+                }
+            }
+            & > ul{
+
+                & > .wp-block-navigation-link{
+                    ul{
+                        color:var(--thm_black_color);
+                        background:var(--thm_cloud_color);
+                        &:after{
+                            border-color: transparent transparent var(--thm_cloud_color);
+                        }
+                        li{
+                            .wp-block-navigation-link__content{
+                                color:var(--thm_black_color);
+                                text-shadow:none;
+                                &:hover{
+                                    color:#000;
+                                }
+                            }                
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     .mark-dark{
         color:var(--thm_white_color);
         background:#000;
@@ -3916,7 +3987,8 @@ body.custom-background{
     &.sectionized-wp-block-media-text{
         color:var(--thm_media_text_section_color);
         background:var(--thm_media_text_section_bg);
-        z-index:-1;
+        //z-index:-1;  media text image link not work
+        z-index:auto;
         position:relative;
         margin-top:0;
         margin-bottom:0;
@@ -4214,37 +4286,7 @@ body{
                     color:var(--thm_black_color);
                 }
 
-                .wp-block-navigation{
-                    padding:0;
-                    & > ul{
-                        & > .wp-block-navigation-link{
-                            ul{
-                                li{
-                                    color:var(--thm_gray_color);
-                                    &:hover{
-                                        color: var(--thm_black_color);
-                                    }
-                                }                
-                            }
-                        }
-                    }
-                    &.is-style-dark{
-                        & > ul{
-                            & > .wp-block-navigation-link{
-                                ul{
-                                    li{
-                                        .wp-block-navigation-link__content{
-                                            color:#ccc;
-                                            &:hover{
-                                                color:var(--thm_white_color);
-                                            }
-                                        }                
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+
 
             }
 
