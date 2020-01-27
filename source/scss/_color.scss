@@ -336,6 +336,7 @@ body{
             }
         }
     }
+
     .horizontal-list-group li,
     .entry-meta li{
         border:var(--thm_common_border);
@@ -3306,15 +3307,27 @@ article .has-my-color-background-color {
 .entry-content{
     .has-black-color{
         color:var(--thm_black_color);
+        &:hover{
+            color:var(--thm_black_color);
+        }       
     }
     .has-gray-color{
         color:var(--thm_gray_color);
+        &:hover{
+            color:var(--thm_gray_color);
+        }
     }
     .has-white-color{
         color:var(--thm_white_color);
+        &:hover{
+            color:var(--thm_white_color);
+        }
     }
     .has-alert-color{
         color:var(--thm_alert_color);
+        &:hover{
+            color:var(--thm_alert_color);
+        }
     }
     del,
     strike,
@@ -3324,12 +3337,21 @@ article .has-my-color-background-color {
     }
     .has-notice-color{
         color:var(--thm_notice_color);
+        &:hover{
+            color:var(--thm_notice_color);
+        }
     }
     .has-info-color{
         color:var(--thm_info_color);
+        &:hover{
+            color:var(--thm_info_color);
+        }
     }
     .has-cool-color{
         color:var(--thm_cool_color);
+        &:hover{
+            color:var(--thm_cool_color);
+        }
     }
 
     hr{
@@ -3570,6 +3592,98 @@ body[class] .layout ul{
                 }
             }
         }
+        .has-text-color{
+
+            &.has-black-color{
+                color:var(--thm_black_color);
+                &:hover{
+                    color:var(--thm_black_color);
+                }
+
+            }
+            &.has-gray-color{
+                color:var(--thm_gray_color);
+                &:hover{
+                    color:var(--thm_gray_color);
+                }
+            }
+            &.has-white-color{
+                color:var(--thm_white_color);
+                &:hover{
+                    color:var(--thm_white_color);
+                }
+
+            }
+            &.has-alert-color{
+                color:var(--thm_alert_color);
+                &:hover{
+                    color:var(--thm_alert_color);
+                }
+            }
+            &.has-notice-color{
+                color:var(--thm_notice_color);
+                &:hover{
+                    color:var(--thm_notice_color);
+                }
+            }
+            &.has-info-color{
+                color:var(--thm_info_color);
+                &:hover{
+                    color:var(--thm_info_color);
+                }
+            }
+            &.has-cool-color{
+                color:var(--thm_cool_color);
+                &:hover{
+                    color:var(--thm_cool_color);
+                }
+            }
+
+        }
+        .has-background-color{
+            &.has-success-background-color{
+                color:var(--thm_black_color);
+                &:not(.has-text-color){
+                    &:hover{
+                        color:var(--thm_black_color);
+                    }
+                }
+            }
+            &.has-notice-background-color{
+                color:var(--thm_black_color);
+                &:not(.has-text-color){
+                    &:hover{
+                        color:var(--thm_black_color);
+                    }
+                }
+            }
+            &.has-info-background-color{
+                color:var(--thm_black_color);
+                &:not(.has-text-color){
+                    &:hover{
+                        color:var(--thm_black_color);
+                    }
+                }
+            }
+            &.has-alert-background-color{
+                color:var(--thm_black_color);
+                &:not(.has-text-color){
+                    &:hover{
+                        color:var(--thm_black_color);
+                    }
+                }
+            }
+            &.has-cool-background-color{
+                color:var(--thm_black_color);
+                &:not(.has-text-color){
+                    &:hover{
+                        color:var(--thm_black_color);
+                    }
+                }
+            }
+
+        }
+
     }
 
     .mark-dark{

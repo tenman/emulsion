@@ -28,14 +28,13 @@
 /**
  * Gradient
  * @include bg-gradient;
+ * @since removed @if( $header_background_gradient_color != $header_bg_color )
  */
 
 @mixin bg-gradient($angle: 90deg) {
-    @if( $header_background_gradient_color != $header_bg_color ) {
         background-image: -ms-linear-gradient($angle, var(--thm_header_bg_color), var(--thm_header_background_gradient_color) );
         background: -o-linear-gradient($angle,  var(--thm_header_bg_color), var(--thm_header_background_gradient_color));
         background: linear-gradient($angle,  var(--thm_header_bg_color), var(--thm_header_background_gradient_color) );
-    }
 }
 /**
  * Contrast Color
@@ -278,10 +277,16 @@
     box-sizing:border-box;
     clear:left;
     float:left;
-
-    max-width:calc( 50% - var(--thm_content_gap) * 2);
-    margin:var(--thm_content_gap);
-
+    
+    max-width:calc( 50% - var(--thm_content_gap) - var(--thm_common_font_size) );
+    margin-right:var(--thm_common_font_size);
+    margin-left:var(--thm_content_gap);
+    margin-top:1.5rem;
+    margin-bottom:.75rem;
+    & > figure{
+        margin-top:0;
+        margin-bottom:0;
+    }
     @media screen and ( max-width : 640px ) {
         // static break point
         width:100%;
@@ -298,9 +303,16 @@
     box-sizing:border-box;
     clear:right;
     float:right;
-    max-width:calc( 50% - var(--thm_content_gap) * 2);
-    margin:var(--thm_content_gap);
 
+    max-width:calc( 50% - var(--thm_content_gap) - var(--thm_common_font_size) );
+    margin-left:var(--thm_content_gap);
+    margin-right:var(--thm_common_font_size);
+    margin-top:1.5rem;
+    margin-bottom:.75rem;
+    & > figure{
+        margin-top:0;
+        margin-bottom:0;
+    }
     @media screen and ( max-width : 640px ) {
         // static break point
         width:100%;

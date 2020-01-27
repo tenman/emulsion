@@ -652,7 +652,7 @@ jQuery(function ($) {
      * scroll top button
      *
      */
-    $('body').append('<a id="scroll-top" class="scroll-button-top skin-button"><span>Top</span></a>');
+    $('body').append('<span id="scroll-top" class="scroll-button-top skin-button"><span>Top</span></span>');
     $('#scroll-top').click(function (e) {
         e.preventDefault();
         $('html, body').animate({scrollTop: 0}, 500);
@@ -743,7 +743,7 @@ jQuery(function ($) {
      * contrast check
      */
     if (emulsion_script_vars.force_contrast) {
-        $('.entry-content > div:not(.shortcode-wrapper),.entry-content > .shortcode-wrapper > div, .entry-content > .has-background:not(.has-text-color)').not('.wp-block-button').each(function (i) {
+        $('.entry-content > div:not(.shortcode-wrapper),.entry-content > .shortcode-wrapper > div, .entry-content > .has-background:not(.has-text-color)').not('.wp-block-button, .plain').each(function (i) {
             var background_color_rgb = $(this).css("background-color");
             var general_background_color = emulsion_script_vars.background_color;
             if (general_background_color !== background_color_rgb && background_color_rgb.match(/^rgb\(/)) {

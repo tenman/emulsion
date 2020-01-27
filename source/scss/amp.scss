@@ -145,6 +145,17 @@ body{
             }
         }
     }
+    [class|="wp-block"],
+    p,div,aside,section,{
+        margin-top:1.5rem;
+        margin-bottom:.75rem;
+    }
+    .i-amphtml-slide-item,
+    .amp-carousel-slide,
+    .i-amphtml-slides-container{
+                margin-top:0;
+        margin-bottom:.75rem;
+    }
     /**
      * font size classes
      */
@@ -313,5 +324,13 @@ body{
         padding-right:0.625rem;
         max-width:100%;
         box-sizing:border-box;
+    }
+    .wp-embedded-content{
+        a{
+            color:var(--thm_gray_color);
+            &:hover{
+                color:var(--thm_black_color);
+            }
+        }
     }
 }

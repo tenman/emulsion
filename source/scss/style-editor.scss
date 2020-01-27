@@ -1161,7 +1161,7 @@ body{
     }
 }
 .block-editor-block-list__layout{
-    
+
     .block-editor-block-list__block{
         max-width:var(--thm_editor_main_width);
         @media (min-width: 600px){
@@ -5078,6 +5078,89 @@ p.has-drop-cap:not(:focus):first-letter {
     > .block-editor-block-list__block{
         &[data-type="core/group"]{
 
+        }
+    }
+}
+
+/** 
+ * gutenberg 7.2 editor structure changed. block-editor-block-mover block-editor-block-toolbar 
+ * Styles before this line are maintained for compatibility up to WP5.3, but no styles are applied after GB7.2.
+ */
+
+.editor-styles-wrapper{ 
+    // same .edit-post-visual-editor
+    /**
+     * Toolbar , mover
+     */
+    .components-popover{
+        .components-popover__content{
+
+            .block-editor-block-contextual-toolbar{
+                &[data-type]{    
+                    &:not([data-align="wide"]){
+
+                        &:not([data-align="full"]){
+
+                            .block-editor-block-toolbar{
+
+                                .block-editor-block-mover{
+
+                                    &:not(.is-horizontal){
+                                        left:0;
+                                    }
+                                }
+                            }
+                        } 
+                    }
+                }
+
+                &[data-type]{
+                    &[data-align="left"]{
+                        .block-editor-block-toolbar{
+
+                            .block-editor-block-mover{
+
+                                &:not(.is-horizontal){
+
+                                }                            
+                            }
+                        }                       
+                    }
+                }               
+            }           
+        }
+
+    }
+    
+    /**
+     * Blocks
+     * Old CSS styles continue to apply. No need to rewrite
+     * Simply shows the structure
+     */
+    
+    .block-editor__typewriter{
+        .block-editor-writing-flow{
+            .editor-post-title{
+                .editor-post-title__block{
+                    textarea.editor-post-title__input{
+
+                    }
+                }
+            }
+        }
+        .block-editor-block-list__layout{
+
+            [data-type]{
+                &[data-align="left"]{
+                    margin-left:1rem;
+                    .is-block-content{
+                        margin-right:0;
+                        .is-focused{
+
+                        }
+                    }
+                }
+            }
         }
     }
 }
