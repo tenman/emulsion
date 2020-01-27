@@ -93,7 +93,7 @@ $emulsion_customize_args = array(
 		'transport'					 => 'postMessage',
 		'unit'						 => '',
 		'label'						 => esc_html__( 'Category Color', 'emulsion' ),
-		'description'				 => esc_html__( 'Add category colors to headers and links', 'emulsion' ). '<br />'.
+		'description'				 => esc_html__( 'Add category colors to header', 'emulsion' ). '<br />'.
 										emulsion_control_description( 'emulsion_category_colors' ),
 		'validate'					 => 'emulsion_category_colors_validate',
 		'active_callback'			 => '',
@@ -2284,9 +2284,9 @@ function emulsion_control_description( $control ) {
 			break;
 		case 'emulsion_primary_menu_background':
 
-			$header_layout = get_theme_mod( 'emulsion_header_layout');
-
-			if( 'custom' !== $header_layout) {
+			$header_layout = get_theme_mod( 'emulsion_header_layout', emulsion_get_var( 'emulsion_header_layout') );
+			
+			if( 'simple' == $header_layout || 'self' == $header_layout) {
 
 				$notification_titile = esc_html__( 'This setting is not currently available. Header background color applied', 'emulsion' );
 				$notification_text = esc_html__( 'If you want to specify your own color, Requred header layout settings to custom ', 'emulsion');

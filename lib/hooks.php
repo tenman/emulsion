@@ -589,15 +589,16 @@ if ( ! function_exists( 'emulsion_toc' ) ) {
 if ( ! function_exists( 'emulsion_the_excerpt_embed' ) ) {
 
 	/**
-	 * The summary sentence is displayed in two lines.
+	 * The summary sentence is displayed in five lines.
 	 * @param type $excerpt_text
+	 * @since 1.09 line nuber changed from 2 to 5
 	 */
 	function emulsion_the_excerpt_embed( $excerpt_text ) {
 
 
 		$excerpt_text = strip_tags( $excerpt_text );
 
-		printf( '<p style="height:calc(1rem * 1.5 * 2);overflow:hidden">%1$s</p>', wp_kses_post( $excerpt_text ), 'trancate', '2' );
+		printf( '<p style="font-size:13px;max-height:calc(1em * 1.5 * 5);overflow:hidden;">%1$s</p>', wp_kses_post( $excerpt_text ) );
 	}
 
 }
@@ -1042,10 +1043,7 @@ if ( ! function_exists( 'emulsion_add_common_font_css' ) ) {
 
 			delete_transient( $transient_name );
 		}
-		/* 	if( 'active' == get_theme_mod( 'emulsion_wp_scss_status' ) ){
 
-		  return;
-		  } */
 
 		$transient_val = get_transient( $transient_name );
 
@@ -1058,7 +1056,7 @@ if ( ! function_exists( 'emulsion_add_common_font_css' ) ) {
 		$font_google_family_url	 = get_theme_mod( 'emulsion_common_google_font_url', emulsion_get_var( 'emulsion_common_google_font_url' ) );
 		$fallback_font_family	 = get_theme_mod( 'emulsion_common_font_family', emulsion_get_var( 'emulsion_common_font_family' ) );
 		$font_size				 = get_theme_mod( 'emulsion_common_font_size', emulsion_get_var( 'emulsion_common_font_size' ) );
-//	$id = emulsion_theme_info( 'Slug' );
+
 
 		if ( ! empty( $font_google_family_url ) ) {
 
@@ -1254,14 +1252,14 @@ if ( ! function_exists( 'emulsion_widget_meta_font_css' ) ) {
 			$font_family = emulsion_get_google_font_family_from_url( $font_google_family_url, $fallback_font_family );
 		} else {
 
-
-
 			$font_family = $fallback_font_family;
 		}
 
 		if ( $widget_title_font ) {
+			
 			$widget_title_font_family = 'font-family:' . $font_family . ';';
 		} else {
+			
 			$widget_title_font_family = '';
 		}
 

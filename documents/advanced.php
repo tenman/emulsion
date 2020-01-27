@@ -64,6 +64,8 @@
 			<li class="lvl-3"><?php esc_html_e( 'Image Transform Awarding shape. Used with the required badge class', 'emulsion' ) ?></li>
 			<li class="lvl-2">contort</li>
 			<li class="lvl-3"><?php esc_html_e( 'Image Transform contort shape. Used with the required badge class', 'emulsion' ) ?></li>
+			<li class="lvl-1">is-style-circle-mask</li>
+			<li class="lvl-2"><?php esc_html_e( 'When used with alignleft and alignright, the following paragraph follows the circle.', 'emulsion' ) ?></li>
 
 		</ul>
 <?php
