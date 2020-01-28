@@ -644,6 +644,7 @@ if ( ! function_exists( 'emulsion_remove_verify_html' ) ) {
 /**
  * Theme body class
  */
+
 if ( ! function_exists( 'emulsion_admin_body_class' ) ) {
 
 	function emulsion_admin_body_class( $classes ) {
@@ -693,11 +694,26 @@ if ( ! function_exists( 'emulsion_admin_body_class' ) ) {
 			} else {
 				$color_for_editor_class = ' emulsion-color-disable';
 			}
-
+			/**
+			 * gutengerg7.2 html structure changed
+			 * The editor style implemented in 5.0-core cannot control block styles after GB7.2.
+			 * Need to add style for new editor structure and keep style for old structure
+			 * Add a new body class to allow the theme to control the editor style
+			 */
+			
+			if (  has_action( 'admin_enqueue_scripts', 'gutenberg_edit_site_init' ) ) {
+				
+				$block_editor_class_name = ' emulsion-gb-phase-site';
+				
+			} else {
+				
+				$block_editor_class_name = ' emulsion-gb-phase-block';
+			}
+			
 			$theme_classes	 = implode( ' ', emulsion_body_class( array() ) );
 			$theme_classes	 = str_replace( array( 'noscript' ), '', $theme_classes );
 
-			return $classes . $theme_classes . $emulsion_brightnes . $color_for_editor_class;
+			return $classes . $theme_classes . $emulsion_brightnes . $color_for_editor_class . $block_editor_class_name;
 		}
 
 		return $classes;

@@ -18,8 +18,19 @@ a{
  * list
  * =================================================================== */
 
-.widget_custom_html,
-.editor-styles-wrapper,
+.emulsion-gb-phase-site .block-editor__typewriter  [data-block],
+.emulsion-gb-phase-block [data-block]{
+    .wp-block-gallery{
+    .blocks-gallery-item:before{
+        display:none!important;
+        border:1px solid red;
+    }
+    }
+}
+//.widget_custom_html,
+//.editor-styles-wrapper,
+.emulsion-gb-phase-site .block-editor__typewriter  [data-block],
+.emulsion-gb-phase-block [data-block],
 .entry-content{
     ol:not(.list-style-initial):not([id]):not([class|="wp-block"]){
         &.list-style-none{
@@ -810,7 +821,8 @@ h3{
 /**
  * Alternative display of svg icon on edit screen
  */
-[data-block]{
+.emulsion-gb-phase-site .block-editor__typewriter  [data-block],
+.emulsion-gb-phase-block [data-block]{
     [class*=" ico-"]:before{
         content:'';
         width:1em;
@@ -1976,10 +1988,7 @@ ul.shrink{
     padding:.5rem;
     white-space:pre;
 }
-/*
-[data-block],
-.entry-content 
-}*/
+
 /**
  * hover
  * ========================================================================== */
