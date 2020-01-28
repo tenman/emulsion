@@ -1517,23 +1517,3 @@ if ( ! function_exists( 'emulsion_empty_the_title_fallback' ) ) {
 	}
 
 }
-function emulsion_get_gutenberg_version(){
-			/**
-			 * gutengerg7.2 html structure changed
-			 * The editor style implemented in 5.0-core cannot control block styles after GB7.2.
-			 * Need to add style for new editor structure and keep style for old structure
-			 * Add a new body class to allow the theme to control the editor style
-			 */
-			
-			if (  has_action( 'admin_enqueue_scripts', 'gutenberg_edit_site_init' ) ) {
-				
-				$block_editor_class_name = ' block-editor-phase-site';
-				
-			} else {
-				
-				$block_editor_class_name = ' block-editor-phase-block';
-			}
-
-	
-	echo $block_editor_class_name;	
-}
