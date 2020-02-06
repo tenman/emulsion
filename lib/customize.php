@@ -19,7 +19,30 @@ function emulsion_remove_display_header_text( $wp_customize ) {
 	/**
 	 * Tneme not using header_textcolor blank
 	 * Setting custom-logo will replace site-title site-description with the logo.
-	 */	
+	 */
+	/**
+	 * For the Display Site Title and Tagline checkbox to work, 
+	 * the option value for 'header_textcolor' allow the value 'blank’
+	 * but 'blank' is not the hex color value . It is not desirable to mix
+	 * 
+	 * If you allow 'blank'
+	 * please note that the customizer header text color setting may not be displayed
+	 * 
+	 * For validation, 
+	 * comment out the add_action above and 
+	 * add set_theme_mod ('header_textcolor', 'blank');
+	 * 
+	 * Check customizer fields
+	 * Display Site Title and Tagline check box is not checked
+	 * Color/Header text color is not displayed
+	 * 
+	 * If you want to revert, undo the changes and 
+	 * reset in Theme Advanced settings / Reset theme settings to revert.
+	 * 
+	 * This feature removal is implemented using an action hook, 
+	 * so you can easily remove the feature.
+	 */
+	
 	$wp_customize->remove_control( 'display_header_text' );
 }
 
@@ -1432,8 +1455,8 @@ add_action( 'customize_render_control_emulsion_layout_homepage', 'emulsion_messa
  */
 function emulsion_message_layout_posts_page() {
 
-	$is_show_on_front	 = get_option( 'show_on_front' );
-	$page_for_posts_id	 = get_option( 'page_for_posts' );
+	$is_show_on_front	 = sanitize_text_field( get_option( 'show_on_front' ) );
+	$page_for_posts_id	 = sanitize_option( 'page_for_posts', get_option( 'page_for_posts' ) );
 	$customizer_url		 = '';
 
 	if ( $page_for_posts_id && 'page' == $is_show_on_front ) {
@@ -1584,9 +1607,9 @@ function emulsion_message_header_layout() {
 
 function emulsion_message_layout_homepage() {
 
-	$is_show_on_front	 = get_option( 'show_on_front' );
-	$page_on_front_id	 = get_option( 'page_on_front' );
-	$page_for_posts_id	 = get_option( 'page_for_posts' );
+	$is_show_on_front	 = sanitize_text_field( get_option( 'show_on_front' ) );
+	$page_on_front_id	 = sanitize_option( 'page_on_front', get_option( 'page_on_front' ) );
+	$page_for_posts_id	 = sanitize_option( 'page_for_posts', get_option( 'page_for_posts' ) );
 
 
 	if ( ! empty( $page_on_front_id ) && 'page' == $is_show_on_front ) {

@@ -17,7 +17,7 @@ if ( ! function_exists( 'emulsion_relate_posts_algo' ) ) {
 		}
 
 		$categories			 = get_the_category( $post->ID );
-		$default_category	 = get_option( 'default_category' );
+		$default_category	 = sanitize_option( 'default_category', get_option( 'default_category' ) );
 		$tags				 = wp_get_post_terms( $post->ID, 'post_tag', array( "fields" => 'ids' ) );
 		$recent_post_flag	 = false;
 		$cat_id_biggest		 = 0;

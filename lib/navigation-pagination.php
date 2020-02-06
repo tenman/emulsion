@@ -239,3 +239,27 @@ LIMIT 1" );
 		}
 	}
 }
+
+if ( ! function_exists( 'emulsion_pagination' ) ) {
+	/**
+	 * Print pagination
+	 */
+	function emulsion_pagination() {
+		$post_id = get_the_ID();
+		// test
+		$post_navigation_args = array(
+			'prev_text' => '<span class="prev text">'.esc_html__('Previous', 'emulsion'). '</span> <span class="title">%title</span>',
+			'next_text' => '<span class="next text">'.esc_html__('next', 'emulsion'). '</span> <span class="title">%title</span>',
+		);
+
+		if ( is_singular() ) {
+
+			! is_page() && ! is_attachment() ? the_post_navigation( $post_navigation_args ) : '';
+			
+			wp_attachment_is_image( $post_id ) ? emulsion_attachment_pagination() : '';
+		} else {
+
+			the_posts_pagination();
+		}
+	}
+}

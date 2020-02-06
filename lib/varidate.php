@@ -150,8 +150,34 @@ add_filter( "wp_kses_allowed_html", function( $allowedposttags, $context ) {
 
 /**
  * Customizer sanitize callback
+ * 
+ * Each option value has a corresponding varidate function.
+ * 
+ * Get_theme_mod (), a function to get option values, can use theme_mod_{$ option_name}.filter.
+ * For example, the color property value set in the customizer is limited to hex color.
+ * When a filter is used, not only hex color value but also rgb () and hsl () can be used even if the value is invalid.
+ * 
+ * What is the method when users always want to close with hex color values?
+ * 
+ * for example emulsion_sidebar_background
+ * 
+ * By using a filter like the following, if an unintended value is used, it will be able to return the default value.
+ * 
+ * add_filter('theme_mod_emulsion_sidebar_background', 'filter_emulsion_sidebar_background', PHP_INT_MAX);
+ * 
+ * function filter_color_varidate( $value ){
+ *		
+ *		$valid_value = emulsion_header_background_color_validate( $value );
+ * 
+ *		if( ! empty( $valid_value ) ) {
+ *			return $valid_value;
+ *		}
+ * 
+ *		return emulsion_get_var('emulsion_header_background_color','default' );
+ * }
  *
  */
+	
 function emulsion_bg_image_blend_color_validate( $input ) {
 
 	return sanitize_hex_color( $input );

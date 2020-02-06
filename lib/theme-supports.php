@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * Theme options page
+ */
+emulsion_add_supports( 'theme_documents' );
 /**
  * enqueue style and script
  */

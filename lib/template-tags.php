@@ -830,6 +830,19 @@ if ( ! function_exists( 'emulsion_comment_link' ) ) {
 	}
 
 }
+
+if ( ! function_exists( 'emulsion_get_month_link' ) ) {
+	/**
+	 * return date format
+	 * @return string
+	 */
+
+	function emulsion_date_format() {
+
+		return sanitize_option( 'date_format', get_option( 'date_format' ) ) . ' ' . sanitize_option( 'time_format', get_option( 'time_format' ) );
+	}
+
+}
 if ( ! function_exists( 'emulsion_get_month_link' ) ) {
 	/**
 	 * Posted on date link
@@ -859,7 +872,7 @@ if ( ! function_exists( 'emulsion_get_month_link' ) ) {
 		}
 		if ( 'default' == $type ) {
 
-			$date_format		 = get_option( 'date_format' ) . ' ' . get_option( 'time_format' );
+			$date_format		 = emulsion_date_format();
 			$date_text			 = get_the_date( $date_format );
 		}
 
@@ -900,7 +913,7 @@ if ( ! function_exists( 'emulsion_get_day_link' ) ) {
 		}
 		if ( 'default' == $type ) {
 
-			$date_format		 = get_option( 'date_format' ) . ' ' . get_option( 'time_format' );
+			$date_format		 = emulsion_date_format();
 			$date_text			 = get_the_date( $date_format );
 		}
 
@@ -1149,29 +1162,7 @@ if ( ! function_exists( 'emulsion_have_comments' ) ) {
 		}
 	}
 }
-if ( ! function_exists( 'emulsion_pagination' ) ) {
-	/**
-	 * Print pagination
-	 */
-	function emulsion_pagination() {
-		$post_id = get_the_ID();
-		// test
-		$post_navigation_args = array(
-			'prev_text' => '<span class="prev text">'.esc_html__('Previous', 'emulsion'). '</span> <span class="title">%title</span>',
-			'next_text' => '<span class="next text">'.esc_html__('next', 'emulsion'). '</span> <span class="title">%title</span>',
-		);
 
-		if ( is_singular() ) {
-
-			! is_page() && ! is_attachment() ? the_post_navigation( $post_navigation_args ) : '';
-			
-			wp_attachment_is_image( $post_id ) ? emulsion_attachment_pagination() : '';
-		} else {
-
-			the_posts_pagination();
-		}
-	}
-}
 
 if ( ! function_exists( 'emulsion_get_template_part_file_detector' ) ) {
 	/**

@@ -27,7 +27,9 @@ if ( is_admin() && current_user_can( 'edit_theme_options' ) ) {
 	/**
 	 * Theme option page
 	 */
-	include_once( get_theme_file_path( 'documents/documents.php' ) );
+	if( emulsion_get_supports( 'theme_documents' ) ) {
+		include_once( get_theme_file_path( 'documents/documents.php' ) );
+	}
 
 	/**
 	 * TGMPA
@@ -274,9 +276,9 @@ if ( ! function_exists( 'emulsion_setup' ) ) {
 /**
  * Style and Scripts
  */
-add_action( 'wp_enqueue_scripts', 'emulsion_add_stylesheet' );
+add_action( 'wp_enqueue_scripts', 'emulsion_register_scripts_and_styles' );
 
-function emulsion_add_stylesheet() {
+function emulsion_register_scripts_and_styles() {
 	global $wp_scripts;
 
 	/**
@@ -536,7 +538,12 @@ function emulsion_add_stylesheet() {
 }
 
 if ( ! function_exists( 'emulsion_body_class' ) ) {
-
+	/**
+	 * Theme body class
+	 * @global type $_wp_theme_features
+	 * @param type $classes
+	 * @return array;
+	 */
 	function emulsion_body_class( $classes ) {
 		global $_wp_theme_features;
 
@@ -804,6 +811,7 @@ if ( ! function_exists( 'emulsion_remove_spaces_from_css' ) ) {
 
 	/**
 	 * Remove spaces from stylesheet
+	 * When user logged in, output readable CSS, usually minified CSS
 	 */
 	function emulsion_remove_spaces_from_css( $css = '' ) {
 
@@ -1476,12 +1484,15 @@ if ( ! function_exists( 'emulsion_reset_customizer_settings' ) ) {
 		 * layout grid steam is dinamicaly set emulsion_add_supports()
 		 * need to add the default settings separately.
 		 */
-		$emulsion_layout_homepage			 = emulsion_get_var( 'emulsion_layout_homepage', 'default' );
-		$emulsion_layout_posts_page			 = emulsion_get_var( 'emulsion_layout_posts_page', 'default' );
-		$emulsion_layout_date_archives		 = emulsion_get_var( 'emulsion_layout_date_archives', 'default' );
-		$emulsion_layout_category_archives	 = emulsion_get_var( 'emulsion_layout_category_archives', 'default' );
-		$emulsion_layout_tag_archives		 = emulsion_get_var( 'emulsion_layout_tag_archives', 'default' );
-		$emulsion_layout_author_archives	 = emulsion_get_var( 'emulsion_layout_author_archives', 'default' );
+		$emulsion_layout_homepage				 = emulsion_get_var( 'emulsion_layout_homepage', 'default' );
+		$emulsion_layout_posts_page				 = emulsion_get_var( 'emulsion_layout_posts_page', 'default' );
+		$emulsion_layout_date_archives			 = emulsion_get_var( 'emulsion_layout_date_archives', 'default' );
+		$emulsion_layout_category_archives		 = emulsion_get_var( 'emulsion_layout_category_archives', 'default' );
+		$emulsion_layout_tag_archives			 = emulsion_get_var( 'emulsion_layout_tag_archives', 'default' );
+		$emulsion_layout_author_archives		 = emulsion_get_var( 'emulsion_layout_author_archives', 'default' );
+		$emulsion_default_background_color		 = get_theme_support( 'custom-background', 'default-color' );
+		$emulsion_default_header_textcolor_color = str_replace( '#', '', emulsion_header_text_color_reset() );
+		
 
 		foreach ( $emulsion_customize_args as $name => $val ) {
 
@@ -1491,10 +1502,10 @@ if ( ! function_exists( 'emulsion_reset_customizer_settings' ) ) {
 		/**
 		 * reset background color, background image
 		 */		
-		set_theme_mod( 'background_color', 'ffffff' );
+		set_theme_mod( 'background_color', $emulsion_default_background_color );
 		set_theme_mod( 'background_image', '' );
 		set_theme_mod( 'background_image_thumb', '' );
-		set_theme_mod( 'header_textcolor', '333333' );
+		set_theme_mod( 'header_textcolor', $emulsion_default_header_textcolor_color );
 
 		/**
 		 * keep user setting
@@ -1690,7 +1701,7 @@ if ( ! function_exists( 'emulsion_tiny_mce_before_init' ) ) {
 	
 	/**
 	 * tinymce settings
-	 * remove cache , add body class
+	 * remove cache and add body class
 	 */
 
 	function emulsion_tiny_mce_before_init( $mce_init ) {
