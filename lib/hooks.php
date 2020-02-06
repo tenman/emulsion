@@ -47,7 +47,7 @@ function emulsion_hooks_setup() {
 	add_filter( 'the_excerpt_embed', 'emulsion_the_excerpt_embed', 99 );
 	add_filter( 'oembed_default_width', 'emulsion_oembed_default_width', 99 );
 	add_filter( 'excerpt_length', 'emulsion_excerpt_length', 99 );
-	add_filter( 'tiny_mce_before_init', 'emulsion_remove_verify_html', 10, 2 );
+	//add_filter( 'tiny_mce_before_init', 'emulsion_remove_verify_html', 10, 2 );
 	add_filter( 'tiny_mce_before_init', 'emulsion_tiny_mce_before_init' );
 	add_filter( 'admin_body_class', 'emulsion_admin_body_class' );
 	add_filter( 'body_class', 'emulsion_brightness_class', 15 );

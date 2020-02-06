@@ -21,6 +21,9 @@ body{
         }
     }  
 }
+/**
+ * Theme Color Settings
+ */
 #editor{
     .edit-post-sidebar{
         color:initial;
@@ -127,6 +130,7 @@ body.emulsion-color-enable{
 }
 /**
  * Layout
+ * Caluclate editor main width 
  */
 body{
     .block-editor-block-list__layout{
@@ -201,6 +205,11 @@ body{
 .wp-block{
     &.editor-post-title__block{
         max-width:var(--thm_content_width);
+        textarea{
+            text-transform:var(--thm_heading-font-transform);
+            font-weight:var(--thm_heading_font_weight);
+            font-family:var(--thm_heading_font_family);
+        }
     }
 }
 /**
@@ -340,7 +349,6 @@ body{
     }
     /**
      * auxiliary block
-     * 通常のコンテンツに比較して補助的なブロック
      */
     ol.shrink,
     ul.shrink{
@@ -352,7 +360,6 @@ body{
     }
     /**
      * emphasis block
-     * 通常のコンテンツに比較して強調的なブロック
      */
     .em{
         font-weight:bold;
@@ -398,6 +405,12 @@ body{
                 color: #a9b7c6;
                 background: #282b2e;
             }
+        }
+    }
+    .wp-block-navigation-link__submenu-icon{
+        //GB7.4
+        svg{
+            fill:currentColor;
         }
     }
 }
@@ -807,7 +820,7 @@ body{
             overflow-y:auto;
             width:calc(50% - 2rem);
             margin-right:1rem;
-                                    margin-left:1rem;
+            margin-left:1rem;
             padding-left:0;
             padding-right:0;
             .block-editor-block-list__block-edit{
@@ -1445,10 +1458,12 @@ body{
             color:var(--thm_general_text_color);
         }
         .edit-post-visual-editor{
+
             background:var(--thm_background_color);
             color:var(--thm_general_text_color);
             p{
-                color:var(--thm_general_text_color);
+                //@since 1.1.1 block cover text ccontrast issue
+                 color:var(--thm_general_text_color);
             }
             .has-text-color p{
                 color:currentColor;
@@ -1462,6 +1477,7 @@ body{
             .editor-inserter-with-shortcuts__block{
                 color:var(--thm_general_text_color);
             }
+
         }
         &.block-editor-page{
             .edit-post-visual-editor {
@@ -1595,6 +1611,9 @@ body{
         }
     }
 }
+/**
+ * Drop Cap
+ */
 p.has-drop-cap:not(:focus):first-letter {
     float: left;
     font-size: 4em;
