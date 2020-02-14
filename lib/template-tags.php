@@ -142,7 +142,7 @@ if ( ! function_exists( 'emulsion_get_post_title' ) ) {
 
 		global $post;
 		$html				 = '';
-		$post_id			 = absint( get_the_ID() );
+		$post_id			 = get_the_ID();
 		$entry_title_status	 = get_theme_mod( 'emulsion_title_in_header', emulsion_get_var( 'emulsion_title_in_header' ) );
 		$layout_type		 = emulsion_current_layout_type();
 
@@ -186,7 +186,7 @@ if ( ! function_exists( 'emulsion_get_post_title' ) ) {
 			return the_title( '<h2 class="entry-title">'.$insert_start_tag, $insert_end_tag.'</h2>', false );
 		} else {
 
-			if ( has_post_thumbnail() && true == $with_thumbnail && ! post_password_required( $post_id ) ) {
+			if ( has_post_thumbnail() && true == $with_thumbnail && false !== $post_id && ! post_password_required( $post_id ) ) {
 
 				$html = '<h2 class="entry-title"><a href="%1$s">'. $insert_start_tag.'%2$s'. $insert_end_tag.'</a></h2>';
 			} else {
@@ -258,15 +258,20 @@ if ( ! function_exists( 'emulsion_entry_text_markup' ) ) {
 	function emulsion_entry_text_markup() {
 		global $post;
 
-		$enable = emulsion_get_supports( 'title_in_page_header' );
+		$enable	 = emulsion_get_supports( 'title_in_page_header' );
+		$post_id = get_the_ID();
+
+		if( false === $post_id ){
+			
+			__return_empty_string();
+		}
 
 		if ( $enable ) {
 
 			if ( is_singular() && ! is_front_page() ) {
-
-				$id = get_the_ID();
+				
 				echo '<div class="entry-text"><div>';
-				echo '<a class="emulsion-scroll" href="#post-' . absint( $id ) . '">';
+				echo '<a class="emulsion-scroll" href="#post-' . absint( $post_id ) . '">';
 				emulsion_the_post_title();
 				echo '</a>';
 				emulsion_the_post_meta_on();
@@ -331,12 +336,11 @@ if ( ! function_exists( 'emulsion_post_content' ) ) {
 
 	function emulsion_post_content() {
 
-		$use_excerpt = emulsion_get_supports( 'excerpt' );
-
+		$use_excerpt			 = emulsion_get_supports( 'excerpt' );
 		$supports_stream		 = emulsion_get_supports( 'stream' );
 		$supports_grid			 = emulsion_get_supports( 'grid' );
 		$message_protected_post	 = esc_html__( 'Password is required to view this post', 'emulsion' );
-		$post_id				 = absint( get_the_ID() );
+		$post_id				 = get_the_ID();
 		$stream					 = emulsion_has_archive_format( $supports_stream );
 		$grid					 = emulsion_has_archive_format( $supports_grid );
 		$get_post				 = get_post( $post_id, 'OBJECT', 'display' );
@@ -565,6 +569,11 @@ if ( ! function_exists( 'emulsion_post_excerpt_more' ) ) {
 		$supports_grid	 = emulsion_get_supports( 'grid' );
 		$grid			 = emulsion_has_archive_format( $supports_grid );
 		$post_id		 = get_the_ID();
+		
+		if( false === $post_id ){
+			__return_empty_string();
+		}
+
 		$permalink		 = get_permalink( $post_id );
 		$article		 = get_post( $post_id );
 
@@ -587,10 +596,8 @@ if ( ! function_exists( 'emulsion_has_archive_format' ) ) {
 	 * @return string
 	 */
 	function emulsion_has_archive_format( $supports_stream = array() ) {
-		$post_id = absint( get_the_ID() );
-
-		$post_body_type = emulsion_get_supports( 'excerpt' );
-
+		$post_id		 = get_the_ID();
+		$post_body_type	 = emulsion_get_supports( 'excerpt' );
 
 		if ( false !== $post_id ) {
 
@@ -659,6 +666,13 @@ if ( ! function_exists( 'emulsion_get_post_meta_in' ) ) {
 			$result		 .= $tag_list;
 		}
 		if ( has_category() ) {
+			
+			$post_id = get_the_ID();
+			
+			if( false === $post_id ) {
+
+				__return_empty_string();
+			}
 
 			$post_terms = wp_get_object_terms( get_the_ID(), 'category', array( 'fields' => 'ids' ) );
 
@@ -775,11 +789,11 @@ if ( ! function_exists( 'emulsion_get_post_meta_on' ) ) {
 		}
 
 
-		$emulsion_post_id = absint( get_the_ID() );
-		$comment_link	   = '';
+		$emulsion_post_id	 = get_the_ID();
+		$comment_link		 = '';
 
-		if ( 0 < $emulsion_post_id && comments_open( $emulsion_post_id ) ) {
-			;
+		if ( false !== $emulsion_post_id && comments_open( $emulsion_post_id ) ) {
+
 			$comment_link = wp_kses( emulsion_comment_link() , EMULSION_POST_META_DATA_ALLOWED_ELEMENTS );
 		}
 
@@ -862,7 +876,7 @@ if ( ! function_exists( 'emulsion_get_month_link' ) ) {
 			$archive_year		 = get_the_time( 'Y' );
 			$archive_month		 = get_the_time( 'm' );
 			//$archive_day		 = get_the_time( 'd' );
-			$month_link			 = esc_url( get_month_link( $archive_year, $archive_month ) . '#post-' . $emulsion_post_id );
+			$month_link			 = esc_url( get_month_link( $archive_year, $archive_month ) . '#post-' . absint( $emulsion_post_id ) );
 
 		if ( 'ago' == $type ) {
 
@@ -903,7 +917,7 @@ if ( ! function_exists( 'emulsion_get_day_link' ) ) {
 			$archive_year		 = get_the_time( 'Y' );
 			$archive_month		 = get_the_time( 'm' );
 			$archive_day		 = get_the_time( 'd' );
-			$day_link			 = esc_url( get_day_link( $archive_year, $archive_month, $archive_day ) . '#post-' . $emulsion_post_id );
+			$day_link			 = esc_url( get_day_link( $archive_year, $archive_month, $archive_day ) . '#post-' . absint( $emulsion_post_id ) );
 
 		if ( 'ago' == $type ) {
 
@@ -1154,8 +1168,8 @@ if ( ! function_exists( 'emulsion_have_comments' ) ) {
 	function emulsion_have_comments() {
 
 		if( is_singular() ) {
-			$emulsion_post_id = absint( get_the_ID() );
-			if ( comments_open( $emulsion_post_id ) ) {
+			$emulsion_post_id = get_the_ID();
+			if ( false !== $emulsion_post_id && comments_open( $emulsion_post_id ) ) {
 
 				comments_template();
 			}
@@ -1403,7 +1417,7 @@ if ( ! function_exists( 'emulsion_the_header_layer_class' ) ) {
 		 * classes : header-video-active, header-image-active, no-header-media password-required
 		 */
 		$add_class			 = post_password_required() ? ' password-required' : '';
-		$post_id			 = absint( get_the_ID() );
+		$post_id			 = get_the_ID();
 		$current_post_type	 = trim( get_post_type( $post_id ) );
 
 		if ( is_header_video_active() &&

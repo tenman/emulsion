@@ -920,10 +920,11 @@ body .fit{
 }
 .trancate{
     max-width:100%;
+    overflow:hidden; //@since 1.1.2
 }
 .on-trancate{
     display:block;
-    overflow:hidden;
+    //overflow:hidden; @since 1.1.2
 }
 
 .horizontal-list-group{
@@ -1220,4 +1221,19 @@ body .fit{
             float:none;
         }
     }
+}
+/**
+ * margin class
+ * ========================================================================== */
+#document{
+
+    .box-gap{
+        margin-top:var(--thm_box_gap);
+        margin-bottom:var(--thm_box_gap);
+    }
+    .box-gap-0{
+        margin-top:0;
+        margin-bottom:0;
+    }
+
 }

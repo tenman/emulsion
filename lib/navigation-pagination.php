@@ -245,8 +245,14 @@ if ( ! function_exists( 'emulsion_pagination' ) ) {
 	 * Print pagination
 	 */
 	function emulsion_pagination() {
+		
 		$post_id = get_the_ID();
-		// test
+		
+		if( false === $post_id ) {
+			
+			__return_empty_string();
+		}
+
 		$post_navigation_args = array(
 			'prev_text' => '<span class="prev text">'.esc_html__('Previous', 'emulsion'). '</span> <span class="title">%title</span>',
 			'next_text' => '<span class="next text">'.esc_html__('next', 'emulsion'). '</span> <span class="title">%title</span>',

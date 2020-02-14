@@ -2132,6 +2132,12 @@ figure{
                             font-weight:var(--thm_heading_font_weight);
                             text-transform:var(--thm_heading-font-transform);
                         }
+                        .wp-block-latest-posts__featured-image{
+                            margin-top:calc(var(--thm_content_gap) * -1);
+                            margin-left:calc(var(--thm_content_gap) * -1);
+                            margin-right:calc(var(--thm_content_gap) * -1);
+                            max-width:calc(100% + var(--thm_content_gap) * 2);
+                        }                          
                         .wp-block-latest-posts__post-excerpt{
                             text-align:left;
                             display:block;
@@ -2170,7 +2176,9 @@ figure{
                                     margin-left:0;
                                     margin-right:0;
                                 }
+
                             }
+
                             .wp-block-cover{
                                 max-width:100%;
                                 .wp-block-cover__inner-container{
@@ -2250,6 +2258,17 @@ figure{
                                 display:var(--thm_post_display_date);
                             }
                         }
+
+                        .wp-block-columns{
+                            display:block;
+                            &.has-background{
+                                padding:var(--thm_content_gap);//GB7.5 override padding
+                            }
+                            .wp-block-column{
+                                min-width:0;//
+                            }
+                        } 
+
                     }
                 }
             }
@@ -3480,10 +3499,13 @@ ul.wp-block-rss{
             text-align:center;
         }        
     }
-    & > ul{
+    //GB 7.5 ul added  wp-block-navigation__container
+
+    & > .wp-block-navigation__container{
         & > .wp-block-navigation-link{
             text-indent:0 ! important;
             padding:0;
+            min-height:0;// GB7.5 min-height remove;
             margin:3px 5px;
             flex:1 1 auto;
             &:focus-within,
@@ -3512,9 +3534,11 @@ ul.wp-block-rss{
                 }
             }
             // .ico- classes
-            svg{
+            svg.icon{
                 background:inherit;
                 fill:currentColor;
+                position:relative;
+                top:.685rem;
             }
             svg + .wp-block-navigation-link__content{    
                 display:inline-block;
