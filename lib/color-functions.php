@@ -41,9 +41,8 @@ if ( ! function_exists( 'emulsion_get_css_variables_values' ) ) {
 			
 			$header_text_color		 = emulsion_contrast_color( $header_background_color );
 		}
-		$header_link_color		 = emulsion_link_colors( $header_background_color, 'site_header' );
-		$header_hover_color		 = emulsion_hover_colors( $header_background_color, 'site_header' );
-
+		$header_link_color				 = emulsion_link_colors( $header_background_color, 'site_header' );
+		$header_hover_color				 = emulsion_hover_colors( $header_background_color, 'site_header' );
 		$columns_section_bg				 = emulsion_get_var( 'emulsion_block_columns_section_bg' );
 		$columns_section_color			 = emulsion_contrast_color( $columns_section_bg );
 		$columns_section_link_color		 = emulsion_link_colors( $columns_section_bg, 'columns' );
@@ -59,8 +58,7 @@ if ( ! function_exists( 'emulsion_get_css_variables_values' ) ) {
 		$sidebar_background				 = emulsion_get_var( 'emulsion_sidebar_background' );
 		$sidebar_color					 = emulsion_contrast_color( $sidebar_background );
 		$sidebar_link_color				 = emulsion_link_colors( $sidebar_background, 'sidebar' );
-		$sidebar_hover_color             = emulsion_hover_colors( $sidebar_background, 'sidebar' );
-
+		$sidebar_hover_color			 = emulsion_hover_colors( $sidebar_background, 'sidebar' );
 		$primary_menu_background		 = emulsion_get_var( 'emulsion_primary_menu_background' );
 		$primary_menu_color				 = emulsion_contrast_color( $primary_menu_background );
 		$primary_menu_link_color		 = emulsion_link_colors( $primary_menu_background, 'primary_menu' );
@@ -80,7 +78,7 @@ if ( ! function_exists( 'emulsion_get_css_variables_values' ) ) {
 
 		$settings = array(
 			'background_image_dim'				 => array( 'value' => $background_image_dim, 'unit' => '' ),
-			'heading_font_base'					 => array( 'value' => emulsion_get_var( 'emulsion_heading_font_base' ), 'unit' => '' ),
+			'heading_font_base'					 => array( 'value' => emulsion_get_var( 'emulsion_heading_font_base' ), 'unit' => '' ),// Do not add units due to font size calculations.
 			'header_media_max_height'			 => array( 'value' => emulsion_get_var( 'emulsion_header_media_max_height' ), 'unit' => 'vh' ),
 			'post_display_date'					 => array( 'value' => emulsion_get_var( 'emulsion_post_display_date' ), 'unit' => '' ),
 			'post_display_author'				 => array( 'value' => emulsion_get_var( 'emulsion_post_display_author' ), 'unit' => '' ),
@@ -158,7 +156,7 @@ if ( ! function_exists( 'emulsion_get_css_variables_values' ) ) {
 			'header_background_color'			 => array( 'value' => emulsion_get_var( 'emulsion_header_background_color' ), 'unit' => '' ),
 			'header_background_gradient_color'	 => array( 'value' => $header_background_gradient_color, 'unit' => '' ),
 			'background_color'					 => array( 'value' => emulsion_get_background_color(), 'unit' => '' ),
-			'footer_widget_width'				 => array( 'value' => emulsion_get_footer_cols_css(), 'unit' => '' ),
+			'footer_widget_width'				 => array( 'value' => emulsion_get_footer_cols_css(), 'unit' => '%' ),
 			'stream'							 => array( 'value' => emulsion_get_template_part_css_selectors( 'stream' ), 'unit' => '' ),
 			'grid'								 => array( 'value' => emulsion_get_template_part_css_selectors( 'grid' ), 'unit' => '' ),
 			'font_sizes'						 => array( 'value' => emulsion_get_font_sizes(), 'unit' => '' ),
@@ -701,7 +699,7 @@ if ( ! function_exists( 'emulsion_header_image_ratio' ) ) {
 
 		if ( is_singular() && has_post_thumbnail() ) {
 
-			$post_id			 = absint( get_the_ID() );
+			$post_id			 = get_the_ID();
 			$post_thumbnail_id	 = get_post_thumbnail_id( $post_id );
 			$attachment			 = wp_get_attachment_image_src( $post_thumbnail_id, 'full' );
 			$header_width		 = $attachment[1];

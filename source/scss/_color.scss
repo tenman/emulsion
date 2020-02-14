@@ -62,6 +62,16 @@ body{
                 border:var(--thm_common_border);
             }
         }
+        .header-layer{
+            &.template-part-header-custom + .primary-menu-wrapper{
+                #menu-main{
+                    .sub-menu li .sub-menu,
+                    .children li .children{
+                        border:var(--thm_common_border);
+                    }
+                }
+            }
+        }
     }
     &.emulsion-no-sidebar{
         .primary-menu-wrapper{
@@ -174,7 +184,7 @@ body{
                 }
             }
             .emulsion-gb-phase-site .block-editor__typewriter [data-type="core/paragraph"]:first-of-type,
-            .emulsion-gb-phase-block [data-type="core/paragraph"]:first-of-type{
+                .emulsion-gb-phase-block [data-type="core/paragraph"]:first-of-type{
                 [data-block]{
                     p.has-background{
                         font-weight:bold;
@@ -3075,6 +3085,9 @@ figure.wp-block-table{
 }
 p.has-background:not(.has-text-color){
     color: var(--thm_black_color);
+    &.emulsion-add-dark-color{
+        color:var(--thm_white_color);// @since 1.1.2
+    }
 }
 .stream-wrapper{
     /**
@@ -3572,7 +3585,6 @@ body[class] .layout ul{
                 }
             }
             & > ul{
-
                 & > .wp-block-navigation-link{
                     ul{
                         color:var(--thm_black_color);
@@ -4322,8 +4334,8 @@ body{
         min-height:var(--thm_gallery_section_height);
     }
     &.is-dark{
-       &.emulsion-gb-phase-site .block-editor__typewriter  [data-block],
-       &.emulsion-gb-phase-block [data-block],
+        &.emulsion-gb-phase-site .block-editor__typewriter  [data-block],
+        &.emulsion-gb-phase-block [data-block],
         .entry-content{
             &.galley-is-light{
                 color:var(--thm_gallery_section_color);
@@ -4351,8 +4363,8 @@ body{
         }
     }
     &.is-light{
-       &.emulsion-gb-phase-site .block-editor__typewriter  [data-block],
-       &.emulsion-gb-phase-block [data-block],
+        &.emulsion-gb-phase-site .block-editor__typewriter  [data-block],
+        &.emulsion-gb-phase-block [data-block],
         .entry-content{
             .gallery-is-dark{
                 color:var(--thm_gallery_section_color);
@@ -4392,8 +4404,8 @@ body{
 }
 #{$body_id}{
     .entry-content{
-        & > .wp-block-group[style|="background"],
-        & > .wp-block-group.has-background,
+        // & > .wp-block-group[style|="background"], GB7.4
+        // & > .wp-block-group.has-background,  GB7.4
         & > .wp-block-table > table,
         & > .shortcode-wrapper > div:not(.gallery),
             & > p:not(.has-text-color),
@@ -4407,9 +4419,6 @@ body{
                 *{
                     color:var(--thm_black_color);
                 }
-
-
-
             }
 
             &.emulsion-current-color{

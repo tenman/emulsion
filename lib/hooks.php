@@ -801,7 +801,7 @@ if ( ! function_exists( 'emulsion_get_the_excerpt_filter' ) ) {
 
 	function emulsion_get_the_excerpt_filter( $excerpt, $post ) {
 
-		$locale	 = get_locale();
+		$locale	 = sanitize_text_field( get_locale() );
 		$count	 = 200;
 		$more	 = '...';
 

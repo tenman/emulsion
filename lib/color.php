@@ -15,7 +15,7 @@ function emulsion__css_variables( $css = '' ) {
 		}
 		if( is_singular() ) {
 
-			$post_id = absint( get_the_ID() );
+			$post_id = get_the_ID();
 
 			if( 'no_bg' == get_post_meta($post_id, 'emulsion_post_theme_style_script', true) ) {
 
