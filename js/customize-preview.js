@@ -879,6 +879,14 @@
         });
     });
     
+    
+    wp.customize('background_image', function (value) {
+        value.bind(function (newval) {
+          //  $('body').css({'background': 'url(' + newval + ')'});
+            $( '#custom-background-css' ).text( 'body.custom-background { ' + newval + ' }' );
+
+        });
+    });
     wp.customize('emulsion_bg_image_text', function (value) {
         value.bind(function (newval) {
             if ('white' == newval) {

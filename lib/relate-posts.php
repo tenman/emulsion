@@ -121,11 +121,10 @@ if ( ! function_exists( 'emulsion_post_relate_contents' ) ) {
 
 	/**
 	 * 
+	 * @since 1.1.3 removed global $post
 	 */
 	
 	function emulsion_post_relate_contents() {
-		
-		global $post;
 
 		$relate_posts_enable = emulsion_get_supports( 'relate_posts' );
 		
@@ -135,37 +134,45 @@ if ( ! function_exists( 'emulsion_post_relate_contents' ) ) {
 		}
 
 		$algo = emulsion_relate_posts_algo();
+
 		if ( ! empty( $algo ) && is_single() && ! is_attachment() ) {
 
 			$type			 = key( $algo );
 			$id				 = $algo[$type];
-			$args			 = array( 'posts_per_page' => 5, $type => $id );
+			$args			 = "recent_post" == $type ? array( 'posts_per_page' => 5, 'post_status' => 'publish' ) : array( 'posts_per_page' => 5, $type => $id, 'post_status' => 'publish' );
 			$relate_posts	 = get_posts( $args );
 
 			if ( ! empty( $relate_posts ) && is_single() && ! is_attachment() ) {
 				?>	
 				<h2 class="relate-posts-title fit"><?php esc_html_e( 'Relate Posts', 'emulsion' ); ?></h2>
 				<ul class="relate-posts fit"><?php
-					/**
-					 * @see https://codex.wordpress.org/Function_Reference/setup_postdata
-					 * You must pass a reference to the global $post variable, otherwise functions like the_title() don't work properly.
-					 */
-					foreach ( $relate_posts as $post ) {
 
-						setup_postdata( $post );
-						?>
+					foreach ( $relate_posts as $relate_post ) {
+						
+						$post_id			 = absint( $relate_post->ID );
+						$relate_post_title	 =  $relate_post->post_title ;
+						$link_url			 = get_permalink( $post_id );
+?>
 						<li><?php
-							if ( has_post_thumbnail() ) {
+							if ( has_post_thumbnail( $post_id ) ) {
+								
 								the_post_thumbnail( 'thumbnail' );
 							} else {
-								$string	 = mb_substr( get_the_title(), 0, 1 );
+										
 								/* translators: title icon question mark */
-								$string	 = empty( $string ) ? esc_html__( '?', 'emulsion' ) : $string;
-								echo '<div class="relate-post-no-icon">' . esc_html( $string ) . '</div>';
+								$icon_text	 = empty( $relate_post_title ) ? esc_html__( '?', 'emulsion' ) : mb_substr( sanitize_text_field( $relate_post_title ), 0, 1 );
+							
+								/**
+								 * The character string is the first character extracted from the post title. 
+								 * This will only be displayed as an alternative if the featured image does not exist in the post. 
+								 * Just used as a design, no meaning for strings
+								 */
+								echo '<div class="relate-post-no-icon">' . esc_html( $icon_text ) . '</div>';
 							}
-							?><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></li>
+
+							?><a href="<?php echo esc_url( $link_url ); ?>"><?php echo wp_kses( $relate_post_title, array() ); ?></a></li>
 						<?php
-					}
+					}				
 					wp_reset_postdata();
 				}
 				?></ul>	
