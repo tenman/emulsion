@@ -144,7 +144,7 @@ emulsion_add_supports( 'amp' ); //https://wordpress.org/plugins/amp/
 /**
  * utility
  */
-emulsion_add_supports( 'entry_content_html_cleaner' );
+//emulsion_add_supports( 'entry_content_html_cleaner' );
 
 /**
  * sectionize

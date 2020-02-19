@@ -635,7 +635,7 @@ $emulsion_customize_args = array(
 		),
 		'validate'					 => 'emulsion_header_html_validate',
 		'active_callback'			 => 'emulsion_header_html_active_callback',
-		'sanitize_callback'			 => 'esc_url',
+		'sanitize_callback'			 => 'wp_kses_post',
 		'extend_customize_control'	 => '',
 		'type'						 => 'textarea',
 		'input_attrs'				 => array(
@@ -2046,42 +2046,22 @@ $emulsion_theme_customize_sections = array(
  */
 function emulsion_header_html_active_callback( $control ) {
 
-	if ( $control->manager->get_setting( 'emulsion_header_layout' )->value() == 'self' ) {
-		return true;
-	} else {
-		return false;
-	}
-	return false;
+	return ( 'self' === $control->manager->get_setting( 'emulsion_header_layout' )->value() );
 }
 
 function emulsion_title_in_header_active_callback( $control ) {
 	// @see customize.php: customizer value conditional change
 
-	if ( $control->manager->get_setting( 'emulsion_header_layout' )->value() == 'custom' ) {
-		return true;
-	} else {
-		return false;
-	}
-	return false;
+	return ( 'custom' === $control->manager->get_setting( 'emulsion_header_layout' )->value() );
 }
 
 function emulsion_header_sub_background_color_active_callback( $control ) {
 
-	if ( $control->manager->get_setting( 'emulsion_header_gradient' )->value() == 'enable' ) {
-		return true;
-	} else {
-		return false;
-	}
-	return false;
+	return ( 'enable' === $control->manager->get_setting( 'emulsion_header_gradient' )->value() );
 }
 function emulsion_favorite_color_palette_active_callback( $control ) {
 
-	if ( $control->manager->get_setting( 'emulsion_colors_for_editor' )->value() == 'enable' ) {
-		return true;
-	} else {
-		return false;
-	}
-	return false;
+	return ( 'enable' === $control->manager->get_setting( 'emulsion_colors_for_editor' )->value() );	
 }
 /**
  * Validate callback
@@ -2111,21 +2091,22 @@ function emulsion_content_width_limit_value( $validity, $value ) {
 	return $validity;
 }
 
-function emulsion_post_display_method_date_example_value( $type = 'defaul' ){
+function emulsion_post_display_method_date_example_value( $type = 'defaul' ) {
 
-	$example_date = time() - 259200;
+	/**
+	 * Date format label date
+	 * This date is used only to indicate the format of the date. Simply show the date three days before now
+	 */
+	$example_date	 = current_time( 'timestamp' ) - 259200;
+	$date_format	 = sanitize_option( 'date_format', get_option( 'date_format' ) ) . ' ' . sanitize_option( 'time_format', get_option( 'time_format' ) );
 
-	$date_format	 = get_option( 'date_format' ) . ' ' . get_option( 'time_format' );
-
-	if( $type == 'ago'){
+	if ( $type == 'ago' ) {
 		/* translators: %s  human_time_diff() */
 		return sprintf( esc_html__( '%s ago', 'emulsion' ), human_time_diff( $example_date, current_time( 'timestamp' ) ) );
 	}
 
-	return date( $date_format, $example_date );
-
+	return date_i18n( $date_format, $example_date );
 }
-
 
 //latest-post, gallery, columns, media-text, alignwide, comments-open tag-slug
 function emulsion_get_customize_post_id( $type = '' ) {
@@ -2137,11 +2118,20 @@ function emulsion_get_customize_post_id( $type = '' ) {
 	} else {
 		$post_count = -1;
 	}
+	
+	/**
+	 * mean of 2018/12/10
+	 * WordPress 5.0 release date
+	 * 
+	 * When acquiring post IDs, the selection range is reduced by filtering on IDs after the release date
+	 * The Theme review team rules prohibit getting all posts.
+	 * 
+	 */
 	$posts_args	 = array(
 		'posts_per_page' => $post_count,
 		'date_query'	 => array(
 			array(
-				'after' => '2018/12/1'
+				'after' => '2018/12/10'
 			),
 		),
 	);

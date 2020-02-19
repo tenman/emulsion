@@ -845,7 +845,7 @@ if ( ! function_exists( 'emulsion_comment_link' ) ) {
 
 }
 
-if ( ! function_exists( 'emulsion_get_month_link' ) ) {
+if ( ! function_exists( 'emulsion_date_format' ) ) {
 	/**
 	 * return date format
 	 * @return string

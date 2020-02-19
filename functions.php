@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Theme emulsion
  * Settings and functions
@@ -40,6 +39,7 @@ if ( is_admin() && current_user_can( 'edit_theme_options' ) ) {
 		require_once ( get_template_directory() . '/lib/class-tgm-plugin-activation.php' );
 	}
 }
+
 
 /**
  * Theme Supports
@@ -1440,7 +1440,7 @@ if ( ! function_exists( 'emulsion_strip_tags_content' ) ) {
 		preg_match_all( '/<(.+?)[\s]*\/?[\s]*>/si', trim( $tags ), $tags );
 		$tags = array_unique( $tags[1] );
 
-		if ( is_array( $tags ) AND count( $tags ) > 0 ) {
+		if ( is_array( $tags ) && count( $tags ) > 0 ) {
 			if ( $invert == FALSE ) {
 				return preg_replace( '@<(?!(?:' . implode( '|', $tags ) . ')\b)(\w+)\b.*?>.*?</\1>@si', '', $text );
 			} else {
@@ -1628,6 +1628,10 @@ if ( ! function_exists( 'emulsion_elements_assert_equal' ) ) {
 	function emulsion_elements_assert_equal( $value_raw = '', $value_validate = '',
 			$message = '' ) {
 		global $template, $post;
+		
+		if ( ! WP_DEBUG_LOG ) {
+			return;
+		}
 
 		$emulsion_template	 = ! empty( $template ) ? basename( $template ) : 'not found';
 		$add_info			 = '';
@@ -1652,13 +1656,18 @@ if ( ! function_exists( 'emulsion_elements_assert_equal' ) ) {
 			$add_info = 'post_id: http 404 not found';
 		}
 
-		if ( true === WP_DEBUG && 0 !== strcmp( trim( $value_raw ), trim( $value_validate ) ) ) {
+		if ( ( true === WP_DEBUG || is_string( WP_DEBUG_LOG ) ) && 0 !== strcmp( trim( $value_raw ), trim( $value_validate ) ) ) {
 
 			$message	 = sprintf( '[ Emulsion custom info ] The output html may be limited. %1$s %2$s template: %3$s', $message, $add_info, $emulsion_template );
 			$log		 = sprintf( '[ %1$s ]%2$s' . PHP_EOL, date_i18n( 'Y-m-d H:i:s' ), $message );
-			$save_file	 = WP_CONTENT_DIR . '/debug.log';
+			/**
+			 * @since 1.1.3 
+			 * Fixed an issue that was not written to the debug file set by the user
+			 * support  WordPress 5.1, WP_DEBUG_LOG will also accept a file path as a value allowing a custom error log to be defined.
+			 */
+			$save_file = is_bool( WP_DEBUG_LOG )  ?  WP_CONTENT_DIR . '/debug.log' : WP_DEBUG_LOG;
 
-			if ( file_exists( $save_file ) ) {
+			if ( file_exists( $save_file ) && false !== WP_DEBUG_LOG ) {
 				error_log( $log, 3, $save_file );
 			}
 		}
@@ -1673,9 +1682,20 @@ if ( ! function_exists( 'emulsion_write_log' ) ) {
 	 * @param type $log
 	 */
 	function emulsion_write_log( $log ) {
-		if ( true === WP_DEBUG ) {
-
-			$save_file = WP_CONTENT_DIR . '/debug.log';
+		
+		if ( ! WP_DEBUG_LOG ) {
+			return;
+		}
+		
+		if ( true === WP_DEBUG || is_string( WP_DEBUG_LOG ) ) {
+			/**
+			 * @since 1.1.3 
+			 * Fixed an issue that was not written to the debug file set by the user
+			 * support  WordPress 5.1, WP_DEBUG_LOG will also accept a file path as a value allowing a custom error log to be defined.
+			 */
+			$content_dir	  = wp_upload_dir();
+			$content_dir_path = dirname( $content_dir['path'] );
+			$save_file = is_bool( WP_DEBUG_LOG )  ?  $content_dir_path . '/debug.log' : WP_DEBUG_LOG;
 
 			if ( is_array( $log ) || is_object( $log ) ) {
 
@@ -1950,7 +1970,7 @@ if ( ! function_exists( 'emulsion_custom_background_cb' ) ) {
 
 		if ( ! is_user_logged_in() && false !== ( $result = get_transient( 'emulsion_custom_background_cb' ) ) ) {
 
-			echo $result;
+			echo wp_kses( $result, array( 'style' => array( 'id' => true, 'class' => true, 'type' => true ) ) );
 		}
 
 		// $background is the saved custom image, or the default image.
@@ -1966,7 +1986,7 @@ if ( ! function_exists( 'emulsion_custom_background_cb' ) ) {
 
 		$type_attr = current_theme_supports( 'html5', 'style' ) ? '' : ' type="text/css"';
 
-		if ( ! $background && ! $color ) {
+		if ( empty( $background ) && 'ffffff' == $color ) {
 			if ( is_customize_preview() ) {
 
 				printf( '<style%s id="custom-background-css"></style>', wp_kses( $type_attr, array() ) );
@@ -2034,7 +2054,7 @@ if ( ! function_exists( 'emulsion_custom_background_cb' ) ) {
 
 				set_transient( 'emulsion_custom_background_cb', $result, 24 * HOUR_IN_SECONDS );
 
-				echo $result;
+				echo wp_kses( $result, array( 'style' => array( 'id' => true, 'class' => true, 'type' => true ) ) );
 			}
 		}
 	}

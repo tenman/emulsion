@@ -145,17 +145,10 @@ if ( !function_exists( 'emulsion_archive_year_navigation' ) ) {
 	}
 }
 if ( !function_exists( 'emulsion_monthly_archive_prev_next_navigation' ) ) {
-
-	/**
-	 * Note:Theme sniffer1.2.4 plugin output SQL error
-	 * I can't find a suitable function for this purpose, so I'm writing a code based on the core implementation.
-	 * 
-	 * This function is a pluggable function. You can modify the behavior by creating a function with the same name at the beginning of functions.php.
-	 */
 	
 	function emulsion_monthly_archive_prev_next_navigation( $echo = true, $show_year = false ) {
 
-		global $wpdb, $wp_query, $wp_locale;
+		global $wp_query, $wp_locale;
 
 		if ( !is_singular() && !is_404() ) {
 
@@ -173,36 +166,77 @@ if ( !function_exists( 'emulsion_monthly_archive_prev_next_navigation' ) ) {
 				$post_query					 = $post_type;
 			}
 
-
 			$thisyear		 = mysql2date( 'Y', $wp_query->posts[ 0 ]->post_date );
 			$thismonth		 = mysql2date( 'm', $wp_query->posts[ 0 ]->post_date );
 			$unixmonth		 = mktime( 0, 0, 0, $thismonth, 1, $thisyear );
 			$last_day		 = date( 't', $unixmonth );
 			$calendar_output = '';
-			/**
-			 * This code is the get_calendar () function and is based on the code that detects the previous month and the next month.
-			 */
-			$previous	 = $wpdb->get_row( "SELECT MONTH(post_date) AS month, YEAR(post_date) AS year
-FROM $wpdb->posts
-WHERE post_date < '$thisyear-$thismonth-01'
-AND post_type = '$post_query' AND post_status = 'publish'
-ORDER BY post_date DESC
-LIMIT 1" );
-			$next		 = $wpdb->get_row( "SELECT MONTH(post_date) AS month, YEAR(post_date) AS year
-FROM $wpdb->posts
-WHERE post_date > '$thisyear-$thismonth-{$last_day} 23:59:59'
-AND post_type = '$post_query' AND post_status = 'publish'
-ORDER BY post_date ASC
-LIMIT 1" );
+			$previous_year = '';
+			$previous_month = '';
+			$next_year = '';
+			$next_month = '';
+
+			$previous_args		 = array(
+				'post_type'		 => 'post',
+				'post_status'	 => 'publish',
+				'order'			 => 'DESC',
+				'orderby'		 => 'date',
+				"posts_per_page" => 1,
+				'date_query'	 => array(
+					'before' => array(
+						'year'	 => $thisyear,
+						'month'	 => $thismonth,
+						'day'	 => 1,
+					),
+				),
+				'compare'		 => '<',
+				'column'		 => 'post_date',
+				'filter'		 => 'display',
+				'fields'		 => 'post_date',
+			);
+			$previous_query	 = new WP_Query( $previous_args );
+			if( isset( $previous_query->posts[0]->post_date ) ) {
+				$previous_year	 = date( 'Y', strtotime( $previous_query->posts[0]->post_date ) );
+			}
+			if( isset( $previous_query->posts[0]->post_date ) ) {
+				$previous_month	 = date( 'm', strtotime( $previous_query->posts[0]->post_date ) );
+			}
+			wp_reset_postdata();
+
+			$next_args		 = array(
+				'post_type'		 => 'post',
+				'post_status'	 => 'publish',
+				'order'			 => 'ASC',
+				'orderby'		 => 'date',
+				"posts_per_page" => 1,
+				'date_query'	 => array(
+					'after' => array(
+						'year'	 => $thisyear,
+						'month'	 => $thismonth,
+					),
+				),
+				'compare'		 => '>',
+				'column'		 => 'post_date',
+				'filter'		 => 'display',
+				'fields'		 => 'post_date',
+			);
+			$next_query	 = new WP_Query( $next_args );
+			
+			if( isset( $next_query->posts[0]->post_date ) ) {
+				$next_year	 = date( 'Y', strtotime( $next_query->posts[0]->post_date ) );
+			}
+			if( isset( $next_query->posts[0]->post_date ) ) {
+				$next_month	 = date( 'm', strtotime( $next_query->posts[0]->post_date ) );
+			}
+			wp_reset_postdata();
 
 			$html = '<div class="%4$s"><a href="%1$s" class="%3$s">%2$s</a></div>';
 
-			if ( $previous ) {
+			if ( $previous_query && ! empty( $previous_year ) && ! empty( $previous_month ) ) {
 
-				$previous_label = $wp_locale->get_month( $previous->month );
-
-				$calendar_output = sprintf( $html, get_month_link( $previous->year, $previous->month ),
-				/* translators: 1: previous month name */ 
+				$previous_label	 = $wp_locale->get_month( $previous_month );
+				$calendar_output = sprintf( $html, get_month_link( $previous_year, $previous_month ),
+						/* translators: 1: previous month name */ 
 				sprintf( esc_html__( '&#171; %1$s ', 'emulsion' ), $previous_label ), '', "nav-previous" );
 			}
 			$calendar_output .= "\t";
@@ -213,11 +247,11 @@ LIMIT 1" );
 				$calendar_output .= '<span class="year">' . $year_label . '</span>';
 			}
 
-			if ( $next ) {
+			if ( $next_query && ! empty( $next_year ) && ! empty( $next_month ) ) {
 				
-				$next_label = $wp_locale->get_month( $next->month );
+				$next_label = $wp_locale->get_month( $next_month );
 
-				$calendar_output .= sprintf( $html, get_month_link( $next->year, $next->month ),
+				$calendar_output .= sprintf( $html, get_month_link( $next_year, $next_month ),
 				/* translators: 1: next month name */ 
 				sprintf( esc_html__( ' %1$s &#187;', 'emulsion' ), $next_label ), '', "nav-next" );
 			}
