@@ -152,7 +152,7 @@ screenshot.png
 
 ## Changelog
 ### february 20 2020
-		* 1.1.4
+		* 1.1.5
         * https://github.com/tenman/emulsion/releases
 ### february 14 2020
 		* 1.1.2
