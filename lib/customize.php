@@ -760,7 +760,6 @@ CUSTOMIZE_CSS;
  */
 add_action( 'customize_preview_init', 'emulsion_customize_preview_js' );
 add_action( 'customize_controls_enqueue_scripts', 'emulsion_customizer_style' );
-add_action( 'customize_controls_enqueue_scripts', 'emulsion_customizer_script' );
 
 add_action( 'customize_register', 'emulsion_extend_customize_register', 11 );
 add_action( 'customize_render_control_emulsion_layout_posts_page', 'emulsion_message_layout_posts_page' );
