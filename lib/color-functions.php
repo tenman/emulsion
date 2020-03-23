@@ -193,9 +193,28 @@ if ( ! function_exists( 'emulsion_get_css_variables_values' ) ) {
 	}
 
 }
+
+/**
+ * The argument check has been added to the following functions.
+ * If an invalid color value is added to the argument, red will return.
+ * 
+ * emulsion_rgb2hex, 
+ * emulsion_the_hex2rgb,
+ * emulsion_the_hex2rgba,
+ * emulsion_the_hex2hsla,
+ * emulsion_contrast_color,
+ * @since ver1.1.6
+ */
 if ( ! function_exists( 'emulsion_rgb2hex' ) ) {
 
 	function emulsion_rgb2hex( $rgb = array( 0, 0, 0 ) ) {
+		
+		$is_valid = emulsion_color_value_validate( $rgb, 'rgb' );
+		
+		if( ! $is_valid ){
+			
+			return '#ff0000';
+		}
 
 		return '#' . str_pad( dechex( $rgb[0] ), 2, '0', STR_PAD_LEFT ) .
 				str_pad( dechex( $rgb[1] ), 2, '0', STR_PAD_LEFT ) .
@@ -203,7 +222,6 @@ if ( ! function_exists( 'emulsion_rgb2hex' ) ) {
 	}
 
 }
-
 
 if ( ! function_exists( 'emulsion_the_hex2rgb' ) ) {
 
@@ -214,7 +232,7 @@ if ( ! function_exists( 'emulsion_the_hex2rgb' ) ) {
 	 * @return type
 	 */
 	function emulsion_the_hex2rgb( $hex = '#000' ) {
-
+		
 		if ( list($r, $g, $b) = emulsion_get_hex2rgb_array( $hex ) ) {
 
 			return sprintf( 'rgba( %1$d, %2$d, %3$d )', $r, $g, $b );
@@ -233,7 +251,14 @@ if ( ! function_exists( 'emulsion_the_hex2rgba' ) ) {
 	 * @return type
 	 */
 	function emulsion_the_hex2rgba( $hex = '#000', $alpha = 1 ) {
+		
+		$is_valid_alpha	 = emulsion_color_value_validate( $alpha, 'alpha' );
 
+		if ( ! $is_valid_alpha ) {
+			
+			$alpha = 1;
+		}
+		
 		if ( list($r, $g, $b) = emulsion_get_hex2rgb_array( $hex ) ) {
 
 			return sprintf( 'rgba( %1$d, %2$d, %3$d, %4$.1F)', $r, $g, $b, $alpha );
@@ -256,6 +281,12 @@ if ( ! function_exists( 'emulsion_the_hex2hsla' ) ) {
 		if ( empty( $hex ) ) {
 
 			$hex = emulsion_the_background_color();
+		} 
+
+		$is_valid_alpha	 = emulsion_color_value_validate( $alpha, 'alpha' );
+
+		if ( ! $is_valid_alpha ) {
+			$alpha = 1;
 		}
 
 		if ( list($r, $g, $b) = emulsion_get_hex2hsl_array( $hex ) ) {
@@ -282,7 +313,7 @@ if ( ! function_exists( 'emulsion_contrast_color' ) ) {
 
 			$hex_color = emulsion_the_background_color();
 
-		}
+		} 
 
 		list( $r, $g, $b) = emulsion_get_hex2rgb_array( $hex_color );
 
@@ -383,7 +414,7 @@ function emulsion_accent_color( $hex = '', $alpha = 1, $hue = '',
 		$hsl_array	 = emulsion_get_hex2hsl_array( $hex );
 		$hue		 = (int) $hsl_array[0] + $hue;
 
-	}
+	} 
 	if ( ! empty( $hex ) && empty( $hue )) {
 
 		$hsl_array	 = emulsion_get_hex2hsl_array( $hex );
@@ -431,6 +462,16 @@ if ( ! function_exists( 'emulsion_get_hex2rgb_array' ) ) {
 	 * @return boolean
 	 */
 	function emulsion_get_hex2rgb_array( $hex ) {
+		
+		$is_valid		  = emulsion_color_value_validate( $hex, 'hex' );
+		$is_valid_no_hash = emulsion_color_value_validate( $hex, 'hex_no_hash' );
+
+		if( ! $is_valid ){
+
+			if( ! $is_valid_no_hash ) {	
+				return array( 255, 0, 0 );
+			}
+		}			
 
 		$hex = str_replace( '#', '', $hex );
 		$d	 = '[a-fA-F0-9]';
@@ -465,6 +506,17 @@ if ( ! function_exists( 'emulsion_get_hex2hsl_array' ) ) {
 	 * @return type
 	 */
 	function emulsion_get_hex2hsl_array( $hex ) {
+		
+		$is_valid		  = emulsion_color_value_validate( $hex, 'hex' );
+		$is_valid_no_hash = emulsion_color_value_validate( $hex, 'hex_no_hash' );
+
+		if( ! $is_valid ) {
+
+			if( ! $is_valid_no_hash ) {	
+				
+				return array( 0, 100, 50 );
+			}
+		}		
 
 		if ( list( $r, $g, $b ) = emulsion_get_hex2rgb_array( $hex ) ) {
 
@@ -540,9 +592,6 @@ if ( ! function_exists( 'emulsion_brightness_light_class' ) ) {
 		return $classes;
 	}
 }
-
-
-
 
 if ( ! function_exists( 'emulsion_the_background_color' ) ) {
 
@@ -974,3 +1023,110 @@ function emulsion_primary_menu_text_color_reset( ) {
 	return emulsion_contrast_color( $background );
 
 }
+function emulsion_get_template_part_css_selectors( $name = null,
+		$template_slug = 'template-parts/content.php' ) {
+
+	$name = (string) $name;
+
+	$template_path = get_theme_file_path( $template_slug );
+
+	if ( ! file_exists( $template_path ) || empty( $name ) ) {
+		return '';
+	}
+
+	$stream_conditionals = emulsion_get_supports( $name );
+	$stream_classes		 = '';
+	$custom_post_type	 = '';
+	$custom_post_types	 = '';
+
+	if ( ! empty( $stream_conditionals[0] ) ) {
+
+		foreach ( $stream_conditionals[0] as $key => $class ) {
+
+			if ( $key !== 0 && 'post_type' == $key ) {
+
+				if ( is_array( $class ) ) {
+
+					foreach ( $class as $custom_post_type ) {
+
+						$custom_post_types .= '.post-type-archive-' . sanitize_html_class( $custom_post_type ) . ',';
+					}
+					$custom_post_type = $custom_post_types;
+				} else {
+
+					$custom_post_type .= '.post-type-archive-' . sanitize_html_class( $class ) . ',';
+				}
+
+				$stream_classes .= $custom_post_type;
+			} elseif ( 'post_type' !== $key ) {
+
+				if ( is_array( $class ) ) {
+
+					$class = intval( $class );
+				}
+				$class			 = str_replace( 'post_tag', 'tag', $class );
+				$class			 = sanitize_html_class( $class );
+				$stream_classes	 .= sprintf( '.%1$s,', $class );
+
+			}
+		}
+
+		$stream_classes = trim( $stream_classes, ',' );
+	}
+	return $stream_classes;
+}
+
+/**
+ * SCSS variables $image_sizes
+ *
+ * @global type $_wp_additional_image_sizes
+ * @return Comma-separated string
+ */
+function emulsion_get_images_width_for_scss() {
+	global $_wp_additional_image_sizes;
+
+	$sizes		 = '';
+	$image_sizes = get_intermediate_image_sizes();
+
+	foreach ( $image_sizes as $_size ) {
+		if ( in_array( $_size, array( 'thumbnail', 'medium', 'medium_large', 'large' ) ) ) {
+			$sizes .= $_size . "	" . get_option( "{$_size}_size_w" ) . ',';
+		} elseif ( isset( $_wp_additional_image_sizes[$_size] ) ) {
+			$sizes .= $_size . "	" . $_wp_additional_image_sizes[$_size]['width'] . ',';
+		}
+	}
+
+	$sizes = rtrim( $sizes, ',' );
+	return $sizes;
+}
+function emulsion_plugins_style_change_inline( $css ) {
+	global $wp_style;
+
+	$add_css = '';
+
+	if (  is_user_logged_in() || is_admin() ) {
+
+		return $css;
+	}
+	if( is_page() &&  false == emulsion_metabox_display_control( 'page_style' ) ) {
+
+		return;
+	}
+	if( is_single() && false == emulsion_metabox_display_control( 'style' ) ) {
+
+		return;
+	}
+	if( ! emulsion_get_supports( 'enqueue' ) ) {
+
+		return;
+	}
+
+	if ( ! is_admin() || ! is_user_logged_in() ) {
+
+		$get_css = file( get_theme_file_path( 'css/common.css' ) );
+		$add_css .= implode( '', $get_css );
+		return $css . $add_css;
+	}
+	return $css;
+}
+

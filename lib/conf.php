@@ -209,7 +209,7 @@ $emulsion_customize_args = array(
 	),
 	"emulsion_bg_image_blend_color_amount"	 => array(
 		'section'					 => 'background_image',
-		'default'					 => 30,
+		'default'					 => 0,
 		'priority'					 => 11,
 		'data_type'					 => $emulsion_setting_type,
 		'capability'				 => $emulsion_customize_cap,
@@ -224,7 +224,7 @@ $emulsion_customize_args = array(
 		'extend_customize_setting'	 => '',
 		'type'						 => 'range',
 		'input_attrs'				 => array(
-			'min'	 => 1,
+			'min'	 => 0,
 			'max'	 => 100,
 			'step'	 => 1,
 		),
@@ -1035,7 +1035,7 @@ $emulsion_customize_args = array(
 		'extend_customize_control'	 => '',
 		'type'						 => 'radio',
 		'choices'					 => array(
-			'show'		 => esc_html__( 'Show', 'emulsion' ),
+			'show'	 => esc_html__( 'Show', 'emulsion' ),
 			'hide'	 => esc_html__( 'Hide', 'emulsion' ),
 		),
 	),
@@ -1077,7 +1077,7 @@ $emulsion_customize_args = array(
 		'extend_customize_control'	 => '',
 		'type'						 => 'radio',
 		'choices'					 => array(
-			'show'		 => esc_html__( 'Show', 'emulsion' ),
+			'show'	 => esc_html__( 'Show', 'emulsion' ),
 			'hide'	 => esc_html__( 'Hide', 'emulsion' ),
 		),
 	),
@@ -1117,7 +1117,7 @@ $emulsion_customize_args = array(
 		'extend_customize_control'	 => '',
 		'type'						 => 'radio',
 		'choices'					 => array(
-			'show'		 => esc_html__( 'Show', 'emulsion' ),
+			'show'	 => esc_html__( 'Show', 'emulsion' ),
 			'hide'	 => esc_html__( 'Hide', 'emulsion' ),
 		),
 	),
@@ -2315,4 +2315,3 @@ function emulsion_control_description( $control ) {
 			break;
 	}
 }
-

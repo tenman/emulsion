@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
-	<defs>
+<?php
+$emulsion_svg_symbols =<<<SYMBOLS
 		<symbol id="default" viewBox="0 0 72 72" >
 			<circle cx="35.09" cy="36.144" r="28.195" />
 			<path  d="M28.807 21.434h12.412v28.348H28.807z"/>
@@ -131,9 +131,18 @@
 		<symbol id="block" viewBox="0 0 32 32">
 			<path d="M27.314 4.686c-3.022-3.022-7.040-4.686-11.314-4.686s-8.292 1.664-11.314 4.686c-3.022 3.022-4.686 7.040-4.686 11.314s1.664 8.292 4.686 11.314c3.022 3.022 7.040 4.686 11.314 4.686s8.292-1.664 11.314-4.686c3.022-3.022 4.686-7.040 4.686-11.314s-1.664-8.292-4.686-11.314zM28 16c0 2.588-0.824 4.987-2.222 6.949l-16.727-16.727c1.962-1.399 4.361-2.222 6.949-2.222 6.617 0 12 5.383 12 12zM4 16c0-2.588 0.824-4.987 2.222-6.949l16.727 16.727c-1.962 1.399-4.361 2.222-6.949 2.222-6.617 0-12-5.383-12-12z"></path>
 		</symbol>
-		<?php
-		$emulsion_extend_svg = apply_filters( 'emulsion_icon_svg_symbols', '' );
-		echo wp_kses( $emulsion_extend_svg, EMULSION_ICON_SVG_SYMBOLS_ALLOWED_ELEMENTS );
-		?>
-	</defs>
-</svg>
+SYMBOLS;
+
+		$emulsion_svg_symbols = apply_filters( 'emulsion_icon_svg_symbols', $emulsion_svg_symbols );
+		
+		if( current_user_can( 'edit_theme_options' ) ) {
+			
+			// save allowed svg id @type json
+			
+			$emulsion_accepted_svg_ids = emulsion_get_svg_ids( $emulsion_svg_symbols );
+		    set_theme_mod( 'emulsion_accepted_svg_ids', $emulsion_accepted_svg_ids );
+		}
+	
+		$emulsiong_svg = sprintf('<svg xmlns="http://www.w3.org/2000/svg" id="emulsion_theme_svgs"><defs>%1$s</defs></svg>', $emulsion_svg_symbols );
+		
+		echo wp_kses( $emulsiong_svg, EMULSION_ICON_SVG_SYMBOLS_ALLOWED_ELEMENTS );

@@ -54,7 +54,6 @@ if ( $wp_customize ) {
 	$wp_customize->selective_refresh->add_partial( 'header_textcolor', array(
 		'selector' => '.header-text',
 	) );
-	
 	/**
 	 * Preview link icon
 	 */
@@ -164,8 +163,7 @@ if ( $wp_customize ) {
 	) );
 	$wp_customize->selective_refresh->add_partial( 'emulsion_bg_image_blend_color_amount', array(
 		'selector' => 'html',
-	) );
-	
+	) );	
 }
 
 /**
@@ -254,16 +252,14 @@ function emulsion_customize_controle_translate() {
 			. '<span class="emulsion-spinner"></span>' . esc_html__( 'moving preview to date archives', 'emulsion' ) . '</span>' . $emulsion_section_notification_message,
 		'code_section_layout_tag_archives_notification'				 => '<span class="emulsion_fadeout_message_section_layout_tag_archives">'
 			. '<span class="emulsion-spinner"></span>' . esc_html__( 'moving preview to tag archives', 'emulsion' ) . '</span>' . $emulsion_section_notification_message,
-		'emulsion_code_section_header_image_notification'			 => '<span class="emulsion_fadeout_message_section_header_image">'
-			. '<span class="emulsion-spinner"></span>' . esc_html__( 'moving preview to home', 'emulsion' ) . '</span>' . $emulsion_section_notification_message,
-		'code_section_advanced_excerpt_notification'				 => '<span class="emulsion_fadeout_message_section_advanced_excerpt">'
+		'code_section_header_image_notification'			 => '<span class="emulsion_fadeout_message_section_header_image">'
 			. '<span class="emulsion-spinner"></span>' . esc_html__( 'moving preview to home', 'emulsion' ) . '</span>' . $emulsion_section_notification_message,
 		'code__section_layout_main_notification'					 => '<span class="emulsion_fadeout_message__section_layout_main">'
 			. '<span class="emulsion-spinner"></span>' . esc_html__( 'moving preview to latest post', 'emulsion' ) . '</span>' . $emulsion_section_notification_message,
 		'background_image_notification'								 => '<span class="emulsion_fadeout_message__section_background_image">'
 			. '<span class="emulsion-spinner"></span>' . esc_html__( 'moving preview to latest post', 'emulsion' ) . '</span>' . $emulsion_section_notification_message
 			. '<p>' . esc_html__( 'The background image is display only for single posts and pages.', 'emulsion' ) . '</p>'
-			. '<p>' . esc_html__( 'If the image is not displayed in the preview, press the save button once and reload.', 'emulsion' ) . '</p>',
+			. '<p>' . esc_html__( 'If you see a default button, press it to save and reload. Then, set your favorite background image.', 'emulsion' ) . '</p>',
 	);
 	return $translation_array;
 }

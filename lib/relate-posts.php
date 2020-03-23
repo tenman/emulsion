@@ -156,10 +156,13 @@ if ( ! function_exists( 'emulsion_post_relate_contents' ) ) {
 						<li><?php
 							if ( has_post_thumbnail( $post_id ) ) {
 								
-								the_post_thumbnail( 'thumbnail' );
+								/**
+								 * @since ver1.1.6 function change the_post_thumbnail to get_the_post_thumbnail
+								 */
+								echo get_the_post_thumbnail( $post_id, 'thumbnail' );
 							} else {
 										
-								/* translators: title icon question mark */
+								/* translators: title icon question mark */							
 								$icon_text	 = empty( $relate_post_title ) ? esc_html__( '?', 'emulsion' ) : mb_substr( sanitize_text_field( $relate_post_title ), 0, 1 );
 							
 								/**
