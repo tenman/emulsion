@@ -154,7 +154,7 @@ background-image.png
 
 ## Changelog
 ### March 23 2020
-		* 1.1.6
+		* 1.1.7
         * https://github.com/tenman/emulsion/releases
 ### february 20 2020
 		* 1.1.5
