@@ -62,21 +62,34 @@ jQuery(function ($) {
             .wp-block-embed, .wp-block-group, .wp-block-table, .wp-block-spacer, .wp-block-button, .wp-block-separator, .wp-block-navigation').wrap(function () {
             var classes = $(this).attr('class').match(/wp-block-\S+/);
             var brightness_class = '';
+            var section_title = '';
             if ('wp-block-columns' == classes) {
                 brightness_class = 'columns-' + emulsion_script_vars.block_columns_class;
+                section_title = emulsion_script_vars.block_columns_class_title;
             }
             if ('wp-block-gallery' == classes) {
                 brightness_class = 'gallery-' + emulsion_script_vars.block_gallery_class;
+                section_title = emulsion_script_vars.block_gallery_class_title;
             }
             if ('wp-block-media-text' == classes) {
                 brightness_class = 'media-text-' + emulsion_script_vars.block_media_text_class;
+                section_title = emulsion_script_vars.block_media_text_class_title;
+            }
+            if ('wp-block-pullquote' == classes || 'wp-block-quote' == classes) {
+                section_title = emulsion_script_vars.block_quote_class_title;
             }
             $(this).wrap('<section class="sectionized-' + classes + ' ' + brightness_class + '" ></section>');
+
             var string = $(this).html().slice(0, 4);
             var id = $(this).html().length;
             id = classes + '-' + parseInt(emulsion_script_vars.post_id) + '-' + parseInt(id);
             if ('is_preview' !== emulsion_script_vars.is_customize_preview) {
-                $(this).parent().addClass(id);
+                
+                if ( section_title ) {
+                    $(this).parent().addClass(id).prepend('<h2 class="screen-reader-text">' + section_title + '</h2>');
+                } else {
+                    $(this).parent().addClass(id);
+                }
             }
         });
     }
@@ -354,7 +367,7 @@ jQuery(function ($) {
      * Header Search box filter
      * Filter the list of categories and tags according to the search keyword.
      */
-    //$(".search-drawer .search-form .search-field").on("keyup touchend", function () {
+
     $(".search-drawer .wp-block-search .wp-block-search__input").on("keyup touchend", function () {
         var value = $(this).val().toLowerCase();
         $(".search-info li ul li").filter(function () {
@@ -372,50 +385,38 @@ jQuery(function ($) {
         var target_class = classes.match(/^.*(ico-\S+).*$/);
         target_class = target_class[1];
         target_class = target_class.replace("ico-", "");
-        var icon_classes = ["icon-expand", "enlarge", "shrink", "search", "cross", "lock",
-            "play", "pause", "icon-behance", "phone", "email", "rss", "embed", "bell", "location",
-            "pdf", "zip", "html5", "category", "tag", "clock", "contrast", "home", "bookmark",
-            "quote", "edit", "web", "human", "new-tab", "checkbox_checked", "checkbox", "radio_checked",
-            "radio", "notice", "info", "block", "icon-deviantart", "icon-medium", "icon-slideshare",
-            "icon-snapchat-ghost", "icon-yelp", "icon-vine", "icon-vk", "icon-search", "icon-envelope-o",
-            "icon-close", "icon-angle-down", "icon-folder-open", "icon-twitter", "icon-facebook", "icon-github",
-            "icon-bars", "icon-google-plus", "icon-linkedin", "icon-quote-right", "icon-mail-reply",
-            "icon-youtube", "icon-dropbox", "icon-instagram", "icon-flickr", "icon-tumblr", "icon-dockerhub",
-            "icon-dribbble", "icon-skype", "icon-foursquare", "icon-wordpress", "icon-stumbleupon", "icon-digg",
-            "icon-spotify", "icon-soundcloud", "icon-codepen", "icon-twitch", "icon-meanpath", "icon-pinterest-p",
-            "icon-periscope", "icon-get-pocket", "icon-vimeo", "icon-reddit-alien", "icon-hashtag", "icon-chain",
-            "icon-thumb-tack", "icon-arrow-left", "icon-arrow-right", "icon-play", "icon-pause", "icon-phone",
-            "icon-email", "icon-rss", "icon-amazon"];
-        
-            if ($.inArray(target_class, icon_classes)) {
 
-                var tag_name = $(this).prop("tagName");
+        var icon_classes = emulsion_script_vars.emulsion_accepted_svg_ids;
 
-                if ('UL' == tag_name  ) {
-                    $(this).addClass('list-style-none').children('li').prepend('<svg class="icon ico-' + target_class + '" aria-hidden="true" style="width:1em;height:1em" role="img"><use xlink:href="#' + target_class + '" /></svg>');
-                } else if( $(this).hasClass( 'wp-block-navigation' ) ) {
-                    $(this).children('ul').addClass('list-style-none').children('li').prepend('<svg class="icon ico-' + target_class + '" aria-hidden="true" style="width:1em;height:1em" role="img"><use xlink:href="#' + target_class + '" /></svg>');
-                } else {
-                    $(this).prepend('<svg class="icon ico-' + target_class + '" aria-hidden="true" style="width:1em;height:1em" role="img"><use xlink:href="#' + target_class + '" /></svg>');
-                }
+        if ($.inArray(target_class, icon_classes)) {
+
+            var tag_name = $(this).prop("tagName");
+
+            if ('UL' == tag_name) {
+                $(this).addClass('list-style-none').children('li').prepend('<svg class="icon ico-' + target_class + '" aria-hidden="true" style="width:1em;height:1em" role="img"><use xlink:href="#' + target_class + '" /></svg>');
+            } else if ($(this).hasClass('wp-block-navigation')) {
+                $(this).children('ul').addClass('list-style-none').children('li').prepend('<svg class="icon ico-' + target_class + '" aria-hidden="true" style="width:1em;height:1em" role="img"><use xlink:href="#' + target_class + '" /></svg>');
+            } else {
+                $(this).prepend('<svg class="icon ico-' + target_class + '" aria-hidden="true" style="width:1em;height:1em" role="img"><use xlink:href="#' + target_class + '" /></svg>');
             }
-        
+        }
+
     });
 });
 jQuery(function ($) {
-    
+
     /**
      * Repaire block editor WordPress 5.3.1 + gutenberg 7.1
      * block latest posts ( full content ) inline code decoded
      * Since tags such as script are removed, the code cannot be reproduced accurately,
      * but it is better than being decoded
      */
-   
-   $('.wp-block-latest-posts__post-full-content code').each(function (index) {    
+
+    $('.wp-block-latest-posts__post-full-content code').each(function (index) {
         var html = $(this).html();
-        
+
         $(this).text(html);
-    });   
+    });
 });
 
 jQuery(function ($) {
@@ -855,12 +856,12 @@ jQuery(function ($) {
             });
 });
 jQuery(function ($) {
-    
+
     $('.cta-layer').each(function (i) {
         $(this).attr({
-            'tabindex': '0',       
+            'tabindex': '0',
         });
-        
+
     });
 });
 

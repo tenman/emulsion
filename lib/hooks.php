@@ -27,7 +27,7 @@ function emulsion_hooks_setup() {
 	add_filter( 'get_the_archive_title', 'emulsion_archive_title_filter' );
 	add_filter( 'the_title', 'emulsion_keyword_with_mark_elements_title', 99999 );
 	add_filter( 'the_title', 'emulsion_empty_the_title_fallback' );
-	add_filter( 'the_content', 'emulsion_entry_content_html_cleaner', 11 );
+	add_filter( 'the_content', 'emulsion_entry_content_filter', 11 );
 	add_filter( 'the_content', 'emulsion_keyword_with_mark_elements', 99999 );
 	add_filter( 'get_the_excerpt', 'emulsion_get_the_excerpt_filter', 10, 2 );
 	add_filter( 'embed_oembed_html', 'emulsion_oembed_filter', 99, 4 );
@@ -47,7 +47,6 @@ function emulsion_hooks_setup() {
 	add_filter( 'the_excerpt_embed', 'emulsion_the_excerpt_embed', 99 );
 	add_filter( 'oembed_default_width', 'emulsion_oembed_default_width', 99 );
 	add_filter( 'excerpt_length', 'emulsion_excerpt_length', 99 );
-	//add_filter( 'tiny_mce_before_init', 'emulsion_remove_verify_html', 10, 2 );
 	add_filter( 'tiny_mce_before_init', 'emulsion_tiny_mce_before_init' );
 	add_filter( 'admin_body_class', 'emulsion_admin_body_class' );
 	add_filter( 'body_class', 'emulsion_brightness_class', 15 );
@@ -99,10 +98,15 @@ if ( ! function_exists( 'emulsion_pingback_header' ) ) {
 if ( ! function_exists( 'emulsion_skip_link' ) ) {
 
 	function emulsion_skip_link() {
-		
+
 		$skip_link_url = emulsion_request_url().'#main';
 
-		printf( '<div class="%1$s"><a href="%2$s" class="%3$s" title="%4$s">%5$s</a></div>', 'skip-link', esc_url( $skip_link_url ), 'screen-reader-text', esc_attr__( 'Skip to content', 'emulsion' ), esc_html__( 'Skip to content', 'emulsion' )
+		printf( '<div class="%1$s"><a href="%2$s" class="%3$s" title="%4$s">%5$s</a></div>',
+				'skip-link',
+				esc_url( $skip_link_url ),
+				'screen-reader-text',
+				esc_attr__( 'Skip to content', 'emulsion' ),
+				esc_html__( 'Skip to content', 'emulsion' )
 		);
 	}
 
@@ -263,35 +267,20 @@ function emulsion_archive_title_filter( $title ) {
 	return $title;
 }
 
-if ( ! function_exists( 'emulsion_entry_content_html_cleaner' ) ) {
+if ( ! function_exists( 'emulsion_entry_content_filter' ) ) {
 
 	/**
 	 *
 	 * @param type $content
 	 * @return type
 	 */
-	function emulsion_entry_content_html_cleaner( $content ) {
+	function emulsion_entry_content_filter( $content ) {
 
-		$support = emulsion_get_supports( 'entry_content_html_cleaner' );
+		$support = emulsion_get_supports( 'entry_content_filter' );
 
 		if ( true !== $support ) {
 			return $content;
 		}
-
-		$allblocks	 = '(?:table|thead|tfoot|caption|col|colgroup|tbody|tr|td|th|div|dl|dd|dt|ul|ol|li|pre|form|map|area|blockquote|address|math|style|h[1-6]|hr|fieldset|noscript|legend|section|article|aside|hgroup|header|footer|nav|figure|details|menu|summary)';
-		$content	 = preg_replace( '!([^(<p>)]*)</p>(</' . $allblocks . '>)!', "$1$2", $content );
-		$content	 = preg_replace( '!(<(select|del|option|canvas|mrow|svg|rect|optgroup) [^>]*>)(<br />|</p>)!', "$1", $content );
-		$content	 = preg_replace( '!(</option>|</svg>|</figcaption>|<mrow>|<msup>|</msup>|</mi>|</mn>|</mrow>|</mo>|</rect>|</button>|</optgroup>|</select>)<br />!', "$1", $content );
-		$content	 = preg_replace( '!<p>\s*(</?(ins|del|msup|input)[^>]*>)\s*</p>!', "$1", $content );
-		$content	 = preg_replace( '!(</?(svg|msup|keygen|command|canvas|datalist|script)[^>]*>)\s*</p>!', "$1", $content );
-		$content	 = preg_replace( '!(<p>)(</?(svg|msup|keygen|command|canvas|datalist|input)[^>]*>)!', "$2", $content );
-		$content	 = preg_replace( '!(<p>[^<]*)(</' . $allblocks . '>)!', "$1</p>$2", $content );
-		$content	 = preg_replace( '!(<' . $allblocks . '[^>]*>[^<]*)</p>!', "$1", $content );
-		$content	 = preg_replace( '!(<' . $allblocks . '[^>]*>)([^(<|\s)]+)<p>!', "$1<p>$2</p>", $content );
-		$content	 = str_replace( 'class="wp-caption-text"></p>', 'class="wp-caption-text">', $content );
-		$content	 = preg_replace( '!<p>(<figure[^>]*>(.*)?</figure>)</p>!', "$1", $content );
-		$content	 = preg_replace( '!<p>(<ruby[^>]*>(.*)?</ruby>)</p>!', "$1", $content );
-
 		// decode url encoded text
 		$content = preg_replace_callback( "|<a[^>]+>.*?(https?:\/\/[-_.!*\'()a-zA-Z0-9;\/?:@&=+$,%#]+).*?</a>|", "emulsion_link_url_text_decode", $content );
 		return $content;
@@ -474,7 +463,8 @@ if ( ! function_exists( 'emulsion_get_the_password_form' ) ) {
 
 		$post_id			 = absint( $post->ID );
 		$label				 = 'pwbox-' . ( empty( $post_id ) ? rand() : $post_id );
-		$aria_describedby	 = 'pwbox-' . ( empty( $post_id ) ? rand() : $post_id );
+		// @since 1.1.6 change from pwbox- to password-box-. Duplicate id attribute
+		$aria_describedby	 = 'password-box-' . ( empty( $post_id ) ? rand() : $post_id );
 		$label_text			 = __( 'Password:', 'emulsion' );
 		$url				 = esc_url( site_url( 'wp-login.php?action=postpass', 'login_post' ) );
 		$submit_text		 = esc_attr_x( 'Enter', 'post password form', 'emulsion' );
@@ -630,17 +620,6 @@ if ( ! function_exists( 'emulsion_excerpt_length' ) ) {
 	}
 
 }
-if ( ! function_exists( 'emulsion_remove_verify_html' ) ) {
-
-	function emulsion_remove_verify_html( $init, $block ) {
-
-		if ( 'classic-block' == $block ) {
-			$init['verify_html'] = false;
-		}
-		return $init;
-	}
-
-}
 /**
  * Theme body class
  */
@@ -700,16 +679,16 @@ if ( ! function_exists( 'emulsion_admin_body_class' ) ) {
 			 * Need to add style for new editor structure and keep style for old structure
 			 * Add a new body class to allow the theme to control the editor style
 			 */
-			
+
 			if (  has_action( 'admin_enqueue_scripts', 'gutenberg_edit_site_init' ) ) {
-				
+
 				$block_editor_class_name = ' emulsion-gb-phase-site';
-				
+
 			} else {
-				
+
 				$block_editor_class_name = ' emulsion-gb-phase-block';
 			}
-			
+
 			$theme_classes	 = implode( ' ', emulsion_body_class( array() ) );
 			$theme_classes	 = str_replace( array( 'noscript' ), '', $theme_classes );
 
@@ -955,14 +934,14 @@ if ( ! function_exists( 'emulsion_smart_category_highlight' ) ) {
 
 		$count_terms = count( $terms );
 		$radian		 = 270 / $count_terms;
-		$body_id	 = '#' . emulsion_theme_info( 'Slug', false );
+		$body_id	 = '#' . esc_attr( emulsion_theme_info( 'Slug', false ) );
 
 		foreach ( $terms as $key => $term ) {
 
 			$v			 = $key + 1;
-			$hue		 = $start_angle + ( $radian * $v );
-			$saturation	 = $saturation_base . '%';
-			$lightness	 = $lightness_base . '%';
+			$hue		 = absint( $start_angle + ( $radian * $v ) );
+			$saturation	 = absint( $saturation_base ) . '%';
+			$lightness	 = absint( $lightness_base ) . '%';
 
 			if ( $lightness_base <= 50 ) {
 				$color = '#fff';
@@ -976,67 +955,136 @@ if ( ! function_exists( 'emulsion_smart_category_highlight' ) ) {
 					if ( 'enable' == get_theme_mod( 'emulsion_header_gradient', emulsion_get_var( 'emulsion_header_gradient' ) ) ) {
 
 						$gradient_hue = $hue + 30;
+						$background_value = 'linear-gradient(90deg,  hsl(' . $hue . ',' . $saturation . ',' . $lightness . '),
+											hsl(' . $gradient_hue . ',' . $saturation . ',' . $lightness . ') )';
+						$css = '.on-scroll.has-category-colors.category-%1$s .header-layer-site-title-navigation,
+								.on-scroll.has-category-colors.category.archive.category-%1$s .header-layer,
+								.has-category-colors.category.archive.category-%1$s .header-layer{
+									color:%2$s;
+									background: %3$s
+								}';
 
-						$result .= '.on-scroll.has-category-colors.category-' . $term->term_id . " .header-layer-site-title-navigation, \n"
-								. '.on-scroll.has-category-colors.category.archive.category-' . $term->term_id . " .header-layer,\n"
-								. '.has-category-colors.category.archive.category-' . $term->term_id . " .header-layer{\n"
-								. 'color:' . $color . ";\n"
-								. 'background: linear-gradient(90deg,  hsl(' . $hue . ',' . $saturation . ',' . $lightness . '),'
-								. ' hsl(' . $gradient_hue . ',' . $saturation . ',' . $lightness . ") );\n"
-								. "\n}\n";
+						$result .= sprintf( $css, absint( $term->term_id ) , $color, $background_value);
+
 					} else {
 
-						$result .= '.on-scroll.has-category-colors.category-' . $term->term_id . " .header-layer-site-title-navigation, \n"
-								. '.on-scroll.has-category-colors.category-' . $term->term_id . " .header-layer, \n"
-								. '.has-category-colors.category-' . $term->term_id . " .header-layer{\n color:" . $color . ";\nbackground:hsla(" . $hue . ',' . $saturation . ',' . $lightness . ',' . $alpha . ");\n} \n";
+						$background_value = 'hsla(' . $hue . ',' . $saturation . ',' . $lightness . ',' . $alpha . ')';
+
+						$css = '.on-scroll.has-category-colors.category-%1$s .header-layer-site-title-navigation,
+								.on-scroll.has-category-colors.category.archive.category-%1$s .header-layer,
+								.has-category-colors.category.archive.category-%1$s .header-layer{
+									color:%2$s;
+									background: %3$s
+								}';
+
+						$result .= sprintf( $css, absint( $term->term_id ) , $color, $background_value);
+
 					}
+
 					/* cta link button */
-					$result					 .= '.category.has-category-colors.archive.category-' . $term->term_id . " .header-layer .cta-layer a{\n color:" . $color . ';background:hsla(' . $hue . ',' . $saturation . ',' . $lightness . ',' . $alpha . ");\n}\n";
-					$hover_hue				 = $hue + 180;
+					$background_value = 'hsla(' . intval($hue) . ',' . $saturation . ',' . $lightness . ',' . $alpha .')';
+
+					$css = '.category.has-category-colors.archive.category-%1$s .header-layer .cta-layer a{
+								color: %2$s;
+								background: %3$s;
+						   }';
+
+					$result .= sprintf( $css, absint( $term->term_id ) , $color, $background_value);
+
+					/* category icon */
+					$hover_hue				 = intval( $hue + 180 );
 					$link_lightness			 = '90%';
 					$description_lightness	 = '100%';
 
-					$result	 .= '.has-category-colors.category.archive.category-' . $term->term_id . " .header-layer .drawer-wrapper .icon:hover{\n"
-							. 'fill: hsla(' . $hover_hue . ',' . $saturation . ',' . $lightness . ',' . $alpha . "); \n"
-							. 'stroke: hsla(' . $hover_hue . ',' . $saturation . ',' . $lightness . ',' . $alpha . ");\n}\n";
-					$result	 .= '.has-category-colors.category.archive.category-' . $term->term_id . " .header-layer a{\n color: hsla(" . $hover_hue . ',' . $saturation . ',' . $link_lightness . ',' . $alpha . ");\n }\n";
-					$result	 .= '.has-category-colors.category.archive.category-' . $term->term_id . " .header-layer a:hover{\n color: hsla(" . $hover_hue . ',' . $saturation . ',' . $link_lightness . ',' . $alpha . "); \n}\n";
-					$result	 .= '.has-category-colors.category.archive.category-' . $term->term_id . " .header-layer .taxonomy-description{\n color: hsla(" . $hover_hue . ',' . $saturation . ',' . $description_lightness . ',' . $alpha . ");\n }\n";
+					$background_value =  'hsla(' . intval($hover_hue) . ',' . $saturation . ',' . $lightness . ',' . $alpha . ')';
+					$css = '.has-category-colors.category.archive.category-%1$s .header-layer .drawer-wrapper .icon:hover{
+								fill:%2$s;
+								stroke:%2$s;
+							}';
+
+					$result .= sprintf( $css, absint( $term->term_id ) , $background_value );
+
+					$color_value = 'hsla('. intval($hover_hue) . ',' . $saturation . ',' . $link_lightness . ',' . $alpha . ')';
+
+					$css = '.has-category-colors.category.archive.category-%1$s .header-layer .taxonomy-description,
+							.has-category-colors.category.archive.category-%1$s .header-layer a:hover,
+							.has-category-colors.category.archive.category-%1$s .header-layer a{
+								color: %2$s;
+							}';
+
+					$result .= sprintf( $css, absint( $term->term_id ) , $color_value );
 
 					/* header simple wp_nav_menu() sub-menu, children */
+					$background_value =  'hsla(' . intval($hue) . ',' . $saturation . ',' . $lightness . ',' . $alpha . ')';
 
-					$result	 .= '.has-category-colors.category.archive.category-' . $term->term_id . " .template-part-header .wp-nav-menu .sub-menu{\n background: hsla(" . $hue . ',' . $saturation . ',' . $lightness . ',' . $alpha . ");\n }\n";
-					$result	 .= '.has-category-colors.category.archive.category-' . $term->term_id . " .template-part-header .wp-nav-menu .children{\n background: hsla(" . $hue . ',' . $saturation . ',' . $lightness . ',' . $alpha . ");\n }\n";
+					$css	 = '.has-category-colors.category.archive.category-%1$s .template-part-header .wp-nav-menu .children,
+								.has-category-colors.category.archive.category-%1$s .template-part-header .wp-nav-menu .sub-menu{
+									background: %2$s;
+								}';
+					$result .= sprintf( $css, absint( $term->term_id ) , $background_value );
 
 					/* category header style end */
-					$result	 .= $body_id . ' .entry-meta .cat-item-' . $term->term_id . " {\n background:hsla(" . $hue . ',' . $saturation . ',' . $lightness . ',' . $alpha . ');} ';
-					$result	 .= $body_id . ' .entry-meta .cat-item-' . $term->term_id . "{\n transition:all .5s ease-in-out;\n} \n";
-					$result	 .= $body_id . ' .entry-meta .cat-item-' . $term->term_id . ', .cat-item-' . $term->term_id . " a{\n color:#fff;} \n";
-					$result	 .= $body_id . ' .entry-meta .cat-item-' . $term->term_id . " a{\n color:#eee;\n} \n";
-					/* hover */
-					$result	 .= $body_id . ' .cat-item-' . $term->term_id . ":hover {\n background:hsla(" . $hue . ',' . $saturation . ',' . $lightness . ',' . $alpha . ');} ';
-					$result	 .= $body_id . ' .cat-item-' . $term->term_id . "{\n transition:all .5s ease-in-out;\n} \n";
-					$result	 .= $body_id . ' .cat-item-' . $term->term_id . ':hover, .cat-item-' . $term->term_id . ":hover a{\n color:#fff;} \n";
-					$result	 .= $body_id . ' .cat-item-' . $term->term_id . ":hover a{\n color:#eee;\n} \n";
+					$background_value =  'hsla(' . intval($hue) . ',' . $saturation . ',' . $lightness . ',' . $alpha . ')';
 
-					/* link before icon style */
+					$css	 = '%1$s .entry-meta .cat-item-%2$s {
+									background:%3$s;
+									transition:all .5s ease-in-out;
+								}';
 
-					/* $result	 .= $body_id . ' .cat-item-' . $term->term_id . ':before {content:\'\'; display:inline-block; width:1rem; height:1rem; vertical-align:middle;}';
-					  $result	 .= $body_id . ' .cat-item-' . $term->term_id . ':before {background:hsla(' . $hue . ',' . $saturation . ',' . $lightness . ',' . $alpha . ');} ';
-					  $result	 .= $body_id . ' .cat-item-' . $term->term_id . '{transition:all .5s ease-in-out;} ';
-					  $result	 .= $body_id . ' .cat-item-' . $term->term_id . ':before, .cat-item-' . $term->term_id . ':before a{color:#fff;} '; */
+					$result .= sprintf( $css, $body_id, absint( $term->term_id ), $background_value );
+
+					$css	 = '%1$s .cat-item-%2$s.current-cat,
+								%1$s .cat-item-%2$s.current-cat a,
+								%1$s .entry-meta .cat-item-%2$s .cat-item-%2$s:hover a
+								%1$s .entry-meta .cat-item-%2$s .cat-item-%2$s a{
+									color:#fff;
+								}';
+					$result .= sprintf( $css, $body_id, absint( $term->term_id ) );
+
+					$css	 = '%1$s .entry-meta .cat-item-%2$s:hover a,
+								%1$s .entry-meta .cat-item-%2$s:hover,
+								%1$s .entry-meta .cat-item-%2$s a{
+									color:#eee;
+								}';
+					$result .= sprintf( $css, $body_id, absint( $term->term_id ) );
+
+					$background_value =  'hsla(' . intval($hue) . ',' . $saturation . ',' . $lightness . ',' . $alpha . ')';
+
+
+					$css	 = '%1$s .cat-item-%2$s.current-cat,
+								%1$s .cat-item-%2$s:hover{
+									background:%3$s;
+								}';
+					$result .= sprintf( $css, $body_id, absint( $term->term_id ), $background_value );
 
 					/* relate style effect.scss */
+					$background_value =  'hsla(' . intval($hue) . ',' . $saturation . ',' . $lightness . ',' . $alpha . ')';
 
-					$result	 .= $body_id . ' .cat-item-' . $term->term_id . '.current-cat a,' . $body_id . ' .cat-item-' . $term->term_id . ".current-cat{\n color:#fff;} \n";
-					$result	 .= $body_id . ' .cat-item-' . $term->term_id . ".current-cat {\n background:hsla(" . $hue . ',' . $saturation . ',' . $lightness . ',' . $alpha . ");\n} \n";
-					$result	 .= $body_id . '.hilight-cat-item-' . $term->term_id . ' .cat-item-' . $term->term_id . " {\n background:hsla(" . $hue . ',' . $saturation . ',' . $lightness . ',' . $alpha . ");\n} \n";
-					$result	 .= $body_id . '.hilight-cat-item-' . $term->term_id . ' .cat-item-' . $term->term_id . "{color:#fff;\n} \n";
-					$result	 .= $body_id . '.hilight-cat-item-' . $term->term_id . ' .cat-item-' . $term->term_id . " li{color:#fff;\n} \n";
-					$result	 .= $body_id . '.hilight-cat-item-' . $term->term_id . ' .cat-item-' . $term->term_id . " a{color:#fff!important;\n } \n";
+					$css	 = '%1$s.hilight-cat-item-%2$s .cat-item-%2$s {
+									background:%3$s;
+									color:#fff;
+								}';
+					$result .= sprintf( $css, $body_id, absint( $term->term_id ), $background_value );
+
+					$css	 = '%1$s.hilight-cat-item-%2$s .cat-item-%2$s li{
+									color:#fff;
+								}';
+					$result .= sprintf( $css, $body_id, absint( $term->term_id ) );
+
+					$css	 = '%1$s.hilight-cat-item-%2$s .cat-item-%2$s a{
+									color:#fff ! important;
+								}';
+					$result .= sprintf( $css, $body_id, absint( $term->term_id ) );
+
+					/* link before icon style */
+					/* $result	 .= $body_id . ' .cat-item-' . absint($term->term_id) . ':before {content:\'\'; display:inline-block; width:1rem; height:1rem; vertical-align:middle;}';
+					  $result	 .= $body_id . ' .cat-item-' . absint($term->term_id) . ':before {background:hsla(' . $hue . ',' . $saturation . ',' . $lightness . ',' . $alpha . ');} ';
+					  $result	 .= $body_id . ' .cat-item-' . absint($term->term_id) . '{transition:all .5s ease-in-out;} ';
+					  $result	 .= $body_id . ' .cat-item-' . absint($term->term_id) . ':before, .cat-item-' . absint($term->term_id) . ':before a{color:#fff;} '; */
+
 				} else {
-					$result	 .= $body_id . ' .cat-item.cat-item-' . $term->term_id . " {\n display:none;\n} \n";
-					$result	 .= $body_id . '.category-archives .cat-item.cat-item-' . $term->term_id . " {\n display:none; \n } \n";
+					$result	 .= $body_id . ' .cat-item.cat-item-' . absint($term->term_id) . " {\n display:none;\n} \n";
+					$result	 .= $body_id . '.category-archives .cat-item.cat-item-' . absint($term->term_id) . " {\n display:none; \n } \n";
 				}
 			}
 		}
@@ -1150,8 +1198,6 @@ if ( ! function_exists( 'emulsion_heading_font_css' ) ) {
 			$font_family = $fallback_font_family;
 		}
 
-
-
 		$inline_style .= <<<CSS
 		body.font-heading-$fallback_font_family .h6,
 		body.font-heading-$fallback_font_family .h5,
@@ -1227,8 +1273,6 @@ if ( ! function_exists( 'emulsion_heading_font_css' ) ) {
 			}
 		}
 CSS;
-
-
 		$inline_style	 = emulsion_sanitize_css( $inline_style );
 		$inline_style	 = emulsion_remove_spaces_from_css( $inline_style );
 
@@ -1272,10 +1316,10 @@ if ( ! function_exists( 'emulsion_widget_meta_font_css' ) ) {
 		}
 
 		if ( $widget_title_font ) {
-			
+
 			$widget_title_font_family = 'font-family:' . $font_family . ';';
 		} else {
-			
+
 			$widget_title_font_family = '';
 		}
 
@@ -1447,9 +1491,9 @@ if ( ! function_exists( 'emulsion_do_snippet' ) ) {
 if ( ! function_exists( 'emulsion_footer_widget_params' ) ) {
 
 	function emulsion_footer_widget_params( $params ) {
-		
+
 		if ( isset( $params[0]['id'] ) ) {
-			
+
 			$sidebar_id = $params[0]['id'];
 
 			if ( $sidebar_id == 'sidebar-2' ) {
@@ -1466,8 +1510,8 @@ if ( ! function_exists( 'emulsion_footer_widget_params' ) ) {
 			}
 			return $params;
 		}
-		
-		return $params;		
+
+		return $params;
 	}
 
 }
@@ -1505,7 +1549,6 @@ if ( ! function_exists( 'emulsion_svg' ) ) {
 	}
 
 }
-
 if ( ! function_exists( 'emulsion_empty_the_title_fallback' ) ) {
 
 	function emulsion_empty_the_title_fallback( $title ) {

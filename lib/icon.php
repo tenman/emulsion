@@ -383,7 +383,7 @@ SYMBOL;
 
 	if( emulsion_get_supports( 'social-link-menu') ) {
 
-		return $symbols;
+		return $symbol.$symbols;
 	}
 }
 add_filter( 'emulsion_inline_style',  'emulsion_icon_svg_styles' );

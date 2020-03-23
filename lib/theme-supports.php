@@ -85,7 +85,7 @@ get_theme_mod( 'emulsion_page_header', emulsion_get_var( 'emulsion_page_header' 
 emulsion_add_supports( 'background', array(
 	'default' => array(
 		'default-color'			 => 'ffffff',
-		'default-image'			 => '',
+		'default-image'			 => get_theme_file_uri( 'images/background-image.png' ),
 		'default-preset'		 => 'default',
 		'default-position-x'	 => 'left',
 		'default-position-y'	 => 'top',
@@ -144,7 +144,7 @@ emulsion_add_supports( 'amp' ); //https://wordpress.org/plugins/amp/
 /**
  * utility
  */
-//emulsion_add_supports( 'entry_content_html_cleaner' );
+emulsion_add_supports( 'entry_content_filter' );
 
 /**
  * sectionize

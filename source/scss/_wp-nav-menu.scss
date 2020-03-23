@@ -1,6 +1,5 @@
 /**
- *
- *
+ * ==========================================================================
  *
  * Index
  *
@@ -13,7 +12,22 @@
  * Javascript disable. primary menu
  * Widget Navigation Menu
  * Table of contents
+ *
+ * ==========================================================================
+ *
+ * dinamic attribute
+ *
+ * data-direction="horizontal" ( default )
+ *      For PC view horizontal menu
+ * data-direction="vertical"
+ *      For Mobile view vertical menu ( need javascript )
+ * data-type="accordion"
+ *      caret click show child  
+ *      If there is no accordion class, the child menu will be displayed on the right.
+ *
+ * ==========================================================================
  */
+
 
 /**
  * 2cols
@@ -847,7 +861,7 @@ input[type="checkbox"][data-skin="inset"] + label span:after {
     background: transparent;
     top: 6px;
     left: 5px;
-    border: 3px solid var(--thm_white_color);
+    border: 3px solid var(--thm_black_color);
     border-top: none;
     border-right: none;
     -webkit-transform: rotate(-45deg);
@@ -856,8 +870,14 @@ input[type="checkbox"][data-skin="inset"] + label span:after {
     -ms-transform: rotate(-45deg);
     transform: rotate(-45deg);
 }
+
 input[type="checkbox"][data-skin="inset"]:checked + label span{
     background:#16a085;
+    &:after{
+        border: 3px solid var(--thm_white_color);
+        border-top: none;
+        border-right: none;
+    }
 }
 input[type="checkbox"][data-skin="inset"]:checked + label span:hover:after {
     opacity: 0.3;

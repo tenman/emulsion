@@ -210,6 +210,7 @@
                         width:100%;
                     }
                 }
+
             }
             .wp-block-group{
                 box-sizing:border-box;
@@ -980,7 +981,7 @@ figure{
             max-height:75vh;
             padding-bottom:0;
             iframe{
-                position:static;
+                //@since 1.1.6 position:static;
                 height:100%;
                 overflow:hidden;
             }
@@ -2114,6 +2115,23 @@ figure{
                             max-width:100%;
                         }
                     }
+
+                    .wp-block-categories{
+                        li{
+                            line-height: calc(var(--thm_common_font_size) * var( --thm_content_line_height, 1.5 ));
+                            font-size: var(--thm_meta_data_font_size);
+                            text-transform: var(--thm_meta_data_font_transform);
+                            padding:0;
+                            text-indent:0;
+                            a{
+                                display:inline-block;
+                                margin-top:6px;
+                                margin-bottom:6px;
+                            }
+                        }
+                    }
+
+
                 }
             }
             .wp-block-latest-posts{
@@ -2224,6 +2242,18 @@ figure{
                                 // limit font size
                                 // todo custom font size
                                 //@include font_size(2);
+                            }
+                            .wp-block-button{
+                                &.aligncenter{
+                                    .wp-block-button__link{
+                                        white-space:normal;
+                                    }
+                                }
+                            }
+                            .wp-block-buttons{
+                                &.aligncenter{
+                                    max-width:100%;                              
+                                }
                             }
 
                         }
@@ -2889,6 +2919,7 @@ h2,h3,h4{
         .wp-block-cover{
             height:auto;
         }
+
         .wp-block-archives{
             display: block;
             height: auto;
@@ -2902,7 +2933,7 @@ h2,h3,h4{
                 width:initial;
                 flex:initial;
                 display:list-item;
-                padding:.67rem;
+                //  padding:.67rem;
                 box-sizing:border-box;
                 &:before{
                     display:none;
@@ -2910,6 +2941,8 @@ h2,h3,h4{
                 a{
                     display:inline-block;
                     transform:none;
+                    margin-top:2px;
+                    margin-bottom:2px;
                 }
             }
         }
@@ -3181,7 +3214,7 @@ pre.wp-block-verse{
     &.alignleft,
     &.alignright{
         //@since 1.0.9 remove margin
-        margin:var(--thm_content_gap);
+        //@since 1.1.6  margin:var(--thm_content_gap);
     }
 }
 /**
@@ -3425,6 +3458,28 @@ ul.wp-block-rss{
 /**
  * Block calendar
  * ========================================================================== */
+.calendar_wrap{
+    //WordPress 5.4
+    //https://make.wordpress.org/core/2020/02/12/changes-related-to-calendar-widget-markup-in-wordpress-5-4/
+
+    nav{
+        display:flex;
+
+        span{
+            flex:1 1 auto;
+            display:block;
+            padding:1rem;
+
+            &:first-child{
+                text-align:left;
+            }
+            &:last-child{
+                text-align:right;
+            }
+        }
+    }
+
+}
 .wp-block-calendar{
     @extend %block;
     margin-left:auto;
@@ -3472,6 +3527,7 @@ ul.wp-block-rss{
             }
         }
     }
+
 }
 /**
  * Block navigation
@@ -4004,6 +4060,13 @@ div.amp-block-latest-stories{
     &.is-style-pill-shape{
         .wp-social-link{
         }
+    }
+}
+.wp-block-embed-tiktok{
+    //WordPress 5.4 
+    .wp-block-embed__wrapper{
+        height:auto;
+        padding-bottom:0;
     }
 }
 /**

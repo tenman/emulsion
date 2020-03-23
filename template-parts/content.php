@@ -32,6 +32,7 @@ $emulsion_title_in_page_header = emulsion_get_supports( 'title_in_page_header' )
 									'depth'          => 1,
 									'link_before'    => '<span class="screen-reader-text">',
 									'link_after'     => '</span>' . emulsion_get_svg( array( 'icon' => 'chain' ) ),
+									'items_wrap'	 => '<h2 class="screen-reader-text">'.esc_html__('Social navigation','emulsion').'</h2><ul id="%1$s" class="%2$s">%3$s</ul>',
 									'item_spacing'   => 'discard',
 								)
 							);

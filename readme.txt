@@ -48,6 +48,7 @@ This is why I tried modularization.
 * Back END and Front END CSS relation
 	* Customizer CSS settings are communicated to the front end, editor style, classic editor using CSS variables.
 	* SCSS PHP compiler (wp-scss plugin) can be used to easily compile SCSS on the server.( wp-scss has not been updated for a long time,Whether to use it is at your own discretion )
+        * @see https://www.tenman.info/wp3/emulsion/en/2020/03/23/scss-%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e3%81%ae%e7%b7%a8%e9%9b%86%e3%82%92%e8%a1%8c%e3%81%86%e5%a0%b4%e5%90%88%e3%81%ab/
 	* For each post or page, you can completely stop the CSS and script of the theme. This feature may be useful when using a page builder.
 	* In browsers such as IE11 that do not support CSS varialbes, simple display that supports only readability is performed.
 
@@ -76,6 +77,7 @@ This is why I tried modularization.
 ### Images
 
 screenshot.png
+background-image.png
 
 * Above images License
 	* Copyright: Copyright (c) 2010-2017, Tenman

@@ -54,8 +54,11 @@ const EMULSION_ICON_SVG_SYMBOLS_ALLOWED_ELEMENTS = array(
 		'role'				 => true,
 		'aria-hidden'		 => true,
 		'width'				 => true,
-		'height'			 => true
+		'height'			 => true,
+		'xmlns'				 => true,
+		'id'              => true,
 	),
+	'defs' => true,
 	'symbol' => array(
 		'class'		 => true,
 		'id'		 => true,
@@ -147,6 +150,154 @@ add_filter( "wp_kses_allowed_html", function( $allowedposttags, $context ) {
 	}
 
 	return $allowedposttags; }, 99, 2 );
+
+/**
+ * test 
+ * List of judgment tests for emulsion_color_value_validate.
+ * Test listings are here for recently created functions.
+ * 
+			echo '<div class="fit"> <h1>Unit test</h1>';
+			echo '<h2>correct emulsion_rgb2hex</h2>';			
+			echo emulsion_rgb2hex( $rgb = array( 0, 0, 0 ) );
+			echo '<h2>count error</h2>';
+			echo var_dump( emulsion_rgb2hex( $rgb = array( 0, 0, 0, 0 ) ) );
+			echo '<h2>value error</h2>';
+			echo var_dump( emulsion_rgb2hex( $rgb = array( 0, 0, 256 ) ) );
+			echo '<hr />';			
+			echo '<h2>correct emulsion_the_hex2rgb</h2>';			
+			echo emulsion_the_hex2rgb( '#ffa500' ) ;		
+			echo '<h2>correct emulsion_the_hex2rgb no hash</h2>';	
+			echo emulsion_the_hex2rgb( 'ffa500' ) ;
+			echo '<h2>bad value</h2>';
+			echo var_dump( emulsion_the_hex2rgb( '#ffa50') );
+			echo '<h2>bad value no hash</h2>';
+			echo var_dump( emulsion_the_hex2rgb( '#ffa50' ) );
+			echo '<hr />';			
+			echo '<h2>correct emulsion_the_hex2rgba</h2>';			
+			echo emulsion_the_hex2rgba( '#ffa500' ) ;		
+			echo '<h2>correct emulsion_the_hex2rgba no hash</h2>';	
+			echo emulsion_the_hex2rgba( 'ffa500' ) ;
+			echo '<h2>bad value</h2>';
+			echo var_dump( emulsion_the_hex2rgba( '#ffa50') );
+			echo '<h2>bad value no hash</h2>';
+			echo var_dump( emulsion_the_hex2rgba( '#ffa50' ) );
+			echo '<hr />';
+			echo '<h2> 2 correct emulsion_the_hex2rgba</h2>';			
+			echo emulsion_the_hex2rgba( '#ffa500',.5 ) ;		
+			echo '<h2>correct emulsion_the_hex2rgba no hash</h2>';	
+			echo emulsion_the_hex2rgba( 'ffa500',.5 ) ;
+			echo '<h2>bad value</h2>';
+			echo var_dump( emulsion_the_hex2rgba( '#ffa50',1.1) );
+			echo '<h2>bad value no hash</h2>';
+			echo var_dump( emulsion_the_hex2rgba( '#ffa50',1.1 ) );
+			echo '<hr />';			
+			echo '<h2>correct emulsion_the_hex2hsla</h2>';			
+			echo emulsion_the_hex2hsla( '#ffa500' ) ;		
+			echo '<h2>correct emulsion_the_hex2hsla no hash</h2>';	
+			echo emulsion_the_hex2hsla( 'ffa500' ) ;
+			echo '<h2>bad value</h2>';
+			echo var_dump( emulsion_the_hex2hsla( '#ffa50') );
+			echo '<h2>bad value no hash</h2>';
+			echo var_dump( emulsion_the_hex2hsla( '#ffa50' ) );
+			echo '<hr />';		
+			echo '<h2> 2 correct emulsion_the_hex2hsla</h2>';			
+			echo emulsion_the_hex2hsla( '#ffa500',.5 ) ;		
+			echo '<h2>correct emulsion_the_hex2hsla no hash</h2>';	
+			echo emulsion_the_hex2hsla( 'ffa500',.5 ) ;
+			echo '<h2>bad value</h2>';
+			echo var_dump( emulsion_the_hex2hsla( '#ffa50',1.1) );
+			echo '<h2>bad value no hash</h2>';
+			echo var_dump( emulsion_the_hex2hsla( '#ffa50',1 ) );
+			echo '</div>';
+ 			echo '<h2> correct emulsion_color_value_validate $type = alpha</h2>';
+			$extreme_value = [ 'correct-1' => 1, 'correct-2' => .5, 'correct-3' => 0, 'incorrect-1' => -1, 'incorrect-2' => 1.1 ];
+
+			foreach ( $extreme_value as $key => $val ) {
+				echo '<p>';
+				echo 'emulsion_color_value_validate( ' . $val . ', $type = \'alpha\' )[' . $key . '] :' . var_export( emulsion_color_value_validate( $val, 'alpha' ), true );
+				echo '</p>';
+			}
+ * Coding example
+ * 
+				$base_color		 = '#8e44ad';
+				$accent_color	 = emulsion_accent_color( $base_color );
+				$text_color		 = emulsion_contrast_color( $accent_color );
+
+				$html = sprintf(
+						'<div class="fit" style="background:%1$s;padding:2rem;">'
+							. '<div style="background:%2$s;color:%3$s">'
+								. '<p>hello world</p>'
+							. '</div>'
+						. '</div>', 
+						$base_color, 
+						$accent_color, 
+						$text_color );
+
+				echo $html;
+ * 
+ */
+
+function emulsion_color_value_validate( $values, $type = 'hex' ) {
+	
+	/**
+	 * Color args value check
+	 * @since ver1.1.6
+	 */
+
+	if ( 'rgb' == $type ) {
+		if ( ! is_array( $values ) ) {
+			return false;
+		}
+
+		foreach ( $values as $value ) {
+
+			$is_valid = is_integer( $value ) && $value >= 0 && $value <= 255 ? true : false;
+
+			if ( false === $is_valid ) {
+				break;
+			}
+		}
+		return ( 3 === count( $values ) && true === $is_valid );
+	}
+	
+	if ( 'rgba' == $type ) {
+		
+		if ( ! is_array( $values ) ) {
+			
+			return false;
+		}
+
+		foreach ( $values as $key => $value ) {
+
+			$is_valid = is_integer( $value ) && $value >= 0 && $value <= 255 ? true : false;
+			
+			if( 3 == $key ) {
+				//The value is not necessarily a float 0,1
+				$is_valid =  $value >= 0 && $value <= 1 ? true : false;
+			}
+
+			if ( false === $is_valid ) {
+				
+				break;
+			}
+		}
+		return ( 4 === count( $values ) && true === $is_valid );
+	}
+	
+	if( 'alpha' == $type ) {
+		
+		return is_numeric( $values ) && $values >= 0 && $values <= 1 ? true : false;
+	}
+	
+	if( 'hex' == $type) {
+		
+		return ! empty( sanitize_hex_color( $values ) );
+	}
+	if( 'hex_no_hash' == $type) {
+		
+		return ! empty( sanitize_hex_color_no_hash( $values ) );
+	}
+}
 
 /**
  * Customizer sanitize callback

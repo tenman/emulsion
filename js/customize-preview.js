@@ -39,20 +39,20 @@
 })(jQuery);
 
 (function ($) {
-    
-    function emulsion_hex_to_rgba(hex, alfa){
+
+    function emulsion_hex_to_rgba(hex, alfa) {
         // must 6digit
-    var c;
-    if(/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)){
-        c= hex.substring(1).split('');
-        if(c.length== 3){
-            c= [c[0], c[0], c[1], c[1], c[2], c[2]];
+        var c;
+        if (/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)) {
+            c = hex.substring(1).split('');
+            if (c.length == 3) {
+                c = [c[0], c[0], c[1], c[1], c[2], c[2]];
+            }
+            c = '0x' + c.join('');
+            return 'rgba(' + [(c >> 16) & 255, (c >> 8) & 255, c & 255].join(',') + ', alfa)';
         }
-        c= '0x'+c.join('');
-        return 'rgba('+[(c>>16)&255, (c>>8)&255, c&255].join(',')+', alfa)';
+        throw new Error('Bad Hex');
     }
-    throw new Error('Bad Hex');
-}
 
     function sub_color(color, percent) {
         var r = parseInt(color.substring(1, 3), 16);
@@ -267,7 +267,7 @@
 
     wp.customize('emulsion_general_link_hover_color', function (value) {
         value.bind(function (newval) {
-            $('head').append('<style>a:hover{color:' + newval + ' ! important;}</style>');         
+            $('head').append('<style>a:hover{color:' + newval + ' ! important;}</style>');
         });
     });
 
@@ -324,6 +324,7 @@
             document.documentElement.style.setProperty('--thm_background_color', newval);
         });
     });
+
     wp.customize('emulsion_post_display_date', function (value) {
         value.bind(function (newval) {
 
@@ -878,12 +879,12 @@
             }
         });
     });
-    
-    
+
+
     wp.customize('background_image', function (value) {
         value.bind(function (newval) {
-          //  $('body').css({'background': 'url(' + newval + ')'});
-            $( '#custom-background-css' ).text( 'body.custom-background { ' + newval + ' }' );
+            //  $('body').css({'background': 'url(' + newval + ')'});
+            $('#custom-background-css').text('body.custom-background { ' + newval + ' }');
 
         });
     });
@@ -896,31 +897,31 @@
             }
         });
     });
-    
+
     wp.customize('emulsion_bg_image_blend_color', function (value) {
         value.bind(function (newval) {
             if ('white' == newval) {
-                
-                var amount = wp.customize.instance( 'emulsion_bg_image_blend_color_amount' ).get();
-                    amount = parseInt( amount ) / 100;
-                    
-                var body_background_image_dim = emulsion_hex_to_rgba( newval, amount);
-                
+
+                var amount = wp.customize.instance('emulsion_bg_image_blend_color_amount').get();
+                amount = parseInt(amount) / 100;
+
+                var body_background_image_dim = emulsion_hex_to_rgba(newval, amount);
+
                 document.documentElement.style.setProperty('--thm_background_image_dim', newval);
             }
         });
     });
-    
+
     wp.customize('emulsion_bg_image_blend_color_amount', function (value) {
         value.bind(function (newval) {
             if ('white' == newval) {
-                
-                var color = wp.customize.instance( 'emulsion_bg_image_blend_color' ).get();
-                    
-                    amount = parseInt(newval) / 100;
-                    
-                var body_background_image_dim = emulsion_hex_to_rgba( color, amount);
-                
+
+                var color = wp.customize.instance('emulsion_bg_image_blend_color').get();
+
+                amount = parseInt(newval) / 100;
+
+                var body_background_image_dim = emulsion_hex_to_rgba(color, amount);
+
                 document.documentElement.style.setProperty('--thm_background_image_dim', newval);
             }
         });
