@@ -2,7 +2,7 @@
  
 Contributors: nobita
 Requires at least: WordPress 5.0
-Tested up to: WordPress 5.3.2
+Tested up to: WordPress 5.4
 Requires PHP: 5.6
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -11,25 +11,6 @@ Tags: one-column, two-columns, left-sidebar, right-sidebar, custom-colors, custo
 ## Description
 
 block editor, classic editor both supports. Conventional, Image Media New Block Type Image Both media can be displayed correctly.
-Theme can stop at each theme style page for page builder users. Customizer can easily view changes with automatic preview redirection.
-Theme is designed with the goal of minimizing user frustration.
-
-### Theme-specific presentation
-* Moduled presentation
-
-The theme consists of the following modules:
-'enqueue','primary_menu','search_drawer','search_keyword_highlight','sidebar','sidebar_page','footer','footer_page',
-'alignfull','title_in_page_header','toc','header','background','custom-logo','social-link-menu',
-'footer-svg','excerpt','relate_posts','tooltip','amp','entry_content_html_cleaner','block_sectionize','background_css_pattern',
-'meta_description','TGMPA',
-
-A theme can enable or disable these features on a per-template basis.
-
-Since WordPress 5.0, CSS has been integrated into the core.
-Prior to that, CSS had the theme of defining presentations.
-Due to this change, the CSS settings for presentations that have traditionally become more complex and useless.
-For example, the social link menu was a theme function, but if you use the social menu in the block editor, it may not be necessary anymore.
-This is why I tried modularization.
 
 * Archives layout
 	* Archive has 3 layout. list, grid and stream
@@ -44,13 +25,6 @@ This is why I tried modularization.
 * Entry Content
 	* excerpt: Summary is not counted by word count. Based on the number of characters. This is to support CJK languages with no spaces between words.
         * <table> <del> <figure> <blockquote> These elements are not included in excerpt.
-
-* Back END and Front END CSS relation
-	* Customizer CSS settings are communicated to the front end, editor style, classic editor using CSS variables.
-	* SCSS PHP compiler (wp-scss plugin) can be used to easily compile SCSS on the server.( wp-scss has not been updated for a long time,Whether to use it is at your own discretion )
-        * @see https://www.tenman.info/wp3/emulsion/en/2020/03/23/scss-%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e3%81%ae%e7%b7%a8%e9%9b%86%e3%82%92%e8%a1%8c%e3%81%86%e5%a0%b4%e5%90%88%e3%81%ab/
-	* For each post or page, you can completely stop the CSS and script of the theme. This feature may be useful when using a page builder.
-	* In browsers such as IE11 that do not support CSS varialbes, simple display that supports only readability is performed.
 
 * Page Spead ( apply front end and not logged in )
 	* In order to harmonize the Rich Media created by the block editor with the Respose of the site, there are lazyload of images and pre-during functions at link hover.
@@ -153,6 +127,9 @@ background-image.png
         * Source: https://github.com/LeaVerou/css3patterns
 
 ## Changelog
+### April 1 2020
+		* 1.1.8
+        * https://github.com/tenman/emulsion/releases
 ### March 23 2020
 		* 1.1.7
         * https://github.com/tenman/emulsion/releases
