@@ -1,5 +1,5 @@
 <?php
-if ( ! function_exists( 'emulsion_relate_posts_algo' ) ) {
+if ( ! function_exists( 'emulsion_related_posts_finder' ) ) {
 
 	/**
 	 * 
@@ -9,7 +9,7 @@ if ( ! function_exists( 'emulsion_relate_posts_algo' ) ) {
 	 * @since 1.459
 	 */
 	
-	function emulsion_relate_posts_algo( $type = 'automatic' ) {
+	function emulsion_related_posts_finder( $type = 'automatic' ) {
 
 		global $post;
 		if ( ! isset( $post ) && empty( $post ) ) {
@@ -117,23 +117,23 @@ if ( ! function_exists( 'emulsion_relate_posts_algo' ) ) {
 
 }
 
-if ( ! function_exists( 'emulsion_post_relate_contents' ) ) {
+if ( ! function_exists( 'emulsion_related_posts' ) ) {
 
 	/**
 	 * 
 	 * @since 1.1.3 removed global $post
 	 */
 	
-	function emulsion_post_relate_contents() {
+	function emulsion_related_posts() {
 
-		$relate_posts_enable = emulsion_get_supports( 'relate_posts' );
+		$relate_posts_enable = emulsion_the_theme_supports( 'relate_posts' );
 		
 		if( empty( $relate_posts_enable ) ) {
 			
 			return;
 		}
 
-		$algo = emulsion_relate_posts_algo();
+		$algo = emulsion_related_posts_finder();
 
 		if ( ! empty( $algo ) && is_single() && ! is_attachment() ) {
 

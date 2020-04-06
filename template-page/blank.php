@@ -1,16 +1,18 @@
 <?php
 /**
  * Template Name: Blank Template
- *  Template Post Type: post, page
+ * Template Post Type: post, page
  *
  */
 
-emulsion_remove_supports( 'title_in_page_header' );
-emulsion_remove_supports( 'primary_menu' );
-emulsion_remove_supports( 'sidebar' );
-emulsion_remove_supports( 'sidebar_page' );
-emulsion_remove_supports( 'relate_posts' );
-emulsion_remove_supports( 'search_drawer' );
+
+
+function_exists( 'emulsion_remove_supports' ) ? emulsion_remove_supports( 'title_in_page_header' ):'';
+function_exists( 'emulsion_remove_supports' ) ? emulsion_remove_supports( 'primary_menu' ):'';
+function_exists( 'emulsion_remove_supports' ) ? emulsion_remove_supports( 'sidebar' ):'';
+function_exists( 'emulsion_remove_supports' ) ? emulsion_remove_supports( 'sidebar_page' ):'';
+function_exists( 'emulsion_remove_supports' ) ? emulsion_remove_supports( 'relate_posts' ):'';
+function_exists( 'emulsion_remove_supports' ) ? emulsion_remove_supports( 'search_drawer' ):'';
 
 get_header();
 

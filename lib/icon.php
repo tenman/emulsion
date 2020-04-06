@@ -1,5 +1,5 @@
 <?php
-if( ! emulsion_get_supports( 'social-link-menu' ) ) {
+if( ! emulsion_the_theme_supports( 'social-link-menu' ) ) {
 	return;
 }
 /**
@@ -381,12 +381,13 @@ function emulsion_icon_svg_symbols( $symbol ){
 		</symbol>
 SYMBOL;
 
-	if( emulsion_get_supports( 'social-link-menu') ) {
+	if( emulsion_the_theme_supports( 'social-link-menu') ) {
 
 		return $symbol.$symbols;
 	}
 }
-add_filter( 'emulsion_inline_style',  'emulsion_icon_svg_styles' );
+
+add_filter( 'emulsion_inline_style',  'emulsion_icon_svg_styles', 11 );
 
 function emulsion_icon_svg_styles( $css ) {
 
@@ -502,7 +503,7 @@ body:not(.agent-tablet):not(.agent-mobile-phone) a[href^="tel:"] .icon{
     display:inline-block;
 }
 CSS;
-	$style	 = emulsion_sanitize_css( $style );
+	//$style	 = emulsion_sanitize_css( $style );
 	$style	 = emulsion_remove_spaces_from_css( $style );
 
 	return $css. $style;

@@ -1,6 +1,3 @@
-<?php
-$emulsion_title_in_page_header = emulsion_get_supports( 'title_in_page_header' );
-?>
 <div class="article-wrapper <?php emulsion_template_identification_class( __FILE__ ) ?>">
 	<?php
 	if ( 'list' == emulsion_current_layout_type() && has_action( 'emulsion_article_before' ) ) {
@@ -10,16 +7,26 @@ $emulsion_title_in_page_header = emulsion_get_supports( 'title_in_page_header' )
 	<article id="post-<?php the_ID() ?>" <?php post_class(); ?>>
 		<?php emulsion_article_header(); ?>
 		<div class="entry-content"><?php 
-			emulsion_post_content();
-			wp_link_pages( 'before=<div class="wp-link-pages page-break-links clearfix">&after=</div>&next_or_number=number&pagelink=<span>%</span>' ); ?></div>
 		
-		<footer><?php emulsion_post_excerpt_more(); ?>
+		if( emulsion_theme_addons_exists() ) {
+			
+			emulsion_post_content();
+		} else {
+			
+			'full_text' == emulsion_get_layout_setting() || 'post' == emulsion_get_layout_setting() 
+			? the_content() 
+			: the_excerpt();		
+		}
+		
+		wp_link_pages( 'before=<div class="wp-link-pages page-break-links clearfix">&after=</div>&next_or_number=number&pagelink=<span>%</span>' ); ?></div>
+		
+		<footer><?php emulsion_theme_addons_exists() ? emulsion_post_excerpt_more(): ''; ?>
 			<?php 
 			
 			if ( has_nav_menu( 'social' ) 
 					&& is_singular() 
-					&& emulsion_get_supports( 'social-link-menu' ) 
-					&& emulsion_get_supports( 'enqueue' ) 
+					&& emulsion_the_theme_supports( 'social-link-menu' ) 
+					&& emulsion_the_theme_supports( 'enqueue' ) 
 					&& emulsion_metabox_display_control( 'page_style' ) 
 					&& emulsion_metabox_display_control( 'style' ) ) {
 				?>
@@ -54,9 +61,9 @@ $emulsion_title_in_page_header = emulsion_get_supports( 'title_in_page_header' )
 <?php } ?>
 <?php if ( is_single() 
 			&& ! is_attachment() 
-			&& emulsion_get_supports( 'relate_posts' ) 
-			&& emulsion_get_supports( 'enqueue' ) 
+			&& emulsion_the_theme_supports( 'relate_posts' ) 
+			&& emulsion_the_theme_supports( 'enqueue' ) 
 			&& emulsion_metabox_display_control( 'page_style' ) 
 			&& emulsion_metabox_display_control( 'style' )) { ?>
-	<div class="relate-content-wrapper"><?php emulsion_post_relate_contents(); ?></div>
+	<div class="relate-content-wrapper"><?php emulsion_related_posts(); ?></div>
 <?php } ?>

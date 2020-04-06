@@ -130,10 +130,6 @@ if ( !function_exists( 'emulsion_archive_year_navigation' ) ) {
 		$result	 .= '</div>';
 
 		wp_reset_postdata();
-		
-		// check lost element			
-		$emulsion_place = basename(__FILE__). ' line:'. __LINE__. ' '.  __FUNCTION__ .'()';
-		true === WP_DEBUG ? emulsion_elements_assert_equal( $result, wp_kses_post( $result ), $emulsion_place ) : '';
 
 		if ( true !== $echo ) {
 
@@ -258,10 +254,6 @@ if ( !function_exists( 'emulsion_monthly_archive_prev_next_navigation' ) ) {
 			$html			 = '<div class="%1$s">%2$s<br class="clear" /></div>';
 			$calendar_output = sprintf( $html, 'emulsion-monthly-archive-prev-next-navigation nav-links', $calendar_output );
 			
-			// check lost element			
-			$emulsion_place = basename(__FILE__). ' line:'. __LINE__. ' '.  __FUNCTION__ .'()';
-			true === WP_DEBUG ? emulsion_elements_assert_equal( $calendar_output, wp_kses_post( $calendar_output ), $emulsion_place ) : '';
-
 			if ( true == $echo ) {
 
 				echo wp_kses_post( apply_filters( 'emulsion_monthly_archive_prev_next_navigation', $calendar_output ) );

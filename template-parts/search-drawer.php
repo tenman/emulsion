@@ -1,4 +1,5 @@
 <?php
+
 if ( is_page() && false == emulsion_metabox_display_control( 'page_style' ) ) {
 
 	return;
@@ -7,9 +8,10 @@ if ( is_single() && false == emulsion_metabox_display_control( 'style' ) ) {
 
 	return;
 }
-if ( ! emulsion_get_supports( 'enqueue' ) ) {
+if ( ! emulsion_the_theme_supports( 'enqueue' ) ) {
 	return;
 }
+
 ?><div class="drawer-wrapper <?php emulsion_template_identification_class( __FILE__ ) ?>" tabindex="0">
 	<input type="checkbox" id="c1" name="c1"  /><label for="c1"><svg class="icon" width="24" height="24" tabindex="0"><use xlink:href="#search" /></svg></label>
 	<div class="drawer search-drawer">
@@ -18,10 +20,12 @@ if ( ! emulsion_get_supports( 'enqueue' ) ) {
 		<div class="search-box"><?php get_search_form(); ?></div>
 		<?php do_action('emulsion_drawer_before');?>
 		<div class="search-info" aria-hidden="true"><?php
+		
 			/* hook only this point */
-			add_filter( 'wp_list_categories', 'emulsion_add_css_class', 10 );
+		
+			add_filter( 'wp_list_categories', 'emulsion_list_categories_filter', 10 );
 
-			function emulsion_add_css_class( $html ) {
+			function emulsion_list_categories_filter( $html ) {
 				return str_replace( '<ul>', '<ul class="horizontal-list-group">', $html );
 			}
 

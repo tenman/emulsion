@@ -18,7 +18,7 @@ global $template;
 
 get_header();
 
-emulsion_get_supports( 'title_in_page_header' ) ? '' : emulsion_archive_title();
+emulsion_the_theme_supports( 'title_in_page_header' ) ? '' : emulsion_archive_title();
 
 emulsion_have_posts();
 

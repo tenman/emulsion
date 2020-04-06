@@ -11,7 +11,7 @@
  * This function is hooked into tgmpa_init, which is fired within the
  * TGM_Plugin_Activation class constructor.
  */
-
+add_action( 'tgmpa_register', 'emulsion_theme_register_required_plugins' );
 function emulsion_theme_register_required_plugins() {
 
     $plugins = array(        

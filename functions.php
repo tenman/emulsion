@@ -1,42 +1,20 @@
 <?php
 
-/**
- * Theme emulsion
- * Settings and functions
- */
-include_once( get_theme_file_path( 'lib/varidate.php' ) );
-include_once( get_theme_file_path( 'lib/theme-supports-functions.php' ) );
-include_once( get_theme_file_path( 'lib/theme-supports.php' ) );
-include_once( get_theme_file_path( 'lib/color-functions.php' ) );
 include_once( get_theme_file_path( 'lib/conf.php' ) );
 include_once( get_theme_file_path( 'lib/hooks.php' ) );
-include_once( get_theme_file_path( 'lib/snippets.php' ) );
 include_once( get_theme_file_path( 'lib/template-tags.php' ) );
-include_once( get_theme_file_path( 'lib/color.php' ) );
 include_once( get_theme_file_path( 'lib/navigation-pagination.php' ) );
-include_once( get_theme_file_path( 'lib/keyword-highlight.php' ) );
 include_once( get_theme_file_path( 'lib/relate-posts.php' ) );
-include_once( get_theme_file_path( 'lib/customize.php' ) );
 include_once( get_theme_file_path( 'lib/icon.php' ) );
-include_once( get_theme_file_path( 'lib/metabox.php' ) );
 
 if ( is_admin() && current_user_can( 'edit_theme_options' ) ) {
-
-	/**
-	 * Theme option page
-	 */
-	if ( emulsion_get_supports( 'theme_documents' ) ) {
-		include_once( get_theme_file_path( 'documents/documents.php' ) );
-	}
-
+	
 	/**
 	 * TGMPA
 	 */
-	if ( emulsion_get_supports( 'TGMPA' ) ) {
-		include_once( get_theme_file_path( 'lib/tgm-config.php', 'path' ) );
+	if (  emulsion_the_theme_supports( 'TGMPA' ) ) {
+		include_once( get_theme_file_path( 'lib/tgm-config.php' ) );		
 		include_once( get_template_directory() . '/lib/class-tgm-plugin-activation.php' );
-		! class_exists( 'WP_List_Table' ) ? require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' ) : '';
-		require_once ( get_template_directory() . '/lib/class-tgm-plugin-activation.php' );
 	}
 }
 
@@ -52,9 +30,10 @@ if ( ! function_exists( 'emulsion_setup' ) ) {
 		do_action( 'emulsion_setup_pre' );
 
 		load_theme_textdomain( 'emulsion', get_template_directory() . '/languages' );
-
-		emulsion_customizer_add_supports_layout();
-		emulsion_customizer_add_supports_footer();
+	/**
+	 * TGMPA
+	 */		
+		add_action( 'tgmpa_register', 'emulsion_theme_register_required_plugins' );
 
 		add_theme_support( 'title-tag' );
 		add_theme_support( 'automatic-feed-links' );
@@ -63,26 +42,20 @@ if ( ! function_exists( 'emulsion_setup' ) ) {
 		add_theme_support( 'post-formats', array( 'gallery' ) );
 		add_theme_support( 'customize-selective-refresh-widgets' );
 
-		$emulsion_logo_defaults = emulsion_get_supports( 'custom-logo' )[0]['default'];
-
-		if ( $emulsion_logo_defaults ) {
-
-			add_theme_support( 'custom-logo', $emulsion_logo_defaults );
+		if ( emulsion_the_theme_supports( 'custom-logo' ) ) {
+				
+			add_theme_support( 'custom-logo', array(
+					'height'		 => 60,
+					'width'			 => 600,
+					'flex-height'	 => true,
+					'flex-width'	 => true,
+					'header-text'	 => array( 'site-title', 'site-description' ),
+			) );
 		}
-
-		$emulsion_custom_background_defaults = emulsion_get_supports( 'background' )[0]['default'];
-
-		if ( $emulsion_custom_background_defaults ) {
-
-			add_theme_support( 'custom-background', $emulsion_custom_background_defaults );
-		}
-
-		if ( empty( get_theme_mod( 'background_image' ) ) ) {
-
-			add_filter( 'emulsion_custom_background_cb', '__return_false' );
-			add_filter( 'body_class', 'emulsion_remove_background_img_class' );
-		}
-
+		
+		/**
+		 * Block editor font sizes
+		 */		
 		add_theme_support( 'editor-font-sizes', array(
 			array(
 				'name'		 => esc_html__( 'extra small', 'emulsion' ),
@@ -116,8 +89,6 @@ if ( ! function_exists( 'emulsion_setup' ) ) {
 			),
 		) );
 
-		$emulsion_favorite_color_palette = get_theme_mod( 'emulsion_favorite_color_palette', emulsion_get_var( 'emulsion_favorite_color_palette' ) );
-
 		/**
 		 * editor-color-palette
 		 *
@@ -126,12 +97,23 @@ if ( ! function_exists( 'emulsion_setup' ) ) {
 		 * The color of the color palette is the same color scheme applied to the background and text
 		 * Without white and black color settings, it may not be possible to ensure sufficient contrast.
 		 */
+		
+		$emulsion_favorite_color_palette		 = get_theme_mod( 'emulsion_favorite_color_palette', false );
+		$emulsion_favorite_color_palette_default = emulsion_theme_default_val( 'emulsion_favorite_color_palette' );
+
+		if ( $emulsion_favorite_color_palette !== $emulsion_favorite_color_palette_default ) {
+
+			$emulsion_favorite_color_name = esc_html__( 'My Color', 'emulsion' );
+		} else {
+
+			$emulsion_favorite_color_name = esc_html__( 'Silver', 'emulsion' );
+		}
 
 		add_theme_support(
 				'editor-color-palette', array(
 			array(
 				'name'	 => esc_html__( 'Black', 'emulsion' ),
-				'slug'	 => sanitize_title( 'black' ),
+				'slug'	 => 'black',
 				'color'	 => '#333333',
 			),
 			array(
@@ -165,12 +147,24 @@ if ( ! function_exists( 'emulsion_setup' ) ) {
 				'color'	 => 'rgba(52, 152, 219,.4)',
 			),
 			array(
-				'name'	 => esc_html__( 'My Color', 'emulsion' ),
-				'slug'	 => sanitize_title( 'my-color' ),
+				'name'	 => $emulsion_favorite_color_name,
+				'slug'	 => sanitize_title_with_dashes( $emulsion_favorite_color_name ),
 				'color'	 => $emulsion_favorite_color_palette,
 			),
 		) );
+			
+		/**
+		 * Block editor alignwide
+		 */
+		if (  'enable' == get_theme_mod( 'emulsion_alignfull', emulsion_theme_default_val( 'emulsion_alignfull' ) ) ) {
 
+			add_theme_support( 'align-wide' );
+		}
+
+		add_action( 'enqueue_block_editor_assets', 'emulsion_block_editor_styles' ); //back end
+		add_editor_style( 'css/tinymce-style.css' );
+		add_editor_style( add_query_arg( 'action', 'emulsion_tiny_mce_css_variables', admin_url( 'admin-ajax.php' ) ) );
+		
 		/**
 		 * Nav menu
 		 */
@@ -179,50 +173,9 @@ if ( ! function_exists( 'emulsion_setup' ) ) {
 			'header'	 => esc_html__( 'Header Menu', 'emulsion' ),
 				)
 		);
-
-		/**
-		 * register scss variables for wp-scss plugin
-		 */
-		if ( function_exists( 'wp_scss_compile' ) ) {
-
-			add_filter( 'wp_scss_variables', 'emulsion_wp_scss_set_variables' );
-		}
-
-		/**
-		 * Gutenberg
-		 *
-		 */
-		if ( is_page() && false == emulsion_metabox_display_control( 'page_style' ) ) {
-
-			add_theme_support( 'wp-block-styles' );
-		}
-		if ( is_single() && false == emulsion_metabox_display_control( 'style' ) ) {
-
-			add_theme_support( 'wp-block-styles' );
-		}
-		if ( ! emulsion_get_supports( 'enqueue' ) ) {
-
-			add_theme_support( 'wp-block-styles' );
-		}
-		if ( 'enable' == get_theme_mod( 'emulsion_alignfull', emulsion_get_var( 'emulsion_alignfull' ) ) ) {
-
-			add_theme_support( 'align-wide' );
-		}
-
-		add_action( 'enqueue_block_editor_assets', 'emulsion_block_editor_styles' ); //back end
-		add_editor_style( 'css/tinymce-style.css' );
-		add_editor_style( add_query_arg( 'action', 'emulsion_tiny_mce_css_variables', admin_url( 'admin-ajax.php' ) ) );
-
-		/**
-		 * Reset Theme mods
-		 * set default
-		 */
-		$reset_val = get_theme_mod( 'emulsion_reset_theme_settings' );
-
-		if ( 'reset' == $reset_val ) {
-			emulsion_reset_customizer_settings();
-		}
-
+		
+		add_action( 'widgets_init', 'emulsion_widgets_init');
+		
 		/**
 		 * woocommerce
 		 */
@@ -252,7 +205,7 @@ if ( ! function_exists( 'emulsion_setup' ) ) {
 
 		function emulsion_woocommerce_dinamic_css( $css ) {
 
-			if ( emulsion_get_supports( 'title_in_page_header' ) ) {
+			if ( emulsion_the_theme_supports( 'title_in_page_header' ) ) {
 				$css .= '#document .woocommerce-page .content-area .woocommerce-products-header{ display:none;}';
 			}
 
@@ -262,19 +215,89 @@ if ( ! function_exists( 'emulsion_setup' ) ) {
 		/**
 		 * Custom Header media
 		 */
-		$emulsion_custom_header_defaults = emulsion_get_supports( 'header' )[0]['default'];
-
+		$emulsion_custom_header_defaults = get_theme_support( 'custom-header' );
+		
 		if ( function_exists( 'has_header_video' ) && $emulsion_custom_header_defaults ) {
 
 			$emulsion_custom_header_defaults['video'] = true;
 
 			add_filter( 'header_video_settings', 'emulsion_video_controls' );
 		}
+		
 		add_theme_support( 'custom-header', apply_filters( 'emulsion_custom_header_defaults', $emulsion_custom_header_defaults ) );
 
-		$emulsion_description_for_translation = esc_html__( 'block editor, classic editor both supports. Conventional, Image Media New Block Type Image Both media can be displayed correctly.Theme can stop at each theme style page for page builder users. Customizer can easily view changes with automatic preview redirection.Theme is designed with the goal of minimizing user frustration.', 'emulsion' );
-
 		do_action( 'emulsion_setup_after' );
+	}
+
+}
+
+/**
+ * Widget
+ */
+if ( ! function_exists( 'emulsion_widgets_init' ) ) {
+
+	function emulsion_widgets_init() {
+
+		if ( emulsion_the_theme_supports( 'sidebar' ) ) {
+
+			register_sidebar( array(
+				'name'			 => esc_html__( 'Post Sidebar', 'emulsion' ),
+				'id'			 => 'sidebar-1',
+				'description'	 => is_customize_preview() ? esc_html__( 'You can set the sidebar widget for post by displaying the post in preview.', 'emulsion' ) : '',
+				'before_widget'	 => '<li id="%1$s" class="%2$s widget sidebar post-sidebar" tabindex="-1">',
+				'after_widget'	 => "</li>\n",
+				'before_title'	 => "\n\t<h2 class=\"widgettitle default\">",
+				'after_title'	 => "</h2>\n",
+				'widget_id'		 => 'default',
+				'widget_name'	 => 'default',
+				'text'			 => "1" )
+			);
+		}
+		if ( emulsion_the_theme_supports( 'footer' ) ) {
+
+			register_sidebar( array(
+				'name'			 => esc_html__( 'Post Footer', 'emulsion' ),
+				'id'			 => 'sidebar-2',
+				'description'	 => is_customize_preview() ? esc_html__( 'You can set the footer wigget for post by displaying the post in preview.', 'emulsion' ) : '',
+				'before_widget'	 => '<li id="%1$s" class="%2$s widget footer post-footer" tabindex="-1">',
+				'after_widget'	 => "</li>\n",
+				'before_title'	 => "\n\t<h2 class=\"widgettitle post-footer\">",
+				'after_title'	 => "</h2>\n",
+				'widget_id'		 => 'extra',
+				'widget_name'	 => 'extra',
+				'text'			 => "2" )
+			);
+		}
+		if ( emulsion_the_theme_supports( 'sidebar_page' ) ) {
+
+			register_sidebar( array(
+				'name'			 => esc_html__( 'Page Sidebar', 'emulsion' ),
+				'id'			 => 'sidebar-3',
+				'description'	 => is_customize_preview() ? esc_html__( 'You can set the page sidebar widget for page by displaying the page in preview.', 'emulsion' ) : '',
+				'before_widget'	 => '<li id="%1$s" class="%2$s widget sidebar-page" tabindex="-1">',
+				'after_widget'	 => "</li>\n",
+				'before_title'	 => "\n\t<h2 class=\"widgettitle sidebar-page\">",
+				'after_title'	 => "</h2>\n",
+				'widget_id'		 => 'sidebar-page',
+				'widget_name'	 => 'sidebar-page',
+				'text'			 => "3" )
+			);
+		}
+		if ( emulsion_the_theme_supports( 'footer_page' ) ) {
+
+			register_sidebar( array(
+				'name'			 => esc_html__( 'Page Footer', 'emulsion' ),
+				'id'			 => 'sidebar-4',
+				'description'	 => is_customize_preview() ? esc_html__( 'You can set the page footer widget for page by displaying the page in preview.', 'emulsion' ) : '',
+				'before_widget'	 => '<li id="%1$s" class="%2$s widget footer page-footer" tabindex="-1">',
+				'after_widget'	 => "</li>\n",
+				'before_title'	 => "\n\t<h2 class=\"widgettitle page-footer\">",
+				'after_title'	 => "</h2>\n",
+				'widget_id'		 => 'footer-page',
+				'widget_name'	 => 'footer-page',
+				'text'			 => "4" )
+			);
+		}
 	}
 
 }
@@ -298,12 +321,12 @@ function emulsion_register_scripts_and_styles() {
 
 	if ( is_user_logged_in() ) {
 
-		$emulsion_current_data_version = emulsion_theme_info( 'Version', false );
+		$emulsion_current_data_version = emulsion_version();
 	}
 
 	wp_register_style( 'emulsion', get_theme_file_uri( 'style.css' ), array(), $emulsion_current_data_version, 'all' );
 	wp_enqueue_style( 'emulsion' );
-
+	
 	$inline_style_pre = apply_filters( 'emulsion_inline_style_pre', '@charset "UTF-8";' );
 
 	/**
@@ -321,7 +344,7 @@ function emulsion_register_scripts_and_styles() {
 		wp_add_inline_style( 'emulsion', $inline_style_pre );
 		return;
 	}
-	if ( ! emulsion_get_supports( 'enqueue' ) ) {
+	if ( ! emulsion_the_theme_supports( 'enqueue' ) ) {
 
 		return;
 	}
@@ -344,7 +367,7 @@ function emulsion_register_scripts_and_styles() {
 		return;
 	}
 
-	if ( is_user_logged_in() || is_admin() ) {
+	if ( is_user_logged_in() || is_admin() || ! emulsion_theme_addons_exists( ) ) {
 		/**
 		 * If user is not logged in, load as inline style
 		 * @see emulsion_plugins_style_change_inline()
@@ -353,31 +376,7 @@ function emulsion_register_scripts_and_styles() {
 		wp_enqueue_style( 'emulsion-completion' );
 	}
 
-	/**
-	 * Google fonts
-	 */
-	$emulsion_common_google_font_url = esc_url( get_theme_mod( 'emulsion_common_google_font_url', emulsion_get_var( 'emulsion_common_google_font_url' ) ) );
-
-	if ( ! empty( $emulsion_common_google_font_url ) ) {
-
-		wp_register_style( 'emulsion-common-google-font', $emulsion_common_google_font_url, array( 'emulsion' ), null, 'all' );
-		wp_enqueue_style( 'emulsion-common-google-font' );
-	}
-
-	$emulsion_heading_google_font_url = esc_url( get_theme_mod( 'emulsion_heading_google_font_url', emulsion_get_var( 'emulsion_heading_google_font_url' ) ) );
-
-	if ( ! empty( $emulsion_heading_google_font_url ) ) {
-
-		wp_register_style( 'emulsion-heading-google-font', $emulsion_heading_google_font_url, array( 'emulsion' ), null, 'all' );
-		wp_enqueue_style( 'emulsion-heading-google-font' );
-	}
-	$emulsion_widget_meta_google_font_url = esc_url( get_theme_mod( 'emulsion_widget_meta_google_font_url', emulsion_get_var( 'emulsion_widget_meta_google_font_url' ) ) );
-
-	if ( ! empty( $emulsion_widget_meta_google_font_url ) ) {
-
-		wp_register_style( 'emulsion-widget-meta-google-font', $emulsion_widget_meta_google_font_url, array( 'emulsion' ), null, 'all' );
-		wp_enqueue_style( 'emulsion-widget-meta-google-font' );
-	}
+	
 	if ( ! empty( $inline_style_pre ) ) {
 
 		$inline_style = apply_filters( 'emulsion_inline_style', $inline_style_pre );
@@ -387,6 +386,7 @@ function emulsion_register_scripts_and_styles() {
 	}
 
 	$inline_style = emulsion_remove_spaces_from_css( $inline_style );
+	
 	wp_add_inline_style( 'emulsion', $inline_style );
 
 	/**
@@ -394,7 +394,7 @@ function emulsion_register_scripts_and_styles() {
 	 */
 	if ( is_child_theme() ) {
 
-		$emulsion_child_theme_slug = emulsion_theme_info( 'Slug', false );
+		$emulsion_child_theme_slug =  emulsion_slug( );
 
 		/**
 		 * Child theme style
@@ -422,7 +422,109 @@ function emulsion_register_scripts_and_styles() {
 			wp_add_inline_script( $emulsion_child_theme_slug . '-js', $inline_script );
 		}
 	}
+	
+	/**
+	 * Comments
+	 */
+	if ( is_singular() ) {
 
+		wp_enqueue_script( "comment-reply" );
+	}
+	/**
+	 * Google fonts
+	 */
+	$emulsion_common_google_font_url = '';
+
+	$emulsion_common_google_font_url = esc_url( get_theme_mod( 'emulsion_common_google_font_url', emulsion_theme_default_val( 'emulsion_common_google_font_url' ) ) );
+	
+	if ( ! empty( $emulsion_common_google_font_url ) ) {
+
+		wp_register_style( 'emulsion-common-google-font', $emulsion_common_google_font_url, array( 'emulsion' ), null, 'all' );
+		wp_enqueue_style( 'emulsion-common-google-font' );
+	}
+
+	$emulsion_heading_google_font_url = esc_url( get_theme_mod( 'emulsion_heading_google_font_url', emulsion_theme_default_val( 'emulsion_heading_google_font_url' ) ) );
+
+	if ( ! empty( $emulsion_heading_google_font_url ) ) {
+
+		wp_register_style( 'emulsion-heading-google-font', $emulsion_heading_google_font_url, array( 'emulsion' ), null, 'all' );
+		wp_enqueue_style( 'emulsion-heading-google-font' );
+	}
+
+	$emulsion_widget_meta_google_font_url = esc_url( get_theme_mod( 'emulsion_widget_meta_google_font_url',emulsion_theme_default_val( 'emulsion_widget_meta_google_font_url' ) ) );
+
+	if ( ! empty( $emulsion_widget_meta_google_font_url ) ) {
+
+		wp_register_style( 'emulsion-widget-meta-google-font', $emulsion_widget_meta_google_font_url, array( 'emulsion' ), null, 'all' );
+		wp_enqueue_style( 'emulsion-widget-meta-google-font' );
+	}
+	
+	/**
+	 * Lazyload
+	 */
+	$support = emulsion_the_theme_supports( 'lazyload' );
+
+	if ( $support ) {
+
+		wp_register_script( 'emulsion-lazyload-js', get_theme_file_uri( 'js/lazyload.min.js' ), array( 'jquery', 'jquery-migrate' ), $emulsion_current_data_version, true );
+		wp_enqueue_script( 'emulsion-lazyload-js' );
+
+		$inline_script = apply_filters( 'emulsion_lazyload_script', "" );
+		wp_add_inline_script( 'emulsion-lazyload-js', $inline_script );
+	}
+
+	/**
+	 * Instantclick
+	 */
+	$support = emulsion_the_theme_supports( 'instantclick' );
+
+	if ( $support && 'wp-login.php' !== $GLOBALS['pagenow'] && ! is_admin() ) {
+
+		wp_register_script( 'emulsion-instantclick-js', get_theme_file_uri( 'js/instantclick.js' ), array( 'emulsion-js' ), $emulsion_current_data_version, true );
+		wp_enqueue_script( 'emulsion-instantclick-js' );
+
+		$inline_script = apply_filters( 'emulsion_instantclick_script', "" );
+		wp_add_inline_script( 'emulsion-instantclick-js', $inline_script );
+	}
+
+	/**
+	 * Table of contents
+	 */
+	$support = emulsion_the_theme_supports( 'toc' );
+
+	if ( $support ) {
+
+		wp_register_script( 'emulsion-toc-js', get_theme_file_uri( 'js/toc.js' ), array( 'emulsion-js' ), $emulsion_current_data_version, true );
+		wp_enqueue_script( 'emulsion-toc-js' );
+
+		$inline_script = apply_filters( 'emulsion_toc_script', "" );
+		wp_add_inline_script( 'emulsion-toc-js', $inline_script );
+	}
+
+
+	/**
+	 * Tooltip
+	 */
+	
+	$support = emulsion_the_theme_supports( 'tooltip' );
+
+	if ( $support && ! is_customize_preview() ) {
+
+		wp_enqueue_script( 'jquery-ui-tooltip' );
+		$js = "jQuery(function() {
+					jQuery( document ).tooltip({position: {
+						my: 'center', at: 'top-30', collision: 'none'
+					}});
+					jQuery('.primary-menu-wrapper').tooltip({position:{
+						my: 'center', at: 'bottom+30', collision: 'none'
+					}});
+					jQuery('.primary-menu-wrapper').tooltip('option', 'tooltipClass','bottom-tooltip' );
+
+				});";
+
+		wp_add_inline_script( 'jquery-ui-tooltip', $js );
+	}
+	
 	/**
 	 * if child theme has parent name.js( js/emulsion.js ) Read the file of the child theme ( for replace script )
 	 */
@@ -439,78 +541,13 @@ function emulsion_register_scripts_and_styles() {
 	wp_add_inline_script( 'emulsion-js', $inline_script );
 
 	/**
-	 * Lazyload
-	 */
-	$support = emulsion_get_supports( 'lazyload' );
-
-	if ( $support ) {
-
-		wp_register_script( 'emulsion-lazyload-js', get_theme_file_uri( 'js/lazyload.min.js' ), array( 'jquery', 'jquery-migrate' ), $emulsion_current_data_version, true );
-		wp_enqueue_script( 'emulsion-lazyload-js' );
-		$inline_script = apply_filters( 'emulsion_lazyload_script', "" );
-		wp_add_inline_script( 'emulsion-lazyload-js', $inline_script );
-	}
-
-	/**
-	 * Instantclick
-	 */
-	$support = emulsion_get_supports( 'instantclick' );
-
-	if ( $support && 'wp-login.php' !== $GLOBALS['pagenow'] && ! is_admin() ) {
-
-		wp_register_script( 'emulsion-instantclick-js', get_theme_file_uri( 'js/instantclick.js' ), array( 'emulsion-js' ), $emulsion_current_data_version, true );
-		wp_enqueue_script( 'emulsion-instantclick-js' );
-
-		$inline_script = apply_filters( 'emulsion_instantclick_script', "" );
-		wp_add_inline_script( 'emulsion-instantclick-js', $inline_script );
-	}
-
-	/**
-	 * Table of contents
-	 */
-	$support = emulsion_get_supports( 'toc' );
-
-	if ( $support ) {
-
-		wp_register_script( 'emulsion-toc-js', get_theme_file_uri( 'js/toc.js' ), array( 'emulsion-js' ), $emulsion_current_data_version, true );
-		wp_enqueue_script( 'emulsion-toc-js' );
-
-		$inline_script = apply_filters( 'emulsion_toc_script', "" );
-		wp_add_inline_script( 'emulsion-toc-js', $inline_script );
-	}
-
-	if ( is_singular() ) {
-
-		wp_enqueue_script( "comment-reply" );
-	}
-
-	/**
-	 * Tooltip
-	 */
-	$support = emulsion_get_supports( 'tooltip' );
-
-	if ( $support && ! is_customize_preview() ) {
-
-		wp_enqueue_script( 'jquery-ui-tooltip' );
-		$js = "jQuery(function() {
-							jQuery( document ).tooltip({position: {
-								my: 'center', at: 'top-30', collision: 'none'
-							}});
-							jQuery('.primary-menu-wrapper').tooltip({position:{
-								my: 'center', at: 'bottom+30', collision: 'none'
-							}});
-							jQuery('.primary-menu-wrapper').tooltip('option', 'tooltipClass','bottom-tooltip' );
-
-						});";
-
-		wp_add_inline_script( 'jquery-ui-tooltip', $js );
-	}
-
-	/**
 	 * Localize Script
 	 */
-	$wp_scss_status_relate_setting	 = 'deactive' == get_theme_mod( 'emulsion_wp_scss_status' ) ? emulsion_get_css_variables_values( 'sidebar_position' ) : '';
-	$emulsion_background_color		 = emulsion_get_background_color();
+		
+	$wp_scss_status_relate_setting	 = 'deactive' == get_theme_mod( 'emulsion_wp_scss_status' ) 
+			? emulsion_get_css_variables_values( 'sidebar_position' ) 
+			: emulsion_theme_default_val( 'emulsion_sidebar_position' );
+	$emulsion_background_color		 = function_exists( 'emulsion_get_background_color' ) ? emulsion_get_background_color() : sprintf( '#%1$s', get_background_color() );
 
 	wp_localize_script( 'emulsion-js', 'emulsion_script_vars', array(
 		'locale'						 => sanitize_text_field( get_locale() ),
@@ -520,23 +557,23 @@ function emulsion_register_scripts_and_styles() {
 		'permalink'						 => esc_url( get_permalink() ),
 		'home_url'						 => esc_url( home_url() ),
 		'i18n_blank_entry_title'		 => esc_html__( 'No Title', 'emulsion' ),
-		'sidebar_bg_dark'				 => emulsion_accent_color( '', 5, 5, 20, 15 ),
-		'sidebar_bg_light'				 => emulsion_accent_color( '', 5, 5, 20, 90 ),
+		'sidebar_bg_dark'				 => function_exists('emulsion_accent_color') ? emulsion_accent_color( '', 5, 5, 20, 15 ) : $emulsion_background_color ,
+		'sidebar_bg_light'				 => function_exists('emulsion_accent_color') ? emulsion_accent_color( '', 5, 5, 20, 90 ) : $emulsion_background_color ,
 		'sidebar_position'				 => $wp_scss_status_relate_setting, // left right none
-		'sidebar_width'					 => get_theme_mod( 'emulsion_sidebar_width', emulsion_get_var( 'emulsion_sidebar_width' ) ),
-		'block_sectionize'				 => emulsion_get_supports( 'block_sectionize' ),
-		'header_bg_color'				 => get_theme_mod( 'emulsion_header_background_color', emulsion_get_var( 'emulsion_header_background_color' ) ),
-		'sticky_sidebar'				 => get_theme_mod( 'emulsion_sticky_sidebar', emulsion_get_var( 'emulsion_sticky_sidebar' ) ),
-		'align_offset'					 => emulsion_get_css_variables_values( 'align_offset' ),
-		'content_width'					 => get_theme_mod( 'emulsion_content_width', emulsion_get_var( 'emulsion_content_width' ) ),
-		'content_gap'					 => absint( emulsion_get_css_variables_values( 'content_gap' ) ),
-		'background_color'				 => emulsion_the_hex2rgb( $emulsion_background_color ),
+		'sidebar_width'					 => get_theme_mod( 'emulsion_sidebar_width', emulsion_theme_default_val( 'emulsion_sidebar_width' ) ),
+		'block_sectionize'				 => emulsion_the_theme_supports( 'block_sectionize' ),
+		'header_bg_color'				 => get_theme_mod( 'emulsion_header_background_color',  emulsion_theme_default_val( 'emulsion_header_background_color' ) ),
+		'sticky_sidebar'				 => get_theme_mod( 'emulsion_sticky_sidebar', emulsion_theme_default_val( 'emulsion_sticky_sidebar' ) ),
+		'align_offset'					 => function_exists('emulsion_get_css_variables_values') ? emulsion_get_css_variables_values( 'align_offset' ) : 200,
+		'content_width'					 => get_theme_mod( 'emulsion_content_width', emulsion_theme_default_val( 'emulsion_content_width' ) ),
+		'content_gap'					 => function_exists('emulsion_get_css_variables_values') ? absint( emulsion_get_css_variables_values( 'content_gap' ) ) : 24,
+		'background_color'				 => function_exists('emulsion_the_hex2rgb') ? emulsion_the_hex2rgb( $emulsion_background_color ) : "rgb(255,255,255)",
 		'force_contrast'				 => true,
-		'block_columns_class'			 => sanitize_html_class( emulsion_sectionized_class( 'columns' ) ),
+		'block_columns_class'			 => function_exists('emulsion_sectionized_class') ? sanitize_html_class( emulsion_sectionized_class( 'columns' ) ): "is-default",
 		'block_columns_class_title'		 => esc_html__( 'Columns block', 'emulsion' ),
-		'block_media_text_class'		 => sanitize_html_class( emulsion_sectionized_class( 'media_text' ) ),
+		'block_media_text_class'		 => function_exists('emulsion_sectionized_class') ? sanitize_html_class( emulsion_sectionized_class( 'media_text' ) ): "is-default",
 		'block_media_text_class_title'	 => esc_html__( 'Media text block', 'emulsion' ),
-		'block_gallery_class'			 => sanitize_html_class( emulsion_sectionized_class( 'gallery' ) ),
+		'block_gallery_class'			 => function_exists('emulsion_sectionized_class') ? sanitize_html_class( emulsion_sectionized_class( 'gallery' ) ): "is-default",
 		'block_gallery_class_title'		 => esc_html__( 'Gallery block', 'emulsion' ),
 		'block_quote_class_title'		 => esc_html__( 'Quote block', 'emulsion' ),
 		'meta_description'				 => emulsion_meta_description(),
@@ -552,6 +589,8 @@ function emulsion_register_scripts_and_styles() {
 /**
  * Theme Body Class
  */
+add_filter( 'body_class', 'emulsion_body_class' );
+
 if ( ! function_exists( 'emulsion_body_class' ) ) {
 
 	/**
@@ -561,484 +600,144 @@ if ( ! function_exists( 'emulsion_body_class' ) ) {
 	 * @return array;
 	 */
 	function emulsion_body_class( $classes ) {
-		global $_wp_theme_features;
-
-		$metabox_flag = false;
-
-		if ( is_page() && false == emulsion_metabox_display_control( 'page_style' ) ) {
-
-			$classes[]		 = 'metabox-removed-emulsion-presentation';
-			$metabox_flag	 = true;
-			return $classes;
-		}
-		if ( is_single() && false == emulsion_metabox_display_control( 'style' ) ) {
-
-			$classes[]		 = 'metabox-removed-emulsion-presentation';
-			$metabox_flag	 = true;
-			return $classes;
-		}
-		if ( ! emulsion_get_supports( 'enqueue' ) ) {
-
-			$classes[]		 = 'removed-emulsion-presentation';
-			$metabox_flag	 = true;
-			return $classes;
-		}
-
-		$classes[] = 'noscript';
-
-		if ( is_singular() ) {
-
-			$post_id = get_the_ID();
-
-			$classes[] = 'no_bg' === get_post_meta( $post_id, 'emulsion_page_theme_style_script', true ) ? 'metabox-reset-page-presentation': '';
-			$classes[] = 'no_bg' === get_post_meta( $post_id, 'emulsion_post_theme_style_script', true ) ? 'metabox-reset-post-presentation':'';
-			$classes[] = 'no_menu' === get_post_meta( $post_id, 'emulsion_post_primary_menu', true ) ? 'metabox-removed-post-menu': '';
-			$classes[] = 'no_menu' === get_post_meta( $post_id, 'emulsion_page_primary_menu', true ) ? 'metabox-removed-page-menu': '';
-			$classes[] = 'is-singular';
-
-		} else {
-
-			switch ( false ) {
-				case is_404():
-					$classes[] = 'is-loop';
-					break;
-			}
-		}
 
 		if ( is_page() ) {
 
 			unset( $classes['emulsion-no-sidebar'] );
 			unset( $classes['emulsion-has-sidebar'] );
 
-			$sidebar_condition		 = get_theme_mod( 'emulsion_condition_display_page_sidebar', emulsion_get_var( 'emulsion_condition_display_page_sidebar' ) );
+			$sidebar_condition		 = get_theme_mod( 'emulsion_condition_display_page_sidebar', emulsion_theme_default_val( 'emulsion_condition_display_page_sidebar' ) );
 			$logged_in				 = 'logged_in_user' == $sidebar_condition && ! is_user_logged_in() ? false : true;
 			$metabox_page_control	 = emulsion_metabox_display_control( 'page_sidebar' );
 
 			$classes[] = is_active_sidebar( 'sidebar-3' ) &&
-						 emulsion_get_supports( 'sidebar_page' ) &&
-						$logged_in &&
-						$metabox_page_control ? 'emulsion-has-sidebar': 'emulsion-no-sidebar';
+					emulsion_the_theme_supports( 'sidebar_page' ) &&
+					$logged_in &&
+					$metabox_page_control ? 'emulsion-has-sidebar' : 'emulsion-no-sidebar';
 		} else {
 
 			unset( $classes['emulsion-no-sidebar'] );
 			unset( $classes['emulsion-has-sidebar'] );
 
-			$sidebar_condition		 = get_theme_mod( 'emulsion_condition_display_posts_sidebar', emulsion_get_var( 'emulsion_condition_display_posts_sidebar' ) );
+			$sidebar_condition		 = get_theme_mod( 'emulsion_condition_display_posts_sidebar', emulsion_theme_default_val( 'emulsion_condition_display_posts_sidebar' ) );
 			$logged_in				 = 'logged_in_user' == $sidebar_condition && ! is_user_logged_in() ? false : true;
 			$metabox_post_control	 = emulsion_metabox_display_control( 'sidebar' );
 
 			$classes[] = is_active_sidebar( 'sidebar-1' ) &&
-						 emulsion_get_supports( 'sidebar' ) &&
-						 $logged_in &&
-						 $metabox_post_control ? 'emulsion-has-sidebar' : 'emulsion-no-sidebar';
+					emulsion_the_theme_supports( 'sidebar' ) &&
+					$logged_in &&
+					$metabox_post_control ? 'emulsion-has-sidebar' : 'emulsion-no-sidebar';
 		}
-
-		$title_in_header = get_theme_mod( "emulsion_title_in_header", emulsion_get_var( 'emulsion_title_in_header' ) );
-
-		if ( 'yes' == $title_in_header ) {
-
-			$classes[] = 'emulsion-header-has-title';
-		}
-		if ( 'no' == $title_in_header ) {
-
-			$classes[] = 'emulsion-layout-has-title';
-		}
-
-		/**
-		 * full width image
-		 */
-		if ( true == emulsion_get_supports( 'alignfull' ) ) {
-
-			$classes[] = 'enable-alignfull';
-		} else {
-
-			$classes[] = 'disable-alignfull';
-		}
-
-		/**
-		 * Custom background image
-		 */
-		$page_bg_image_url				 = get_background_image();
-		$supports_background			 = emulsion_get_supports( 'background' );
-		$has_background_img_relate_color = get_theme_mod( 'emulsion_bg_image_text' );
-		if ( ! empty( $page_bg_image_url ) && $supports_background ) {
-
-			$classes[] = 'emulsion-has-custom-background-image';
-			$classes[] = 'white' === $has_background_img_relate_color ? 'has-background-img-text-white' : '';
-		}
-
-		/**
-		 * Current Page layout type
-		 */
-		if ( is_customize_preview() ) {
-
-			$layout_type = emulsion_customizer_have_posts_class_helper();
-			$classes[]	 = 'layout-' . sanitize_html_class( $layout_type );
-		} else {
-
-			$layout_type = emulsion_current_layout_type();
-			$classes[]	 = 'layout-' . sanitize_html_class( $layout_type );
-		}
-
-		/**
-		 * Content type
-		 */
-		$content_type		 = emulsion_content_type();
-		$classes[]			 = sanitize_html_class( $content_type );
-
-		/**
-		 * Font family class
-		 */
-		$heading_font_family = get_theme_mod( 'emulsion_heading_font_family', emulsion_get_var( 'emulsion_heading_font_family' ) );
-		$classes[]			 = sanitize_html_class( 'font-heading-' . $heading_font_family );
-
-		$common_font_family	 = emulsion_get_css_variables_values( 'common_font_family' );
-		$classes[]			 = sanitize_html_class( 'font-common-' . $common_font_family );
-
-		/**
-		 * Category Colors
-		 */
-		if ( 'enable' == get_theme_mod( 'emulsion_category_colors', emulsion_get_var( 'emulsion_category_colors' ) ) ) {
-
-			$classes[] = 'has-category-colors';
-		} else {
-
-			$classes[] = 'disable-category-colors';
-		}
-		if ( emulsion_get_supports( 'background_css_pattern' ) ) {
-
-			$background_css_pattern_class	 = get_theme_mod( 'emulsion_background_css_pattern', emulsion_get_var( 'emulsion_background_css_pattern' ) );
-			$class_name						 = sanitize_html_class( 'background-css-pattern-' . $background_css_pattern_class );
-			$classes[]						 = 'none' !== $background_css_pattern_class ? $class_name : '';
-		}
-
-		return array_filter( $classes );// remove empty class
+		return $classes;
 	}
 
 }
 
-if ( ! function_exists( 'emulsion_sectionized_class' ) ) {
+if ( ! function_exists( 'emulsion_template_identification_class' ) ) {
 
 	/**
-	 * wp-block-gallery, wp-block-columns, wp-block-media-text
-	 * Customizer You can set the background color from the post settings.
-	 * Add a class that determines the tendency of this background color
+	 * the class name associated with the included template
+	 *
+	 * @global type $template
+	 * @param type $file
+	 * @param type $echo
+	 * @return boolean
 	 */
-	function emulsion_sectionized_class( $block = '' ) {
+	function emulsion_template_identification_class( $file = '', $echo = true ) {
 
-		if ( 'columns' == $block ) {
-			$background_default	 = emulsion_get_background_color();
-			$background			 = get_theme_mod( 'emulsion_block_columns_section_bg', $background_default );
+		global $template;
 
-			if ( $background_default == $background ) {
-				return 'is-default';
-			}
-			if ( ! empty( $background ) ) {
+		if ( empty( $file ) ) {
 
-				$text_color = emulsion_contrast_color( $background );
-
-				if ( '#ffffff' == $text_color ) {
-
-					$emulsion_brightnes = 'is-dark';
-				}
-				if ( '#333333' == $text_color ) {
-
-					$emulsion_brightnes = 'is-light';
-				}
-
-				return $emulsion_brightnes;
-			}
+			return false;
 		}
-		if ( 'media_text' == $block ) {
 
-			$background_default	 = emulsion_get_background_color();
-			$background			 = get_theme_mod( 'emulsion_block_media_text_section_bg', $background_default );
+		if ( $template == $file ) {
 
-			if ( $background_default == $background ) {
-				return 'is-default';
-			}
-			if ( ! empty( $background ) ) {
-
-				$text_color = emulsion_contrast_color( $background );
-
-				if ( '#ffffff' == $text_color ) {
-
-					$emulsion_brightnes = 'is-dark';
-				}
-				if ( '#333333' == $text_color ) {
-
-					$emulsion_brightnes = 'is-light';
-				}
-
-				return $emulsion_brightnes;
-			}
-		}
-		if ( 'gallery' == $block ) {
-
-			$background_default	 = emulsion_get_background_color();
-			$background			 = get_theme_mod( 'emulsion_block_gallery_section_bg', $background_default );
-
-			if ( $background_default == $background ) {
-				return 'is-default';
-			}
-			if ( ! empty( $background ) ) {
-
-				$text_color = emulsion_contrast_color( $background );
-
-				if ( '#ffffff' == $text_color ) {
-
-					$emulsion_brightnes = 'is-dark';
-				}
-				if ( '#333333' == $text_color ) {
-
-					$emulsion_brightnes = 'is-light';
-				}
-
-				return $emulsion_brightnes;
-			}
-		}
-		return false;
-	}
-
-}
-
-if ( ! function_exists( 'emulsion_remove_spaces_from_css' ) ) {
-
-	/**
-	 * Remove spaces from stylesheet
-	 * When user logged in, output readable CSS, usually minified CSS
-	 */
-	function emulsion_remove_spaces_from_css( $css = '' ) {
-
-		if ( ! is_user_logged_in() ) {
-
-			$css = str_replace( array( "\n", "\r", "\t", '&quot;', '\"' ), array( "", "", "", '"', '"' ), $css );
+			$current_template	 = basename( $template, '.php' );
+			$current_template	 = sprintf( 'template-%1$s', $current_template );
 		} else {
 
-			$css = str_replace( array( '&quot;', '\"' ), array( '"', '"' ), $css );
+			$current_template	 = basename( $file, '.php' );
+			$current_template	 = sprintf( 'template-part-%1$s', $current_template );
 		}
 
-		return $css;
+		if ( $echo ) {
+
+			echo ' ' . sanitize_html_class( $current_template );
+		} else {
+
+			return ' ' . sanitize_html_class( $current_template );
+		}
 	}
 
 }
 
-if ( ! function_exists( 'emulsion_oembed_object_wrapper' ) ) {
+if ( ! function_exists( 'emulsion_the_header_layer_class' ) ) {
 
 	/**
-	 * Not Block editor embed media wrapper
+	 * Header Classes
+	 * The CSS class is added by judging whether the image or video is set in the Site header.
+	 * @param type $class
 	 */
-	function emulsion_oembed_object_wrapper( $html, $url, $type = '' ) {
+	function emulsion_the_header_layer_class( $class = '' ) {
+		
+		$add_class = apply_filters( 'emulsion_the_header_layer_class', '' );
 
-		/**
-		 * Reason not to divert Gutenberg's class
-		 * Because the structure of html is different
-		 */
-		$element					 = 'div';
-		$not_exists_gutenberg_class	 = 'wp-block-embed__wrapper';
-		if ( empty( $type ) ) {
-
-			$not_exists_gutenberg_class	 .= ' ';
-			$not_exists_gutenberg_class	 .= sanitize_html_class( $type );
-		}
-		$repair_style = '';
-
-		/**
-		 * https://www.instagram.com/
-		 */
-		if ( preg_match( '!(instagram.com)!', $url ) ) {
-			return sprintf( '<div class="emulsion-instagram clearfix">%1$s</div>', $html );
-		}
-
-		/**
-		 * https://www.reverbnation.com/
-		 */
-		if ( preg_match( '!(reverbnation.com)!', $url ) ) {
-			return sprintf( '<%2$s class="emulsion-reverbnation clearfix"><div>%1$s</div></%2$s>', $html, $element );
-		}
-
-		/*
-		 * https://speakerd.s3.amazonaws.com/presentations/50021f75cf1db900020005e7/slide_0.jpg?1362165300
-		 */
-
-		if ( preg_match( '!(speakerdeck.com|speakerd)!', $url ) ) {
-			return sprintf( '<%2$s class="emulsion-ratio-075 emulsion-speakerdeck clearfix"><div>%1$s</div></%2$s>', $html, $element );
-		}
-
-		/*
-		 * https://www.slideshare.net/slideshow/embed_code/7306301
-		 */
-
-		if ( preg_match( '!(slideshare.net)!', $url ) ) {
-			return sprintf( '<%2$s class="emulsion-slideshare clearfix %3$s" %4$s><div>%1$s</div></%2$s>', $html, $element, $not_exists_gutenberg_class, $repair_style );
-		}
-
-		/*
-		 * https://www.mixcloud.com/
-		 */
-
-		if ( preg_match( '!(mixcloud.com)!', $url ) ) {
-			return sprintf( '<%2$s class="emulsion-mixcloud clearfix %3$s" %4$s><div>%1$s</div></%2$s>', $html, $element, $not_exists_gutenberg_class, $repair_style );
-		}
-
-		/**
-		 * https://www.reddit.com/
-		 */
-		if ( preg_match( '!(reddit.com)!', $url ) ) {
-			return sprintf( '<%2$s class="emulsion-reddit clearfix"><div>%1$s</div></%2$s>', $html, $element );
-		}
-
-		/**
-		 * https://www.screencast.com/
-		 * @since 1.480
-		 */
-		if ( preg_match( '!(screencast.com)!', $url ) ) {
-			return sprintf( '<%2$s class="emulsion-screencast clearfix"><div>%1$s</div></%2$s>', $html, $element );
-		}
-
-		/**
-		 * note: 4:3 ratio can use .emulsion-ratio-075
-		 */
-		if ( ! preg_match( '!(twitter.com|tumblr.com|speakerdeck)!', $url ) && ! preg_match( '!(wp-embedded-content)!', $html ) ) {
-			return sprintf( '<%2$s class="clearfix %3$s" %4$s>%1$s</%2$s>', $html, $element, $not_exists_gutenberg_class, $repair_style );
-		}
-
-		return $html;
+		echo emulsion_class_name_sanitize( $add_class . ' '. $class );
 	}
-
 }
+if ( ! function_exists( 'emulsion_element_classes' ) ) {
 
-if ( ! function_exists( 'emulsion_theme_info' ) ) {
+/**
+ * Adds a class according to the primary menu background color,sidebar background color specified in the customizer.
+ * Return the class specified by location
+ * @param type $location
+ * @return string
+ * 
+ * @since 0.99 class name change from menu-has-column to menu-active
+ */
 
-	/**
-	 * Get theme infomation.
-	 */
-	function emulsion_theme_info( $info, $echo = true ) {
+	function emulsion_element_classes( $location = '' ) {
 
-		$emulsion_current_data = wp_get_theme();
+		if ( 'primary' == $location ) {
 
-		if ( strcasecmp( $info, 'ThemeURI' ) == 0 ) {
+			$is_active_menu		 = emulsion_is_active_nav_menu( $location );
+			$sidebar_position	 = get_theme_mod( 'emulsion_sidebar_position', emulsion_theme_default_val( 'emulsion_sidebar_position' ) );
+			$menu_background	 = get_theme_mod( 'emulsion_primary_menu_background', emulsion_theme_default_val( 'emulsion_primary_menu_background' ) );
+			$menu_text_color	 = function_exists( 'emulsion_contrast_color' ) ? emulsion_contrast_color( $menu_background ) : '#333333';
+			$menu_color_class	 = '#333333' == $menu_text_color ? 'menu-is-light' : 'menu-is-dark';
 
-			$emulsion_current_data_theme_uri = apply_filters( 'emulsion_theme_url', $emulsion_current_data->get( 'ThemeURI' ) );
+			$class	 = 'primary-menu-wrapper';
+			$class	 .= $is_active_menu ? ' menu-active' : ' menu-inactive';
+			$class	 .= ' ' . sanitize_html_class( 'side-' . $sidebar_position );
+			$class	 .= ' ' . $menu_color_class;
 
-			if ( $echo == true ) {
-
-				echo esc_url( $emulsion_current_data_theme_uri );
-			} else {
-
-				return esc_url( $emulsion_current_data_theme_uri );
-			}
-		}
-		if ( strcasecmp( $info, 'AuthorURI' ) == 0 ) {
-
-			$emulsion_current_data_author_uri = apply_filters( 'emulsion_author_url', $emulsion_current_data->get( 'AuthorURI' ) );
-
-			if ( $echo == true ) {
-
-				echo esc_url( $emulsion_current_data_author_uri );
-			} else {
-
-				return esc_url( $emulsion_current_data_author_uri );
-			}
-		}
-		if ( strcasecmp( $info, 'Version' ) == 0 ) {
-
-			$emulsion_current_data_version = $emulsion_current_data->get( 'Version' );
-
-			if ( is_child_theme() ) {
-
-				/**
-				 * If you are using child theme, version queries may remain unchanged
-				 * when parent themes are updated, sometimes cached
-				 */
-				$emulsion_this_parent_theme		 = wp_get_theme( get_template() );
-				$emulsion_current_data_version	 = $emulsion_this_parent_theme->get( 'Version' ) .
-						'-' . $emulsion_current_data_version;
-			}
-
-			if ( $echo == true ) {
-
-				echo esc_html( $emulsion_current_data_version );
-			} else {
-
-				return $emulsion_current_data_version;
-			}
-		}
-		if ( strcasecmp( $info, 'Name' ) == 0 ) {
-
-			$emulsion_current_theme_name = $emulsion_current_data->get( 'Name' );
-
-			if ( $echo == true ) {
-
-				echo esc_html( $emulsion_current_theme_name );
-			} else {
-
-				return $emulsion_current_theme_name;
-			}
-		}
-		if ( strcasecmp( $info, 'Slug' ) == 0 ) {
-
-			$emulsion_current_theme_name = $emulsion_current_data->get( 'Name' );
-			$emulsion_current_theme_slug = str_replace( ' ', '-', $emulsion_current_theme_name );
-			$emulsion_current_theme_slug = mb_strtolower( $emulsion_current_theme_slug );
-			$emulsion_current_theme_slug = sanitize_html_class( $emulsion_current_theme_slug );
-
-			if ( $echo == true ) {
-
-				echo esc_html( $emulsion_current_theme_slug );
-			} else {
-
-				return $emulsion_current_theme_slug;
-			}
-		}
-		if ( strcasecmp( $info, 'TextDomain' ) == 0 ) {
-
-			$emulsion_text_domain	 = $emulsion_current_data->get( 'TextDomain' );
-			$result					 = $emulsion_text_domain;
-			if ( $echo == true ) {
-
-				echo esc_html( $emulsion_text_domain );
-			} else {
-
-				return $emulsion_text_domain;
-			}
+			return ' '. emulsion_class_name_sanitize( $class );
 		}
 
-		if ( is_child_theme() ) {
+		if ( 'sidebar-widget-area' == $location || 'footer-widget-area' == $location ) {
 
-			$emulsion_parent_data = wp_get_theme( get_template() );
+			$background			 = get_theme_mod( 'emulsion_sidebar_background', emulsion_theme_default_val( 'emulsion_sidebar_background' ) );
+			$text_color			 = function_exists( 'emulsion_contrast_color' ) ? emulsion_contrast_color( $menu_background ) : '#333333';
+			$text_color_class	 = '#333333' == $text_color ? 'sidebar-is-light' : 'sidebar-is-dark';
+			$footer_cols_class	 = '';
 
-			if ( strcasecmp( $info, 'parentName' ) == 0 ) {
-
-				$emulsion_parent_theme_name = $emulsion_parent_data->get( 'Name' );
-
-				if ( $echo == true ) {
-
-					echo esc_html( $emulsion_parent_theme_name );
-				} else {
-
-					return $emulsion_parent_theme_name;
-				}
+			if( get_theme_mod( 'emulsion_sidebar_background', false ) == emulsion_theme_default_val( 'emulsion_sidebar_background' ) ||
+				false === get_theme_mod( 'emulsion_sidebar_background', false ) ) {
+				
+				$text_color_class = 'sidebar-is-default';
 			}
-			if ( strcasecmp( $info, 'parentSlug' ) == 0 ) {
 
-				$emulsion_parent_theme_name	 = $emulsion_parent_data->get( 'Name' );
-				$emulsion_parent_theme_name	 = str_replace( ' ', '-', $emulsion_parent_theme_name );
-				$emulsion_parent_theme_name	 = mb_strtolower( $emulsion_parent_theme_name );
-				$emulsion_parent_theme_name	 = sanitize_html_class( $emulsion_parent_theme_name );
+			if ( 'footer-widget-area' == $location ) {
 
-				if ( $echo == true ) {
-					echo esc_html( $emulsion_parent_theme_name );
-				} else {
-					return $emulsion_parent_theme_name;
-				}
+				$footer_cols_class = get_theme_mod( 'emulsion_footer_columns', emulsion_theme_default_val( 'emulsion_footer_columns' ) );	
+				$footer_cols_class = 'footer-cols-'. absint( $footer_cols_class );
 			}
+
+			return ' ' . emulsion_class_name_sanitize( $text_color_class . ' '. $footer_cols_class );
 		}
-
-
-		return false;
 	}
-
 }
 
 if ( ! function_exists( 'emulsion_class_name_sanitize' ) ) {
@@ -1083,7 +782,68 @@ if ( ! function_exists( 'emulsion_class_name_sanitize' ) ) {
 
 }
 
-if ( ! function_exists( 'emulsion_layout_controller' ) ) {
+if ( ! function_exists( 'emulsion_remove_spaces_from_css' ) ) {
+
+	/**
+	 * Remove spaces from stylesheet
+	 * When user logged in, output readable CSS, usually minified CSS
+	 */
+	function emulsion_remove_spaces_from_css( $css = '' ) {
+
+		if ( ! is_user_logged_in() ) {
+
+			$css = str_replace( array( "\n", "\r", "\t", '&quot;', '\"' ), array( "", "", "", '"', '"' ), $css );
+		} else {
+
+			$css = str_replace( array( '&quot;', '\"' ), array( '"', '"' ), $css );
+		}
+
+		return $css;
+	}
+
+}
+
+function emulsion_version( $echo = false ) {
+
+	$emulsion_current_data			 = wp_get_theme();
+	$emulsion_current_data_version	 = $emulsion_current_data->get( 'Version' );
+
+	if ( is_child_theme() ) {
+
+		/**
+		 * If you are using child theme, version queries may remain unchanged
+		 * when parent themes are updated, sometimes cached
+		 */
+		$emulsion_this_parent_theme		 = wp_get_theme( get_template() );
+		$emulsion_current_data_version	 = $emulsion_this_parent_theme->get( 'Version' ) .
+				'-' . $emulsion_current_data_version;
+	}
+
+	if ( $echo == true ) {
+
+		echo sanitize_text_field( $emulsion_current_data_version );
+	} else {
+
+		return sanitize_text_field( $emulsion_current_data_version );
+	}
+}
+
+function emulsion_slug( $echo = false ) {
+
+	$emulsion_current_data		 = wp_get_theme();
+	$emulsion_current_theme_name = $emulsion_current_data->get( 'Name' );
+	$emulsion_current_theme_slug = sanitize_title_with_dashes( $emulsion_current_theme_name );
+
+	if ( $echo == true ) {
+
+		echo $emulsion_current_theme_slug;
+	} else {
+
+		return $emulsion_current_theme_slug;
+	}
+}
+
+if ( ! function_exists( 'emulsion_layout_control' ) ) {
 
 	/**
 	 * Add html element for grid display and stream display.
@@ -1092,20 +852,20 @@ if ( ! function_exists( 'emulsion_layout_controller' ) ) {
 	 * @param type $type
 	 * @return type
 	 */
-	function emulsion_layout_controller( $position = 'before', $type = '' ) {
+	function emulsion_layout_control( $position = 'before', $type = '' ) {
 
 		/**
 		 * Filter Example
 		 *
 		 * All archive pages are displayed in list format
-		 * add_filter('emulsion_layout_controller','__return_false');
+		 * add_filter('emulsion_layout_control','__return_false');
 		 * change stream to grid
-		 * add_filter('emulsion_layout_controller', function($html){ return is'grid'; } );
+		 * add_filter('emulsion_layout_control', function($html){ return is'grid'; } );
 		 */
 		if ( is_single() ) {
 			return;
 		}
-		$type	 = apply_filters( 'emulsion_layout_controller', $type );
+		$type	 = apply_filters( 'emulsion_layout_control', $type );
 		$type	 = sanitize_html_class( $type );
 
 		if ( post_type_exists( $type ) && 'post' !== $type && 'page' !== $type ) {
@@ -1127,11 +887,7 @@ if ( ! function_exists( 'emulsion_layout_controller' ) ) {
 				$result = '</div>';
 			}
 
-			// check lost element
-			$emulsion_place = basename( __FILE__ ) . ' line:' . __LINE__ . ' ' . __FUNCTION__ . '()';
-			true === WP_DEBUG ? emulsion_elements_assert_equal( $result, wp_kses_post( $result ), $emulsion_place ) : '';
-
-			echo wp_kses_post( $result );
+			echo $result;
 		}
 	}
 
@@ -1144,13 +900,12 @@ if ( ! function_exists( 'emulsion_search_drawer' ) ) {
 	 */
 	function emulsion_search_drawer() {
 
-		if ( emulsion_get_supports( 'search_drawer' ) ) {
-
-			get_template_part( 'template-parts/search', 'drawer' );
-		}
+		 emulsion_the_theme_supports( 'search_drawer' ) ? get_template_part( 'template-parts/search', 'drawer' ) : '';
 	}
 
 }
+
+
 if ( ! function_exists( 'emulsion_block_editor_styles' ) ) {
 
 	/**
@@ -1158,23 +913,24 @@ if ( ! function_exists( 'emulsion_block_editor_styles' ) ) {
 	 */
 	function emulsion_block_editor_styles() {
 
-		$emulsion_current_data_version = emulsion_theme_info( 'Version', false );
+		$emulsion_current_data_version =  emulsion_version();
 
 		if ( WP_DEBUG ) {
 			$emulsion_current_data_version = time();
 		}
 		if ( is_user_logged_in() && current_user_can( 'edit_posts' ) ) {
 			wp_enqueue_style(
-					'emulsion-block-editor-styles', get_theme_file_uri( '/css/style-editor.css' ), array(), $emulsion_current_data_version, 'all'
+				'emulsion-block-editor-styles', get_theme_file_uri( '/css/style-editor.css' ), array(), $emulsion_current_data_version, 'all'
 			);
 
 			$wp_scss_status = get_theme_mod( 'emulsion_wp_scss_status' );
 
-			if ( 'active' !== $wp_scss_status ) {
+			if ( 'active' !== $wp_scss_status  ) {
+				if( function_exists('emulsion_css_variables') ){
+					$dinamic_css = emulsion__css_variables();
 
-				$dinamic_css = emulsion__css_variables();
-
-				wp_add_inline_style( 'emulsion-block-editor-styles', $dinamic_css );
+					wp_add_inline_style( 'emulsion-block-editor-styles', $dinamic_css );
+				}
 			}
 		}
 	}
@@ -1205,8 +961,8 @@ if ( ! function_exists( 'emulsion_svg_icon' ) ) {
 			'desc'		 => '',
 			'fallback'	 => false,
 			'echo'		 => false,
-			'width'		 => emulsion_get_var( 'emulsion_common_font_size' ),
-			'height'	 => emulsion_get_var( 'emulsion_common_font_size' ),
+			'width'		 => get_theme_mod( 'emulsion_common_font_size', emulsion_theme_default_val( 'emulsion_common_font_size' ) ),
+			'height'	 => get_theme_mod( 'emulsion_common_font_size', emulsion_theme_default_val( 'emulsion_common_font_size' ) ),
 		);
 
 		$args = wp_parse_args( $args, $defaults );
@@ -1256,12 +1012,6 @@ if ( ! function_exists( 'emulsion_svg_icon' ) ) {
 
 		$result .= $close_element;
 
-		// check lost element
-		$emulsion_place = basename( __FILE__ ) . ' line:' . __LINE__ . ' ' . __FUNCTION__ . '()';
-		true === WP_DEBUG ? emulsion_elements_assert_equal( $result, wp_kses( $result, EMULSION_ICON_SVG_SYMBOLS_ALLOWED_ELEMENTS ), $emulsion_place ) : '';
-
-
-
 		if ( true == $args['fallback'] ) {
 
 			echo wp_kses( $result, EMULSION_ICON_SVG_SYMBOLS_ALLOWED_ELEMENTS );
@@ -1273,45 +1023,7 @@ if ( ! function_exists( 'emulsion_svg_icon' ) ) {
 	}
 
 }
-if ( ! function_exists( 'emulsion_template_identification_class' ) ) {
 
-	/**
-	 * the class name associated with the included template
-	 *
-	 * @global type $template
-	 * @param type $file
-	 * @param type $echo
-	 * @return boolean
-	 */
-	function emulsion_template_identification_class( $file = '', $echo = true ) {
-
-		global $template;
-
-		if ( empty( $file ) ) {
-
-			return false;
-		}
-
-		if ( $template == $file ) {
-
-			$current_template	 = basename( $template, '.php' );
-			$current_template	 = sprintf( 'template-%1$s', $current_template );
-		} else {
-
-			$current_template	 = basename( $file, '.php' );
-			$current_template	 = sprintf( 'template-part-%1$s', $current_template );
-		}
-
-		if ( $echo ) {
-
-			echo ' ' . sanitize_html_class( $current_template );
-		} else {
-
-			return ' ' . sanitize_html_class( $current_template );
-		}
-	}
-
-}
 if ( ! function_exists( 'emulsion_video_controls' ) ) {
 
 	/**
@@ -1328,6 +1040,28 @@ if ( ! function_exists( 'emulsion_video_controls' ) ) {
 	}
 
 }
+
+if ( ! function_exists( 'emulsion_theme_image_dir' ) ) {
+	/**
+	 * Theme Image Directory
+	 * for scss variable
+	 */
+	function emulsion_theme_image_dir() {
+
+		$theme_image_dir = esc_url( get_template_directory_uri() . '/images/' );
+		$child_image_dir = esc_url( get_stylesheet_directory_uri() . '/images/' );
+
+		if ( file_exists( $child_image_dir ) && is_child_theme() ) {
+
+			$theme_image_dir = $child_image_dir;
+		}
+
+		$theme_image_dir = wp_make_link_relative( $theme_image_dir );
+
+		return $theme_image_dir;
+	}
+}
+
 if ( ! function_exists( 'emulsion_request_url' ) ) {
 
 	/**
@@ -1342,69 +1076,13 @@ if ( ! function_exists( 'emulsion_request_url' ) ) {
 	}
 
 }
-if ( ! function_exists( 'emulsion_link_url_text_decode' ) ) {
 
-	/**
-	 * Decode URL-encoded link text
-	 *
-	 * @param type $matches
-	 * @return type
-	 */
-	function emulsion_link_url_text_decode( $matches ) {
 
-		if ( isset( $matches[1] ) && preg_match( '!%[0-9A-Z][0-9A-Z]+!', $matches[1] ) ) {
-
-			$replace = urldecode( $matches[1] );
-			$replace = esc_html( $replace );
-
-			return preg_replace( "|>" . $matches[1] . "</a>|", ">{$replace}</a>", $matches[0] );
-		}
-		return $matches[0];
-	}
-
-}
-
-if ( ! function_exists( 'emulsion_remove_url_from_text' ) ) {
-
-	/**
-	 * Remove the URL string from the text
-	 * @param type $plain_text
-	 * @return type
-	 */
-	function emulsion_remove_url_from_text( $plain_text = '' ) {
-
-		return preg_replace( "/(https?:\/\/)([-_.!*\'()a-zA-Z0-9;\/?:@&=+$,%#]+)/iu", '', $plain_text );
-	}
-
-}
-if ( ! function_exists( 'emulsion_get_footer_cols' ) ) {
-
-	/**
-	 * Get number of columns in footer widget area
-	 * @return boolean
-	 */
-	function emulsion_get_footer_cols() {
-
-		$footer_col = emulsion_get_supports( 'footer' );
-
-		if ( is_array( $footer_col ) ) {
-
-			foreach ( $footer_col[0] as $key => $value ) {
-				if ( 'cols' == $key ) {
-					return $value;
-				}
-			}
-		}
-		return false;
-	}
-
-}
 if ( ! function_exists( 'emulsion_get_footer_cols_css' ) ) {
 
 	/**
 	 * Get number of columns in footer widget area in% width
 	 * @return number
-	 * unit % is added CSS calc()
 	 */
 	function emulsion_get_footer_cols_css() {
 
@@ -1455,87 +1133,12 @@ if ( ! function_exists( 'emulsion_current_layout_type' ) ) {
 	 * @return string
 	 */
 	function emulsion_current_layout_type() {
-
-		$supports_stream = emulsion_get_supports( 'stream' );
-		$supports_grid	 = emulsion_get_supports( 'grid' );
-		$stream			 = emulsion_has_archive_format( $supports_stream );
-		$grid			 = emulsion_has_archive_format( $supports_grid );
-
-		if ( ! empty( $grid ) && empty( $stream ) ) {
-			return 'grid';
-		}
-		if ( ! empty( $stream ) && empty( $grid ) ) {
-			return 'stream';
-		}
-		if ( empty( $stream ) && empty( $grid ) ) {
-			return 'list';
-		}
+			
+		return apply_filters('emulsion_current_layout_type', 'list' );	
 	}
 
 }
-if ( ! function_exists( 'emulsion_reset_customizer_settings' ) ) {
 
-	/**
-	 * Reset customizer settings with Server Side
-	 * @global type $emulsion_customize_args
-	 */
-	function emulsion_reset_customizer_settings() {
-		global $emulsion_customize_args;
-
-		$header_html			 = get_theme_mod( 'emulsion_header_html', emulsion_get_var( 'emulsion_header_html' ) );
-		$footer_credit			 = get_theme_mod( 'emulsion_footer_credit', emulsion_get_var( 'emulsion_footer_credit' ) );
-		$favorite_color_palette	 = get_theme_mod( 'emulsion_favorite_color_palette', emulsion_get_var( 'emulsion_favorite_color_palette' ) );
-
-		/**
-		 * layout grid steam is dinamicaly set emulsion_add_supports()
-		 * need to add the default settings separately.
-		 */
-		$emulsion_layout_homepage				 = emulsion_get_var( 'emulsion_layout_homepage', 'default' );
-		$emulsion_layout_posts_page				 = emulsion_get_var( 'emulsion_layout_posts_page', 'default' );
-		$emulsion_layout_date_archives			 = emulsion_get_var( 'emulsion_layout_date_archives', 'default' );
-		$emulsion_layout_category_archives		 = emulsion_get_var( 'emulsion_layout_category_archives', 'default' );
-		$emulsion_layout_tag_archives			 = emulsion_get_var( 'emulsion_layout_tag_archives', 'default' );
-		$emulsion_layout_author_archives		 = emulsion_get_var( 'emulsion_layout_author_archives', 'default' );
-		$emulsion_default_background_color		 = get_theme_support( 'custom-background', 'default-color' );
-		$emulsion_default_header_textcolor_color = str_replace( '#', '', emulsion_header_text_color_reset() );
-
-
-		foreach ( $emulsion_customize_args as $name => $val ) {
-
-			remove_theme_mod( $name );
-		}
-
-		/**
-		 * reset background color, background image
-		 */
-		set_theme_mod( 'background_color', $emulsion_default_background_color );
-
-		$emulsion_custom_background_defaults_image = emulsion_get_supports( 'background' )[0]['default']['default-image'];
-
-		set_theme_mod( 'background_image', $emulsion_custom_background_defaults_image );
-		set_theme_mod( 'background_image_thumb', $emulsion_custom_background_defaults_image );
-		set_theme_mod( 'header_textcolor', $emulsion_default_header_textcolor_color );
-
-		/**
-		 * keep user setting
-		 */
-		set_theme_mod( 'emulsion_favorite_color_palette', $favorite_color_palette );
-		set_theme_mod( 'emulsion_footer_credit', $footer_credit );
-		set_theme_mod( 'emulsion_header_html', $header_html );
-		set_theme_mod( 'emulsion_reset_theme_settings', 'continue' );
-
-		/**
-		 * needs default setting
-		 */
-		set_theme_mod( 'emulsion_layout_homepage', $emulsion_layout_homepage );
-		set_theme_mod( 'emulsion_layout_posts_page', $emulsion_layout_posts_page );
-		set_theme_mod( 'emulsion_layout_date_archives', $emulsion_layout_date_archives );
-		set_theme_mod( 'emulsion_layout_category_archives', $emulsion_layout_category_archives );
-		set_theme_mod( 'emulsion_layout_tag_archives', $emulsion_layout_tag_archives );
-		set_theme_mod( 'emulsion_layout_author_archives', $emulsion_layout_author_archives );
-	}
-
-}
 
 if ( ! function_exists( 'emulsion_header_layout' ) ) {
 
@@ -1544,294 +1147,14 @@ if ( ! function_exists( 'emulsion_header_layout' ) ) {
 	 * @return type
 	 */
 	function emulsion_header_layout() {
+		
+		$result = get_theme_mod( 'emulsion_header_layout', emulsion_theme_default_val( 'emulsion_header_layout' ) );
 
-		return wp_kses( get_theme_mod( 'emulsion_header_layout', 'custom' ), array() );
-	}
-
-}
-if ( ! function_exists( 'emulsion_sanitize_css' ) ) {
-
-	/**
-	 * CSS sanitize
-	 */
-	function emulsion_sanitize_css( $css ) {
-
-		/**
-		 *
-		 * Please add filter style sanitize code. if need
-		 *
-		 */
-		return wp_strip_all_tags( $css );
-	}
-
-}
-if ( ! function_exists( 'emulsion_get_google_font_family_from_url' ) ) {
-
-	/**
-	 * Parsing the google fonts URL and getting the font name
-	 * @param type $url
-	 * @param type $fallback
-	 * @return type
-	 */
-	function emulsion_get_google_font_family_from_url( $url = '',
-			$fallback = 'sans-serif' ) {
-
-		$query = parse_url( $url, PHP_URL_QUERY );
-
-		if ( is_null( $query ) ) {
-			return;
-		}
-
-		$query	 = htmlspecialchars_decode( $query );
-		$result	 = '';
-
-		parse_str( $query, $param );
-
-		if ( false !== strstr( $param['family'], '|' ) ) {
-
-			$fonts = explode( '|', $param['family'] );
-
-			foreach ( $fonts as $font ) {
-
-				if ( false !== $position = strpos( $font, ':' ) ) {
-
-					$result .= ' "' . substr( $font, 0, $position ) . '",';
-				} else {
-					$result .= ' "' . $font . '",';
-				}
-			}
-		} else {
-
-			if ( false !== $position = strpos( $param['family'], ':' ) ) {
-
-				$result .= ' "' . substr( $param['family'], 0, $position ) . '",';
-			} else {
-				$result .= ' "' . $param['family'] . '",';
-			}
-		}
-		$result	 = str_replace( '+', ' ', $result );
-		$result	 = addslashes( $result . $fallback );
-
-		return trim( $result, ',' );
+		return $result;
 	}
 
 }
 
-if ( ! function_exists( 'emulsion_elements_assert_equal' ) ) {
-
-	/**
-	 * In debug mode, the theme compares HTML before sanitization and after sanitization, and if there are deleted elements, logs them to debug.log
-	 *
-	 */
-	function emulsion_elements_assert_equal( $value_raw = '', $value_validate = '',
-			$message = '' ) {
-		global $template, $post;
-
-		if ( ! WP_DEBUG_LOG ) {
-			return;
-		}
-
-		$emulsion_template	 = ! empty( $template ) ? basename( $template ) : 'not found';
-		$add_info			 = '';
-
-		if ( is_singular() ) {
-			if ( empty( $post ) ) {
-
-				$add_info = 'post_id: not exists';
-			} else {
-
-				$add_info = 'post_id: ' . absint( $post->ID );
-			}
-		}
-		if ( is_archive() ) {
-
-			$paged		 = absint( get_query_var( 'paged', 1 ) );
-			$add_info	 = 'archive: ' . esc_html( wp_strip_all_tags( get_the_archive_title(), true ) ) . ' page:' . $paged;
-		}
-
-		if ( is_404() ) {
-
-			$add_info = 'post_id: http 404 not found';
-		}
-
-		if ( ( true === WP_DEBUG || is_string( WP_DEBUG_LOG ) ) && 0 !== strcmp( trim( $value_raw ), trim( $value_validate ) ) ) {
-
-			$message	 = sprintf( '[ Emulsion custom info ] The output html may be limited. %1$s %2$s template: %3$s', $message, $add_info, $emulsion_template );
-			$log		 = sprintf( '[ %1$s ]%2$s' . PHP_EOL, date_i18n( 'Y-m-d H:i:s' ), $message );
-			/**
-			 * @since 1.1.3
-			 * Fixed an issue that was not written to the debug file set by the user
-			 * support  WordPress 5.1, WP_DEBUG_LOG will also accept a file path as a value allowing a custom error log to be defined.
-			 */
-			$save_file = is_bool( WP_DEBUG_LOG )  ?  WP_CONTENT_DIR . '/debug.log' : WP_DEBUG_LOG;
-
-			if ( file_exists( $save_file ) && false !== WP_DEBUG_LOG ) {
-				error_log( $log, 3, $save_file );
-			}
-		}
-	}
-
-}
-
-if ( ! function_exists( 'emulsion_write_log' ) ) {
-
-	/**
-	 * Add logs at debug time if necessary
-	 * @param type $log
-	 */
-	function emulsion_write_log( $log ) {
-
-		if ( ! WP_DEBUG_LOG ) {
-			return;
-		}
-
-		if ( true === WP_DEBUG || is_string( WP_DEBUG_LOG ) ) {
-			/**
-			 * @since 1.1.3
-			 * Fixed an issue that was not written to the debug file set by the user
-			 * support  WordPress 5.1, WP_DEBUG_LOG will also accept a file path as a value allowing a custom error log to be defined.
-			 */
-			$content_dir	  = wp_upload_dir();
-			$content_dir_path = dirname( $content_dir['path'] );
-			$save_file = is_bool( WP_DEBUG_LOG )  ?  $content_dir_path . '/debug.log' : WP_DEBUG_LOG;
-
-			if ( is_array( $log ) || is_object( $log ) ) {
-
-				error_log( print_r( $log, 3, $save_file ) ) . "\n";
-			} else {
-
-				error_log( $log, 3, $save_file ) . "\n";
-			}
-		}
-	}
-
-}
-
-if ( ! function_exists( 'emulsion_php_version_notice' ) ) {
-
-	/**
-	 * PHP version notice when theme activate
-	 */
-	function emulsion_php_version_notice() {
-
-		printf( '<div class="%1$s"><p>%2$s<br />%3$s</p></div>', 'notice notice-error is_dismissable', esc_html__( 'You need to update your PHP version to run this theme.', 'emulsion' ), sprintf(
-						/* translators: 1: PHP_VERSION 2: EMULSION_MIN_PHP_VERSION */
-						esc_html__( 'Actual version is: %1$s, required version is: %2$s', 'emulsion' ), esc_html( PHP_VERSION ), esc_html( EMULSION_MIN_PHP_VERSION )
-				)
-		);
-	}
-
-}
-
-if ( ! function_exists( 'emulsion_tiny_mce_before_init' ) ) {
-
-	/**
-	 * tinymce settings
-	 * remove cache and add body class
-	 */
-	function emulsion_tiny_mce_before_init( $mce_init ) {
-
-		if ( current_user_can( 'edit_theme_options' ) ) {
-
-			$mce_init['cache_suffix'] = 'v=' . time();
-		}
-
-		if ( empty( $mce_init['body_class'] ) ) {
-
-			$mce_init['body_class'] = 'entry-content';
-		} else {
-
-			$mce_init['body_class'] = ' entry-content';
-		}
-
-		return $mce_init;
-	}
-
-}
-
-if ( ! function_exists( 'emulsion_content_type' ) ) {
-
-	/**
-	 * return page is full text or excerpt
-	 * grid, stream return false
-	 */
-	function emulsion_content_type() {
-		global $post;
-
-		if ( is_singular() ) {
-
-			return 'full_text';
-		} else {
-
-			switch ( true ) {
-				case emulsion_is_posts_page():
-
-					$setting_value = get_theme_mod( 'emulsion_layout_posts_page', emulsion_get_var( 'emulsion_layout_posts_page' ) );
-
-					if ( 'full_text' == $setting_value || 'excerpt' == $setting_value ) {
-
-						return $setting_value;
-					}
-					break;
-				case is_home():
-
-					$setting_value = get_theme_mod( 'emulsion_layout_homepage', emulsion_get_var( 'emulsion_layout_homepage' ) );
-
-					if ( 'full_text' == $setting_value || 'excerpt' == $setting_value ) {
-
-						return $setting_value;
-					}
-					break;
-				case is_date():
-
-					$setting_value = get_theme_mod( 'emulsion_layout_date_archives', emulsion_get_var( 'emulsion_layout_date_archives' ) );
-
-					if ( 'full_text' == $setting_value || 'excerpt' == $setting_value ) {
-
-						return $setting_value;
-					}
-					break;
-				case is_category():
-
-					$setting_value = get_theme_mod( 'emulsion_layout_category_archives', emulsion_get_var( 'emulsion_layout_category_archives' ) );
-
-					if ( 'full_text' == $setting_value || 'excerpt' == $setting_value ) {
-
-						return $setting_value;
-					}
-					break;
-				case is_tag():
-
-					$setting_value = get_theme_mod( 'emulsion_layout_tag_archives', emulsion_get_var( 'emulsion_layout_tag_archives' ) );
-
-					if ( 'full_text' == $setting_value || 'excerpt' == $setting_value ) {
-
-						return $setting_value;
-					}
-					break;
-				case is_author():
-
-					$setting_value = get_theme_mod( 'emulsion_layout_author_archives', emulsion_get_var( 'emulsion_layout_author_archives' ) );
-
-					if ( 'full_text' == $setting_value || 'excerpt' == $setting_value ) {
-
-						return $setting_value;
-					}
-					break;
-				case is_search():
-
-					$setting_value = get_theme_mod( 'emulsion_layout_search_results', emulsion_get_var( 'emulsion_layout_search_results' ) );
-
-					$setting_value = str_replace( 'highlight', 'excerpt', $setting_value );
-					return $setting_value;
-					break;
-			}
-
-			return false;
-		}
-	}
-
-}
 if ( ! function_exists( 'emulsion_is_display_featured_image_in_the_loop' ) ) {
 
 	/**
@@ -1839,379 +1162,317 @@ if ( ! function_exists( 'emulsion_is_display_featured_image_in_the_loop' ) ) {
 	 * @return boolean
 	 */
 	function emulsion_is_display_featured_image_in_the_loop() {
-
-		if ( is_home() ) {
-			return get_theme_mod( 'emulsion_layout_homepage_post_image', emulsion_get_var( 'emulsion_layout_homepage_post_image' ) ) == 'show';
-		}
-		if ( emulsion_is_posts_page() ) {
-			return get_theme_mod( 'emulsion_layout_posts_page_post_image', emulsion_get_var( 'emulsion_layout_posts_page_post_image' ) ) == 'show';
-		}
-		if ( is_date() ) {
-			return get_theme_mod( 'emulsion_layout_date_archives_post_image', emulsion_get_var( 'emulsion_layout_date_archives_post_image' ) ) == 'show';
-		}
-		if ( is_category() ) {
-			return get_theme_mod( 'emulsion_layout_category_archives_post_image', emulsion_get_var( 'emulsion_layout_category_archives_post_image' ) ) == 'show';
-		}
-		if ( is_tag() ) {
-			return get_theme_mod( 'emulsion_layout_tag_archives_post_image', emulsion_get_var( 'emulsion_layout_tag_archives_post_image' ) ) == 'show';
-		}
-		if ( is_author() ) {
-			return get_theme_mod( 'emulsion_layout_author_archives_post_image', emulsion_get_var( 'emulsion_layout_author_archives_post_image' ) ) == 'show';
-		}
-		if ( is_search() ) {
-			return get_theme_mod( 'emulsion_layout_search_results_post_image', emulsion_get_var( 'emulsion_layout_search_results_post_image' ) ) == 'show';
-		}
-		return true;
-	}
-
-}
-
-if ( ! function_exists( 'emulsion_customizer_is_changed' ) ) {
-
-	/**
-	 * if customizer saved emulsion_customizer_is_changed value change 'no' to 'yes'
-	 * @see emulsion_get_css_variables_values()
-	 */
-	function emulsion_customizer_is_changed() {
-
-		set_theme_mod( 'emulsion_customizer_is_changed', 'yes' );
-	}
-
-}
-
-if ( ! function_exists( 'emulsion_add_woocommerce_class_to_post' ) ) {
-
-	/**
-	 * If woocommerce content exists, add class to post_class ()
-	 * @global type $post
-	 * @param type $classes
-	 * @return string
-	 */
-	function emulsion_add_woocommerce_class_to_post( $classes ) {
-		global $post;
-
-		$block_classes = array( 'wc-block', 'wp-block-woocommerce' );
-
-		foreach ( $block_classes as $class ) {
-			if ( preg_match( '/' . $class . '/', $post->post_content ) ) {
-				$classes[]	 = 'has-wc-block';
-				$classes[]	 = 'has-wc';
-				return $classes;
-			}
-		}
-
-		$shortcodes = array( 'product', 'products', 'product_attribute',
-			'product_category', 'product_categories', 'recent_products',
-			'featured_products', 'sale_products', 'best_selling_products',
-			'top_rated_products' );
-
-		foreach ( $shortcodes as $tag ) {
-			if ( has_shortcode( $post->post_content, $tag ) ) {
-				$classes[]	 = 'has-wc-shotcode';
-				$classes[]	 = 'has-wc';
-				break;
-			}
-		}
-		return $classes;
-	}
-
-}
-if ( ! function_exists( 'emulsion_hover_color_filter' ) ) {
-
-	function emulsion_hover_color_filter( $color ) {
-		/**
-		 * apply customizer setting value
-		 * Reflect when a color different from the default color is set in the customizer
-		 */
-		$current_value	 = get_theme_mod( 'emulsion_general_link_hover_color', emulsion_get_var( 'emulsion_general_link_hover_color' ) );
-		$default_value	 = emulsion_get_var( 'emulsion_general_link_hover_color', 'default' );
-
-		if ( $current_value !== $default_value ) {
-
-			return $current_value;
-		}
-
-		return $color;
-	}
-
-}
-if ( ! function_exists( 'emulsion_link_color_filter' ) ) {
-
-	/**
-	 * Reflect when a color different from the default color is set in the customizer
-	 * @param type $color
-	 * @return type
-	 */
-	function emulsion_link_color_filter( $color ) {
-
-		$current_value	 = get_theme_mod( 'emulsion_general_link_color', emulsion_get_var( 'emulsion_general_link_color' ) );
-		$default_value	 = emulsion_get_var( 'emulsion_general_link_color', 'default' );
-
-		if ( $current_value !== $default_value ) {
-
-			return $current_value;
-		}
-
-		return $color;
-	}
-
-}
-
-if ( ! function_exists( 'emulsion_custom_background_cb' ) ) {
-
-	/**
-	 * Differences from the core function
-	 * Change background image to multiple background
-	 * filter add emulsion_custom_background_cb
-	 */
-	function emulsion_custom_background_cb() {
-
-		if ( ! is_user_logged_in() && false !== ( $result = get_transient( 'emulsion_custom_background_cb' ) ) ) {
-
-			echo wp_kses( $result, array( 'style' => array( 'id' => true, 'class' => true, 'type' => true ) ) );
-		}
-
-		// $background is the saved custom image, or the default image.
-		$background = set_url_scheme( get_background_image() );
 		
-		// $color is the saved custom color.
-		// A default has to be specified in style.css. It will not be printed here.
-		$color = get_background_color();
-
-		if ( $color === get_theme_support( 'custom-background', 'default-color' ) ) {
-			$color = false;
-		}
-
-		$type_attr = current_theme_supports( 'html5', 'style' ) ? '' : ' type="text/css"';
-
-		if ( empty( $background ) && empty( $color ) ) {
-
-			if ( is_customize_preview() ) {
-				printf( '<style%s id="custom-background-css"></style>', wp_kses( $type_attr, array() ) );
-			}
-			return;
-		}
-
-		$style = $color ? "background-color: #$color;" : '';
-
-		if ( $background ) {
-
-			$image = ' background-image:linear-gradient(var(--thm_background_image_dim), var(--thm_background_image_dim)), url("' . esc_url_raw( $background ) . '");';
-
-			// Background Position.
-			$position_x	 = get_theme_mod( 'background_position_x', get_theme_support( 'custom-background', 'default-position-x' ) );
-			$position_y	 = get_theme_mod( 'background_position_y', get_theme_support( 'custom-background', 'default-position-y' ) );
-
-			if ( ! in_array( $position_x, array( 'left', 'center', 'right' ), true ) ) {
-				$position_x = 'left';
-			}
-
-			if ( ! in_array( $position_y, array( 'top', 'center', 'bottom' ), true ) ) {
-				$position_y = 'top';
-			}
-
-			$position = " background-position: $position_x $position_y;";
-
-			// Background Size.
-			$size = get_theme_mod( 'background_size', get_theme_support( 'custom-background', 'default-size' ) );
-
-			if ( ! in_array( $size, array( 'auto', 'contain', 'cover' ), true ) ) {
-				$size = 'auto';
-			}
-
-			$size = " background-size: $size ! important;";
-
-			// Background Repeat.
-			$repeat = get_theme_mod( 'background_repeat', get_theme_support( 'custom-background', 'default-repeat' ) );
-
-			if ( ! in_array( $repeat, array( 'repeat-x', 'repeat-y', 'repeat', 'no-repeat' ), true ) ) {
-				$repeat = 'repeat';
-			}
-
-			$repeat = " background-repeat: $repeat;";
-
-			// Background Scroll.
-			$attachment = get_theme_mod( 'background_attachment', get_theme_support( 'custom-background', 'default-attachment' ) );
-
-			if ( 'fixed' !== $attachment ) {
-				$attachment = 'scroll';
-			}
-
-			$attachment = " background-attachment: $attachment;";
-
-			$style		 .= $image . $position . $size . $repeat . $attachment;
-			/**
-			 * The CSS specificity is related to the custom background pattern. ( Customizer setting color )
-			 */
-			$rule_set	 = sprintf( ' html body.single-post.custom-background.emulsion-has-custom-background-image, html body.page.custom-background.emulsion-has-custom-background-image  { %1$s }', $style );
-
-			$rule_set = apply_filters( 'emulsion_custom_background_cb', $rule_set, $image, $position, $size, $repeat, $attachment );
-
-			if ( ! empty( $rule_set ) && ! empty( $background ) ) {
-				$result = sprintf( '<style%1$s id="custom-background-css" class="emulsion-callback-css">%2$s</style>', wp_kses( $type_attr, array() ), emulsion_remove_spaces_from_css( $rule_set ) );
-
-				set_transient( 'emulsion_custom_background_cb', $result, 24 * HOUR_IN_SECONDS );
-
-				echo wp_kses( $result, array( 'style' => array( 'id' => true, 'class' => true, 'type' => true ) ) );
-			}
-		}
+		$result = get_theme_mod( 'emulsion_layout_homepage_post_image', emulsion_theme_default_val( 'emulsion_layout_homepage_post_image' ) );
+		
+		$result = 'hide' === $result ? false: true;
+		
+		return apply_filters( 'emulsion_is_display_featured_image_in_the_loop' , $result );
 	}
 
 }
 
-if ( ! function_exists( 'emulsion_remove_background_img_class' ) ) {
-
-	/**
-	 * background image relate function
-	 * Delete class related to background image when filter theme_mod_background_image return empty
-	 * @param type $classes
-	 * @return type
-	 */
-	function emulsion_remove_background_img_class( $classes ) {
-
-		foreach ( $classes as $key => $value ) {
-			if ( $value == 'emulsion-has-custom-background-image' )
-				unset( $classes[$key] );
-		}
-		return $classes;
-	}
-
-}
-
-if ( ! function_exists( 'emulsion_remove_custom_background_class' ) ) {
-
-	/**
-	 * If you reset the theme color in the Editor menu, the state will not come out of a custom-background
-	 */
-	function emulsion_remove_custom_background_class( $classes ) {
-
-		$post_id = get_the_ID();
-
-		if ( is_singular() && 'no_bg' == get_post_meta( $post_id, 'emulsion_post_theme_style_script', true ) ) {
-
-			foreach ( $classes as $key => $value ) {
-				if ( $value == 'custom-background' )
-					unset( $classes[$key] );
-			}
-			return $classes;
-		}
-
-		return $classes;
-	}
-
-}
-
-
-if ( ! function_exists( 'emulsion_bg_img_display_hide_post_editor' ) ) {
-
-	function emulsion_bg_img_display_hide_post_editor( $url ) {
-
-		$post_id = get_the_ID();
-
-		$post_meta_setting_post	 = get_post_meta( $post_id, 'emulsion_post_background_image', true );
-		$post_meta_setting_page	 = get_post_meta( $post_id, 'emulsion_page_background_image', true );
-
-		if ( 'no_background' == $post_meta_setting_post || 'no_background' == $post_meta_setting_page ) {
-
-			add_filter( 'theme_mod_background_image', '__return_false' );
-			add_filter( 'emulsion_custom_background_cb', '__return_false' );
-			add_filter( 'body_class', 'emulsion_remove_background_img_class' );
-		}
-		return $url;
-	}
-
-}
-if ( ! function_exists( 'emulsion_cjk_excerpt' ) ) {
-
-	function emulsion_cjk_excerpt( $text ) {
-
-		/**
-		 * Languages that do not separate words with spaces
-		 * block latest post excerpt. not support
-		 */
-		$locale = sanitize_text_field( get_locale() );
-
-		$length = apply_filters( 'emulsion_cjk_excerpt_length', 256 ); //todo check 110 to 256 changed
-
-		if ( 'ja' == $locale || 'ko-KR' == $locale || 'zh-CN' == $locale ) {
-			return wp_html_excerpt( $text, $length, '...' );
-		}
-		return $text;
-	}
-
-}
-if ( ! function_exists( 'emulsion_get_current_settings' ) ) {
-
-	function emulsion_get_current_settings() {
-
-		global $emulsion_customize_args;
-
-		foreach ( $emulsion_customize_args as $key => $val ) {
-
-			$val	 = var_export( get_theme_mod( $key ), true );
-			$val	 = false === $val ? esc_html__( 'Not Yet Customized', 'emulsion' ) : trim( $val, "'" );
-			$filter	 = has_filter( 'theme_mod_' . $key ) ? esc_html__( 'Detected', 'emulsion' ) . ' theme_mod_' . $key : esc_html__( 'Not used', 'emulsion' );
-			$default = emulsion_get_var( $key, 'default' );
-
-
-			printf( '<dl><dt class="mod-name">%1$s</dt><dd class="default-value">%5$s %2$s</dd><dd class="current-value">%6$s %3$s</dd><dd class="has-filter">%7$s %4$s</dd></dl>',
-					wp_kses($key,array()),
-					wp_kses($default,array()),
-					wp_kses($val,array()),
-					wp_kses($filter,array()),
-					esc_html__('Default:', 'emulsion'),
-					esc_html__('Current val:','emulsion'),
-					esc_html__('Filter:','emulsion') );
-		}
-	}
-}
 if ( ! function_exists( 'emulsion_get_svg_ids' ) ) {
 
-	function emulsion_get_svg_ids($svgs) {
+	function emulsion_get_svg_ids( $svgs ) {
 
-		if( ! emulsion_get_supports( 'footer-svg' ) ){
-			return false;
+		return apply_filters( 'emulsion_get_svg_ids', emulsion_the_theme_supports( 'footer-svg' ) );
+	}
+
+}
+
+
+add_filter( 'emulsion_inline_style', 'emulsion_plugins_style_change_inline' );
+
+if ( ! function_exists( 'emulsion_plugins_style_change_inline' ) ) {
+
+	function emulsion_plugins_style_change_inline( $css ) {
+		global $wp_style;
+
+		$add_css = '';
+
+		if ( is_page() && false == emulsion_metabox_display_control( 'page_style' ) ) {
+
+			return;
+		}
+		if ( is_single() && false == emulsion_metabox_display_control( 'style' ) ) {
+
+			return;
+		}
+		if ( ! emulsion_the_theme_supports( 'enqueue' ) ) {
+
+			return;
+		}
+		if ( is_user_logged_in() || is_admin() ) {
+
+			return $css;
+		}
+		if ( ! is_admin() || ! is_user_logged_in() || emulsion_theme_addons_exists() ) {
+
+			$get_css = file( get_theme_file_path( 'css/common.css' ) );
+			$add_css .= implode( '', $get_css );
+			return $css . $add_css;
+		}
+		return $css;
+	}
+
+}
+
+if ( ! function_exists( 'emulsion_theme_addons_exists' ) ) {
+
+	function emulsion_theme_addons_exists() {
+
+		return function_exists( 'emulsion_get_var' );
+	}
+
+}
+
+if ( ! function_exists( 'emulsion_metabox_display_control' ) ) {
+
+	function emulsion_metabox_display_control( $location ) {
+
+		global $post, $emulsion_supports;
+
+		if ( false === emulsion_the_theme_supports( 'metabox' ) ) {
+
+			return true;
 		}
 
-		preg_match_all('#id=(\'|\")([^(\'|\")]+)(\'|\")#', $svgs, $result, PREG_PATTERN_ORDER );
+		$post_id	 = get_the_ID();
+		$is_single	 = is_single();
+		$is_page	 = is_page();
 
-		if( isset( $result[2] ) && ! empty( $result[2] )){
-			return json_encode($result[2]);
+		return apply_filters( 'emulsion_metabox_display_control', true, $location, $post_id, $is_single, $is_page );
+	}
+
+}
+
+ ! emulsion_theme_addons_exists() ? add_filter('emulsion_inline_style','emulsion_theme_styles') : '';
+
+if ( ! function_exists( 'emulsion_theme_styles' ) ) {
+
+	function emulsion_theme_styles() {
+
+		$css_variables_values = array(
+			'emulsion_heading_font_scale',
+			'emulsion_heading_font_base',
+			'emulsion_header_media_max_height',
+			'emulsion_post_display_date',
+			'emulsion_post_display_author',
+			'emulsion_post_display_category',
+			'emulsion_post_display_tag',
+			'emulsion_favorite_color_palette',
+			'emulsion_header_gradient',
+			'emulsion_content_margin_top',
+			'emulsion_general_text_color',
+			'emulsion_general_link_hover_color',
+			'emulsion_general_link_color',
+			'emulsion_excerpt_linebreak',
+			//'emulsion_sidebar_link_color',
+			'emulsion_sidebar_background',
+			'emulsion_primary_menu_background',
+			'emulsion_comments_bg',
+			'emulsion_relate_posts_bg',
+			'emulsion_block_media_text_section_bg',
+			'emulsion_block_media_text_section_height',
+			'emulsion_block_columns_section_bg',
+			'emulsion_block_columns_section_height',
+			'emulsion_block_gallery_section_bg',
+			'emulsion_block_gallery_section_height',
+			'emulsion_header_background_color',
+			'emulsion_sidebar_position',
+			'emulsion_common_font_size',
+			'emulsion_common_font_family',
+			'emulsion_heading_font_family',
+			'emulsion_heading_font_weight',
+			'emulsion_heading_font_transform',
+			'emulsion_widget_meta_font_size',
+			'emulsion_widget_meta_font_family',
+			'emulsion_widget_meta_font_transform',
+			'emulsion_layout_homepage',
+			'emulsion_layout_date_archives',
+			'emulsion_layout_category_archives',
+			'emulsion_layout_tag_archives',
+			'emulsion_layout_author_archives',
+			'emulsion_layout_posts_page',
+			'emulsion_content_width',
+			'emulsion_box_gap',
+			'emulsion_main_width',
+			'emulsion_sidebar_width', );
+
+		$rule_set = '';
+
+		foreach ( $css_variables_values as $value ) {
+
+			$css_variable	 = str_replace( 'emulsion', '--thm', $value );
+			$rule_set		 .= $css_variable . ':' . emulsion_theme_default_val( $value, 'unit_val' ) . ';';
 		}
 
-		return false;
+		$variables = <<<VARIABLES
+
+body{
+	{$rule_set}
+	--thm_primary_menu_link_color:#666;
+	
+}		
+VARIABLES;
+	
+		$header_text_color		 = sprintf( '#%1$s', get_header_textcolor() );
+		$responsive_break_point	 = emulsion_theme_default_val( 'emulsion_content_width' ) + emulsion_theme_default_val( 'emulsion_sidebar_width' ) + emulsion_theme_default_val( 'emulsion_common_font_size' );
+
+		$theme_style =<<<THEME_STYLE
+.stream-wrapper	h2{
+	font-size:24px;
+}
+body:not(.emulsion-addons) img{
+	max-width:100%;	
+	height:auto;
+}
+body.emulsion-no-sidebar:not(.emulsion-addons) .alignfull{
+	width:100vw;
+	max-width:none;
+	position:relative;		
+}
+body.emulsion-has-sidebar:not(.emulsion-addons) .alignfull{
+	width:calc(100vw - var(--thm_sidebar_width) );
+				
+}
+@media screen and (max-width: {$responsive_break_point}px) {
+	body.emulsion-has-sidebar:not(.emulsion-addons) .alignfull{
+		width:100vw;				
 	}
 }
-/**
- * Plugin AMP
- * https://ja.wordpress.org/plugins/amp/
- */
-if ( function_exists( 'amp_init' ) ) {
-	/**
-	 * AMP
-	 * https://wordpress.org/plugins/amp/
-	 */
-	add_action( 'amp_post_template_css', 'emulsion_amp_css' );
+body:not(.emulsion-addons) .more-link{
+	display:block;
+	margin-left:auto;
+	margin-right:auto;
+	width:var(--thm_content_width);
+	max-width:100%;
+}
+body:not(.emulsion-addons) .template-part-header-custom .wp-custom-header,
+body:not(.emulsion-addons) .template-part-header-custom .wp-post-image{
+	filter: brightness(0.7);
+}
+body:not(.emulsion-addons) .template-part-header-custom .wp-custom-header,
+body:not(.emulsion-addons) .template-part-header-custom img{
 
-	if ( ! function_exists( 'emulsion_amp_css' ) ) {
+}
+body:not(.emulsion-addons) .template-part-header-custom .post-featured-image ~ .header-text a,
+body:not(.emulsion-addons) .header-layer.template-part-header-custom .entry-text a,	
+body:not(.emulsion-addons) .template-part-header-custom .wp-custom-header ~ .header-text .site-title-link{
+	color:{$header_text_color};			
+}
+body:not(.emulsion-addons) .header-layer.template-part-header-custom div:nth-child(2).entry-text{
+	position:relative;
 
-		function emulsion_amp_css() {
+}
+body:not(.emulsion-addons) .header-layer.template-part-header-custom div:nth-child(2).entry-text *{
+	color:#333;
+}		
+body:not(.emulsion-addons) .template-part-header-custom .post-featured-image ~ .header-text,
+body:not(.emulsion-addons) .template-part-header-custom .wp-custom-header ~ .header-text,
+body:not(.emulsion-addons) .template-part-header-custom img ~ .header-text{
+	position:absolute;
+	color:{$header_text_color};
+	background:transparent;
+}
+body:not(.emulsion-addons) .template-part-header-custom img ~ .entry-text a,
+body:not(.emulsion-addons) .template-part-header-custom img ~ .header-text .site-description,
+body:not(.emulsion-addons) .template-part-header-custom img ~ .header-text .site-title-text{
+	color:{$header_text_color};
+}
+body:not(.emulsion-addons) .excerpt .has-post-image{
+	position:relative;
+}
+body:not(.emulsion-addons) .excerpt footer{
+	visibility:hidden;
+}
+body:not(.emulsion-addons) .excerpt .has-post-image ~ footer,
+body:not(.emulsion-addons) .excerpt .has-post-image + .entry-content{
+	display:none;
+}
+body:not(.emulsion-addons) ul.wp-nav-menu[data-direction="horizontal"] li .sub-menu li, 
+body:not(.emulsion-addons) ul.wp-nav-menu[data-direction="horizontal"] li .children li{
+	background:#fff;
+}
 
-			$supports = emulsion_get_supports( 'amp' );
+THEME_STYLE;
+	
+		$theme_image_dir = emulsion_theme_image_dir();
 
-			if ( ! $supports ) {
-				return;
-			}
-			$css_variables	 = emulsion__css_variables();
-			$get_css		 = file( get_theme_file_path( 'css/amp.css' ) );
-			$css			 = implode( '', $get_css );
-			/**
-			 * @see emulsion_sanitize_css() in functions.php
-			 * For sanitization, you can add any processing you need
-			 */
-			echo emulsion_sanitize_css( $css_variables . $css );
-		}
+		$image_style = <<<CSS
 
+.header-layer-site-title-navigation .menu .nav-menu-child-opener-label:before {
+	background: url({$theme_image_dir}svg/arrow-down.svg);
+	background-size: contain;
+	filter: none;
+	-webkit-filter: none;
+}
+.header-layer-site-title-navigation .menu .nav-menu-child-opener[type="checkbox"]:checked ~ label:before {
+	content: ' ';
+	background: url("{$theme_image_dir}svg/arrow-up.svg");
+	background-size: contain;
+}
+
+.header-layer.template-part-header-custom + .primary-menu-wrapper.menu-is-light .menu.wp-nav-menu .nav-menu-child-opener-label:before {
+	background: url({$theme_image_dir}svg/arrow-down.svg);
+	background-size: contain;
+	filter: none;
+	-webkit-filter: none;
+}
+.header-layer.template-part-header-custom + .primary-menu-wrapper.menu-is-light .menu.wp-nav-menu .nav-menu-child-opener[type="checkbox"]:checked ~ label:before {
+	content: ' ';
+	background: url("{$theme_image_dir}svg/arrow-up.svg");
+	background-size: contain;
+  
+}
+ .header-layer-site-title-navigation .menu[data-direction="vertical"] .menu-item .nav-menu-child-opener:checked ~ .nav-menu-child-opener-label:before {
+	background: url({$theme_image_dir}svg/arrow-up.svg);
+	background-size: contain;
+	filter: none;
+	-webkit-filter: none;
+}
+ .header-layer-site-title-navigation .menu[data-direction="vertical"] .menu-item .nav-menu-child-opener ~ .nav-menu-child-opener-label:before {
+	background: url({$theme_image_dir}svg/arrow-down.svg);
+	background-size: contain;
+	filter: none;
+	-webkit-filter: none;
+}
+.post-password-required .theme-message .post-password-form .message:before {
+	content: ' ';
+	position: absolute;
+	display: inline-block;
+	vertical-align: middle;
+	-webkit-mask-size: contain;
+	mask-size: contain;
+	background: url("{$theme_image_dir}svg/lock.svg#alert") no-repeat 50% 50%;
+	background-size: contain;
+	left: -24px;
+	width: 24px;
+	height: 24px;
+}
+
+.skin-button.scroll-button-top:before {
+	content:' ';
+	background: url({$theme_image_dir}svg/arrow-up.svg);
+	background-size: contain;
+	background-position: center center;
+	background-repeat: no-repeat;
+	width: 16px;
+	height: 16px;
+	position: absolute;
+	display: block;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: -2px;
+	margin: auto;
+}
+
+
+CSS;
+
+		return $image_style . $variables . $theme_style ;
 	}
 
 }

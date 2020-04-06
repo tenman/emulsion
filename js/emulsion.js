@@ -480,7 +480,7 @@ jQuery(function ($) {
         $('.alignfull').each(function (index) {
             $(this).removeClass('alignfull');
         });
-    }
+    }    
 });
 jQuery(function ($) {
     "use strict";

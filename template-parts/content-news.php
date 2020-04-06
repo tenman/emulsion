@@ -1,5 +1,4 @@
 <?php
-$emulsion_title_in_page_header = emulsion_get_supports( 'title_in_page_header' );
 /**
  * This template is a sample template for custom post types.
  * This template is used when there is a custom post type 'news'.
@@ -13,11 +12,17 @@ $emulsion_title_in_page_header = emulsion_get_supports( 'title_in_page_header' )
 	<article id="post-<?php the_ID() ?>" <?php post_class(); ?>>
 		<?php emulsion_article_header(); ?>
 		<div class="entry-content"><?php 
+		if( emulsion_theme_addons_exists() ) {
+			
 			emulsion_post_content();
+		} else {
+			
+			'excerpt' == emulsion_get_layout_setting() ? the_excerpt() : the_content();	
+		}
 			wp_link_pages( 'before=<div class="wp-link-pages page-break-links clearfix">&after=</div>&next_or_number=number&pagelink=<span>%</span>' ); ?></div>
-		<footer><?php emulsion_post_excerpt_more(); ?>
+		<footer><?php emulsion_theme_addons_exists() ? emulsion_post_excerpt_more(): ''; ?>
 			<?php 
-			if ( has_nav_menu( 'social' ) && is_singular() && emulsion_get_supports( 'social-link-menu' ) ) {
+			if ( has_nav_menu( 'social' ) && is_singular() && emulsion_the_theme_supports( 'social-link-menu' ) ) {
 				?>
 					<nav class="social-navigation" role="navigation" aria-label="<?php esc_attr_e( 'Footer Social Links Menu', 'emulsion' ); ?>">
 						<?php
@@ -47,6 +52,6 @@ $emulsion_title_in_page_header = emulsion_get_supports( 'title_in_page_header' )
 <?php if ( is_singular() ) { ?>
 	<div class="comment-wrapper"><?php emulsion_have_comments(); ?></div>
 <?php } ?>
-<?php if ( is_single() && ! is_attachment() && emulsion_get_supports( 'relate_posts' ) ) { ?>
-	<div class="relate-content-wrapper"><?php emulsion_post_relate_contents(); ?></div>
+<?php if ( is_single() && ! is_attachment() && emulsion_the_theme_supports( 'relate_posts' ) ) { ?>
+	<div class="relate-content-wrapper"><?php emulsion_related_posts(); ?></div>
 <?php } ?>
