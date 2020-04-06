@@ -1349,6 +1349,9 @@ body:not(.emulsion-addons) .more-link{
 	width:var(--thm_content_width);
 	max-width:100%;
 }
+body:not(.emulsion-addons) .header-layer{
+	min-height:80px;
+}
 body:not(.emulsion-addons) .template-part-header-custom .wp-custom-header,
 body:not(.emulsion-addons) .template-part-header-custom .wp-post-image{
 	filter: brightness(0.7);
