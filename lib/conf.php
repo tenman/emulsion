@@ -150,15 +150,15 @@ function emulsion_theme_default_val( $name, $type = 'val' ) {
 	
 		if ( 'val' === $type ) {
 
-			$result	 = $emulsion_default_values[$name]['default'];
+			$result	 = $emulsion_default_values[ $name ]['default'];
 			$result	 = apply_filters( $result . '_filter', $result );
 			return $result;
 		}
 		if ( 'unit_val' === $type ) {
 
-			$result	 = $emulsion_default_values[$name]['default'];
+			$result	 = $emulsion_default_values[ $name ]['default'];
 			$result	 = apply_filters( $result . '_filter', $result );
-			return $result . $emulsion_default_values[$name]['unit'];
+			return $result . $emulsion_default_values[ $name ]['unit'];
 		}
 }
 
@@ -203,5 +203,5 @@ function emulsion_the_theme_supports( $name ) {
 		return emulsion_get_supports( $name );
 	}
 
-	return apply_filters( 'emulsion_the_theme_supports', $emulsion_default_supports[$name]['default'] );
+	return apply_filters( 'emulsion_the_theme_supports', $emulsion_default_supports[ $name ]['default'] );
 }

@@ -1349,7 +1349,7 @@ body{
 }		
 VARIABLES;
 	
-		$header_text_color		 = sprintf( '#%1$s', get_header_textcolor() );
+		$header_text_color		 = ! empty( get_header_textcolor() ) ? sprintf( '#%1$s', get_header_textcolor() ) : '#333333';
 		$responsive_break_point	 = emulsion_theme_default_val( 'emulsion_content_width' ) + emulsion_theme_default_val( 'emulsion_sidebar_width' ) + emulsion_theme_default_val( 'emulsion_common_font_size' );
 
 		$theme_style =<<<THEME_STYLE
