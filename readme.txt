@@ -30,6 +30,10 @@ block editor, classic editor both supports. Conventional, Image Media New Block 
 	* In order to harmonize the Rich Media created by the block editor with the Respose of the site, there are lazyload of images and pre-during functions at link hover.
 	* If there is a similar function in a plug-in, etc., there is a possibility of conflict. You can stop these functions in the customizer.
 
+* About compatibility with plug-ins
+        * Cache plugin : This theme performs simple display on the ie11 browser. When using a cache plug-in, it is recommended to change to a setting that does not use the cache when accessing from a browser older than IE 11
+        * Lazy load plugin : This theme includes lazyload function. When plug-in is used, it may conflict and may not work properly
+        * If you have any problems using the plugin, please contact support forum
 ## Translations
 
 * You can translate the theme on the following channels

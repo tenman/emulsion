@@ -12,17 +12,23 @@
  * TGM_Plugin_Activation class constructor.
  */
 add_action( 'tgmpa_register', 'emulsion_theme_register_required_plugins' );
+
 function emulsion_theme_register_required_plugins() {
 
-    $plugins = array(        
-		 array(
-            'name'               => 'Breadcrumb NavXT',
-            'slug'               => 'breadcrumb-navxt',
-            'required'           => false,
-        ),	
-    );
-	
-    $config = array(
+    $plugins = array(
+		array(
+			'name'		 => 'Breadcrumb NavXT',
+			'slug'		 => 'breadcrumb-navxt',
+			'required'	 => false,
+		),
+		array(
+			'name'		 => 'emulsion addons',
+			'slug'		 => 'emulsion-addons',
+			'required'	 => false,
+		)
+	);
+
+	$config = array(
         'default_path' => '',                      // Default absolute path to pre-packaged plugins.
         'menu'         => 'tgmpa-install-plugins', // Menu slug.
         'has_notices'  => true,                    // Show admin notices or not.

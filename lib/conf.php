@@ -68,8 +68,7 @@ function emulsion_theme_default_val( $name, $type = 'val' ) {
 		'emulsion_widget_meta_font_family'				 => array( 'default' => 'sans-serif', 'unit' => '', ),
 		'emulsion_widget_meta_font_transform'			 => array( 'default' => 'none', 'unit' => '', ),
 		'emulsion_widget_meta_google_font_url'			 => array( 'default' => '', 'unit' => '', ),
-		'emulsion_widget_meta_title'					 => array( 'default'	 => false,
-			'unit'		 => '', ),
+		'emulsion_widget_meta_title'					 => array( 'default'	 => false, 'unit' => '', ),
 		
 		/**
 		 * Layout

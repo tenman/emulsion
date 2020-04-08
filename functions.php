@@ -560,12 +560,12 @@ function emulsion_register_scripts_and_styles() {
 		'sidebar_bg_dark'				 => function_exists('emulsion_accent_color') ? emulsion_accent_color( '', 5, 5, 20, 15 ) : $emulsion_background_color ,
 		'sidebar_bg_light'				 => function_exists('emulsion_accent_color') ? emulsion_accent_color( '', 5, 5, 20, 90 ) : $emulsion_background_color ,
 		'sidebar_position'				 => $wp_scss_status_relate_setting, // left right none
-		'sidebar_width'					 => get_theme_mod( 'emulsion_sidebar_width', emulsion_theme_default_val( 'emulsion_sidebar_width' ) ),
+		'sidebar_width'					 => absint( get_theme_mod( 'emulsion_sidebar_width', emulsion_theme_default_val( 'emulsion_sidebar_width' ) ) ),
 		'block_sectionize'				 => emulsion_the_theme_supports( 'block_sectionize' ),
-		'header_bg_color'				 => get_theme_mod( 'emulsion_header_background_color',  emulsion_theme_default_val( 'emulsion_header_background_color' ) ),
-		'sticky_sidebar'				 => get_theme_mod( 'emulsion_sticky_sidebar', emulsion_theme_default_val( 'emulsion_sticky_sidebar' ) ),
+		'header_bg_color'				 => sanitize_hex_color( get_theme_mod( 'emulsion_header_background_color',  emulsion_theme_default_val( 'emulsion_header_background_color' ) ) ),
+		'sticky_sidebar'				 => sanitize_text_field( get_theme_mod( 'emulsion_sticky_sidebar', emulsion_theme_default_val( 'emulsion_sticky_sidebar' ) ) ),
 		'align_offset'					 => function_exists('emulsion_get_css_variables_values') ? emulsion_get_css_variables_values( 'align_offset' ) : 200,
-		'content_width'					 => get_theme_mod( 'emulsion_content_width', emulsion_theme_default_val( 'emulsion_content_width' ) ),
+		'content_width'					 => absint( get_theme_mod( 'emulsion_content_width', emulsion_theme_default_val( 'emulsion_content_width' ) ) ),
 		'content_gap'					 => function_exists('emulsion_get_css_variables_values') ? absint( emulsion_get_css_variables_values( 'content_gap' ) ) : 24,
 		'background_color'				 => function_exists('emulsion_the_hex2rgb') ? emulsion_the_hex2rgb( $emulsion_background_color ) : "rgb(255,255,255)",
 		'force_contrast'				 => true,
@@ -578,11 +578,11 @@ function emulsion_register_scripts_and_styles() {
 		'block_quote_class_title'		 => esc_html__( 'Quote block', 'emulsion' ),
 		'meta_description'				 => emulsion_meta_description(),
 		'is_customize_preview'			 => is_customize_preview() ? 'is_preview' : '',
-		'post_id'						 => get_the_ID(),
+		'post_id'						 => absint( get_the_ID() ),
 		'header_default_text_color'		 => get_theme_support( 'custom-header', 'default-text-color' ),
 		'prefers_color_scheme'			 => EMULSION_DARK_MODE_SUPPORT,
 		'go_to_top_label'				 => esc_html__( 'Go to top', 'emulsion' ),
-		'emulsion_accepted_svg_ids'		 => get_theme_mod( 'emulsion_accepted_svg_ids' ),
+		'emulsion_accepted_svg_ids'		 => sanitize_text_field( get_theme_mod( 'emulsion_accepted_svg_ids' ) ),
 	) );
 }
 
@@ -719,7 +719,7 @@ if ( ! function_exists( 'emulsion_element_classes' ) ) {
 		if ( 'sidebar-widget-area' == $location || 'footer-widget-area' == $location ) {
 
 			$background			 = get_theme_mod( 'emulsion_sidebar_background', emulsion_theme_default_val( 'emulsion_sidebar_background' ) );
-			$text_color			 = function_exists( 'emulsion_contrast_color' ) ? emulsion_contrast_color( $menu_background ) : '#333333';
+			$text_color			 = function_exists( 'emulsion_contrast_color' ) ? emulsion_contrast_color( $background ) : '#333333';
 			$text_color_class	 = '#333333' == $text_color ? 'sidebar-is-light' : 'sidebar-is-dark';
 			$footer_cols_class	 = '';
 
@@ -1173,10 +1173,17 @@ if ( ! function_exists( 'emulsion_is_display_featured_image_in_the_loop' ) ) {
 }
 
 if ( ! function_exists( 'emulsion_get_svg_ids' ) ) {
+	
+	function emulsion_get_svg_ids($svgs) {
 
-	function emulsion_get_svg_ids( $svgs ) {
+		preg_match_all('#id=(\'|\")([^(\'|\")]+)(\'|\")#', $svgs, $result, PREG_PATTERN_ORDER );
 
-		return apply_filters( 'emulsion_get_svg_ids', emulsion_the_theme_supports( 'footer-svg' ) );
+		if( isset( $result[2] ) && ! empty( $result[2] )){
+			
+			return apply_filters( 'emulsion_get_svg_ids', json_encode($result[2]) );
+		}
+
+		return false;
 	}
 
 }
@@ -1246,12 +1253,37 @@ if ( ! function_exists( 'emulsion_metabox_display_control' ) ) {
 	}
 
 }
+if ( ! function_exists( 'emulsion_make_css_variable' ) ) {
 
+	function emulsion_make_css_variable( $theme_mod_name ) {
+		
+		//exceptions todo Ensuring consistency			
+		$replace_pairs	 = array(
+			'emulsion_header_background_color'		 => '--thm_header_bg_color',
+			'emulsion_heading_font_transform'		 => '--thm_heading-font-transform',
+			'emulsion_widget_meta_font_size'		 => '--thm_data_font_size',
+			'emulsion_widget_meta_font_family'		 => '--thm_meta_data_font_family',
+			'emulsion_widget_meta_font_transform'	 => '--thm_meta_data_font_transform',
+			'emulsion_sidebar_background'			 => '--thm_sidebar_bg_color',
+		);
+		$css_variable = strtr( $theme_mod_name, $replace_pairs );
+		
+		$css_variable = str_replace('emulsion', '--thm', $css_variable );
+		
+		return $css_variable . ':' . emulsion_theme_default_val( $theme_mod_name, 'unit_val' ) . ';';
+	}
+
+}
  ! emulsion_theme_addons_exists() ? add_filter('emulsion_inline_style','emulsion_theme_styles') : '';
+ 
+
 
 if ( ! function_exists( 'emulsion_theme_styles' ) ) {
 
 	function emulsion_theme_styles() {
+		
+		$theme_background_color = sanitize_hex_color( get_background_color() ) ;
+		$theme_background_color = ! empty( $theme_background_color ) ? $theme_background_color : '#ffffff';
 
 		$css_variables_values = array(
 			'emulsion_heading_font_scale',
@@ -1268,7 +1300,6 @@ if ( ! function_exists( 'emulsion_theme_styles' ) ) {
 			'emulsion_general_link_hover_color',
 			'emulsion_general_link_color',
 			'emulsion_excerpt_linebreak',
-			//'emulsion_sidebar_link_color',
 			'emulsion_sidebar_background',
 			'emulsion_primary_menu_background',
 			'emulsion_comments_bg',
@@ -1302,18 +1333,19 @@ if ( ! function_exists( 'emulsion_theme_styles' ) ) {
 
 		$rule_set = '';
 
-		foreach ( $css_variables_values as $value ) {
-
-			$css_variable	 = str_replace( 'emulsion', '--thm', $value );
-			$rule_set		 .= $css_variable . ':' . emulsion_theme_default_val( $value, 'unit_val' ) . ';';
+		foreach ( $css_variables_values as $theme_mod_name ) {
+			
+			$rule_set .= emulsion_make_css_variable( $theme_mod_name );
 		}
+		
+		
 
 		$variables = <<<VARIABLES
 
 body{
 	{$rule_set}
 	--thm_primary_menu_link_color:#666;
-	
+	--thm_background_color: {$theme_background_color};
 }		
 VARIABLES;
 	
@@ -1472,8 +1504,8 @@ THEME_STYLE;
 	margin: auto;
 }
 
-
 CSS;
+	
 
 		return $image_style . $variables . $theme_style ;
 	}
