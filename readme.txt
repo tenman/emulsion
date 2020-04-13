@@ -132,6 +132,9 @@ background-image.png
 
 ## Changelog
 ### April 8 2020
+		* 1.2.2
+        * https://github.com/tenman/emulsion/releases
+### April 8 2020
 		* 1.2.1
         * https://github.com/tenman/emulsion/releases
 ### April 6 2020

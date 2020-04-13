@@ -5,7 +5,7 @@ $emulsion_post_info				 = get_post( $emulsion_post_id );
 $emulsion_mime_type				 = get_post_mime_type( $emulsion_post_id ); // if you needs attachment mime type
 $emulsion_excerpt				 = get_the_excerpt();
 ?>
-<div class="article-wrapper <?php emulsion_template_identification_class( __FILE__ ) ?>">
+<div class="article-wrapper <?php emulsion_template_part_names_class( __FILE__ ) ?>">
 	<?php
 	if ( has_action( 'emulsion_article_before' ) ) {
 		?><div class="placeholder-article-before fit"><?php do_action( 'emulsion_article_before' ); ?></div><?php

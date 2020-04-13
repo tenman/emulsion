@@ -1,4 +1,4 @@
-<div class="article-wrapper <?php emulsion_template_identification_class( __FILE__ ) ?>">
+<div class="article-wrapper <?php emulsion_template_part_names_class( __FILE__ ) ?>">
 	<?php
 	if ( 'list' == emulsion_current_layout_type() && has_action( 'emulsion_article_before' ) ) {
 		?><div class="placeholder-article-before fit"><?php do_action( 'emulsion_article_before' ); ?></div><?php

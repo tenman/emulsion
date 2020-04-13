@@ -5,7 +5,7 @@
 		$emulsion_metabox_menu_control = 'logged_in_user' == $emulsion_metabox_menu_control && ! is_user_logged_in() ? false : true;
 
 		if ( is_active_sidebar( 'sidebar-4' ) && emulsion_the_theme_supports( 'footer_page' ) && $emulsion_metabox_menu_control )  { ?>
-			<aside class="footer-widget-area  <?php echo esc_attr( emulsion_element_classes( 'footer-widget-area' ) ); ?> <?php emulsion_template_identification_class( __FILE__ ) ?>">
+			<aside class="footer-widget-area  <?php echo esc_attr( emulsion_element_classes( 'footer-widget-area' ) ); ?> <?php emulsion_template_part_names_class( __FILE__ ) ?>">
 				<ul class="footer-widget-area-lists"><?php
 					if ( ! dynamic_sidebar( 'sidebar-4' ) ) {
 						do_action( 'emulsion_footer_widget_fallback', '' );
@@ -20,7 +20,7 @@
 		$emulsion_metabox_menu_control = 'logged_in_user' == $emulsion_metabox_menu_control && ! is_user_logged_in() ? false : true;
 		
 		if ( is_active_sidebar( 'sidebar-2' ) && emulsion_the_theme_supports( 'footer' ) && $emulsion_metabox_menu_control )  {	?>
-			<aside class="footer-widget-area  <?php echo function_exists('emulsion_element_classes') ? esc_attr( emulsion_element_classes( 'footer-widget-area' ) ):''; ?> <?php emulsion_template_identification_class( __FILE__ ) ?>">
+			<aside class="footer-widget-area  <?php echo function_exists('emulsion_element_classes') ? esc_attr( emulsion_element_classes( 'footer-widget-area' ) ):''; ?> <?php emulsion_template_part_names_class( __FILE__ ) ?>">
 				<ul class="footer-widget-area-lists"><?php
 					if ( ! dynamic_sidebar( 'sidebar-2' ) ) {
 						do_action( 'emulsion_footer_widget_fallback', '' );

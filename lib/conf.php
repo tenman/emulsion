@@ -119,7 +119,7 @@ function emulsion_theme_default_val( $name, $type = 'val' ) {
 		'emulsion_sticky_sidebar'						 => array( 'default' => 'enable', 'unit' => '', ),
 		'emulsion_lazyload'								 => array( 'default' => 'disable', 'unit' => '', ),
 		'emulsion_instantclick'							 => array( 'default' => 'disable', 'unit' => '', ),
-		'emulsion_search_drawer'						 => array( 'default' => 'disable', 'unit' => '', ),
+		'emulsion_search_drawer'						 => array( 'default' => 'enable', 'unit' => '', ),
 		'emulsion_relate_posts'							 => array( 'default' => 'enable', 'unit' => '', ),
 		'emulsion_customizer_preview_redirect'			 => array( 'default' => 'disable', 'unit' => '', ),
 		
@@ -204,4 +204,49 @@ function emulsion_the_theme_supports( $name ) {
 	}
 
 	return apply_filters( 'emulsion_the_theme_supports', $emulsion_default_supports[ $name ]['default'] );
+}
+
+/**
+ * Theme varsion and slug
+ * @param type $echo
+ * @return string
+ */
+function emulsion_version( $echo = false ) {
+
+	$emulsion_current_data			 = wp_get_theme();
+	$emulsion_current_data_version	 = $emulsion_current_data->get( 'Version' );
+
+	if ( is_child_theme() ) {
+
+		/**
+		 * If you are using child theme, version queries may remain unchanged
+		 * when parent themes are updated, sometimes cached
+		 */
+		$emulsion_this_parent_theme		 = wp_get_theme( get_template() );
+		$emulsion_current_data_version	 = $emulsion_this_parent_theme->get( 'Version' ) .
+				'-' . $emulsion_current_data_version;
+	}
+
+	if ( $echo == true ) {
+
+		echo sanitize_text_field( $emulsion_current_data_version );
+	} else {
+
+		return sanitize_text_field( $emulsion_current_data_version );
+	}
+}
+
+function emulsion_slug( $echo = false ) {
+
+	$emulsion_current_data		 = wp_get_theme();
+	$emulsion_current_theme_name = $emulsion_current_data->get( 'Name' );
+	$emulsion_current_theme_slug = sanitize_title_with_dashes( $emulsion_current_theme_name );
+
+	if ( $echo == true ) {
+
+		echo $emulsion_current_theme_slug;
+	} else {
+
+		return $emulsion_current_theme_slug;
+	}
 }

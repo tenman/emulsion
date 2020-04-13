@@ -2,7 +2,7 @@
 $emulsion_post_id			 = get_the_ID();
 $emulsion_show_post_image	 = emulsion_is_display_featured_image_in_the_loop();
 ?>
-<div class="article-wrapper <?php emulsion_template_identification_class( __FILE__ ) ?>">
+<div class="article-wrapper <?php emulsion_template_part_names_class( __FILE__ ) ?>">
 
 	<article id="post-<?php the_ID() ?>" <?php post_class(); ?>>
 		<?php if ( ! is_singular() ) { ?>

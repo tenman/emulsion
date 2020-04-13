@@ -16,7 +16,7 @@ if ( is_single() ) {
 }
 
 ?>
-<header class="header-layer clearfix <?php emulsion_the_header_layer_class() . emulsion_template_identification_class( __FILE__ ) ?>">
+<header class="header-layer clearfix <?php emulsion_the_header_layer_class() . emulsion_template_part_names_class( __FILE__ ) ?>">
 <?php
 if ( has_post_thumbnail() && 
 		'yes' == get_theme_mod( 'emulsion_title_in_header', emulsion_theme_default_val( 'emulsion_title_in_header' ) ) &&

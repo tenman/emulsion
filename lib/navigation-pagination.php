@@ -128,15 +128,17 @@ if ( !function_exists( 'emulsion_archive_year_navigation' ) ) {
 		}
 		$result	 .= $before . $current . $after;
 		$result	 .= '</div>';
+		
+		$result = apply_filters('emulsion_archive_year_navigation', $result );
 
 		wp_reset_postdata();
 
 		if ( true !== $echo ) {
 
-			return wp_kses_post( $result );
+			return $result;
 		} else {
 
-			echo wp_kses_post( $result );
+			echo $result;
 		}
 	}
 }
@@ -256,11 +258,11 @@ if ( !function_exists( 'emulsion_monthly_archive_prev_next_navigation' ) ) {
 			
 			if ( true == $echo ) {
 
-				echo wp_kses_post( apply_filters( 'emulsion_monthly_archive_prev_next_navigation', $calendar_output ) );
+				echo apply_filters( 'emulsion_monthly_archive_prev_next_navigation', $calendar_output );
 			}
 			if ( false == $echo ) {
 
-				return wp_kses_post( apply_filters( 'emulsion_monthly_archive_prev_next_navigation', $calendar_output ) );
+				return apply_filters( 'emulsion_monthly_archive_prev_next_navigation', $calendar_output );
 			}
 		}
 	}

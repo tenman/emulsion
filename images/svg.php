@@ -147,5 +147,5 @@ SYMBOLS;
 		if( defined('EMULSION_ICON_SVG_SYMBOLS_ALLOWED_ELEMENTS') ) {
 			echo wp_kses( $emulsiong_svg, EMULSION_ICON_SVG_SYMBOLS_ALLOWED_ELEMENTS );
 		} else {
-			echo $emulsiong_svg;
+			echo ent2ncr( $emulsiong_svg );
 		}

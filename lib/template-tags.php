@@ -686,8 +686,6 @@ if ( ! function_exists( 'emulsion_home_type' ) ) {
 
 }
 
-
-
 if ( ! function_exists( 'emulsion_have_posts' ) ) {
 
 	/**
@@ -926,27 +924,27 @@ if ( ! function_exists( 'emulsion_article_header' ) ) {
 	 */
 
 	function emulsion_article_header() {
-		
+
 		$emulsion_title_in_page_header = emulsion_the_theme_supports( 'title_in_page_header' );
 
 		if ( ! is_singular() || ! $emulsion_title_in_page_header ) {
 
-			if( 'list' == emulsion_current_layout_type() ) {
-				
-				$thumbnail_url     = get_the_post_thumbnail_url();
+			if ( 'list' == emulsion_current_layout_type() ) {
+
+				$thumbnail_url = get_the_post_thumbnail_url();
 			} else {
-				
-				$thumbnail_url     = get_the_post_thumbnail_url(null, 'medium_large');
+
+				$thumbnail_url = get_the_post_thumbnail_url( null, 'medium_large' );
 			}
 
-			$required_password	= post_password_required( );
-			$show_post_image	= emulsion_is_display_featured_image_in_the_loop();
+			$required_password	 = post_password_required();
+			$show_post_image	 = emulsion_is_display_featured_image_in_the_loop();
 
 			if ( ! empty( $thumbnail_url ) && ! $required_password && $show_post_image ) {
 
 				$header_element = sprintf( '<header class="%1$s" style="%2$s">', 'has-post-image', 'background-image:url(' . esc_url( $thumbnail_url ) . ' );' );
 
-				$header_element = apply_filters('emulsion_article_header', $header_element, 'has-post-image', esc_url( $thumbnail_url ) );
+				$header_element = apply_filters( 'emulsion_article_header', $header_element, 'has-post-image', esc_url( $thumbnail_url ) );
 
 				echo wp_kses_post( $header_element );
 			} else {
@@ -954,7 +952,7 @@ if ( ! function_exists( 'emulsion_article_header' ) ) {
 				print('<header>' );
 			}
 		} else {
-			
+
 			printf( '<header class="%1$s">', 'screen-reader-text' );
 		}
 
@@ -1163,7 +1161,40 @@ if ( ! function_exists( 'emulsion_footer_text' ) ) {
 
 		$address_html = apply_filters( 'emulsion_footer_text', $address_html );
 
-		echo wp_kses_post( $address_html );
+		echo $address_html;
+	}
+
+}
+if ( ! function_exists( 'emulsion_header_text_color_fallback' ) ) {
+	
+	/**
+	 * get_header_text_color is return empty string if not set.
+	 * Returns the appropriate fallback color
+	 * 
+	 * hex rgb hsl allow
+	 * 
+	 * @param type $fallback_color
+	 * @param type $has_image_fallback
+	 * @return type text color value
+	 */
+
+	function emulsion_header_text_color_fallback( $fallback_color = '#333333', $has_image_fallback = '#ffffff' ) {
+
+		// global header text color fallback
+		$header_text_color = ! empty( get_header_textcolor() ) ? sprintf( '#%1$s', get_header_textcolor() ) : $fallback_color;
+
+		// home header text color fallback
+		if ( emulsion_home_type() && has_header_image() && empty( get_header_textcolor() ) ) {
+
+			$header_text_color = $has_image_fallback;
+		}
+		// singular header text color fallback
+		if ( is_singular() && has_post_thumbnail() && empty( get_header_textcolor() ) ) {
+
+			$header_text_color = $has_image_fallback;
+		}
+
+		return sanitize_text_field( $header_text_color );
 	}
 
 }

@@ -16,7 +16,7 @@ if( is_single() ) {
 }
 
 ?>
-<header class="header-layer <?php emulsion_the_header_layer_class() . emulsion_template_identification_class( __FILE__ ) ?>">
+<header class="header-layer <?php emulsion_the_header_layer_class() . emulsion_template_part_names_class( __FILE__ ) ?>">
 	<div class="header-layer-site-title-navigation" >
 		<?php  emulsion_site_text_markup(); ?>
 		<?php if( emulsion_the_theme_supports( 'primary_menu' ) && $emulsion_metabox_menu_control ) { ?>

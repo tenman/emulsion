@@ -6,7 +6,7 @@
  */
 
 
-
+function_exists( 'emulsion_remove_supports' ) ? emulsion_remove_supports( 'header' ):'';
 function_exists( 'emulsion_remove_supports' ) ? emulsion_remove_supports( 'title_in_page_header' ):'';
 function_exists( 'emulsion_remove_supports' ) ? emulsion_remove_supports( 'primary_menu' ):'';
 function_exists( 'emulsion_remove_supports' ) ? emulsion_remove_supports( 'sidebar' ):'';

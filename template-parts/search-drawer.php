@@ -12,7 +12,7 @@ if ( ! emulsion_the_theme_supports( 'enqueue' ) ) {
 	return;
 }
 
-?><div class="drawer-wrapper <?php emulsion_template_identification_class( __FILE__ ) ?>" tabindex="0">
+?><div class="drawer-wrapper <?php emulsion_template_part_names_class( __FILE__ ) ?>" tabindex="0">
 	<input type="checkbox" id="c1" name="c1"  /><label for="c1"><svg class="icon" width="24" height="24" tabindex="0"><use xlink:href="#search" /></svg></label>
 	<div class="drawer search-drawer">
 		<div class="drawer-block" >
