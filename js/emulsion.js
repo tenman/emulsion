@@ -442,7 +442,8 @@ jQuery(function ($) {
     /**
      * instantcclick exclude links
      */
-    $('#wpadminbar a,.editor a, .post-edit-link, .nav-links a, a[href*="wp-admin"], a[href$="/amp"], a[href*="#"]').attr('data-no-instant', 'data-no-instant');
+    //.nav-links a,
+    $('#wpadminbar a,.editor a, .post-edit-link,  a[href*="wp-admin"], a[href$="/amp"], a[href*="#"]').attr('data-no-instant', 'data-no-instant');
     $('a[href$="action=register"], a[href*="wp-login"]').attr('data-no-instant', 'data-no-instant');
     /**
      * add required attribute on search form

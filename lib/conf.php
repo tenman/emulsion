@@ -27,9 +27,12 @@ function emulsion_theme_default_val( $name, $type = 'val' ) {
 		
 		/**
 		 * Background color
+		 * 
+		 * If you don't use the emulsion addons plugin, don't change the background color here.
+		 * Instead, in CSS, overwrite the value of CSS variables
 		 */
 		'emulsion_header_gradient'						 => array( 'default' => 'disable', 'unit' => '', ),
-		'emulsion_header_background_color'				 => array( 'default' => '#ffffff', 'unit' => '', ),
+		'emulsion_header_background_color'				 => array( 'default' => '#eeeeee', 'unit' => '', ),
 		'emulsion_header_sub_background_color'			 => array( 'default' => '#ffffff', 'unit' => '', ),
 		'emulsion_category_colors'						 => array( 'default' => 'disable', 'unit' => '', ),
 		'emulsion_sidebar_background'					 => array( 'default' => '#ffffff', 'note' => 'emulsion_sidebar_background', 'unit' => '', ),
@@ -97,7 +100,7 @@ function emulsion_theme_default_val( $name, $type = 'val' ) {
 		'emulsion_layout_tag_archives_post_image'		 => array( 'default' => 'show', 'unit' => '', ),
 		'emulsion_layout_author_archives'				 => array( 'default' => 'stream', 'unit' => '', ),
 		'emulsion_layout_author_archives_post_image'	 => array( 'default' => 'show', 'unit' => '', ),
-		'emulsion_layout_search_results'				 => array( 'default' => 'highlight', 'unit' => '', ),
+		'emulsion_layout_search_results'				 => array( 'default' => 'full_text', 'unit' => '', ),
 		'emulsion_layout_search_results_post_image'		 => array( 'default' => 'hide', 'unit' => '', ),
 		
 		/**

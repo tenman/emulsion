@@ -26,7 +26,7 @@ if ( ! function_exists( 'emulsion_get_site_title' ) ) {
 		$logo = '';
 
 		$site_title_text_class = 'site-title-text';
-		$site_title_text_class .= get_theme_mod('header_textcolor') == 'blank' ? ' screen-reader-text': '';
+		$site_title_text_class .= ! display_header_text() ? ' screen-reader-text': '';
 
 		if ( has_custom_logo() ) {
 			$custom_logo_id = get_theme_mod( 'custom_logo' );
@@ -88,7 +88,7 @@ if ( ! function_exists( 'emulsion_site_text_markup' ) ) {
 	function emulsion_site_text_markup() {
 
 		$site_description_class	 = 'site-description';
-		$site_description_class	 .= get_theme_mod( 'header_textcolor' ) == 'blank' ? ' screen-reader-text' : '';
+		$site_description_class	 .= ! display_header_text() ? ' screen-reader-text' : '';
 		$site_title				 = emulsion_get_site_title();
 		$site_description		 = get_bloginfo( 'description', 'display' );
 		$html					 = '<div class="header-text">%1$s<p class="%3$s">%2$s</p></div>';
@@ -1181,15 +1181,16 @@ if ( ! function_exists( 'emulsion_header_text_color_fallback' ) ) {
 	function emulsion_header_text_color_fallback( $fallback_color = '#333333', $has_image_fallback = '#ffffff' ) {
 
 		// global header text color fallback
-		$header_text_color = ! empty( get_header_textcolor() ) ? sprintf( '#%1$s', get_header_textcolor() ) : $fallback_color;
+		
+		$header_text_color = ! empty( get_header_textcolor() )  ? sprintf( '#%1$s', get_header_textcolor() ) : $fallback_color;
 
 		// home header text color fallback
-		if ( emulsion_home_type() && has_header_image() && empty( get_header_textcolor() ) ) {
+		if ( emulsion_home_type() && has_header_image() && ( empty( get_header_textcolor() ) || ! display_header_text() ) )  {
 
 			$header_text_color = $has_image_fallback;
 		}
 		// singular header text color fallback
-		if ( is_singular() && has_post_thumbnail() && empty( get_header_textcolor() ) ) {
+		if ( is_singular() && has_post_thumbnail() && ( empty( get_header_textcolor() ) || ! display_header_text() ) ) {
 
 			$header_text_color = $has_image_fallback;
 		}

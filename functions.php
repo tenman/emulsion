@@ -98,8 +98,8 @@ if ( ! function_exists( 'emulsion_setup' ) ) {
 		 * Without white and black color settings, it may not be possible to ensure sufficient contrast.
 		 */
 		
-		$emulsion_favorite_color_palette		 = get_theme_mod( 'emulsion_favorite_color_palette', false );
-		$emulsion_favorite_color_palette_default = emulsion_theme_default_val( 'emulsion_favorite_color_palette' );
+		$emulsion_favorite_color_palette		 = sanitize_text_field( get_theme_mod( 'emulsion_favorite_color_palette', false ) );
+		$emulsion_favorite_color_palette_default = sanitize_text_field( emulsion_theme_default_val( 'emulsion_favorite_color_palette' ) );
 
 		if ( $emulsion_favorite_color_palette !== $emulsion_favorite_color_palette_default ) {
 
@@ -367,16 +367,22 @@ function emulsion_register_scripts_and_styles() {
 		return;
 	}
 
-	if ( is_user_logged_in() || is_admin() || ! emulsion_theme_addons_exists( ) ) {
+	if ( ( is_user_logged_in() ) ) {
 		/**
 		 * If user is not logged in, load as inline style
 		 * @see emulsion_plugins_style_change_inline()
 		 */
 		wp_register_style( 'emulsion-completion', get_template_directory_uri() . '/css/common.css', array(), $emulsion_current_data_version, 'all' );
 		wp_enqueue_style( 'emulsion-completion' );
+	} elseif ( ! is_user_logged_in() && ! emulsion_theme_addons_exists() ) {
+		/**
+		 * Not use plugin
+		 */
+		wp_register_style( 'emulsion-completion', get_template_directory_uri() . '/css/common.css', array(), $emulsion_current_data_version, 'all' );
+		wp_enqueue_style( 'emulsion-completion' );
 	}
 
-	
+
 	if ( ! empty( $inline_style_pre ) ) {
 
 		$inline_style = apply_filters( 'emulsion_inline_style', $inline_style_pre );
@@ -641,6 +647,15 @@ if ( ! function_exists( 'emulsion_the_header_layer_class' ) ) {
 		echo emulsion_class_name_sanitize( $add_class . ' '. $class );
 	}
 }
+if ( ! function_exists( 'emulsion_body_background_class' ) ) {
+	
+	function emulsion_body_background_class( $classes ) {
+				
+		$classes[] = 'is-light';
+		
+		return $classes;
+	}
+}
 if ( ! function_exists( 'emulsion_element_classes' ) ) {
 
 /**
@@ -659,7 +674,7 @@ if ( ! function_exists( 'emulsion_element_classes' ) ) {
 			$is_active_menu		 = emulsion_is_active_nav_menu( $location );
 			$sidebar_position	 = get_theme_mod( 'emulsion_sidebar_position', emulsion_theme_default_val( 'emulsion_sidebar_position' ) );
 			$menu_background	 = get_theme_mod( 'emulsion_primary_menu_background', emulsion_theme_default_val( 'emulsion_primary_menu_background' ) );
-			$menu_text_color	 = function_exists( 'emulsion_contrast_color' ) ? emulsion_contrast_color( $menu_background ) : '#333333';
+			$menu_text_color	 = emulsion_accessible_color( $menu_background );
 			$menu_color_class	 = '#333333' == $menu_text_color ? 'menu-is-light' : 'menu-is-dark';
 
 			$class	 = 'primary-menu-wrapper';
@@ -673,7 +688,7 @@ if ( ! function_exists( 'emulsion_element_classes' ) ) {
 		if ( 'sidebar-widget-area' == $location || 'footer-widget-area' == $location ) {
 
 			$background			 = get_theme_mod( 'emulsion_sidebar_background', emulsion_theme_default_val( 'emulsion_sidebar_background' ) );
-			$text_color			 = function_exists( 'emulsion_contrast_color' ) ? emulsion_contrast_color( $background ) : '#333333';
+			$text_color			 = emulsion_accessible_color( $background );
 			$text_color_class	 = '#333333' == $text_color ? 'sidebar-is-light' : 'sidebar-is-dark';
 			$footer_cols_class	 = '';
 
@@ -699,7 +714,7 @@ if ( ! function_exists( 'emulsion_class_name_sanitize' ) ) {
 	/**
 	 * Normally use sanitize_html_class.
 	 *
-	 * Useful for multi-classes such as space delimiters and class arrays.
+	 * Useful for multi-classes such as space delimiters or class arrays.
 	 *
 	 */
 	function emulsion_class_name_sanitize( $class = '' ) {
@@ -757,6 +772,7 @@ if ( ! function_exists( 'emulsion_remove_spaces_from_css' ) ) {
 
 }
 
+
 if ( ! function_exists( 'emulsion_layout_control' ) ) {
 
 	/**
@@ -774,9 +790,10 @@ if ( ! function_exists( 'emulsion_layout_control' ) ) {
 		 * All archive pages are displayed in list format
 		 * add_filter('emulsion_layout_control','__return_false');
 		 * change stream to grid
-		 * add_filter('emulsion_layout_control', function($html){ return is'grid'; } );
+		 * add_filter('emulsion_layout_control', function($html){ return 'grid'; } );
 		 */
 		if ( is_single() ) {
+			
 			return;
 		}
 		$type	 = apply_filters( 'emulsion_layout_control', $type );
@@ -791,17 +808,7 @@ if ( ! function_exists( 'emulsion_layout_control' ) ) {
 
 		if ( ! empty( $type ) && ! empty( $position ) ) {
 
-			if ( 'before' == $position ) {
-
-				$result = '<div class="' . $type . '">';
-			}
-
-			if ( 'after' == $position ) {
-
-				$result = '</div>';
-			}
-
-			echo $result;
+			echo 'before' === $position ? '<div class="' . $type . '">' : '</div>';
 		}
 	}
 
@@ -829,24 +836,17 @@ if ( ! function_exists( 'emulsion_block_editor_styles_and_scripts' ) ) {
 	 */
 	function emulsion_block_editor_styles_and_scripts() {
 
-		$emulsion_current_data_version =  emulsion_version();
+		$emulsion_current_data_version = WP_DEBUG ?  time() : emulsion_version();
 
-		if ( WP_DEBUG ) {
-			$emulsion_current_data_version = time();
-		}
 		if ( is_user_logged_in() && current_user_can( 'edit_posts' ) ) {
+			
 			wp_enqueue_style(
-				'emulsion-block-editor-styles', get_theme_file_uri( '/css/style-editor.css' ), array(), $emulsion_current_data_version, 'all'
-			);
+				'emulsion-block-editor-styles', get_theme_file_uri( '/css/style-editor.css' ), array(), $emulsion_current_data_version, 'all' );
 
-			$wp_scss_status = get_theme_mod( 'emulsion_wp_scss_status' );
-
-			if ( 'active' !== $wp_scss_status  ) {
-				if( function_exists('emulsion_css_variables') ){
+			if ( 'active' !== get_theme_mod( 'emulsion_wp_scss_status' )  &&  function_exists('emulsion_css_variables') ) {
+					
 					$dinamic_css = emulsion__css_variables();
-
-					wp_add_inline_style( 'emulsion-block-editor-styles', $dinamic_css );
-				}
+					wp_add_inline_style( 'emulsion-block-editor-styles', $dinamic_css );				
 			}		
 		}
 	}
@@ -929,12 +929,12 @@ if ( ! function_exists( 'emulsion_svg_icon' ) ) {
 		$result .= $close_element;
 
 		if ( true == $args['fallback'] ) {
-
-			echo wp_kses( $result, EMULSION_ICON_SVG_SYMBOLS_ALLOWED_ELEMENTS );
+			
+			echo emulsion_theme_addons_exists() ? wp_kses( $result, EMULSION_ICON_SVG_SYMBOLS_ALLOWED_ELEMENTS ) : ent2ncr( $result );			
 		}
 		if ( false == $args['fallback'] ) {
-
-			return wp_kses( $result, EMULSION_ICON_SVG_SYMBOLS_ALLOWED_ELEMENTS );
+			
+			return emulsion_theme_addons_exists() ? wp_kses( $result, EMULSION_ICON_SVG_SYMBOLS_ALLOWED_ELEMENTS ) : ent2ncr( $result );
 		}
 	}
 
@@ -968,6 +968,7 @@ if ( ! function_exists( 'emulsion_request_url' ) ) {
 	 */
 	function emulsion_request_url() {
 		global $wp;
+		
 		return home_url( $wp->request );
 	}
 
@@ -982,11 +983,9 @@ if ( ! function_exists( 'emulsion_get_footer_cols_css' ) ) {
 	 */
 	function emulsion_get_footer_cols_css() {
 
-		$cols = emulsion_get_footer_cols();
-
-		$cols_percent = 100 / $cols;
-
-		$cols_percent = floor( $cols_percent ) - 3;
+		$cols			 = emulsion_get_footer_cols();
+		$cols_percent	 = 100 / $cols;
+		$cols_percent	 = floor( $cols_percent ) - 3;
 
 		return $cols_percent;
 	}
@@ -1015,9 +1014,7 @@ if ( ! function_exists( 'emulsion_header_layout' ) ) {
 	 */
 	function emulsion_header_layout() {
 		
-		$result = get_theme_mod( 'emulsion_header_layout', emulsion_theme_default_val( 'emulsion_header_layout' ) );
-
-		return $result;
+		return get_theme_mod( 'emulsion_header_layout', emulsion_theme_default_val( 'emulsion_header_layout' ) );
 	}
 
 }
@@ -1030,11 +1027,11 @@ if ( ! function_exists( 'emulsion_is_display_featured_image_in_the_loop' ) ) {
 	 */
 	function emulsion_is_display_featured_image_in_the_loop() {
 		
-		$result = get_theme_mod( 'emulsion_layout_homepage_post_image', emulsion_theme_default_val( 'emulsion_layout_homepage_post_image' ) );
-		
-		$result = 'hide' === $result ? false: true;
-		
-		return apply_filters( 'emulsion_is_display_featured_image_in_the_loop' , $result );
+		$setting = 'show' === get_theme_mod( 'emulsion_layout_homepage_post_image', emulsion_theme_default_val( 'emulsion_layout_homepage_post_image' ) )
+				? true
+				: false;
+						
+		return apply_filters( 'emulsion_is_display_featured_image_in_the_loop' , $setting );
 	}
 
 }
@@ -1044,13 +1041,10 @@ if ( ! function_exists( 'emulsion_get_svg_ids' ) ) {
 	function emulsion_get_svg_ids($svgs) {
 
 		preg_match_all('#id=(\'|\")([^(\'|\")]+)(\'|\")#', $svgs, $result, PREG_PATTERN_ORDER );
-
-		if( isset( $result[2] ) && ! empty( $result[2] )){
-			
-			return apply_filters( 'emulsion_get_svg_ids', json_encode($result[2]) );
-		}
-
-		return false;
+		
+		return isset( $result[2] ) && ! empty( $result[2] ) 
+				? apply_filters( 'emulsion_get_svg_ids', json_encode($result[2]) ) 
+				: false;
 	}
 
 }
@@ -1067,19 +1061,59 @@ if ( ! function_exists( 'emulsion_theme_addons_exists' ) ) {
 if ( ! function_exists( 'emulsion_metabox_display_control' ) ) {
 
 	function emulsion_metabox_display_control( $location ) {
-
 		global $post, $emulsion_supports;
-
-		if ( false === emulsion_the_theme_supports( 'metabox' ) ) {
-
+				
+		if( false === emulsion_the_theme_supports( 'metabox' ) ) {
 			return true;
 		}
 
-		$post_id	 = get_the_ID();
-		$is_single	 = is_single();
-		$is_page	 = is_page();
+		return apply_filters( 'emulsion_metabox_display_control', true, $location, absint( get_the_ID() ), is_single(), is_page() );
+	}
 
-		return apply_filters( 'emulsion_metabox_display_control', true, $location, $post_id, $is_single, $is_page );
+}
+
+
+if ( ! function_exists( 'emulsion_accessible_color' ) ) {
+
+	/**
+	 * Calculate text color from background color
+	 * @param type $hex
+	 * @param type $alpha
+	 * @return type
+	 */
+	function emulsion_accessible_color( $hex_background_color = '' ) {
+	
+		$hex = str_replace( '#', '', $hex_background_color );
+		$d	 = '[a-fA-F0-9]';
+
+		if ( preg_match( "/^($d$d)($d$d)($d$d)\$/", $hex, $rgb ) ) {
+
+			$r	 = hexdec( $rgb[1] );
+			$g	 = hexdec( $rgb[2] );
+			$b	 = hexdec( $rgb[3] );
+		} elseif ( preg_match( "/^($d)($d)($d)$/", $hex, $rgb ) ) {
+
+			$r =	hexdec( $rgb[1] . $rgb[1] );
+			$g =	hexdec( $rgb[2] . $rgb[2] );
+			$b =	hexdec( $rgb[3] . $rgb[3] );
+
+		} else {
+			
+			return false;
+		}
+
+		$brightness	 = round( $r * 299 + $g * 587 + $b * 114 ) / 1000;
+		$light		 = round( 255 * 299 + 244 * 587 + 255 * 114 ) / 1000;
+
+		if ( $brightness < $light / 2 ) {
+			
+			$color = '#ffffff';
+		} else {
+			
+			$color = '#333333';
+		}
+
+		return $color;
 	}
 
 }
