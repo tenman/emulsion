@@ -13,7 +13,7 @@
 			emulsion_post_content();
 		} else {
 			
-			'full_text' == emulsion_get_layout_setting() || 'post' == emulsion_get_layout_setting() 
+			'full_text' == emulsion_get_layout_setting() || 'post' == emulsion_get_layout_setting() || 'page' == emulsion_get_layout_setting()
 			? the_content() 
 			: the_excerpt();		
 		}
