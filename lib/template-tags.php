@@ -1111,7 +1111,7 @@ if ( ! function_exists( 'emulsion_footer_text' ) ) {
 			$emulsion_parent_data	 = wp_get_theme( get_template() );
 			$parent_name			 = $emulsion_parent_data->get( 'Name' );
 			/* translators: 1: parent theme name */
-			$parent_name			 = sprintf( esc_html__('%1$s', 'emulsion'),  $parent_name );
+			$parent_name			 = sprintf( esc_html_x('%1$s', 'parent theme name', 'emulsion'),  $parent_name );
 			$theme_name				 = esc_html__( 'Child theme ', 'emulsion' ) .
 										esc_html( ucwords( $theme_name ) ) .
 										' ' .
@@ -1119,7 +1119,7 @@ if ( ! function_exists( 'emulsion_footer_text' ) ) {
 										' ' . esc_html( $parent_name );
 		} else {
 			/* translators: 1: Theme name */
-			$theme_name = sprintf( esc_html__('%1$s', 'emulsion'),  $theme_name );
+			$theme_name = sprintf( esc_html_x('%1$s', 'Theme name', 'emulsion'),  $theme_name );
 		}
 
 		/**
@@ -1195,7 +1195,7 @@ if ( ! function_exists( 'emulsion_header_text_color_fallback' ) ) {
 			$header_text_color = $has_image_fallback;
 		}
 
-		return sanitize_text_field( $header_text_color );
+		return  $header_text_color;
 	}
 
 }

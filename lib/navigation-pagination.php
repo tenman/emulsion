@@ -56,7 +56,7 @@ if ( !function_exists( 'emulsion_archive_year_navigation' ) ) {
 		$class				 = sanitize_html_class( 'year-' . $first );
 		$link				 = esc_url( get_year_link( $first ) );
 		/* translators: 1: year name 4 digit number */
-		$screen_reader_text	 = sprintf( esc_html__( 'Link to Year Archives %1$s', 'emulsion' ), $first );
+		$screen_reader_text	 = sprintf( esc_html_x( 'Link to Year Archives %1$s', 'year name 4 digit number', 'emulsion' ), $first );
 
 		$class	 .= ' oldest-year nav-previous';
 		$link	 = esc_url( get_year_link( $first ) );
@@ -66,7 +66,7 @@ if ( !function_exists( 'emulsion_archive_year_navigation' ) ) {
 		$class				 = sanitize_html_class( 'year-' . $last );
 		$link				 = esc_url( get_year_link( $last ) );
 		/* translators: 1: year name 4 digit number */
-		$screen_reader_text	 = sprintf( esc_html__( 'Link to Year Archives %1$s', 'emulsion' ), $last );
+		$screen_reader_text	 = sprintf( esc_html_x( 'Link to Year Archives %1$s', 'year name 4 digit number', 'emulsion' ), $last );
 
 		$class	 .= ' newest-year nav-previous';
 		$link	 = esc_url( get_year_link( $last ) );
@@ -233,9 +233,12 @@ if ( !function_exists( 'emulsion_monthly_archive_prev_next_navigation' ) ) {
 			if ( $previous_query && ! empty( $previous_year ) && ! empty( $previous_month ) ) {
 
 				$previous_label	 = $wp_locale->get_month( $previous_month );
-				$calendar_output = sprintf( $html, get_month_link( $previous_year, $previous_month ),
-						/* translators: 1: previous month name */ 
-				sprintf( esc_html__( '&#171; %1$s ', 'emulsion' ), $previous_label ), '', "nav-previous" );
+				$calendar_output = sprintf( $html, 
+											get_month_link( $previous_year, $previous_month ),
+											sprintf( '&#171; %1$s ', $previous_label ), 
+											'', 
+											"nav-previous" 
+									);
 			}
 			$calendar_output .= "\t";
 
@@ -249,9 +252,12 @@ if ( !function_exists( 'emulsion_monthly_archive_prev_next_navigation' ) ) {
 				
 				$next_label = $wp_locale->get_month( $next_month );
 
-				$calendar_output .= sprintf( $html, get_month_link( $next_year, $next_month ),
-				/* translators: 1: next month name */ 
-				sprintf( esc_html__( ' %1$s &#187;', 'emulsion' ), $next_label ), '', "nav-next" );
+				$calendar_output .= sprintf( $html, 
+											get_month_link( $next_year, $next_month ),
+								     		sprintf( ' %1$s &#187;', $next_label ), 
+											'', 
+											"nav-next" 
+									);
 			}
 			$html			 = '<div class="%1$s">%2$s<br class="clear" /></div>';
 			$calendar_output = sprintf( $html, 'emulsion-monthly-archive-prev-next-navigation nav-links', $calendar_output );

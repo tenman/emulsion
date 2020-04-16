@@ -163,7 +163,7 @@ if ( ! function_exists( 'emulsion_related_posts' ) ) {
 							} else {
 										
 								/* translators: title icon question mark */							
-								$icon_text	 = empty( $relate_post_title ) ? esc_html__( '?', 'emulsion' ) : mb_substr( sanitize_text_field( $relate_post_title ), 0, 1 );
+								$icon_text	 = empty( $relate_post_title ) ? esc_html_x( '?','title icon question mark', 'emulsion' ) : mb_substr( sanitize_text_field( $relate_post_title ), 0, 1 );
 							
 								/**
 								 * The character string is the first character extracted from the post title. 

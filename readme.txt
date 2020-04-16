@@ -131,6 +131,9 @@ background-image.png
         * Source: https://github.com/LeaVerou/css3patterns
 
 ## Changelog
+### April 16 2020
+		* 1.2.6
+        * https://github.com/tenman/emulsion/releases
 ### April 15 2020
 		* 1.2.5
         * https://github.com/tenman/emulsion/releases
