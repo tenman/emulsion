@@ -16,8 +16,11 @@
 <?php } ?>
 <?php
 if ( is_singular() ) {
+	
 	$emulsion_post_id = get_the_ID();
+	
 	if ( have_comments() && comments_open( $emulsion_post_id ) ) {
+		
 		?>
 		<div id="comments" class="clear social">
 			<ol class="wp-list-comments"><?php

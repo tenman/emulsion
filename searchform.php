@@ -12,6 +12,4 @@ $emulsion_attributes = array(
 	'buttonText'  => esc_html__( 'Search', 'emulsion' ),
 );
 
-echo emulsion_theme_addons_exists() 
-		? wp_kses( render_block_core_search( $emulsion_attributes ), EMULSION_FORM_ALLOWED_ELEMENTS ) 
-		: ent2ncr( render_block_core_search( $emulsion_attributes ) );
+echo ent2ncr( render_block_core_search( $emulsion_attributes ) );

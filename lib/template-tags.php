@@ -1165,6 +1165,7 @@ if ( ! function_exists( 'emulsion_footer_text' ) ) {
 	}
 
 }
+
 if ( ! function_exists( 'emulsion_header_text_color_fallback' ) ) {
 	
 	/**

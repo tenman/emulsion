@@ -500,6 +500,10 @@ input[type="checkbox"][data-skin="inset"] + label span{
 /**
  * Custom Background
  * ========================================================================== */
+.custom-background{
+    background:var(--thm_background_color);
+}
+
 body{
     &.is-loop[class]{
         /**
@@ -510,6 +514,7 @@ body{
         background:var(--thm_background_color);
     }
 }
+
 .custom-background[class]{
 
     /**
@@ -3767,11 +3772,11 @@ ul,
         &:before{
             content: '';
             position: absolute;
-          //@1.2.3  width: 100%;
-          width:inherit;
+            //@1.2.3  width: 100%;
+            width:inherit;
             height: 100%;           
             background: var(--thm_white_color);
-           //@1.2.3 left: 0;
+            //@1.2.3 left: 0;
             top: 0;
             z-index: -1;
             margin-left:auto;
@@ -3888,8 +3893,10 @@ a.skin-button{
                 border-radius:calc( var(--thm_common_font_size) * var(--thm_content_line_height));
             }
         }
-        &.is-style-squared{
-            .wp-block-button__link{
+        &.no-border-radius,
+        &.is-style-squared{ 
+            // old 7.9 before
+            &.wp-block-button__link{
                 border-radius:0;
             }
         }
@@ -3948,7 +3955,6 @@ a.skin-button{
         }
         &.aligncenter{
             width:fit-content;
-            padding:0;
         }
         &.button-has-background{
             a{
@@ -3964,21 +3970,22 @@ a.skin-button{
                 }
                 &.no-border-radius:before{
                     content: '';
-                        border-radius:0;
+                    border-radius:0;
                 }
-                
-            }
-            
-        }
-        
 
-        &.is-style-squared{
-            a{
-                &:before {
-                    content: '';
-                    border-radius:initial;
-                }
             }
+
+        }
+
+
+        &.no-border-radius,
+        &.is-style-squared{ // old 7.9 before
+                            & a{
+                                &:before {
+                                    content: '';
+                                    border-radius:initial;
+                                }
+                            }
         }
         &.is-style-outline{
             &:before{
@@ -4066,6 +4073,11 @@ body{
         transition:background .5s ease-in-out;
         background:transparent;
         z-index:3;
+
+        .has-text-color *:not(.has-text-color){
+            color:inherit ! important;
+        }
+
         &.sectionized-wp-block-latest-posts{
             padding-top:1.5rem;
             padding-bottom:1.5rem;
@@ -4174,7 +4186,9 @@ body{
             }
         }
         &.sectionized-wp-block-columns{
-            color:var(--thm_columns_section_color);
+
+                color:var(--thm_columns_section_color);
+
             background:var(--thm_columns_section_bg);
             min-height:var(--thm_columns_section_height);
             margin-top:0;
@@ -4182,7 +4196,9 @@ body{
             .wp-block-columns{
                 margin-top:calc(var(--thm_box_gap));
                 margin-bottom:calc(var(--thm_box_gap));
-                color:var(--thm_columns_section_color);
+                &:not(.has-text-color){
+                    color:var(--thm_columns_section_color);
+                }
                 figure{
                     figcaption{
                         color:var(--thm_columns_section_color);
@@ -5008,7 +5024,7 @@ body{
     }
     .page-wrapper{
         article{
-            a{
+            a:not(.wp-block-button){
                 &:hover{
                     color:var(--thm_general_link_hover_color);
                 }
@@ -5088,7 +5104,7 @@ body{
     }
     .entry-content{
         color: var(--thm_general_text_color);
-        a{
+        a:not(.wp-block-button){
             &:hover{
                 color: var(--thm_general_link_hover_color);
             }
@@ -5188,9 +5204,19 @@ body{
         }
     }
     .entry-content{
+
         .wp-block-button{
+            color:var(--thm_white_color);
+            &:hover{
+                color:var(--thm_white_color);  
+            }
+
             &.is-style-outline{
-                .wp-block-button__link{
+                color:var(--thm_general_text_color);
+                &:hover{
+                    color:var(--thm_general_text_color);  
+                }
+                &.wp-block-button__link{
                     &:not(.has-background),
                         &:not(.has-background):active,
                         &:not(.has-background):focus,

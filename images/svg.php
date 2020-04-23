@@ -142,6 +142,7 @@ SYMBOLS;
 		    set_theme_mod( 'emulsion_accepted_svg_ids', $emulsion_accepted_svg_ids );
 		}
 	
-		$emulsiong_svg = sprintf('<svg xmlns="http://www.w3.org/2000/svg" id="emulsion_theme_svgs"><defs>%1$s</defs></svg>', $emulsion_svg_symbols );
-		
-		echo emulsion_theme_addons_exists() ? wp_kses( $emulsiong_svg, EMULSION_ICON_SVG_SYMBOLS_ALLOWED_ELEMENTS ) : ent2ncr( $emulsiong_svg );		
+		$emulsion_svg = sprintf('<svg xmlns="http://www.w3.org/2000/svg" id="emulsion_theme_svgs"><defs>%1$s</defs></svg>', $emulsion_svg_symbols );
+		$emulsion_svg = apply_filters('emulsion_svg_icon', $emulsion_svg );
+
+		echo ent2ncr( $emulsion_svg );		

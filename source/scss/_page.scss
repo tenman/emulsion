@@ -480,6 +480,11 @@ body.page{
     .posted-on{
         display:none;
     }
+    .header-layer div.entry-text {
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 5rem;
+    }
 }
 .emulsion-has-sidebar{
     .has-column{
@@ -534,7 +539,9 @@ body.page{
 /**
  * Attachment Page
  * ========================================================================== */
+
 .template-part-content-attachment{
+
     article{
         padding-left:0;
         padding-right:0;
@@ -561,15 +568,21 @@ body.page{
                 margin-right:auto;
             }
         }
+        .entry-content.attachment-content{
+            min-height:0;
+        }
         .attachment-content{
             @extend %block;
             margin-left:auto;
             margin-right:auto;
+
             .attachment-metadata{
                 width:var(--thm_content_width);
                 max-width:100%;
                 margin-top:1.5rem;
                 margin-bottom:.75rem;
+                padding-left:var(--thm_content_gap);
+                padding-right:var(--thm_content_gap);
                 .relate-post-title{
                     margin-bottom:.75rem;
                 }
@@ -578,12 +591,22 @@ body.page{
                     text-transform:var(--thm_meta_data_font_transform);
                 }
                 .description-text{
-                    font-size:var(--thm_meta_data_font_size);
-                    text-transform:var(--thm_meta_data_font_transform);
+                    font-size:var(--thm_common_font_size);
+                    .label{
+                        width:120px;
+                        display:inline-block;
+                        font-weight:700;
+                    }
                 }
-                .label{
-                    width:120px;
-                    display:inline-block;
+                .relate-post-title{
+                    .label{
+                        width:120px;
+                        display:inline-block;
+                        font-weight:700;
+                    }
+                    a{
+                        text-decoration:underline;
+                    }
                 }
             }
         }

@@ -78,6 +78,9 @@ jQuery(function ($) {
             if ('wp-block-pullquote' == classes || 'wp-block-quote' == classes) {
                 section_title = emulsion_script_vars.block_quote_class_title;
             }
+            if ('wp-block-buttons' == classes) {
+                section_title = emulsion_script_vars.block_buttons_class_title;
+            }
             $(this).wrap('<section class="sectionized-' + classes + ' ' + brightness_class + '" ></section>');
 
             var string = $(this).html().slice(0, 4);
@@ -438,13 +441,16 @@ jQuery(function ($) {
      * add external class for external links
      * data-no-instant  relate instantclick.js
      */
-    $('a[href^=http]').not('[href^="' + emulsion_script_vars.home_url + '"]').addClass('external').attr('data-no-instant', 'data-no-instant');
-    /**
-     * instantcclick exclude links
-     */
-    //.nav-links a,
-    $('#wpadminbar a,.editor a, .post-edit-link,  a[href*="wp-admin"], a[href$="/amp"], a[href*="#"]').attr('data-no-instant', 'data-no-instant');
-    $('a[href$="action=register"], a[href*="wp-login"]').attr('data-no-instant', 'data-no-instant');
+    if('enable' == emulsion_script_vars.instantclick_support){
+        
+        $('a[href^=http]').not('[href^="' + emulsion_script_vars.home_url + '"]').addClass('external').attr('data-no-instant', 'data-no-instant');
+        /**
+         * instantcclick exclude links
+         */
+        //.nav-links a,
+        $('#wpadminbar a,.editor a, .post-edit-link,  a[href*="wp-admin"], a[href$="/amp"], a[href*="#"]').attr('data-no-instant', 'data-no-instant');
+        $('a[href$="action=register"], a[href*="wp-login"]').attr('data-no-instant', 'data-no-instant');
+    }
     /**
      * add required attribute on search form
      * Searching is a load-intensive process. If you do not enter it in the text field, no processing will be done
@@ -656,7 +662,7 @@ jQuery(function ($) {
      * 
      *
      */
-    $('body').append('<span id="scroll-top" class="scroll-button-top skin-button" title="' + emulsion_script_vars.go_to_top_label + '"><span>Top</span></span>');
+    $('body').not('.attachment').append('<span id="scroll-top" class="scroll-button-top skin-button" title="' + emulsion_script_vars.go_to_top_label + '"><span>Top</span></span>');
     $('#scroll-top').click(function (e) {
         e.preventDefault();
         $('html, body').animate({scrollTop: 0}, 500);
@@ -1052,7 +1058,7 @@ jQuery(document).ready(function ($) {
         }
         return '';
     }
-    if ('' == emulsion_get_meta('description') && '' !== emulsion_script_vars.meta_description) {
+    if ('' == emulsion_get_meta('description') && 'none' !== emulsion_script_vars.meta_description) {
         $("head").append('<meta name="description" content="' + emulsion_script_vars.meta_description + '" />');
     }
 });

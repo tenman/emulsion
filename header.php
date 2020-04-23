@@ -11,24 +11,24 @@
 	</head>
 	<body id="<?php echo esc_attr(  emulsion_slug( ) ); ?>" <?php body_class(); ?>>
 		<?php
+
 		has_action( 'wp_body_open' ) ? do_action( 'wp_body_open' ) : '';
 
-		if ( is_page() ) {
-			
-			emulsion_metabox_display_control( 'page_header' ) && emulsion_the_theme_supports( 'header' ) 
-			? get_template_part( 'template-parts/header', emulsion_header_layout() ) 
-			: '';
-		} elseif ( is_single() ) {
-			
-			emulsion_metabox_display_control( 'header' ) && emulsion_the_theme_supports( 'header' ) 
-			? get_template_part( 'template-parts/header', emulsion_header_layout() ) 
-			: '';
-		} elseif ( ! is_singular() ) {
+		$emulsion_header_type = is_page() ? 'page_header' : 'header';
 
-			emulsion_the_theme_supports( 'header' ) 
-			? get_template_part( 'template-parts/header', emulsion_header_layout() ) 
+		if(  is_singular() ) {
+
+			emulsion_metabox_display_control( $emulsion_header_type  ) && emulsion_the_theme_supports( 'header' )
+			? get_template_part( 'template-parts/header', emulsion_header_layout() )
+			: '';
+
+		} else {
+
+			emulsion_the_theme_supports( $emulsion_header_type  )
+			? get_template_part( 'template-parts/header', emulsion_header_layout() )
 			: '';
 		}
+
 		emulsion_sidebar_manager();
 		?>
 		<div class="page-wrapper layout">
