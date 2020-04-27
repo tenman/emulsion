@@ -4,6 +4,8 @@ add_action( 'after_setup_theme', 'emulsion_hooks_setup' );
 
 function emulsion_hooks_setup() {
 	
+	do_action( 'emulsion_hooks_setup_before' );
+	
 	add_filter( 'body_class', 'emulsion_body_class' );
 	add_filter( 'body_class', 'emulsion_body_background_class' );
 	add_action( 'wp_head', 'emulsion_meta_elements' );
@@ -57,6 +59,8 @@ function emulsion_hooks_setup() {
 		add_filter('emulsion_monthly_archive_prev_next_navigation', 'ent2ncr');
 		add_filter('emulsion_footer_text', 'ent2ncr');
 	}
+	
+	do_action( 'emulsion_hooks_setup_after' );
 }
 
 if ( ! function_exists( 'emulsion_minimum_php_version_check' ) ) {
@@ -616,6 +620,7 @@ if ( ! function_exists( 'emulsion_theme_styles' ) ) {
 		}
 
 		$header_text_color		 = sanitize_text_field( emulsion_header_text_color_fallback() );
+		
 		$variables = <<<VARIABLES
 
 body{
@@ -631,7 +636,10 @@ body{
 	--thm_sidebar_text_color:#333;
 	--thm_header_background_gradient_color:#fff;
 	--thm_header_text_color:{$header_text_color};
-}		
+}
+main{
+	--thm_header_text_color:#333;
+}
 VARIABLES;
 	
 		
@@ -639,7 +647,10 @@ VARIABLES;
 		$responsive_break_point	 = absint( $responsive_break_point );
 
 		$theme_style =<<<THEME_STYLE
-				
+.on-trancate{
+	display:block;
+	overflow:hidden;
+}
 body:not(.emulsion-addons){
 	background:var(--thm_background_color);
 }
@@ -813,8 +824,21 @@ body:not(.emulsion-addons) header.has-header-text-color.template-part-header-cus
 body:not(.emulsion-addons) header.has-header-text-color.template-part-header-custom .post-featured-image ~ .header-text .site-description,
 body:not(.emulsion-addons) header.has-header-text-color.template-part-header-custom .post-featured-image ~ .header-text .site-title-text{
 	color:var(--thm_header_text_color);
-}	
-	
+}
+body:not(.emulsion-addons) .template-part-header-self .header-layer-site-title-navigation.is-user-header a,
+body:not(.emulsion-addons) .template-part-header-self .header-layer-site-title-navigation.is-user-header,
+body:not(.emulsion-addons).home .template-part-header .header-layer-site-title-navigation .header-text .site-title-text,
+body:not(.emulsion-addons).home .template-part-header .header-layer-site-title-navigation .header-text{
+	color:var(--thm_black_color);
+}
+body:not(.emulsion-addons) .template-part-header-self .header-layer-site-title-navigation.is-user-header:blank,
+body:not(.emulsion-addons) .template-part-header-self .header-layer-site-title-navigation.is-user-header:empty{
+	display:none;
+
+}
+body:not(.emulsion-addons) .template-part-header-self{
+	min-height:0;
+}
 body:not(.emulsion-addons) .header-layer.template-part-header-custom div:nth-child(2).entry-text{
 	position:relative;
 }

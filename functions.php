@@ -18,7 +18,6 @@ if ( is_admin() && current_user_can( 'edit_theme_options' ) ) {
 	}
 }
 
-
 /**
  * Theme Supports
  */
@@ -362,6 +361,7 @@ function emulsion_register_scripts_and_styles() {
 	}
 
 	if ( ( is_user_logged_in() ) ) {
+		
 		/**
 		 * If user is not logged in, load as inline style
 		 * @see emulsion_plugins_style_change_inline()
@@ -369,6 +369,7 @@ function emulsion_register_scripts_and_styles() {
 		wp_register_style( 'emulsion-completion', get_template_directory_uri() . '/css/common.css', array(), $emulsion_current_data_version, 'all' );
 		wp_enqueue_style( 'emulsion-completion' );
 	} elseif ( ! is_user_logged_in() && ! emulsion_theme_addons_exists() ) {
+		
 		/**
 		 * Not use plugin
 		 */
@@ -411,6 +412,7 @@ function emulsion_register_scripts_and_styles() {
 		 * Child theme style
 		 */
 		if ( file_exists( get_stylesheet_directory() . '/js/' . $emulsion_child_theme_slug . '.js' ) ) {
+			
 			/**
 			 * if child theme has parent name.js( js/child-theme-slug.js ) add the file of the child theme ( for add script )
 			 */
@@ -522,7 +524,6 @@ function emulsion_register_scripts_and_styles() {
 	/**
 	 * Tooltip
 	 */
-	
 	$support = emulsion_the_theme_supports( 'tooltip' );
 
 	if ( $support && ! is_customize_preview() ) {
@@ -559,10 +560,11 @@ function emulsion_register_scripts_and_styles() {
 
 	/**
 	 * Localize Script
+	 * Note:Remember the emulsion_script_vars objects values are all embedded in string format.
 	 */
 		
-	$wp_scss_status_relate_setting	 = 'deactive' == get_theme_mod( 'emulsion_wp_scss_status' ) 
-			? emulsion_theme_default_val( 'emulsion_sidebar_position' ) 
+	$wp_scss_status_relate_setting	 =  emulsion_theme_addons_exists()
+			? emulsion_get_var( 'emulsion_sidebar_position' ) 
 			: emulsion_theme_default_val( 'emulsion_sidebar_position' );
 	
 	$emulsion_background_color		 = function_exists( 'emulsion_get_background_color' ) 
@@ -796,7 +798,6 @@ if ( ! function_exists( 'emulsion_remove_spaces_from_css' ) ) {
 	}
 
 }
-
 
 if ( ! function_exists( 'emulsion_layout_control' ) ) {
 
@@ -1147,6 +1148,5 @@ if ( ! function_exists( 'emulsion_accessible_color' ) ) {
 	}
 
 }
-
 
 do_action( 'emulsion_functions_after' );
