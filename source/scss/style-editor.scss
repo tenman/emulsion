@@ -5114,15 +5114,25 @@ p.has-drop-cap:not(:focus):first-letter {
         }
     }
 }
+/**
+ * 
+ */
 .block-editor-block-list__layout{
     > .block-editor-block-list__block{
-        &[data-type="core/group"]{
-
+        /**
+         * Fallback for all environments (GB7.2-)
+         */
+        /**
+         * block content
+         * 
+         */
+        .is-block-content{
+            max-width:100%;
         }
     }
 }
 
-/**
+/** 5.4
  * gutenberg 7.2 editor structure changed. block-editor-block-mover block-editor-block-toolbar
  * Styles before this line are maintained for compatibility up to WP5.3, but no styles are applied after GB7.2.
  * @see emulsion-gb-phase-site class is added lib/hooks.php emulsion_admin_body_class()
@@ -5209,9 +5219,16 @@ p.has-drop-cap:not(:focus):first-letter {
                 @extend %list-effect-editor;
 
                 /**
+                 * block content
+                 */
+                .is-block-content{
+                    max-width:100%;
+                }
+
+                /**
                  * Blocks
                  */
-                [data-type="core/paragraph"]{                
+                [data-type="core/paragraph"]{
                     margin-left: auto;
                     margin-right: auto;
                     max-width: 100%;
@@ -5339,7 +5356,7 @@ p.has-drop-cap:not(:focus):first-letter {
                         }
                     }
                 }
-                
+
                 [data-type="core/columns"]{
                     margin-top:var(--thm_box_gap);
                     margin-bottom:var(--thm_box_gap);
@@ -5374,7 +5391,7 @@ p.has-drop-cap:not(:focus):first-letter {
                         width:100%;
                     }
                 }
-                
+
                 /**
                  * Aligns
                  */
@@ -5427,4 +5444,89 @@ p.has-drop-cap:not(:focus):first-letter {
         }
 
     }
+}
+/** 5.5
+ * GB8.0 HTML Structure changed
+ * data-align removed from [data-block]
+ * if change align then wrapping [data-block] with <div class="wp-block" data-align="wide">[data-block]</div>
+ */
+.emulsion-gb-phase-site{
+    .editor-styles-wrapper{
+        /**
+         * Toolbar , mover
+         */
+        .components-popover{
+
+        }
+        /**
+         * Blocks
+         */
+        .block-editor__typewriter{
+            .block-editor-block-list__layout{
+                &.is-root-container{
+
+                    & > .wp-block[data-align="left"] {
+                        clear:left;
+                        float:left;
+                        width:calc( 50% - 2rem );
+                        margin-right:1rem;
+                        height:auto;
+                        overflow:hidden;
+                        [data-block]{
+                            width:100%;
+
+                            .wp-block-gallery.alignright,
+                            .wp-block-gallery.alignleft,
+                            .alignleft,
+                            .alignright{
+                                width:100%;
+                                float:none;
+                                max-width:100%;
+                            }
+                        }
+
+                    }
+                    & > .wp-block[data-align="right"] {
+                        clear:right;
+                        float:right;
+                        width:calc( 50% - 2rem );
+                        margin-left:1rem;
+                        height:auto;
+                        overflow:hidden;
+                        [data-block]{
+                            width:100%;
+
+                            .wp-block-gallery.alignleft,
+                            .wp-block-gallery.alignright,
+                            .alignleft,
+                            .alignright{
+                                width:100%;
+                                max-width:100%;
+                                float:none;
+                            }
+                        }
+
+                    }
+                    & > .wp-block[data-align="wide"] {
+                        [data-block]{
+                            @extend %alignwide;
+                        }
+                    }
+                    & > .wp-block[data-align="full"] {
+                        [data-block]{
+                            width:var(--thm_editor_main_width);
+                            max-width:100%;
+                        }
+                    }
+                    & > [data-block]:not([data-align]){
+                        // not select  align
+                    }
+
+                }
+
+            }
+
+        }
+    }
+
 }

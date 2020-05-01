@@ -279,3 +279,4 @@ function emulsion_slug( $echo = false ) {
 		return $emulsion_current_theme_slug;
 	}
 }
+

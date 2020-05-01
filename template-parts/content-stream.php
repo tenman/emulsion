@@ -16,8 +16,8 @@ $emulsion_show_post_image	 = emulsion_is_display_featured_image_in_the_loop();
 
 					<?php emulsion_the_post_title( false ); ?>
 					<?php emulsion_the_post_meta_on(); ?>
-					<?php echo ! post_password_required( absint($emulsion_post_id) ) ? '<p class="fit"><span class="show-content" data-type="post" data-id="' . absint($emulsion_post_id)  . '">'
-							. '</span></p>': '';  ?>
+					<?php echo ! post_password_required( absint($emulsion_post_id) ) ? '<span class="show-content" data-type="post" data-id="' . absint($emulsion_post_id)  . '" >'
+							. '</span>': '';  ?>
 
 		<?php } // ! is_singular() ?>
 				<div class="content">

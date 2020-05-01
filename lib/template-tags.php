@@ -797,7 +797,7 @@ if ( ! function_exists( 'emulsion_get_layout_setting' ) ) {
 						$template_part = emulsion_theme_default_val('emulsion_layout_author_archives');
 					} elseif( is_search() ) {
 						$template_part = emulsion_theme_default_val('emulsion_layout_search_results');
-					} elseif( !is_front_page && is_home() ) {
+					//} elseif( !is_front_page && is_home() ) {
 						
 					} else {
 						$template_part = 'excerpt';
@@ -1113,15 +1113,15 @@ if ( ! function_exists( 'emulsion_footer_text' ) ) {
 			$emulsion_parent_data	 = wp_get_theme( get_template() );
 			$parent_name			 = $emulsion_parent_data->get( 'Name' );
 			/* translators: 1: parent theme name */
-			$parent_name			 = sprintf( esc_html_x('%1$s', 'parent theme name', 'emulsion'),  $parent_name );
+			$parent_name			 = sprintf( esc_html_x('Theme %1$s', 'parent theme name', 'emulsion'),  $parent_name );			
 			$theme_name				 = esc_html__( 'Child theme ', 'emulsion' ) .
+										' '.
 										esc_html( ucwords( $theme_name ) ) .
 										' ' .
-										esc_html__( 'of', 'emulsion' ) .
-										' ' . esc_html( $parent_name );
+										esc_html__( 'of', 'emulsion' );
 		} else {
 			/* translators: 1: Theme name */
-			$theme_name = sprintf( esc_html_x('%1$s', 'Theme name', 'emulsion'),  $theme_name );
+			$theme_name = sprintf( esc_html_x('Theme %1$s', 'Theme name', 'emulsion'),  $theme_name );
 		}
 
 		/**

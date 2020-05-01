@@ -486,7 +486,7 @@ function emulsion_register_scripts_and_styles() {
 	 */
 	$support = emulsion_the_theme_supports( 'instantclick' );
 
-	if ( $support && 'wp-login.php' !== $GLOBALS['pagenow'] && ! is_admin() ) {
+	if ( $support && 'wp-login.php' !== $GLOBALS['pagenow'] && ! is_user_logged_in() ) {
 		
 		if ( true == WP_DEBUG ) {
 			
@@ -700,7 +700,16 @@ if ( ! function_exists( 'emulsion_element_classes' ) ) {
 
 			$is_active_menu		 = emulsion_is_active_nav_menu( $location );
 			$sidebar_position	 = get_theme_mod( 'emulsion_sidebar_position', emulsion_theme_default_val( 'emulsion_sidebar_position' ) );
-			$menu_background	 = get_theme_mod( 'emulsion_primary_menu_background', emulsion_theme_default_val( 'emulsion_primary_menu_background' ) );
+			$menu_background	 = get_theme_mod( 'emulsion_primary_menu_background' );
+			
+			if( emulsion_theme_addons_exists() ) {
+				
+				$menu_background = false === $menu_background ? emulsion_sidebar_background(): $menu_background;
+			} else {
+				
+				$menu_background = emulsion_theme_default_val( 'emulsion_primary_menu_background' );
+			}
+			
 			$menu_text_color	 = emulsion_accessible_color( $menu_background );
 			$menu_color_class	 = '#333333' == $menu_text_color ? 'menu-is-light' : 'menu-is-dark';
 
@@ -714,7 +723,16 @@ if ( ! function_exists( 'emulsion_element_classes' ) ) {
 
 		if ( 'sidebar-widget-area' == $location || 'footer-widget-area' == $location ) {
 
-			$background			 = get_theme_mod( 'emulsion_sidebar_background', emulsion_theme_default_val( 'emulsion_sidebar_background' ) );
+			$background			 = get_theme_mod( 'emulsion_sidebar_background');
+			
+			if( emulsion_theme_addons_exists() ) {
+				
+				$background = false === $menu_background ? emulsion_sidebar_background(): $background;
+			} else {
+				
+				$background = emulsion_theme_default_val( 'emulsion_sidebar_background' );
+			}
+			
 			$text_color			 = emulsion_accessible_color( $background );
 			$text_color_class	 = '#333333' == $text_color ? 'sidebar-is-light' : 'sidebar-is-dark';
 			$footer_cols_class	 = '';

@@ -1070,7 +1070,7 @@ body .fit{
 }
 .show-content:before{
     content:'';
-    background:url(#{$theme_image_dir}svg/enlarge.svg);
+   //@since 1.2.9 move to style.css  background:url(#{$theme_image_dir}svg/enlarge.svg);
     background-size:cover;
     position:absolute;
     right:0;
@@ -1081,12 +1081,12 @@ body .fit{
 }
 .is-dark .show-content:before,
 .post-thumb-col:not(:empty) + .content-col .show-content:before{
-    background:url(#{$theme_image_dir}svg/enlarge.svg#white);
+    //@since 1.2.9 move to style.css background:url(#{$theme_image_dir}svg/enlarge.svg#white);
     background-size:contain;
 }
 .post-thumb-col + .content-col .show-content.is-active:before{
     content:'';
-    background:url(#{$theme_image_dir}svg/shrink.svg#alert);
+    //@since 1.2.9 move to style.css background:url(#{$theme_image_dir}svg/shrink.svg#alert);
     background-size:contain;
 }
 /**

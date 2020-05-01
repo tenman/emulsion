@@ -296,61 +296,7 @@ jQuery(function ($) {
     function escapeString(val) {
         return $('<div>').text(val).html();
     }
-    /**
-     * Single Post
-     */
-    $(document).on("click", ".show-content", function (event) {
-        if (!$('body').hasClass('home') || !$('body').hasClass('archive') || !$('body').hasClass('blog')) {
-            event.preventDefault();
-        }
-        var state = $(this).data('state');
-        var single_id = parseInt($(this).data("id"));
-        var single_type = $(this).data("type");
-        switch (state) {
-            case 1 :
-            case undefined :
-                var content_base = $("#post-" + single_id + " .entry-content").html();
-                break;
-        }
-        switch (state) {
-            case 1 :
-            case undefined :
-                $(this).addClass('is-active');
-                $(this).parents('article').addClass('preview-is-active');
-                $(this).data('state', 2);
-                $("#loading").css("display", "block");
-                if ('page' == single_type) {
-                    var nobita_rest_query = 'wp/v2/pages/' + single_id;
-                }
-                if ('post' == single_type) {
-                    var nobita_rest_query = 'wp/v2/posts/' + single_id;
-                }
-                var request_url = emulsion_script_vars.end_point + nobita_rest_query;
-                $.getJSON(request_url, function (results) {
-                    if ($("#post-" + single_id + " div").hasClass('entry-content')) {
-                    } else {
-                        $("#post-" + single_id + " .content").after('<div class="entry-content">' + results.content.rendered + '</div>');
-                        $("#post-" + single_id + " .content").hide();
-                    }
-                    $(".blog #post-" + single_id + ",.home #post-" + single_id + ",.archive #post-" + single_id).parents('.article-wrapper').css({'flex-basis': '100%'});
-                });
-                $(document).ajaxComplete(function () {
-                    $("#loading").css("display", "none").removeAttr('style');
-                    $("#post-" + single_id + " .entry-content").css("display", "block").addClass('archive-preview');
-                    $("html,body").animate({scrollTop: $("#post-" + single_id).offset().top - 70});
-                });
-                break;
-            case 2 :
-                $(this).data('state', 1);
-                $(this).removeClass('is-active');
-                $(this).parents('article').removeClass('preview-is-active');
-                $("#post-" + single_id + " .content").show();
-                $("#post-" + single_id + " .entry-content").removeAttr('style');
-                $("#post-" + single_id + " .entry-content").remove();
-                $("#post-" + single_id).parents('.article-wrapper').removeAttr('style');
-                break;
-        }
-    });
+
 });
 jQuery(function ($) {
     "use strict";
@@ -602,29 +548,13 @@ jQuery(function ($) {
     emulsion_resizes();
 });
 jQuery(function ($) {
-    /**
-     * Cookie
-     *
-     * @param {type} key
-     * @param {type} value
-     * @return {undefined}
-     */
     "use strict";
-    function emulsion_set_cookie(key, value) {
-        var expires = new Date();
-        expires.setTime(expires.getTime() + (1 * 24 * 60 * 60));
-        document.cookie = key + '=' + value + ';path=/' + ';expires=' + expires.toUTCString();
-    }
-    function emulsion_get_cookie(key) {
-        var keyValue = document.cookie.match('(^|;) ?' + key + '=([^;]*)(;|$)');
-        return keyValue ? keyValue[2] : null;
-    }
-    if ('is_checked' == emulsion_get_cookie('toc-toggle') /*　デフォルトでオープン　|| null == emulsion_get_cookie('toc-toggle')*/) {
+     if ('is_checked' == localStorage.getItem('toc-toggle') ) {
         $("#toc-toggle").prop("checked", true);
     }
     $("#toc-toggle").change(function () {
         var is_checked = this.checked ? 'is_checked' : 'no_checked';
-        emulsion_set_cookie('toc-toggle', is_checked);
+        localStorage.setItem('toc-toggle', is_checked);
     });
 });
 jQuery(function ($) {
@@ -662,7 +592,9 @@ jQuery(function ($) {
      * 
      *
      */
+
     $('body').not('.attachment').append('<span id="scroll-top" class="scroll-button-top skin-button" title="' + emulsion_script_vars.go_to_top_label + '"><span>Top</span></span>');
+
     $('#scroll-top').click(function (e) {
         e.preventDefault();
         $('html, body').animate({scrollTop: 0}, 500);
@@ -1043,22 +975,4 @@ jQuery(function ($) {
         });
     });
 
-});
-jQuery(document).ready(function ($) {
-    /**
-     * when not exists meta description tag, add meta description tag
-     *
-     */
-    function emulsion_get_meta(metaName) {
-        const metas = document.getElementsByTagName('meta');
-        for (let i = 0; i < metas.length; i++) {
-            if (metas[i].getAttribute('name') === metaName) {
-                return metas[i].getAttribute('content');
-            }
-        }
-        return '';
-    }
-    if ('' == emulsion_get_meta('description') && 'none' !== emulsion_script_vars.meta_description) {
-        $("head").append('<meta name="description" content="' + emulsion_script_vars.meta_description + '" />');
-    }
 });

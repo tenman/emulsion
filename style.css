@@ -5,8 +5,8 @@ Theme URI: https://www.tenman.info/wp3/emulsion
 Description: block editor, classic editor both supports. Conventional, Image Media New Block Type Image Both media can be displayed correctly.Theme can stop at each theme style page for page builder users. Customizer can easily view changes with automatic preview redirection.Theme is designed with the goal of minimizing user frustration.
 Author: Tenman
 Author URI: https://www.tenman.info/wp3/
-Version: 1.2.8
-Tags: one-column, two-columns, grid-layout,left-sidebar, right-sidebar,custom-background, custom-colors, custom-header,custom-logo, custom-menu, editor-style, featured-image-header, featured-images, flexible-header, footer-widgets, full-width-template, post-formats, sticky-post, theme-options, threaded-comments, translation-ready, block-styles, wide-blocks
+Version: 1.2.9
+Tags: one-column, two-columns, grid-layout,left-sidebar, right-sidebar,custom-background, custom-colors, custom-header,custom-logo, custom-menu, editor-style, featured-image-header, featured-images, flexible-header, footer-widgets, full-width-template, post-formats, sticky-post, theme-options, threaded-comments, translation-ready
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: emulsion
@@ -24,4 +24,162 @@ body.removed-emulsion-presentation img,
 body.metabox-removed-emulsion-presentation img{
     max-width:100%;
     height:auto;
+}
+
+/**
+ * Theme SVG images
+ *
+ * SVG fill color variations
+ *
+ * no hash  : currentColor
+ * #white   : white
+ * #gray    : gray
+ * #cool    : rgba(52, 152, 219,.6)
+ * #notice  : rgba(163, 140, 8,.6)
+ * #info    : rgba(22, 160, 133,.6)
+ * #alert   : rgba(231, 76, 60,.6)
+ */
+.wp-block-search .wp-block-search__button:before {
+    background: url(./images/svg/search.svg#white);
+    background-size: 16px 16px;
+    background-position: 16px 0;
+    background-repeat: no-repeat;
+}
+body.is-light .scroll-button-top:before,
+body.is-dark .header-is-default-color ~ .scroll-button-top:before,
+body .header-is-default-color ~ .scroll-button-top:before,
+body .header-is-light ~ .scroll-button-top:before {
+    background: url(./images/svg/arrow-up.svg);
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    display: block;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: -2px;
+    margin: auto;
+}
+.header-layer.header-image-active .header-layer-nav-menu .nav-menu-child-opener[type="checkbox"]:checked ~ label:before,
+body.is-dark.metabox-reset-post-presentation .header-layer-site-title-navigation .menu .nav-menu-child-opener[type="checkbox"]:checked ~ label:before,
+body .header-is-dark .header-layer-site-title-navigation .menu .nav-menu-child-opener[type="checkbox"]:checked ~ label:before,
+body .header-layer.template-part-header-custom + .primary-menu-wrapper.menu-is-dark .menu.wp-nav-menu .nav-menu-child-opener[type="checkbox"]:checked ~ label:before,
+body.is-dark.metabox-reset-post-presentation .header-layer.template-part-header-custom + .primary-menu-wrapper .menu.wp-nav-menu .nav-menu-child-opener[type="checkbox"]:checked ~ label:before,
+body.is-dark .footer-widget-area.sidebar-is-default .widget_nav_menu .menu-item .nav-menu-child-opener[type="checkbox"]:checked ~ label:before,
+body.is-dark .sidebar-widget-area.sidebar-is-default .widget_nav_menu .menu-item .nav-menu-child-opener[type="checkbox"]:checked ~ label:before,
+body.is-dark body .template-part-widget-footer.sidebar-is-default .widget_nav_menu .menu-item .nav-menu-child-opener[type="checkbox"]:checked ~ label:before,
+body body.is-dark .template-part-widget-footer.sidebar-is-default .widget_nav_menu .menu-item .nav-menu-child-opener[type="checkbox"]:checked ~ label:before,
+body .sidebar-widget-area.sidebar-is-dark .widget_nav_menu .menu-item .nav-menu-child-opener[type="checkbox"]:checked ~ label:before,
+body .template-part-widget-footer.sidebar-is-dark .widget_nav_menu .menu-item .nav-menu-child-opener[type="checkbox"]:checked ~ label:before,
+body .footer-widget-area.footer-is-dark .widget_nav_menu .menu-item .nav-menu-child-opener[type="checkbox"]:checked ~ label:before,
+body > header.template-part-header.header-is-dark .header-layer-site-title-navigation .menu[data-direction="vertical"] .menu-item .nav-menu-child-opener:checked ~ .nav-menu-child-opener-label:before,
+body.has-category-colors.category > header.header-layer.template-part-header .header-layer-site-title-navigation .nav-menu-child-opener[type="checkbox"]:checked ~ label:before {
+    content: ' ';
+    background: url("./images/svg/arrow-up.svg#white");
+    background-size: contain
+}
+body .header-is-dark ~ .scroll-button-top:before {
+    background: url(./images/svg/arrow-up.svg#white);
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
+    width: 16px;
+    height: 18px;
+    position: absolute;
+    display: block;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: -2px;
+    margin: auto
+}
+
+
+body > header.template-part-header.header-is-light .header-layer-site-title-navigation .menu[data-direction="vertical"] .menu-item .nav-menu-child-opener:checked ~ .nav-menu-child-opener-label:before,
+body .footer-widget-area.footer-is-light .widget_nav_menu .menu-item .nav-menu-child-opener[type="checkbox"]:checked ~ label:before,
+body .sidebar-widget-area.sidebar-is-light .widget_nav_menu .menu-item .nav-menu-child-opener[type="checkbox"]:checked ~ label:before,
+body .template-part-widget-footer.sidebar-is-light .widget_nav_menu .menu-item .nav-menu-child-opener[type="checkbox"]:checked ~ label:before,
+body .sidebar-widget-area.sidebar-is-default .widget_nav_menu .menu-item .nav-menu-child-opener[type="checkbox"]:checked ~ label:before,
+body .template-part-widget-footer.sidebar-is-default .widget_nav_menu .menu-item .nav-menu-child-opener[type="checkbox"]:checked ~ label:before,
+body.is-light.metabox-reset-post-presentation .header-layer.template-part-header-custom + .primary-menu-wrapper .menu.wp-nav-menu .nav-menu-child-opener[type="checkbox"]:checked ~ label:before,
+body .header-layer.template-part-header-custom + .primary-menu-wrapper.menu-is-light .menu.wp-nav-menu .nav-menu-child-opener[type="checkbox"]:checked ~ label:before,
+body .header-is-light .header-layer-site-title-navigation .menu .nav-menu-child-opener[type="checkbox"]:checked ~ label:before,
+body .header-is-default-color .header-layer-site-title-navigation .menu .nav-menu-child-opener[type="checkbox"]:checked ~ label:before,
+body.is-dark.metabox-reset-page-presentation .header-layer.template-part-header-custom + .primary-menu-wrapper .wp-nav-menu.menu .nav-menu-child-opener[type="checkbox"]:checked ~ label:before,
+body.is-light.metabox-reset-page-presentation .header-layer.template-part-header-custom + .primary-menu-wrapper .wp-nav-menu.menu .nav-menu-child-opener[type="checkbox"]:checked ~ label:before,
+body.is-light.metabox-reset-post-presentation .header-layer-site-title-navigation .menu .nav-menu-child-opener[type="checkbox"]:checked ~ label:before {
+    content: ' ';
+    background: url(./images/svg/arrow-up.svg);
+    background-size: contain;
+}
+body > header.header-layer.header-is-light .menu .nav-menu-child-opener-label:before,
+body > header.template-part-header.header-is-light .header-layer-site-title-navigation .menu[data-direction="vertical"] .menu-item .nav-menu-child-opener ~ .nav-menu-child-opener-label:before,
+body.paged .header-layer.header-is-light .header-layer-site-title-navigation .menu .nav-menu-child-opener-label:before ,
+body .footer-widget-area.footer-is-light .widget_nav_menu .menu-item .nav-menu-child-opener-label:before,
+body .sidebar-widget-area.sidebar-is-light .widget_nav_menu .menu-item .nav-menu-child-opener-label:before,
+body .template-part-widget-footer.sidebar-is-light .widget_nav_menu .menu-item .nav-menu-child-opener-label:before,
+body .sidebar-widget-area.sidebar-is-default .widget_nav_menu .menu-item .nav-menu-child-opener-label:before,
+body .template-part-widget-footer.sidebar-is-default .widget_nav_menu .menu-item .nav-menu-child-opener-label:before,
+body.is-light.metabox-reset-post-presentation .header-layer.template-part-header-custom + .primary-menu-wrapper .menu.wp-nav-menu .nav-menu-child-opener-label:before,
+body .header-layer.template-part-header-custom + .primary-menu-wrapper.menu-is-light .menu.wp-nav-menu .nav-menu-child-opener-label:before,
+body .header-is-light .header-layer-site-title-navigation .menu .nav-menu-child-opener-label:before,
+body .header-is-default-color .header-layer-site-title-navigation .menu .nav-menu-child-opener-label:before,
+body.is-dark.metabox-reset-page-presentation .header-layer.template-part-header-custom + .primary-menu-wrapper .wp-nav-menu.menu .nav-menu-child-opener-label:before,
+body.is-light.metabox-reset-page-presentation .header-layer.template-part-header-custom + .primary-menu-wrapper .wp-nav-menu.menu .nav-menu-child-opener-label:before,
+body.is-light.metabox-reset-post-presentation .header-layer-site-title-navigation .menu .nav-menu-child-opener-label:before {
+    background: url(./images/svg/arrow-down.svg);
+    background-size: contain;
+    filter: none;
+    -webkit-filter: none;
+}
+
+.header-layer.header-image-active .header-layer-nav-menu .nav-menu-child-opener-label:before,
+body.is-dark.metabox-reset-post-presentation .header-layer-site-title-navigation .menu .nav-menu-child-opener-label:before,
+body .header-is-dark .header-layer-site-title-navigation .menu .nav-menu-child-opener-label:before,
+body .header-layer.template-part-header-custom + .primary-menu-wrapper.menu-is-dark .menu.wp-nav-menu .nav-menu-child-opener-label:before,
+body.is-dark.metabox-reset-post-presentation .header-layer.template-part-header-custom + .primary-menu-wrapper .menu.wp-nav-menu .nav-menu-child-opener-label:before,
+body.is-dark .footer-widget-area.sidebar-is-default .widget_nav_menu .menu-item .nav-menu-child-opener-label:before,
+body.is-dark .sidebar-widget-area.sidebar-is-default .widget_nav_menu .menu-item .nav-menu-child-opener-label:before,
+body.is-dark body .template-part-widget-footer.sidebar-is-default .widget_nav_menu .menu-item .nav-menu-child-opener-label:before,
+body body.is-dark .template-part-widget-footer.sidebar-is-default .widget_nav_menu .menu-item .nav-menu-child-opener-label:before,
+body .sidebar-widget-area.sidebar-is-dark .widget_nav_menu .menu-item .nav-menu-child-opener-label:before,
+body .template-part-widget-footer.sidebar-is-dark .widget_nav_menu .menu-item .nav-menu-child-opener-label:before,
+body .footer-widget-area.footer-is-dark .widget_nav_menu .menu-item .nav-menu-child-opener-label:before,
+body .header-layer.header-video-active .header-layer-site-title-navigation .menu .nav-menu-child-opener-label:before,
+body.paged .header-layer.header-is-dark .header-layer-site-title-navigation .menu .nav-menu-child-opener-label:before,
+body > header.template-part-header.header-is-dark .header-layer-site-title-navigation .menu[data-direction="vertical"] .menu-item .nav-menu-child-opener:checked ~ .nav-menu-child-opener-label:before,
+body > header.header-layer.header-is-dark .menu .nav-menu-child-opener-label:before,
+body.has-category-colors.category > header.header-layer.template-part-header .header-layer-site-title-navigation .nav-menu-child-opener-label:before {
+    background: url(./images/svg/arrow-down.svg#white);
+    background-size: contain;
+    filter: none;
+    -webkit-filter: none
+}
+
+.post-password-required .theme-message .post-password-form .message:before {
+    content: ' ';
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    background: url("/wp-37/wp-content/themes/emulsion/images/svg/lock.svg#alert") no-repeat 50% 50%;
+    background-size: contain;
+}
+.show-content:before{
+    content:' ';
+    background:url(./images/svg/enlarge.svg);
+    background-size:cover;
+}
+
+.is-dark .show-content:before,
+.post-thumb-col:not(:empty) + .content-col .show-content:before{
+    content:' ';
+    background:url(./images/svg/enlarge.svg#white);
+    background-size:contain;
+}
+.post-thumb-col + .content-col .show-content.is-active:before{
+    content:' ';
+    background:url(./images/svg/shrink.svg#alert);
+    background-size:contain;
 }
