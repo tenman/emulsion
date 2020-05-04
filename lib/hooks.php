@@ -648,6 +648,10 @@ VARIABLES;
 		$responsive_break_point	 = absint( $responsive_break_point );
 
 		$theme_style =<<<THEME_STYLE
+body:not(.emulsion-addons) > header.header-layer .search-drawer h4,				
+body:not(.emulsion-addons) > header.header-layer .search-drawer a{
+		color:var(--thm_primary_menu_link_color);		
+}
 .on-trancate{
 	display:block;
 	overflow:hidden;

@@ -138,7 +138,7 @@ if ( ! function_exists( 'emulsion_theme_default_val' ) ) {
 			'emulsion_sticky_sidebar'				 => array( 'default' => 'enable', 'unit' => '', ),
 			'emulsion_lazyload'						 => array( 'default' => 'enable', 'unit' => '', ), //Please use emulsion_the_theme_supports()
 			'emulsion_instantclick'					 => array( 'default' => 'enable', 'unit' => '', ), //Please use emulsion_the_theme_supports()
-			'emulsion_search_drawer'				 => array( 'default' => 'disable', 'unit' => '', ), // required emulsion-addons plugin
+			'emulsion_search_drawer'				 => array( 'default' => 'enable', 'unit' => '', ), 
 			'emulsion_relate_posts'					 => array( 'default' => 'enable', 'unit' => '', ), // required emulsion-addons plugin
 			'emulsion_customizer_preview_redirect'	 => array( 'default' => 'disable', 'unit' => '', ), // required emulsion-addons plugin
 
@@ -190,7 +190,7 @@ if ( ! function_exists( 'emulsion_the_theme_supports' ) ) {
 			'theme_documents'			 => array( 'default' => false, ), // required emulsion-addons plugin
 			'enqueue'					 => array( 'default' => true, ),
 			'primary_menu'				 => array( 'default' => true, ),
-			'search_drawer'				 => array( 'default' => false, ), // required emulsion-addons plugin
+			'search_drawer'				 => array( 'default' => true, ), // required emulsion-addons plugin
 			'search_keyword_highlight'	 => array( 'default' => false, ), // required emulsion-addons plugin
 			'sidebar'					 => array( 'default' => true, ),
 			'sidebar_page'				 => array( 'default' => true, ),

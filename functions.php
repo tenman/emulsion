@@ -294,7 +294,10 @@ if ( ! function_exists( 'emulsion_widgets_init' ) ) {
 	}
 
 }
-
+function emulsion_css_variables_saved_value($css){
+	return $css.' '. get_theme_mod( 'emulsion__css_variables' );
+	
+}
 /**
  * Style and Scripts
  */
@@ -379,8 +382,7 @@ function emulsion_register_scripts_and_styles() {
 	} elseif ( ! is_user_logged_in() && emulsion_theme_addons_exists() ) {
 		
 		add_filter('emulsion_inline_style', 'emulsion__css_variables');
-	}
-
+	} 
 
 	if ( ! empty( $inline_style_pre ) ) {
 
