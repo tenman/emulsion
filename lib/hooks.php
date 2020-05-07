@@ -21,6 +21,8 @@ function emulsion_hooks_setup() {
 	add_filter( 'emulsion_lazyload_script', 'emulsion_lazyload' );
 	add_filter('emulsion_inline_script', 'emulsion_get_rest');
 	add_filter( 'excerpt_length', 'emulsion_excerpt_length_with_lang', 99 );
+	add_action( 'customize_controls_enqueue_scripts', 'emulsion_customizer_controls_script' );
+	add_action( 'customize_controls_enqueue_scripts', 'emulsion_customizer_controls_style' );
 	/**
 	 * Scripts
 	 */
@@ -868,7 +870,7 @@ p.mark-success:before, ul.mark-success:before, [class|="wp-block"]:not(.wp-block
 }
 
 THEME_STYLE;
-
+        
 		$result =  $variables . $theme_style ;
 		$result	 = emulsion_sanitize_css( $result );
 		$result	 = emulsion_remove_spaces_from_css( $result );
@@ -995,3 +997,70 @@ if ( ! function_exists( 'emulsion_excerpt_length_with_lang' ) ) {
 
 }
 
+
+if ( ! function_exists( 'emulsion_customizer_controls_script' ) ) {
+	
+	function emulsion_customizer_controls_script(){
+
+		$plugin_install_url	 = admin_url( 'themes.php?page=tgmpa-install-plugins&plugin_status=all' );
+		$message			 = sprintf( '<p>%1$s</p><a href="%2$s">%3$s</a>', 
+								esc_html__( 'You can use the emulsion-addons plugin for further customization.', 'emulsion' ),
+								esc_url( $plugin_install_url ),
+								esc_html__( 'Install Plugin', 'emulsion' )
+		);
+
+		$script =<<<SCRIPT
+
+	( function( $ ) {
+		'use strict';
+		wp.customize.bind( 'ready', function () {
+			wp.customize.notifications.add(
+				'emulsion-addons-custom-notification',
+				new wp.customize.Notification(
+					'emulsion-addons-custom-notification', {
+						dismissible: true,
+						message: '{$message}',
+						type: 'warning'
+					}
+				)
+			);
+		} );
+
+	} )( jQuery );
+
+
+SCRIPT;
+
+		if ( is_customize_preview() && ! emulsion_theme_addons_exists() ) {
+			wp_add_inline_script( 'customize-controls', $script );
+		}
+	}
+}
+
+if ( ! function_exists( 'emulsion_customizer_controls_style' ) ) {
+
+	function emulsion_customizer_controls_style() {
+
+		$plugin_icon_url = get_template_directory_uri() . '/images/emulsion-addons.png';
+		$css			 = <<<CSS
+			
+	[data-code="emulsion-addons-custom-notification"] .notification-message{
+			margin-left:72px;
+	}
+			
+	[data-code="emulsion-addons-custom-notification"]:before{
+			content:'';
+			background:url({$plugin_icon_url});
+			background-size:contain;
+			width:64px;
+			height:64px;
+			position:absolute;
+			top:1rem;
+	}
+CSS;
+		if ( is_customize_preview() ) {
+			wp_add_inline_style( 'customize-controls', $css );
+		}
+	}
+
+}

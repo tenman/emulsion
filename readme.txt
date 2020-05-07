@@ -56,6 +56,7 @@ block editor, classic editor both supports. Conventional, Image Media New Block 
 
 screenshot.png
 background-image.png
+emulsion-addons.png
 
 * Above images License
 	* Copyright: Copyright (c) 2010-2017, Tenman
@@ -131,6 +132,9 @@ background-image.png
         * Source: https://github.com/LeaVerou/css3patterns
 
 ## Changelog
+### May 7 2020
+		* 1.3.2
+        * https://github.com/tenman/emulsion/releases
 ### May 4 2020
 		* 1.3.1
         * https://github.com/tenman/emulsion/releases

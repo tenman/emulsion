@@ -381,7 +381,7 @@ function emulsion_register_scripts_and_styles() {
 		wp_enqueue_style( 'emulsion-completion' );
 	} elseif ( ! is_user_logged_in() && emulsion_theme_addons_exists() ) {
 		
-		add_filter('emulsion_inline_style', 'emulsion__css_variables');
+		add_filter('emulsion_inline_style', 'emulsion__css_variables');		
 	} 
 
 	if ( ! empty( $inline_style_pre ) ) {

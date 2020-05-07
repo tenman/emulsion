@@ -167,14 +167,26 @@ if ( ! function_exists( 'emulsion_theme_default_val' ) ) {
 			'emulsion_post_display_tag'				 => array( 'default' => 'inherit', 'unit' => '', ), // none, inherit
 		);
 
+		
 		if ( 'val' === $type ) {
+			
+			if( true === emulsion_theme_addons_exists() ){
+				
+				return emulsion_get_var( $name );
+			}
 
 			$result	 = $emulsion_default_values[$name]['default'];
 			$result	 = apply_filters( $result . '_filter', $result );
 			return $result;
 		}
 		if ( 'unit_val' === $type ) {
-
+			
+			if( true === emulsion_theme_addons_exists() ){
+				
+				return emulsion_get_css_variables_values( $name );
+			}
+			
+			
 			$result	 = $emulsion_default_values[$name]['default'];
 			$result	 = apply_filters( $result . '_filter', $result );
 			return $result . $emulsion_default_values[$name]['unit'];
