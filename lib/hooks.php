@@ -23,6 +23,7 @@ function emulsion_hooks_setup() {
 	add_filter( 'excerpt_length', 'emulsion_excerpt_length_with_lang', 99 );
 	add_action( 'customize_controls_enqueue_scripts', 'emulsion_customizer_controls_script' );
 	add_action( 'customize_controls_enqueue_scripts', 'emulsion_customizer_controls_style' );
+	
 	/**
 	 * Scripts
 	 */
@@ -650,6 +651,12 @@ VARIABLES;
 		$responsive_break_point	 = absint( $responsive_break_point );
 
 		$theme_style =<<<THEME_STYLE
+				
+body:not(.emulsion-addons).home .excerpt .entry-content p{
+	width:-moz-fit-content;
+	width:fit-content;
+	max-width:var(--thm_content_width);
+}
 body:not(.emulsion-addons) > header.header-layer .search-drawer h4,				
 body:not(.emulsion-addons) > header.header-layer .search-drawer a{
 		color:var(--thm_primary_menu_link_color);		
@@ -1031,7 +1038,8 @@ if ( ! function_exists( 'emulsion_customizer_controls_script' ) ) {
 
 SCRIPT;
 
-		if ( is_customize_preview() && ! emulsion_theme_addons_exists() ) {
+		if ( is_customize_preview() && ! emulsion_theme_addons_exists() && current_user_can( 'edit_theme_options' ) ) {
+			
 			wp_add_inline_script( 'customize-controls', $script );
 		}
 	}
@@ -1058,7 +1066,8 @@ if ( ! function_exists( 'emulsion_customizer_controls_style' ) ) {
 			top:1rem;
 	}
 CSS;
-		if ( is_customize_preview() ) {
+		if ( is_customize_preview() && ! emulsion_theme_addons_exists() && current_user_can( 'edit_theme_options' ) ) {
+			
 			wp_add_inline_style( 'customize-controls', $css );
 		}
 	}

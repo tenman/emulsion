@@ -133,6 +133,9 @@ emulsion-addons.png
 
 ## Changelog
 ### May 7 2020
+		* 1.3.3
+        * https://github.com/tenman/emulsion/releases
+### May 7 2020
 		* 1.3.2
         * https://github.com/tenman/emulsion/releases
 ### May 4 2020
