@@ -23,7 +23,7 @@ function emulsion_hooks_setup() {
 	add_filter( 'excerpt_length', 'emulsion_excerpt_length_with_lang', 99 );
 	add_action( 'customize_controls_enqueue_scripts', 'emulsion_customizer_controls_script' );
 	add_action( 'customize_controls_enqueue_scripts', 'emulsion_customizer_controls_style' );
-	
+	add_filter( 'theme_templates', 'emulsion_theme_templates' );	
 	/**
 	 * Scripts
 	 */
@@ -62,6 +62,26 @@ function emulsion_hooks_setup() {
 		add_filter('emulsion_archive_year_navigation', 'ent2ncr');
 		add_filter('emulsion_monthly_archive_prev_next_navigation', 'ent2ncr');
 		add_filter('emulsion_footer_text', 'ent2ncr');
+	}
+	
+	/**
+	 * PWA
+	 * https://wordpress.org/plugins/pwa/
+	 * required : customize / site icon
+	 */
+	if ( defined( 'PWA_VERSION' ) ) {
+
+		add_filter( 'web_app_manifest', 'emulsion_manifest' );
+
+		function emulsion_manifest( $manifest ) {
+
+			if ( ! empty( $manifest['name'] ) && empty( $manifest['short_name'] ) ) {
+
+				$manifest['short_name'] = mb_strimwidth( $manifest['name'], 0, 13 );
+			}
+			return $manifest;
+		}
+
 	}
 
 	do_action( 'emulsion_hooks_setup_after' );
@@ -651,7 +671,14 @@ VARIABLES;
 		$responsive_break_point	 = absint( $responsive_break_point );
 
 		$theme_style =<<<THEME_STYLE
-				
+body:not(.emulsion-addons) .stream .content p{
+	max-height:calc( var(--thm_common_font_size) * var(--thm_content_line_height) * 2);
+	overflow:hidden;
+}
+body:not(.emulsion-addons) .grid .entry-content p{
+	max-height:calc( var(--thm_common_font_size) * var(--thm_content_line_height) * 4);
+	overflow:hidden;
+}
 body:not(.emulsion-addons).home .excerpt .entry-content p{
 	width:-moz-fit-content;
 	width:fit-content;
@@ -1070,6 +1097,24 @@ CSS;
 			
 			wp_add_inline_style( 'customize-controls', $css );
 		}
+	}
+
+}
+if ( ! function_exists( 'emulsion_theme_templates' ) ) {
+
+	/**
+	 * Remove templates that are only valid when using plugins
+	 * @param type $post_templates
+	 * @return array
+	 */
+	function emulsion_theme_templates( $post_templates ) {
+
+		if ( false === emulsion_theme_addons_exists() ) {
+
+			unset( $post_templates['template-page/blank.php'] );
+			unset( $post_templates['template-page/gallery.php'] );
+		}
+		return $post_templates;
 	}
 
 }

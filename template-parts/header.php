@@ -2,7 +2,7 @@
 /**
  * Simple header template
  */
-function_exists('emulsion_remove_supports') ? emulsion_remove_supports( 'title_in_page_header' ) : '';
+emulsion_theme_addons_exists() ? emulsion_remove_supports( 'title_in_page_header' ) : '';
 $emulsion_current_post_type		 = trim( get_post_type() );
 $emulsion_metabox_menu_control	 = true;
 

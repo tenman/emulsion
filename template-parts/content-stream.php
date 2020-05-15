@@ -21,7 +21,7 @@ $emulsion_show_post_image	 = emulsion_is_display_featured_image_in_the_loop();
 
 		<?php } // ! is_singular() ?>
 				<div class="content">
-					<?php emulsion_theme_addons_exists() ? emulsion_post_content(): ''; ?>
+					<?php emulsion_theme_addons_exists() ? emulsion_post_content(): the_excerpt(); ?>
 					<?php wp_link_pages( 'before=<div class="wp-link-pages page-break-links clearfix">&after=</div>&next_or_number=number&pagelink=<span>%</span>' ); ?>
 				</div>
 

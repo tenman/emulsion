@@ -5120,7 +5120,7 @@ p.has-drop-cap:not(:focus):first-letter {
     }
 }
 /**
- * 
+ *
  */
 .block-editor-block-list__layout{
     > .block-editor-block-list__block{
@@ -5129,7 +5129,7 @@ p.has-drop-cap:not(:focus):first-letter {
          */
         /**
          * block content
-         * 
+         *
          */
         .is-block-content{
             max-width:100%;
@@ -5246,6 +5246,79 @@ p.has-drop-cap:not(:focus):first-letter {
                 [data-type="core/group"]{
                     &.has-background{
                         padding:0;
+                    }
+                }
+                [data-type="core/code"]{
+                    padding:1rem;
+                }
+                ul.p-block-social-links{
+                    list-style-type:none;
+                    li{
+                        list-style-type:none;
+                    }
+                }
+
+                // GB8.0 - 8.1 .wp-block-navigation There is no class that distinguishes horizontal from vertical in front end
+
+                ul[data-type="core/social-links"]{
+                    //GB8.1
+                    height:40px;
+
+                    &.is-style-default{
+                        li{
+                            flex:0 0 32px;
+                        }
+                    }
+                    &.is-style-logos-only{
+                        li{
+                            flex:0 0 32px;
+                        }
+                    }
+                    &.is-style-pill-shape{
+                        li{
+                            flex:1 0 32px;
+                        }
+                    }
+                    [data-type="core/social-link"]{
+                        list-style:none;
+                        &:not(.is-selected){
+                            &.wp-social-link__is-incomplete{
+                                opacity:.3;
+                                filter:grayscale(70%);
+                            }
+
+                            &:not(.has-child-selected){
+                                &.wp-social-link__is-incomplete{
+                                    opacity:.3;
+                                    filter:grayscale(70%);
+                                }
+                            }
+                        }
+                    }
+                    li{
+                        &[data-type="core/social-link"]{
+                            list-style: none;
+                            text-align: center;
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: center;
+                            align-items: center;
+                            margin: 0 0.75rem 0.75rem 0;
+                            padding:0;
+                            button{
+                                flex:0 0 32px;
+                                width:100%;
+                                height:100%;
+                                display:block;
+                                padding:0;
+                                &:before{
+                                    display:none;
+                                }
+                                &:before{
+                                    display:none;
+                                }
+                            }
+                        }
                     }
                 }
                 [data-type="core/latest-posts"]{

@@ -68,7 +68,7 @@
         }
     }
     body:not(.enable-alignfull){
-        [class|="wp-block"],
+        [class|="wp-block"]:not(.alignleft):not(.alignright),
         .wp-block-columns{
             max-width:100%;
         }
@@ -4087,7 +4087,7 @@ div.amp-block-latest-stories{
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        margin:0 .75rem 0 0;
+        margin:0 .75rem .75rem 0;
         a{
             padding:0;
             svg{

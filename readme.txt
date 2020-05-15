@@ -33,6 +33,7 @@ block editor, classic editor both supports. Conventional, Image Media New Block 
 * About compatibility with plug-ins
         * Cache plugin : This theme performs simple display on the ie11 browser. When using a cache plug-in, it is recommended to change to a setting that does not use the cache when accessing from a browser older than IE 11
         * Lazy load plugin : This theme includes lazyload function. When plug-in is used, it may conflict and may not work properly
+        * Experimental support plugins [AMP](https://wordpress.org/plugins/amp/), [PWA](https://wordpress.org/plugins/pwa/)
         * If you have any problems using the plugin, please contact support forum
 ## Translations
 
@@ -103,7 +104,13 @@ emulsion-addons.png
 * Breadcrumb NavXT
 	* Contributors: mtekk, hakre
 	* License: GPLv2 or later
-	
+* AMP
+	* Contributors: Google, XWP, Automatic, Weston Ruter, albertomedina, Alain Schlesser, Pascal Birchler, Pierre Gordon, Ryan Kienstra
+	* License: GPLv2 or later
+* PWA
+	* Contributors: Google, XWP, Weston Ruter, albertomedina
+	* License: GPLv2 or later
+
 ### js
 
 * InstantClick 3.1.0 | (C) 2014 Alexandre Dieulot | http://instantclick.io/license
@@ -132,6 +139,9 @@ emulsion-addons.png
         * Source: https://github.com/LeaVerou/css3patterns
 
 ## Changelog
+### May 15 2020
+		* 1.3.4
+        * https://github.com/tenman/emulsion/releases
 ### May 7 2020
 		* 1.3.3
         * https://github.com/tenman/emulsion/releases
