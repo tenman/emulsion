@@ -4,7 +4,7 @@
  * header template part file
  */
 ?><!DOCTYPE html>
-<html <?php language_attributes(); ?> id="document">
+<html <?php language_attributes(); ?> id="document" <?php printf( 'class="%1$s"', esc_attr( emulsion_element_classes( 'root' ) ) ); ?>>
 	<head>
 		<meta http-equiv="content-type" content="<?php bloginfo( 'html_type' ); ?>; charset=<?php bloginfo( 'charset' ); ?>" />
 		<?php  wp_head(); ?>
@@ -35,4 +35,4 @@
 		<?php if ( has_action( 'emulsion_prepend_page_wrapper' ) ) { ?>
 			<div class="placeholder-header"><?php do_action( 'emulsion_prepend_page_wrapper' ); ?></div>
 		<?php } ?>
-			<main id="main">
+			<main id="main">			

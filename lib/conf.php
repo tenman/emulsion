@@ -207,7 +207,7 @@ if ( ! function_exists( 'emulsion_the_theme_supports' ) ) {
 			'footer-svg'				 => array( 'default' => true, ),
 			'relate_posts'				 => array( 'default' => true, ),
 			'tooltip'					 => array( 'default' => true, ),
-			'amp'						 => array( 'default' => false, ), // required emulsion-addons,amp plugin
+			'amp'						 => array( 'default' => true, ), 
 			'entry_content_filter'		 => array( 'default' => true, ),
 			'block_sectionize'			 => array( 'default' => true, ), //Change not recommended
 			'background_css_pattern'	 => array( 'default' => false, ), // required emulsion-addons,amp plugin

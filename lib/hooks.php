@@ -83,6 +83,12 @@ function emulsion_hooks_setup() {
 		}
 
 	}
+	/**
+	 * AMP notice
+	 */
+	add_action( 'admin_notices', 'emulsion_amp_admin_notice' );
+	//JSON-LD add desscription
+	add_filter( 'amp_post_template_metadata', 'emulsion_amp_description', 10, 2 );
 
 	do_action( 'emulsion_hooks_setup_after' );
 }
@@ -138,7 +144,7 @@ if ( ! function_exists( 'emulsion_body_class' ) ) {
 					$logged_in &&
 					$metabox_post_control ? 'emulsion-has-sidebar' : 'emulsion-no-sidebar';
 		}
-
+		
 		return $classes;
 	}
 
@@ -414,6 +420,11 @@ if ( ! function_exists( 'emulsion_get_the_password_form' ) ) {
 if ( ! function_exists( 'emulsion_lazyload' ) ) {
 
 	function emulsion_lazyload( $script ) {
+		
+		if( emulsion_is_amp() ) {
+			
+			return $script;
+		}
 
 		$support = emulsion_the_theme_supports( 'lazyload' );
 
@@ -662,7 +673,7 @@ body{
 	--thm_header_text_color:{$header_text_color};
 }
 main{
-	--thm_header_text_color:#333;
+	/*--thm_header_text_color:#333;*/
 }
 VARIABLES;
 
@@ -952,6 +963,11 @@ if ( ! function_exists( 'emulsion_force_excerpt' ) ) {
 if ( ! function_exists( 'emulsion_get_rest' ) ) {
 
 	function emulsion_get_rest($script){
+		
+		if( emulsion_is_amp() ) {
+			
+			return $script;
+		}
 
 	$script .=<<<SCRIPT
 
@@ -1036,7 +1052,7 @@ if ( ! function_exists( 'emulsion_customizer_controls_script' ) ) {
 	
 	function emulsion_customizer_controls_script(){
 
-		$plugin_install_url	 = admin_url( 'themes.php?page=tgmpa-install-plugins&plugin_status=all' );
+		$plugin_install_url	 = esc_url( admin_url( 'themes.php?page=tgmpa-install-plugins&plugin_status=all' ) );
 		$message			 = sprintf( '<p>%1$s</p><a href="%2$s">%3$s</a>', 
 								esc_html__( 'You can use the emulsion-addons plugin for further customization.', 'emulsion' ),
 								esc_url( $plugin_install_url ),
@@ -1115,6 +1131,36 @@ if ( ! function_exists( 'emulsion_theme_templates' ) ) {
 			unset( $post_templates['template-page/gallery.php'] );
 		}
 		return $post_templates;
+	}
+
+}
+
+function emulsion_amp_admin_notice() {
+
+	$amp_options			 = get_option( 'amp-options' );
+	$emulsion_addons_active	 = emulsion_theme_addons_exists();
+	$plugin_install_url		 = esc_url( admin_url( 'themes.php?page=tgmpa-install-plugins&plugin_status=all' ) );
+
+	if( ! empty( $amp_options ) && 'reader' !== $amp_options['theme_support'] && ! $emulsion_addons_active ) {
+		
+		printf( '<div class="notice notice-error is-dismissible emulsion-addon-error"><p> [<strong>%1$s</strong>] %2$s %3$s</p><p>%4$s <a href="%5$s">%6$s</a></p></div>', 
+			esc_html__( 'AMP Plugin Setting Issue.', 'emulsion' ), 
+			sprintf( esc_html__( 'Theme Not Support Template Mode: %1$s.' , 'emulsion' ), esc_html( $amp_options['theme_support'] ) ), 
+			esc_html__( 'Currently only Reader is supported.', 'emulsion' ),
+			esc_html__( 'If you use this option, required the emulsion addons plugin.', 'emulsion' ),
+			$plugin_install_url,
+			esc_html__( 'Install', 'emulsion'  )
+		);
+	}
+}
+
+
+if ( ! function_exists( 'emulsion_amp_description' ) ) {
+
+	function emulsion_amp_description( $metadata, $post ) {
+
+		$metadata['description'] = emulsion_meta_description();
+		return $metadata;
 	}
 
 }

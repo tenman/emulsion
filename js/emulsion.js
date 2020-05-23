@@ -345,6 +345,8 @@ jQuery(function ($) {
                 $(this).addClass('list-style-none').children('li').prepend('<svg class="icon ico-' + target_class + '" aria-hidden="true" style="width:1em;height:1em" role="img"><use xlink:href="#' + target_class + '" /></svg>');
             } else if ($(this).hasClass('wp-block-navigation')) {
                 $(this).children('ul').addClass('list-style-none').children('li').prepend('<svg class="icon ico-' + target_class + '" aria-hidden="true" style="width:1em;height:1em" role="img"><use xlink:href="#' + target_class + '" /></svg>');
+            } else if ($(this).hasClass('wp-block-button')) {
+                $(this).children('a').prepend('<svg class="icon ico-' + target_class + '" aria-hidden="true" style="width:1em;height:1em" role="img"><use xlink:href="#' + target_class + '" /></svg>');
             } else {
                 $(this).prepend('<svg class="icon ico-' + target_class + '" aria-hidden="true" style="width:1em;height:1em" role="img"><use xlink:href="#' + target_class + '" /></svg>');
             }
