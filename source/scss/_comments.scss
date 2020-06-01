@@ -2,6 +2,9 @@
  * Comments
  * ========================================================================== */
 .comment-wrapper{
+    &:empty{
+        display:none;
+    }
     .comments{
         @include clearfix;
         @extend %block;

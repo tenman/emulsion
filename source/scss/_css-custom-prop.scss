@@ -3,7 +3,6 @@
  * If you want to enable @variables, please refer to the following URL
  * @see https://www.tenman.info/wp3/emulsion/en/2020/03/23/scss-%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e3%81%ae%e7%b7%a8%e9%9b%86%e3%82%92%e8%a1%8c%e3%81%86%e5%a0%b4%e5%90%88%e3%81%ab/
  */
-
 :root{
     --thm_dummy:16px;
     --thm_post_display_date:$post_display_date;
@@ -204,14 +203,12 @@
         .wp-block-latest-posts__post-full-content{
             .wp-block-group{
                 position:relative ! important;
-
                 .wp-block-table table{
                     background:transparent;
                 }
                 .wp-block-pullquote{
                     color: var(--thm_black_color);
                 }
-
             }
             code,
             .wp-block-code,
@@ -251,9 +248,7 @@
         .emulsion-current-color{
             box-sizing:border-box;
         }
-
     }
-
     .is-light.is-singular.emulsion-has-custom-background-image.has-background-img-text-white:not(.noscript){
         /**
          * has background image
@@ -262,7 +257,6 @@
             &.custom-background[class].is-light .layout article *:not(.wp-block-separator){
             border-color: rgba(188,188,188,.3);
         }
-
         [data-block],
         .entry-content{
             & > .wp-block-group[style|="background"],
@@ -271,8 +265,6 @@
             & > .shortcode-wrapper > div:not(.gallery),
                 &  > p:not(.has-text-color),
                 & > div:not([class|="wp-block"]):not(.shortcode-wrapper):not(.transparent-block) {
-
-
                 &.emulsion-initial-color{
                     padding:1rem;
                     color:var(--thm_black_color);
@@ -288,10 +280,8 @@
                      * exception todo
                      */
                     &:not(.has-background){
-
                         color:var(--thm_general_text_color);
                         background:transparent;
-
                         a{
                             color: var(--thm_general_link_color);
                             &:hover{
@@ -302,7 +292,6 @@
                     .wp-block-group__inner-container *:not(.has-background){
                         color:var(--thm_general_text_color);
                     }
-
                     &.woocommerce,
                     &.wc-block-grid{
                         background:transparent;
@@ -359,7 +348,6 @@
             article,
             .entry-content,
             .placeholder-header{
-
                 *:not(.has-background){
                     --thm_social_icon_color:#ffffff;        
                     --thm_general_text_color:#eee;
@@ -369,18 +357,15 @@
                     --thm_sub_background_color_darken:#000;
                 }
                 text-shadow: #000 1px 0 10px;
-
                 a{
                     color:var(--thm_silver_color);
                     text-shadow: #000 1px 0 10px;
                 }
                 .wp-block-navigation-link__content{
-
                     text-shadow:none;
                 }
                 section[class|="sectionized"].sectionized-wp-block-columns *{
                     color:var(--thm_white_color);
-
                     code,
                     .wp-block-code,
                     .wp-block-table td,
@@ -410,7 +395,6 @@
                 .social-navigation{
                     color:var(--thm_white_color);
                 }
-
                 .wp-block-code,
                 .wp-block-table td,
                 .wp-block-calendar th,
@@ -421,7 +405,6 @@
                 .has-background:not(.has-text-color){
                     text-shadow:none;
                     color: var(--thm_black_color);
-
                     a{
                         color:var(--thm_silver_color);
                         text-shadow:none;
@@ -437,13 +420,11 @@
                         text-shadow:none;
                     }
                 }   
-
                 .has-background,
                 blockquote,
                 .wp-block-table{
                     text-shadow:none;
                 }
-
                 .wp-block-latest-posts li:hover{
                     background:transparent!important;
                 }
@@ -456,86 +437,65 @@
  */
 body{
     &.noscript{
-
         $hover_color:#727477;
         $favorite_color_palette:#ffffff;
         $header_text_color:#333;
         $header_link_color:#727477;
-
         $general_link_color:#727477;
         $general_text_color:#333;
         $general_link_hover_color:#727477;
-
         $background_color:#ffffff;
         $sub_background_color_lighten:#727477;
         $sub_background_color_darken:#727477;
-
         $sidebar_background:#ffffff;
         $sidebar_link_color:#727477;
         $sidebar_hover_color:#333;
         $sidebar_color:#333;
-
         $primary_menu_background:#fff;
         $primary_menu_link_color:#727477;
         $primary_menu_color:#333;
         $primary_menu_link_color:#727477;
-
-
         --thm_header_image:rgba(0,0,0,0);
         --thm_white_color:#ffffff;
-
         --thm_favorite_color_palette:$favorite_color_palette;
         --thm_hover_color:$hover_color;
         --thm_header_bg_color: #eee;
         --thm_header_background_gradient_color:#eee;
-
         --thm_header_text_color: $header_text_color;
         --thm_header_link_color: $header_link_color;
         --thm_header_hover_color: $header_hover_color;
-
         --thm_general_text_color: $general_text_color;
         --thm_general_link_hover_color: $general_link_hover_color;
         --thm_general_link_color: $general_link_color;
-
         --thm_background_color: $background_color;
         --thm_sub_background_color_lighten:$sub_background_color_lighten;
         --thm_sub_background_color_darken:$sub_background_color_darken;
-
         --thm_sidebar_bg_color:$sidebar_background;
         --thm_sidebar_link_color:$sidebar_link_color;
         --thm_sidebar_hover_color:$sidebar_hover_color;
         --thm_sidebar_text_color:$sidebar_color;
-
         --thm_primary_menu_background:$primary_menu_background;
         --thm_primary_menu_link_color:$primary_menu_link_color;
         --thm_primary_menu_color:$primary_menu_color;
-
         --thm_social_icon_color:$general_link_color;
         --thm_social_icon_bg_color:transparent;
-
         --thm_gallery_section_link_color: $gallery_section_link_color;
         --thm_gallery_section_color: $gallery_section_color;
         --thm_gallery_section_bg: $gallery_section_bg;
-
         --thm_columns_section_link_color: $columns_section_link_color;
         --thm_columns_section_color: $columns_section_color;
         --thm_columns_section_bg: $columns_section_bg;
-
         --thm_media_text_section_link_color: $media_text_section_link_color;
         --thm_media_text_section_color: $media_text_section_color;
         --thm_media_text_section_bg: $media_text_section_bg;
         --thm_media_text_section_height:$media_text_section_height;
-
         --thm_relate_posts_link_color:$relate_posts_link_color;
         --thm_relate_posts_color:$relate_posts_color;
         --thm_relate_posts_bg:$relate_posts_bg;
-
         --thm_comments_link_color:$comments_link_color;
         --thm_comments_color:$comments_color;
         --thm_comments_bg:$comments_bg;
-
         --thm_common_border:1px solid rgba(188,188,188,.5);
-
         &.single-post.custom-background.emulsion-has-custom-background-image, 
         &.page.custom-background.emulsion-has-custom-background-image{
             background-image:none;
@@ -543,7 +503,6 @@ body{
         }
         .header-layer.header-image-active{
             background:var(--thm_header_bg_color);
-
             .header-text,
             .entry-text{
                 *{
@@ -557,13 +516,11 @@ body{
                 //visibility:hidden;
             }
         }
-
         figure.wp-block-gallery{
             margin-left:auto;
             margin-right:auto;
         }
         &.enable-alignfull{
-
             .wp-block-image{
                 &.alignwide,
                 &.alignfull{
@@ -573,7 +530,6 @@ body{
                     margin-right:auto;
                 }
             }
-
             .wp-block-embed{
                 height:auto;
                 &:after{
@@ -590,9 +546,7 @@ body{
             }
             .wp-block-group.has-background{
                 background:#eee;
-
             }
-
             .wp-block-button.wp-block-button__link,
             [class*="mark-"]{
                 // .has-background{ //@since 1.1.2 remove
@@ -606,10 +560,6 @@ body{
                 .layout ol:not(.list-style-initial):not([id]) li:before{
                 background:#eee;
             }
-            .wp-block-cover.has-background-dim:before{
-                // display:none!important;
-                // background:transparent;
-            }
             &.is-singular.emulsion-has-custom-background-image.has-background-img-text-white{
                 .post-navigation{
                     .nav-links{
@@ -620,7 +570,6 @@ body{
                         *{
                             text-shadow:none;   
                         }
-
                         .prev,.next{
                             color:var(--thm_general_text_color);
                         }
@@ -633,7 +582,6 @@ body{
         }
     }
 }
-
 .emulsion-has-sidebar{
     .has-column{
         .page-wrapper{
@@ -696,7 +644,6 @@ main{
             --thm_content_width: 400px;
             article{
                 --thm_content_width: 100%;
-
                 .content{
                     display:block;
                 }

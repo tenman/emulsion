@@ -30,7 +30,6 @@
  * @include bg-gradient;
  * @since removed @if( $header_background_gradient_color != $header_bg_color )
  */
-
 @mixin bg-gradient($angle: 90deg) {
     background-image: -ms-linear-gradient($angle, var(--thm_header_bg_color), var(--thm_header_background_gradient_color) );
     background: -o-linear-gradient($angle,  var(--thm_header_bg_color), var(--thm_header_background_gradient_color));
@@ -128,7 +127,6 @@
         margin-bottom: map-get($type-scale, $level) * .75;
     }
 }
-
 /**
  * Basic Block Elements
  * @extend %block;
@@ -279,7 +277,6 @@
     box-sizing:border-box;
     clear:left;
     float:left;
-
     max-width:calc( 50% - var(--thm_content_gap) - var(--thm_common_font_size) );
     margin-right:var(--thm_common_font_size);
     margin-left:var(--thm_content_gap);
@@ -305,7 +302,6 @@
     box-sizing:border-box;
     clear:right;
     float:right;
-
     max-width:calc( 50% - var(--thm_content_gap) - var(--thm_common_font_size) );
     margin-left:var(--thm_content_gap);
     margin-right:var(--thm_common_font_size);
@@ -452,10 +448,7 @@
     .wp-block-column {
         width:100%;
         max-width:100%;
-
     }
-
-
     .wp-block-pullquote,
     .wp-block-cover{
         height:auto;
@@ -481,7 +474,6 @@
             display:none!important;
         }
     }
-
 }
 /**
  * Download button file type
@@ -619,7 +611,6 @@
                 display:none!important;
             }
         }
-
     }
     ul:not(.list-style-initial){
         &.list-style-none{
@@ -868,12 +859,10 @@
  * @extend %narrow-space-block-and-elements
  */
 %narrow-space-block-and-elements{
-
     .wp-block-columns{
         display:block;
         padding-left:0;
         padding-right:0;
-
         .wp-block-column{
             padding-left:0;
             padding-right:0;

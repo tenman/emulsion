@@ -3,11 +3,9 @@
         clear:both;
     }
 }
-
 /**
  * Shortcode gallery, widget gallery
  * ========================================================================== */
-
 @each $size in $image_sizes {
     $key : nth( $size, 1);
     $val : nth( $size, 2);
@@ -111,7 +109,6 @@
         }
     }
 }
-
 body{
     .sidebar-widget-area,
     .footer-widget-area{
@@ -139,19 +136,16 @@ div.gallery-columns-1.gallery-size-thumbnail{
 .gallery-columns-1 .gallery-item{
     width:100%;
 }
-
 /**
  * Block gallery WordPress 5.0 - 5.2
  */
 @for $i from 2 through 10 {
-
     .gallery-columns-#{$i} .gallery-item{
         width: calc( 100% / #{$i} - var( --thm_box_gap, 3px ) * 2);
         padding:0;
         margin: var( --thm_box_gap, 3px );
     }
 }
-
 /* Gutenberg Gallery */
 /*
 ul.wp-block-gallery{
@@ -256,7 +250,6 @@ ul.wp-block-gallery{
 /**
  * Block gallery WordPress 5.3 -
  */
-
 @for $i from 2 through 10 {
     figure.wp-block-gallery.columns-#{$i} .blocks-gallery-item{
         width: calc( 99.9% / #{$i} - var( --thm_box_gap, 3px ) * 2);// 99.9% for edge lauout broken when figcaption scroll

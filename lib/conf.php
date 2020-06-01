@@ -219,6 +219,7 @@ if ( ! function_exists( 'emulsion_the_theme_supports' ) ) {
 			'grid'						 => array( 'default' => array( array( 'date' ) ) ),
 			'stream'					 => array( 'default' => array( array( 'category', 'post_tag', 'author' ) ) ),
 			'metabox'					 => array( 'default' => false ), // required emulsion-addons,amp plugin
+			'viewport'					 => array( 'default' => true, ),
 		);
 
 		/**
@@ -231,7 +232,7 @@ if ( ! function_exists( 'emulsion_the_theme_supports' ) ) {
 			return emulsion_get_supports( $name );
 		}
 
-		return apply_filters( 'emulsion_the_theme_supports', $emulsion_default_supports[$name]['default'] );
+		return apply_filters( 'emulsion_the_theme_supports', $emulsion_default_supports[$name]['default'], $name );
 	}
 
 }

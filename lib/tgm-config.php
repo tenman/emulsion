@@ -25,7 +25,18 @@ function emulsion_theme_register_required_plugins() {
 			'name'		 => 'emulsion addons',
 			'slug'		 => 'emulsion-addons',
 			'required'	 => false,
-		)
+		),
+		array(
+			'name'		 => 'AMP',
+			'slug'		 => 'amp',
+			'required'	 => false,
+		),
+		array(
+			'name'		 => 'PWA',
+			'slug'		 => 'pwa',
+			'required'	 => false,
+		),
+		
 	);
 
 	$config = array(
