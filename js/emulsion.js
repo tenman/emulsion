@@ -902,7 +902,7 @@ jQuery(function ($) {
         }
     });
 });
-jQuery(function ($) {
+jQuery(document).ready(function ($) {
 
     /**
      * Add a wrapper block whose diameter is the diagonal length of the block
@@ -918,11 +918,13 @@ jQuery(function ($) {
         var class_name = $(this).attr('class');
         var style = $(this).attr('style');
         var image = $(this).find('img');
+        
+        console.log(image.length);
         if (image.length) {
             $(this).css({'width': width_raw}).addClass('has-image-badge');
-            $(image).css({'width': image.width(), 'height': image.width()});
+            $(image).css({'width': width_raw, 'height': width_raw});
         }
-        if (!image.length) {
+        if (0 == image.length ) {
             $(this).wrap($('<div class="' + class_name + '" style="' + style + '"></div>')).removeClass(class_name).removeAttr('style');
             $(this).parent().css({'width': diagonal_length, 'height': diagonal_length});
         }

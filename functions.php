@@ -733,6 +733,11 @@ if ( ! function_exists( 'emulsion_element_classes' ) ) {
 			
 			$menu_text_color	 = emulsion_accessible_color( $menu_background );
 			$menu_color_class	 = '#333333' == $menu_text_color ? 'menu-is-light' : 'menu-is-dark';
+			
+			if( get_theme_mod( 'emulsion_primary_menu_background', false ) == emulsion_theme_default_val( 'emulsion_primary_menu_background' ) ) {
+				
+				$menu_color_class = 'menu-is-default';
+			}
 
 			$class	 = 'primary-menu-wrapper';
 			$class	 .= $is_active_menu ? ' menu-active' : ' menu-inactive';
@@ -758,8 +763,7 @@ if ( ! function_exists( 'emulsion_element_classes' ) ) {
 			$text_color_class	 = '#333333' == $text_color ? 'sidebar-is-light' : 'sidebar-is-dark';
 			$footer_cols_class	 = '';
 
-			if( get_theme_mod( 'emulsion_sidebar_background', false ) == emulsion_theme_default_val( 'emulsion_sidebar_background' ) ||
-				false === get_theme_mod( 'emulsion_sidebar_background', false ) ) {
+			if( get_theme_mod( 'emulsion_sidebar_background', false ) == emulsion_theme_default_val( 'emulsion_sidebar_background' ) ) {
 				
 				$text_color_class = 'sidebar-is-default';
 			}
@@ -1161,6 +1165,27 @@ if ( ! function_exists( 'emulsion_lang_cjk' ) ) {
 			return true;
 		}
 		
+		return false;
+	}
+
+}
+if ( ! function_exists( 'emulsion_is_plugin_active' ) ) {
+
+	function emulsion_is_plugin_active( $plugin ) {
+
+		return in_array( $plugin, (array) get_option( 'active_plugins', array() ) ) || emulsion_is_plugin_active_for_network( $plugin );
+	}
+
+	function emulsion_is_plugin_active_for_network( $plugin ) {
+		if ( ! is_multisite() ) {
+			return false;
+		}
+
+		$plugins = get_site_option( 'active_sitewide_plugins' );
+		if ( isset( $plugins[$plugin] ) ) {
+			return true;
+		}
+
 		return false;
 	}
 

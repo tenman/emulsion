@@ -1037,6 +1037,7 @@ body{
         width:100%;
         .wp-block-column{
             max-width:100%;
+
         }
     }
     /**
@@ -2148,7 +2149,9 @@ p.has-drop-cap:not(:focus):first-letter {
     }
 }
 .block-editor-block-list__layout{
-    --thm_content_width:100%;
+    //--thm_content_width:100%;
+    // .block-editor-block-list__block is not used in WordPress 5.4. 5.0 version, planned to be removed in the future
+    // note Currently valid for blocks such as .block columns
     .block-editor-block-list__block{
         .block-editor-block-list__empty-block-inserter{
             z-index:10;
@@ -2984,8 +2987,6 @@ p.has-drop-cap:not(:focus):first-letter {
             }
         }
         &[data-type="core/archives"]{
-            height:300px;
-            overflow-y:scroll;
             .block-editor-block-list__block-edit{
                 .block-editor-block-mover{
                     top:0;
@@ -5046,6 +5047,9 @@ p.has-drop-cap:not(:focus):first-letter {
         }
     }
 }
+.edit-post-visual-editor .components-button{
+    padding:0;
+}
 /** 5.4
  * gutenberg 7.2 editor structure changed. block-editor-block-mover block-editor-block-toolbar
  * Styles before this line are maintained for compatibility up to WP5.3, but no styles are applied after GB7.2.
@@ -5123,6 +5127,17 @@ p.has-drop-cap:not(:focus):first-letter {
                     /**
                      * Blocks
                      */
+                    [data-type]{
+                        ol,ul{
+                            li{
+                            line-height: var(--thm_content_line_height, 1.5);
+                            padding-top: calc(var(--thm_common_font_size) * var( --thm_content_line_height ) / 2);
+                            padding-bottom: calc(var(--thm_common_font_size) * var( --thm_content_line_height ) / 2);
+                            padding-left: 0.385rem;
+                            padding-right: 0.385rem;
+                            }
+                        }
+                    }
                     [data-type="core/paragraph"]{
                         margin-left: auto;
                         margin-right: auto;
@@ -5261,10 +5276,10 @@ p.has-drop-cap:not(:focus):first-letter {
                                         }
                                     }
                                     .wp-block-latest-posts__post-full-content{
-                                        @extend %die-aligns;                                   
+                                        @extend %die-aligns;
                                         margin:1.5rem auto .75rem;
                                         padding-top:1.5rem;
-                                            clear:both;
+                                        clear:both;
                                         .wp-block-cover{
                                             .wp-block-cover__inner-container{
                                                 h2,h3,h4,p,li,td,th{
@@ -5347,6 +5362,15 @@ p.has-drop-cap:not(:focus):first-letter {
                         [data-type="core/column"]{
                             padding-left:var(--thm_content_gap);
                             padding-right:var(--thm_content_gap);
+
+                            [data-type="core/column"]{
+                                padding-left:0;
+                                padding-right:0;
+                                *{
+                                    padding-left:0;
+                                    padding-right:0;
+                                }
+                            }
                         }
                     }
                     [data-type="core/legacy-widget"]{
@@ -5379,6 +5403,47 @@ p.has-drop-cap:not(:focus):first-letter {
                             width:100%;
                         }
                     }
+                    [data-type="core/gallery"]{
+                        .blocks-gallery-grid{
+                            .blocks-gallery-item{
+                                margin:var(--thm_box_gap);
+                                padding:0;
+                                text-indent:0;
+                            }
+                        }
+                    }
+
+                    [data-type="core/archives"]{
+                        .wp-block-archives{
+                            color: var(--thm_columns_section_color);
+                            word-break: break-word;
+                            overflow-wrap: break-word;
+                            width: var(--thm_content_width, 720px);
+                            max-width: 100%;
+                            box-sizing: border-box;
+                            list-style-type: none;
+                            height: auto;
+                            position: relative;
+                            margin-top: calc(1rem - 6px) auto 0;
+                            padding-left: var(--thm_box_gap);
+                            padding-right: var(--thm_box_gap);
+                            li{
+                                margin-right: calc(var(--thm_box_gap) * 2);
+                                margin-left: calc(var(--thm_box_gap) * 2);
+                                width: initial;
+                                flex: initial;
+                                display: list-item;
+                                box-sizing: border-box;
+                                text-indent:0;
+                                border:none;
+                                border-bottom:var(--thm_common_border);
+                                &:before{
+                                    content:'';
+                                    display:none;
+                                }
+                            }
+                        }
+                    }
                     /**
                      * Aligns
                      */
@@ -5402,8 +5467,10 @@ p.has-drop-cap:not(:focus):first-letter {
                             margin-left:0;
                             margin-right:0;
                         }
-                        [data-type]{
+                        [data-type="core/navigation-link"],
+                        [data-type="core/button"]{
                             // block button ,block navigation
+                            
                             &:not([data-align]){
                                 width:auto;
                                 max-width:100%;

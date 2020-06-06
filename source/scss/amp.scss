@@ -202,6 +202,7 @@ html[amp]{
     figure{
         max-width:100%;
     }
+
     blockquote,
     p{
         width:var(--thm_content_width);
@@ -210,6 +211,9 @@ html[amp]{
         padding-right:var(--thm_content_gap, 24px);
         box-sizing:border-box;
         margin: calc(var(--thm_common_font_size, 16px) * var(--thm_content_line_height, 1.5)) auto;
+    }
+    ul,ol{
+        box-sizing:border-box;
     }
     li{
         display: list-item;
@@ -235,10 +239,12 @@ html[amp]{
         height:24px;
     }
     .layout{
+        .has-black-background-color,
         .mark-dark{
             color:var(--thm_white_color);
             background:#000;
         }
+        .has-gray-background-color,
         .mark-gray{
             background: #ddd;
             color: var(--thm_black_color);
@@ -247,13 +253,16 @@ html[amp]{
         .mark-stripe{
             background:repeating-linear-gradient( 45deg, #606dbc, #606dbc 10px, #465298 10px, #465298 20px );
         }
+        .has-success-background-color,
         .mark-success,
         .mark-cool{
             background:rgba(52, 152, 219,.4);
         }
+        .has-notice-background-color,
         .mark-notice{
             background:rgba(163, 140, 8,.4);
         }
+        .has-info-background-color,
         .mark-info{
             background:rgba(22, 160, 133,.4);
         }
@@ -310,16 +319,31 @@ html[amp]{
         [class^="color"]{
             padding:1em;
         }
-        .badge amp-img{
-            border-radius:50%;
-        }
+
+        .badge{
+
+            amp-img{
+                border-radius:50%;
+
+            }
+            &:not(.wp-block-image){
+                display:inline-block;
+                width:auto;
+                padding:1.5rem;
+                margin-left:auto;
+                margin-right:auto;
+                border:var(--thm_common_border);
+            }
+        } 
     }
 
 
     /**
      * Basic Block Size
      */
-    div:not([class]),
+    .attachment-metadata,
+    figure:not(.alignleft):not(.alignright) figcaption,
+        div:not([class]),
         pre,
         .fit,
         .wp-block-calendar,
@@ -333,6 +357,7 @@ html[amp]{
         .breadcrumbs,
         .navigation,
         .posted-on,
+        nav[class|="wp-block"],
         blockquote[class|="wp-block"],
         pre[class|="wp-block"],
         ul[class|="wp-block"],
@@ -343,9 +368,47 @@ html[amp]{
         .amp-wp-meta,
         p{
         width:var(--thm_content_width, 720px);
+        max-width:100%;
         margin-left:auto;
         margin-right:auto;
     }
+    .wp-block-image{
+        text-align:center;
+        margin-left:auto;
+        margin-right:auto;
+    }
+    figure.wp-block-image{
+        figcaption{
+            display:block;
+            margin-left:auto;
+            margin-right:auto;
+            width:100%;
+            text-align:center;
+        }
+    }
+    div.wp-block-image{
+        display:inline;
+        figure{
+            display:table;
+            width:fit-content;
+        }
+        figcaption{
+            display:table-caption;
+            width:-moz-fit-content;    
+            caption-side:bottom;
+            text-align:left;
+        }
+    }
+    figcaption{
+        text-align:left;
+        width:-moz-fit-content;
+        width:fit-content;
+        margin-left:auto;
+        margin-right:auto;
+        display:table-caption;
+        caption-side:bottom;
+    }
+
     .wp-block-pullquote{
         border-top:var(--thm_common_border, 1px solid rgba(188, 188, 188, .5));
         border-bottom:var(--thm_common_border, 1px solid rgba(188, 188, 188, .5));
@@ -355,6 +418,17 @@ html[amp]{
         border-left:var(--thm_common_border, 1px solid rgba(188, 188, 188, .5));
         border-color:var(--thm_general_text_color, #333);
     }
+    .wp-block-embed__wrapper{
+        clear:both;
+    }
+    .wp-embedded-content{   
+        line-height: 1.5;
+        color: #82878c;
+        background: #fff;
+        border: 1px solid #e5e5e5;
+        padding:1.5rem;
+    }
+
     article{
         overflow:hidden;
         .has-post-image{
@@ -371,9 +445,24 @@ html[amp]{
         .posted-on{
             text-align:center;
         }
-        .posted-on .author{
-            margin-left:1rem;
-        }
+        .posted-on{
+            &.avatar-block{
+                display: flex;
+                flex-direction: column;
+                .author{
+                    padding-top:.75rem;
+                    .avatar {
+                        border-radius: 50%;
+                    }
+                }
+                .comment-link{
+                    margin-top:.75rem;
+                }
+            } 
+            .author{
+                margin-left:1rem;
+            }
+        } 
         header{
             overflow:hidden;
             .entry-title{
@@ -381,6 +470,7 @@ html[amp]{
             }
         }
         footer{
+            clear:both;
             text-align:right;
         }
     }
@@ -676,6 +766,10 @@ html[amp]{
                 }
             }
         }
+    }
+    .attachment-metadata{
+        margin-top:1.5rem;
+        margin-bottom:1.5rem;
     }
     .wp-block-button{
         // old button
@@ -1111,11 +1205,7 @@ html[amp]{
             }
         }
     }
-    .wp-block-image{
-        text-align:center;
-        margin-left:auto;
-        margin-right:auto;
-    }
+
     div.gallery{
         //short code gallery
         margin-left:auto;
@@ -2238,4 +2328,27 @@ div.wp-block-archives{
             margin-right: auto;
         }
     }
+}
+/**
+ * Centerling child elements
+ * ========================================================================== */
+.centered{
+    display: -webkit-box;
+    -webkit-box-pack: center;
+    -webkit-box-align: center;
+    -webkit-box-sizing:border-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -ms-flex-direction:column;
+    flex-direction:column;
+    height:100%;
+    box-sizing:border-box;
+
+}
+.wp-block-group.centered{
+    text-align:center;
 }

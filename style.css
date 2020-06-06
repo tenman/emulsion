@@ -5,7 +5,7 @@ Theme URI: https://www.tenman.info/wp3/emulsion
 Description: block editor, classic editor both supports. Conventional, Image Media New Block Type Image Both media can be displayed correctly.Theme can stop at each theme style page for page builder users. Customizer can easily view changes with automatic preview redirection.Theme is designed with the goal of minimizing user frustration.
 Author: Tenman
 Author URI: https://www.tenman.info/wp3/
-Version: 1.3.6
+Version: 1.3.7
 Tags: one-column, two-columns, grid-layout,left-sidebar, right-sidebar,custom-background, custom-colors, custom-header,custom-logo, custom-menu, editor-style, featured-image-header, featured-images, flexible-header, footer-widgets, full-width-template, post-formats, sticky-post, theme-options, threaded-comments, translation-ready
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -66,10 +66,10 @@ body .header-is-light ~ .scroll-button-top:before {
     margin: auto;
 }
 .header-layer.header-image-active .header-layer-nav-menu .nav-menu-child-opener[type="checkbox"]:checked ~ label:before,
-body.is-dark.metabox-reset-post-presentation .header-layer-site-title-navigation .menu .nav-menu-child-opener[type="checkbox"]:checked ~ label:before,
+/*body.is-dark.metabox-reset-post-presentation .header-layer-site-title-navigation .menu .nav-menu-child-opener[type="checkbox"]:checked ~ label:before,*/
 body .header-is-dark .header-layer-site-title-navigation .menu .nav-menu-child-opener[type="checkbox"]:checked ~ label:before,
 body .header-layer.template-part-header-custom + .primary-menu-wrapper.menu-is-dark .menu.wp-nav-menu .nav-menu-child-opener[type="checkbox"]:checked ~ label:before,
-body.is-dark.metabox-reset-post-presentation .header-layer.template-part-header-custom + .primary-menu-wrapper .menu.wp-nav-menu .nav-menu-child-opener[type="checkbox"]:checked ~ label:before,
+/*body.is-dark.metabox-reset-post-presentation .header-layer.template-part-header-custom + .primary-menu-wrapper .menu.wp-nav-menu .nav-menu-child-opener[type="checkbox"]:checked ~ label:before,*/
 body.is-dark .footer-widget-area.sidebar-is-default .widget_nav_menu .menu-item .nav-menu-child-opener[type="checkbox"]:checked ~ label:before,
 body.is-dark .sidebar-widget-area.sidebar-is-default .widget_nav_menu .menu-item .nav-menu-child-opener[type="checkbox"]:checked ~ label:before,
 body.is-dark body .template-part-widget-footer.sidebar-is-default .widget_nav_menu .menu-item .nav-menu-child-opener[type="checkbox"]:checked ~ label:before,
@@ -81,6 +81,12 @@ body > header.template-part-header.header-is-dark .header-layer-site-title-navig
 body.has-category-colors.category > header.header-layer.template-part-header .header-layer-site-title-navigation .nav-menu-child-opener[type="checkbox"]:checked ~ label:before {
     content: ' ';
     background: url("./images/svg/arrow-up.svg#white");
+    background-size: contain
+}
+body.is-dark.metabox-reset-post-presentation .header-layer-site-title-navigation .menu .nav-menu-child-opener[type="checkbox"]:checked ~ label:before,
+body.is-dark.metabox-reset-post-presentation .header-layer.template-part-header-custom + .primary-menu-wrapper .menu.wp-nav-menu .nav-menu-child-opener[type="checkbox"]:checked ~ label:before{
+    content: ' ';
+    background: url("./images/svg/arrow-up.svg");
     background-size: contain
 }
 body .header-is-dark ~ .scroll-button-top:before {
@@ -142,7 +148,7 @@ body.is-light.metabox-reset-post-presentation .header-layer-site-title-navigatio
 body.is-dark.metabox-reset-post-presentation .header-layer-site-title-navigation .menu .nav-menu-child-opener-label:before,
 body .header-is-dark .header-layer-site-title-navigation .menu .nav-menu-child-opener-label:before,
 body .header-layer.template-part-header-custom + .primary-menu-wrapper.menu-is-dark .menu.wp-nav-menu .nav-menu-child-opener-label:before,
-body.is-dark.metabox-reset-post-presentation .header-layer.template-part-header-custom + .primary-menu-wrapper .menu.wp-nav-menu .nav-menu-child-opener-label:before,
+/*body.is-dark.metabox-reset-post-presentation .header-layer.template-part-header-custom + .primary-menu-wrapper .menu.wp-nav-menu .nav-menu-child-opener-label:before,*/
 body.is-dark .footer-widget-area.sidebar-is-default .widget_nav_menu .menu-item .nav-menu-child-opener-label:before,
 body.is-dark .sidebar-widget-area.sidebar-is-default .widget_nav_menu .menu-item .nav-menu-child-opener-label:before,
 body.is-dark body .template-part-widget-footer.sidebar-is-default .widget_nav_menu .menu-item .nav-menu-child-opener-label:before,
@@ -156,6 +162,13 @@ body > header.template-part-header.header-is-dark .header-layer-site-title-navig
 body > header.header-layer.header-is-dark .menu .nav-menu-child-opener-label:before,
 body.has-category-colors.category > header.header-layer.template-part-header .header-layer-site-title-navigation .nav-menu-child-opener-label:before {
     background: url(./images/svg/arrow-down.svg#white);
+    background-size: contain;
+    filter: none;
+    -webkit-filter: none
+}
+
+body.is-dark.metabox-reset-post-presentation .header-layer.template-part-header-custom + .primary-menu-wrapper .menu.wp-nav-menu .nav-menu-child-opener-label:before{
+    background: url(./images/svg/arrow-down.svg);
     background-size: contain;
     filter: none;
     -webkit-filter: none

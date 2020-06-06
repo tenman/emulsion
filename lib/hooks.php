@@ -667,8 +667,10 @@ body{
 	--thm_social_icon_color:#666;
 	--thm_sidebar_link_color:#666;
 	--thm_sidebar_text_color:#333;
+	--thm_sidebar_hover_color:#333;
 	--thm_header_background_gradient_color:#fff;
 	--thm_header_text_color:{$header_text_color};
+	--thm_columns_section_link_color:#666;
 }
 main{
 	/*--thm_header_text_color:#333;*/
@@ -680,7 +682,9 @@ VARIABLES;
 		$responsive_break_point	 = absint( $responsive_break_point );
 
 		$theme_style =<<<THEME_STYLE
-				
+body:not(.emulsion-addons) .relate-post-no-icon{
+	background:#333;
+}
 body:not(.emulsion-addons) .stream .content p{
 	max-height:calc( var(--thm_common_font_size) * var(--thm_content_line_height) * 2);
 	overflow:hidden;
