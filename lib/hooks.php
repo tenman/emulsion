@@ -22,7 +22,7 @@ function emulsion_hooks_setup() {
 	add_action( 'customize_controls_enqueue_scripts', 'emulsion_customizer_controls_script' );
 	add_action( 'customize_controls_enqueue_scripts', 'emulsion_customizer_controls_style' );
 	add_filter( 'theme_templates', 'emulsion_theme_templates' );
-	
+
 	/**
 	 * Scripts
 	 */
@@ -146,6 +146,11 @@ if ( ! function_exists( 'emulsion_body_class' ) ) {
 					emulsion_the_theme_supports( 'sidebar' ) &&
 					$logged_in &&
 					$metabox_post_control ? 'emulsion-has-sidebar' : 'emulsion-no-sidebar';
+		}
+
+		if( get_theme_support( 'align-wide' ) ) {
+
+			$classes[] = 'enable-alignfull';
 		}
 
 		return $classes;
@@ -599,337 +604,65 @@ if ( ! function_exists( 'emulsion_theme_styles' ) ) {
 
 	function emulsion_theme_styles() {
 
-		$css_variables_values = array(
-			'emulsion_heading_font_scale',
-			'emulsion_heading_font_base',
-			'emulsion_header_media_max_height',
-			'emulsion_post_display_date',
-			'emulsion_post_display_author',
-			'emulsion_post_display_category',
-			'emulsion_post_display_tag',
-			'emulsion_favorite_color_palette',
-			'emulsion_header_gradient',
-			'emulsion_content_margin_top',
-			'emulsion_general_text_color',
-			'emulsion_general_link_hover_color',
-			'emulsion_general_link_color',
-			'emulsion_excerpt_linebreak',
-			'emulsion_sidebar_background',
-			'emulsion_primary_menu_background',
-			'emulsion_comments_bg',
-			'emulsion_relate_posts_bg',
-			'emulsion_block_media_text_section_bg',
-			'emulsion_block_media_text_section_height',
-			'emulsion_block_columns_section_bg',
-			'emulsion_block_columns_section_height',
-			'emulsion_block_gallery_section_bg',
-			'emulsion_block_gallery_section_height',
-			'emulsion_header_background_color',
-			'emulsion_sidebar_position',
-			'emulsion_common_font_size',
-			'emulsion_common_font_family',
-			'emulsion_heading_font_family',
-			'emulsion_heading_font_weight',
-			'emulsion_heading_font_transform',
-			'emulsion_widget_meta_font_size',
-			'emulsion_widget_meta_font_family',
-			'emulsion_widget_meta_font_transform',
-			'emulsion_layout_homepage',
-			'emulsion_layout_date_archives',
-			'emulsion_layout_category_archives',
-			'emulsion_layout_tag_archives',
-			'emulsion_layout_author_archives',
-			'emulsion_layout_posts_page',
-			'emulsion_content_width',
-			'emulsion_box_gap',
-			'emulsion_main_width',
-			'emulsion_sidebar_width', );
+	 if ( ! empty( get_theme_mod( 'emulsion__css_variables' ) ) ) {
 
-		$rule_set = '';
-
-		foreach ( $css_variables_values as $theme_mod_name ) {
-
-			$rule_set .=  emulsion_make_css_variable( $theme_mod_name );
-		}
-
-		$header_text_color		 = sanitize_text_field( emulsion_header_text_color_fallback() );
-
-		$variables = <<<VARIABLES
-
-body{
-	{$rule_set}
-	--thm_primary_menu_link_color:#666;
-	--thm_background_color: #fff;
-	--thm_gallery_section_bg:#fff;
-	--thm_media_text_section_bg:#fff;
-	--thm_columns_section_bg:#fff;
-	--thm_columns_section_color:#333;
-	--thm_social_icon_color:#666;
-	--thm_sidebar_link_color:#666;
-	--thm_sidebar_text_color:#333;
-	--thm_sidebar_hover_color:#333;
-	--thm_header_background_gradient_color:#fff;
-	--thm_header_text_color:{$header_text_color};
-	--thm_columns_section_link_color:#666;
-}
-main{
-	/*--thm_header_text_color:#333;*/
-}
-VARIABLES;
-
-
+		$variables				 = get_theme_mod( 'emulsion__css_variables' );
 		$responsive_break_point	 = emulsion_theme_default_val( 'emulsion_content_width' ) + emulsion_theme_default_val( 'emulsion_sidebar_width' ) + emulsion_theme_default_val( 'emulsion_common_font_size' );
 		$responsive_break_point	 = absint( $responsive_break_point );
+		$background_color		 = ! empty( sanitize_hex_color_no_hash( get_background_color() ) )
+				? 'background:'. sanitize_hex_color( sprintf('#%1$s', get_background_color() ) )
+				: '';
+		$header_textcolor		 = ! empty( sanitize_hex_color_no_hash( get_header_textcolor() ) )
+				? 'color:'. sanitize_hex_color( sprintf('#%1$s', get_header_textcolor() ) )
+				: '';
 
-		$theme_style =<<<THEME_STYLE
-body:not(.emulsion-addons) .relate-post-no-icon{
-	background:#333;
-}
-body:not(.emulsion-addons) .stream .content p{
-	max-height:calc( var(--thm_common_font_size) * var(--thm_content_line_height) * 2);
-	overflow:hidden;
-}
-body:not(.emulsion-addons) .grid .entry-content p{
-	max-height:calc( var(--thm_common_font_size) * var(--thm_content_line_height) * 4);
-	overflow:hidden;
-}
-body:not(.emulsion-addons) .wp-block-latest-posts .wp-block-latest-posts__post-excerpt{
-	max-height:calc( var(--thm_meta_data_font_size) * var(--thm_content_line_height) * 4);
-	overflow:hidden;			
-}
-body:not(.emulsion-addons).home .excerpt .entry-content p{
-	width:-moz-fit-content;
-	width:fit-content;
-	max-width:var(--thm_content_width);
-}
-body:not(.emulsion-addons) > header.header-layer .search-drawer h4,
-body:not(.emulsion-addons) > header.header-layer .search-drawer a{
-		color:var(--thm_primary_menu_link_color);
-}
-.on-trancate{
-	display:block;
-	overflow:hidden;
-}
+		$customize_saved =<<< CUSTOMIZED_CSS
+{$variables}
 body:not(.emulsion-addons){
-	background:var(--thm_background_color);
+	{$background_color};
 }
-body:not(.emulsion-addons).emulsion-has-sidebar .sidebar-widget-area{
-	background:var(--thm_sidebar_bg_color);
+body:not(.emulsion-addons) > header.header-layer .site-description,
+body:not(.emulsion-addons) > header.header-layer .site-title-link{
+	{$header_textcolor};
 }
-body:not(.emulsion-addons) .page-wrapper article header .entry-meta .cat-item a:hover {
-    color: var(--thm_white_color);
-	background:var(--thm_gray_color);
-}
-.customize-partial-edit-shortcuts-shown{
-	/* customizer preview */
-	background:var(--thm_white_color);
-}
-body:not(.emulsion-addons) .wp-block-table table td{
-	min-width:71px;
-	height:min-content;
-}
-body:not(.emulsion-addons) .wp-block-navigation__container{
-	width:100%;
-	padding-left:0;
-	padding-right:0;
-}
-body:not(.emulsion-addons) span.next.text,
-body:not(.emulsion-addons) span.prev.text{
-	background:var(--thm_white_color);
-}
-body:not(.emulsion-addons) .trancate-heading{
-	/* when javascript off */
-	visibility:visible;
-}
-body:not(.emulsion-addons).on-scroll .menu-placeholder .toc ul li.toc-active a{
-	color:#333;
-}
+.blog:not(.emulsion-addons) .excerpt .has-post-thumbnail footer,
+.blog:not(.emulsion-addons) .excerpt .has-post-thumbnail .entry-content,
+.screen-reader-text {
+    clip:rect(1px,1px,1px,1px);
+    clip-path:polygon(0px 0px,0px 0px,0px 0px,0px 0px);
+    height:1px;
+    overflow:hidden;
+    position:absolute!important;
+    white-space:nowrap;
+    width:1px;
 
-.stream-wrapper	h2{
-	font-size:24px;
+    &:focus {
+        clip:auto!important;
+        clip-path:none;
+        display:block;
+        height:auto;
+        left:5px;
+        padding:0 .3em;
+        top:5px;
+        width:auto;
+        z-index:100000;
+    }
 }
-body:not(.emulsion-addons) div.gallery{
-	/* shortcode gallery */
-	display:flex;
-	flex-wrap:wrap;
-}
-body:not(.emulsion-addons) div.gallery figure{
-	flex:0 0 auto;
-	display:inline-block;
-}
-body:not(.emulsion-addons) div.gallery figure a,
-body:not(.emulsion-addons) div.gallery figure .gallery-icon{
-	display:block;
-	width:100%;
-	height:100%;
-}
-body:not(.emulsion-addons) div.gallery figure img{
-	-o-object-fit:cover;
-   object-fit:cover;
-
-}
-body:not(.emulsion-addons) .wp-block-media-text{
-	margin-left:auto;
-	margin-right:auto;
-}
-body:not(.emulsion-addons) .attachment .attachment-image{
-	margin-top:0;
-}
-body:not(.emulsion-addons) .wp-block-archives.wp-block-archives-list li,
-body:not(.emulsion-addons) .entry-content .wp-block-archives.wp-block-archives-list{
-	height:3rem;
-}
-body:not(.emulsion-addons) .wp-block-button.is-style-outline .wp-block-button__link{
-	margin-bottom:-8px;
-}
-body:not(.emulsion-addons) .post-password-required .theme-message .post-password-form .fields br{
-	display:none;
-}
-body:not(.emulsion-addons) .alignwide,
-body:not(.emulsion-addons) .wp-block-media-text.alignwide{
-	width: calc(var(--thm_content_width) + var(--thm_align_offset));
-	max-width:100%;
-}
-body:not(.emulsion-addons).search-results article header.has-post-image{
-	padding-top:150px;
-	padding-bottom:150px;
-}
-body:not(.emulsion-addons) img{
-	max-width:100%;
-	height:auto;
-}
-body.emulsion-no-sidebar:not(.emulsion-addons) .alignfull{
-	width:100vw;
-	max-width:none;
-	position:relative;
-}
-body.emulsion-has-sidebar:not(.emulsion-addons) .alignfull{
-	width:calc(100vw - var(--thm_sidebar_width) );
-
+body:not(.emulsion-addons) .grid article header.has-post-image:before{
+	top:0;
 }
 @media screen and (max-width: {$responsive_break_point}px) {
 	body.emulsion-has-sidebar:not(.emulsion-addons) .alignfull{
 		width:100vw;
 	}
 }
-body:not(.emulsion-addons).home .excerpt article:not( .has-post-thumbnail ) header{
-	padding-top:3rem;
-}
-body:not(.emulsion-addons) .more-link{
-	display:block;
-	margin-left:auto;
-	margin-right:auto;
-	width:var(--thm_content_width);
-	max-width:100%;
-}
+CUSTOMIZED_CSS;
 
-body:not(.emulsion-addons) .header-layer{
-	min-height:80px;
-}
-body:not(.emulsion-addons) .template-part-header-custom .wp-custom-header,
-body:not(.emulsion-addons) .template-part-header-custom .wp-post-image{
-	filter: brightness(0.7);
-}
-body:not(.emulsion-addons) .template-part-header-custom .wp-custom-header,
-body:not(.emulsion-addons) .template-part-header-custom img{
-
-}
-
-body:not(.emulsion-addons) .template-part-header-custom .post-featured-image ~ .header-text,
-body:not(.emulsion-addons) .template-part-header-custom .wp-custom-header ~ .header-text,
-body:not(.emulsion-addons) .template-part-header-custom img ~ .header-text{
-	position:absolute;
-	background:transparent;
-}
-body:not(.emulsion-addons) header:not(.has-header-text-color).template-part-header-custom div:nth-child(2).entry-text .multiline-text-overflow,
-body:not(.emulsion-addons) header:not(.has-header-text-color).template-part-header-custom div:nth-child(2).entry-text *,
-body:not(.emulsion-addons) header:not(.has-header-text-color).template-part-header-custom  .header-text .site-title-link,
-body:not(.emulsion-addons) header:not(.has-header-text-color).template-part-header-custom .header-text a,
-body:not(.emulsion-addons) header:not(.has-header-text-color).template-part-header-custom .entry-text a,
-body:not(.emulsion-addons) header:not(.has-header-text-color).template-part-header-custom .header-text,
-body:not(.emulsion-addons) header:not(.has-header-text-color).template-part-header-custom .header-text .site-description,
-body:not(.emulsion-addons) header:not(.has-header-text-color).template-part-header-custom .header-text .site-title-text,
-body:not(.emulsion-addons) header:not(.has-header-text-color).template-part-header-custom .header-text a,
-body:not(.emulsion-addons) header:not(.has-header-text-color).template-part-header-custom .entry-text a,
-body:not(.emulsion-addons) header:not(.has-header-text-color).template-part-header-custom .header-text,
-body:not(.emulsion-addons) header:not(.has-header-text-color).template-part-header-custom .header-text .site-description,
-body:not(.emulsion-addons) header:not(.has-header-text-color).template-part-header-custom .header-text .site-title-text{
-	color:var(--thm_black_color);
-}
-body:not(.emulsion-addons) header:not(.has-header-text-color).template-part-header-custom .wp-custom-header:not(:empty) ~ .header-text .site-title-link,
-body:not(.emulsion-addons) header:not(.has-header-text-color).template-part-header-custom .wp-custom-header:not(:empty) ~ .header-text a,
-body:not(.emulsion-addons) header:not(.has-header-text-color).template-part-header-custom .wp-custom-header:not(:empty) ~ .entry-text a,
-body:not(.emulsion-addons) header:not(.has-header-text-color).template-part-header-custom .wp-custom-header:not(:empty) ~ .header-text,
-body:not(.emulsion-addons) header:not(.has-header-text-color).template-part-header-custom .wp-custom-header:not(:empty) ~ .header-text .site-description,
-body:not(.emulsion-addons) header:not(.has-header-text-color).template-part-header-custom .wp-custom-header:not(:empty) ~ .header-text .site-title-text,
-body:not(.emulsion-addons) header:not(.has-header-text-color).template-part-header-custom .post-featured-image:not(:empty) ~ .header-text a,
-body:not(.emulsion-addons) header:not(.has-header-text-color).template-part-header-custom .post-featured-image:not(:empty) ~ .entry-text a,
-body:not(.emulsion-addons) header:not(.has-header-text-color).template-part-header-custom .post-featured-image:not(:empty) ~ .header-text,
-body:not(.emulsion-addons) header:not(.has-header-text-color).template-part-header-custom .post-featured-image:not(:empty) ~ .header-text .site-description,
-body:not(.emulsion-addons) header:not(.has-header-text-color).template-part-header-custom .post-featured-image:not(:empty) ~ .header-text .site-title-text{
-	color:var(--thm_white_color);
-}
-body:not(.emulsion-addons) header.has-header-text-color a,
-body:not(.emulsion-addons) .header-layer.template-part-header-custom.has-header-text-color div:nth-child(2).entry-text *
-body:not(.emulsion-addons) header.has-header-text-color.template-part-header-custom .wp-custom-header:not(:empty) ~ .header-text .site-title-link,
-body:not(.emulsion-addons) header.has-header-text-color.template-part-header-custom .wp-custom-header:not(:empty) ~ .header-text a,
-body:not(.emulsion-addons) header.has-header-text-color.template-part-header-custom .wp-custom-header:not(:empty) ~ .entry-text a,
-body:not(.emulsion-addons) header.has-header-text-color.template-part-header-custom .wp-custom-header:not(:empty) ~ .header-text,
-body:not(.emulsion-addons) header.has-header-text-color.template-part-header-custom .wp-custom-header:not(:empty) ~ .header-text .site-description,
-body:not(.emulsion-addons) header.has-header-text-color.template-part-header-custom .wp-custom-header:not(:empty) ~ .header-text .site-title-text,
-body:not(.emulsion-addons) header.has-header-text-color.template-part-header-custom .post-featured-image ~ .header-text a,
-body:not(.emulsion-addons) header.has-header-text-color.template-part-header-custom .post-featured-image ~ .entry-text a,
-body:not(.emulsion-addons) header.has-header-text-color.template-part-header-custom .post-featured-image ~ .header-text,
-body:not(.emulsion-addons) header.has-header-text-color.template-part-header-custom .post-featured-image ~ .header-text .site-description,
-body:not(.emulsion-addons) header.has-header-text-color.template-part-header-custom .post-featured-image ~ .header-text .site-title-text{
-	color:var(--thm_header_text_color);
-}
-body:not(.emulsion-addons) .template-part-header-self .header-layer-site-title-navigation.is-user-header a,
-body:not(.emulsion-addons) .template-part-header-self .header-layer-site-title-navigation.is-user-header,
-body:not(.emulsion-addons).home .template-part-header .header-layer-site-title-navigation .header-text .site-title-text,
-body:not(.emulsion-addons).home .template-part-header .header-layer-site-title-navigation .header-text{
-	color:var(--thm_black_color);
-}
-body:not(.emulsion-addons) .template-part-header-self .header-layer-site-title-navigation.is-user-header:blank,
-body:not(.emulsion-addons) .template-part-header-self .header-layer-site-title-navigation.is-user-header:empty{
-	display:none;
-
-}
-body:not(.emulsion-addons) .template-part-header-self{
-	min-height:0;
-}
-body:not(.emulsion-addons) .header-layer.template-part-header-custom div:nth-child(2).entry-text{
-	position:relative;
-}
-
-body:not(.emulsion-addons) .excerpt .has-post-image{
-	position:relative;
-}
-body:not(.emulsion-addons) .excerpt footer{
-	visibility:hidden;
-}
-body:not(.emulsion-addons) .excerpt .has-post-image ~ footer,
-body:not(.emulsion-addons) .excerpt .has-post-image + .entry-content{
-	display:none;
-}
-body:not(.emulsion-addons) ul.wp-nav-menu[data-direction="horizontal"] li .sub-menu li,
-body:not(.emulsion-addons) ul.wp-nav-menu[data-direction="horizontal"] li .children li{
-	background:var(--thm_white_color);
-}
-p.mark-success:before, ul.mark-success:before, [class|="wp-block"]:not(.wp-block-cover).mark-success:before, p.mark-cool:before, ul.mark-cool:before, [class|="wp-block"]:not(.wp-block-cover).mark-cool:before, p.mark-notice:before, ul.mark-notice:before, [class|="wp-block"]:not(.wp-block-cover).mark-notice:before, p.mark-info:before, ul.mark-info:before, [class|="wp-block"]:not(.wp-block-cover).mark-info:before, p.has-alert-background-color:before, ul.has-alert-background-color:before, [class|="wp-block"]:not(.wp-block-cover).has-alert-background-color:before, p.has-notice-background-color:before, ul.has-notice-background-color:before, [class|="wp-block"]:not(.wp-block-cover).has-notice-background-color:before, p.has-info-background-color:before, ul.has-info-background-color:before, [class|="wp-block"]:not(.wp-block-cover).has-info-background-color:before, p.has-cool-background-color:before, ul.has-cool-background-color:before, [class|="wp-block"]:not(.wp-block-cover).has-cool-background-color:before, p.mark-alert:before, ul.mark-alert:before, [class|="wp-block"]:not(.wp-block-cover).mark-alert:before, p.mark-dark:before, ul.mark-dark:before, [class|="wp-block"]:not(.wp-block-cover).mark-dark:before, p.mark-gray:before, ul.mark-gray:before, [class|="wp-block"]:not(.wp-block-cover).mark-gray:before {
-  content: '';
-  left: 0;
-}
-
-THEME_STYLE;
-
-		$result =  $variables . $theme_style ;
-		$result	 = emulsion_sanitize_css( $result );
+		$result	 = emulsion_sanitize_css( $customize_saved );
 		$result	 = emulsion_remove_spaces_from_css( $result );
-
 		return $result;
+		}
 	}
-
 }
 
 if ( ! function_exists( 'emulsion_sanitize_css' ) ) {

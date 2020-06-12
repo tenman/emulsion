@@ -166,18 +166,25 @@ if ( ! function_exists( 'emulsion_theme_default_val' ) ) {
 			'emulsion_post_display_category'		 => array( 'default' => 'inherit', 'unit' => '', ), // none, inherit
 			'emulsion_post_display_tag'				 => array( 'default' => 'inherit', 'unit' => '', ), // none, inherit
 		);
+		if ( 'default' === $type ) {
 
+			$result	 = $emulsion_default_values[$name]['default'];
+			
+			return $result;
+		}
 		
 		if ( 'val' === $type ) {
 
 			$result	 = $emulsion_default_values[$name]['default'];
 			$result	 = apply_filters( $result . '_filter', $result );
+			$result = get_theme_mod( $name, $result);
 			return $result;
 		}
 		if ( 'unit_val' === $type ) {
 						
 			$result	 = $emulsion_default_values[$name]['default'];
 			$result	 = apply_filters( $result . '_filter', $result );
+			$result = get_theme_mod( $name, $result);
 			return $result . $emulsion_default_values[$name]['unit'];
 		}
 	}

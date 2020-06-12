@@ -15,7 +15,6 @@
  * .block-editor-block-list__block-edit
  * .editor-inserter-with-shortcuts__block
  * .editor-block-mover
- * .editor-inserter-with-shortcuts__block
  */
 .emulsion-gb-phase-block{
     .alignfull{
@@ -817,6 +816,9 @@ body{
             max-width:100%;
             margin-left:auto;
             margin-right:auto;
+            &[data-type="core/button"]{
+                width:auto;
+            }          
         }
         &.wp-block-button{
             padding-left:24px;
@@ -841,6 +843,11 @@ body{
             margin-left:1rem;
             padding-left:0;
             padding-right:0;
+            .is-block-content,
+            .alignleft{
+                width:100%;
+                max-width:100%;
+            }
             .block-editor-block-list__block-edit{
                 float:none;
                 margin-right:0;
@@ -869,6 +876,11 @@ body{
             margin-right:1rem;
             padding-left:0;
             padding-right:0;
+            .is-block-content,
+            .alignright{
+                width:100%;
+                max-width:100%;
+            }
             .block-editor-block-list__block-edit{
                 float:none;
                 margin-right:0;
@@ -2616,7 +2628,11 @@ p.has-drop-cap:not(:focus):first-letter {
             &[data-align="full"]{
                 height:auto;
                 overflow:visible;
+                .wp-block-image{
+                    width:100%;
+                }
                 .block-editor-block-list__block-edit{
+
                     float:none;
                     margin-right:0;
                     margin-top:2rem;
@@ -3181,7 +3197,24 @@ p.has-drop-cap:not(:focus):first-letter {
                     margin-left:40px;
                 }
             }
+            .alignwide,
+            .alignfull,
+            .wp-block-gallery,
+            .wp-block-image{
+                max-width:100% ! important;
+            }
+            li li{
+                width:100%;
+            }
+            .wp-block-cover{
+                .wp-block-cover__inner-container{
+                    h2,h3,h4,p,li,td,th{
+                        color:var(--thm_white_color);
+                    }
+                }
+            }
             [data-block]{
+
                 position: relative;
                 overflow:visible;
                 width: calc(100% - 2rem);
@@ -3220,12 +3253,14 @@ p.has-drop-cap:not(:focus):first-letter {
                             .wp-block-latest-posts__post-full-content{
                                 @extend %die-aligns;
                                 .wp-block-cover{
+
                                     .wp-block-cover__inner-container{
                                         h2,h3,h4,p,li,td,th{
                                             color:var(--thm_white_color);
                                         }
                                     }
                                 }
+
                             }
                         }
                     }
@@ -3240,6 +3275,8 @@ p.has-drop-cap:not(:focus):first-letter {
                                         }
                                     }
                                 }
+
+
                             }
                         }
                     }
@@ -5050,6 +5087,16 @@ p.has-drop-cap:not(:focus):first-letter {
 .edit-post-visual-editor .components-button{
     padding:0;
 }
+.block-editor-page:not([class*="emulsion-"]){
+    /* misc */
+    div.block-editor-block-list__layout .block-editor-block-list__block[data-type="core/image"][data-align="full"] div,
+    div.block-editor-block-list__layout .block-editor-block-list__block[data-type="core/image"][data-align="full"] .wp-block-image{
+        width:100%;
+
+    }
+
+
+}
 /** 5.4
  * gutenberg 7.2 editor structure changed. block-editor-block-mover block-editor-block-toolbar
  * Styles before this line are maintained for compatibility up to WP5.3, but no styles are applied after GB7.2.
@@ -5091,8 +5138,18 @@ p.has-drop-cap:not(:focus):first-letter {
                                 }
                             }
                         }
+
                     }
+                    &[data-type="core/gallery"], 
+                    &[data-type="core/gallery"]{
+                        // todo
+                        margin-bottom: 0;
+                        margin-left: 2rem;
+                    }
+
                 }
+
+
             }
         }
         /**
@@ -5130,11 +5187,11 @@ p.has-drop-cap:not(:focus):first-letter {
                     [data-type]{
                         ol,ul{
                             li{
-                            line-height: var(--thm_content_line_height, 1.5);
-                            padding-top: calc(var(--thm_common_font_size) * var( --thm_content_line_height ) / 2);
-                            padding-bottom: calc(var(--thm_common_font_size) * var( --thm_content_line_height ) / 2);
-                            padding-left: 0.385rem;
-                            padding-right: 0.385rem;
+                                line-height: var(--thm_content_line_height, 1.5);
+                                padding-top: calc(var(--thm_common_font_size) * var( --thm_content_line_height ) / 2);
+                                padding-bottom: calc(var(--thm_common_font_size) * var( --thm_content_line_height ) / 2);
+                                padding-left: 0.385rem;
+                                padding-right: 0.385rem;
                             }
                         }
                     }
@@ -5470,7 +5527,7 @@ p.has-drop-cap:not(:focus):first-letter {
                         [data-type="core/navigation-link"],
                         [data-type="core/button"]{
                             // block button ,block navigation
-                            
+
                             &:not([data-align]){
                                 width:auto;
                                 max-width:100%;
@@ -5586,3 +5643,4 @@ p.has-drop-cap:not(:focus):first-letter {
         }
     }
 }
+

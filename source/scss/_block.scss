@@ -200,6 +200,11 @@
                     @extend %has-sidebar-alignfull;
                 }
             }
+            .wp-block-image{
+                &.alignfull{
+                    @extend %has-sidebar-alignfull;
+                }
+            }
             .wp-block-latest-posts{
                 .wp-block-image{
                     &.alignfull{
@@ -490,6 +495,11 @@
                     max-width:100%;
                 }
             }
+        }
+        .wp-block-image{
+                &.alignfull{
+                    @extend %no-sidebar-alignfull;
+                }
         }
         .wp-block-pullquote{
             &.alignfull{
@@ -1362,8 +1372,8 @@ figure{
  * Block Cover Image
  * ========================================================================== */
 .wp-block-cover__inner-container{
-    padding-top: var(--thm_content_gap);
-    padding-bottom: var(--thm_content_gap);
+  //  padding-top: var(--thm_content_gap);
+   // padding-bottom: var(--thm_content_gap);
     h2,h3,h4{
         max-width:100%;
     }
@@ -3168,6 +3178,7 @@ h2,h3,h4{
 figure.wp-block-image{
     //default width of no set width, alignwide, alignfull style
     width:var( --thm_content_width, 720px );
+    max-width:100%;
 }
 div.wp-block-image{
 

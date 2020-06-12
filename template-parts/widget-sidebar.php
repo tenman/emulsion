@@ -12,8 +12,7 @@ if ( is_page() && emulsion_the_theme_supports('sidebar_page') ) {
 			do_action( 'emulsion_sidebar_widget_fallback', '' );
 			do_action( 'emulsion_sidebar_page_widget_fallback', '' );
 		}
-		?></ul></aside></div>	
-				<?php
+		?></ul></aside></div><?php
 	}
 } elseif( emulsion_the_theme_supports( 'sidebar' ) ) {
 
