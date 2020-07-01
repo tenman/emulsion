@@ -22,7 +22,8 @@ function emulsion_hooks_setup() {
 	add_action( 'customize_controls_enqueue_scripts', 'emulsion_customizer_controls_script' );
 	add_action( 'customize_controls_enqueue_scripts', 'emulsion_customizer_controls_style' );
 	add_filter( 'theme_templates', 'emulsion_theme_templates' );
-
+	
+	
 	/**
 	 * Scripts
 	 */
@@ -40,13 +41,12 @@ function emulsion_hooks_setup() {
 			? add_filter( 'emulsion_toc_script', 'emulsion_toc' )
 			: '';
 
-
 	if( ! emulsion_theme_addons_exists() ) {
 
 	/**
 	 * Theme Style
 	 */
-		add_filter('emulsion_inline_style','emulsion_theme_styles');
+		add_filter('emulsion_inline_style', 'emulsion_theme_styles' );
 
 	/**
 	 * CJK language ( CJK unified ideographs ) issue instant fix
@@ -89,9 +89,13 @@ function emulsion_hooks_setup() {
 		}
 
 	}
+	
+	
 
 	//JSON-LD add desscription
 	add_filter( 'amp_post_template_metadata', 'emulsion_amp_description', 10, 2 );
+	
+
 
 	do_action( 'emulsion_hooks_setup_after' );
 }
@@ -151,6 +155,11 @@ if ( ! function_exists( 'emulsion_body_class' ) ) {
 		if( get_theme_support( 'align-wide' ) ) {
 
 			$classes[] = 'enable-alignfull';
+		}
+		
+		if ( emulsion_the_theme_supports( 'block_experimentals' ) && emulsion_is_plugin_active( 'gutenberg/gutenberg.php' ) ) {
+			
+			$classes[] = 'enable-block-experimentals';
 		}
 
 		return $classes;
@@ -444,14 +453,14 @@ if ( ! function_exists( 'emulsion_lazyload' ) ) {
 					$(this).removeAttr('srcset');
 					$(this).addClass('lazyload');
 					});
-				$('article .has-post-image,.wp-block-cover').each(function (index) {
+				$('article .show-post-image,.wp-block-cover').each(function (index) {
 					var text = $(this).attr('style');
 					$(this).attr('data-src', text);
 					$(this).addClass('lazyload');
 					});
 
 					$('img.lazyload').lazyload();
-					$('article .has-post-image').lazyload();
+					$('article .show-post-image').lazyload();
 
 			});";
 		}
@@ -602,11 +611,11 @@ if ( ! function_exists( 'emulsion_make_css_variable' ) ) {
 
 if ( ! function_exists( 'emulsion_theme_styles' ) ) {
 
-	function emulsion_theme_styles() {
+	function emulsion_theme_styles( $css ) {
 
-	 if ( ! empty( get_theme_mod( 'emulsion__css_variables' ) ) ) {
-
-		$variables				 = get_theme_mod( 'emulsion__css_variables' );
+		$variables				 = false !== get_theme_mod( 'emulsion__css_variables' ) 
+				? get_theme_mod( 'emulsion__css_variables' ) 
+				: '';
 		$responsive_break_point	 = emulsion_theme_default_val( 'emulsion_content_width' ) + emulsion_theme_default_val( 'emulsion_sidebar_width' ) + emulsion_theme_default_val( 'emulsion_common_font_size' );
 		$responsive_break_point	 = absint( $responsive_break_point );
 		$background_color		 = ! empty( sanitize_hex_color_no_hash( get_background_color() ) )
@@ -615,18 +624,20 @@ if ( ! function_exists( 'emulsion_theme_styles' ) ) {
 		$header_textcolor		 = ! empty( sanitize_hex_color_no_hash( get_header_textcolor() ) )
 				? 'color:'. sanitize_hex_color( sprintf('#%1$s', get_header_textcolor() ) )
 				: '';
+	
 
 		$customize_saved =<<< CUSTOMIZED_CSS
+				
 {$variables}
-body:not(.emulsion-addons){
+.emulsion-addons-inactive body{
 	{$background_color};
 }
-body:not(.emulsion-addons) > header.header-layer .site-description,
-body:not(.emulsion-addons) > header.header-layer .site-title-link{
+.emulsion-addons-inactive body > header.header-layer .site-description,
+.emulsion-addons-inactive body body > header.header-layer .site-title-link{
 	{$header_textcolor};
 }
-.blog:not(.emulsion-addons) .excerpt .has-post-thumbnail footer,
-.blog:not(.emulsion-addons) .excerpt .has-post-thumbnail .entry-content,
+.emulsion-addons-inactive main > .excerpt .has-post-thumbnail footer,
+.emulsion-addons-inactive main > .excerpt .has-post-thumbnail .entry-content,
 .screen-reader-text {
     clip:rect(1px,1px,1px,1px);
     clip-path:polygon(0px 0px,0px 0px,0px 0px,0px 0px);
@@ -648,11 +659,11 @@ body:not(.emulsion-addons) > header.header-layer .site-title-link{
         z-index:100000;
     }
 }
-body:not(.emulsion-addons) .grid article header.has-post-image:before{
+.emulsion-addons-inactive body  .grid article header.show-post-image:before{
 	top:0;
 }
 @media screen and (max-width: {$responsive_break_point}px) {
-	body.emulsion-has-sidebar:not(.emulsion-addons) .alignfull{
+	.emulsion-addons-inactive body body.emulsion-has-sidebar .alignfull{
 		width:100vw;
 	}
 }
@@ -660,8 +671,8 @@ CUSTOMIZED_CSS;
 
 		$result	 = emulsion_sanitize_css( $customize_saved );
 		$result	 = emulsion_remove_spaces_from_css( $result );
-		return $result;
-		}
+		return $css. $result;
+
 	}
 }
 
@@ -879,3 +890,4 @@ if ( ! function_exists( 'emulsion_amp_description' ) ) {
 	}
 
 }
+

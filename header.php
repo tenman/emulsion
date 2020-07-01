@@ -14,7 +14,7 @@
 		has_action( 'wp_body_open' ) ? do_action( 'wp_body_open' ) : '';
 
 		$emulsion_header_type = is_page() ? 'page_header' : 'header';
-		
+
 		if ( is_singular() ) {
 
 			emulsion_metabox_display_control( $emulsion_header_type ) ? get_template_part( 'template-parts/header', emulsion_header_layout() ) : '';
@@ -26,7 +26,9 @@
 		emulsion_sidebar_manager();
 		?>
 		<div class="page-wrapper layout">
-		<?php if ( has_action( 'emulsion_prepend_page_wrapper' ) ) { ?>
+			<?php if ( has_action( 'emulsion_prepend_page_wrapper' ) ) { ?>
 				<div class="placeholder-header"><?php do_action( 'emulsion_prepend_page_wrapper' ); ?></div>
-		<?php } ?>
-			<main id="main">			
+			<?php } ?>
+			<main id="main">
+				
+				

@@ -227,6 +227,7 @@ if ( ! function_exists( 'emulsion_the_theme_supports' ) ) {
 			'stream'					 => array( 'default' => array( array( 'category', 'post_tag', 'author' ) ) ),
 			'metabox'					 => array( 'default' => false ), // required emulsion-addons,amp plugin
 			'viewport'					 => array( 'default' => true, ),
+			'block_experimentals'		 => array( 'default' => true, ),
 		);
 
 		/**

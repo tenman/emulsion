@@ -41,11 +41,6 @@
  * ========================================================================== */
 .layout-list.excerpt{
     &.blog{
-        .entry-content{
-            .content-excerpt:not(:empty){
-                padding-bottom:3rem;
-            }
-        }
         article{
             position:relative;
             & > header{
@@ -54,13 +49,13 @@
                     margin-left:auto;
                     margin-right:auto;
                 }
-                &.has-post-image{
+                &.show-post-image{
                     margin-bottom:var(--thm_box_gap);
                 }
-                &.has-post-image ~ .entry-content{
+                &.show-post-image ~ .entry-content{
                     display:none;
                 }
-                &.has-post-image ~ footer{
+                &.show-post-image ~ footer{
                     position:absolute;
                     bottom:0;
                     left:0;
@@ -91,7 +86,7 @@
             article{
                 header{
                     display:none;
-                    &.has-post-image{
+                    &.show-post-image{
                         display:block;
                     }
                 }
@@ -105,13 +100,13 @@
                     margin-left:auto;
                     margin-right:auto;
                 }
-                &.has-post-image{
+                &.show-post-image{
                     margin-bottom:var(--thm_box_gap);
                 }
-                &.has-post-image ~ .entry-content{
+                &.show-post-image ~ .entry-content{
                     display:none;
                 }
-                &.has-post-image ~ footer{
+                &.show-post-image ~ footer{
                     position:absolute;
                     bottom:0;
                 }
@@ -138,7 +133,7 @@
             .page-title-block{
                 & + div{
                     article {
-                        header:not(has-post-image){
+                        header:not(show-post-image){
                         }
                     }
                 }
@@ -151,13 +146,13 @@
                         margin-left:auto;
                         margin-right:auto;
                     }
-                    &.has-post-image{
+                    &.show-post-image{
                         margin-bottom:var(--thm_box_gap);
                     }
-                    &.has-post-image ~ .entry-content{
+                    &.show-post-image ~ .entry-content{
                         display:none;
                     }
-                    &.has-post-image ~ footer{
+                    &.show-post-image ~ footer{
                         position:absolute;
                         bottom:0;
                     }
@@ -204,23 +199,9 @@
             }
         }
     }
-    &.search article.has-post-thumbnail,
-    &.home article.has-post-thumbnail,
-    &.archive article.has-post-thumbnail{
-        border:none;
-    }
-    &.search article header,
-    &.home article header,
-    &.archive article header{
-        padding-top:6rem;
-    }
-    &.search article .has-post-image,
-    &.home article .has-post-image,
-    &.archive article .has-post-image{
-        padding-top:150px;
-    }
 }
 @media screen and (max-width: 640px){
+    .emulsion-addons-inactive,
     .layout-list{
         .excerpt{
             .content-excerpt{
@@ -249,7 +230,7 @@
             article{
                 header{
                     display:none;
-                    &.has-post-image{
+                    &.show-post-image{
                         display:block;
                     }
                 }
@@ -291,16 +272,6 @@
     &.archive article.has-post-thumbnail{
         border:none;
     }
-    &.search article header,
-    &.home article header,
-    &.archive article header{
-        padding-top:6rem;
-    }
-    &.search article .has-post-image,
-    &.home article .has-post-image,
-    &.archive article .has-post-image{
-        padding-top:150px;
-    }
 }
 /**
  * No Sidebar
@@ -311,7 +282,7 @@
         & > .post{
             article{
                 header{
-                    &.has-post-image{
+                    &.show-post-image{
                         background-attachment:fixed;
                     }
                 }
@@ -366,10 +337,29 @@
 /**
  * Grid Layout
  * ========================================================================== */
+/**
+ * Grid
+ * ========================================================================== */
 .grid{
+
+    article{
+        header{
+
+        }
+    }
+}
+.grid{
+    .theme-message.aligncenter{
+        max-width:100%;
+        border:none;
+    }
     article{
         header{
             width:100%;
+            display: block;
+            margin-top: 0;
+            position: relative;
+            background-size: cover;
             .posted-on{
                 color:var(--thm_white_color);
                 a{
@@ -381,13 +371,16 @@
                     color:var(--thm_white_color);
                 }
             }
-            &.has-post-image{
+            &.show-post-image{
                 background-size:cover;
                 background-repeat:no-repeat;
-                background-position: center center;
                 &:before{
                     background-color:var(--thm_header_image_dim);
                 }
+                /**
+                 * grid header background position  must be center
+                 */
+                background-position:49.5% 50% ! important;
             }
         }
         footer{
@@ -539,6 +532,8 @@ article{
     }
     .entry-meta{
         @extend %block;
+        margin-top:0;
+        margin-bottom:0;
         margin-left:auto;
         margin-right:auto;
         li{
@@ -578,8 +573,23 @@ article{
     header{
         @include clearfix;
         display:block;
-        padding-top:3rem;
-        padding-bottom:3rem;
+        display: -webkit-box;
+        -webkit-box-pack: center;
+        -webkit-box-align: center;
+        -webkit-box-sizing:border-box;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-align: center;
+        align-items: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        -ms-flex-direction:column;
+        flex-direction:column;
+        min-height:25vh;
+        box-sizing:border-box;
+
+
+        padding-bottom:0;
         margin-top:0;
         position:relative;
         background-size:cover;
@@ -590,6 +600,7 @@ article{
             width:100%;
             height:100%;
             z-index:0;
+            top:0;
         }
         &.fit{
             padding-left:0;
@@ -666,25 +677,58 @@ main > .post{
 .custom-post-type,
 .full_text,
 .page,
-.excerpt,
+body.excerpt,
 .post{
     article{
         header{
-            &.has-post-image{
+            &.show-post-image{
                 position:relative;
-                padding-top:150px;
-                padding-bottom:150px;
+                min-height:75vh;
+
                 background-size:cover;
                 background-repeat:no-repeat;
                 background-position: center center;
                 &:before{
                     position:absolute;
-                    margin-top:-151px;
                     background-color:var(--thm_header_image_dim);
                 }
             }
         }
     }
+}
+.emulsion-addons-inactive{
+    .excerpt{
+        article{
+            header{
+                &.show-post-image{
+                    position:relative;                   
+                    display: -webkit-box;
+                    -webkit-box-pack: center;
+                    -webkit-box-align: center;
+                    -webkit-box-sizing:border-box;
+                    display: -ms-flexbox;
+                    display: flex;
+                    -ms-flex-align: center;
+                    align-items: center;
+                    -ms-flex-pack: center;
+                    justify-content: center;
+                    -ms-flex-direction:column;
+                    flex-direction:column;
+                    min-height:75vh;
+                    box-sizing:border-box;
+                    
+                    background-size:cover;
+                    background-repeat:no-repeat;
+                    background-position: center center;
+                    &:before{
+                        position:absolute;
+                        margin-top:0;
+                        background-color:var(--thm_header_image_dim);
+                    }
+                }
+            }
+        }  
+    }  
 }
 .author .author{
     display:none;
@@ -721,6 +765,9 @@ main > .post{
         padding:0 1rem .75rem 0;
     }
 }
+
+
+
 .entry-content {
     margin-left:auto;
     margin-right:auto;
@@ -844,6 +891,7 @@ main > .post{
             display:block;
         }
     }
+
     .alignleft{
         &.size1of3,
         &.size1of4,

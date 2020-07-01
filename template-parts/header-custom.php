@@ -34,7 +34,7 @@
 		?>
 	<div class="<?php echo esc_attr( emulsion_element_classes( 'primary' ) ); ?>"> 
 		<input type="checkbox" id="primary-menu-controll" name="primary-menu-controll" data-skin="hamburger" data-mod="button" /><label for="primary-menu-controll"><span tabindex="0"></span></label><?php
-	$defaults = array(
+	$emulsion_menu_args = array(
 		'menu_class'	 => 'menu wp-nav-menu primary',
 		'container'		 => 'nav',
 		'fallback_cb'	 => '',
@@ -47,7 +47,7 @@
 		'walker'		 => '',
 		'item_spacing'	 => 'discard',
 	);
-	wp_nav_menu( $defaults );
+	wp_nav_menu( $emulsion_menu_args );
 	?>
 		<div class="menu-placeholder"><?php
 		do_action( 'emulsion_header_menu_placeholder' );

@@ -95,7 +95,7 @@
     margin-top:var(--thm_content_gap);
     .article-wrapper{
         .format-gallery{
-            .has-post-image:before{
+            .show-post-image:before{
                 background-color: var(--thm_header_image_dim);
                 content: ' ';
                 position: absolute;
@@ -258,7 +258,7 @@
                             }
                         }
                         [class|="wp-block"]:not(.alignright),
-                        [class|="wp-block"]:not(.alignleft){
+                            [class|="wp-block"]:not(.alignleft){
                             margin-left:auto;
                             margin-right:auto;
                             max-width:100%;
@@ -507,7 +507,7 @@ body.page{
     .header-layer div.entry-text {
         margin-left: auto;
         margin-right: auto;
-        margin-bottom: 5rem;
+
     }
 }
 .emulsion-has-sidebar{
@@ -575,6 +575,9 @@ body.page{
             max-width:100%;
             figcaption{
                 @extend %block;
+                margin:.75rem auto;
+                width:-moz-fit-content;
+                width:fit-content;
             }
             a{
                 display:block;
@@ -612,7 +615,17 @@ body.page{
                     text-transform:var(--thm_meta_data_font_transform);
                 }
                 .description-text{
+                    margin-bottom:.75rem;
                     font-size:var(--thm_common_font_size);
+                    .label{
+                        width:120px;
+                        display:inline-block;
+                        font-weight:700;
+                    }
+                }
+                .alt-text{
+                    font-size:var(--thm_common_font_size);
+                    margin-bottom:.75rem;
                     .label{
                         width:120px;
                         display:inline-block;
@@ -818,4 +831,26 @@ body.page{
             }
         }
     }
+}
+.emulsion-header-has-title,
+.emulsion-layout-has-title{
+    .page-title-block{
+        position:relative;                   
+        display: -webkit-box;
+        -webkit-box-pack: center;
+        -webkit-box-align: center;
+        -webkit-box-sizing:border-box;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-align: center;
+        align-items: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        -ms-flex-direction:column;
+        flex-direction:column;
+        min-height:25vh;
+        box-sizing:border-box;
+
+    }
+
 }

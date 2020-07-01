@@ -30,8 +30,17 @@ if ( ! emulsion_the_theme_supports( 'enqueue' ) ) {
 			}
 
 			echo '<ul class="taxonomy">';
-			wp_list_categories( array( 'hierarchical' => false, 'title_li' => '<h4>' . esc_html__( 'Categories', 'emulsion' ) . '</h4>', 'hide_title_if_empty' => true ) );
-			wp_list_categories( array( 'taxonomy' => 'post_tag', 'hierarchical' => false, 'title_li' => '<h4>' . esc_html__( 'Tags', 'emulsion' ) . '</h4>', 'hide_title_if_empty' => true ) );
+			wp_list_categories( 
+					array( 'hierarchical' => false, 
+						'title_li' => '<h4>' . esc_html__( 'Categories', 'emulsion' ) . '</h4>', 
+						'hide_title_if_empty' => true , 
+						'show_option_none' => '' ) );
+			wp_list_categories( 
+					array( 'taxonomy' => 'post_tag', 
+						'hierarchical' => false, 
+						'title_li' => '<h4>' . esc_html__( 'Tags', 'emulsion' ) . '</h4>', 
+						'hide_title_if_empty' => true , 
+						'show_option_none' => '' ) );
 			echo '</ul>';
 			?></div>
 		<?php do_action('emulsion_drawer_after');?><span class="drawer-end" tabindex="0"></span>

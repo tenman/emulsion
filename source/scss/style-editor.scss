@@ -16,13 +16,18 @@
  * .editor-inserter-with-shortcuts__block
  * .editor-block-mover
  */
+a:any-link{
+    text-decoration:none;
+}
 .emulsion-gb-phase-block{
     .alignfull{
         //when block advanced class, conflict front end style.
         // GB7.7 background dim overflow
         position:static ! important;
+
     }
 }
+
 body{
     .edit-post-layout .components-editor-notices__snackbar{
         .components-button{
@@ -771,6 +776,13 @@ body{
             height: 250px;
             outline: 0;
         }
+        .wpview,
+        .wpview-sandbox,
+        #wpview-iframe-sandbox{
+            overflow: visible!important;
+            height: 380px;
+        }
+
         /* rtl */
         .rtl .gallery .gallery-item {
             float: right;
@@ -5085,7 +5097,14 @@ p.has-drop-cap:not(:focus):first-letter {
     }
 }
 .edit-post-visual-editor .components-button{
-    padding:0;
+    padding:0 8px;
+}
+
+div.components-notice{
+    margin: 5px 0px 16px;
+    .components-notice__content{
+        margin:4px 4px 4px 0;
+    }
 }
 .block-editor-page:not([class*="emulsion-"]){
     /* misc */
@@ -5175,6 +5194,15 @@ p.has-drop-cap:not(:focus):first-letter {
                      * core/list
                      */
                     @extend %list-effect-editor;
+                    
+                    ol:not(.list-style-initial),
+                        ul:not(.list-style-initial){
+                        &[data-type="core/list"]{
+                            li{
+                                text-indent:0;
+                            }
+                        }
+                    }
                     /**
                      * block content
                      */
@@ -5210,7 +5238,9 @@ p.has-drop-cap:not(:focus):first-letter {
                         }
                     }
                     [data-type="core/code"]{
-                        padding:1rem;
+                        code{
+                            padding:1rem;
+                        }
                     }
                     ul.p-block-social-links{
                         list-style-type:none;
@@ -5338,6 +5368,9 @@ p.has-drop-cap:not(:focus):first-letter {
                                         padding-top:1.5rem;
                                         clear:both;
                                         .wp-block-cover{
+                                            position:relative;
+                                            max-width: 100%;
+                                            box-sizing: border-box;
                                             .wp-block-cover__inner-container{
                                                 h2,h3,h4,p,li,td,th{
                                                     color:var(--thm_white_color);
@@ -5360,6 +5393,7 @@ p.has-drop-cap:not(:focus):first-letter {
                                     .wp-block-latest-posts__post-full-content{
                                         @extend %die-aligns;
                                         .wp-block-cover{
+                                            position:relative;
                                             .wp-block-cover__inner-container{
                                                 h2,h3,h4,p,li,td,th{
                                                     color:var(--thm_white_color);
@@ -5631,7 +5665,7 @@ p.has-drop-cap:not(:focus):first-letter {
                     }
                     & > .wp-block[data-align="full"] {
                         [data-block]{
-                            width:var(--thm_editor_main_width);
+                            width:var(--thm_editor_main_width, 100%);
                             max-width:100%;
                         }
                     }
@@ -5643,4 +5677,15 @@ p.has-drop-cap:not(:focus):first-letter {
         }
     }
 }
+/* experimental over write */
+.emulsion-gb-phase-site{
+    .editor-styles-wrapper{
+        .has-link-color a{        
+            color: var(--thm_general_link_color);
+            &:hover{            
+                color: var(--thm_general_text_color);              
+            }
+        }       
+    }    
+}   
 

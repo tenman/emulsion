@@ -919,7 +919,6 @@ jQuery(document).ready(function ($) {
         var style = $(this).attr('style');
         var image = $(this).find('img');
         
-        console.log(image.length);
         if (image.length) {
             $(this).css({'width': width_raw}).addClass('has-image-badge');
             $(image).css({'width': width_raw, 'height': width_raw});

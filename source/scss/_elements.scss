@@ -11,6 +11,28 @@ a:link {
 a:visited {
     text-decoration:none;
 }
+
+a[href^="mailto:"],
+a[href^="geo:"],
+a[href^="sms:"],
+a[href^="tel:"] {
+    pointer-events: none;
+    cursor: default;
+    text-decoration: none;
+}
+
+.agent-mobile-phone a[href^="mailto:"],
+.agent-mobile-phone a[href^="geo:"],
+.agent-mobile-phone a[href^="sms:"],
+.agent-mobile-phone a[href^="tel:"],
+.agent-tablet a[href^="mailto:"],
+.agent-tablet a[href^="geo:"],
+.agent-tablet a[href^="sms:"],
+.agent-tablet a[href^="tel:"]{
+    pointer-events:auto;
+    cursor: pointer;
+    display:inline-block;
+}
 article,address,aside,blockquote,canvas,dd,article div,dl,dt,fieldset,figure,
 figcaption,footer,form,h1,h2,h3,h4,h5,h6,header,hr,iframe,img,li,main,nav,
 noscript,ol,output,p,pre,section,ul,video{
@@ -1089,25 +1111,7 @@ body .fit{
     margin-top:1.5rem;
     margin-bottom:.75rem;
 }
-/**
- * Grid
- * ========================================================================== */
-.grid{
-    .theme-message.aligncenter{
-        max-width:100%;
-        border:none;
-    }
-    article{
-        header{
-            &.has-post-image{
-                /**
-                 * grid header background position  must be center
-                 */
-                background-position:49.5% 50% ! important;
-            }
-        }
-    }
-}
+
 /**
  * Relate posts
  * ========================================================================== */

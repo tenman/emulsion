@@ -18,15 +18,15 @@ a{
  * list
  * =================================================================== */
 //.emulsion-gb-phase-site .block-editor__typewriter  [data-block],
-.emulsion-gb-phase-block [data-block]{
+[data-block]{
     .wp-block-gallery{
         .blocks-gallery-item:before{
             display:none!important;
-            border:1px solid red;
+            
         }
     }
 }
-.emulsion-gb-phase-block [data-block],
+[data-block],
 .entry-content{
     ol:not(.list-style-initial):not([id]):not([class|="wp-block"]){
         &.list-style-none{
@@ -137,7 +137,7 @@ a{
             }
         }
     }
-    ul:not(.list-style-initial):not([id]):not([class|="wp-block"]){
+    ul:not(.list-style-initial):not([id]):not([class|="wp-block"]):not(.list-style-inline){
         &.list-style-none{
             li{
                 margin-left:var(--thm_common_font_size);
@@ -397,6 +397,18 @@ a{
         }
     }
 }
+[data-block]{
+    &.list-style-tab{
+        & > li{
+            list-style-type:none;
+
+            &:before{
+                content:'';
+                visibility:hidden;
+            }
+        }
+    } 
+}
 .entry-content{
     /**
      * front end only style
@@ -408,10 +420,11 @@ a{
             margin-bottom:.75rem;
             position:relative;
             overflow:hidden;
+            list-style:none;
             & > li{
                 text-indent:0;
                 &:before{
-                    display:none;
+                    visibility:hidden;
                 }
                 &:hover{
                     cursor:pointer;
@@ -420,6 +433,7 @@ a{
                     &.active{
                     background: rgba(188, 188, 188, .2);
                 }
+
                 visibility:visible;
                 list-style:none;
                 padding:.73rem 1rem;
@@ -816,6 +830,7 @@ h3{
  */
 .emulsion-gb-phase-site .block-editor__typewriter .block-editor-block-list__layout,
 .emulsion-gb-phase-block [data-block]{
+    [class^="ico-"]:before,
     [class*=" ico-"]:before{
         content:'';
         width:1em;
@@ -1440,7 +1455,7 @@ body{
         vertical-align:baseline;
 
         margin-right:.5rem; //@since 1.217
-        margin-left:.5rem;  //@since 1.217
+        margin-left:0;  //@since 1.217
     }
     .primary-menu-wrapper{
         .icon {
