@@ -22,7 +22,7 @@
  * data-direction="vertical"
  *      For Mobile view vertical menu ( need javascript )
  * data-type="accordion"
- *      caret click show child  
+ *      caret click show child
  *      If there is no accordion class, the child menu will be displayed on the right.
  *
  * ==========================================================================
@@ -170,8 +170,8 @@
             & > ul{
                 li{
                     box-sizing:content-box;
-                    padding-top:.92rem;
-                    padding-bottom:.92rem;
+                    // padding-top:.92rem;
+                    // padding-bottom:.92rem;
                 }
             }
         }
@@ -266,7 +266,7 @@ header{
                     & > li{
                         .sub-menu,
                         .children{
-                            margin-top:.9rem;
+                           // margin-top:.9rem;
                         }
                     }
                 }
@@ -302,8 +302,12 @@ nav[class|="menu"]{
             margin-bottom:0;
             li{
                 box-sizing:content-box;
-                padding-top:15px;
-                padding-bottom:14px;
+                // padding-top:15px;
+                // padding-bottom:14px;
+                & > a{
+                    padding:.88rem 0 .88rem .88rem;
+                    display:inline-block;
+                }
                 list-style:none;
                 // for click control
                 .nav-menu-child-opener:checked ~ .children .menu-item-has-children,
@@ -336,8 +340,8 @@ nav[class|="menu"]{
         max-width:100%;
         & > li{
             box-sizing:content-box;
-            padding-top:15px;
-            padding-bottom:14px;
+            // padding-top:15px;
+            // padding-bottom:14px;
             list-style:none;
             margin:0 var( --thm_box_gap ) 0;
             &:not(.menu-item-has-children) a{
@@ -375,16 +379,25 @@ nav[class|="menu"]{
                     min-width:100%;
                     margin:0;
                     margin-bottom:0;
-                    margin-top:.88rem;
+                    //  margin-top:.88rem;
                     padding-left:0;
                     padding-right:0;
                     position:absolute;
                     left:0;
                     z-index:9999;
                     li{
-                        padding:.88rem;
+
                         margin-top:0;
                         margin-bottom:0;
+                        &.show-left{
+                            &.menu-item-has-children:hover > .sub-menu,
+                                &.menu-item-has-children:hover > .children{
+                                left:-100%;
+                            }
+                        }
+                        & > a{
+                            padding:.88rem;
+                        }
                     }
                     .sub-menu,
                     .children{
@@ -399,6 +412,7 @@ nav[class|="menu"]{
                             left:100%;
                             z-index:9999;
                         }
+
                     }
                 }
                 &.menu-item-has-children{
@@ -485,7 +499,7 @@ body:not(.noscript){
                         .sub-menu,
                         .children{
                             position:absolute;
-                            margin-top:.88rem;
+                            //margin-top:.88rem;
                             .sub-menu,
                             .children{
                                 padding-bottom:0;
@@ -493,11 +507,11 @@ body:not(.noscript){
                                 li{
                                     padding-right:0;
                                     &:first-child{
-                                        padding-top:0;
+                                        //padding-top:0;
                                     }
                                     &:last-child{
                                         border-bottom:none;
-                                        padding-bottom:0;
+                                        // padding-bottom:0;
                                     }
                                 }
                                 left:0;
@@ -548,6 +562,7 @@ body:not(.noscript){
                                         left:0;
                                     }
                                 }
+
                             }
                         }
                     }
@@ -567,15 +582,29 @@ body:not(.noscript){
              */
             &[data-direction="horizontal"]{
                 li{
+                    & > a{
+                        display:inline-block;
+                        padding:.88rem 0 .88rem .88rem;
+                    }
                     .sub-menu,
                     .children{
                         visibility:hidden;
                         margin-top:0;
+                        & > a{
+                            display:inline-block;
+                            padding:.88rem 0 .88rem .88rem;
+                        }
                         .sub-menu,
                         .children{
                             margin-left:0;
                             margin-right:0;
+                            & > a{
+                                display:inline-block;
+                                padding:.88rem 0 .88rem .88rem;
+                            }
+
                         }
+
                     }
                     &.menu-item-has-children:hover > .sub-menu,
                         &.menu-item-has-children:hover > .children{
@@ -584,9 +613,17 @@ body:not(.noscript){
                         clip-path: none;
                         display:block; //EDGE
                         visibility:visible;
+
+                    }
+                    &.show-left{
+                        &.menu-item-has-children:hover > .sub-menu,
+                            &.menu-item-has-children:hover > .children{
+                            left:-100%;
+                        }
                     }
                 }
-                li:focus,   
+
+                li:focus,
                     li:focus-within{
                     .sub-menu,
                     .children{
@@ -595,7 +632,7 @@ body:not(.noscript){
                         display: block;
                         margin-top:0;
                         .sub-menu:focus,
-                        .children:focus{
+                            .children:focus{
                             visibility:visible;
                             opacity: 1;
                             display: block;
@@ -833,6 +870,7 @@ input[type="checkbox"][data-skin="inset"] + label span{
     border-radius: calc(12px + 4px);
     border:2px solid;
     display:inline-block;
+    background:rgba(188, 188, 188, .5);
 }
 input[type="checkbox"][data-skin="inset"] + label{
     display:inline-block;

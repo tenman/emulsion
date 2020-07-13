@@ -189,7 +189,7 @@
                 .children,
                 .sub-menu{
                     li{
-                        padding:.88rem;
+                       // padding:.88rem;
                         box-sizing:border-box;
                     }
                 }
@@ -812,8 +812,8 @@ button.wp-custom-header-video-button{
         z-index:4;
         .icon{
             position:absolute;
-            top:0;
-            right:1rem;
+            top:.5rem;
+            right:1.5rem;
             background:transparent;
             fill:var(--thm_header_text_color);
             cursor:pointer;
@@ -880,7 +880,7 @@ button.wp-custom-header-video-button{
             z-index:4;
             .close,
             .icon{
-                top:0;
+                top:.5rem;
             }
         }
     }
@@ -890,7 +890,7 @@ button.wp-custom-header-video-button{
             z-index:4;
             .close,
             .icon{
-                top:0;
+                top:.5rem;
             }
         }
     }
@@ -898,7 +898,7 @@ button.wp-custom-header-video-button{
 .no-header-media{
     label[for="c1"]{
         .icon{
-            top:0;
+            top:.5rem;
         }
     }
     input[id="c1"]:checked~.drawer{
@@ -1080,6 +1080,7 @@ input[type="checkbox"][data-skin] + label[for="primary-menu-controll"],
     display:none;
 }
 input[type="checkbox"][id="toc-toggle"]{
+    visibility:hidden;
     display:none;
 }
 input[type="checkbox"][data-skin="hamburger"] + label[for="primary-menu-controll"] span,
@@ -1148,6 +1149,14 @@ input[type="checkbox"][data-skin="hamburger"]:checked + label[for="primary-menu-
 }
 .placeholder-header:empty{
     display:none;
+}
+.placeholder-header:not(:empty){
+    & ~ main{
+        .grid,
+        .stream{
+            margin-top:0;
+        }
+    }
 }
 /**
  * Home Site Title ( not paged )

@@ -69,6 +69,26 @@ html[amp]{
         }
     }
 
+    .excerpt{
+        & > .article-wrapper{
+            min-height:50vh;
+            display: -webkit-box;
+            -webkit-box-pack: center;
+            -webkit-box-align: center;
+            -webkit-box-sizing:border-box;
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-align: center;
+            align-items: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            -ms-flex-direction:column;
+            flex-direction:column;
+            height:100%;
+            box-sizing:border-box;
+        }
+    }
+
     /**
      * screen-reader-text
      * ========================================================================== */
@@ -395,6 +415,24 @@ html[amp]{
         margin-left:auto;
         margin-right:auto;
     }
+    .enable-alignfull{
+        &.emulsion-no-sidebar{
+            article{
+                @extend %no-sidebar-alignfull;
+                header.show-post-image{
+                    
+                }
+            }
+        }
+        &.emulsion-has-sidebar{
+            article{
+                @extend %has-sidebar-alignfull;
+                header.show-post-image{
+                    
+                }
+            }
+        }
+    }
     .wp-block-image{
         text-align:center;
         margin-left:auto;
@@ -504,6 +542,13 @@ html[amp]{
     .archive article{
         footer{
             visibility:hidden;
+            clip:rect(1px,1px,1px,1px);
+            clip-path:polygon(0px 0px,0px 0px,0px 0px,0px 0px);
+            height:1px;
+            overflow:hidden;
+            position:absolute;
+            white-space:nowrap;
+            width:1px;
         }
         &.has-post-thumbnail{
             .entry-content{
@@ -515,14 +560,11 @@ html[amp]{
                 display:none;
             }
         }
-        header{
-            padding-top: 6rem;
-        }
+
         .content-excerpt:not(:empty){
             br{
                 display:none;
             }
-            padding-bottom:3rem;
             p{
                 width:-moz-fit-content;
                 width:fit-content;
@@ -546,7 +588,7 @@ html[amp]{
             }
         }
     }
- 
+
     .grid article{
         .entry-content:blank + footer{
             visibility:hidden;
@@ -1515,11 +1557,14 @@ html:not(.emulsion-amp-standard):not(.emulsion-amp-transitional){
             clear:both;
         }
     }
+    
+
     .search article,
     .home article,
     .archive article{
         footer{
             visibility:hidden;
+
         }
         border-bottom:var(--thm_common_border, 1px solid rgba(188, 188, 188, .5));
         .content-excerpt{

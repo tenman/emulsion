@@ -11,11 +11,25 @@
 		if( emulsion_theme_addons_exists() ) {
 			
 			emulsion_post_content();
+		} elseif( 'full_text' == emulsion_get_layout_setting() || 'post' == emulsion_get_layout_setting() || 'page' == emulsion_get_layout_setting() ) {
+			
+			the_content();				
 		} else {
 			
-			'full_text' == emulsion_get_layout_setting() || 'post' == emulsion_get_layout_setting() || 'page' == emulsion_get_layout_setting()
-			? the_content() 
-			: the_excerpt();		
+			if( 'grid' == emulsion_is_custom_content( 'grid' ) ) {
+				$number_of_lines = emulsion_theme_default_val( 'emulsion_excerpt_length_stream' );
+				echo '<p class="trancate" data-rows="'. $number_of_lines.'">';
+			} else {
+				echo '<blockquote class="content-excerpt">';
+			}
+			
+			the_excerpt();
+			
+			if( 'grid' == emulsion_is_custom_content( 'grid' ) ) {
+				echo '</p>';
+			} else {
+				echo '</blockquote>';
+			}
 		}
 		
 		wp_link_pages( 'before=<div class="wp-link-pages page-break-links clearfix">&after=</div>&next_or_number=number&pagelink=<span>%</span>' ); ?></div>

@@ -43,10 +43,10 @@
 		'echo'			 => true,
 		'depth'			 => 0,
 		'theme_location' => 'primary',
-		'items_wrap'	 => '<h2 class="screen-reader-text">' . esc_html__( 'Primary navigation', 'emulsion' ) . '</h2><ul id="%1$s" class="%2$s" data-direction="horizontal" data-type="accordion">%3$s</ul>',
+		'items_wrap'	 => '<h2 class="screen-reader-text">' . esc_html__( 'Primary navigation', 'emulsion' ) . '</h2><ul id="%1$s" class="%2$s" data-direction="horizontal" >%3$s</ul>',
 		'walker'		 => '',
 		'item_spacing'	 => 'discard',
-	);
+	);//data-type="accordion"
 	wp_nav_menu( $emulsion_menu_args );
 	?>
 		<div class="menu-placeholder"><?php

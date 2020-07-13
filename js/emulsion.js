@@ -1,6 +1,7 @@
 jQuery(function ($) {
     "use strict";
     $("body").removeClass('noscript');
+    $("#menu-main").attr('data-type', 'accordion');
     // element wrap
     /**
      * the table element can not be controlled with max-width,
@@ -195,7 +196,7 @@ jQuery(function ($) {
         // close tab navigation
         $('#primary-menu-controll').prop('checked', false);
     });
-    $('.layout,.header-layer').on('click', function () {
+    $('.layout,.header-layer').not('.template-part-header').on('click', function () {
         // close Click around the button
         $('#primary-menu-controll').prop('checked', false);
     });

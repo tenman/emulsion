@@ -529,7 +529,9 @@
     .emulsion-has-sidebar{
         .primary-menu-wrapper{
             .menu-placeholder{
-                background: var(--thm_sidebar_bg_color);
+                //background: var(--thm_sidebar_bg_color);
+                background: var(--thm_primary_menu_background);
+                color: var(--thm_primary_menu_color);
             }
         }
     }
@@ -610,7 +612,7 @@
     }
 }
 //.site-header.scss
-@media screen and ( max-width : $content_width + $content_gap * 2 ) {
+@media screen and ( max-width : $content_width + $content_gap * 2 + 16px) {
     body{
         .template-part-header{
             &.header-image-active{
@@ -633,12 +635,15 @@
         }
     }
     .header-layer-nav-menu input[type="checkbox"][data-skin] + label[for="primary-menu-controll"]{
+        visibility:visible;
         display:block;
     }
     .header-layer-nav-menu input[type="checkbox"][data-skin="hamburger"] ~ nav{
+        visibility:hidden;
         display:none;
     }
     .header-layer-nav-menu input[type="checkbox"][data-skin="hamburger"]:checked ~ nav{
+        visibility:visible;
         display:block;
         z-index:10;
         position:absolute;

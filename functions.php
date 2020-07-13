@@ -1,5 +1,4 @@
 <?php
-
 include_once( get_theme_file_path( 'lib/conf.php' ) );
 include_once( get_theme_file_path( 'lib/hooks.php' ) );
 include_once( get_theme_file_path( 'lib/template-tags.php' ) );
@@ -332,7 +331,7 @@ function emulsion_register_scripts_and_styles() {
 		$emulsion_current_data_version = emulsion_version();
 	}
 
-	wp_register_style( 'emulsion', get_theme_file_uri( 'style.css' ), array(), $emulsion_current_data_version, 'all' );
+	wp_register_style( 'emulsion', get_template_directory_uri(). '/style.css', array(), $emulsion_current_data_version, 'all' );
 	wp_enqueue_style( 'emulsion' );
 	
 	$inline_style_pre = apply_filters( 'emulsion_inline_style_pre', '@charset "UTF-8";' );
@@ -693,11 +692,6 @@ if ( ! function_exists( 'emulsion_the_header_layer_class' ) ) {
 		
 		$post_id	 = get_the_ID();
 
-		if ( ! empty( $post_id ) && 'no_style' == get_post_meta( $post_id, 'emulsion_post_theme_style_script', true ) ) {
-
-			//return;
-		}
-
 		$header_text_color	 = ! empty( get_header_textcolor() ) ? sprintf( '#%1$s', get_header_textcolor() ) : '';
 		$class_name			 = '';
 		
@@ -705,8 +699,7 @@ if ( ! function_exists( 'emulsion_the_header_layer_class' ) ) {
 			
 			$class_name = ' has-header-text-color';
 		}
-		
-		
+	
 		/**
 		 * Whether the header has images or video, its state is represented by class.
 		 * classes : header-video-active, header-image-active, no-header-media password-required
@@ -817,10 +810,6 @@ if ( ! function_exists( 'emulsion_element_classes' ) ) {
 		
 		$post_id = get_the_ID();
 
-		if ( ! empty( $post_id ) && 'no_style' == get_post_meta( $post_id, 'emulsion_post_theme_style_script', true ) ) {
-
-			//return;
-		}
 		if ( 'primary' == $location ) {
 
 			$is_active_menu		 = emulsion_is_active_nav_menu( $location );
@@ -1271,9 +1260,12 @@ if ( ! function_exists( 'emulsion_theme_addons_exists' ) ) {
 if ( ! function_exists( 'emulsion_is_amp' ) ) {
 
 	function emulsion_is_amp() {
+		
 		if( function_exists( 'is_amp_endpoint' ) ) {
+			
 			return is_amp_endpoint();
 		}
+		
 		return false;
 	}
 

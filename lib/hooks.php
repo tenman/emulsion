@@ -22,7 +22,7 @@ function emulsion_hooks_setup() {
 	add_action( 'customize_controls_enqueue_scripts', 'emulsion_customizer_controls_script' );
 	add_action( 'customize_controls_enqueue_scripts', 'emulsion_customizer_controls_style' );
 	add_filter( 'theme_templates', 'emulsion_theme_templates' );
-	
+	add_filter('the_excerpt', 'emulsion_excerpt_remove_p');
 	
 	/**
 	 * Scripts
@@ -636,6 +636,14 @@ if ( ! function_exists( 'emulsion_theme_styles' ) ) {
 .emulsion-addons-inactive body body > header.header-layer .site-title-link{
 	{$header_textcolor};
 }
+.emulsion-addons-inactive main .grid .trancate-heading,
+.emulsion-addons-inactive main .stream .trancate-heading{
+	font-size:22px;
+}
+.emulsion-addons-inactive main .excerpt article footer{
+	padding-left:0;
+	padding-right:0;
+}
 .emulsion-addons-inactive main > .excerpt .has-post-thumbnail footer,
 .emulsion-addons-inactive main > .excerpt .has-post-thumbnail .entry-content,
 .screen-reader-text {
@@ -659,8 +667,14 @@ if ( ! function_exists( 'emulsion_theme_styles' ) ) {
         z-index:100000;
     }
 }
+.emulsion-addons-inactive .page-wrapper article header .entry-meta .cat-item a:hover {
+   color: var(--thm_general_link_hover_color);
+}
 .emulsion-addons-inactive body  .grid article header.show-post-image:before{
 	top:0;
+}
+.emulsion-addons-inactive div.page-wrapper .grid .article-wrapper article header{
+	background:rgba(188,188,188,.2);
 }
 @media screen and (max-width: {$responsive_break_point}px) {
 	.emulsion-addons-inactive body body.emulsion-has-sidebar .alignfull{
@@ -890,4 +904,13 @@ if ( ! function_exists( 'emulsion_amp_description' ) ) {
 	}
 
 }
-
+if ( ! function_exists( 'emulsion_excerpt_remove_p' ) ) {
+function emulsion_excerpt_remove_p($excerpt){
+	
+	if( ! emulsion_theme_addons_exists() ){
+		
+		return strip_tags($excerpt);
+	}
+	return $excerpt;
+}
+}
