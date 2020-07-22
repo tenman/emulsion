@@ -139,6 +139,9 @@ emulsion-addons.png
         * Source: https://github.com/LeaVerou/css3patterns
 
 ## Changelog
+### July 22 2020
+		* 1.4.4
+        * https://github.com/tenman/emulsion/releases
 ### July 13 2020
 		* 1.4.3
         * https://github.com/tenman/emulsion/releases

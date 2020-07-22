@@ -860,6 +860,9 @@ if ( ! function_exists( 'emulsion_element_classes' ) ) {
 			
 			$text_color			 = emulsion_accessible_color( $background );
 			$text_color_class	 = '#333333' == $text_color ? 'sidebar-is-light' : 'sidebar-is-dark';
+			$custom_border_class = get_theme_mod( 'emulsion_border_sidebar' ) || get_theme_mod( 'emulsion_border_sidebar_style' ) || get_theme_mod( 'emulsion_border_sidebar_width' )
+					? 'has-border-custom' 
+					: 'border-default';
 			$footer_cols_class	 = '';
 
 			if( get_theme_mod( 'emulsion_sidebar_background', false ) == emulsion_theme_default_val( 'emulsion_sidebar_background', 'default' ) ) {
@@ -873,7 +876,7 @@ if ( ! function_exists( 'emulsion_element_classes' ) ) {
 				$footer_cols_class = 'footer-cols-'. absint( $footer_cols_class );
 			}
 
-			return ' ' . emulsion_class_name_sanitize( $text_color_class . ' '. $footer_cols_class );
+			return ' ' . emulsion_class_name_sanitize( $text_color_class . ' '. $custom_border_class. ' '. $footer_cols_class );
 		}
 		
 		if ( 'article-header' == $location ) {
@@ -992,11 +995,20 @@ if ( ! function_exists( 'emulsion_layout_control' ) ) {
 			
 			return;
 		}
-		
+		$custom_border_class = '';
 		$type	 = apply_filters( 'emulsion_layout_control', $type );
 		$type	 = sanitize_html_class( $type );
 		
-		
+		if( 'grid' == $type ) {
+			$custom_border_class = get_theme_mod( 'emulsion_border_grid' ) || get_theme_mod( 'emulsion_border_grid_style' ) || get_theme_mod( 'emulsion_border_grid_width' ) 
+					? 'has-border-custom' 
+					: 'thm-border-default';
+		}
+		if( 'stream' == $type ) {
+			$custom_border_class = get_theme_mod( 'emulsion_border_stream' ) || get_theme_mod( 'emulsion_border_stream_style' ) || get_theme_mod( 'emulsion_border_stream_width' ) 
+					? 'has-border-custom' 
+					: 'thm-border-default';
+		}
 
 		if ( post_type_exists( $type ) && 'post' !== $type && 'page' !== $type ) {
 
@@ -1007,7 +1019,7 @@ if ( ! function_exists( 'emulsion_layout_control' ) ) {
 
 		if ( ! empty( $type ) && ! empty( $position ) ) {
 
-			echo 'before' === $position ? '<div class="' . $type . '">' : '</div>';
+			echo 'before' === $position ? '<div class="' . $type .' '. $custom_border_class. '">' : '</div>';
 		}
 	}
 

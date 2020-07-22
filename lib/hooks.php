@@ -161,6 +161,10 @@ if ( ! function_exists( 'emulsion_body_class' ) ) {
 			
 			$classes[] = 'enable-block-experimentals';
 		}
+		
+		$classes[] = get_theme_mod( 'emulsion_border_global' ) || get_theme_mod( 'emulsion_border_global_style' ) || get_theme_mod( 'emulsion_border_global_width' )
+					? 'has-border-custom' 
+					: 'border-default';
 
 		return $classes;
 	}

@@ -78,7 +78,21 @@
     --thm_comments_link_color:$comments_link_color;
     --thm_comments_color:$comments_color;
     --thm_comments_bg:$comments_bg;
-    --thm_common_border:1px solid rgba(188,188,188,.5);
+    --thm_common_border:rgba(188,188,188,.5);
+    --thm_common_border_style:solid;
+    --thm_common_border_width:1px;
+    --thm_border_global:$border_global;
+    --thm_border_sidebar:$border_sidebar;
+    --thm_border_grid:$border_grid;
+    --thm_border_stream:$border_stream;
+    --thm_border_global_style:$border_global_style;
+    --thm_border_sidebar_style:$border_sidebar_style;
+    --thm_border_grid_style:$border_grid_style;
+    --thm_border_stream_style:$border_stream_style;
+    --thm_border_global_width:$border_global_width;
+    --thm_border_sidebar_width:$border_sidebar_width;	
+    --thm_border_grid_width:$border_grid_width;
+    --thm_border_stream_width:$border_stream_width;
 }
 /**
  *  Static Core Colors
@@ -616,7 +630,7 @@ body{
     .stream{
         --thm_content_width: 400px;
         article{
-            --thm_content_width: 100%;
+           --thm_content_width: 100%;
         }
     }
 }
@@ -625,7 +639,7 @@ body{
     .has-column{
         main{
             .grid{
-                --thm_main_width:calc(100vw - var(--thm_sidebar_width) - 48px );
+               --thm_main_width:calc(100vw - var(--thm_sidebar_width) - 48px );
             }
             .stream{
                 --thm_main_width:calc(100vw - var(--thm_sidebar_width) - 48px );

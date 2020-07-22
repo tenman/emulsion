@@ -235,7 +235,7 @@ if ( ! function_exists( 'emulsion_monthly_archive_prev_next_navigation' ) ) {
 				$previous_label	 = $wp_locale->get_month( $previous_month );
 				$calendar_output = sprintf( $html, 
 											get_month_link( $previous_year, $previous_month ),
-											sprintf( '&#171; %1$s ', $previous_label ), 
+											$previous_label, 
 											'', 
 											"nav-previous" 
 									);
@@ -254,7 +254,7 @@ if ( ! function_exists( 'emulsion_monthly_archive_prev_next_navigation' ) ) {
 
 				$calendar_output .= sprintf( $html, 
 											get_month_link( $next_year, $next_month ),
-								     		sprintf( ' %1$s &#187;', $next_label ), 
+								     		$next_label, 
 											'', 
 											"nav-next" 
 									);
@@ -280,7 +280,8 @@ if ( ! function_exists( 'emulsion_pagination' ) ) {
 	 */
 	function emulsion_pagination() {
 		
-		$post_id = get_the_ID();
+		$post_id  = get_the_ID();
+		$supports = emulsion_theme_default_val('emulsion_single_post_navigation');
 		
 		if( false === $post_id ) {
 			
@@ -292,7 +293,7 @@ if ( ! function_exists( 'emulsion_pagination' ) ) {
 			'next_text' => '<span class="next text">'.esc_html__('next', 'emulsion'). '</span> <span class="title">%title</span>',
 		);
 
-		if ( is_singular() ) {
+		if ( is_singular() && 'enable' == $supports ) {
 
 			! is_page() && ! is_attachment() ? the_post_navigation( $post_navigation_args ) : '';
 			

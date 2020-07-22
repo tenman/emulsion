@@ -141,6 +141,7 @@ if ( ! function_exists( 'emulsion_theme_default_val' ) ) {
 			'emulsion_search_drawer'				 => array( 'default' => 'enable', 'unit' => '', ), 
 			'emulsion_relate_posts'					 => array( 'default' => 'enable', 'unit' => '', ), // required emulsion-addons plugin
 			'emulsion_customizer_preview_redirect'	 => array( 'default' => 'disable', 'unit' => '', ), // required emulsion-addons plugin
+			'emulsion_single_post_navigation'		 =>  array( 'default' => 'enable', 'unit' => '', ),
 
 			/**
 			 * Block editor

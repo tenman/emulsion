@@ -19,7 +19,7 @@
 
 	emulsion_site_text_markup();
 
-	emulsion_the_theme_supports( 'title_in_page_header' ) ? emulsion_entry_text_markup() : '';
+	emulsion_the_theme_supports( 'title_in_page_header' ) ? emulsion_page_header_title() : '';
 
 	do_action( 'emulsion_append_header_layer' );
 
@@ -33,7 +33,8 @@
 			|| is_single() && true == emulsion_metabox_display_control( 'menu' ) ) ) {
 		?>
 	<div class="<?php echo esc_attr( emulsion_element_classes( 'primary' ) ); ?>"> 
-		<input type="checkbox" id="primary-menu-controll" name="primary-menu-controll" data-skin="hamburger" data-mod="button" /><label for="primary-menu-controll"><span tabindex="0"></span></label><?php
+		<input type="checkbox" id="primary-menu-controll" name="primary-menu-controll" data-skin="hamburger" data-mod="button" />
+		<label for="primary-menu-controll" title="<?php esc_attr_e( 'menu', 'emulsion' ); ?>"><span tabindex="0"></span></label><?php
 	$emulsion_menu_args = array(
 		'menu_class'	 => 'menu wp-nav-menu primary',
 		'container'		 => 'nav',

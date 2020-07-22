@@ -118,7 +118,7 @@
             z-index:3;
             padding-bottom:0;
             a{
-               z-index:3;
+                z-index:3;
             }
         }
         div.page-title-block{
@@ -189,7 +189,7 @@
                 .children,
                 .sub-menu{
                     li{
-                       // padding:.88rem;
+                        // padding:.88rem;
                         box-sizing:border-box;
                     }
                 }
@@ -330,7 +330,7 @@
                 padding-top:var(--thm_content_gap, 24px);
                 padding-left:var(--thm_content_gap, 24px);
                 z-index:3;
-                
+
             }
             .site-description{
                 margin-top:0;
@@ -548,19 +548,7 @@ body{
             bottom: 20vh;
             margin: auto;
         }
-        .sidebar-widget-area{
-            display:none;
-            .sidebar-widget-area-lists{
-                display:none;
-            }
-        }
-        .footer-widget-area{
-            display:none;
-            position:static;
-            .footer-widget-area-lists{
-                display:none;
-            }
-        }
+
     }
     /**
      * Type Paged
@@ -964,18 +952,29 @@ button.wp-custom-header-video-button{
     }
     &.emulsion-header-has-title,
     &.emulsion-layout-has-title{
+        
         .no-header-media.cta-layer-active.template-part-header-custom{
-            min-height:300px;
-            .cta-layer{
-                top:6rem;
-                padding-top:3rem;
+            
+            .cta-layer{            
+
             }
         }
         .header-video-active.cta-layer-active.template-part-header-custom,
         .header-image-active.cta-layer-active.template-part-header-custom{
-            min-height:300px;
+            position:relative;
             .cta-layer{              
-                bottom:6rem;
+                position:absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+            }
+        }
+        &.drawer-is-active{
+            .cta-layer-active.template-part-header-custom{
+                .cta-layer{
+                     top:0;
+                     height:25vh;
+                }
             }
         }
     }
@@ -986,16 +985,16 @@ button.wp-custom-header-video-button{
 .tag,
 .category{
     &.emulsion-header-has-title{
-       .cta-layer-active.template-part-header-custom{
-            min-height:300px;
+        .cta-layer-active.template-part-header-custom{
+
             .cta-layer{              
-                bottom:3rem;
+
             }
         }
         &.drawer-is-active{
             .cta-layer-active.template-part-header-custom{
                 .cta-layer{
-                    top:6rem;
+                      top:3rem;
                 }
             }
         }
@@ -1004,63 +1003,102 @@ button.wp-custom-header-video-button{
 body.single{
     &.emulsion-header-has-title{
         .no-header-media.cta-layer-active.template-part-header-custom{
-            min-height:300px;
+
             .cta-layer{
-                top:calc( 6rem + 25vh );
+
             }
         }
         .header-video-active.cta-layer-active.template-part-header-custom,
         .header-image-active.cta-layer-active.template-part-header-custom{
-            min-height:300px;
+            position:relative;
             .cta-layer{              
-                bottom:6rem;
+                 position:absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
             }
         }
         &.drawer-is-active{
             .cta-layer-active.template-part-header-custom{
                 .cta-layer{
-                    top:6rem;
+                      top:3rem;
                 }
             }
         }
     }
 
 }
+body.date{
+    &.emulsion-header-has-title{
+        .no-header-media.cta-layer-active.template-part-header-custom{
+
+            .cta-layer{
+                
+            }
+        }
+    }
+}       
 body.page{
     &.emulsion-header-has-title{
         .no-header-media.cta-layer-active.template-part-header-custom{
-            min-height:300px;
+
             .cta-layer{
-                top:calc( 6rem + 25vh );
+
             }
         }
         .header-video-active.cta-layer-active.template-part-header-custom,
         .header-image-active.cta-layer-active.template-part-header-custom{
-            min-height:300px;
-            .cta-layer{           
-                bottom:6rem;
+            position:relative;
+            .cta-layer{
+                position:absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+
             }
         }
         &.drawer-is-active{
             .cta-layer-active.template-part-header-custom{
                 .cta-layer{
-                    top:6rem;
+                     top:3rem;
                 }
             }
         }
     }
 }
 .cta-layer-active{
+
     .drawer-block{
         margin-top:240px;
     }
+
     .cta-layer{
+        text-align:center;
+        z-index:10;
+        min-height:25vh;
+        text-align:center;
+        display: -webkit-box;
+        -webkit-box-pack: center;
+        -webkit-box-align: center;
+        -webkit-box-sizing:border-box;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-align: center;
+        align-items: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        -ms-flex-direction:row;
+        flex-direction:row;
+        flex-wrap:wrap;
+        box-sizing:border-box;
         .skin-button{
             //@1.3.3 margin-bottom:3rem;
             margin:calc(var(--thm_box_gap) / 2) var(--thm_box_gap) ;
+
         }
     }
 }
+
 .is-searching-progress{
     .site-title{
         font-size:var(--thm_common_font_size);
@@ -1208,5 +1246,5 @@ input[type="checkbox"][data-skin="hamburger"]:checked + label[for="primary-menu-
  * cta-layer and drawer wrapper
  * ========================================================================== */
 .cta-layer + .drawer-wrapper{
-    margin-top:1rem;
+    //  margin-top:1rem;
 }

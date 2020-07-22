@@ -12,7 +12,8 @@ $emulsion_current_post_type		 = trim( get_post_type() );
 		&& ( !is_singular() || is_page() && true == emulsion_metabox_display_control( 'page_menu' )
 		|| is_single() && true == emulsion_metabox_display_control( 'menu' ) ) ) { ?>
 		<div class="header-layer-nav-menu" >
-			<input type="checkbox" id="primary-menu-controll" name="primary-menu-controll" data-skin="hamburger" data-mod="button" /><label for="primary-menu-controll"><span tabindex="0"></span></label>
+			<input type="checkbox" id="primary-menu-controll" name="primary-menu-controll" data-skin="hamburger" data-mod="button" />
+			<label for="primary-menu-controll" title="<?php esc_attr_e( 'menu', 'emulsion' ); ?>"><span tabindex="0"></span></label>
 			<?php
 			$emulsion_menu_args		 = array(
 				'menu_class'	 => 'menu wp-nav-menu primary top-right',
@@ -32,7 +33,7 @@ $emulsion_current_post_type		 = trim( get_post_type() );
 <?php } ?>
 	</div>
 	
-	<?php emulsion_the_theme_supports( 'title_in_page_header' ) ? emulsion_entry_text_markup() : ''; ?>
+	<?php emulsion_the_theme_supports( 'title_in_page_header' ) ? emulsion_page_header_title() : ''; ?>
 	<?php do_action( 'emulsion_append_header_layer' ); ?>
 </header>
 

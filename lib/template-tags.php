@@ -207,7 +207,7 @@ if ( ! function_exists( 'emulsion_the_post_title' ) ) {
 
 }
 
-if ( ! function_exists( 'emulsion_entry_text_markup' ) ) {
+if ( ! function_exists( 'emulsion_page_header_title' ) ) {
 	/**
 	 * Print title block in header
 	 *
@@ -216,7 +216,7 @@ if ( ! function_exists( 'emulsion_entry_text_markup' ) ) {
 	 *
 	 * HTML
 	 *
-			<div class="entry-text">
+			<div class="entry-text emulsion_page_header_title">
 				<div>
 					<a class="emulsion-scroll" href="#post-1">
 						<h2 class="entry-title">
@@ -246,7 +246,7 @@ if ( ! function_exists( 'emulsion_entry_text_markup' ) ) {
 			</div>
 	 *
 	 */
-	function emulsion_entry_text_markup() {
+	function emulsion_page_header_title() {
 		global $post;
 
 		$enable	 = emulsion_the_theme_supports( 'title_in_page_header' );
@@ -255,6 +255,15 @@ if ( ! function_exists( 'emulsion_entry_text_markup' ) ) {
 		if( false === $post_id ){
 			
 			__return_empty_string();
+		}
+		
+		$custom_header = apply_filters( 'emulsion_page_header_title', 'default' );
+
+		if ( 'default' !== $custom_header ) {
+
+			echo $custom_header;
+
+			return;
 		}
 
 		if ( $enable ) {
@@ -274,6 +283,48 @@ if ( ! function_exists( 'emulsion_entry_text_markup' ) ) {
 			}
 		}
 	}
+}
+if ( ! function_exists( 'emulsion_article_header' ) ) {
+
+	/**
+	 * Print Article header block
+	 * Article header is displayed when title_in_page_header is set to false.
+	 */
+
+	function emulsion_article_header() {
+
+		if ( 'list' == emulsion_current_layout_type() ) {
+
+			$thumbnail_url = get_the_post_thumbnail_url();
+		} else {
+
+			$thumbnail_url = get_the_post_thumbnail_url( null, 'medium_large' );
+		}
+		
+		$custom_header = apply_filters( 'emulsion_article_header', 'default' );
+
+		if ( 'default' !== $custom_header ) {
+
+			echo $custom_header;
+
+			return;
+		}
+
+		$header_element	 = '<header ';
+		$header_element	 .= ! empty( emulsion_element_classes( 'article-header' ) ) ? 'class="' . sanitize_html_class( emulsion_element_classes( 'article-header' ) ) . '" ' : '';
+		$header_element	 .= ! empty( emulsion_element_classes( 'article-header' ) ) && ! empty( $thumbnail_url ) ? ' style="' . 'background-image:url(' . esc_url( $thumbnail_url ) . ' );"' : '';
+		$header_element	 .= '>';
+		$header_element	 = apply_filters( 'emulsion_article_header', $header_element, esc_url( $thumbnail_url ) );
+
+		print( $header_element );
+
+		emulsion_the_post_title();
+		emulsion_the_post_meta_on();
+		emulsion_the_post_meta_in();
+
+		print('</header>' );
+	}
+
 }
 if ( ! function_exists( 'emulsion_meta_description' ) ) {
 	/**
@@ -919,39 +970,7 @@ if ( ! function_exists( 'emulsion_is_custom_content' ) ) {
 		return $template_part;
 	}
 }
-if ( ! function_exists( 'emulsion_article_header' ) ) {
 
-	/**
-	 * Print Article header block
-	 * Article header is displayed when title_in_page_header is set to false.
-	 */
-
-	function emulsion_article_header() {
-
-		if ( 'list' == emulsion_current_layout_type() ) {
-
-			$thumbnail_url = get_the_post_thumbnail_url();
-		} else {
-
-			$thumbnail_url = get_the_post_thumbnail_url( null, 'medium_large' );
-		}
-
-		$header_element	 = '<header ';
-		$header_element	 .= ! empty( emulsion_element_classes( 'article-header' ) ) ? 'class="' . sanitize_html_class( emulsion_element_classes( 'article-header' ) ) . '" ' : '';
-		$header_element	 .= ! empty( emulsion_element_classes( 'article-header' ) ) && ! empty( $thumbnail_url ) ? ' style="' . 'background-image:url(' . esc_url( $thumbnail_url ) . ' );"' : '';
-		$header_element	 .= '>';
-		$header_element	 = apply_filters( 'emulsion_article_header', $header_element, esc_url( $thumbnail_url ) );
-
-		print( $header_element );
-
-		emulsion_the_post_title();
-		emulsion_the_post_meta_on();
-		emulsion_the_post_meta_in();
-
-		print('</header>' );
-	}
-
-}
 
 if ( ! function_exists( 'emulsion_attachment_pagination' ) ) {
 	/**

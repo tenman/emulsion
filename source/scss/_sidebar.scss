@@ -2,6 +2,22 @@
  * Sidebar Sequential Control
  * ========================================================================== */
 body{
+    &.search-no-results,
+    &.error404{
+        .sidebar-widget-area{
+            display:none;
+            .sidebar-widget-area-lists{
+                display:none;
+            }
+        }
+        .footer-widget-area{
+            display:none;
+            position:static;
+            .footer-widget-area-lists{
+                display:none;
+            }
+        }
+    }
     &.emulsion-has-sidebar{
         .sidebar-widget-area {
             min-height:calc(100vh - 80px);
@@ -86,6 +102,8 @@ body{
  * Sidebar fallback
  * ========================================================================== */
 .widget{
+    padding-left:var(--thm_content_gap);
+    padding-right:var(--thm_content_gap);
     h1,h2,h3,h4,h5,div,form{
         padding-left:0;
         padding-right:0;
@@ -101,8 +119,14 @@ body{
             height:auto;
         }
     }
+    ul,ol{
+        padding-left:0;
+        padding-right:0;
+    }
     li{
         position:relative;
+        min-height:3rem;
+
     }
     img{
         max-width:100%;

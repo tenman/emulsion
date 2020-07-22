@@ -343,7 +343,7 @@ a{
         }
     }
     ol.list-style-inline:not(.list-style-initial):not([id]),
-    ul.list-style-inline:not(.list-style-initial):not([id]){
+        ul.list-style-inline:not(.list-style-initial):not([id]){
         @include clearfix;
         @extend %block;
         font-size:var(--thm_meta_data_font_size);
@@ -1001,8 +1001,8 @@ $indent-classes:('5rem','10rem','15rem','20rem','right-5rem','right-10rem','righ
     & > ul{
         & > .wp-block-navigation-link{
             ul{
-                transition:box-shadow .5s ease-in-out;
-                box-shadow: -1px -1px 9px 9px rgba( 0, 0, 0, .3 );
+                //transition:box-shadow .5s ease-in-out;
+                //@extend %boxshadow;
             }
         }
     }
@@ -1471,7 +1471,7 @@ body{
     /**
      * todo edge browser and background-css-pattern-carbon-fiber
      */
-    &.is-dark.custom-background .bg-carbon-fiber,
+    &.is-dark.custom-background .has-background-carbon-fiber,
     &.is-dark.custom-background.background-css-pattern-carbon-fiber{
         will-change:background-size;
         animation:is-dark-carbon-fiber 1s ease-in .5s forwards;
@@ -1489,7 +1489,7 @@ body{
             }
         }
     }
-    &.is-light.custom-background .bg-carbon-fiber,
+    &.is-light.custom-background .has-background-carbon-fiber,
     &.is-light.custom-background.background-css-pattern-carbon-fiber{
         will-change:background-size;
         animation:is-light-carbon-fiber 1s ease-in .5s forwards;
@@ -1507,7 +1507,7 @@ body{
             }
         }
     }
-    &.custom-background .bg-seigaiha,
+    &.custom-background .has-background-seigaiha,
     &.custom-background.background-css-pattern-seigaiha{
         background-color:var(--thm_background_color);
         will-change:background-size;
@@ -1530,7 +1530,7 @@ body{
     &.single.custom-background.emulsion-has-custom-background-image{
         animation:none;
     }
-    &.is-light.custom-background .bg-cicada,
+    &.is-light.custom-background .has-background-cicada,
     &.is-light.custom-background.background-css-pattern-cicada{
         background-color:var(--thm_background_color);
         background-image: -webkit-gradient(linear, left top, right top, color-stop(50%, rgba(255,255,255,.07)), color-stop(50%, transparent)),
@@ -1551,7 +1551,7 @@ body{
             linear-gradient(90deg, transparent 50%, rgba(255,255,255,.19) 50%);
         background-size: 13px, 29px, 37px, 53px;
     }
-    &.is-dark.custom-background .bg-cicada,
+    &.is-dark.custom-background .has-background-cicada,
     &.is-dark.custom-background.background-css-pattern-cicada{
         background-color:var(--thm_background_color);
         background-image: -webkit-gradient(linear, left top, right top, color-stop(50%, rgba(0,0,0,.07)), color-stop(50%, transparent)),
@@ -1572,7 +1572,7 @@ body{
             linear-gradient(90deg, transparent 50%, rgba(0,0,0,.19) 50%);
         background-size: 13px, 29px, 37px, 53px;
     }
-    &.custom-background .bg-lattice,
+    &.custom-background .has-background-lattice,
     &.custom-background.background-css-pattern-lattice{
         background:
             linear-gradient(var(--thm_sub_background_color_lighten) 8px, transparent 8px) 0 -4px,
@@ -1580,7 +1580,7 @@ body{
         background-color: var(--thm_background_color);
         background-size:128px 128px, 128px 128px;
     }
-    &.is-light.custom-background .bg-hexagonal,
+    &.is-light.custom-background .has-background-hexagonal,
     &.is-light.custom-background.background-css-pattern-hexagonal{
         background:
             radial-gradient(circle farthest-side at 0% 50%,var(--thm_background_color) 23.5%,rgba(0,0,0,0) 0)21px 30px,
@@ -1591,7 +1591,7 @@ body{
             linear-gradient(90deg,var(--thm_sub_background_color_lighten) 2%,var(--thm_background_color) 0,var(--thm_background_color) 98%,var(--thm_sub_background_color_lighten) 0%)0 0 var(--thm_background_color);
         background-size: 40px 60px;
     }
-    &.is-dark.custom-background .bg-hexagonal,
+    &.is-dark.custom-background .has-background-hexagonal,
     &.is-dark.custom-background.background-css-pattern-hexagonal{
         background:
             radial-gradient(circle farthest-side at 0% 50%,var(--thm_background_color) 23.5%,rgba(0,0,0,0) 0)21px 30px,
@@ -2064,46 +2064,50 @@ ul.shrink{
      * Grid Article
      * ========================================================================== */
     .is-light{
-        .grid{
-            article:target,
-                article:hover{
-                @extend %boxshadow;
-            }
-        }
-        .stream{
-            article:target,
-                article:hover{
-                @extend %boxshadow;
-            }
-        }
-        .wp-block-latest-posts{
-            li{
-                &:hover{
-                    background:var(--thm_white_color);
+        .border-default{
+            &.grid{
+                article:target,
+                    article:hover{
                     @extend %boxshadow;
                 }
             }
-            &.is-grid{
+
+            &.stream{
+                article:target,
+                    article:hover{
+                    @extend %boxshadow;
+                }
+            }
+        }
+            .wp-block-latest-posts{
                 li{
                     &:hover{
                         background:var(--thm_white_color);
                         @extend %boxshadow;
                     }
                 }
+                &.is-grid{
+                    li{
+                        &:hover{
+                            background:var(--thm_white_color);
+                            @extend %boxshadow;
+                        }
+                    }
+                }
             }
-        }
-        .wp-block-rss.is-grid{
-            li:hover{
-                background:var(--thm_white_color);
-                @extend %boxshadow;
+            .wp-block-rss.is-grid{
+                li:hover{
+                    background:var(--thm_white_color);
+                    @extend %boxshadow;
+                }
             }
-        }
-        .wp-block-latest-comments{
-            .wp-block-latest-comments__comment:hover{
-                background:var(--thm_white_color);
-                @extend %boxshadow;
+            .wp-block-latest-comments{
+                .wp-block-latest-comments__comment:hover{
+                    background:var(--thm_white_color);
+                    @extend %boxshadow;
+                }
             }
-        }
+        
         .wp-block-columns{
             .wp-block-column:hover{
             }
