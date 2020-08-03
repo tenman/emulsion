@@ -475,14 +475,14 @@ jQuery(function ($) {
                 $(this).addClass('alignwide');
             }
         });
-        $(".emulsion-has-sidebar.enable-alignfull .entry-content > .alignfull").not('.wp-block-cover').each(function (i) {
+        $(".emulsion-has-sidebar.enable-alignfull .entry-content > .alignfull").not('.wp-block-cover, .wp-block-embed').each(function (i) {
             var article_width = $(this).parents('article').width();
             var parent_width = $(this).parents('.entry-content').width();
             var negative_margin = parseInt(article_width) - parseInt(parent_width);
             negative_margin = negative_margin / -2;
             $(this).css({'width': article_width, 'left': negative_margin, 'visibility': 'visible'});
         });
-        $(".emulsion-no-sidebar.enable-alignfull .entry-content > .alignfull").not('.wp-block-cover').each(function (i) {
+        $(".emulsion-no-sidebar.enable-alignfull .entry-content > .alignfull").not('.wp-block-cover, .wp-block-embed').each(function (i) {
             var article_width = $(this).parents('article').width();
             var parent_width = $(this).parents('.entry-content').width();
             var negative_margin = parseInt(article_width) - parseInt(parent_width);
@@ -634,7 +634,7 @@ jQuery(function ($) {
      * Oembed
      */
     $('.wp-block-embed__wrapper').children('.wp-block-embed__wrapper').removeClass('wp-block-embed__wrapper');
-    $(".wp-block-embed-wordpress iframe").load(function (i) {
+    $(".wp-block-embed-wordpress iframe").on('load', function (i) {
         var height = $(this).attr('height');
         $(this).parents('.wp-block-embed__wrapper').css({'height': height});
     });

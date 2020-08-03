@@ -30,4 +30,4 @@ if ( is_page() && emulsion_the_theme_supports('sidebar_page') ) {
 <?php
 	}
 }
-?>		
+?>

@@ -16,7 +16,6 @@ if ( is_admin() && current_user_can( 'edit_theme_options' ) ) {
 		include_once( get_template_directory() . '/lib/class-tgm-plugin-activation.php' );
 	}
 }
-
 /**
  * Theme Supports
  */
@@ -152,7 +151,10 @@ if ( ! function_exists( 'emulsion_setup' ) ) {
 				'color'	 => $emulsion_favorite_color_palette,
 			),
 		) );
-			
+		/**
+		 * Block editor Custom Line height
+		 */
+		add_theme_support( 'custom-line-height' );
 		/**
 		 * Block editor alignwide
 		 */

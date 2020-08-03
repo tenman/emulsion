@@ -15,37 +15,88 @@ if ( ! function_exists( 'emulsion_get_site_title' ) ) {
 	 * Has Logo
 			<h1 class="site-title" id="site-title">
 				<a href="https://www.tenman.info/wp-37/" rel="home" class="site-title-link">
-					<span class="custom-logo-wrap"><img width="600" height="60" src="" class="custom-logo" alt="Site Title"></span>
+					<span class="custom-logo-wrap"><img width="600" height="60" src="[logo-uri]" class="custom-logo" alt="Site Title" aria-hidden="true"></span>
+					<span class="site-title-text">Site Title</span>
+				</a>
+			</h1>
+	 * Has Logo Front Page ( empty alt, add class link-disabled ) WordPress 5.5 relate change
+			<h1 class="site-title" id="site-title">
+				<a href="https://www.tenman.info/wp-37/" rel="home" class="site-title-link link-disabled">
+					<span class="custom-logo-wrap"><img width="600" height="60" src="[logo-uri]" class="custom-logo" alt="" aria-hidden="true"></span>
 					<span class="site-title-text">Site Title</span>
 				</a>
 			</h1>
 	 */
 
-	function emulsion_get_site_title( ) {
+	function emulsion_get_site_title( $blog_id = 0 ) {
 
-		$logo = '';
+		$switched_blog = false;
 
-		$site_title_text_class = 'site-title-text';
-		$site_title_text_class .= ! display_header_text() ? ' screen-reader-text': '';
+		if ( is_multisite() && ! empty( $blog_id ) && get_current_blog_id() !== (int) $blog_id ) {
+			switch_to_blog( $blog_id );
+			$switched_blog = true;
+		}
+
+		$logo					 = '';
+		
+		$site_title_text_class	 = 'site-title-text';
+		$site_title_text_class	 .= ! display_header_text() ? ' screen-reader-text' : '';
+
+		$site_title_link_class	 = 'site-title-link';
+		$site_title_link_class	 .= is_front_page() ? ' link-disabled' : '';
+
+		$custom_logo_id = absint( get_theme_mod( 'custom_logo' ) );
+
+		$custom_logo_attr = array(
+			'class' => 'custom-logo',
+			'aria-hidden' => 'true',
+			'alt' => '',
+		);
+		
+		if( ! is_front_page() ){
+			
+			$image_alt = get_post_meta( $custom_logo_id, '_wp_attachment_image_alt', true );
+				
+			$custom_logo_attr['alt'] =  empty( $image_alt ) ? get_bloginfo( 'name', 'display' ) : $image_alt;		
+		} 
+		 
+		$custom_logo_attr	 = apply_filters( 'get_custom_logo_image_attributes', $custom_logo_attr , $custom_logo_id, $blog_id );
 
 		if ( has_custom_logo() ) {
-			$custom_logo_id = get_theme_mod( 'custom_logo' );
 
-			$logo = sprintf( '<span class="custom-logo-wrap"><img width="%1$d" height="%2$d" src="%3$s" class="custom-logo" alt="%4$s"></span>',
-						absint( get_theme_support( 'custom-logo', 'width' ) ),
-						absint( get_theme_support( 'custom-logo', 'height' ) ),
-						esc_url( wp_get_attachment_image_src( $custom_logo_id , 'full' )[0] ),
-						esc_attr( get_bloginfo( 'name', 'display' ) )
-					);
+			$logo = sprintf( '<span class="custom-logo-wrap"><img width="%1$d" height="%2$d" src="%3$s" class="%4$s" alt="%5$s" aria-hidden="%6$s"></span>', 
+					absint( get_theme_support( 'custom-logo', 'width' ) ), 
+					absint( get_theme_support( 'custom-logo', 'height' ) ), 
+					esc_url( wp_get_attachment_image_src( $custom_logo_id, 'full' )[0] ), 
+					esc_attr( $custom_logo_attr['class'] ),
+					esc_attr( $custom_logo_attr['alt'] ),
+					esc_attr( $custom_logo_attr['aria-hidden'] )
+			);
+			
+			$site_title_text_class	 .= false === strstr( $site_title_text_class, 'screen-reader-text' ) ? ' screen-reader-text' : '';	
 		}
-		$title_format	 = '<%1$s class="%5$s" id="site-title">
-								<a href="%2$s" rel="%3$s" class="site-title-link">%6$s
-									<span class="%7$s">%4$s</span>
-								</a>
-							</%1$s>';
 
-		$html			 = sprintf( $title_format, 'h1', esc_url( home_url( '/' ) ), "home", get_bloginfo( 'name', 'display' ), apply_filters( 'emulsion_get_site_title_class', 'site-title' ), $logo
-		, $site_title_text_class );
+		$title_format = '<%1$s class="%5$s" id="site-title">
+							<a href="%2$s" rel="%3$s" class="%8$s">%6$s
+								<span class="%7$s">%4$s</span>
+							</a>
+						</%1$s>';
+
+		$html = sprintf( $title_format, 
+				'h1', 
+				esc_url( home_url( '/' ) ), 
+				"home", 
+				get_bloginfo( 'name', 'display' ),
+				apply_filters( 'emulsion_get_site_title_class', 'site-title' ),
+				$logo, 
+				$site_title_text_class,
+				$site_title_link_class
+		);
+
+		if ( $switched_blog ) {
+
+			restore_current_blog();
+		}
 
 		return $html;
 	}
@@ -59,9 +110,9 @@ if ( ! function_exists( 'emulsion_the_site_title' ) ) {
 	 * filter: emulsion_the_site_title
 	 */
 
-	function emulsion_the_site_title() {
-
-		$title = apply_filters( "emulsion_the_site_title", emulsion_get_site_title() );
+	function emulsion_the_site_title( $blog_id = 0 ) {
+		
+		$title = apply_filters( "emulsion_the_site_title", emulsion_get_site_title( $blog_id ) );
 
 		echo $title;
 	}

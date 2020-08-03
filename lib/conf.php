@@ -136,7 +136,7 @@ if ( ! function_exists( 'emulsion_theme_default_val' ) ) {
 			'emulsion_table_of_contents'			 => array( 'default' => 'enable', 'unit' => '', ), //Please use emulsion_the_theme_supports()
 			'emulsion_tooltip'						 => array( 'default' => 'enable', 'unit' => '', ), //Please use emulsion_the_theme_supports()
 			'emulsion_sticky_sidebar'				 => array( 'default' => 'enable', 'unit' => '', ),
-			'emulsion_lazyload'						 => array( 'default' => 'enable', 'unit' => '', ), //Please use emulsion_the_theme_supports()
+			'emulsion_lazyload'						 => array( 'default' => 'disable', 'unit' => '', ), //Please use emulsion_the_theme_supports()
 			'emulsion_instantclick'					 => array( 'default' => 'enable', 'unit' => '', ), //Please use emulsion_the_theme_supports()
 			'emulsion_search_drawer'				 => array( 'default' => 'enable', 'unit' => '', ), 
 			'emulsion_relate_posts'					 => array( 'default' => 'enable', 'unit' => '', ), // required emulsion-addons plugin

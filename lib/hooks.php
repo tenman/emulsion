@@ -123,6 +123,7 @@ if ( ! function_exists( 'emulsion_body_class' ) ) {
 	 * @return array;
 	 */
 	function emulsion_body_class( $classes ) {
+		global $post;
 
 		if ( is_page() ) {
 
@@ -165,6 +166,13 @@ if ( ! function_exists( 'emulsion_body_class' ) ) {
 		$classes[] = get_theme_mod( 'emulsion_border_global' ) || get_theme_mod( 'emulsion_border_global_style' ) || get_theme_mod( 'emulsion_border_global_width' )
 					? 'has-border-custom' 
 					: 'border-default';
+		
+		$classes[] = 'noscript';
+		
+		if ( is_singular() && isset( $post ) ) {
+			$author_name = 'by-' . get_the_author_meta( 'display_name', $post->post_author );
+			$classes[]	 = sanitize_html_class( $author_name );
+		}
 
 		return $classes;
 	}
@@ -213,6 +221,11 @@ if ( ! function_exists( 'emulsion_skip_link' ) ) {
 }
 
 function emulsion_archive_title_filter( $title ) {
+	
+	if ( has_filter( 'get_the_archive_title_prefix' ) || has_filter( 'get_the_archive_title_prefix' ) ) {
+		//WordPress 5.5
+		return $title;
+	}
 
 	if ( strpos( $title, ':' ) !== false ) {
 
