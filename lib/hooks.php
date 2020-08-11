@@ -23,7 +23,7 @@ function emulsion_hooks_setup() {
 	add_action( 'customize_controls_enqueue_scripts', 'emulsion_customizer_controls_style' );
 	add_filter( 'theme_templates', 'emulsion_theme_templates' );
 	add_filter('the_excerpt', 'emulsion_excerpt_remove_p');
-	
+
 	/**
 	 * Scripts
 	 */
@@ -89,12 +89,12 @@ function emulsion_hooks_setup() {
 		}
 
 	}
-	
-	
+
+
 
 	//JSON-LD add desscription
 	add_filter( 'amp_post_template_metadata', 'emulsion_amp_description', 10, 2 );
-	
+
 
 
 	do_action( 'emulsion_hooks_setup_after' );
@@ -157,18 +157,18 @@ if ( ! function_exists( 'emulsion_body_class' ) ) {
 
 			$classes[] = 'enable-alignfull';
 		}
-		
+
 		if ( emulsion_the_theme_supports( 'block_experimentals' ) && emulsion_is_plugin_active( 'gutenberg/gutenberg.php' ) ) {
-			
+
 			$classes[] = 'enable-block-experimentals';
 		}
-		
+
 		$classes[] = get_theme_mod( 'emulsion_border_global' ) || get_theme_mod( 'emulsion_border_global_style' ) || get_theme_mod( 'emulsion_border_global_width' )
-					? 'has-border-custom' 
+					? 'has-border-custom'
 					: 'border-default';
-		
+
 		$classes[] = 'noscript';
-		
+
 		if ( is_singular() && isset( $post ) ) {
 			$author_name = 'by-' . get_the_author_meta( 'display_name', $post->post_author );
 			$classes[]	 = sanitize_html_class( $author_name );
@@ -221,7 +221,7 @@ if ( ! function_exists( 'emulsion_skip_link' ) ) {
 }
 
 function emulsion_archive_title_filter( $title ) {
-	
+
 	if ( has_filter( 'get_the_archive_title_prefix' ) || has_filter( 'get_the_archive_title_prefix' ) ) {
 		//WordPress 5.5
 		return $title;
@@ -630,8 +630,8 @@ if ( ! function_exists( 'emulsion_theme_styles' ) ) {
 
 	function emulsion_theme_styles( $css ) {
 
-		$variables				 = false !== get_theme_mod( 'emulsion__css_variables' ) 
-				? get_theme_mod( 'emulsion__css_variables' ) 
+		$variables				 = false !== get_theme_mod( 'emulsion__css_variables' )
+				? get_theme_mod( 'emulsion__css_variables' )
 				: '';
 		$responsive_break_point	 = emulsion_theme_default_val( 'emulsion_content_width' ) + emulsion_theme_default_val( 'emulsion_sidebar_width' ) + emulsion_theme_default_val( 'emulsion_common_font_size' );
 		$responsive_break_point	 = absint( $responsive_break_point );
@@ -641,11 +641,17 @@ if ( ! function_exists( 'emulsion_theme_styles' ) ) {
 		$header_textcolor		 = ! empty( sanitize_hex_color_no_hash( get_header_textcolor() ) )
 				? 'color:'. sanitize_hex_color( sprintf('#%1$s', get_header_textcolor() ) )
 				: '';
-	
+
+		/* hide uncategorized category */
+		$uncagegorized_hide_style = absint( get_category_by_slug( 'uncategorized' )->term_id ) == absint( get_option( 'default_category' ) )
+				?	'#document .cat-item-1{display:none;}'
+				: '';
 
 		$customize_saved =<<< CUSTOMIZED_CSS
-				
+
 {$variables}
+/* test */
+{$uncagegorized_hide_style}
 .emulsion-addons-inactive body{
 	{$background_color};
 }
@@ -684,15 +690,65 @@ if ( ! function_exists( 'emulsion_theme_styles' ) ) {
         z-index:100000;
     }
 }
+.emulsion-addons-inactive main > .excerpt .entry-content{
+	width:var(--thm_content_width);
+	padding-left:var(--thm_content_gap);
+	padding-right:var(--thm_content_gap);
+	max-width:100%;
+}
+.emulsion-addons-inactive main > .excerpt .content-excerpt{
+	width:-moz-fit-content;
+	width:fit-content;
+}
 .emulsion-addons-inactive .page-wrapper article header .entry-meta .cat-item a:hover {
    color: var(--thm_general_link_hover_color);
 }
 .emulsion-addons-inactive body  .grid article header.show-post-image:before{
 	top:0;
 }
-.emulsion-addons-inactive div.page-wrapper .grid .article-wrapper article header{
-	background:rgba(188,188,188,.2);
+.emulsion-addons-inactive .has-column main > grid{
+	 --thm_main_width:calc(100vw - var(--thm_sidebar_width) - 48px );
 }
+.emulsion-addons-inactive .has-column main > stream{
+	--thm_main_width:calc(100vw - var(--thm_sidebar_width) - 48px );
+                --thm_content_width:410px;
+}
+.emulsion-addons-inactive main > .grid {
+  --thm_content_width: 300px;
+}
+.emulsion-addons-inactive main > .grid article {
+  --thm_content_width: 100%;
+}
+.emulsion-addons-inactive main > .stream {
+  --thm_content_width: 400px;
+}
+.emulsion-addons-inactive main > .stream article {
+  --thm_content_width: 100%;
+}
+.emulsion-addons-inactive main > .stream article .content {
+  display: block;
+}
+.emulsion-addons-inactive main > .stream article .entry-content {
+  display: none;
+}
+.emulsion-addons-inactive main > .stream article.preview-is-active .content {
+  display: none;
+}
+.emulsion-addons-inactive main > .stream article.preview-is-active .entry-content {
+  display: block;
+}
+.emulsion-addons-inactive main > .stream article:not(.preview-is-active) .content {
+  display: block;
+}
+.emulsion-addons-inactive main > .stream article:not(.preview-is-active) .entry-content {
+  display: none;
+}
+.emulsion-addons-inactive main > .excerpt article{
+            border-bottom-color:var(--thm_common_border, rgba(188,188,188,.5));
+            border-bottom-style:var(--thm_common_border_style);
+            border-bottom-width:var(--thm_common_border_width);
+        }
+
 @media screen and (max-width: {$responsive_break_point}px) {
 	.emulsion-addons-inactive body body.emulsion-has-sidebar .alignfull{
 		width:100vw;
@@ -728,10 +784,7 @@ if ( ! function_exists( 'emulsion_force_excerpt' ) ) {
 
 	function emulsion_force_excerpt( $excerpt ) {
 
-		$language		 = get_locale();
-		$non_space_lang	 = array( "zh-HK", "zh-TW", "zh-CN", "ko-KR", "ja" );
-
-		if ( in_array( $language, $non_space_lang ) ) {
+		if ( emulsion_lang_cjk() ) {
 
 			$length = absint( emulsion_theme_default_val( 'emulsion_excerpt_length' ) );
 
@@ -810,10 +863,8 @@ if ( ! function_exists( 'emulsion_excerpt_length_with_lang' ) ) {
 
 			return absint( emulsion_get_var( 'emulsion_excerpt_length' ) );
 		}
-		$language		 = get_locale();
-		$non_space_lang	 = array( "zh-HK", "zh-TW", "zh-CN", "ko-KR", "ja" );
 
-		if ( in_array( $language, $non_space_lang ) ) {
+		if ( emulsion_lang_cjk() ) {
 
 			return absint( emulsion_theme_default_val( 'emulsion_excerpt_length' ) );
 		} else {
@@ -922,12 +973,15 @@ if ( ! function_exists( 'emulsion_amp_description' ) ) {
 
 }
 if ( ! function_exists( 'emulsion_excerpt_remove_p' ) ) {
-function emulsion_excerpt_remove_p($excerpt){
-	
-	if( ! emulsion_theme_addons_exists() ){
-		
-		return strip_tags($excerpt);
+
+	function emulsion_excerpt_remove_p( $excerpt ) {
+
+		if ( ! emulsion_theme_addons_exists() ) {
+
+			return strip_tags( $excerpt );
+		}
+		return $excerpt;
 	}
-	return $excerpt;
+
 }
-}
+

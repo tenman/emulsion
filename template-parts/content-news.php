@@ -1,8 +1,10 @@
 <?php
+
 /**
  * This template is a sample template for custom post types.
  * This template is used when there is a custom post type 'news'.
  */
+
 ?><div class="article-wrapper <?php emulsion_template_part_names_class( __FILE__ ) ?>">
 	<?php
 	if ( 'list' == emulsion_current_layout_type() && has_action( 'emulsion_article_before' ) ) {

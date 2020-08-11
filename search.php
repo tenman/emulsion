@@ -1,8 +1,10 @@
 <?php
+
 /**
  * Theme emulsion
  * Search result template file
  */
+
 do_action('emulsion_template_pre');
 do_action('emulsion_template_pre_'.basename(__FILE__, '.php' ) );
 

@@ -9,6 +9,7 @@ if ( is_single() && false == emulsion_metabox_display_control( 'style' ) ) {
 	return;
 }
 if ( ! emulsion_the_theme_supports( 'enqueue' ) ) {
+	
 	return;
 }
 

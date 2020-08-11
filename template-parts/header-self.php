@@ -1,9 +1,10 @@
 <?php
+
 /**
  * header template 'Do it myself template'
- * 
  * emulsion_site_text_markup() has emulsion_site_text_markup_self filter
  */
+
 ?>
 <header class="header-layer <?php emulsion_the_header_layer_class() . emulsion_template_part_names_class( __FILE__ ) ?>">
 	<?php 

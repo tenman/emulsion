@@ -43,7 +43,7 @@ if ( ! function_exists( 'emulsion_get_site_title' ) ) {
 		$site_title_text_class	 .= ! display_header_text() ? ' screen-reader-text' : '';
 
 		$site_title_link_class	 = 'site-title-link';
-		$site_title_link_class	 .= is_front_page() ? ' link-disabled' : '';
+		$site_title_link_class	 .= is_front_page() && ! is_paged() ? ' link-disabled' : '';
 
 		$custom_logo_id = absint( get_theme_mod( 'custom_logo' ) );
 
@@ -188,19 +188,19 @@ if ( ! function_exists( 'emulsion_get_post_title' ) ) {
 		$entry_title_status	 = get_theme_mod( 'emulsion_title_in_header', emulsion_theme_default_val( 'emulsion_title_in_header' ) );
 		$layout_type		 = emulsion_current_layout_type();
 
-		switch( $layout_type ) {
-				case 'grid':
-					$data_rows = 2;
-					break;
-				case 'list':
-					$data_rows = 8;
-					break;
-				case 'stream':
-					$data_rows = 2;
-					break;
-				default:
-					$data_rows = 4;
-			}
+		switch ( $layout_type ) {
+			case 'grid':
+				$data_rows	 = 2;
+				break;
+			case 'list':
+				$data_rows	 = 8;
+				break;
+			case 'stream':
+				$data_rows	 = 2;
+				break;
+			default:
+				$data_rows	 = 4;
+		}
 
 		if ( 'yes' == $entry_title_status ) {
 

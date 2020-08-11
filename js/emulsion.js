@@ -1,7 +1,7 @@
 jQuery(function ($) {
     "use strict";
     $("body").removeClass('noscript');
-    $("#menu-main").attr('data-type', 'accordion');
+    $(".primary-menu-wrapper [id].menu").attr('data-type', 'accordion');
     // element wrap
     /**
      * the table element can not be controlled with max-width,
@@ -13,45 +13,47 @@ jQuery(function ($) {
      * If the table width is smaller than the content area, the stretch class displays the content width.
      *
      */
-    jQuery(".gist table,.sidebar-widget-area table, .footer-widget-area table").each(function (i) {
-        jQuery(this).wrap('<div class="emulsion-table-wrapper"></div>');
-        var parent_width = $(this).parent('.emulsion-table-wrapper').width();
-        var table_width = $(this).width();
-        if (parent_width > table_width) {
-            $(this).addClass('stretch');
-        }
-    });
-    jQuery("table.wp-block-table, .entry-content > table").not('shrink').each(function (i) {
-        /**
-         * WordPress 5.0 old gutenberg block
-         */
-        jQuery(this).wrap('<figure class="wp-block-table exception"></figure>');
-        var parent_width = $(this).parent('.wp-block-table').width();
-        var table_width = $(this).width();
-        if (parent_width > table_width) {
-            $(this).addClass('stretch');
-        }
-    });
-    jQuery("table.alignleft").each(function (i) {
-        jQuery(this).parent().addClass('alignleft');
-        jQuery(this).removeClass('alignleft');
-    });
-    jQuery("table.alignright").each(function (i) {
-        jQuery(this).parent().addClass('alignright');
-        jQuery(this).removeClass('alignright');
-    });
-    jQuery("table.aligncenter").each(function (i) {
-        jQuery(this).parent().addClass('aligncenter');
-        jQuery(this).removeClass('aligncenter');
-    });
-    jQuery("table.alignfull").each(function (i) {
-        jQuery(this).parent().addClass('alignfull');
-        jQuery(this).removeClass('alignfull');
-    });
-    jQuery("table.alignwide").each(function (i) {
-        jQuery(this).parent().addClass('alignwide');
-        jQuery(this).removeClass('alignwide');
-    });
+    if ($('table').length) {
+        jQuery(".gist table,.sidebar-widget-area table, .footer-widget-area table").each(function (i) {
+            jQuery(this).wrap('<div class="emulsion-table-wrapper"></div>');
+            var parent_width = $(this).parent('.emulsion-table-wrapper').width();
+            var table_width = $(this).width();
+            if (parent_width > table_width) {
+                $(this).addClass('stretch');
+            }
+        });
+        jQuery("table.wp-block-table, .entry-content > table").not('shrink').each(function (i) {
+            /**
+             * WordPress 5.0 old gutenberg block
+             */
+            jQuery(this).wrap('<figure class="wp-block-table exception"></figure>');
+            var parent_width = $(this).parent('.wp-block-table').width();
+            var table_width = $(this).width();
+            if (parent_width > table_width) {
+                $(this).addClass('stretch');
+            }
+        });
+        jQuery("table.alignleft").each(function (i) {
+            jQuery(this).parent().addClass('alignleft');
+            jQuery(this).removeClass('alignleft');
+        });
+        jQuery("table.alignright").each(function (i) {
+            jQuery(this).parent().addClass('alignright');
+            jQuery(this).removeClass('alignright');
+        });
+        jQuery("table.aligncenter").each(function (i) {
+            jQuery(this).parent().addClass('aligncenter');
+            jQuery(this).removeClass('aligncenter');
+        });
+        jQuery("table.alignfull").each(function (i) {
+            jQuery(this).parent().addClass('alignfull');
+            jQuery(this).removeClass('alignfull');
+        });
+        jQuery("table.alignwide").each(function (i) {
+            jQuery(this).parent().addClass('alignwide');
+            jQuery(this).removeClass('alignwide');
+        });
+    }
     /**
      * wp_block wrap
      * WordPress block is wrapping with <section class="sectionized-[block name]"></section>
@@ -88,8 +90,8 @@ jQuery(function ($) {
             var id = $(this).html().length;
             id = classes + '-' + parseInt(emulsion_script_vars.post_id) + '-' + parseInt(id);
             if ('is_preview' !== emulsion_script_vars.is_customize_preview) {
-                
-                if ( section_title ) {
+
+                if (section_title) {
                     $(this).parent().addClass(id).prepend('<h2 class="screen-reader-text">' + section_title + '</h2>');
                 } else {
                     $(this).parent().addClass(id);
@@ -100,53 +102,57 @@ jQuery(function ($) {
     /**
      * wp-block unwrap
      */
-    $('.entry-content .wp-block-image figure').each(function () {
-        if ($(this).hasClass('alignleft')) {
-            $(this).removeClass('alignleft');
-            $(this).removeAttr('style');
-            $(this).parent().addClass('alignleft');
-        }
-        if ($(this).hasClass('alignright')) {
-            $(this).removeClass('alignright');
-            $(this).removeAttr('style');
-            $(this).parent().addClass('alignright');
-        }
-        if ($(this).hasClass('aligncenter')) {
-            $(this).removeClass('aligncenter');
-            $(this).parent().addClass('aligncenter');
-        }
-        if ($(this).hasClass('is-resized')) {
-            $(this).removeClass('is-resized');
-            $(this).parent().addClass('is-resized');
-        }
-    });
+    if ($('.wp-block-image').length) {
+        $('.wp-block-image figure').each(function () {
+            if ($(this).hasClass('alignleft')) {
+                $(this).removeClass('alignleft');
+                $(this).removeAttr('style');
+                $(this).parent().addClass('alignleft');
+            }
+            if ($(this).hasClass('alignright')) {
+                $(this).removeClass('alignright');
+                $(this).removeAttr('style');
+                $(this).parent().addClass('alignright');
+            }
+            if ($(this).hasClass('aligncenter')) {
+                $(this).removeClass('aligncenter');
+                $(this).parent().addClass('aligncenter');
+            }
+            if ($(this).hasClass('is-resized')) {
+                $(this).removeClass('is-resized');
+                $(this).parent().addClass('is-resized');
+            }
+        });
+    }
 });
 jQuery(function ($) {
     /**
      * Function for opening / closing the child menu of wp_nav_menu ()
      */
-    $('.wp-nav-menu .menu-item-has-children > a').each(function (i) {
-        var text = $(this).parent().attr('id');
-        var text_id = text + '-opener';
-        if ('undefined' !== text_id) {
-            text_id = 'primary-opener-' + i;
-        }
-        $(this).siblings('.nav-menu-child-opener, .nav-menu-child-opener-label').remove(); //for browser back
-        $(this).parents('nav').addClass('has-chckbox-control');
-        $(this).parents('nav').attr('tabindex', 0);
-        $(this).after('<input id="' + text_id + '" type="checkbox" class="nav-menu-child-opener" /><label tabindex="0" class="nav-menu-child-opener-label" for="' + text_id + '"></label>');
-    });
-    // Sidebar Widget
-    $('.widget_nav_menu .menu-item-has-children > a').each(function (i) {
-        var text = $(this).parent().attr('id');
-        var text_id = text + '-opener';
-        if ('undefined' !== text_id) {
-            text_id = 'widget-opener-' + i;
-        }
-        $(this).siblings('.nav-menu-child-opener, .nav-menu-child-opener-label').remove(); //for browser back
-        $(this).parents('div').addClass('has-chckbox-control');
-        $(this).after('<input id="' + text_id + '" type="checkbox" class="nav-menu-child-opener" /><label tabindex="0" class="nav-menu-child-opener-label" for="' + text_id + '"></label>');
-    });
+    if ($('.menu-item-has-children').length) {
+        $('.wp-nav-menu .menu-item-has-children > a').each(function (i) {
+            var text = $(this).parent().attr('id');
+            var text_id = text + '-opener';
+            if ('undefined' !== text_id) {
+                text_id = 'primary-opener-' + i;
+            }
+            $(this).siblings('.nav-menu-child-opener, .nav-menu-child-opener-label').remove(); //for browser back
+            $(this).parents('nav').addClass('has-chckbox-control');
+            $(this).parents('nav').attr('tabindex', 0);
+            $(this).after('<input id="' + text_id + '" type="checkbox" class="nav-menu-child-opener" /><label tabindex="0" class="nav-menu-child-opener-label" for="' + text_id + '"></label>');
+        });
+        // Sidebar Widget
+        $('.widget_nav_menu .menu-item-has-children > a').each(function (i) {
+            var text = $(this).parent().attr('id');
+            var text_id = text + '-opener';
+            if ('undefined' !== text_id) {
+                text_id = 'widget-opener-' + i;
+            }
+            $(this).siblings('.nav-menu-child-opener, .nav-menu-child-opener-label').remove(); //for browser back
+            $(this).parents('div').addClass('has-chckbox-control');
+            $(this).after('<input id="' + text_id + '" type="checkbox" class="nav-menu-child-opener" /><label tabindex="0" class="nav-menu-child-opener-label" for="' + text_id + '"></label>');
+        });
+    }
 });
 
 jQuery(function ($) {
@@ -390,8 +396,8 @@ jQuery(function ($) {
      * add external class for external links
      * data-no-instant  relate instantclick.js
      */
-    if('enable' == emulsion_script_vars.instantclick_support){
-        
+    if ('enable' == emulsion_script_vars.instantclick_support) {
+
         $('a[href^=http]').not('[href^="' + emulsion_script_vars.home_url + '"]').addClass('external').attr('data-no-instant', 'data-no-instant');
         /**
          * instantcclick exclude links
@@ -436,7 +442,7 @@ jQuery(function ($) {
         $('.alignfull').each(function (index) {
             $(this).removeClass('alignfull');
         });
-    }    
+    }
 });
 jQuery(function ($) {
     "use strict";
@@ -465,48 +471,53 @@ jQuery(function ($) {
      */
     "use strict";
     function emulsion_resizes() {
-        $('.shortcode-wrapper').each(function (i) {
-            if ($(this).children().hasClass('alignfull')) {
-                $(this).children().removeClass('alignfull')
-                $(this).addClass('alignfull');
-            }
-            if ($(this).children().hasClass('alignwide')) {
-                $(this).children().removeClass('alignwide')
-                $(this).addClass('alignwide');
-            }
-        });
-        $(".emulsion-has-sidebar.enable-alignfull .entry-content > .alignfull").not('.wp-block-cover, .wp-block-embed').each(function (i) {
-            var article_width = $(this).parents('article').width();
-            var parent_width = $(this).parents('.entry-content').width();
-            var negative_margin = parseInt(article_width) - parseInt(parent_width);
-            negative_margin = negative_margin / -2;
-            $(this).css({'width': article_width, 'left': negative_margin, 'visibility': 'visible'});
-        });
-        $(".emulsion-no-sidebar.enable-alignfull .entry-content > .alignfull").not('.wp-block-cover, .wp-block-embed').each(function (i) {
-            var article_width = $(this).parents('article').width();
-            var parent_width = $(this).parents('.entry-content').width();
-            var negative_margin = parseInt(article_width) - parseInt(parent_width);
-            var main_width = $(this).parents('main').width();
-            negative_margin = parseInt(main_width) - parseInt(article_width) + parseInt(negative_margin);
-            negative_margin = negative_margin / -2;
-            $(this).css({'width': article_width, 'left': negative_margin, 'position': 'relative', 'visibility': 'visible'});
-        });
-        $(".emulsion-has-sidebar.enable-alignfull .entry-content > .emulsion-full").not('.wp-block-cover').each(function (i) {
-            var article_width = $(this).parents('article').width();
-            var parent_width = $(this).parents('.entry-content').width();
-            var negative_margin = parseInt(article_width) - parseInt(parent_width);
-            negative_margin = negative_margin / -2;
-            $(this).css({'width': article_width, 'left': negative_margin, 'visibility': 'visible'});
-        });
-        $(".emulsion-no-sidebar.enable-alignfull .entry-content > .emulsion-full").each(function (i) {
-            var article_width = $(this).parents('article').width();
-            var parent_width = $(this).parents('.entry-content').width();
-            var negative_margin = parseInt(article_width) - parseInt(parent_width);
-            var main_width = $(this).parents('main').width();
-            negative_margin = parseInt(main_width) - parseInt(article_width) + parseInt(negative_margin);
-            negative_margin = negative_margin / -2;
-            $(this).css({'width': article_width, 'left': negative_margin, 'position': 'relative', 'visibility': 'visible'});
-        });
+        if ($('.alignfull').length) {
+            $('.shortcode-wrapper').each(function (i) {
+                if ($(this).children().hasClass('alignfull')) {
+                    $(this).children().removeClass('alignfull')
+                    $(this).addClass('alignfull');
+                }
+                if ($(this).children().hasClass('alignwide')) {
+                    $(this).children().removeClass('alignwide')
+                    $(this).addClass('alignwide');
+                }
+            });
+            $(".emulsion-has-sidebar.enable-alignfull .entry-content > .alignfull").not('.wp-block-cover, .wp-block-embed').each(function (i) {
+                var article_width = $(this).parents('article').width();
+                var parent_width = $(this).parents('.entry-content').width();
+                var negative_margin = parseInt(article_width) - parseInt(parent_width);
+                negative_margin = negative_margin / -2;
+                $(this).css({'width': article_width, 'left': negative_margin, 'visibility': 'visible'});
+            });
+            $(".emulsion-no-sidebar.enable-alignfull .entry-content > .alignfull").not('.wp-block-cover, .wp-block-embed').each(function (i) {
+                var article_width = $(this).parents('article').width();
+                var parent_width = $(this).parents('.entry-content').width();
+                var negative_margin = parseInt(article_width) - parseInt(parent_width);
+                var main_width = $(this).parents('main').width();
+                negative_margin = parseInt(main_width) - parseInt(article_width) + parseInt(negative_margin);
+                negative_margin = negative_margin / -2;
+                $(this).css({'width': article_width, 'left': negative_margin, 'position': 'relative', 'visibility': 'visible'});
+            });
+        }
+        if ($('.emulsion-full').length) {
+            $(".emulsion-has-sidebar.enable-alignfull .entry-content > .emulsion-full").not('.wp-block-cover').each(function (i) {
+                var article_width = $(this).parents('article').width();
+                var parent_width = $(this).parents('.entry-content').width();
+                var negative_margin = parseInt(article_width) - parseInt(parent_width);
+                negative_margin = negative_margin / -2;
+                $(this).css({'width': article_width, 'left': negative_margin, 'visibility': 'visible'});
+            });
+            $(".emulsion-no-sidebar.enable-alignfull .entry-content > .emulsion-full").each(function (i) {
+                var article_width = $(this).parents('article').width();
+                var parent_width = $(this).parents('.entry-content').width();
+                var negative_margin = parseInt(article_width) - parseInt(parent_width);
+                var main_width = $(this).parents('main').width();
+                negative_margin = parseInt(main_width) - parseInt(article_width) + parseInt(negative_margin);
+                negative_margin = negative_margin / -2;
+                $(this).css({'width': article_width, 'left': negative_margin, 'position': 'relative', 'visibility': 'visible'});
+            });
+        }
+
         $('.emulsion-has-sidebar.enable-alignfull .entry-content > .wp-block-cover.alignfull, .emulsion-has-sidebar.enable-alignfull [class|="sectionized"]').each(function (i) {
             var sidebar_width = $('aside.sidebar-widget-area').width();
             var article_width = $(this).parents('article').width();
@@ -552,7 +563,7 @@ jQuery(function ($) {
 });
 jQuery(function ($) {
     "use strict";
-     if ('is_checked' == localStorage.getItem('toc-toggle') ) {
+    if ('is_checked' == localStorage.getItem('toc-toggle')) {
         $("#toc-toggle").prop("checked", true);
     }
     $("#toc-toggle").change(function () {
@@ -908,28 +919,29 @@ jQuery(document).ready(function ($) {
     /**
      * Add a wrapper block whose diameter is the diagonal length of the block
      */
+    if ($('.badge').length) {
+        $('.badge').each(function (i) {
 
-    $('.badge').each(function (i) {
+            var width_raw = $(this).outerWidth();
+            var width = Math.pow(width_raw, 2);
+            var height_raw = $(this).outerHeight();
+            var height = Math.pow(height_raw, 2);
+            var diagonal_length = Math.pow(width + height, 1 / 2);
+            var class_name = $(this).attr('class');
+            var style = $(this).attr('style');
+            var image = $(this).find('img');
 
-        var width_raw = $(this).outerWidth();
-        var width = Math.pow(width_raw, 2);
-        var height_raw = $(this).outerHeight();
-        var height = Math.pow(height_raw, 2);
-        var diagonal_length = Math.pow(width + height, 1 / 2);
-        var class_name = $(this).attr('class');
-        var style = $(this).attr('style');
-        var image = $(this).find('img');
-        
-        if (image.length) {
-            $(this).css({'width': width_raw}).addClass('has-image-badge');
-            $(image).css({'width': width_raw, 'height': width_raw});
-        }
-        if (0 == image.length ) {
-            $(this).wrap($('<div class="' + class_name + '" style="' + style + '"></div>')).removeClass(class_name).removeAttr('style');
-            $(this).parent().css({'width': diagonal_length, 'height': diagonal_length});
-        }
+            if (image.length) {
+                $(this).css({'width': width_raw}).addClass('has-image-badge');
+                $(image).css({'width': width_raw, 'height': width_raw});
+            }
+            if (0 == image.length) {
+                $(this).wrap($('<div class="' + class_name + '" style="' + style + '"></div>')).removeClass(class_name).removeAttr('style');
+                $(this).parent().css({'width': diagonal_length, 'height': diagonal_length});
+            }
 
-    });
+        });
+    }
 });
 jQuery(function ($) {
 

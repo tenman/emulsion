@@ -8,26 +8,32 @@
 		<?php emulsion_article_header(); ?>
 		<div class="entry-content"><?php 
 		
+		$layout_setting = emulsion_get_layout_setting();
+		
 		if( emulsion_theme_addons_exists() ) {
 			
 			emulsion_post_content();
-		} elseif( 'full_text' == emulsion_get_layout_setting() || 'post' == emulsion_get_layout_setting() || 'page' == emulsion_get_layout_setting() ) {
+		} elseif( 'full_text' == $layout_setting || 'post' == $layout_setting || 'page' == $layout_setting ) {
 			
 			the_content();				
 		} else {
-			
-			if( 'grid' == emulsion_is_custom_content( 'grid' ) ) {
+
+			if( 'grid' ==  $layout_setting ) {
+				
 				$number_of_lines = emulsion_theme_default_val( 'emulsion_excerpt_length_stream' );
 				echo '<p class="trancate" data-rows="'. $number_of_lines.'">';
 			} else {
+				
 				echo '<blockquote class="content-excerpt">';
 			}
 			
 			the_excerpt();
 			
-			if( 'grid' == emulsion_is_custom_content( 'grid' ) ) {
+			if( 'grid' ==  $layout_setting ) {
+				
 				echo '</p>';
 			} else {
+				
 				echo '</blockquote>';
 			}
 		}

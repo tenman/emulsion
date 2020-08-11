@@ -17,6 +17,7 @@ if ( ! function_exists( 'emulsion_year_link_element' ) ) {
 	}
 
 }
+
 if ( ! function_exists( 'emulsion_archive_year_navigation' ) ) {
 
 	/**
@@ -142,6 +143,7 @@ if ( ! function_exists( 'emulsion_archive_year_navigation' ) ) {
 		}
 	}
 }
+
 if ( ! function_exists( 'emulsion_monthly_archive_prev_next_navigation' ) ) {
 	
 	function emulsion_monthly_archive_prev_next_navigation( $echo = true, $show_year = false ) {

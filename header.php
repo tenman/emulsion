@@ -1,8 +1,10 @@
 <?php
+
 /**
  * Theme emulsion
  * header template part file
  */
+
 ?><!DOCTYPE html>
 <html <?php language_attributes(); ?> id="document" <?php printf( 'class="%1$s"', esc_attr( emulsion_element_classes( 'root' ) ) ); ?>>
 	<head>
@@ -15,13 +17,7 @@
 
 		$emulsion_header_type = is_page() ? 'page_header' : 'header';
 
-		if ( is_singular() ) {
-
-			emulsion_metabox_display_control( $emulsion_header_type ) ? get_template_part( 'template-parts/header', emulsion_header_layout() ) : '';
-		} else {
-
-			emulsion_metabox_display_control( $emulsion_header_type ) ? get_template_part( 'template-parts/header', emulsion_header_layout() ) : '';
-		}
+		emulsion_metabox_display_control( $emulsion_header_type ) ? get_template_part( 'template-parts/header', emulsion_header_layout() ) : '';
 
 		emulsion_sidebar_manager();
 		?>

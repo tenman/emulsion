@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Theme emulsion
  * Single post , page template

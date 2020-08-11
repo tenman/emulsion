@@ -4,6 +4,7 @@
  * Theme emulsion
  * fallback template file
  */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }

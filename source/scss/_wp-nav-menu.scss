@@ -30,6 +30,7 @@
 /**
  * 2cols
  * ========================================================================== */
+/*
 .emulsion-has-sidebar{
     .primary-menu-wrapper{
         display:flex;
@@ -81,7 +82,7 @@
             }
         }
     }
-}
+}*/
 /**
  * 1col
  * ========================================================================== */
@@ -157,7 +158,7 @@
 /**
  * on scroll
  * ========================================================================== */
-.on-scroll{
+.on-scroll[class]{
     .primary-menu-wrapper{
         .menu-placeholder{
             [for="toc-toggle"]{
@@ -304,10 +305,10 @@ nav[class|="menu"]{
                 box-sizing:content-box;
                 // padding-top:15px;
                 // padding-bottom:14px;
-                & > a{
+               /* & > a{
                     padding:.88rem 0 .88rem .88rem;
                     display:inline-block;
-                }
+                }*/
                 list-style:none;
                 // for click control
                 .nav-menu-child-opener:checked ~ .children .menu-item-has-children,
@@ -345,6 +346,10 @@ nav[class|="menu"]{
             list-style:none;
             margin:0 var( --thm_box_gap ) 0;
             &:not(.menu-item-has-children) a{
+                display:inline-block;
+            }
+            & > a{
+                padding:.88rem 0 .88rem .88rem;
                 display:inline-block;
             }
         }
@@ -390,13 +395,14 @@ nav[class|="menu"]{
                         margin-top:0;
                         margin-bottom:0;
                         &.show-left{
-                                &.menu-item-has-children:hover > .sub-menu,
+                            &.menu-item-has-children:hover > .sub-menu,
                                 &.menu-item-has-children:hover > .children{
                                 left:-100%;
                             }
                         }
                         & > a{
                             padding:.88rem;
+                            display:inline-block;
                         }
                     }
                     .sub-menu,
@@ -664,6 +670,7 @@ body:not(.noscript){
             }
         }
     }
+    /*
     .widget_nav_menu{
         & > div{
             .menu{
@@ -739,11 +746,12 @@ body:not(.noscript){
                 }
             }
         }
-    }
+    }*/
 }
 /**
  * Widget Navigation Menu
  * ========================================================================== */
+/*
 .widget_nav_menu{
     & > div{
         &.has-chckbox-control{
@@ -779,7 +787,7 @@ body:not(.noscript){
             }
         }
     }
-}
+}*/
 .header-layer-nav-menu{
     position:absolute;
     z-index:6;
