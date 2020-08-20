@@ -16,12 +16,6 @@ if ( is_admin() && current_user_can( 'edit_theme_options' ) ) {
 		include_once( get_template_directory() . '/lib/class-tgm-plugin-activation.php' );
 	}
 }
-function snippet_custom_editor_settings( $settings, $post ) {
-    $settings['richEditingEnabled'] = true;
-     
-    return $settings;
-}
-add_filter( 'block_editor_settings', 'snippet_custom_editor_settings', 10, 2 );
 /**
  * Theme Supports
  */
