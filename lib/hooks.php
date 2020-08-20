@@ -23,10 +23,13 @@ function emulsion_hooks_setup() {
 	add_action( 'customize_controls_enqueue_scripts', 'emulsion_customizer_controls_style' );
 	add_filter( 'theme_templates', 'emulsion_theme_templates' );
 	add_filter('the_excerpt', 'emulsion_excerpt_remove_p');
-
+	add_filter( 'gettext_with_context_default', 'emulsion_change_translate', 99, 4 );
+	add_filter( 'the_content_more_link', 'emulsion_read_more_link' );
+	add_filter( 'admin_body_class', 'emulsion_block_editor_class' );
 	/**
 	 * Scripts
 	 */
+	
 	false === emulsion_is_amp()
 			? add_filter( 'emulsion_inline_script', 'emulsion_get_rest' )
 			: '';
@@ -104,7 +107,7 @@ if ( ! function_exists( 'emulsion_minimum_php_version_check' ) ) {
 
 	function emulsion_minimum_php_version_check() {
 
-		if ( version_compare( PHP_VERSION, EMULSION_MIN_PHP_VERSION, '<' ) ) {
+		if( ! is_php_version_compatible( EMULSION_MIN_PHP_VERSION ) ) {
 
 			add_action( 'admin_notices', 'emulsion_php_version_notice' );
 			switch_theme( get_option( 'theme_switched' ) );
@@ -984,4 +987,68 @@ if ( ! function_exists( 'emulsion_excerpt_remove_p' ) ) {
 	}
 
 }
+if ( ! function_exists( 'emulsion_change_translate' ) ) {
 
+	function emulsion_change_translate( $translation, $text, $context, $domain ) {
+		
+		// remove <link crossorigin="anonymous" rel='stylesheet' id='wp-editor-font-css'  href='https://fonts.googleapis.com/css?family=Noto+Serif+JP%3A400%2C700&#038;ver=5.5' media='all' />
+		
+		if ( $context == 'Google Font Name and Variants' ) {
+			$translation = str_replace( 'Noto Serif:400,400i,700,700i', 'off', $translation );
+		}
+		return $translation;
+	}
+
+}
+if ( ! function_exists( 'emulsion_read_more_link' ) ) {
+
+	/**
+	 * layout type list
+	 * @return type
+	 */
+	function emulsion_read_more_link() {
+
+		$post_id	 = get_the_ID();
+		$title_text	 = the_title_attribute(
+				array( 'before' => esc_html__( 'link to ', 'emulsion' ),
+					'echo'	 => false, )
+		);
+
+		if ( is_int( $post_id ) ) {
+
+			return sprintf(
+					'<p class="read-more"><a class="skin-button" href="%1$s" aria-label="%3$s">%2$s<span class="screen-reader-text read-more-context">%3$s</span></a></p>', get_permalink(), esc_html__( 'Read more', 'emulsion' ), $title_text
+			);
+		}
+	}
+
+}
+
+if ( ! function_exists( 'emulsion_block_editor_class' ) ) {
+
+	function emulsion_block_editor_class( $classes ) {
+		global $wp_version;
+		$block_editor_class_name = '';
+		/**
+		 * gutengerg7.2 html structure changed
+		 * The editor style implemented in 5.0-core cannot control block styles after GB7.2.
+		 * Need to add style for new editor structure and keep style for old structure
+		 * Add a new body class to allow the theme to control the editor style
+		 */
+		if ( has_action( 'admin_enqueue_scripts', 'gutenberg_edit_site_init' ) ) {
+
+			$block_editor_class_name = ' emulsion-gb-phase-site';
+		} else {
+
+			$block_editor_class_name = ' emulsion-gb-phase-block';
+		}
+
+		if ( version_compare( $wp_version, '5.5', '>=' ) ) {
+
+			$block_editor_class_name = ' emulsion-gb-phase-site';
+		}
+
+		return $classes . $block_editor_class_name;
+	}
+
+}

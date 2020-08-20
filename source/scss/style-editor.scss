@@ -1,6 +1,5 @@
 @charset "UTF-8";
 @import 'scss-@';
-@import 'normalize';
 @import 'css-custom-prop';
 @import 'color';
 @import 'fonts';
@@ -831,7 +830,8 @@ body{
             box-sizing:border-box;
             clear:both;
             float:none;
-            max-width:calc( 720px - var(--thm_align_offset) );
+            width:calc( 720px - var(--thm_align_offset) );
+            max-width:100%;
             margin:1.5rem auto .75rem;
             @media screen and ( max-width : 640px ) {
                 // static break point
@@ -841,6 +841,7 @@ body{
                 margin-right:0;
             }
         }
+       
 
         [data-align="full"],// gutenberg 8.6 ?
         &[data-align="full"]{

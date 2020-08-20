@@ -2,7 +2,7 @@
  
 Contributors: nobita
 Requires at least: WordPress 5.0
-Tested up to: WordPress 5.4.2
+Tested up to: WordPress 5.5
 Requires PHP: 5.6
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -139,6 +139,9 @@ emulsion-addons.png
         * Source: https://github.com/LeaVerou/css3patterns
 
 ## Changelog
+### august 20 2020
+		* 1.5.1
+        * https://github.com/tenman/emulsion/releases
 ### august 11 2020
 		* 1.5.0
         * https://github.com/tenman/emulsion/releases

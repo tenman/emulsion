@@ -1,72 +1,119 @@
-/*scss-@
-normalize
-css-custom-prop
-fonts
-core
-elements
-page
-article
-custom-background
-block
-//block-old
-site-header
-sidebar*/
-
 //fonts
 body{
     &.emulsion-has-sidebar{
-        .template-part-widget-sidebar{
+
+        .sidebar-widget-area{
+
             font-size:var(--thm_meta_data_font_size);
             text-transform:var(--thm_meta_data_font_transform);
+
+            position:relative;
+            z-index:1;
+            flex-basis:var( --thm_sidebar_width, 400px );
+            width:var( --thm_sidebar_width, 400px );
+            max-width:var( --thm_sidebar_width, 400px );
+            flex:1 0;
+            margin-top:0;
+            margin-bottom:0;
+
             .sidebar-widget-area-lists{
+
+                padding-left:var(--thm_content_gap);
+                padding-right:var(--thm_content_gap);
+                list-style: none;
+                margin-left: auto;
+                margin-right: auto;
+
+                & > li{
+
+                    padding-left:0;
+                    padding-right:0; 
+                }
+
                 li{
+
                     line-height:calc( var(--thm_common_font_size) * var( --thm_content_line_height, 1.5 ) );
                     font-size:var(--thm_meta_data_font_size);
                     text-transform:var(--thm_meta_data_font_transform);
+
                     #wp-calendar caption,
                     .widgettitle{
+
                         font-size:20px;
                     }
-                    .emulsion-archive-count,
-                    .emulsion-cat-count,
-                    a{
-                        font-size:var(--thm_meta_data_font_size);
-                        text-transform:var(--thm_meta_data_font_transform);
-                    }
-                    .calendar_wrap{
-                        #wp-calendar{
-                            th,
-                            td{
-                                font-size:var(--thm_meta_data_font_size);
-                                text-transform:var(--thm_meta_data_font_transform);
-                            }
-                        }
-                    }
-                    [name="cat"],
-                    [name="archive-dropdown"]{
-                        font-size:var(--thm_meta_data_font_size);
-                        text-transform:var(--thm_meta_data_font_transform);
-                    }
-                    &.widget_rss{
-                        .rss-date,
-                        cite{
-                            font-size:var(--thm_meta_data_font_size);
-                            text-transform:var(--thm_meta_data_font_transform);
-                        }
-                    }
-                    &.widget_recent_comments{
-                        .recentcomments{
-                            font-size:var(--thm_meta_data_font_size);
-                            text-transform:var(--thm_meta_data_font_transform);
-                        }
-                    }
+
                 }
+            }
+        }
+
+        //page
+        .post-navigation{
+
+            padding-left:var(--thm_content_gap);
+            padding-right:var(--thm_content_gap);
+            padding-top: .1rem;
+            padding-bottom: 0.75em;
+            box-sizing: border-box;
+            max-width:100%;
+
+        }
+
+        .has-column{
+
+            display:flex;
+            flex-direction: row;
+            max-width:100%;
+            flex-wrap:wrap;
+
+        }
+        .pagination,
+        .page-title-block,
+        .nav-links{
+
+            margin-left:auto;//ie
+            margin-right:auto;//ie
+            max-width:100%;
+
+        }
+        .banner{
+            margin-top:0;
+        }
+        .page-wrapper{
+            order:1;
+            flex:1 1 auto;
+            min-width:var( --thm_content_width );
+            flex-basis:var(--thm_content_width);
+            box-sizing:border-box;
+        }
+        .side-right .sidebar-widget-area{
+            /**
+             * sidebar position control
+             * order:0 left sidebar
+             * order:2 right sidebar
+             * breack point 1249px responsive order issue (sidebar page first)
+             */
+            order:2;
+            .widget{
+                overflow:hidden;
+            }
+        }
+        .side-left .sidebar-widget-area{
+            /**
+             * sidebar position control
+             * order:0 left sidebar
+             * order:2 right sidebar
+             * breack point 1249px responsive order issue (sidebar page first)
+             */
+            order:0;
+            .widget{
+                overflow:hidden;
             }
         }
     }
 
 }
 //elements
+
 .enable-alignfull{
     &.emulsion-has-sidebar{
         .emulsion-full{
@@ -76,71 +123,7 @@ body{
         }
     }
 
-}
-//page
-.emulsion-has-sidebar{
-    .post-navigation{
-        padding-left:var(--thm_content_gap);
-        padding-right:var(--thm_content_gap);
-        padding-top: .1rem;
-        padding-bottom: 0.75em;
-        box-sizing: border-box;
-        max-width:100%;
-    }
-}
-//page
-.emulsion-has-sidebar{
-
-    .has-column{
-        display:flex;
-        flex-direction: row;
-        max-width:100%;
-        flex-wrap:wrap;
-    }
-    .pagination,
-    .page-title-block,
-    .nav-links{
-        margin-left:auto;//ie
-        margin-right:auto;//ie
-        max-width:100%;
-    }
-    .banner{
-        margin-top:0;
-    }
-    .page-wrapper{
-        order:1;
-        flex:1 1 auto;
-        min-width:var( --thm_content_width );
-        flex-basis:var(--thm_content_width);
-        box-sizing:border-box;
-    }
-    .side-right .sidebar-widget-area{
-        /**
-         * sidebar position control
-         * order:0 left sidebar
-         * order:2 right sidebar
-         * breack point 1249px responsive order issue (sidebar page first)
-         */
-        order:2;
-        .widget{
-            overflow:hidden;
-        }
-    }
-    .side-left .sidebar-widget-area{
-        /**
-         * sidebar position control
-         * order:0 left sidebar
-         * order:2 right sidebar
-         * breack point 1249px responsive order issue (sidebar page first)
-         */
-        order:0;
-        .widget{
-            overflow:hidden;
-        }
-    }
-}
-//article
-.enable-alignfull{
+    //article
     &.emulsion-has-sidebar{
         article{
             .alignfull{
@@ -255,8 +238,6 @@ body{
  * Sidebar fallback
  * ========================================================================== */
 .widget{
-    padding-left:var(--thm_content_gap);
-    padding-right:var(--thm_content_gap);
     h1,h2,h3,h4,h5,div,form{
         padding-left:0;
         padding-right:0;
@@ -376,14 +357,7 @@ body{
  * Sidebar widget
  * ========================================================================== */
 .sidebar-widget-area{
-    position:relative;
-    z-index:1;
-    flex-basis:var( --thm_sidebar_width, 400px );
-    width:var( --thm_sidebar_width, 400px );
-    max-width:var( --thm_sidebar_width, 400px );
-    flex:1 0;
-    margin-top:0;
-    margin-bottom:0;
+
     /**
      * sidebar position control
      * order:0 left sidebar
@@ -665,10 +639,12 @@ body{
             overflow:hidden;
             padding-left:0;
             padding-right:0;
+
             .footer-widget-area-lists{
+
                 @extend %block_main_wide;
-                padding-left:0;
-                padding-right:0;
+                padding-left:var(--thm_content_gap);
+                padding-right:var(--thm_content_gap);
                 width:100%;
                 display:flex;
                 flex-wrap:wrap;
@@ -679,21 +655,20 @@ body{
                 & > li{
                     // Customizer relate cols
                     flex:1 1 var( --thm_footer_widget_width );
-                    padding-left:var(--thm_content_gap);
-                    padding-right:var(--thm_content_gap);
                     margin-left:auto;
                     margin-right:auto;
                     min-width:296px;
                     list-style:none;
                     margin:var( --thm_box_gap );
                     .widgettitle{
+
                         overflow:hidden;
                         width:auto;
-                    }
-                    .widgettitle{
                         margin-top:1.5rem;
+
                     }
                     & > div:not(.gallery){
+
                         max-height:70vh;
                         overflow-y:scroll;
                         overflow-x:hidden;
@@ -1162,8 +1137,6 @@ print
                     }
                 }
             }
-
-
         }
     }
 }

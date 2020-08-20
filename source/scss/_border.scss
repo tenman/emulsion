@@ -60,6 +60,7 @@ body{
         }
     }
     &.emulsion-has-sidebar{
+        
         .primary-menu-wrapper{
             border-top-color:var(--thm_common_border, rgba(188,188,188,.5));
             border-top-style:var(--thm_common_border_style);
@@ -87,6 +88,9 @@ body{
             }
         }
         &.custom-background[class]{
+            nav[class|="menu"]{
+                border:none;
+            }
             &.emulsion-has-sidebar{
                 .primary-menu-wrapper{
                     [data-direction="horizontal"]{
@@ -248,12 +252,10 @@ body{
     }
     .wp-block-latest-posts__post-excerpt > a:only-child,
         .tag-cloud-style-flat a,
-        .wp-block-tag-cloud,
         .wp-block-button__link,
         .list-style-inline li,
         .horizontal-list-group li,
         .skin-button,
-        .wp-block-file a,
         .theme-message,
         .wp-block-column .wp-block-archives li,
         textarea,
@@ -274,6 +276,7 @@ body{
         .wp-block-table td,
         .page-break-links > span,
         .page-break-links a,
+        p > code,
         .wp-block-code code,
         .nav-links > div,
         .solid-border,
@@ -309,6 +312,21 @@ body{
             border-width:var(--thm_common_border_width);
         }
     }
+    .wp-block-archives,
+    .wp-block-latest-comments{
+        
+        & > li{//.wp-block-latest-comments__comment
+               border-bottom-color:var(--thm_common_border, rgba(188,188,188,.5));
+                border-bottom-style:var(--thm_common_border_style);
+                border-bottom-width:var(--thm_common_border_width);
+               &:last-child{
+                   border-bottom:none;
+               }
+               article{
+                   border:none;
+               }
+        }
+    }
     .entry-content{
         .wp-block-categories-list{
             li{
@@ -321,11 +339,11 @@ body{
                 border-bottom:none;
             }
         }
-        ul.wp-block-archives li:before{
+        /*ul.wp-block-archives li:before{
             border-top-color:var(--thm_common_border, rgba(188,188,188,.5));
             border-top-style:var(--thm_common_border_style);
             border-top-width:var(--thm_common_border_width);
-        }
+        }*/
     }
     hr{
         border-bottom:1px solid rgba(188,188,188,.7);

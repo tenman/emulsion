@@ -61,7 +61,7 @@ jQuery(function ($) {
      * Note:We can not guarantee that id is a completely unique value. After editing, the id value also changes.
      */
     if (true == emulsion_script_vars.block_sectionize) {
-        $('.entry-content > [class|="wp-block"]').not('.alignleft, .alignright, .wp-block-image,.wp-block-cover, \n\
+        $('.entry-content > [class|="wp-block"].alignfull').not('.wp-block-image,.wp-block-cover, \n\
             .wp-block-embed, .wp-block-group, .wp-block-table, .wp-block-spacer, .wp-block-button, .wp-block-separator, .wp-block-navigation').wrap(function () {
             var classes = $(this).attr('class').match(/wp-block-\S+/);
             var brightness_class = '';
@@ -416,6 +416,7 @@ jQuery(function ($) {
      */
     $("a:not(:has(*))").addClass('has-text');
     $('img').parent('a').addClass('has-image');
+     $('svg').parent('a').addClass('has-svg');
 });
 jQuery(function ($) {
     "use strict";
@@ -518,7 +519,7 @@ jQuery(function ($) {
             });
         }
 
-        $('.emulsion-has-sidebar.enable-alignfull .entry-content > .wp-block-cover.alignfull, .emulsion-has-sidebar.enable-alignfull [class|="sectionized"]').each(function (i) {
+        $('.emulsion-has-sidebar.enable-alignfull .entry-content > .wp-block-cover.alignfull, .emulsion-has-sidebar.enable-alignfull [class|="sectionized"].alignfull').each(function (i) {
             var sidebar_width = $('aside.sidebar-widget-area').width();
             var article_width = $(this).parents('article').width();
             var parent_width = $(this).parents('.entry-content').width();

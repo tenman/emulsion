@@ -222,12 +222,12 @@
             }
             footer{
                 flex:0 0 auto;
-                align-self: flex-end;
-                margin-top:auto;
+                align-self: flex-end;              
                 margin-bottom:var( --thm_content_gap, 24px );
                 height:auto;
                 display:flex;
                 justify-content:flex-end;
+                margin-top:0;
                 span{
                     display:flex;
                     display:inline-flex;
@@ -330,8 +330,10 @@
     box-sizing:border-box;
     clear:both;
     float:none;
-    max-width:calc( var(--thm_content_width) - var(--thm_align_offset) );
+    width:calc( var(--thm_content_width) - var(--thm_align_offset) );
+    max-width:100%;
     margin:1.5rem auto .75rem;
+    
     @media screen and ( max-width : 640px ) {
         // static break point
         width:100%;
@@ -625,7 +627,8 @@
             }
         }
     }
-    ul:not(.list-style-initial){
+    ul.wp-block:not(.list-style-initial){
+       
         &.list-style-none{
             li{
                 margin-left:var(--thm_common_font_size);

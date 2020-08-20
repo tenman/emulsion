@@ -77,6 +77,10 @@
                 min-height:6rem;
                 &:empty{
                     display:none;
+                    &:before,
+                        &:after{
+                        display:none;
+                    }
                 }
             }
         }
@@ -123,6 +127,10 @@
                 min-height:6rem;
                 &:empty{
                     display:none;
+                    &:before,
+                        &:after{
+                        display:none;
+                    }
                 }
             }
         }
@@ -169,6 +177,10 @@
                     min-height:6rem;
                     &:empty{
                         display:none;
+                        &:before,
+                        &:after{
+                        display:none;
+                    }
                     }
                 }
             }
@@ -216,6 +228,10 @@
             &:empty:after,
             &:empty{
                 display:none;
+                &:before,
+                        &:after{
+                        display:none;
+                    }
             }
         }
     }
@@ -405,6 +421,7 @@
             }
         }
         footer{
+            margin-top:0;
             .skin-button{
                 margin:0;
             }
@@ -448,105 +465,17 @@ body.page{
         }
     }
 }
+
 article{
     @include clearfix;
-    ol{
-        li{
-            line-height:var( --thm_content_line_height, 1.5 );
-            padding-top:calc( var(--thm_common_font_size) * var( --thm_content_line_height ) / 2 );
-            padding-bottom:calc( var(--thm_common_font_size) * var( --thm_content_line_height ) / 2 );
-            padding-left:.75rem;
-            padding-right:.75rem;
-            box-sizing:border-box;
-            margin-top:0;
-            margin-bottom:0;
-        }
-        ul,
-        ol{
-            margin-left:0;
-            margin-right:0;
-            width:inherit;
-            li{
-                &:last-child{
-                    padding-bottom:0;
-                }
-            }
-        }
-        & [class|="wp-block"]{
-            li{
-                list-style-type:none;
-            }
-        }
-    }
-    ul{
-        & > li{
-            list-style-type:disc;
-            line-height:var( --thm_content_line_height, 1.5 );
-            padding-top:calc( var(--thm_common_font_size) * var( --thm_content_line_height ) / 2 );
-            padding-bottom:calc( var(--thm_common_font_size) * var( --thm_content_line_height ) / 2 );
-            padding-left:.385rem;
-            padding-right:.385rem;
-            box-sizing:border-box;
-            margin-top:0;
-            margin-bottom:0;
-        }
-        ol{
-            & > li{
-                list-style-type:decimal;
-            }
-        }
-        ul{
-            padding-left:var(--thm_content_gap);
-            & > li{
-                list-style-type:square;
-                ul > li{
-                    list-style-type:circle;
-                }
-            }
-        }
-        &[class|="wp-block"]{
-            li{
-                list-style-type:none;
-                &:before{
-                    display:none;
-                }
-            }
-        }
-    }
-    ol{
-        & > li{
-            list-style-type:decimal;
-            line-height:var( --thm_content_line_height, 1.5 );
-            padding-top:calc( var(--thm_common_font_size) * var( --thm_content_line_height ) / 2 );
-            padding-bottom:calc( var(--thm_common_font_size) * var( --thm_content_line_height ) / 2 );
-            padding-left:.385rem;
-            padding-right:.385rem;
-            box-sizing:border-box;
-            margin-top:0;
-            margin-bottom:0;
-        }
-        ul > li{
-            list-style-type:disc;
-            ul > li{
-                list-style-type:square;
-            }
-        }
-        ul{
-            padding-left:var(--thm_content_gap);
-        }
-        &[class|="wp-block"]{
-            li{
-                list-style-type:none;
-                &:before{
-                    display:none;
-                }
-            }
-        }
-    }
+   
     .entry-content{
         ul[class|="wp-block"]{
             li{
                 list-style:none;
+                &:before{
+                    display:none;
+                }
             }
         }
     }

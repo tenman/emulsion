@@ -66,9 +66,9 @@
         h2{
             &:first-child:last-child{
                 // not exists taxonomy-description
-                padding-top:1em;
-                padding-bottom:3em;
-                margin-bottom:1.5rem;
+                //padding-top:1em;
+                //padding-bottom:3em;
+                //margin-bottom:1.5rem;
             }
         }
         .taxonomy-description{
@@ -523,9 +523,12 @@ body{
      */
     &.search-no-results,
     &.error404{
+        .breadcrumbs{
+            display:none;
+        }
         .template-part-header-custom{
             &.header-layer{
-                height:calc(100vh - 100px);
+
             }
         }
         .not-found{
@@ -542,11 +545,52 @@ body{
             }
         }
         .page-wrapper{
-            display:none;
-            position:absolute;
-            top: 20vh;
-            bottom: 20vh;
-            margin: auto;
+            // not title in header
+            
+            .template-part-content-none{
+                min-height:calc(100vh - 16rem);
+            }
+            .page-title-block.search-result-0{
+
+                display:flex;
+                position:relative;
+                //display:block;
+                min-height:calc(100vh - 14rem);
+            }
+        }
+        .template-part-header-custom{
+            // title in header
+            margin-top:0;
+            margin-bottom:0;
+            .template-part-content-none{
+
+                display: -webkit-box;
+                -webkit-box-pack: center;
+                -webkit-box-align: center;
+                -webkit-box-sizing:border-box;
+                display: -ms-flexbox;
+                display: flex;
+                -ms-flex-align: center;
+                align-items: center;
+                -ms-flex-pack: center;
+                justify-content: center;
+                -ms-flex-direction:column;
+                flex-direction:column;
+                height:100%;
+                box-sizing:border-box;
+
+               min-height:calc(100vh - 14rem);
+            }
+            .page-title-block.search-result-0{
+
+                display:flex;
+                position:relative;
+                min-height:calc(100vh - 12rem);
+                
+            }
+           & ~ div.layout{
+                display:none;
+            }
         }
 
     }
@@ -952,9 +996,9 @@ button.wp-custom-header-video-button{
     }
     &.emulsion-header-has-title,
     &.emulsion-layout-has-title{
-        
+
         .no-header-media.cta-layer-active.template-part-header-custom{
-            
+
             .cta-layer{            
 
             }
@@ -972,8 +1016,8 @@ button.wp-custom-header-video-button{
         &.drawer-is-active{
             .cta-layer-active.template-part-header-custom{
                 .cta-layer{
-                     top:0;
-                     height:25vh;
+                    top:0;
+                    height:25vh;
                 }
             }
         }
@@ -994,7 +1038,7 @@ button.wp-custom-header-video-button{
         &.drawer-is-active{
             .cta-layer-active.template-part-header-custom{
                 .cta-layer{
-                      top:3rem;
+                    top:3rem;
                 }
             }
         }
@@ -1012,7 +1056,7 @@ body.single{
         .header-image-active.cta-layer-active.template-part-header-custom{
             position:relative;
             .cta-layer{              
-                 position:absolute;
+                position:absolute;
                 bottom: 0;
                 left: 0;
                 right: 0;
@@ -1021,7 +1065,7 @@ body.single{
         &.drawer-is-active{
             .cta-layer-active.template-part-header-custom{
                 .cta-layer{
-                      top:3rem;
+                    top:3rem;
                 }
             }
         }
@@ -1033,7 +1077,7 @@ body.date{
         .no-header-media.cta-layer-active.template-part-header-custom{
 
             .cta-layer{
-                
+
             }
         }
     }
@@ -1060,7 +1104,7 @@ body.page{
         &.drawer-is-active{
             .cta-layer-active.template-part-header-custom{
                 .cta-layer{
-                     top:3rem;
+                    top:3rem;
                 }
             }
         }

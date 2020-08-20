@@ -683,9 +683,16 @@ if ( ! function_exists( 'emulsion_archive_title' ) ) {
 			return;
 		}
 
-		if ( is_archive() || is_search() || is_404() ) {
+		if ( is_archive() ) {
 
 			print '<div class="page-title-block">';
+		}
+		
+		if( is_search() ){
+
+			$class =  0 == $wp_query->found_posts ? 'search-result-0': 'search-result';
+
+			printf('<div class="page-title-block %1$s">', $class);
 		}
 
 		if ( is_404() ) {
@@ -729,7 +736,7 @@ if ( ! function_exists( 'emulsion_archive_title' ) ) {
 						'search-title' );
 			}
 		}
-		if ( is_archive() || is_search() || is_404() ) {
+		if ( is_archive() || is_search() ) {
 
 			print '</div>';
 		}

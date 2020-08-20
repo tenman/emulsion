@@ -5,7 +5,7 @@ Theme URI: https://www.tenman.info/wp3/emulsion
 Description: block editor, classic editor both supports. Conventional, Image Media New Block Type Image Both media can be displayed correctly.Theme can stop at each theme style page for page builder users. Customizer can easily view changes with automatic preview redirection.Theme is designed with the goal of minimizing user frustration.
 Author: Tenman
 Author URI: https://www.tenman.info/wp3/
-Version: 1.5.0
+Version: 1.5.1
 Tags: one-column, two-columns, grid-layout,left-sidebar, right-sidebar,custom-background, custom-colors, custom-header,custom-logo, custom-menu, editor-style, featured-image-header, featured-images, flexible-header, footer-widgets, full-width-template, post-formats, sticky-post, theme-options, threaded-comments, translation-ready, block-styles, wide-blocks
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -29,13 +29,13 @@ body.emulsion-removed-presentation img{
     max-width:100%;
     height:auto;
 }
-  
+
 /**
  * Tnormalize.css v8.0.0 | MIT License | github.com/necolas/normalize.css
  */
 html {
-    line-height: 1.15; /* 1 */
-    -webkit-text-size-adjust: 100%; /* 2 */
+    line-height: 1.15;
+    -webkit-text-size-adjust: 100%;
 }
 body {
     margin: 0;
@@ -346,4 +346,214 @@ body.is-dark.metabox-reset-post-presentation .header-layer.template-part-header-
     content:' ';
     background:url(./images/svg/shrink.svg#alert);
     background-size:contain;
+}
+/**
+ * Fallback colors
+ */
+
+:root{
+    --thm_black_color:#333;
+    --thm_gray_color:#727477;
+    --thm_silver_color:#bebebe;
+    --thm_cloud_color:#ecf0f1;
+    --thm_white_color:#ffffff;
+    --thm_alert_color:rgba(231, 76, 60, 1);
+    --thm_notice_color:rgba(163, 140, 8, 1);
+    --thm_info_color:rgba(22, 160, 133, 1);
+    --thm_cool_color:rgba(52, 152, 219, 1);
+    --thm_alert_color_alpha:rgba(231, 76, 60, .4);
+    --thm_notice_color_alpha:rgba(163, 140, 8, .4);
+    --thm_info_color_alpha:rgba(22, 160, 133, .4);
+    --thm_cool_color_alpha:rgba(52, 152, 219, .4);
+    --thm_lighten:linear-gradient(rgba(255, 255, 255, .2), rgba(255, 255, 255, .2));
+    --thm_darken:linear-gradient(rgba(0, 0, 0, .2), rgba(0, 0, 0, .2));
+}
+.wp-block-table{
+    --thm_table_light_gray_background:#f3f4f5;
+    --thm_table_pale_green_background:#e9fbe5;
+    --thm_table_pale_blue_background:#e7f5fe;
+    --thm_table_pale_pink_background:#ffccf8;
+}
+
+.is-dark{
+    color:var(--thm_white_color);
+}
+body {
+  color: var(--thm_black_color);
+}
+body a {
+  color: var(--thm_gray_color);
+}
+body .grid .article-wrapper article header {
+  background: rgba(222, 222, 222, 0.2);
+}
+body .grid .article-wrapper article header a {
+  color: var(--thm_gray_color);
+}
+body .grid .article-wrapper article header.show-post-image a {
+  color: var(--thm_white_color);
+}
+body .comment-wrapper, body .relate-content-wrapper {
+  background: var(--thm_relate_posts_bg, #eeeeee);
+}
+body .toc, body .primary-menu-wrapper {
+  background: var(--thm_white_color);
+}
+body .toc .children, body .primary-menu-wrapper .children, body .toc .sub-menu, body .primary-menu-wrapper .sub-menu {
+  background: var(--thm_white_color);
+}
+body .emulsion-add-dark-color *, body .show-post-image *, body .header-image-active * {
+  color: var(--thm_white_color);
+  border-color: var(--thm_white_color);
+}
+body .current {
+  background: rgba(188, 188, 188, 0.2);
+}
+body .current-page {
+  background: rgba(188, 188, 188, 0.2);
+}
+body .pagination .current, body .pagination .prev, body .pagination .next {
+  color: var(--thm_general_text_color);
+  background: rgba(188, 188, 188, 0.2);
+}
+
+
+#wpwrap [data-type="core/html"] .wp-block-html .block-editor-plain-text,
+.wp-block-preformatted,
+pre code {
+    color: #555;
+    background: #f8f8ff;
+}
+
+#wpwrap [data-type="core/html"] .wp-block-html .block-editor-plain-text.dark,
+.wp-block-preformatted.dark,
+pre code.dark {
+    color: #a9b7c6;
+    background: #282b2e;
+}
+
+#wpwrap [data-type="core/html"] .wp-block-html .block-editor-plain-text.dark code,
+.wp-block-preformatted.dark code,
+pre code.dark code,
+#wpwrap [data-type="core/html"] .wp-block-html .block-editor-plain-text.dark .block-editor-plain-text,
+.wp-block-preformatted.dark .block-editor-plain-text,
+pre code.dark .block-editor-plain-text {
+    color: #a9b7c6;
+    background: #282b2e;
+}
+
+pre.wp-block-code code {
+    color: #555;
+    background: #f8f8ff;
+}
+
+pre.wp-block-code.dark code {
+    color: #a9b7c6;
+    background: #282b2e;
+}
+
+pre.wp-block-code.dark code code,
+pre.wp-block-code.dark code .block-editor-plain-text {
+    color: #a9b7c6;
+    background: #282b2e;
+}
+
+p > code {
+    background: #f8f8ff;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+del,
+strike,
+s {
+    text-decoration-color: var(--thm_alert_color);
+    opacity: 0.5;
+}
+
+h1.has-text-color>a,
+h2.has-text-color>a,
+h3.has-text-color>a,
+h4.has-text-color>a,
+h5.has-text-color>a,
+h6.has-text-color>a {
+    color: inherit;
+}
+
+.has-stripe-background-color,
+.mark-stripe {
+    background: repeating-linear-gradient(45deg, #606dbc, #606dbc 10px, #465298 10px, #465298 20px);
+}
+
+.mark-success,
+.mark-cool {
+    background: var(--thm_cool_color_alpha);
+}
+
+.mark-notice {
+    background: var(--thm_notice_color_alpha);
+}
+
+.mark-info {
+    background: var(--thm_info_color_alpha);
+}
+
+.has-alert-background-color,
+.mark-alert {
+    background: var(--thm_alert_color_alpha);
+}
+
+.has-stripe-background-color:not(.has-text-color),
+.mark-stripe:not(.has-text-color),
+.mark-success:not(.has-text-color),
+.mark-cool:not(.has-text-color),
+.mark-notice:not(.has-text-color),
+.mark-info:not(.has-text-color),
+.has-alert-background-color:not(.has-text-color),
+.mark-alert:not(.has-text-color) {
+    color: var(--thm_black_color);
+}
+
+.has-stripe-background-color:not(.has-text-color) *:not(.has-text-color),
+.mark-stripe:not(.has-text-color) *:not(.has-text-color),
+.mark-success:not(.has-text-color) *:not(.has-text-color),
+.mark-cool:not(.has-text-color) *:not(.has-text-color),
+.mark-notice:not(.has-text-color) *:not(.has-text-color),
+.mark-info:not(.has-text-color) *:not(.has-text-color),
+.has-alert-background-color:not(.has-text-color) *:not(.has-text-color),
+.mark-alert:not(.has-text-color) *:not(.has-text-color) {
+    color: var(--thm_black_color);
+}
+
+.has-vivid-cyan-blue-to-vivid-purple-gradient-background:not(.has-text-color),
+.has-midnight-gradient-background:not(.has-text-color),
+.has-gray-background-color:not(.has-text-color),
+.has-black-background-color:not(.has-text-color) {
+    color: var(--thm_white_color);
+}
+
+.has-vivid-cyan-blue-to-vivid-purple-gradient-background:not(.has-text-color) *:not(.has-text-color),
+.has-midnight-gradient-background:not(.has-text-color) *:not(.has-text-color),
+.has-gray-background-color:not(.has-text-color) *:not(.has-text-color),
+.has-black-background-color:not(.has-text-color) *:not(.has-text-color) {
+    color: var(--thm_white_color);
+}
+
+.has-black-background-color {
+    background: var(--thm_black_color);
+}
+
+.has-black-background-color:not(.has-text-color) {
+    color: var(--thm_white_color);
+}
+
+.wp-block-social-links:not(.is-style-logos-only) .wp-social-link a svg {
+    color: var(--thm_white_color);
+    fill: var(--thm_white_color);
+}
+p.has-background:not(.has-text-color){
+    color: var(--thm_black_color);
+    &.emulsion-add-dark-color{
+        color:var(--thm_white_color);// @since 1.1.2
+    }
 }

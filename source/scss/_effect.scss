@@ -137,7 +137,7 @@ a{
             }
         }
     }
-    ul:not(.list-style-initial):not([id]):not([class|="wp-block"]):not(.list-style-inline){
+    ul:not(.list-style-initial):not([id]):not([class|="wp-block"]):not(.list-style-inline):not(.blocks-gallery-grid){
         &.list-style-none{
             li{
                 margin-left:var(--thm_common_font_size);
@@ -342,6 +342,7 @@ a{
             }
         }
     }
+    
     ol.list-style-inline:not(.list-style-initial):not([id]),
         ul.list-style-inline:not(.list-style-initial):not([id]){
         @include clearfix;
@@ -357,6 +358,7 @@ a{
         font-size:var(--thm_common_font_size);
         padding-left:var(--thm_content_gap);
         padding-right:var(--thm_content_gap);
+
         li{
             z-index:2;
             list-style-type:none;
@@ -379,7 +381,9 @@ a{
             }
         }
     }
+    
 }
+
 .widget.widget_custom_html{
     ul,ol{
         &[class*="ico-"]{
@@ -961,57 +965,7 @@ $indent-classes:('5rem','10rem','15rem','20rem','right-5rem','right-10rem','righ
     -webkit-transition: opacity 1s;
     transition: opacity 1s;
 }
-/**
- * Sticky Sidebar
- * =================================================================== */
-/*
-.emulsion-has-sidebar{
-    &.disable-sidebar-sticky{
-        .sidebar-widget-area .widget:last-child{
-            position: static;
-        }
-    }
-    .sidebar-widget-area-lists{
-        height:100%;
-    }
-    .sidebar-widget-area .widget:last-child{
-        position: -webkit-sticky;
-        position: sticky;
-        top: 100px;
-        align-self: flex-start;
-    }
-    &.on-scroll{
-        &.logged-in{
-            .menu-inactive{
-                & ~ .has-column{
-                    .sidebar-widget-area{
-                        top:32px;
-                    }
-                }
-            }
-        }
-    }
-}
-.emulsion-has-sidebar{
-    .menu-inactive{
-        &.primary-menu-wrapper{
-            display:none;
-        }
-    }
-}*/
-/**
- * Block Navigation
- * =================================================================== */
-.wp-block-navigation{
-    & > ul{
-        & > .wp-block-navigation-link{
-            ul{
-                //transition:box-shadow .5s ease-in-out;
-                //@extend %boxshadow;
-            }
-        }
-    }
-}
+
 /**
  * Grid Article
  * =================================================================== */
@@ -1135,11 +1089,7 @@ body{
             transition:all .5s ease-in-out;
         }
     }
-    .wp-block-columns{
-        .wp-block-column{
-            //  transition:all .5s ease-in-out;
-        }
-    }
+    
     .wp-block-latest-comments{
         .wp-block-latest-comments__comment{
             transition:all .5s ease-in-out;
@@ -1148,9 +1098,7 @@ body{
     .wp-block-tag-cloud{
         transition:all .5s ease-in-out;
     }
-    .emulsion-initial-color{
-        //todo
-    }
+    
 }
 .single,
 .page{
@@ -1839,12 +1787,7 @@ ul.shrink{
         }
     }
 }
-/**
- * emphasis block
- * ========================================================================== */
-.em{
-    // todo
-}
+
 /**
  * element wrapping Square Circle
  * Play effect
@@ -2025,45 +1968,7 @@ ul.shrink{
         opacity:1;
         @extend %boxshadow;
     }
-    /**
-     * Sticky Sidebar
-     */
-    /*.emulsion-has-sidebar{
-        &.disable-sidebar-sticky{
-            .sidebar-widget-area{
-                position: static;
-            }
-        }
-        .sidebar-widget-area-lists{
-            height:100%;
-        }
-        .sidebar-widget-area .widget:last-child{
-            position: -webkit-sticky;
-            position: sticky;
-            top: 100px;
-            align-self: flex-start;
-        }
-        &.on-scroll{
-            &.logged-in{
-                .sidebar-widget-area{
-                }
-                .menu-inactive{
-                    & ~ .has-column{
-                        .sidebar-widget-area{
-                            top:32px;
-                        }
-                    }
-                }
-            }
-        }
-    }
-    .emulsion-has-sidebar{
-        .menu-inactive{
-            &.primary-menu-wrapper{
-                display:none;
-            }
-        }
-    }*/
+
     /**
      * Grid Article
      * ========================================================================== */
@@ -2167,20 +2072,6 @@ ul.shrink{
      * Primary Menu
      * ========================================================================== */
     .is-dark{
-        /*.grid{
-            article:target,
-                article:hover{
-                background:var(--thm_sub_background_color_darken);
-              
-            }
-        }
-        .stream{
-            article:target,
-                article:hover .content{
-                background:var(--thm_sub_background_color_darken);
-                filter: brightness(130%);
-            }
-        }*/
         .wp-block-latest-posts.is-grid li:hover{
             background:var(--thm_background_color);
             filter: brightness(130%);
@@ -2223,9 +2114,7 @@ ul.shrink{
                 filter: brightness(130%);
             }
         }
-        .emulsion-initial-color{
-            //todo
-        }
+        
     }
     .emulsion-add-light-color{
         .wp-block-latest-posts{
@@ -2385,10 +2274,6 @@ body{
         z-index:3;
         .has-text-color *:not(.has-text-color){
             color:inherit ! important;
-        }
-        &.sectionized-wp-block-latest-posts{
-            // padding-top:1.5rem;
-            // padding-bottom:1.5rem;
         }
         &.sectionized-wp-block-columns{
             background:transparent;
@@ -2643,12 +2528,7 @@ body{
      * Sectionize
      * ========================================================================== */
     [class|="sectionized"]{
-        &:hover{
-            .has-background:not(.wp-block-group):not(.wp-block-cover):before{
-                //gb7.5 block columns + has background image issue commentout
-                //background:transparent;
-            }
-        }
+       
         &.sectionized-wp-block-separator{
             &:hover{
                 background:transparent;

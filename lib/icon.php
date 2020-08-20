@@ -403,7 +403,7 @@ function emulsion_icon_svg_styles( $css ) {
         float: left;
         margin-bottom: 0;
         min-height:calc(  var(--thm_common_font_size) * 3 );
-        margin-top: 1.5rem;
+        margin-top: 1rem;
         overflow:visible;
     }
     .social-navigation ul{
@@ -414,7 +414,7 @@ function emulsion_icon_svg_styles( $css ) {
 	padding-left:var(--thm_content_gap);
 	padding-right:var(--thm_content_gap);	
 }
-.social-navigation ul{
+.social-navigation .menu-social-menu-container ul{
     list-style: none;
     margin-bottom: 0;
     margin: 0 auto;
@@ -426,8 +426,11 @@ function emulsion_icon_svg_styles( $css ) {
     display: inline-block;
 	padding-top:0.1925rem;
 	padding-bottom:0.1925rem;
+	margin-right:.5rem;
 }
-
+.social-navigation li:last-child{
+	margin-right:0;
+}
 .social-navigation a{
     -webkit-border-radius: calc( var(--thm_common_font_size) * 2 + 8px);
     border-radius: calc(  var(--thm_common_font_size) * 2 + 8px);
