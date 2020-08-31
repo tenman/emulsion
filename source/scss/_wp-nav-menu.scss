@@ -252,10 +252,10 @@ nav[class|="menu"]{
                 box-sizing:content-box;
                 // padding-top:15px;
                 // padding-bottom:14px;
-               /* & > a{
-                    padding:.88rem 0 .88rem .88rem;
-                    display:inline-block;
-                }*/
+                /* & > a{
+                     padding:.88rem 0 .88rem .88rem;
+                     display:inline-block;
+                 }*/
                 list-style:none;
                 // for click control
                 .nav-menu-child-opener:checked ~ .children .menu-item-has-children,
@@ -863,4 +863,23 @@ input[type="checkbox"][data-skin="inset"]:checked + label span:hover:after {
 }
 input[type="checkbox"][data-skin="inset"]:checked + label span:after {
     opacity: 1;
+}
+.menu-is-default{
+    .menu-main-container{
+        //fallback
+        background:var(--thm_white_color);
+        a{
+            color:var(--var_black_color);
+        }
+    }
+}
+.menu-is-dark,
+.menu-is-light{
+    .menu-main-container{
+        background:var(--thm_primary_menu_background);
+        color:var(--thm_primary_menu_color);
+        a{
+            color:var(--thm_primary_menu_link_color);
+        }
+    }
 }

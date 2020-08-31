@@ -168,9 +168,10 @@ body{
                     color:var(--thm_general_link_color);
                 }
                 ul{
-                   @include font_size(5);
+                    @include font_size(5);
                     li{
                         &.toc-active{
+                            list-style-type:disc;
                             color:red;
                             a{
                                 color:var(--thm_hover_color);
@@ -341,7 +342,7 @@ body{
             }
         }
     }
-    
+
 
     .has-category-colors .widget_categories > ul > li:hover{
         a{
@@ -1315,6 +1316,24 @@ body{
             }
         }
         .layout{
+            .grid{
+                article{
+                    header{
+                        .entry-meta{
+                            .post-category{
+                                .cat-item{
+                                    a{
+                                        color: var(--thm_header_link_color);
+                                        background:transparent;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .layout{
             article{
                 header{
                     .entry-meta{
@@ -1484,7 +1503,7 @@ body{
 
         }
     }
-    
+
     .footer-layer{
         &.sidebar-is-light,
         &.sidebar-is-dark{
@@ -1511,7 +1530,7 @@ body{
             color:var(--thm_general_text_color);
             a{
                 color:var(--thm_general_link_color);
-                
+
             }
             .widgettitle{
                 color:var(--thm_general_text_color);
@@ -2223,7 +2242,7 @@ table{
         }
     }
 }
-
+.emulsion-cat-count,
 .badge{
     background: rgba(188,188,188,.3);
 }
@@ -2340,7 +2359,7 @@ body[class] .layout ul:not(.list-style-initial):not([id]),
 body[class] .layout ol:not(.list-style-initial):not([id]){
     li{
         &:before{
-            background:rgba(147,147,147,1);
+            background:var(--thm_default_bullet_color);
             color:var(--thm_white_color);
         }
     }
@@ -2785,6 +2804,7 @@ a.skin-button{
     .wp-block-file a.wp-block-file__button{
         color:var(--thm_header_text_color);
         background: var(--thm_header_bg_color);
+        display:inline-block;
     }
 }
 .wp-block-search .wp-block-search__button{
@@ -3745,10 +3765,10 @@ body{
         }
     }
     .relate-content-wrapper{
-       // background:var(--thm_relate_posts_bg);
-       // color:var(--thm_relate_posts_color);
+        // background:var(--thm_relate_posts_bg);
+        // color:var(--thm_relate_posts_color);
         a{
-           // color:var(--thm_relate_posts_link_color);
+            // color:var(--thm_relate_posts_link_color);
             &:hover{
                 color:var(--thm_relate_posts_text_color);
             }
@@ -3778,7 +3798,7 @@ body{
     }
     .entry-content{
         .wp-block-button{
-           // color:var(--thm_white_color);
+            // color:var(--thm_white_color);
             &:hover{
                 color:var(--thm_white_color);
             }

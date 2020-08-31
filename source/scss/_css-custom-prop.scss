@@ -525,7 +525,7 @@ body{
             }
             .layout ul:not(.list-style-initial):not([id]) li:before,
                 .layout ol:not(.list-style-initial):not([id]) li:before{
-                background:#eee;
+                background:var(--thm_default_bullet_color);
             }
             &.is-singular.emulsion-has-custom-background-image.has-background-img-text-white{
                 .post-navigation{
@@ -587,6 +587,8 @@ body{
         }
     }
 }
+.layout-stream,
+.layout-grid,
 #{$stream-condition},
 #{$grid-condition}{
     .has-column{

@@ -1,7 +1,7 @@
 jQuery(function ($) {
     "use strict";
     $("body").removeClass('noscript');
-    $(".primary-menu-wrapper [id].menu").attr('data-type', 'accordion');
+ //   $(".primary-menu-wrapper [id].menu").attr('data-type', 'accordion');
     // element wrap
     /**
      * the table element can not be controlled with max-width,
@@ -60,36 +60,44 @@ jQuery(function ($) {
      * and if possible add unique id for each block can do indivisual CSS design
      * Note:We can not guarantee that id is a completely unique value. After editing, the id value also changes.
      */
+    //.not('.wp-block-image,.wp-block-cover, .wp-block-embed, .wp-block-group, .wp-block-table, .wp-block-spacer, .wp-block-button, .wp-block-separator, .wp-block-navigation, .wp-block-latest-comments, .wp-block-categories, .wp-block-archives')
     if (true == emulsion_script_vars.block_sectionize) {
-        $('.entry-content > [class|="wp-block"].alignfull').not('.wp-block-image,.wp-block-cover, \n\
-            .wp-block-embed, .wp-block-group, .wp-block-table, .wp-block-spacer, .wp-block-button, .wp-block-separator, .wp-block-navigation').wrap(function () {
+        $('[class|="wp-block"].alignfull').wrap(function () {
             var classes = $(this).attr('class').match(/wp-block-\S+/);
+            var flag = false;
             var brightness_class = '';
             var section_title = '';
             if ('wp-block-columns' == classes) {
                 brightness_class = 'columns-' + emulsion_script_vars.block_columns_class;
                 section_title = emulsion_script_vars.block_columns_class_title;
+                flag = true;
             }
             if ('wp-block-gallery' == classes) {
                 brightness_class = 'gallery-' + emulsion_script_vars.block_gallery_class;
                 section_title = emulsion_script_vars.block_gallery_class_title;
+                flag = true;
             }
             if ('wp-block-media-text' == classes) {
                 brightness_class = 'media-text-' + emulsion_script_vars.block_media_text_class;
                 section_title = emulsion_script_vars.block_media_text_class_title;
+                flag = true;
             }
             if ('wp-block-pullquote' == classes || 'wp-block-quote' == classes) {
                 section_title = emulsion_script_vars.block_quote_class_title;
+                flag = true;
             }
             if ('wp-block-buttons' == classes) {
                 section_title = emulsion_script_vars.block_buttons_class_title;
+                flag = true;
             }
-            $(this).wrap('<section class="sectionized-' + classes + ' ' + brightness_class + '" ></section>');
+            if (flag == true) {
+                $(this).wrap('<section class="sectionized-' + classes + ' ' + brightness_class + '" ></section>');
+            }
 
             var string = $(this).html().slice(0, 4);
             var id = $(this).html().length;
             id = classes + '-' + parseInt(emulsion_script_vars.post_id) + '-' + parseInt(id);
-            if ('is_preview' !== emulsion_script_vars.is_customize_preview) {
+            if ('is_preview' !== emulsion_script_vars.is_customize_preview && flag == true) {
 
                 if (section_title) {
                     $(this).parent().addClass(id).prepend('<h2 class="screen-reader-text">' + section_title + '</h2>');
@@ -311,6 +319,16 @@ jQuery(function ($) {
      * To suppress the display of the title tooltip and change the attribute name
      * to the data attribute to enable display control on the CSS.
      */
+    $('ul,ol').not('[class]').each(function (index) {
+        //  $(this).addClass('emulsion-list');
+    });
+});
+jQuery(function ($) {
+    "use strict";
+    /**
+     * To suppress the display of the title tooltip and change the attribute name
+     * to the data attribute to enable display control on the CSS.
+     */
     $('.sidebar-widget-area a, .footer-widget-area a, .page-wrapper a, .search-drawer a, .header-layer a').not('.social-links-menu a').each(function (index) {
         var text = $(this).attr('title');
         $(this).removeAttr('title');
@@ -416,7 +434,7 @@ jQuery(function ($) {
      */
     $("a:not(:has(*))").addClass('has-text');
     $('img').parent('a').addClass('has-image');
-     $('svg').parent('a').addClass('has-svg');
+    $('svg').parent('a').addClass('has-svg');
 });
 jQuery(function ($) {
     "use strict";
@@ -934,11 +952,11 @@ jQuery(document).ready(function ($) {
 
             if (image.length) {
                 $(this).css({'width': width_raw}).addClass('has-image-badge');
-                $(image).css({'width': width_raw, 'height': width_raw});
+                $(image).css({'width': width_raw, 'height': width_raw, 'display': 'inline-block'});
             }
             if (0 == image.length) {
                 $(this).wrap($('<div class="' + class_name + '" style="' + style + '"></div>')).removeClass(class_name).removeAttr('style');
-                $(this).parent().css({'width': diagonal_length, 'height': diagonal_length});
+                $(this).parent().css({'width': diagonal_length, 'height': diagonal_length, 'display': 'inline-block'});
             }
 
         });
@@ -990,6 +1008,28 @@ jQuery(function ($) {
         $(this).attr({
             'open': false,
         });
+    });
+
+});
+
+jQuery(function ($) {
+
+    $('[for="primary-menu-controll"]').on('click', function () {
+       
+        var ua = navigator.userAgent.toLowerCase(), isIOS = /iphone|ipod|ipad/.test(ua),
+                isLine = /line/.test(ua), isFb = /fb/.test(ua), isTw = /twitter/.test(ua),
+                isSafari = /safari/.test(ua), isChrome = /crios/.test(ua);
+
+        if (isIOS && isSafari) {
+
+            if ( $(this).hasClass('is-primary-menu-open') ) {
+                
+                $(this).removeClass('is-primary-menu-open').siblings('nav').css({'visibility': 'hidden', 'display': 'none'});
+            } else {
+                $(this).addClass('is-primary-menu-open').siblings('nav').css({'visibility': 'visible', 'display': 'block'});
+            }
+
+        }
     });
 
 });

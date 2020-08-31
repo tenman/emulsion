@@ -1,7 +1,7 @@
 <div class="article-wrapper <?php emulsion_template_part_names_class( __FILE__ ) ?>">
 	<?php
-	if ( 'list' == emulsion_current_layout_type() && has_action( 'emulsion_article_before' ) ) {
-		?><div class="placeholder-article-before fit"><?php do_action( 'emulsion_article_before' ); ?></div><?php
+	if ( has_action( 'emulsion_article_before' ) ) {
+		?><div class="placeholder-article-before"><?php do_action( 'emulsion_article_before' ); ?></div><?php
 	}
 	?> 	
 	<article id="post-<?php the_ID() ?>" <?php post_class(); ?>>
@@ -68,8 +68,8 @@
 				<?php edit_post_link( esc_html__( 'Edit', 'emulsion' ), '<span class="editor">', '</span>', '', 'skin-button' ); ?></footer>
 	</article>
 				<?php
-				if ( 'list' == emulsion_current_layout_type() && has_action( 'emulsion_article_after' ) ) {
-					?><div class="placeholder-article-before fit"><?php do_action( 'emulsion_article_after' ); ?></div><?php
+				if ( has_action( 'emulsion_article_after' ) ) {
+					?><div class="placeholder-article-after"><?php do_action( 'emulsion_article_after' ); ?></div><?php
 				}
 				?> 
 </div>

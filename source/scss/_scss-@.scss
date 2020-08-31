@@ -148,7 +148,6 @@
  * @extend %block_wide;
  */
 %block_wide {
-    //  width: var( --thm_main_width, 1280px );
     width:calc( var(--thm_content_width) + var(--thm_align_offset) );
     margin-top:1.5rem;
     margin-bottom:.75rem;
@@ -162,7 +161,6 @@
  */
 %block_main_wide {
     width: var( --thm_main_width, 1280px );
-
     margin-top:1.5rem;
     margin-bottom:.75rem;
     padding-left:var( --thm_content_gap, 24px );
@@ -281,6 +279,8 @@
     clear:left;
     float:left;
     max-width:calc( 50% - var(--thm_content_gap) - var(--thm_common_font_size) );
+    //width:calc( 50% - var(--thm_content_gap) - var(--thm_common_font_size) );
+    //max-width:100%;
     margin-right:var(--thm_common_font_size);
     margin-left:var(--thm_content_gap);
     margin-top:1.5rem;
@@ -306,6 +306,8 @@
     clear:right;
     float:right;
     max-width:calc( 50% - var(--thm_content_gap) - var(--thm_common_font_size) );
+    //width:calc( 50% - var(--thm_content_gap) - var(--thm_common_font_size) );
+    //max-width:100%;
     margin-left:var(--thm_content_gap);
     margin-right:var(--thm_common_font_size);
     margin-top:1.5rem;
@@ -507,7 +509,7 @@
  * @extend %list-effect-editor
  */
 %list-effect-editor{
-    ol:not(.list-style-initial){
+    ol:not(.list-style-initial):not(.wp-list-comments){
         &.list-style-none{
             li{
                 margin-left:0;
@@ -627,6 +629,7 @@
             }
         }
     }
+    //ul[class|="wp-block"]:not(.list-style-initial),
     ul.wp-block:not(.list-style-initial){
        
         &.list-style-none{

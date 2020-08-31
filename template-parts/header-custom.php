@@ -11,7 +11,7 @@
 			'yes' == get_theme_mod( 'emulsion_title_in_header', emulsion_theme_default_val( 'emulsion_title_in_header' ) ) &&
 			is_singular( array( $current_post_type ) ) &&
 			! post_password_required( $post ) ) {
-		?><div class="post-featured-image"><?php the_post_thumbnail(); //get_the_post_thumbnail ?></div><?php
+		?><div class="post-featured-image"><?php the_post_thumbnail('post-thumbnail', array('layout' => 'responsive')); //get_the_post_thumbnail ?></div><?php
 	} else {
 
 		false !== emulsion_home_type() && ! is_paged() ? the_custom_header_markup() : '';
@@ -44,7 +44,7 @@
 		'echo'			 => true,
 		'depth'			 => 0,
 		'theme_location' => 'primary',
-		'items_wrap'	 => '<h2 class="screen-reader-text">' . esc_html__( 'Primary navigation', 'emulsion' ) . '</h2><ul id="%1$s" class="%2$s" data-direction="horizontal" >%3$s</ul>',
+		'items_wrap'	 => '<h2 class="screen-reader-text">' . esc_html__( 'Primary navigation', 'emulsion' ) . '</h2><ul id="%1$s" class="%2$s" data-direction="horizontal" data-type="accordion">%3$s</ul>',
 		'walker'		 => '',
 		'item_spacing'	 => 'discard',
 	);//data-type="accordion"

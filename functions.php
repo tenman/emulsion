@@ -16,6 +16,7 @@ if ( is_admin() && current_user_can( 'edit_theme_options' ) ) {
 		include_once( get_template_directory() . '/lib/class-tgm-plugin-activation.php' );
 	}
 }
+
 /**
  * Theme Supports
  */
@@ -234,6 +235,16 @@ if ( ! function_exists( 'emulsion_setup' ) ) {
 		 */
 		$emulsion_custom_header_defaults = get_theme_support( 'custom-header' );
 		add_theme_support( 'custom-header', apply_filters( 'emulsion_custom_header_defaults', $emulsion_custom_header_defaults ) );
+		
+		/**
+		 * Fresh installation date
+		 */
+		$fresh_installation = get_theme_mod( 'fresh_installation', false );
+		
+		if( false === $fresh_installation ) {
+			
+			set_theme_mod( 'fresh_installation', time() );
+		}
 
 		do_action( 'emulsion_setup_after' );
 	}
@@ -413,11 +424,11 @@ function emulsion_register_scripts_and_styles() {
 	
 
 
-	//if ( ! emulsion_is_amp() ) {
+	if ( ! emulsion_is_amp() ) {
 		
 		emulsion_style_load_controller( 'emulsion-header' ) ? wp_enqueue_style( 'emulsion-header' ): '';
 
-		emulsion_style_load_controller( 'emulsion-header' ) ? wp_enqueue_style( 'emulsion-primary-menu' ) : '';
+		emulsion_style_load_controller( 'emulsion-primary-menu' ) ? wp_enqueue_style( 'emulsion-primary-menu' ) : '';
 		
 		emulsion_style_load_controller( 'emulsion-block-presentation' ) ? wp_enqueue_style( 'emulsion-block-presentation' ): '';
 		// has issue
@@ -430,12 +441,13 @@ function emulsion_register_scripts_and_styles() {
 		emulsion_style_load_controller( 'emulsion-completion' ) ? wp_enqueue_style( 'emulsion-completion' ): '';
 
 		
-	//}
+	}
+	
 	if ( emulsion_style_load_controller( 'amp-reader' ) ) {
 
 		wp_enqueue_style( 'amp-reader' );
 
-		add_filter( 'emulsion_the_theme_supports', 'emulsion_amp_exclude_supports', 10, 2 );
+		! emulsion_theme_addons_exists() ? add_filter( 'emulsion_the_theme_supports', 'emulsion_amp_exclude_supports', 10, 2 ): '' ;
 
 	}
 
@@ -749,7 +761,8 @@ if ( ! function_exists( 'emulsion_the_header_layer_class' ) ) {
 		if ( is_header_video_active() &&
 				has_header_video() &&
 				false !== emulsion_home_type() &&
-				'custom' == get_theme_mod( 'emulsion_header_layout', emulsion_theme_default_val( 'emulsion_header_layout' ) )
+				'custom' == get_theme_mod( 'emulsion_header_layout', emulsion_theme_default_val( 'emulsion_header_layout' ) ) 
+				
 		) {
 
 			$class_name .= ' header-video-active';
@@ -757,10 +770,13 @@ if ( ! function_exists( 'emulsion_the_header_layer_class' ) ) {
 				( ! is_singular( $current_post_type ) || is_page() ) &&
 				! is_paged() &&
 				false !== emulsion_home_type() &&
-				'custom' == get_theme_mod( 'emulsion_header_layout', emulsion_theme_default_val( 'emulsion_header_layout' ) ) ) {
+				'custom' == get_theme_mod( 'emulsion_header_layout', emulsion_theme_default_val( 'emulsion_header_layout' ) )
+				
+				) {
 			//plugin active
 			//static page or loop
 			$class_name .= ' header-image-active';
+			
 		} elseif ( is_singular( $current_post_type ) ) {
 
 			if ( ! post_password_required( $post_id ) ) {
@@ -768,10 +784,14 @@ if ( ! function_exists( 'emulsion_the_header_layer_class' ) ) {
 				if ( has_post_thumbnail( $post_id ) &&
 						'yes' == get_theme_mod( 'emulsion_title_in_header', emulsion_theme_default_val( 'emulsion_title_in_header' )  &&
 						'custom' == get_theme_mod( 'emulsion_header_layout', emulsion_theme_default_val( 'emulsion_header_layout' ) ) &&
-						! empty( get_the_post_thumbnail() ) )// like woocommerce
+						! empty( get_the_post_thumbnail( ) ) )  // like woocommerce
+						
 				) {
 
 					$class_name .= ' header-image-active';
+				} elseif( emulsion_is_amp() &&  has_post_thumbnail( $post_id ) ){
+					
+					$class_name .= ' amp-singular-has-header-image';
 				} else {
 
 					$class_name .= ' no-header-media';
@@ -1101,8 +1121,11 @@ if ( ! function_exists( 'emulsion_block_editor_styles_and_scripts' ) ) {
 			wp_enqueue_style(
 				'emulsion-block-editor-styles', get_theme_file_uri( '/css/style-editor.css' ), array(), $emulsion_current_data_version, 'all' );
 
-			if( false === function_exists( 'wp_scss_compile' ) && function_exists('emulsion__css_variables') ) {
-				//not active wp-scss plugin and active emulsion-addons plugin
+			//if( false === function_exists( 'wp_scss_compile' ) && function_exists('emulsion__css_variables') ) {
+			////not active wp-scss plugin and active emulsion-addons plugin
+			
+			if(  function_exists('emulsion__css_variables') ) {
+				//The style may not be reflected due to the cache. Always change style dynamically
 					$dinamic_css = emulsion__css_variables();
 					wp_add_inline_style( 'emulsion-block-editor-styles', $dinamic_css );
 			}
@@ -1330,6 +1353,9 @@ if ( ! function_exists( 'emulsion_is_amp' ) ) {
 	}
 
 }
+
+
+
 if ( ! function_exists( 'emulsion_lang_cjk' ) ) {
 
 	function emulsion_lang_cjk() {
@@ -1491,7 +1517,12 @@ if ( function_exists( 'amp_init' ) ) {
 	}
 
 }
+
 if ( ! function_exists( 'emulsion_amp_exclude_supports' ) ) {
+	
+	// Works if emulsion-addons plugin is disabled
+	// If the plugin is enabled, see below
+	// add_filter( 'emulsion_template_pre', 'emulsion_amp_setting' );
 
 	function emulsion_amp_exclude_supports( $default, $name ) {
 
@@ -1542,38 +1573,41 @@ if ( ! function_exists( 'emulsion_style_load_controller' ) ) {
 
 	function emulsion_style_load_controller( $handle ) {
 
-		if ( 'emulsion-header' == $handle && ! emulsion_is_amp() ) {
+		if ( 'emulsion-header' == $handle ) {
 
 			return apply_filters( $handle . '-load', true );
 		}
 
-		if ( 'emulsion-primary-menu' == $handle && ! emulsion_is_amp() ) {
+		if ( 'emulsion-primary-menu' == $handle ) {
 
 			return apply_filters( $handle . '-load', has_nav_menu( 'primary' ) );
 		}
 
-		if ( 'emulsion-block-presentation' == $handle && ! emulsion_is_amp() ) {
+		if ( 'emulsion-block-presentation' == $handle ) {
 
 			return apply_filters( $handle . '-load', 'full_text' == emulsion_content_type() );
 		}
-		if ( 'emulsion-custom-color' == $handle && ! emulsion_is_amp() ) {
+		if ( 'emulsion-custom-color' == $handle ) {
 
 			return apply_filters( $handle . '-load', emulsion_has_color_settings() );
 		}
-		if ( 'emulsion-boxed' == $handle && ! emulsion_is_amp() ) {
+		if ( 'emulsion-boxed' == $handle ) {
 
 			return apply_filters( $handle . '-load', true );
 		}
-		if ( 'emulsion-columns' == $handle && ! emulsion_is_amp() ) {
+		if ( 'emulsion-columns' == $handle ) {
 
-			if ( is_active_sidebar( 'sidebar-3' ) && emulsion_the_theme_supports( 'sidebar_page' ) ||
-					is_active_sidebar( 'sidebar-1' ) && emulsion_the_theme_supports( 'sidebar' ) ) {
+			if ( is_page() && is_active_sidebar( 'sidebar-3' ) && emulsion_the_theme_supports( 'sidebar_page' ) ||
+				 is_active_sidebar( 'sidebar-1' ) && emulsion_the_theme_supports( 'sidebar' ) ||
+				 is_active_sidebar( 'sidebar-2' ) && emulsion_the_theme_supports( 'footer' ) ||
+				 is_page() && is_active_sidebar( 'sidebar-4' ) && emulsion_the_theme_supports( 'footer_page' ) 				
+					) {
 
 				return apply_filters( $handle . '-load', true );
 			}
 		}
 
-		if ( 'emulsion-completion' == $handle && ! emulsion_is_amp() ) {
+		if ( 'emulsion-completion' == $handle ) {
 
 			return apply_filters( $handle . '-load', true );
 		}
