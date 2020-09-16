@@ -38,7 +38,7 @@ function emulsion_theme_admin_notice() {
 		printf( '<div class="notice notice-error is-dismissible emulsion-addon-error"><p><strong>%1$s</strong>  <a href="%2$s">%3$s</a></p></div>', 
 				esc_html__( 'The emulsion-addons plugin is too old.', 'emulsion' ), 
 				$plugin_install_url, 
-				esc_html__( 'Please update' )
+				esc_html__( 'Please update', 'emulsion' )
 		);
 	}
 }
