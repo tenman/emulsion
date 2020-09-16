@@ -257,3 +257,35 @@ a.skin-button:hover{
     clear:both;
     
 }
+/**
+ * Page break
+ * ========================================================================== */
+.page-break-links{
+    @extend %block;
+    margin-top:3rem;
+    display:flex;  
+}
+.page-break-links > span,
+.page-break-links a{
+    flex:1 1 5%;
+    text-align:center;
+    margin:3px;
+    width: -moz-fit-content;
+    width:fit-content;
+    padding:.685rem;
+    font-size:var(--thm_meta_data_font_size);
+}
+
+/**
+ * Static Page
+ * ========================================================================== */
+body.page{
+    .posted-on{
+        display:none;
+    }
+    .header-layer div.entry-text {
+        margin-left: auto;
+        margin-right: auto;
+
+    }
+}

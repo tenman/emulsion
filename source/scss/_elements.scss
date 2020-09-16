@@ -74,6 +74,16 @@ wp-block-search, wp-block-social-links, wp-block-tag-cloud, wp-block-embed, wp-b
     .alignwide{
         @extend %alignwide;
     }
+    &.emulsion-has-sidebar,
+    &.emulsion-no-sidebar{
+        [class|="placeholder"]{
+            .alignfull{
+                width:auto;
+                max-width:100%;
+                left:0;
+            }
+        }
+    }
 }
 
 //exception
@@ -190,6 +200,152 @@ article{
     }
     .entry-title{
         max-width:100%;
+    }
+}
+article{
+    @include clearfix;
+
+    .entry-content{
+        ul[class|="wp-block"]{
+            li{
+                list-style:none;
+                &:before{
+                    display:none;
+                }
+            }
+        }
+    }
+    .entry-meta{
+        @extend %block;
+        margin-top:0;
+        margin-bottom:0;
+        margin-left:auto;
+        margin-right:auto;
+        li{
+            list-style:none;
+        }
+    }
+    .entry-content ~ div{
+        width:var( --thm_content_width, 720px );
+    }
+    .posted-on{
+        @include font_size(5);
+        text-align:center;
+        padding-left:var(--thm_content_gap, 24px);
+        padding-right:var(--thm_content_gap, 24px);
+    }
+    &.type-page .entry-meta,
+    &.type-page .posted-in,
+    &.type-post .entry-meta,
+    &.type-post .posted-in{
+        width: -moz-fit-content;
+        width:fit-content;
+    }
+    &.hentry .posted-on,//todo
+    &.type-page .posted-on,
+    &.type-post .posted-on{
+        width: -moz-fit-content;
+        width:fit-content;
+    }
+    &.post-password-required{
+        header{
+            .entry-title{
+                margin-top:3rem;
+                margin-bottom:3rem;
+            }
+        }
+    }
+    header{
+        @include clearfix;
+        display:block;
+        display: -webkit-box;
+        -webkit-box-pack: center;
+        -webkit-box-align: center;
+        -webkit-box-sizing:border-box;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-align: center;
+        align-items: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        -ms-flex-direction:column;
+        flex-direction:column;
+        min-height:25vh;
+        box-sizing:border-box;
+
+        padding-bottom:0;
+        margin-top:0;
+        position:relative;
+        background-size:cover;
+        &:before{
+            content:' ';
+            position:absolute;
+            display:block;
+            width:100%;
+            height:100%;
+            z-index:0;
+            top:0;
+        }
+        &.fit{
+            padding-left:0;
+            padding-right:0;
+        }
+        .entry-title{
+            @extend %hyphenate;
+            padding-left:var(--thm_content_gap);
+            padding-right:var(--thm_content_gap);
+            max-width:100%;
+            position:relative;
+            z-index:2;
+            margin-left:auto;
+            margin-right:auto;
+            margin-bottom:0;
+            width: -moz-fit-content;
+            width:fit-content;
+            a[href]{
+                text-align:left;
+                margin-left:auto;
+                margin-right:auto;
+                width: -moz-fit-content;
+                width:fit-content;
+            }
+            a:empty:before{
+                // content:'...';
+                /*? from script */
+            }
+        }
+        .wp-post-image{
+            max-width:100%;
+            -o-object-fit:cover;
+            object-fit:cover;
+            margin-top:0;
+            display:block;
+            position:relative;
+            left:-5px;
+            width:calc(100vw - 17px);
+            max-height:var(--thm_header_media_max_height);
+        }
+        .posted-on{
+            @include clearfix;
+        }
+    }
+    footer{
+        //  @extend %block_wide;
+        @extend %block_main_wide;
+        @include clearfix;
+        clear: both;
+        display: block;
+        border: none;
+        margin:4px auto 0;
+        text-align:right;
+
+        &.fit{
+            margin-top: 3em;
+            margin-bottom:3em;
+        }
+        .editor{
+            display:inline-block;
+        }
     }
 }
 .excerpt .entry-content{
@@ -391,7 +547,12 @@ figure{
         }
     }
 }
-
+div.gallery{
+    figure{
+        width:-moz-fit-content;
+        width:fit-content;
+    }
+}
 /**
  * Img
  * ========================================================================== */
@@ -647,9 +808,34 @@ ul:not([class|="wp-block"]){
         padding-left:var(--thm_content_gap);
         padding-right:var(--thm_content_gap);
     }
+    &.alignleft{
+        margin-right: var(--thm_common_font_size);
+        margin-left: var(--thm_content_gap);
+    }
+    &.alignright{
+        margin-left: var(--thm_common_font_size);
+        margin-right: var(--thm_content_gap);
+    }
+    &.has-background{
+        overflow:hidden;
+        padding:0 var(--thm_content_gap) 0 40px;
+
+    }
 
 }
-
+[amp]{
+    ol:not([class|="wp-block"]),
+        ul:not([class|="wp-block"]){
+        &.alignleft{
+            margin-right:2rem;
+            margin-left: 0;
+        }
+        &.alignright{
+            margin-left:2rem;
+            margin-right: 0;
+        }
+    }
+}
 ol{
     counter-reset: emulsion-counter;
     li{
@@ -737,6 +923,7 @@ ol{
 /**
  * OL list format exception
  */
+ol.wp-block-latest-comments,
 ol.wp-list-comments,
 ol.list-style-initial,
 ol[class|="wp-block"]{
@@ -894,6 +1081,8 @@ ul:not(.list-style-initial){
 /**
  * UL list format exception
  */
+ul.debug-menu-links,
+ul.taxonomy,
 .toc ul,
 ul.blocks-gallery-grid,
 ul.list-style-tab,
@@ -1114,7 +1303,7 @@ ul[class|="wp-block"] li:not(.wp-social-link) a:not(.wp-block-navigation-link__c
 }
 .wp-block-categories li a,
 .widget > ul a{
-    
+
     margin-top: calc(var( --thm_common_font_size, 16px ) * var( --thm_content_line_height, 1.5 ) / 4);
     margin-bottom: calc(var( --thm_common_font_size, 16px ) * var( --thm_content_line_height, 1.5 ) / 4);
 }
@@ -1890,3 +2079,4 @@ body .fit{
 #emulsion_theme_svgs{
     display:none ! important;
 }
+

@@ -73,12 +73,6 @@
     }
 }
 
-
-
-
-
-
-
 /**
  * Custom Background
  * ========================================================================== */
@@ -274,6 +268,7 @@ body{
      * ========================================================================== */
     .header-layer{
         &.template-part-header-custom + .primary-menu-wrapper{
+
             &.menu-is-dark{
                 .wp-nav-menu.primary[data-direction="horizontal"] .sub-menu,
                 .wp-nav-menu.primary[data-direction="horizontal"] .children{
@@ -712,7 +707,7 @@ body{
                 background:var(--thm_header_bg_color);
                 @include bg-gradient;
                 h1,h2,h3,h4{
-                    text-transform:var(--thm_heading-font-transform);
+                    text-transform:var(--thm_heading_font_transform);
                     font-weight:var(--thm_heading_font_weight);
                     font-family: var(--thm_heading_font_family);
                 }
@@ -749,7 +744,7 @@ body{
                             text-shadow:none;
                             font-family: var(--thm_heading_font_family);
                             font-weight: var(--thm_heading_font_weight);
-                            text-transform: var(--thm_heading-font-transform);
+                            text-transform: var(--thm_heading_font_transform);
                             @include font_size(3);
                         }
                         .site-description{
@@ -826,6 +821,7 @@ body{
                     color:var(--thm_primary_menu_color);
                 }
             }
+
             .widget_nav_menu .children li:first-child:last-child a,
                 .widget_nav_menu .sub-menu li:first-child:last-child a{
                 border-bottom:none;
@@ -1505,18 +1501,25 @@ body{
     }
 
     .footer-layer{
-        &.sidebar-is-light,
-        &.sidebar-is-dark{
-            background:var(--thm_sidebar_bg_color);
-            color:var(--thm_sidebar_text_color);
-            .footer-widget-area{
-                .widgettitle{
-                    background:var(--thm_sidebar_bg_color);
-                    color:var(--thm_sidebar_text_color);
-                }
+        
+        background:var(--thm_sidebar_bg_color);
+        color:var(--thm_sidebar_text_color);
+        .footer-widget-area-lists{
+            li{
                 a{
                     color:var(--thm_sidebar_link_color);
                 }
+            }
+        }
+        &.sidebar-is-light,
+        &.sidebar-is-dark{
+            color:var(--thm_sidebar_text_color);
+            .footer-widget-area{
+
+                .widgettitle{
+                    color:var(--thm_sidebar_text_color);
+                }
+
             }
             th,td{
                 color:var(--thm_sidebar_text_color);
@@ -1603,7 +1606,7 @@ main{
         }
         header{
             .entry-title{
-                text-transform:var(--thm_heading-font-transform);
+                text-transform:var(--thm_heading_font_transform);
                 font-weight:var(--thm_heading_font_weight);
                 font-family:var(--thm_heading_font_family);
                 color: var(--thm_general_text_color);
@@ -1806,7 +1809,7 @@ figure.wp-block-table{
         .stream-wrapper{
             color:var(--thm_general_text_color);
             .entry-title{
-                text-transform:var(--thm_heading-font-transform);
+                text-transform:var(--thm_heading_font_transform);
                 font-weight:var(--thm_heading_font_weight);
                 font-family:var(--thm_heading_font_family);
                 color: var(--thm_general_text_color);
@@ -1869,13 +1872,13 @@ figure.wp-block-table{
                         article{
                             header{
                                 // background:var(--thm_sub_background_color_darken);
-                                background:rgba(222,222,222,.2);
+                                // background:rgba(222,222,222,.2);
                                 a .entry-date,
                                 a{
-                                    color: var(--thm_general_link_color);
+                                    color: var(--thm_header_link_color);
                                     background: transparent;
                                     &:hover{
-                                        color:var(--thm_general_text_color);
+                                        color:var(--thm_header_text_color);
                                     }
                                 }
                                 &.show-post-image{
@@ -1901,13 +1904,13 @@ figure.wp-block-table{
                     article{
                         header{
                             //background:var(--thm_sub_background_color_darken);
-                            background:rgba(222,222,222,.2);
+                            // background:rgba(222,222,222,.2);
                             a .entry-date,
                             a{
-                                color: var(--thm_general_link_color);
+                                color: var(--thm_header_link_color);
                                 background: transparent;
                                 &:hover{
-                                    color:var(--thm_general_text_color);
+                                    color:var(--thm_header_text_color);
                                 }
                             }
                             &.show-post-image{
@@ -1947,13 +1950,13 @@ figure.wp-block-table{
                         article{
                             header{
                                 //  background:var(--thm_sub_background_color_darken);
-                                background:rgba(222,222,222,.2);
+                                // background:rgba(222,222,222,.2);
                                 a .entry-date,
                                 a{
-                                    color: var(--thm_general_link_color);
+                                    color: var(--thm_header_link_color);
                                     background: transparent;
                                     &:hover{
-                                        color:var(--thm_general_text_color);
+                                        color:var(--thm_header_text_color);
                                     }
                                 }
                                 &.show-post-image{
@@ -1979,13 +1982,13 @@ figure.wp-block-table{
                     article{
                         header{
                             // background:var(--thm_sub_background_color_darken);
-                            background:rgba(222,222,222,.2);
+                            // background:rgba(222,222,222,.2);
                             a .entry-date,
                             a{
-                                color: var(--thm_general_link_color);
+                                color: var(--thm_header_link_color);
                                 background: transparent;
                                 &:hover{
-                                    color:var(--thm_general_text_color);
+                                    color:var(--thm_header_text_color);
                                 }
                             }
                             &.show-post-image{
@@ -2246,8 +2249,6 @@ table{
 .badge{
     background: rgba(188,188,188,.3);
 }
-
-
 .wp-block-columns.has-background{
     .wp-block-column{
         position:relative;

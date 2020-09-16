@@ -60,7 +60,7 @@ body{
         }
     }
     &.emulsion-has-sidebar{
-        
+
         .primary-menu-wrapper{
             border-top-color:var(--thm_common_border, rgba(188,188,188,.5));
             border-top-style:var(--thm_common_border_style);
@@ -102,6 +102,12 @@ body{
                 }
             }
         }
+    }
+    .badge{
+
+        border-color: var(--thm_common_border, rgba(188, 188, 188, .5));
+        border-style: solid;
+        border-width: 1px;
     }
     nav[class|="menu"]{
         ul.wp-nav-menu{
@@ -293,9 +299,9 @@ body{
         .stream .template-part-content article .wp-nav-menu.primary[data-direction="vartical"],
         .horizontal-list-group li,
         .entry-meta li{
-            border-color:var(--thm_common_border, rgba(188,188,188,.5));
-            border-style:var(--thm_common_border_style);
-            border-width:var(--thm_common_border_width);
+        border-color:var(--thm_common_border, rgba(188,188,188,.5));
+        border-style:var(--thm_common_border_style);
+        border-width:var(--thm_common_border_width);
     }
     .cta-layer-active{
         a.skin-button{
@@ -314,11 +320,11 @@ body{
     }
     .wp-block-archives,
     .wp-block-latest-comments{
-        
+
         & > li{//.wp-block-latest-comments__comment
                border-bottom-color:var(--thm_common_border, rgba(188,188,188,.5));
-                border-bottom-style:var(--thm_common_border_style);
-                border-bottom-width:var(--thm_common_border_width);
+               border-bottom-style:var(--thm_common_border_style);
+               border-bottom-width:var(--thm_common_border_width);
                &:last-child{
                    border-bottom:none;
                }
@@ -512,6 +518,8 @@ body{
         .widget_categories select{
             border:var(--thm_common_border, rgba(188,188,188,.5));
         }
+
+
         .widget_nav_menu .children a,
         .widget_nav_menu .sub-menu a,
         .widget_nav_menu .children,
@@ -602,15 +610,13 @@ body{
             }
         }
     }
-    &.has-border-custom{
-        --thm_common_border:var(--thm_border_global,rgba(188,188,188,.5));
-        --thm_common_border_style:var(--thm_border_global_style, solid );
-        --thm_common_border_width:var(--thm_border_global_width, 1px) ;
-    }
+
 }
 .has-border-custom{
     &.sidebar-widget-area{
         .sidebar-widget-area-lists{
+            .widget .submenu,
+            .widget .children,
             .widget > ul{
                 border-top-width:var(--thm_border_sidebar_width);
                 border-top-color:var(--thm_border_sidebar,rgba(188,188,188,.5));
@@ -618,6 +624,12 @@ body{
                 border-bottom-width:var(--thm_border_sidebar_width);
                 border-bottom-color:var(--thm_border_sidebar,rgba(188,188,188,.5));
                 border-bottom-style:var(--thm_border_sidebar_style);
+
+                .counter{
+                    border-color:var(--thm_border_sidebar,rgba(188,188,188,.5));
+                    border-width:1px;
+                    border-style:solid;
+                }
             }
             .widget li:not(:last-child){
                 border-bottom-width:var(--thm_border_sidebar_width);
@@ -648,6 +660,18 @@ body{
             border-width:var(--thm_border_grid_width);
             border-color:var(--thm_border_grid);
             border-style:var(--thm_border_grid_style);
+
+            .horizontal-list-group li{
+                border-color:var(--thm_border_grid);
+                border-width:1px;
+                border-style:solid;
+            }
+            .theme-message input,
+            .skin-button{
+                border-width:var(--thm_border_grid_width);
+                border-color:var(--thm_border_grid);
+                border-style:var(--thm_border_grid_style);
+            }
         }
     }
     &.stream{
@@ -657,10 +681,22 @@ body{
             border-style:var(--thm_border_stream_style);
         }
     }
-    .show-post-image,
-    .header-image-active{
-        *{
-            border-color:var(--thm_white_color);
+    article .entry-meta{
+        .horizontal-list-group li{
+            border-bottom-color:var(--thm_common_border, rgba(188,188,188,.5));
+            border-style:solid;
+            border-width:1px;
         }
     }
+    .show-post-image,
+    .header-image-active{
+        border-color:var(--thm_white_color);
+
+        .horizontal-list-group li{
+            border-color:var(--thm_white_color);
+            border-style:solid;
+            border-width:1px;
+        }
+    }
+
 }

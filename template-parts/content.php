@@ -19,7 +19,8 @@
 
 				if ( 'grid' == $layout_setting ) {
 
-					$number_of_lines = emulsion_theme_default_val( 'emulsion_excerpt_length_stream' );
+					$number_of_lines = get_theme_mod('emulsion_excerpt_length_grid', emulsion_theme_default_val( 'emulsion_excerpt_length_grid' ) );
+					
 					echo '<p class="trancate" data-rows="' . $number_of_lines . '">';
 
 					the_excerpt();

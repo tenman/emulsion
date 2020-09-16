@@ -437,13 +437,15 @@ if ( ! function_exists( 'emulsion_get_post_meta_in' ) ) {
 			$result = '<div class="entry-meta taxonomy">';
 		}
 
-		if ( has_tag() ) {
+		if ( has_tag() && 'inherit' == get_theme_mod( 'emulsion_post_display_tag',  emulsion_theme_default_val( 'emulsion_post_display_tag' ) ) ) {
 
 			$class		 = 'inherit' == get_theme_mod( 'emulsion_post_display_tag',  emulsion_theme_default_val( 'emulsion_post_display_tag' ) ) ? ' has-tag' : '';
 			$tag_list	 = get_the_tag_list( '<ul class="post-tag horizontal-list-group' . $class . '"><li>', '</li><li>', '</li></ul>' );
 			$result		 .= $tag_list;
+			
+			
 		}
-		if ( has_category() ) {
+		if ( has_category() && 'inherit' == get_theme_mod( 'emulsion_post_display_category', emulsion_theme_default_val( 'emulsion_post_display_category' ) ) ) {
 			
 			$post_id = get_the_ID();
 			

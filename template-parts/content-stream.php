@@ -29,7 +29,8 @@ $emulsion_show_post_image	 = emulsion_is_display_featured_image_in_the_loop();
 
 						the_content();
 					} else {
-						$number_of_lines = emulsion_theme_default_val( 'emulsion_excerpt_length_stream' );
+						$number_of_lines = get_theme_mod( 'emulsion_excerpt_length_stream', emulsion_theme_default_val( 'emulsion_excerpt_length_stream' ) );
+						
 						echo '<p class="trancate" data-rows="'. $number_of_lines.'">';
 						
 						the_excerpt();

@@ -1,10 +1,12 @@
 @charset "UTF-8";
 @import 'scss-@';
 @import 'css-custom-prop';
+//@import 'elements';
 @import 'color';
 @import 'fonts';
 @import 'block';
 @import 'effect';
+
 /**
  * emulsion 1.1.6 Note:
  *
@@ -235,7 +237,7 @@ body{
     &.editor-post-title__block{
         max-width:var(--thm_content_width);
         textarea{
-            text-transform:var(--thm_heading-font-transform);
+            text-transform:var(--thm_heading_font_transform);
             font-weight:var(--thm_heading_font_weight);
             font-family:var(--thm_heading_font_family);
         }
@@ -252,7 +254,7 @@ body{
     font-size:var(--thm_common_font_size);
     .editor-post-title__block{
         .editor-post-title__input{
-            text-transform: var( --thm_heading-font-transform);
+            text-transform: var( --thm_heading_font_transform);
             font-weight:var(--thm_heading_font_weight);
             font-family:var(--thm_heading_font_family);
             @include font_size(2);
@@ -375,6 +377,14 @@ body{
     }
     .wp-block[data-type="core/freeform"]{
         max-width: var( --thm_content_width );
+    }
+    .badge{
+        width:-moz-fit-content ! important;
+        width:fit-content ! important;
+        margin-right:1rem ! important;
+    }
+    p.has-background.badge{
+        padding: 0 var(--thm_content_gap, 24px);
     }
     /**
      * auxiliary block
@@ -5287,7 +5297,10 @@ div.components-notice{
          * Simply shows the structure
          */
         .block-editor__typewriter{
-
+            width:var(--thm_editor_main_width);
+            max-width:100%;
+            margin-left:auto;
+            margin-right:auto;
             .block-editor-writing-flow{
                 .editor-post-title{
                     padding-left:var(--thm_content_gap);

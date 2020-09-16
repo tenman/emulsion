@@ -5,7 +5,7 @@ Theme URI: https://www.tenman.info/wp3/emulsion
 Description: block editor, classic editor both supports. Conventional, Image Media New Block Type Image Both media can be displayed correctly.Theme can stop at each theme style page for page builder users. Customizer can easily view changes with automatic preview redirection.Theme is designed with the goal of minimizing user frustration.
 Author: Tenman
 Author URI: https://www.tenman.info/wp3/
-Version: 1.5.2
+Version: 1.5.3
 Tags: one-column, two-columns, grid-layout,left-sidebar, right-sidebar,custom-background, custom-colors, custom-header,custom-logo, custom-menu, editor-style, featured-image-header, featured-images, flexible-header, footer-widgets, full-width-template, post-formats, sticky-post, theme-options, threaded-comments, translation-ready, block-styles, wide-blocks
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -294,6 +294,18 @@ body.is-light.metabox-reset-post-presentation .header-layer-site-title-navigatio
     filter: none;
     -webkit-filter: none;
 }
+body.is-dark .header-layer.template-part-header-custom + .primary-menu-wrapper.menu-is-default .menu.wp-nav-menu .nav-menu-child-opener[type="checkbox"]:checked ~ label:before{
+    background: url(./images/svg/arrow-up.svg#white);
+    background-size: contain;
+    filter: none;
+    -webkit-filter: none;
+}
+body.is-dark .header-layer.template-part-header-custom + .primary-menu-wrapper.menu-is-default .menu.wp-nav-menu .nav-menu-child-opener-label:before{
+    background: url(./images/svg/arrow-down.svg#white);
+    background-size: contain;
+    filter: none;
+    -webkit-filter: none;
+}
 
 .header-layer.header-image-active .header-layer-nav-menu .nav-menu-child-opener-label:before,
 body.is-dark.metabox-reset-post-presentation .header-layer-site-title-navigation .menu .nav-menu-child-opener-label:before,
@@ -396,7 +408,10 @@ body .grid .article-wrapper article header a {
 body .grid .article-wrapper article header.show-post-image a {
   color: var(--thm_white_color);
 }
-body .comment-wrapper, body .relate-content-wrapper {
+body .comment-wrapper{
+    var(--thm_comments_bg, #eeeeee);
+}
+body .relate-content-wrapper {
   background: var(--thm_relate_posts_bg, #eeeeee);
 }
 body .toc, body .primary-menu-wrapper {
@@ -556,7 +571,18 @@ h6.has-text-color>a {
 }
 p.has-background:not(.has-text-color){
     color: var(--thm_black_color);
-    &.emulsion-add-dark-color{
-        color:var(--thm_white_color);// @since 1.1.2
-    }
+    
+}
+p.has-background:not(.has-text-color).emulsion-add-dark-color{
+    color:var(--thm_white_color);/* @since 1.1.2 */
+}
+body.emulsion-has-sidebar.is-dark.scheme-midnight .primary-menu-wrapper nav[class|="menu"]{
+    border-bottom-color: var(--thm_common_border, rgba(188, 188, 188, .5));
+    border-bottom-style: var(--thm_common_border_style);
+    border-bottom-width: var(--thm_common_border_width);
+}
+.scheme-midnight{
+    --thm_header_link_color:#aaaaaa;
+    --thm_header_hover_color:#ffffff;
+    --thm_relate_posts_link_color:#aaaaaa;
 }

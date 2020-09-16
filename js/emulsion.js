@@ -621,9 +621,6 @@ jQuery(function ($) {
     });
     /**
      * scroll top button
-     * 
-     * 
-     *
      */
 
     $('body').not('.attachment').append('<span id="scroll-top" class="scroll-button-top skin-button" title="' + emulsion_script_vars.go_to_top_label + '"><span>Top</span></span>');
@@ -933,35 +930,7 @@ jQuery(function ($) {
         }
     });
 });
-jQuery(document).ready(function ($) {
 
-    /**
-     * Add a wrapper block whose diameter is the diagonal length of the block
-     */
-    if ($('.badge').length) {
-        $('.badge').each(function (i) {
-
-            var width_raw = $(this).outerWidth();
-            var width = Math.pow(width_raw, 2);
-            var height_raw = $(this).outerHeight();
-            var height = Math.pow(height_raw, 2);
-            var diagonal_length = Math.pow(width + height, 1 / 2);
-            var class_name = $(this).attr('class');
-            var style = $(this).attr('style');
-            var image = $(this).find('img');
-
-            if (image.length) {
-                $(this).css({'width': width_raw}).addClass('has-image-badge');
-                $(image).css({'width': width_raw, 'height': width_raw, 'display': 'inline-block'});
-            }
-            if (0 == image.length) {
-                $(this).wrap($('<div class="' + class_name + '" style="' + style + '"></div>')).removeClass(class_name).removeAttr('style');
-                $(this).parent().css({'width': diagonal_length, 'height': diagonal_length, 'display': 'inline-block'});
-            }
-
-        });
-    }
-});
 jQuery(function ($) {
 
     /**
@@ -1033,3 +1002,4 @@ jQuery(function ($) {
     });
 
 });
+
