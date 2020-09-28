@@ -378,13 +378,13 @@ if( ! function_exists('emulsion_get_var') && function_exists('emulsion_the_theme
 		return $color;
 	}
 	
-	add_filter( 'theme_mod_eemulsion_border_grid', 'emulsion_border_grid_filter' );
+	add_filter( 'theme_mod_emulsion_border_grid', 'emulsion_border_grid_filter' );
 
-	function eemulsion_border_grid_filter( $color ) {
+	function emulsion_border_grid_filter( $color ) {
 		
 		if ( ! empty( $scheme = get_theme_mod( 'emulsion_scheme' ) ) && empty( $color ) ) {
 
-			$result = ! empty( emulsion_theme_scheme[$scheme]['eemulsion_border_grid'] ) ? emulsion_theme_scheme[$scheme]['eemulsion_border_grid'] : '#eeeeee';
+			$result = ! empty( emulsion_theme_scheme[$scheme]['emulsion_border_grid'] ) ? emulsion_theme_scheme[$scheme]['emulsion_border_grid'] : '#eeeeee';
 
 			return $result;
 		}
@@ -393,13 +393,13 @@ if( ! function_exists('emulsion_get_var') && function_exists('emulsion_the_theme
 	}
 
 	
-	add_filter( 'theme_mod_eemulsion_border_stream', 'emulsion_border_stream_filter' );
+	add_filter( 'theme_mod_emulsion_border_stream', 'emulsion_border_stream_filter' );
 
-	function eemulsion_border_stream_filter( $color ) {
+	function emulsion_border_stream_filter( $color ) {
 		
 		if ( ! empty( $scheme = get_theme_mod( 'emulsion_scheme' ) ) && empty( $color ) ) {
 
-			$result = ! empty( emulsion_theme_scheme[$scheme]['eemulsion_border_stream'] ) ? emulsion_theme_scheme[$scheme]['eemulsion_border_stream'] : '#eeeeee';
+			$result = ! empty( emulsion_theme_scheme[$scheme]['emulsion_border_stream'] ) ? emulsion_theme_scheme[$scheme]['emulsion_border_stream'] : '#eeeeee';
 
 			return $result;
 		}
