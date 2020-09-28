@@ -551,6 +551,7 @@ div.gallery{
     figure{
         width:-moz-fit-content;
         width:fit-content;
+        display:inline-block;
     }
 }
 /**
@@ -1674,7 +1675,7 @@ input{
         height:48px;
         margin:0;
         line-height:var( --thm_content_line_height, 1.5 );
-        margin:.75em 0 .75em;
+        margin:0;
         max-width:calc( 100% - 4px);
         padding:.625rem;
         box-sizing:border-box;
@@ -1788,6 +1789,9 @@ textarea{
     a{
         margin-left:.5rem;
         margin-right:.5rem;
+        &.comment-link{
+            margin-right:.25rem;
+        }
     }
 }
 .clearfix{
@@ -2079,4 +2083,24 @@ body .fit{
 #emulsion_theme_svgs{
     display:none ! important;
 }
-
+/**
+ * Pagination
+ * ========================================================================== */
+.pagination{
+    text-align:center;
+}
+.pagination .nav-links{
+    display:flex;
+    padding-left:0;
+    padding-right:0;
+}
+.pagination .nav-links span,
+.pagination .nav-links a{
+    flex:1 1 5%;
+    text-align:center;
+    margin:3px;
+    padding:.685rem;
+    width: -moz-fit-content;
+    width:fit-content;
+    white-space:pre;
+}

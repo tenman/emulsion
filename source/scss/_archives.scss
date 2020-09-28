@@ -32,8 +32,8 @@
 .layout-stream,
 .layout-grid{
     main{
-        padding-left:var( --thm_content_gap);
-        padding-right:var( --thm_content_gap);
+       // padding-left:var( --thm_content_gap);
+        //padding-right:var( --thm_content_gap);
         .theme-message{
             max-width:100%;
             border:none;
@@ -392,6 +392,7 @@ main .nav-links > div > a{
 }
 
 .pagination{
+
     padding-left:var(--thm_content_gap, 24px);
     padding-right:var(--thm_content_gap, 24px);
 }
@@ -786,14 +787,14 @@ main .nav-links > div > a{
             position: relative;
             background-size: cover;
             .posted-on{
-                color:var(--thm_white_color);
+               // color:var(--thm_white_color);
                 a{
-                    color:var(--thm_white_color);
+                   // color:var(--thm_white_color);
                 }
             }
             .entry-meta{
                 a{
-                    color:var(--thm_white_color);
+                   // color:var(--thm_white_color);
                 }
             }
             &.show-post-image{
@@ -845,12 +846,15 @@ main .nav-links > div > a{
 /**
  * Layout list full_text
  * ========================================================================== */
+.emulsion-addons-inactive body,
 .layout-list.full_text{
     @extend %fulltext;
 }
 /**
  * Post Thumbnail
  * ========================================================================== */
+
+.emulsion-addons-inactive body,
 .post-type-archive,
 .custom-post-type,
 .full_text,

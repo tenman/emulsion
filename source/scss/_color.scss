@@ -147,7 +147,11 @@ body{
      */
     &.on-scroll{
         .header-layer-site-title-navigation{
-            background:var(--thm_header_bg_color);
+            color: var(--thm_header_text_color);
+            background: var(--thm_header_bg_color);
+            background-image: -ms-linear-gradient(90deg, var(--thm_header_bg_color), var(--thm_header_background_gradient_color));
+            background: -o-linear-gradient(90deg, var(--thm_header_bg_color), var(--thm_header_background_gradient_color));
+            background: linear-gradient(90deg, var(--thm_header_bg_color), var(--thm_header_background_gradient_color))
         }
         .menu-placeholder{
             [for="toc-toggle"]{
@@ -1501,7 +1505,7 @@ body{
     }
 
     .footer-layer{
-        
+
         background:var(--thm_sidebar_bg_color);
         color:var(--thm_sidebar_text_color);
         .footer-widget-area-lists{
@@ -1550,6 +1554,7 @@ body{
             }
         }
     }
+
     .wp-block-verse{
         color:var(--thm_general_text_color);
         a{
@@ -2065,6 +2070,7 @@ table{
         }
     }
 }
+/*
 #wp-calendar{
     tr{
         th{
@@ -2083,7 +2089,7 @@ table{
             border:none;
         }
     }
-}
+}*/
 .wp-block-table{
     table{
         background: var(--thm_background_color);
@@ -3150,7 +3156,11 @@ body{
             & > p:not(.has-text-color),
             & > div:not([class|="wp-block"]):not(.shortcode-wrapper):not(.has-background-media) {
             &.emulsion-initial-color{
-                color:var(--thm_black_color);
+                background:var(--thm_white_color);
+                li:before{
+                    display:none;
+                }
+               color:var(--thm_black_color);
                 a{
                     color:var(--thm_gray_color);
                 }

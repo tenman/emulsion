@@ -7,6 +7,7 @@
 	<article id="post-<?php the_ID() ?>" <?php post_class(); ?>>
 		<?php emulsion_article_header(); ?>
 		<div class="entry-content"><?php
+		
 			$layout_setting = emulsion_get_layout_setting();
 
 			if ( emulsion_theme_addons_exists() ) {
@@ -21,10 +22,12 @@
 
 					$number_of_lines = get_theme_mod('emulsion_excerpt_length_grid', emulsion_theme_default_val( 'emulsion_excerpt_length_grid' ) );
 					
-					echo '<p class="trancate" data-rows="' . $number_of_lines . '">';
-
-					the_excerpt();
-					echo '</p>';
+					if( has_excerpt() ) {
+						
+						echo '<p class="trancate" data-rows="' . $number_of_lines . '">';
+						the_excerpt();
+						echo '</p>';
+					}
 				} else {
 
 					echo '<blockquote class="content-excerpt">';

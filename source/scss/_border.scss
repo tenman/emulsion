@@ -29,7 +29,7 @@ body{
         }
     }
     &.layout-list{
-        article{
+        article:not(.comment-body){
             border-bottom-color:var(--thm_common_border, rgba(188,188,188,.5));
             border-bottom-style:var(--thm_common_border_style);
             border-bottom-width:var(--thm_common_border_width);
@@ -268,7 +268,7 @@ body{
         input,
         .wp-block-search__button,
         .attachment-pdf .attachment img,
-        .wp-list-comments > li,
+        //  .wp-list-comments > li,
         .reply a,
         th,
         td,
@@ -636,6 +636,29 @@ body{
                 border-bottom-color:var(--thm_border_sidebar,rgba(188,188,188,.5));
                 border-bottom-style:var(--thm_border_sidebar_style);
             }
+            .widget li:last-child{
+                border:none;
+            }
+
+            #wp-calendar{
+                tr{
+                    th{
+                        border-color:var(--thm_border_sidebar,rgba(188,188,188,.5));
+                        border-style:var(--thm_border_sidebar_style);
+                        border-width:var(--thm_border_sidebar_width);
+                    }
+                    td{
+                        border-color:var(--thm_border_sidebar,rgba(188,188,188,.5));
+                        border-style:var(--thm_border_sidebar_style);
+                        border-width:var(--thm_border_sidebar_width);
+                    }
+                }
+                tfoot{
+                    td{
+                        border:none;
+                    }
+                }
+            }
         }
     }
     &.footer-widget-area{
@@ -652,6 +675,25 @@ body{
                 border-bottom-width:var(--thm_border_sidebar_width);
                 border-bottom-color:var(--thm_border_sidebar,rgba(188,188,188,.5));
                 border-bottom-style:var(--thm_border_sidebar_style);
+            }
+            #wp-calendar{
+                tr{
+                    th{
+                        border-color:var(--thm_border_sidebar,rgba(188,188,188,.5));
+                        border-style:var(--thm_border_sidebar_style);
+                        border-width:var(--thm_border_sidebar_width);
+                    }
+                    td{
+                        border-color:var(--thm_border_sidebar,rgba(188,188,188,.5));
+                        border-style:var(--thm_border_sidebar_style);
+                        border-width:var(--thm_border_sidebar_width);
+                    }
+                }
+                tfoot{
+                    td{
+                        border:none;
+                    }
+                }
             }
         }
     }

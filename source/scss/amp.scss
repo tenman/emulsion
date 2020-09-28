@@ -10,6 +10,7 @@
 @import 'accessibility';
 //@import 'gallery';
 @import 'comments';
+//@import 'wp-nav-menu';
 @import 'border';
 //@import 'effect';
 //@import 'responsive';
@@ -93,8 +94,21 @@ article > div{
 .taxonomy-description{
     width:-moz-fit-content;
     width:fit-content;
+    margin-left:auto;
+    margin-right:auto;
+    
+     
     padding-left:var(--thm_content_gap);
     padding-right:var(--thm_content_gap);
+}
+.taxonomy-description{
+    width: var(--thm_content_width, 720px);
+    max-width: 100%;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    padding-left: var(--thm_content_gap, 24px);
+    padding-right: var(--thm_content_gap, 24px);
+    box-sizing: border-box;
 }
 
 textarea#comment,
@@ -375,13 +389,19 @@ body > header.header-image-active.template-part-header-custom{
     }
 }
 .layout-grid{
-    header.header-is-light ~ .layout,
-    header.header-is-dark ~ .layout{
-        article:not(.has-post-thumbnail) header{
+   // header.header-is-default-color ~  .layout,
+   // header.header-is-light ~ .layout,
+   // header.header-is-dark ~ .layout{
+   header ~ .layout{
+        article header{
             background:var(--thm_header_bg_color);
             color:var(--thm_header_text_color);
+
             a{
                 color:var(--thm_header_link_color);
+            }
+            .emulsion-comment-count{
+                display:none;
             }
         }
     }
@@ -419,6 +439,28 @@ div.page-title-block,
     color:var(--thm_header_text_color);
     a{
         color:var(--thm_header_link_color);
+    }
+}
+main > .grid,
+main > .stream{
+    display:flex;
+    flex-wrap:wrap;
+    margin:1.5rem auto 1.5rem;
+    .template-part-content-stream{
+        flex:1 1 auto;
+        width:var(--thm_content_width);
+        max-width:100%;
+        margin:var(--thm_box_gap);
+        .posted-on,
+        .entry-meta{
+            display:none;
+        }
+    }
+    .template-part-content{
+        flex:1 1 auto;
+        width:var(--thm_content_width);
+        max-width:100%;
+        margin:var(--thm_box_gap);
     }
 }
 .grid,
@@ -469,6 +511,7 @@ div.page-title-block,
         }
     }
 }
+
 .archive,
 .home{
     article{

@@ -26,4 +26,3 @@
 				<div class="placeholder-header"><?php do_action( 'emulsion_prepend_page_wrapper' ); ?></div>
 			<?php } ?>
 				<main id="main">
-				

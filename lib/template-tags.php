@@ -183,6 +183,7 @@ if ( ! function_exists( 'emulsion_get_post_title' ) ) {
 
 		global $post;
 		
+		
 		$html				 = '';
 		$post_id			 = get_the_ID();
 		$entry_title_status	 = get_theme_mod( 'emulsion_title_in_header', emulsion_theme_default_val( 'emulsion_title_in_header' ) );
@@ -229,8 +230,8 @@ if ( ! function_exists( 'emulsion_get_post_title' ) ) {
 		} else {
 
 			if ( has_post_thumbnail() && true == $with_thumbnail && false !== $post_id && ! post_password_required( $post_id ) ) {
-
-				$html = '<h2 class="entry-title"><a href="%1$s">'. $insert_start_tag.'%2$s'. $insert_end_tag.'</a></h2>';
+				
+				$html .= '<h2 class="entry-title"><a href="%1$s">'. $insert_start_tag.'%2$s'. $insert_end_tag.'</a></h2>';
 			} else {
 
 				$html = '<h2 class="entry-title"><a href="%1$s">'. $insert_start_tag.'%2$s'. $insert_end_tag.'</a></h2>';
@@ -620,12 +621,22 @@ if ( ! function_exists( 'emulsion_comment_link' ) ) {
 	 * @return type
 	 */
 	function emulsion_comment_link() {
+		
+		$comment_count	 = absint( get_comments_number() );
+		$html			 = '<a href="%1$s" class="comment-link">%2$s</a>';
+		$text			 = _n( 'Comment', 'Comments', $comment_count, 'emulsion' );
+		
 
-		$html	 = '<a href="%1$s" class="comment-link">%2$s</a>';
-		$text	 = esc_html__( 'Comment', 'emulsion' );
+		if ( $comment_count > 0 ) {
 
-		$comment_link	 = sprintf( $html, get_comments_link(), $text );
-		$comment_link	 = apply_filters( 'emulsion_comment_link', $comment_link );
+			$comment		 = sprintf( '<span class="emulsion-comment-count counter badge circle">%1$s</span>', $comment_count );
+			$comment_link	 = sprintf( $html, get_comments_link(), $text ) . $comment;
+		} else {
+
+			$comment_link = sprintf( $html, get_comments_link(), $text );
+		}
+
+		$comment_link = apply_filters( 'emulsion_comment_link', $comment_link );
 
 		return $comment_link;
 	}
@@ -896,20 +907,24 @@ if ( ! function_exists( 'emulsion_get_layout_setting' ) ) {
 					//$template_part = 'excerpt';
 					
 					if( emulsion_home_type() ) {
-						$template_part = emulsion_theme_default_val('emulsion_layout_homepage');
+						
+						$template_part = get_theme_mod( 'emulsion_layout_homepage', emulsion_theme_default_val('emulsion_layout_homepage') );
 					} elseif( is_date() ) {
-						$template_part = emulsion_theme_default_val('emulsion_layout_date_archives'	);
+						
+						$template_part = get_theme_mod( 'emulsion_layout_date_archives', emulsion_theme_default_val('emulsion_layout_date_archives') );
 					} elseif( is_category() ) {
-						$template_part = emulsion_theme_default_val('emulsion_layout_category_archives');
 						
+						$template_part = get_theme_mod( 'emulsion_layout_category_archives', emulsion_theme_default_val('emulsion_layout_category_archives') );
 					} elseif( is_tag() ) {
-						$template_part = emulsion_theme_default_val('emulsion_layout_tag_archives');
 						
+						$template_part = get_theme_mod( 'emulsion_layout_tag_archives', emulsion_theme_default_val('emulsion_layout_tag_archives') );
 					} elseif( is_author() ) {
-						$template_part = emulsion_theme_default_val('emulsion_layout_author_archives');
+						
+						$template_part = get_theme_mod( 'emulsion_layout_author_archives', emulsion_theme_default_val('emulsion_layout_author_archives') );
 					} elseif( is_search() ) {
-						$template_part = emulsion_theme_default_val('emulsion_layout_search_results');
-					//} elseif( !is_front_page && is_home() ) {
+						
+						$template_part = get_theme_mod( 'emulsion_layout_search_results', emulsion_theme_default_val('emulsion_layout_search_results') );
+					
 						
 					} else {
 						$template_part = 'excerpt';
@@ -1134,6 +1149,19 @@ if ( ! function_exists( 'emulsion_sidebar_manager' ) ) {
 			}
 		}
 		
+		$background = get_theme_mod( 'emulsion_sidebar_background', emulsion_theme_default_val( 'emulsion_sidebar_background' ) );
+
+		if ( emulsion_theme_addons_exists() ) {
+
+			$background = false === $background ? emulsion_sidebar_background() : $background;
+		} else {
+
+			$background = get_theme_mod( 'emulsion_sidebar_background', emulsion_theme_default_val( 'emulsion_sidebar_background' ) );
+		}
+
+		$sidebar_text_color		 = emulsion_accessible_color( $background );
+		$sidebar_color_class	 = '#333333' == $sidebar_text_color ? 'has-light-sidebar' : 'has-dark-sidebar';
+
 		if ( ( is_page() && is_active_sidebar( 'sidebar-3' ) && emulsion_the_theme_supports( 'sidebar' )) ||
 			 ( is_active_sidebar( 'sidebar-1' ) && emulsion_the_theme_supports( 'sidebar' ) ) ) {
 
@@ -1152,12 +1180,12 @@ if ( ! function_exists( 'emulsion_sidebar_manager' ) ) {
 
 			if ( is_page() && $page_sidebar ) {
 
-				printf( '<div class="layout layout-block has-column%2$s side-%1$s">', esc_html( $position ), esc_html( $suffix ) );
+				printf( '<div class="layout layout-block has-column%2$s side-%1$s %3$s">', esc_html( $position ), esc_html( $suffix ), $sidebar_color_class );
 			}
 
 			if ( $post_sidebar && ! is_page() ) {
 
-				printf( '<div class="layout layout-block has-column%2$s side-%1$s">', esc_html( $position ), esc_html( $suffix ) );
+				printf( '<div class="layout layout-block has-column%2$s side-%1$s %3$s">', esc_html( $position ), esc_html( $suffix ), $sidebar_color_class );
 			}
 		}
 	}

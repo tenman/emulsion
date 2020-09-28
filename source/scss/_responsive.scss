@@ -82,6 +82,11 @@
         }
     }
 }
+@media screen and ( max-width : 600px ) {
+    .on-scroll[class].logged-in .menu-active {
+        margin-top: 0;
+    }
+}
 //fonts.css
 @media screen and ( max-width : $content_width ) {
     .entry-content > div.wp-block-image.is-resized.alignright,
@@ -110,8 +115,10 @@
                 width:100%;
                 max-width:100%;
                 overflow:hidden;
+                margin:0 var(--thm_box_gap) var(--thm_box_gap);
                 article{
-                    width:calc(100vw - 1.5rem);
+                    //width:calc(100vw - 1.5rem);
+                    width:100%;
                     .stream-wrapper{
                         width:100%;
                         .content-col{

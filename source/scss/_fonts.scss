@@ -140,56 +140,7 @@ body{
         font-size:var(--thm_meta_data_font_size);
         text-transform:var(--thm_meta_data_font_transform);
     }
-   /* &.emulsion-has-sidebar{
-        .template-part-widget-sidebar{
-            font-size:var(--thm_meta_data_font_size);
-            text-transform:var(--thm_meta_data_font_transform);
-            .sidebar-widget-area-lists{
-                li{
-                    line-height:calc( var(--thm_common_font_size) * var( --thm_content_line_height, 1.5 ) );
-                    font-size:var(--thm_meta_data_font_size);
-                    text-transform:var(--thm_meta_data_font_transform);
-                    #wp-calendar caption,
-                    .widgettitle{
-                        font-size:20px;
-                    }
-                    .emulsion-archive-count,
-                    .emulsion-cat-count,
-                    a{
-                        font-size:var(--thm_meta_data_font_size);
-                        text-transform:var(--thm_meta_data_font_transform);
-                    }
-                    .calendar_wrap{
-                        #wp-calendar{
-                            th,
-                            td{
-                                font-size:var(--thm_meta_data_font_size);
-                                text-transform:var(--thm_meta_data_font_transform);
-                            }
-                        }
-                    }
-                    [name="cat"],
-                    [name="archive-dropdown"]{
-                        font-size:var(--thm_meta_data_font_size);
-                        text-transform:var(--thm_meta_data_font_transform);
-                    }
-                    &.widget_rss{
-                        .rss-date,
-                        cite{
-                            font-size:var(--thm_meta_data_font_size);
-                            text-transform:var(--thm_meta_data_font_transform);
-                        }
-                    }
-                    &.widget_recent_comments{
-                        .recentcomments{
-                            font-size:var(--thm_meta_data_font_size);
-                            text-transform:var(--thm_meta_data_font_transform);
-                        }
-                    }
-                }
-            }
-        }
-    }*/
+
     article{
         .skin-button{
             font-size:var(--thm_meta_data_font_size);
@@ -386,14 +337,14 @@ $step: 100;
 }
 /**
  * Editor font sizes
+ *
+ * has-regular-font-size
  */
 @each $font_size in $editor_font_sizes {
     $slug: nth($font_size, 1);
     $size: nth($font_size, 2);
     .entry-content .has-#{$slug}-font-size {
         font-size:#{$size}px;
-       // margin-top:1.5em;
-       // margin-bottom:.75em
     }
 }
 /**

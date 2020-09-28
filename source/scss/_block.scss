@@ -214,6 +214,7 @@ wp-block-search, wp-block-social-links, wp-block-tag-cloud, wp-block-embed, wp-b
  * Case where it is necessary to overwrite the standard style
  * ========================================================================== */
 //.is-root-container,
+.emulsion-addons-inactive body,
 .full_text{
     figure.wp-block-gallery{
         ul.blocks-gallery-grid{
@@ -434,6 +435,11 @@ wp-block-search, wp-block-social-links, wp-block-tag-cloud, wp-block-embed, wp-b
         line-height:1.5;
         width:-moz-fit-content;
         width:fit-content;
+    }
+    &.has-regular-font-size{
+        p{
+            @include font_size(0);
+        }
     }
     &.alignleft{
         @extend %alignleft;
@@ -2180,6 +2186,7 @@ article *:first-child.wp-block-image{
 /**
  * block navigation
  * ========================================================================== */
+.emulsion-addons-inactive .wp-block-navigation,
 .full_text .wp-block-navigation{
     padding:1px;
     .wp-block-navigation__container{
@@ -2214,7 +2221,7 @@ article *:first-child.wp-block-image{
 /**
  * Block comments
  * ========================================================================== */
-
+.wp-block-navigation
 .full_text{
     .wp-block-latest-comments{
         padding-left:var( --thm_box_gap );
@@ -2297,3 +2304,4 @@ article *:first-child.wp-block-image{
         
     }
 }
+
