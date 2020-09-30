@@ -1,7 +1,7 @@
 jQuery(function ($) {
     "use strict";
     $("body").removeClass('noscript');
- //   $(".primary-menu-wrapper [id].menu").attr('data-type', 'accordion');
+    //   $(".primary-menu-wrapper [id].menu").attr('data-type', 'accordion');
     // element wrap
     /**
      * the table element can not be controlled with max-width,
@@ -231,6 +231,7 @@ jQuery(function ($) {
      *
      */
     $('.trancate').each(function (index) {
+
         var rows = $(this).data('rows');
         if (!rows) {
             rows = 3;
@@ -247,6 +248,7 @@ jQuery(function ($) {
             $(this).addClass('off-trancate');
             $(this).removeClass('on-trancate');
         }
+
     });
     $('.trancate-heading').each(function (index) {
         /**
@@ -491,16 +493,7 @@ jQuery(function ($) {
     "use strict";
     function emulsion_resizes() {
         if ($('.alignfull').length) {
-            $('.shortcode-wrapper').each(function (i) {
-                if ($(this).children().hasClass('alignfull')) {
-                    $(this).children().removeClass('alignfull')
-                    $(this).addClass('alignfull');
-                }
-                if ($(this).children().hasClass('alignwide')) {
-                    $(this).children().removeClass('alignwide')
-                    $(this).addClass('alignwide');
-                }
-            });
+
             $(".emulsion-has-sidebar.enable-alignfull .entry-content > .alignfull").not('.wp-block-cover, .wp-block-embed').each(function (i) {
                 var article_width = $(this).parents('article').width();
                 var parent_width = $(this).parents('.entry-content').width();
@@ -984,15 +977,15 @@ jQuery(function ($) {
 jQuery(function ($) {
 
     $('[for="primary-menu-controll"]').on('click', function () {
-       
+
         var ua = navigator.userAgent.toLowerCase(), isIOS = /iphone|ipod|ipad/.test(ua),
                 isLine = /line/.test(ua), isFb = /fb/.test(ua), isTw = /twitter/.test(ua),
                 isSafari = /safari/.test(ua), isChrome = /crios/.test(ua);
 
         if (isIOS && isSafari) {
 
-            if ( $(this).hasClass('is-primary-menu-open') ) {
-                
+            if ($(this).hasClass('is-primary-menu-open')) {
+
                 $(this).removeClass('is-primary-menu-open').siblings('nav').css({'visibility': 'hidden', 'display': 'none'});
             } else {
                 $(this).addClass('is-primary-menu-open').siblings('nav').css({'visibility': 'visible', 'display': 'block'});
@@ -1002,4 +995,24 @@ jQuery(function ($) {
     });
 
 });
-
+jQuery(function ($) {
+    $('.shortcode-wrapper').each(function (i) {
+        
+        if ($(this).children().hasClass('alignleft')) {
+            $(this).children().removeClass('alignleft')
+            $(this).addClass('alignleft');
+        }
+        if ($(this).children().hasClass('alignright')) {
+            $(this).children().removeClass('alignright')
+            $(this).addClass('alignright');
+        }
+        if ($(this).children().hasClass('alignfull')) {
+            $(this).children().removeClass('alignfull')
+            $(this).addClass('alignfull');
+        }
+        if ($(this).children().hasClass('alignwide')) {
+            $(this).children().removeClass('alignwide')
+            $(this).addClass('alignwide');
+        }
+    });
+});

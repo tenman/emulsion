@@ -1,7 +1,5 @@
 <?php
 
-
-
 include_once( get_theme_file_path( 'lib/conf.php' ) );
 include_once( get_theme_file_path( 'lib/hooks.php' ) );
 include_once( get_theme_file_path( 'lib/template-tags.php' ) );
@@ -19,6 +17,7 @@ if ( is_admin() && current_user_can( 'edit_theme_options' ) ) {
 		include_once( get_template_directory() . '/lib/class-tgm-plugin-activation.php' );
 	}
 }
+
 
 /**
  * Temporary exception settings

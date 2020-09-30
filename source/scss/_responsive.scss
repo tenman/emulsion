@@ -345,7 +345,7 @@
         &[class|="wp-block-embed"]{
             width: var( --thm_content_width, 100% );
             position:static;
-           // @1.3.2 max-width: var( --thm_content_width, 100% );
+            // @1.3.2 max-width: var( --thm_content_width, 100% );
             max-width: 100%;
             margin-left:auto;
             margin-right:auto;
@@ -381,7 +381,7 @@
     body.emulsion-no-sidebar .footer-widget-area .footer-widget-area-lists .widget{
         flex:1 1 auto;
     }
-   // .comment-form,
+    // .comment-form,
     .comment-respond{
         padding-left:0;
         .comment-form{
@@ -444,13 +444,13 @@
             padding-left:0;
             padding-right:0;
         }
-       /* .wrapper-in-the-loop {
-            padding-left:0;
-            padding-right:0;
-            .entry-title {
-                padding-left:var(--thm_content_gap, 24px);
-            }
-        }*/
+        /* .wrapper-in-the-loop {
+             padding-left:0;
+             padding-right:0;
+             .entry-title {
+                 padding-left:var(--thm_content_gap, 24px);
+             }
+         }*/
     }
     .emulsion-has-sidebar{
         .entry-content{
@@ -545,7 +545,7 @@
 }
 @media screen and ( max-width : $main_width ) {
     nav[class|="menu"]{
-   // nav[class*=" menu"]{
+        // nav[class*=" menu"]{
         ul.wp-nav-menu{
             &[data-direction="horizontal"]{
                 li{
@@ -709,8 +709,8 @@
         left:72px;
         top:auto;
         width:calc(100vw - 72px - 1rem);
-        
-        
+
+
         ul{
             li{
                 &.menu-item{
@@ -765,7 +765,7 @@
         width:100%;
         max-width:100%;      
         flex:0 0;
-        
+
     }
     ul.sidebar-widget-area-lists{
         width:100vw;
@@ -837,6 +837,25 @@
         position:static;
     }
 }
+@media screen and ( max-width : $content_width + $content_gap * 2 ) {
+    .archive{
+        main{
+            .page-title-block{
+                .taxonomy-description{
+                    margin-left:0;
+                    margin-right:0;
+                    width:100%;
+                    max-width:100%;
+                    p{
+                        padding-left:0;
+                        padding-right:0;
+                    }
+                }
+            }
+        }
+    }
+}
+
 body{
     header{
         &.template-part-header{
@@ -867,6 +886,7 @@ body{
                     }
                 }
             }
+
         }
     }
     &.on-scroll{

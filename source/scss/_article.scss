@@ -259,7 +259,6 @@ body.excerpt,
     .wp-playlist,
     .gist,
     .social,
-    .shortcode-wrapper,
     & > address,
     & > noscript,
     & > hgroup,
@@ -286,14 +285,7 @@ body.excerpt,
             width:auto;
         }
     }
-    .shortcode-wrapper{
-        padding-left:0;
-        padding-right:0;
-        &.alignfull{
-            padding-left:0;
-            padding-right:0;
-        }
-    }
+
     li{
         .shortcode-wrapper{
             margin-top:0;
@@ -506,17 +498,37 @@ article.format-gallery .entry-content{
         margin-bottom:3rem;
     }
     & > .shortcode-wrapper{
-        width:var(--thm_content_width);
-        margin-left:auto;
-        margin-right:auto;
-        margin-top:3rem;
-        margin-bottom:3rem;
-        &.wrap-caption{
-            margin-top:0;
-            margin-bottom:0;
-            padding:0;
+
+    }
+}
+.shortcode-wrapper{
+    width:var(--thm_content_width);
+            padding-left:0;
+        padding-right:0;
+    margin-left:auto;
+    margin-right:auto;
+    margin-top:3rem;
+    margin-bottom:3rem;
+    &.wrap-caption{
+        margin-top:0;
+        margin-bottom:0;
+        padding:0;
+    }
+    // short code has not custom class
+    &.alignleft,
+    &.alignfull{
+        & > *{
+            width:100%;
         }
     }
+    &.alignleft{
+        @extend %alignleft;
+    }
+    &.alignright{
+        @extend %alignright;
+    }
+
+
 }
 //wp-block-group.has-background overflows before
 .has-background:not(.wp-block-group):not(.wp-block-cover):not(.wp-block-columns):before:not(.badge):before {
@@ -637,7 +649,7 @@ article.format-gallery .entry-content{
 /**
  * template gallery
  */
-    
+
 .enable-alignfull{
     &.page-template-gallery,
     &.post-template-gallery{
