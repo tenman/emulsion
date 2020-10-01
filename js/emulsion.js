@@ -419,6 +419,12 @@ jQuery(function ($) {
     if ('enable' == emulsion_script_vars.instantclick_support) {
 
         $('a[href^=http]').not('[href^="' + emulsion_script_vars.home_url + '"]').addClass('external').attr('data-no-instant', 'data-no-instant');
+        $('.single-post a[href*="author"],.single-post a[href*="category"],.single-post a[href*="tag"]').attr('data-no-instant', 'data-no-instant');
+        $('.home.page a[href*="author"],.home.page a[href*="category"],.home.page a[href*="tag"]').attr('data-no-instant', 'data-no-instant');
+        $('.page a').attr('data-no-instant', 'data-no-instant');
+        if( 'none' !== emulsion_script_vars.posts_page_url){        
+            $('.home.page a[href="' + emulsion_script_vars.posts_page_url + '"], .single-post a[href="' + emulsion_script_vars.posts_page_url + '"]').attr('data-no-instant', 'data-no-instant');      
+        }
         /**
          * instantcclick exclude links
          */

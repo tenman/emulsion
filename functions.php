@@ -18,7 +18,6 @@ if ( is_admin() && current_user_can( 'edit_theme_options' ) ) {
 	}
 }
 
-
 /**
  * Temporary exception settings
  */
@@ -43,7 +42,6 @@ function emulsion_theme_admin_notice() {
 		);
 	}
 }
-
 /**
  * Theme Supports
  */
@@ -687,6 +685,8 @@ function emulsion_register_scripts_and_styles() {
 			'rest_query'					 => 'wp/v2/posts?page=',
 			'permalink'						 => esc_url( get_permalink() ),
 			'home_url'						 => esc_url( home_url() ),
+			'posts_page_url'				 => get_option('page_for_posts') ? esc_url( get_permalink( get_option('page_for_posts') ) ): 'none',
+			
 			'i18n_blank_entry_title'		 => esc_html__( 'No Title', 'emulsion' ),
 			'sidebar_bg_dark'				 => emulsion_theme_addons_exists() ? emulsion_accent_color( '', 5, 5, 20, 15 ) : $emulsion_background_color,
 			'sidebar_bg_light'				 => emulsion_theme_addons_exists() ? emulsion_accent_color( '', 5, 5, 20, 90 ) : $emulsion_background_color,
