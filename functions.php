@@ -1702,10 +1702,10 @@ if ( ! function_exists( 'emulsion_style_load_controller' ) ) {
 
 			$flag = false;
 
-			if( is_singular() ){
+		//	if( is_singular() ){
 
 				$flag = true;
-			}
+		//	}
 			
 
 				return apply_filters( $handle . '-load', $flag );

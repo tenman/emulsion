@@ -124,6 +124,10 @@ body{
         margin-left:1rem;
         margin-top:-.5rem;
     }
+    .menu-item-has-children .menu-item-has-children.show-left > a:after{
+        transform: rotate(90deg);
+        margin-top:0.2rem;
+    }
     .search-drawer .search-info{
         display:none;
     }
@@ -1376,11 +1380,7 @@ ul.blocks-gallery-grid{
  * 
  * Efforts to shrink Theme's Block CSS started with WordPress 5.5 in the theme.
  */
-.wp-block-media-text__content{
-    p{
-        width:auto;
-    }
-}
+
 .wp-block-latest-posts__list{
     & > li{
         overflow:hidden;
