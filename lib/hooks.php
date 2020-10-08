@@ -535,6 +535,7 @@ if ( ! function_exists( 'emulsion_oembed_default_width' ) ) {
 	 * @return int
 	 */
 	function emulsion_oembed_default_width( $width ) {
+
 		return emulsion_theme_default_val( 'emulsion_content_width' );
 	}
 
@@ -651,6 +652,12 @@ if ( ! function_exists( 'emulsion_theme_styles' ) ) {
 {$variables}
 /* @see emulsion_theme_styles */
 {$uncagegorized_hide_style}
+
+.emulsion-addons-inactive .is-dark .header-layer ~ .scroll-button-top.skin-button {
+    color: var(--thm_general_text_color);
+    background: var(--thm_background_color);
+}
+
 
 .emulsion-addons-inactive .scheme-midnight .banner {
   background: var(--thm_background_color);

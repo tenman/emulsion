@@ -364,7 +364,7 @@ if ( ! function_exists( 'emulsion_article_header' ) ) {
 
 		$header_element	 = '<header ';
 		$header_element	 .= ! empty( emulsion_element_classes( 'article-header' ) ) ? 'class="' . sanitize_html_class( emulsion_element_classes( 'article-header' ) ) . '" ' : '';
-		$header_element	 .= ! empty( emulsion_element_classes( 'article-header' ) ) && ! empty( $thumbnail_url ) ? ' style="' . 'background-image:url(' . esc_url( $thumbnail_url ) . ' );"' : '';
+		$header_element	 .= ! empty( emulsion_element_classes( 'article-header' ) ) && ! empty( $thumbnail_url ) ? ' style="' . 'background-image:linear-gradient(#000000,transparent), url(' . esc_url( $thumbnail_url ) . ' );"' : '';
 		$header_element	 .= '>';
 		$header_element	 = apply_filters( 'emulsion_article_header', $header_element, esc_url( $thumbnail_url ) );
 

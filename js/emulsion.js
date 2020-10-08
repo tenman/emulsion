@@ -250,6 +250,31 @@ jQuery(function ($) {
         }
 
     });
+    if ('ja' == emulsion_script_vars.locale || 'ko-KR' == emulsion_script_vars.locale || 'zh-CN' == emulsion_script_vars.locale || 'zh-TW' == emulsion_script_vars.locale || 'zh-HK' == emulsion_script_vars.locale) {
+
+        $('.wp-block-latest-posts__list.is-grid .wp-block-latest-posts__post-excerpt').each(function (index) {
+
+            var rows = $(this).data('rows');
+            if (!rows) {
+                rows = 3;
+            }
+            var line_height = parseInt($(this).css('line-height'));
+            var box_height = parseInt(Math.ceil(rows * line_height));
+            $(this).wrapInner("<span class='multiline-text-overflow'></span>");
+            $(this).css({'height': box_height});
+            if (parseInt($('.multiline-text-overflow', this).height()) > box_height) {
+                $(this).addClass('on-trancate');
+                $(this).removeClass('off-trancate');
+            }
+            if (parseInt($('.multiline-text-overflow', this).height()) < box_height) {
+                $(this).addClass('off-trancate');
+                $(this).removeClass('on-trancate');
+            }
+
+        });
+    }
+
+
     $('.trancate-heading').each(function (index) {
         /**
          * If the title is long, reduce the font size and display the title as much as possible
@@ -267,7 +292,7 @@ jQuery(function ($) {
             $(this).removeClass('on-trancate');
         }
         if (parseInt($('.multiline-text-overflow', this).height()) > box_height) {
-            $(this).css("fontSize", '1rem');
+            $(this).css({"fontSize": '1rem'});
             line_height = parseInt($(this).css('line-height'));
             box_height = parseInt(Math.ceil(rows * line_height));
             if (parseInt($('.multiline-text-overflow', this).height()) > box_height) {
@@ -419,12 +444,19 @@ jQuery(function ($) {
     if ('enable' == emulsion_script_vars.instantclick_support) {
 
         $('a[href^=http]').not('[href^="' + emulsion_script_vars.home_url + '"]').addClass('external').attr('data-no-instant', 'data-no-instant');
-        $('.single-post a[href*="author"],.single-post a[href*="category"],.single-post a[href*="tag"]').attr('data-no-instant', 'data-no-instant');
-        $('.home.page a[href*="author"],.home.page a[href*="category"],.home.page a[href*="tag"]').attr('data-no-instant', 'data-no-instant');
-        $('.page a').attr('data-no-instant', 'data-no-instant');
-        if( 'none' !== emulsion_script_vars.posts_page_url){        
-            $('.home.page a[href="' + emulsion_script_vars.posts_page_url + '"], .single-post a[href="' + emulsion_script_vars.posts_page_url + '"]').attr('data-no-instant', 'data-no-instant');      
-        }
+
+        /**
+         * instant click isuue fixed 
+         * Delete it when you can confirm the stability of the operation.        
+        
+         $('.single-post a[href*="author"],.single-post a[href*="category"],.single-post a[href*="tag"]').attr('data-no-instant', 'data-no-instant');
+         $('.home.page a[href*="author"],.home.page a[href*="category"],.home.page a[href*="tag"]').attr('data-no-instant', 'data-no-instant');
+         $('.page a').attr('data-no-instant', 'data-no-instant');
+         if( 'none' !== emulsion_script_vars.posts_page_url){        
+         $('.home.page a[href="' + emulsion_script_vars.posts_page_url + '"], .single-post a[href="' + emulsion_script_vars.posts_page_url + '"]').attr('data-no-instant', 'data-no-instant');      
+         }
+        */ 
+
         /**
          * instantcclick exclude links
          */
@@ -1003,21 +1035,21 @@ jQuery(function ($) {
 });
 jQuery(function ($) {
     $('.shortcode-wrapper').each(function (i) {
-        
+
         if ($(this).children().hasClass('alignleft')) {
-            $(this).children().removeClass('alignleft')
+            $(this).children().removeClass('alignleft');
             $(this).addClass('alignleft');
         }
         if ($(this).children().hasClass('alignright')) {
-            $(this).children().removeClass('alignright')
+            $(this).children().removeClass('alignright');
             $(this).addClass('alignright');
         }
         if ($(this).children().hasClass('alignfull')) {
-            $(this).children().removeClass('alignfull')
+            $(this).children().removeClass('alignfull');
             $(this).addClass('alignfull');
         }
         if ($(this).children().hasClass('alignwide')) {
-            $(this).children().removeClass('alignwide')
+            $(this).children().removeClass('alignwide');
             $(this).addClass('alignwide');
         }
     });

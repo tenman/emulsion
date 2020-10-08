@@ -18,15 +18,11 @@ if ( is_admin() && current_user_can( 'edit_theme_options' ) ) {
 	}
 }
 
+
 /**
  * Temporary exception settings
  */
 
-if( has_filter('gutenberg_use_widgets_block_editor') ) {
-	//Gutenberg plugin widget page yet not properly
-	add_filter('gutenberg_use_widgets_block_editor','__return_false',11);
-}
-	
 add_action( 'admin_notices', 'emulsion_theme_admin_notice' );
 
 function emulsion_theme_admin_notice() {
@@ -249,6 +245,7 @@ if ( ! function_exists( 'emulsion_setup' ) ) {
 		function emulsion_woocommerce_dinamic_css( $css ) {
 
 			if ( emulsion_the_theme_supports( 'title_in_page_header' ) ) {
+				
 				$css .= '#document .woocommerce-page .content-area .woocommerce-products-header{ display:none;}';
 			}
 
@@ -260,7 +257,15 @@ if ( ! function_exists( 'emulsion_setup' ) ) {
 		 */
 		$emulsion_custom_header_defaults = get_theme_support( 'custom-header' );
 		add_theme_support( 'custom-header', apply_filters( 'emulsion_custom_header_defaults', $emulsion_custom_header_defaults ) );
-
+		
+		/**
+		 * Lazy load
+		 */
+		if( emulsion_the_theme_supports( 'instantclick' ) ) {
+			// If instantclick is enabled, it will load a 1px image for lazy load. ( firefox )
+			
+			add_filter( 'wp_lazy_loading_enabled', '__return_false' );
+		}
 		/**
 		 * Fresh installation date
 		 */
@@ -1641,6 +1646,8 @@ if ( ! function_exists( 'emulsion_style_load_controller' ) ) {
 		// 
 			$flag = 'full_text' !== emulsion_content_type() ? false: $flag;
 			
+			$flag = emulsion_the_theme_supports( 'instantclick' ) ? true: $flag;
+			
 			return apply_filters( $handle . '-load', $flag );
 		}
 		
@@ -1654,6 +1661,8 @@ if ( ! function_exists( 'emulsion_style_load_controller' ) ) {
 		if ( 'emulsion-boxed' == $handle  && ! emulsion_is_amp() ) {
 			
 			$flag = true;
+			
+			$flag = emulsion_the_theme_supports( 'instantclick' ) ? true: $flag;
 			
 			return apply_filters( $handle . '-load', $flag );
 		}
@@ -1671,6 +1680,8 @@ if ( ! function_exists( 'emulsion_style_load_controller' ) ) {
 
 				$flag = true;
 			}
+			
+			$flag = emulsion_the_theme_supports( 'instantclick' ) ? true: $flag;
 			
 			return apply_filters( $handle . '-load', $flag );
 		}
@@ -1693,6 +1704,7 @@ if ( ! function_exists( 'emulsion_style_load_controller' ) ) {
 
 				$flag = true;
 			}
+			$flag = emulsion_the_theme_supports( 'instantclick' ) ? true: $flag;
 			
 			return apply_filters( $handle . '-load', $flag );
 		}
@@ -1702,13 +1714,14 @@ if ( ! function_exists( 'emulsion_style_load_controller' ) ) {
 
 			$flag = false;
 
-		//	if( is_singular() ){
+			if( is_singular() ){
 
 				$flag = true;
-		//	}
+			}
 			
-
-				return apply_filters( $handle . '-load', $flag );
+			$flag = emulsion_the_theme_supports( 'instantclick' ) ? true: $flag;
+			
+			return apply_filters( $handle . '-load', $flag );
 
 		}
 
@@ -1716,6 +1729,8 @@ if ( ! function_exists( 'emulsion_style_load_controller' ) ) {
 		if ( 'emulsion-completion' == $handle && ! emulsion_is_amp() ) {
 			
 			$flag = true;
+			
+			$flag = emulsion_the_theme_supports( 'instantclick' ) ? true: $flag;
 			
 			return apply_filters( $handle . '-load', $flag );
 		}
@@ -1936,15 +1951,52 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 
 			$form_input	 = '<input class="image-select" type="radio" value="%1$s" id="%2$s" name="%3$s" %4$s';
 			$form_label	 = '><label for="%1$s"><img src="%2$s" alt="%3$s" title="%4$s" width="300"></label>';
+			$form_label .= '<details><summary>%5$s</summary><p>%6$s</p></details>';
 			$result		 = '';
 
 			foreach ( $choices as $value => $label_image ) {
+				
+				switch($value){
+					case 'default':
+						$summary = 'default';
+						$description = 'default';
+					break;
+					case 'full-size-header':
+						$summary = 'full size header';
+						$description = 'full size header';
+					break;
+					case 'midnight':
+						$summary = 'midnight';
+						$description = 'midnight';
+					break;
+					case 'daybreak':
+						$summary = 'daybreak';
+						$description = 'daybreak';
+					break;
+					case 'bloging':
+						$summary = 'bloging';
+						$description = 'bloging';
+					break;
+					case 'grid':
+						$summary = 'grid';
+						$description = 'grid';
+					break;
+					case 'stream':
+						$summary = 'stream';
+						$description = 'stream';
+					break;
+					default:
+						$summary = '';
+						$description = '';
+					break;
+					
+				}
 
 				$checked = checked( $this->value(), $value, false );
 
 				printf( $form_input, esc_attr( $value ), $this->id . $value, esc_attr( $this->id ), $checked );
 				$this->link();
-				printf( $form_label, $this->id . $value, esc_html( $label_image ), esc_attr( $value ), esc_attr( $value ) );
+				printf( $form_label, $this->id . $value, esc_html( $label_image ), esc_attr( $value ), esc_attr( $value ), $summary, $description);
 			}
 		}
 

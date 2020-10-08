@@ -4,6 +4,7 @@ body{
     font-kerning: auto;
     font-family: var(--thm_common_font_family);
 }
+
 .entry-title a,
 h1,h2,h3,h4,h5,h6,
 .h1,.h2,.h3,.h4,.h5,.h6{
@@ -41,6 +42,10 @@ div[data-block],
 /**
  * Monospaced font
  */
+.wp-block-code{
+    font-size:var(--thm_meta_data_font_size);
+    text-transform:var(--thm_meta_data_font_transform);
+}
 .wp-block-code,
 pre[class],
 pre code,
@@ -366,7 +371,7 @@ $step: 100;
         }
         .h2,
         h2{
-           font-size:calc(var(--thm_meta_data_font_size) * 1.4);
+            font-size:calc(var(--thm_meta_data_font_size) * 1.4);
         }
         .h3,
         h3{

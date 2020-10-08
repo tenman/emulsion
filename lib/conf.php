@@ -243,6 +243,7 @@ if ( ! function_exists( 'emulsion_theme_default_val' ) ) {
 	}
 
 }
+
 if ( ! function_exists( 'emulsion_the_theme_supports' ) ) {
 
 	function emulsion_the_theme_supports( $name ) {

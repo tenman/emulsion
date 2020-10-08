@@ -5,7 +5,7 @@ Theme URI: https://www.tenman.info/wp3/emulsion
 Description: block editor, classic editor both supports. Conventional, Image Media New Block Type Image Both media can be displayed correctly.Theme can stop at each theme style page for page builder users. Customizer can easily view changes with automatic preview redirection.Theme is designed with the goal of minimizing user frustration.
 Author: Tenman
 Author URI: https://www.tenman.info/wp3/
-Version: 1.5.8
+Version: 1.5.9
 Tags: one-column, two-columns, grid-layout,left-sidebar, right-sidebar,custom-background, custom-colors, custom-header,custom-logo, custom-menu, editor-style, featured-image-header, featured-images, flexible-header, footer-widgets, full-width-template, post-formats, sticky-post, theme-options, threaded-comments, translation-ready, block-styles, wide-blocks
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -319,7 +319,27 @@ body.is-dark .header-layer.template-part-header-custom + .primary-menu-wrapper.m
     background-size: contain;
 
 }
-
+.emulsion-addons-inactive .scroll-button-top:before {
+    content: ' ';
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
+    width: 16px;
+    height: 18px;
+    position: absolute;
+    display: block;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: -2px;
+    margin: auto;
+}
+.emulsion-addons-inactive .is-light .scroll-button-top:before {
+    background: url(./images/svg/arrow-up.svg);
+}
+.emulsion-addons-inactive .is-dark .scroll-button-top:before {
+    background: url(./images/svg/arrow-up.svg#white);
+}
 
 
 .header-layer.header-image-active .header-layer-nav-menu .nav-menu-child-opener-label:before,
@@ -376,6 +396,7 @@ body.is-dark.metabox-reset-post-presentation .header-layer.template-part-header-
     background:url(./images/svg/shrink.svg#alert);
     background-size:contain;
 }
+
 /**
  * Fallback colors
  */
@@ -405,10 +426,10 @@ body.is-dark.metabox-reset-post-presentation .header-layer.template-part-header-
     --thm_table_pale_pink_background:#ffccf8;
 }
 
-.is-dark{
+.is-dark:not(.emulsion-not-support-presentation):not(.emulsion-removed-presentation ){
     color:var(--thm_white_color);
 }
-.is-dark a{
+.is-dark:not(.emulsion-not-support-presentation):not(.emulsion-removed-presentation ) a{
     color:var(--thm_cloud_color);
 }
 body {
