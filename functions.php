@@ -1956,40 +1956,39 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 
 			foreach ( $choices as $value => $label_image ) {
 				
-				switch($value){
+				switch ( $value ) {
 					case 'default':
-						$summary = 'default';
-						$description = 'default';
-					break;
+						$summary	 = esc_html__( 'default', 'emulsion' );
+						$description = esc_html__( 'The default is to set the default value to the default setting of the theme.', 'emulsion' );
+						break;
 					case 'full-size-header':
-						$summary = 'full size header';
-						$description = 'full size header';
-					break;
+						$summary	 = esc_html__( 'full size header', 'emulsion' );
+						$description = esc_html__( 'The home page and featured image are displayed in browser size.', 'emulsion' );
+						break;
 					case 'midnight':
-						$summary = 'midnight';
-						$description = 'midnight';
-					break;
+						$summary	 = esc_html__( 'midnight', 'emulsion' );
+						$description = esc_html__( 'Change to an indigo dark design.', 'emulsion' );
+						break;
 					case 'daybreak':
-						$summary = 'daybreak';
-						$description = 'daybreak';
-					break;
+						$summary	 = esc_html__( 'daybreak', 'emulsion' );
+						$description = esc_html__( 'Change to a light and bright design.', 'emulsion' );
+						break;
 					case 'bloging':
-						$summary = 'bloging';
-						$description = 'bloging';
-					break;
+						$summary	 = esc_html__( 'bloging', 'emulsion' );
+						$description = esc_html__( 'Change to a white clean blog design', 'emulsion' );
+						break;
 					case 'grid':
-						$summary = 'grid';
-						$description = 'grid';
-					break;
+						$summary	 = esc_html__( 'grid', 'emulsion' );
+						$description = esc_html__( 'Display all archive pages in a grid layout.', 'emulsion' );
+						break;
 					case 'stream':
-						$summary = 'stream';
-						$description = 'stream';
-					break;
+						$summary	 = esc_html__( 'stream', 'emulsion' );
+						$description = esc_html__( 'The Stream layout is a theme-specific layout that appears lower than the grid.', 'emulsion' );
+						break;
 					default:
-						$summary = '';
+						$summary	 = '';
 						$description = '';
-					break;
-					
+						break;
 				}
 
 				$checked = checked( $this->value(), $value, false );
