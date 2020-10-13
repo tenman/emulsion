@@ -28,6 +28,7 @@ function emulsion_hooks_setup() {
 	add_filter( 'admin_body_class', 'emulsion_block_editor_class' );
 	add_filter( 'get_header_image_tag', 'emulsion_amp_add_layout_attribute' );
 	add_action( 'wp_head', 'emulsion_add_amp_css_variables' );
+	add_filter( 'get_the_archive_description', 'wpautop');
 
 	/**
 	 * Scripts
@@ -646,6 +647,8 @@ if ( ! function_exists( 'emulsion_theme_styles' ) ) {
 
 		/* hide uncategorized category */
 		$uncagegorized_hide_style = absint( get_category_by_slug( 'uncategorized' )->term_id ) == absint( get_option( 'default_category' ) ) ? '#document .cat-item-1{display:none;}' : '';
+		
+		
 
 		$customize_saved = <<< CUSTOMIZED_CSS
 

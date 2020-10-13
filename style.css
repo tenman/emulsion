@@ -5,7 +5,7 @@ Theme URI: https://www.tenman.info/wp3/emulsion
 Description: block editor, classic editor both supports. Conventional, Image Media New Block Type Image Both media can be displayed correctly.Theme can stop at each theme style page for page builder users. Customizer can easily view changes with automatic preview redirection.Theme is designed with the goal of minimizing user frustration.
 Author: Tenman
 Author URI: https://www.tenman.info/wp3/
-Version: 1.5.9
+Version: 1.6.0
 Tags: one-column, two-columns, grid-layout,left-sidebar, right-sidebar,custom-background, custom-colors, custom-header,custom-logo, custom-menu, editor-style, featured-image-header, featured-images, flexible-header, footer-widgets, full-width-template, post-formats, sticky-post, theme-options, threaded-comments, translation-ready, block-styles, wide-blocks
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -31,8 +31,18 @@ body.emulsion-removed-presentation img{
 }
 
 /**
+ * Exception Background
+ */
+
+#document .emulsion-removed-presentation .show-post-image,
+#document .emulsion-removed-presentation .screen-reader-text{
+    background:none ! important;
+}
+
+/**
  * Tnormalize.css v8.0.0 | MIT License | github.com/necolas/normalize.css
  */
+
 html {
     line-height: 1.15;
     -webkit-text-size-adjust: 100%;
@@ -336,11 +346,16 @@ body.is-dark .header-layer.template-part-header-custom + .primary-menu-wrapper.m
 }
 .emulsion-addons-inactive .is-light .scroll-button-top:before {
     background: url(./images/svg/arrow-up.svg);
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
 }
 .emulsion-addons-inactive .is-dark .scroll-button-top:before {
     background: url(./images/svg/arrow-up.svg#white);
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
 }
-
 
 .header-layer.header-image-active .header-layer-nav-menu .nav-menu-child-opener-label:before,
 body.is-dark.metabox-reset-post-presentation .header-layer-site-title-navigation .menu .nav-menu-child-opener-label:before,
@@ -397,6 +412,7 @@ body.is-dark.metabox-reset-post-presentation .header-layer.template-part-header-
     background-size:contain;
 }
 
+
 /**
  * Fallback colors
  */
@@ -426,50 +442,56 @@ body.is-dark.metabox-reset-post-presentation .header-layer.template-part-header-
     --thm_table_pale_pink_background:#ffccf8;
 }
 
-.is-dark:not(.emulsion-not-support-presentation):not(.emulsion-removed-presentation ){
+.emulsion-addons-inactive .is-dark:not(.emulsion-not-support-presentation):not(.emulsion-removed-presentation ){
     color:var(--thm_white_color);
 }
-.is-dark:not(.emulsion-not-support-presentation):not(.emulsion-removed-presentation ) a{
+.emulsion-addons-inactive .is-dark:not(.emulsion-not-support-presentation):not(.emulsion-removed-presentation ) a{
     color:var(--thm_cloud_color);
 }
 body {
-  color: var(--thm_black_color);
+    color: var(--thm_black_color);
 }
 body a {
-  color: var(--thm_gray_color);
+    color: var(--thm_gray_color);
 }
 
 body .grid .article-wrapper article header a {
 
 }
 body .grid .article-wrapper article header.show-post-image a {
-  color: var(--thm_white_color);
+    color: var(--thm_white_color);
 }
 body .comment-wrapper{
     var(--thm_comments_bg, #eeeeee);
 }
 body .relate-content-wrapper {
-  background: var(--thm_relate_posts_bg, #eeeeee);
+    background: var(--thm_relate_posts_bg, #eeeeee);
 }
 body .toc, body .primary-menu-wrapper {
-  background: var(--thm_white_color);
+    background: var(--thm_white_color);
 }
 body .toc .children, body .primary-menu-wrapper .children, body .toc .sub-menu, body .primary-menu-wrapper .sub-menu {
-  background: var(--thm_white_color);
+    background: var(--thm_white_color);
 }
 body .emulsion-add-dark-color *, body .show-post-image *, body .header-image-active * {
-  color: var(--thm_white_color);
-  border-color: var(--thm_white_color);
+    color: var(--thm_white_color);
+    border-color: var(--thm_white_color);
+}
+.emulsion-removed-presentation .emulsion-add-dark-color *,
+.emulsion-removed-presentation .show-post-image *,
+.emulsion-removed-presentation .header-image-active *{
+    color:initial;
+    border-color:initial;
 }
 body .current {
-  background: rgba(188, 188, 188, 0.2);
+    background: rgba(188, 188, 188, 0.2);
 }
 body .current-page {
-  background: rgba(188, 188, 188, 0.2);
+    background: rgba(188, 188, 188, 0.2);
 }
 body .pagination .current, body .pagination .prev, body .pagination .next {
-  color: var(--thm_general_text_color);
-  background: rgba(188, 188, 188, 0.2);
+    color: var(--thm_general_text_color);
+    background: rgba(188, 188, 188, 0.2);
 }
 
 
@@ -540,16 +562,16 @@ h6.has-text-color>a {
 .mark-stripe {
     background: repeating-linear-gradient(45deg, #606dbc, #606dbc 10px, #465298 10px, #465298 20px);
 }
-
+.has-cool-background-color,
 .mark-success,
 .mark-cool {
     background: var(--thm_cool_color_alpha);
 }
-
+.has-notice-background-color,
 .mark-notice {
     background: var(--thm_notice_color_alpha);
 }
-
+.has-info-background-color,
 .mark-info {
     background: var(--thm_info_color_alpha);
 }
@@ -609,7 +631,7 @@ h6.has-text-color>a {
 }
 p.has-background:not(.has-text-color){
     color: var(--thm_black_color);
-    
+
 }
 p.has-background:not(.has-text-color).emulsion-add-dark-color{
     color:var(--thm_white_color);/* @since 1.1.2 */

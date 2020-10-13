@@ -11,8 +11,23 @@
         margin-bottom:0;
         margin-left:auto;
         margin-right:auto;
+        padding-left:0;
+        padding-right:0;
     }
 }
+.custom-background{
+    .comment-wrapper{
+        .comments{
+            .children > li{
+                list-style:none;
+            }
+            article{
+                background:transparent;
+            }
+        }
+    }
+}
+
 .page{
     .comment-wrapper{
         .comments{
@@ -95,7 +110,7 @@
         }
     }
     .comment:before{
-       // display:none;
+        // display:none;
     }
 }
 .paginate-comment-links{
@@ -116,12 +131,14 @@
     padding-left:0;
     padding-right:0;
 }
-.comment-form,
+
 .comment-respond{
-    padding-left:0;
-    padding-right:0;
+    padding-left:var(--thm_content_gap);
+    padding-right:var(--thm_content_gap);
     .comment-form{
         box-sizing:border-box;
+        padding-left:0;
+        padding-right:0;
         textarea{
             width:calc( 100% - 8em);/* - label width */
             max-width:calc( 100% - 8em);

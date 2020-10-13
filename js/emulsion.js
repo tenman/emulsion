@@ -746,7 +746,7 @@ jQuery(function ($) {
      * contrast check
      */
     if (emulsion_script_vars.force_contrast) {
-        $('.entry-content > div:not(.shortcode-wrapper),.entry-content > .shortcode-wrapper > div, .has-background, .entry-content > .has-background:not(.has-text-color)').not('.wp-block-button, .plain').each(function (i) {
+        $('.footer-layer, .sidebar-widget-area, .primary-menu-wrapper, .comment-wrapper, .relate-content-wrapper, .entry-content > div:not(.shortcode-wrapper),.entry-content > .shortcode-wrapper > div, .has-background, .entry-content > .has-background:not(.has-text-color)').not('.wp-block-button, .plain').each(function (i) {
             var background_color_rgb = $(this).css("background-color");
             var general_background_color = emulsion_script_vars.background_color;
             if (general_background_color !== background_color_rgb && background_color_rgb.match(/^rgb\(/)) {
@@ -768,9 +768,7 @@ jQuery(function ($) {
                     $(this).addClass('emulsion-current-color');
                 } else {
                     $(this).addClass('emulsion-initial-color');
-                    //.css({'backgroud': background_color_rgb, 'position': 'relative', 'z-index': '-1'}); // chnge 1 to auto 8/27
-                    //11/5 change auto to -1
-                    //11/25 remove css pullquote
+                    
                 }
             }
         });

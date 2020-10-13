@@ -364,7 +364,7 @@ if ( ! function_exists( 'emulsion_article_header' ) ) {
 
 		$header_element	 = '<header ';
 		$header_element	 .= ! empty( emulsion_element_classes( 'article-header' ) ) ? 'class="' . sanitize_html_class( emulsion_element_classes( 'article-header' ) ) . '" ' : '';
-		$header_element	 .= ! empty( emulsion_element_classes( 'article-header' ) ) && ! empty( $thumbnail_url ) ? ' style="' . 'background-image:linear-gradient(#000000,transparent), url(' . esc_url( $thumbnail_url ) . ' );"' : '';
+		$header_element	 .= ! empty( emulsion_element_classes( 'article-header' ) ) && ! empty( $thumbnail_url ) ? ' style="' . 'background-image:linear-gradient(var(--thm_header_image_dim),transparent), url(' . esc_url( $thumbnail_url ) . ' );"' : '';
 		$header_element	 .= '>';
 		$header_element	 = apply_filters( 'emulsion_article_header', $header_element, esc_url( $thumbnail_url ) );
 
@@ -708,11 +708,6 @@ if ( ! function_exists( 'emulsion_archive_title' ) ) {
 			printf('<div class="page-title-block %1$s">', $class);
 		}
 
-		if ( is_404() ) {
-
-			get_template_part( 'template-parts/content', 'none' );
-		}
-
 		if ( is_archive() ) {
 
 			if ( is_year() ) {
@@ -729,26 +724,7 @@ if ( ! function_exists( 'emulsion_archive_title' ) ) {
 				the_archive_description( '<div class="taxonomy-description">', '</div>' );
 			}
 		}
-		if ( is_search() ) {
 
-			if ( 0 == $wp_query->found_posts ) {
-
-				printf( '<h2 class="%4$s">%3$s</h2><p class="search-query"><span class="keyword">%1$s</span><span class="separator">:</span><span class="count">%2$s</span></p>', 
-						get_search_query( true ), 
-						absint( $wp_query->found_posts ), 
-						esc_html__( 'Sorry, no posts matched your search. Please try again', 'emulsion' ), 
-						'fail-search' );
-
-				print get_search_form();
-			} else {
-
-				printf( '<h2 class="%4$s">%3$s</h2><p class="search-query"><span class="keyword">%1$s</span><span class="separator">:</span><span class="count">%2$s</span></p>', 
-						get_search_query( true ), 
-						absint( $wp_query->found_posts ), 
-						esc_html__( 'Search Results', 'emulsion' ), 
-						'search-title' );
-			}
-		}
 		if ( is_archive() || is_search() ) {
 
 			print '</div>';

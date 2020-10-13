@@ -6,18 +6,20 @@ include_once( get_theme_file_path( 'lib/template-tags.php' ) );
 include_once( get_theme_file_path( 'lib/navigation-pagination.php' ) );
 include_once( get_theme_file_path( 'lib/relate-posts.php' ) );
 include_once( get_theme_file_path( 'lib/icon.php' ) );
+
 emulsion_the_theme_supports('scheme') ? include_once( get_theme_file_path( 'scheme.php' ) ): '';
+
 if ( is_admin() && current_user_can( 'edit_theme_options' ) ) {
 
 	/**
 	 * TGMPA
 	 */
+	
 	if (  emulsion_the_theme_supports( 'TGMPA' ) ) {
 		include_once( get_theme_file_path( 'lib/tgm-config.php' ) );
 		include_once( get_template_directory() . '/lib/class-tgm-plugin-activation.php' );
 	}
 }
-
 
 /**
  * Temporary exception settings
@@ -1602,6 +1604,7 @@ if ( ! function_exists( 'emulsion_block_experimentals_style' ) ) {
 
 		body.enable-block-experimentals .wp-block-cover{
 			padding:0;
+			
 		}
 		body.enable-block-experimentals .wp-block-cover__inner-container{
 			padding:0;
@@ -1951,7 +1954,7 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 
 			$form_input	 = '<input class="image-select" type="radio" value="%1$s" id="%2$s" name="%3$s" %4$s';
 			$form_label	 = '><label for="%1$s"><img src="%2$s" alt="%3$s" title="%4$s" width="300"></label>';
-			$form_label .= '<details><summary>%5$s</summary><p>%6$s</p></details>';
+			$form_label .= '<details id="details-%7$s"><summary>%5$s</summary><p>%6$s</p></details>';
 			$result		 = '';
 
 			foreach ( $choices as $value => $label_image ) {
@@ -1964,6 +1967,7 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 					case 'full-size-header':
 						$summary	 = esc_html__( 'full size header', 'emulsion' );
 						$description = esc_html__( 'The home page and featured image are displayed in browser size.', 'emulsion' );
+						$description .= '<p>'. esc_html__( 'You can add a button link on the header image by adding the Header Menu in the menu options.', 'emulsion' ). '</p>';
 						break;
 					case 'midnight':
 						$summary	 = esc_html__( 'midnight', 'emulsion' );
@@ -1995,7 +1999,7 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 
 				printf( $form_input, esc_attr( $value ), $this->id . $value, esc_attr( $this->id ), $checked );
 				$this->link();
-				printf( $form_label, $this->id . $value, esc_html( $label_image ), esc_attr( $value ), esc_attr( $value ), $summary, $description);
+				printf( $form_label, $this->id . $value, esc_html( $label_image ), esc_attr( $value ), esc_attr( $value ), $summary, $description, $value);
 			}
 		}
 
@@ -2004,15 +2008,15 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 }
 
 /**
-	 * Customizer Styles
-	 */
-	add_action( 'customize_controls_enqueue_scripts', 'emulsion_theme_customizer_style' );
+ * Customizer Styles
+ */
+add_action( 'customize_controls_enqueue_scripts', 'emulsion_theme_customizer_style' );
 
 if ( ! function_exists( 'emulsion_theme_customizer_style' ) ) {
 
 	function emulsion_theme_customizer_style() {
 
-		$css = <<< TEST
+		$css = <<< CSS
 .customize-control-emulsionImageRadio input {
 	visibility:hidden;
 }
@@ -2028,13 +2032,48 @@ if ( ! function_exists( 'emulsion_theme_customizer_style' ) ) {
 	padding:5px 5px 3px;
 	
 }
-TEST;
+[id|="details"]{
+	background:#fff;
+	padding:5px 5px 3px;
+	box-sizing:border-box;
+	width:248px;
+	margin:auto;
+}
+
+CSS;
 
 		wp_add_inline_style( 'customize-controls', $css );
 	}
 
 }
 
+add_action( 'customize_controls_enqueue_scripts', 'emulsion_theme_customizer_script' );
+
+if ( ! function_exists( 'emulsion_theme_customizer_script' ) ) {
+
+	function emulsion_theme_customizer_script() {
+
+		$script = <<< SCRIPT
+(function($){
+				
+	wp.customize( 'emulsion_scheme', function( setting ) {
+
+        setting.bind( function( value ) {
+				$('[id|="details"]').removeAttr('open');		
+				$('#details-' + value ).attr('open','open');
+        } );
+    } );
+				
+})(jQuery);
+
+SCRIPT;
+		if ( is_customize_preview() ) {
+
+			wp_add_inline_script( 'customize-controls', $script );
+		}
+	}
+
+}
 /**
  * Customizer validate
  */

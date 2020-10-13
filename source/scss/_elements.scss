@@ -409,8 +409,6 @@ blockquote{
     flex-direction:column;
     p{
         margin-top:.75rem;
-        padding-left:0;
-        padding-right:0;
     }
     &.alignleft{
         @extend %alignleft;
@@ -826,6 +824,9 @@ ul:not([class|="wp-block"]){
         padding:0 var(--thm_content_gap) 0 40px;
 
     }
+    @media screen and ( max-width : 480px ) {
+        padding-left:var(--thm_content_gap);
+    }
 
 }
 [amp]{
@@ -972,7 +973,19 @@ ol[class|="wp-block"]{
         }
     }
 }
+ol.wp-list-comments{
+    padding-left:var(--thm_box_gap);
+    padding-right:var(--thm_box_gap);
+    .children{
+        padding-left:var(--thm_content_gap);
+    }
 
+}
+.wp-block-latest-comments{
+    article{
+        overflow:hidden;
+    }
+}
 ul:not(.list-style-initial){
 
     &.list-style-none{
@@ -2108,4 +2121,11 @@ body .fit{
     width: -moz-fit-content;
     width:fit-content;
     white-space:pre;
+}
+/**
+ * todo
+ */
+#emulsion.custom-background .mejs-container{
+    margin-left:auto;
+    margin-right:auto;
 }

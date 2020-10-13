@@ -50,12 +50,17 @@
             padding-bottom:.75rem;
         }
     }
+    &:not(.cta-layer-active){
+        .page-title-block{
+            min-height:25vh;
+        }
+    }
     div.page-title-block{
         margin-left:auto;
         margin-right:auto;
         overflow:hidden;
         max-width:100%;
-        
+
         h2{
             @include font_size(2);
             margin-top:0;
@@ -65,17 +70,12 @@
             padding-top:.75em;// not rem
             margin-bottom:0;
         }
-        h2{
-            &:first-child:last-child{
-                // not exists taxonomy-description
-                //padding-top:1em;
-                //padding-bottom:3em;
-                //margin-bottom:1.5rem;
-            }
-        }
+       
         .taxonomy-description{
             @extend %block;
             margin:0 auto 24px;
+            padding-left:0;
+            padding-right:0;
             p{
                 width: -moz-fit-content;
                 width:fit-content;
@@ -87,6 +87,7 @@
                 margin-bottom:0;
             }
         }
+        
     }
     &.cta-layer-active{
         div.page-title-block{
@@ -177,6 +178,22 @@
             margin-right:auto;
             text-align:center;
         }
+        .is-user-header{
+            left:0;
+            width:100%;
+            height:100%;
+            position:relative;
+            & > div,
+            & > .alignfull{
+                width:calc(100vw - 17px);
+            }
+            .shortcode-wrapper{
+                width:100%;
+
+                margin-top:0;
+                margin-bottom:0;
+            }
+        }
     }
     /**
      * template-part-header.php
@@ -191,7 +208,6 @@
                 .children,
                 .sub-menu{
                     li{
-                        // padding:.88rem;
                         box-sizing:border-box;
                     }
                 }
@@ -395,10 +411,7 @@
             left:0;
             width:100%;
             height:100%;
-            display:flex;
             text-align:center;
-            align-items: safe center;
-            justify-content: safe center;
             overflow-y:auto;
             overflow-x:hidden;                            
             display: -webkit-box;
@@ -410,7 +423,7 @@
             -ms-flex-align: center;
             align-items: center;
             -ms-flex-pack: center;
-            justify-content: center;
+            justify-content:flex-start;
             -ms-flex-direction:column;
             flex-direction:column;
             box-sizing:border-box;
@@ -460,6 +473,7 @@
         .entry-text{
             -webkit-transition:  background 1s ease; /* Safari */
             transition: background 1s ease;
+            justify-content:center;
             & > div{
             }
             &:before{
@@ -528,47 +542,11 @@ body{
         .breadcrumbs{
             display:none;
         }
-        .template-part-header-custom{
-            &.header-layer{
 
-            }
-        }
-        .not-found{
-            &.template-part-content-none{
-                text-align:center;
-                margin-left:auto;
-                margin-right:auto;
-            }
-        }
-        .primary-menu-wrapper{
-            display:none;
-            nav[class|="menu"]{
-                display:none;
-            }
-        }
         .page-wrapper{
-            // not title in header
-            
-            .template-part-content-none{
-                min-height:calc(100vh - 16rem);
-            }
-            .page-title-block.search-result-0{
-
-                display:flex;
-                flex-direction:column;
-                position:relative;
-                //display:block;
-                min-height:calc(100vh - 14rem);
-                
-            }
-        }
-        
-        .template-part-header-custom{
-            // title in header
             margin-top:0;
             margin-bottom:0;
-            .template-part-content-none{
-
+            .emulsion-failed{
                 display: -webkit-box;
                 -webkit-box-pack: center;
                 -webkit-box-align: center;
@@ -584,22 +562,9 @@ body{
                 height:100%;
                 box-sizing:border-box;
 
-               min-height:calc(100vh - 14rem);
-            }
-            .page-title-block.search-result-0{
-
-                display:flex;
-                position:relative;
-                min-height:calc(100vh - 12rem);
-                flex-wrap:wrap;
-                flex-direction:column;
-                
-            }
-           & ~ div.layout{
-                display:none;
+                min-height:calc(100vh - 14rem);
             }
         }
-
     }
     /**
      * Type Paged
@@ -1079,7 +1044,7 @@ body.single{
     }
 
 }
-      
+
 body.page{
     &.emulsion-header-has-title{
 
