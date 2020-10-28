@@ -17,8 +17,8 @@ jQuery(function ($) {
         if ($('style[id="custom-background-css"]').length) {
             $('#custom-background-css').remove();
         }
-        if ($('link[id="locktype-completion-css"]').length) {
-            $('#emulsion-completion-css').remove();
+        if ($('link[id="emulsion-common-css"]').length) {
+            $('#emulsion-common-css').remove();
         }
         if ($('.template-part-widget-footer.footer-widget-area').length) {
             $('.template-part-widget-footer.footer-widget-area').remove();

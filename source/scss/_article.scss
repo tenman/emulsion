@@ -37,7 +37,7 @@
 /**
  * Layout list full_text
  * ========================================================================== */
-.emulsion-addons-inactive body,
+//.emulsion-addons-inactive body,
 .layout-list.full_text{
     @extend %fulltext;
 }
@@ -328,7 +328,6 @@ article.format-gallery .entry-content{
         margin:var(--thm_box_gap) auto ;
         position:relative;
         figure{
-            // aligncenter
             margin-top:0;
             margin-bottom:0;
             padding-top:0;
@@ -438,18 +437,18 @@ article.format-gallery .entry-content{
 }
 .shortcode-wrapper{
     width:var(--thm_content_width);
-            padding-left:0;
-        padding-right:0;
-    margin-left:auto;
-    margin-right:auto;
-    margin-top:3rem;
-    margin-bottom:3rem;
+    padding-left:0;
+    padding-right:0;
+    margin-top:3rem auto;
+
     &.wrap-caption{
         margin-top:0;
         margin-bottom:0;
         padding:0;
     }
     // short code has not custom class
+    &.alignwide,
+    &.alignright,
     &.alignleft,
     &.alignfull{
         & > *{
@@ -462,10 +461,8 @@ article.format-gallery .entry-content{
     &.alignright{
         @extend %alignright;
     }
-
-
 }
-//wp-block-group.has-background overflows before
+
 .has-background:not(.wp-block-group):not(.wp-block-cover):not(.wp-block-columns):before:not(.badge):before {
     content: '';
     position: absolute;

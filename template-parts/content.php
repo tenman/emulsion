@@ -15,28 +15,26 @@
 				emulsion_post_content();
 			} elseif ( 'full_text' == $layout_setting || 'post' == $layout_setting || 'page' == $layout_setting ) {
 
-				the_content();
+					the_content();
 			} else {
 
 				if ( 'grid' == $layout_setting ) {
 
 					$number_of_lines = get_theme_mod('emulsion_excerpt_length_grid', emulsion_theme_default_val( 'emulsion_excerpt_length_grid' ) );
-					
-					if( has_excerpt() ) {
 						
-						echo '<p class="trancate" data-rows="' . $number_of_lines . '">';
-						the_excerpt();
-						echo '</p>';
-					}
+					echo '<p class="trancate" data-rows="' . $number_of_lines . '">';
+					the_excerpt();
+					echo '</p>';
+
 				} else {
 
 					echo '<blockquote class="content-excerpt">';
 
 					if ( strpos( $post->post_content, '<!--more-->' ) ) {
-						
+				
 						the_content();
 					} else {
-						
+			
 						the_excerpt();
 					}
 
@@ -47,12 +45,10 @@
 			wp_link_pages( 'before=<div class="wp-link-pages page-break-links clearfix">&after=</div>&next_or_number=number&pagelink=<span>%</span>' );
 			?></div>
 
-		<footer><?php emulsion_theme_addons_exists() ? emulsion_post_excerpt_more() : ''; ?>
-			<?php
+		<footer><?php emulsion_theme_addons_exists() ? emulsion_post_excerpt_more() : ''; 
+		
 			if ( has_nav_menu( 'social' ) && is_singular() && emulsion_the_theme_supports( 'social-link-menu' ) && emulsion_the_theme_supports( 'enqueue' ) && emulsion_metabox_display_control( 'page_style' ) && emulsion_metabox_display_control( 'style' ) ) {
-				?>
-				<nav class="social-navigation" role="navigation" aria-label="<?php esc_attr_e( 'Footer Social Links Menu', 'emulsion' ); ?>">
-				<?php
+				?><nav class="social-navigation" role="navigation" aria-label="<?php esc_attr_e( 'Footer Social Links Menu', 'emulsion' ); ?>"><?php
 				wp_nav_menu(
 						array(
 							'theme_location' => 'social',
@@ -64,12 +60,9 @@
 							'item_spacing'	 => 'discard',
 						)
 				);
-				?>
-				</nav><!-- .social-navigation -->
-					<?php
+				?></nav><!-- .social-navigation -->	<?php
 				}
-				?>	
-				<?php edit_post_link( esc_html__( 'Edit', 'emulsion' ), '<span class="editor">', '</span>', '', 'skin-button' ); ?></footer>
+				?><?php edit_post_link( esc_html__( 'Edit', 'emulsion' ), '<span class="editor">', '</span>', '', 'skin-button' ); ?></footer>
 	</article>
 				<?php
 				if ( has_action( 'emulsion_article_after' ) ) {

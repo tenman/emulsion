@@ -41,9 +41,7 @@ $emulsion_show_post_image	 = emulsion_is_display_featured_image_in_the_loop();
 					<?php wp_link_pages( 'before=<div class="wp-link-pages page-break-links clearfix">&after=</div>&next_or_number=number&pagelink=<span>%</span>' ); ?>
 				</div>
 
-				<footer>
-				<?php emulsion_the_post_meta_in(); ?>
-				</footer>
+				<footer><?php emulsion_the_post_meta_in(); ?></footer>
 
 		<?php if ( ! is_singular() ) { ?>
 				</div></div>

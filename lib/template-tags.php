@@ -188,6 +188,7 @@ if ( ! function_exists( 'emulsion_get_post_title' ) ) {
 		$post_id			 = get_the_ID();
 		$entry_title_status	 = get_theme_mod( 'emulsion_title_in_header', emulsion_theme_default_val( 'emulsion_title_in_header' ) );
 		$layout_type		 = emulsion_current_layout_type();
+		$attr = '';
 
 		switch ( $layout_type ) {
 			case 'grid':
@@ -225,19 +226,25 @@ if ( ! function_exists( 'emulsion_get_post_title' ) ) {
 		}
 
 		if ( is_singular() ) {
-
+			
 			return the_title( '<h2 class="entry-title">'.$insert_start_tag, $insert_end_tag.'</h2>', false );
+			
 		} else {
+			
+			if ( metadata_exists( 'post', $post_id, 'emulsion_post_theme_style_script' ) ) {
+				
+				$attr = 'no_style' == get_post_meta( $post_id , 'emulsion_post_theme_style_script', true ) ? 'data-no-instant': '';
+			} 
 
 			if ( has_post_thumbnail() && true == $with_thumbnail && false !== $post_id && ! post_password_required( $post_id ) ) {
 				
-				$html .= '<h2 class="entry-title"><a href="%1$s">'. $insert_start_tag.'%2$s'. $insert_end_tag.'</a></h2>';
+				$html .= '<h2 class="entry-title"><a href="%1$s" %3$s>'. $insert_start_tag.'%2$s'. $insert_end_tag.'</a></h2>';
 			} else {
 
-				$html = '<h2 class="entry-title"><a href="%1$s">'. $insert_start_tag.'%2$s'. $insert_end_tag.'</a></h2>';
+				$html = '<h2 class="entry-title"><a href="%1$s" %3$s>'. $insert_start_tag.'%2$s'. $insert_end_tag.'</a></h2>';
 			}
 
-			return sprintf( $html, esc_url( get_permalink() ), the_title( '', '', false ) );
+			return sprintf( $html, esc_url( get_permalink() ), the_title( '', '', false ), $attr );
 		}
 	}
 
@@ -706,6 +713,9 @@ if ( ! function_exists( 'emulsion_archive_title' ) ) {
 			$class =  0 == $wp_query->found_posts ? 'search-result-0': 'search-result';
 
 			printf('<div class="page-title-block %1$s">', $class);
+			
+			printf( '<h2 class="%1$s">%2$s</h2>','search-title', get_search_query( true ) );
+
 		}
 
 		if ( is_archive() ) {
@@ -718,6 +728,7 @@ if ( ! function_exists( 'emulsion_archive_title' ) ) {
 
 				the_archive_title( '<h2 class="archive-title month">', '</h2>' );
 				emulsion_monthly_archive_prev_next_navigation( true,  false );
+			
 			} else {
 
 				the_archive_title( '<h2 class="archive-title">', '</h2>' );

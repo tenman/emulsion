@@ -3,17 +3,11 @@
 @import 'core';
 @import 'fonts';
 @import 'elements';
-//@import 'archives';
 @import 'article';
-@import 'custom-background';
-@import 'block';
+//@import 'block';
 @import 'accessibility';
-//@import 'gallery';
 @import 'comments';
-//@import 'wp-nav-menu';
-@import 'border';
-//@import 'effect';
-//@import 'responsive';
+//@import 'border';
 ///////////////////////////////////////////////////////////////////////////////
 
 [amp] .placeholder-header{
@@ -89,7 +83,9 @@ article > div{
         padding-right:var(--thm_content_gap);
     }
 }
-
+article header {
+    //justify-content: flex-start;
+}
 .archive-title,
 .taxonomy-description{
     width:-moz-fit-content;
@@ -184,12 +180,6 @@ label[for="comment"],
         margin-left: 0;
 
     }
-    textarea#comment, form > p, 
-    label[for="comment"], .comment-reply-title {
-        /* padding-left: var(--thm_content_gap); */
-        /* padding-right: var(--thm_content_gap); */
-    }
-
 }
 
 p.badge,
@@ -389,9 +379,6 @@ body > header.header-image-active.template-part-header-custom{
     }
 }
 .layout-grid{
-   // header.header-is-default-color ~  .layout,
-   // header.header-is-light ~ .layout,
-   // header.header-is-dark ~ .layout{
    header ~ .layout{
         article header{
             background:var(--thm_header_bg_color);
@@ -588,10 +575,8 @@ article .has-background:not(.has-text-color) *:not(.has-text-color){
 }
 :root:not(#_):not(#_):not(#_):not(#_):not(#_):not(#_):not(#_):not(#_) body.noscript.enable-alignfull .wp-block-pullquote.has-background {
     background: #eee;
-    //needs color
     color:var(--thm_black_color);
 }
-
 
 /* border */
 

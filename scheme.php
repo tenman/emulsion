@@ -49,9 +49,9 @@ const emulsion_theme_scheme = array(
 		'emulsion_content_width'						 => 720,
 		'emulsion_content_margin_top'					 => 0,
 		'emulsion_layout_homepage'						 => 'excerpt',
-		'emulsion_layout_homepage_post_image'			 => 'hide',
+		'emulsion_layout_homepage_post_image'			 => 'show',
 		'emulsion_layout_posts_page'					 => 'excerpt',
-		'emulsion_layout_posts_page_post_image'			 => 'hide',
+		'emulsion_layout_posts_page_post_image'			 => 'show',
 		'emulsion_layout_date_archives'					 => 'grid',
 		'emulsion_layout_date_archives_post_image'		 => 'show',
 		'emulsion_layout_category_archives'				 => 'stream',
@@ -364,7 +364,16 @@ const emulsion_theme_scheme = array(
 		'emulsion_layout_tag_archives'					 => 'stream',
 		'emulsion_layout_tag_archives_post_image'		 => 'show',
 		'emulsion_layout_author_archives'				 => 'stream',
-		'emulsion_layout_author_archives_post_image'	 => 'show',
+		'emulsion_layout_author_archives_post_image'	 => 'show',		
+	),
+	'boilerplate' => array(
+		'emulsion_layout_homepage_post_image'			 => 'hide',
+		'emulsion_layout_posts_page_post_image'			 => 'hide',
+		'emulsion_layout_date_archives_post_image'		 => 'hide',
+		'emulsion_layout_category_archives_post_image'	 => 'hide',
+		'emulsion_layout_tag_archives_post_image'		 => 'hide',
+		'emulsion_layout_author_archives_post_image'	 => 'hide',
+		'emulsion_layout_search_results_post_image'		 => 'hide',
 	),
 );
 
@@ -517,4 +526,24 @@ if ( ! function_exists( 'emulsion_get_var' ) && function_exists( 'emulsion_the_t
 		return $color;
 	}
 
+}
+
+if (  'boilerplate' == get_theme_mod( 'emulsion_scheme' ) ) {
+	
+	add_filter('emulsion_the_theme_supports', 'emulsion_boilerplate', 10, 2 );
+	
+	if( function_exists( 'emulsion_get_var' ) ) {
+		
+		emulsion_remove_supports('enqueue');		
+	}
+	
+	function emulsion_boilerplate( $val, $name ) {
+		
+		false === wp_style_is( 'emulsion' ) ? wp_enqueue_style( 'emulsion' ): '';
+		if( 'enqueue' == $name ){
+			
+			return false;
+		}
+		return $val;
+	}	
 }

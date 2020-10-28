@@ -348,13 +348,17 @@ $step: 100;
 @each $font_size in $editor_font_sizes {
     $slug: nth($font_size, 1);
     $size: nth($font_size, 2);
-    .entry-content .has-#{$slug}-font-size {
+    .layout .has-#{$slug}-font-size {
         font-size:#{$size}px;
+    }
+    p.has-#{$slug}-font-size{
+        margin:calc( #{$size}px * var(--thm_content_line_height) ) auto;
     }
 }
 /**
  * heading in meta font size block
  */
+
 /**
  * wp-block
  */

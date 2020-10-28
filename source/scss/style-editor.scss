@@ -5361,8 +5361,10 @@ div.components-notice{
                         }
                     }
                     [data-type="core/code"]{
-                        code{
-                            padding:1rem;
+                        white-space:pre-wrap;
+                        & > code{
+                           padding:var(--thm_meta_data_font_size);
+                           font-size:var(--thm_meta_data_font_size);
                         }
                     }
                     ul.p-block-social-links{

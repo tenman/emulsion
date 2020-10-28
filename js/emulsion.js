@@ -215,7 +215,7 @@ jQuery(function ($) {
         $('#primary-menu-controll').prop('checked', false);
     });
     $('#primary-menu-controll').on('click', function (e) {
-        // button click 
+        // button click
         var chk_status = $(this).prop("checked");
         if (chk_status) {
             $(this).prop('checked', false);
@@ -444,18 +444,19 @@ jQuery(function ($) {
     if ('enable' == emulsion_script_vars.instantclick_support) {
 
         $('a[href^=http]').not('[href^="' + emulsion_script_vars.home_url + '"]').addClass('external').attr('data-no-instant', 'data-no-instant');
+        $('.emulsion-removed-presentation a, .emulsion-not-support-presentation a').attr('data-no-instant', 'data-no-instant');
 
         /**
-         * instant click isuue fixed 
-         * Delete it when you can confirm the stability of the operation.        
-        
+         * instant click isuue fixed
+         * Delete it when you can confirm the stability of the operation.
+
          $('.single-post a[href*="author"],.single-post a[href*="category"],.single-post a[href*="tag"]').attr('data-no-instant', 'data-no-instant');
          $('.home.page a[href*="author"],.home.page a[href*="category"],.home.page a[href*="tag"]').attr('data-no-instant', 'data-no-instant');
          $('.page a').attr('data-no-instant', 'data-no-instant');
-         if( 'none' !== emulsion_script_vars.posts_page_url){        
-         $('.home.page a[href="' + emulsion_script_vars.posts_page_url + '"], .single-post a[href="' + emulsion_script_vars.posts_page_url + '"]').attr('data-no-instant', 'data-no-instant');      
+         if( 'none' !== emulsion_script_vars.posts_page_url){
+         $('.home.page a[href="' + emulsion_script_vars.posts_page_url + '"], .single-post a[href="' + emulsion_script_vars.posts_page_url + '"]').attr('data-no-instant', 'data-no-instant');
          }
-        */ 
+        */
 
         /**
          * instantcclick exclude links
@@ -768,7 +769,7 @@ jQuery(function ($) {
                     $(this).addClass('emulsion-current-color');
                 } else {
                     $(this).addClass('emulsion-initial-color');
-                    
+
                 }
             }
         });
@@ -966,9 +967,10 @@ jQuery(function ($) {
      * System Theme Color
      */
 
-    if (true == emulsion_script_vars.prefers_color_scheme) {
+    if ( 'enable' == emulsion_script_vars.prefers_color_scheme ) {
 
         const is_dark = window.matchMedia('(prefers-color-scheme: dark)');
+
         if (is_dark.matches) {
             if ($('body').hasClass('is-light')) {
 
@@ -980,6 +982,7 @@ jQuery(function ($) {
         } else {
 
             const is_light = window.matchMedia('(prefers-color-scheme: light)');
+
             if (is_light.matches && $('body').hasClass('is-dark')) {
 
                 $('body').removeClass('is-dark').addClass('is-light prefers-color-scheme-light');
@@ -992,8 +995,8 @@ jQuery(function ($) {
 jQuery(function ($) {
     /**
      * Accessibility tab navigation
-     * 
-     * When focus visible. default hidden content 
+     *
+     * When focus visible. default hidden content
      */
     $('.blocks-gallery-item, details:not([open])').attr('tabindex', 0);
 

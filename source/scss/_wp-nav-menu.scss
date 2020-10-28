@@ -154,14 +154,14 @@
     .menu-active{
         position: fixed;
         top: 0;
-      //  max-width: calc(var(--thm_sidebar_width) + var(--thm_main_width));
+        //  max-width: calc(var(--thm_sidebar_width) + var(--thm_main_width));
         left:0;
         right:0;
         z-index: 10;
         margin-top:0;
         margin-bottom:0;
         .primary{
-           // @extend %block_main_wide;
+            // @extend %block_main_wide;
             margin-top:0;
             margin-bottom:0;
             & > li{
@@ -227,12 +227,12 @@ header{
  * Primary menu.
  * ========================================================================== */
 nav[class|="menu"]{
-   // @extend %block_main_wide;
+    // @extend %block_main_wide;
     //@include font_size(5, no-margin);
     font-size:var(--thm_meta_data_font_size);
     font-family:var(--thm_meta_data_font_family);
     text-transform:var(--thm_meta_data_font_transform);
-    
+
     margin:0 auto 0;
     padding-left:0;
     padding-right:0;
@@ -241,8 +241,8 @@ nav[class|="menu"]{
         .sub-menu:focus-within,
         &:not(.has-chckbox-control) .wp-nav-menu li.menu-item-has-children a:focus ~ .sub-menu,
         &:not(.has-chckbox-control) .wp-nav-menu li.menu-item-has-children a:focus ~ .children,
-        &:not(.has-chckbox-control) .wp-nav-menu li.menu-item-has-children:hover  .sub-menu,
-        &:not(.has-chckbox-control) .wp-nav-menu li.menu-item-has-children:hover  .children{
+        &:not(.has-chckbox-control) .wp-nav-menu li.menu-item-has-children:hover > .sub-menu,
+        &:not(.has-chckbox-control) .wp-nav-menu li.menu-item-has-children:hover > .children{
         clip:auto;
         height:auto;
         clip-path: none;
@@ -347,7 +347,9 @@ nav[class|="menu"]{
                         margin-top:0;
                         margin-bottom:0;
                         &.show-left{
-                            &.menu-item-has-children:hover > .sub-menu,
+                            &.menu-item-has-children a:focus ~ .sub-menu,
+                                &.menu-item-has-children a:focus ~ .sub-menu,
+                                &.menu-item-has-children:hover > .sub-menu,
                                 &.menu-item-has-children:hover > .children{
                                 left:-100%;
                             }
@@ -364,11 +366,45 @@ nav[class|="menu"]{
                         left:100%;
                         top:0;
                         z-index:9999;
+                        li{
+
+                            margin-top:0;
+                            margin-bottom:0;
+                            &.show-left{
+                                &.menu-item-has-children a:focus ~ .sub-menu,
+                                    &.menu-item-has-children a:focus ~ .sub-menu,
+                                    &.menu-item-has-children:hover > .sub-menu,
+                                    &.menu-item-has-children:hover > .children{
+                                    left:-100%;
+                                }
+                            }
+                            & > a{
+                                padding:.88rem;
+                                display:inline-block;
+                            }
+                        }
                         .sub-menu,
                         .children{
                             width:100%;
                             left:100%;
                             z-index:9999;
+                            li{
+
+                                margin-top:0;
+                                margin-bottom:0;
+                                &.show-left{
+                                    &.menu-item-has-children a:focus ~ .sub-menu,
+                                        &.menu-item-has-children a:focus ~ .sub-menu,
+                                        &.menu-item-has-children:hover > .sub-menu,
+                                        &.menu-item-has-children:hover > .children{
+                                        left:-100%;
+                                    }
+                                }
+                                & > a{
+                                    padding:.88rem;
+                                    display:inline-block;
+                                }
+                            }
                         }
 
                     }
@@ -379,6 +415,13 @@ nav[class|="menu"]{
             }
         }
         &.top-right[data-direction="horizontal"]{
+            & > li{
+                & > .sub-menu,
+                & > .children{
+
+                    left: 0;
+                }
+            }
             .sub-menu,
             .children{
                 .sub-menu,
@@ -605,15 +648,43 @@ body:not(.noscript){
     .template-part-header{
         .header-layer-nav-menu{
             .wp-nav-menu.primary{
-                .menu-item-has-children{
-                    .sub-menu,
-                    .children{
-                        left:-100%;
+                & > li{
+                    position:relative;
+                    &.menu-item-has-children{
                         .sub-menu,
                         .children{
+                            position:absolute;
+                            width:auto;
+                            left:0;
+
+                        }
+                    }
+                }
+                .menu-item-has-children{
+                    position:relative;
+                    .sub-menu,
+                    .children{
+                        position:absolute;
+                        width:auto;
+                        left:-100%;
+                        a{
+                            box-sizing:border-box;
+                            display:block;
+                            width:100%;
+                        }
+                        .sub-menu,
+                        .children{
+                            a{
+                                display:block;
+                                width:100%;
+                            }
                             left:-100%;
                             .sub-menu,
                             .children{
+                                a{
+                                    display:block;
+                                    width:100%;
+                                }
                                 left:-100%;
                             }
                         }

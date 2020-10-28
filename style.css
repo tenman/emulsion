@@ -5,7 +5,7 @@ Theme URI: https://www.tenman.info/wp3/emulsion
 Description: block editor, classic editor both supports. Conventional, Image Media New Block Type Image Both media can be displayed correctly.Theme can stop at each theme style page for page builder users. Customizer can easily view changes with automatic preview redirection.Theme is designed with the goal of minimizing user frustration.
 Author: Tenman
 Author URI: https://www.tenman.info/wp3/
-Version: 1.6.0
+Version: 1.6.1
 Tags: one-column, two-columns, grid-layout,left-sidebar, right-sidebar,custom-background, custom-colors, custom-header,custom-logo, custom-menu, editor-style, featured-image-header, featured-images, flexible-header, footer-widgets, full-width-template, post-formats, sticky-post, theme-options, threaded-comments, translation-ready, block-styles, wide-blocks
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -24,11 +24,7 @@ body.emulsion-not-support-presentation #primary-menu-controll,
 body.emulsion-removed-presentation #primary-menu-controll{
     display:none;
 }
-body.emulsion-not-support-presentation img,
-body.emulsion-removed-presentation img{
-    max-width:100%;
-    height:auto;
-}
+
 
 /**
  * Exception Background
@@ -185,6 +181,34 @@ template {
 }
 [hidden] {
     display: none;
+}
+/**
+ * Theme normarize
+ */
+body{
+    margin:0;
+}
+h1 {
+    margin: 0.67em auto;
+}
+img{
+    max-width:100%;
+    height:auto;
+}
+
+.layout,
+.navigation,
+.footer-layer{
+    margin-left:auto;
+    margin-right:auto;  
+}
+header{
+    margin-left:auto;
+    margin-right:auto;
+    overflow:hidden;
+}
+.template-part-header{
+    overflow:visible;
 }
 
 /**
@@ -417,7 +441,8 @@ body.is-dark.metabox-reset-post-presentation .header-layer.template-part-header-
  * Fallback colors
  */
 
-:root{
+
+body:not(.emulsion-not-support-presentation){
     --thm_black_color:#333;
     --thm_gray_color:#727477;
     --thm_silver_color:#bebebe;
@@ -435,7 +460,7 @@ body.is-dark.metabox-reset-post-presentation .header-layer.template-part-header-
     --thm_darken:linear-gradient(rgba(0, 0, 0, .2), rgba(0, 0, 0, .2));
     --thm_default_bullet_color:#3498db;
 }
-.wp-block-table{
+body:not(.emulsion-not-support-presentation) .wp-block-table{
     --thm_table_light_gray_background:#f3f4f5;
     --thm_table_pale_green_background:#e9fbe5;
     --thm_table_pale_blue_background:#e7f5fe;
@@ -641,3 +666,4 @@ body.emulsion-has-sidebar.is-dark.scheme-midnight .primary-menu-wrapper nav[clas
     border-bottom-style: var(--thm_common_border_style);
     border-bottom-width: var(--thm_common_border_width);
 }
+/*------------------------------------------*/
