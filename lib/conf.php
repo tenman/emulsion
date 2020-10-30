@@ -33,12 +33,12 @@ if ( ! function_exists( 'emulsion_theme_default_val' ) ) {
 		 * array( note=>*** )
 		 * $type unit_val or val
 		 */
-		
+
 		$emulsion_default_values = array(
-			
+
 /**
- * Used when emulsion addons is not active. 
- * If the plugin is active, use the default value of 
+ * Used when emulsion addons is not active.
+ * If the plugin is active, use the default value of
  * $emulsion_customize_args in emulsion-addons / includes / conf.php.
  */
 			/**
@@ -47,7 +47,7 @@ if ( ! function_exists( 'emulsion_theme_default_val' ) ) {
 			 * If you don't use the emulsion addons plugin, don't change the background color here.
 			 * Instead, in CSS, overwrite the value of CSS variables
 			 */
-			
+
 			'emulsion_header_gradient'				 => array( 'default' => 'disable', 'unit' => '', ), // required emulsion-addons plugin
 			'emulsion_header_background_color'		 => array( 'default' => '#eeeeee', 'unit' => '', ),
 			'emulsion_header_sub_background_color'	 => array( 'default' => '#ffffff', 'unit' => '', ),
@@ -63,12 +63,12 @@ if ( ! function_exists( 'emulsion_theme_default_val' ) ) {
 			'emulsion_general_link_color'			 => array( 'default' => '#666666', 'unit' => '', 'note' => 'emulsion_link_colors', ),
 			'emulsion_general_link_hover_color'		 => array( 'default' => '#333333', 'unit' => '', 'note' => 'emulsion_hover_colors', ),
 			'emulsion_general_text_color'			 => array( 'default' => '#333333', 'unit' => '', 'note' => 'emulsion_contrast_color',),
-			'emulsion_theme_background_color'		 => array( 'default' => '#ffffff', 'note' => 'emulsion_contrast_color', 'unit' => '', ),
-			
+			'emulsion_theme_background_color'		 => array( 'default' => get_background_color(), 'note' => 'emulsion_contrast_color', 'unit' => '', ),
+
 			/**
 			 * Fonts  General
 			 */
-			
+
 			'emulsion_common_font_size'				 => array( 'default' => 16, 'unit' => 'px', ), // required emulsion-addons plugin
 			'emulsion_common_font_family'			 => array( 'default' => 'sans-serif', 'unit' => '', ), // required emulsion-addons plugin
 			'emulsion_common_google_font_url'		 => array( 'default' =>  '', 'unit' => '', ), // required emulsion-addons plugin
@@ -76,7 +76,7 @@ if ( ! function_exists( 'emulsion_theme_default_val' ) ) {
 			/**
 			 * Fonts Heading
 			 */
-			
+
 			'emulsion_heading_font_family'		 => array( 'default' => 'serif', 'unit' => '', ), // required emulsion-addons plugin
 			'emulsion_heading_font_weight'		 => array( 'default' => '700', 'unit' => '', ), // required emulsion-addons plugin
 			'emulsion_heading_font_base'		 => array( 'default' => 16, 'unit' => 'px',  'note' => 'get_theme_mod(emulsion_common_font_size)',), // required emulsion-addons plugin
@@ -87,7 +87,7 @@ if ( ! function_exists( 'emulsion_theme_default_val' ) ) {
 			/**
 			 * Fonts Widget and metadata
 			 */
-			
+
 			'emulsion_widget_meta_font_size'		 => array( 'default' => 13, 'unit' => 'px', ), // required emulsion-addons plugin
 			'emulsion_widget_meta_font_family'		 => array( 'default' => 'sans-serif', 'unit' => '', ), // required emulsion-addons plugin
 			'emulsion_widget_meta_font_transform'	 => array( 'default' => 'none', 'unit' => '', ), // required emulsion-addons plugin
@@ -97,7 +97,7 @@ if ( ! function_exists( 'emulsion_theme_default_val' ) ) {
 			/**
 			 * Layout
 			 */
-			
+
 			'emulsion_header_layout'						 => array( 'default' => 'custom', 'unit' => '', ), // custom, simple, self
 			'emulsion_header_html'							 => array( 'default' => '', 'unit' => '', ),
 			'emulsion_title_in_header'						 => array( 'default' => 'yes', 'unit' => '', ), //Please use emulsion_the_theme_supports()
@@ -109,14 +109,14 @@ if ( ! function_exists( 'emulsion_theme_default_val' ) ) {
 			'emulsion_main_width'							 => array( 'default' => 1280, 'unit' => 'px', ),
 			'emulsion_content_width'						 => array( 'default' => 720, 'unit' => 'px', 'note' => '$content_width', ),
 			'emulsion_content_margin_top'					 => array( 'default' => 0, 'unit' => 'px', ),
-			
+
 			/**
 			 * Archives Content Layout
 			 *
 			 * emulsion_layout_***		full_text, excerpt, grid, stream
 			 * emulsion_layout_***_post_image show, hide
 			 */
-			
+
 			'emulsion_layout_homepage'						 => array( 'default' => 'excerpt', 'unit' => '', ),
 			'emulsion_layout_homepage_post_image'			 => array( 'default' => 'show', 'unit' => '', ),
 			'emulsion_layout_posts_page'					 => array( 'default' => 'excerpt', 'unit' => '', ),
@@ -131,7 +131,7 @@ if ( ! function_exists( 'emulsion_theme_default_val' ) ) {
 			'emulsion_layout_author_archives_post_image'	 => array( 'default' => 'show', 'unit' => '', ),
 			'emulsion_layout_search_results'				 => array( 'default' => 'full_text', 'unit' => '', ),
 			'emulsion_layout_search_results_post_image'		 => array( 'default' => 'hide', 'unit' => '', ),
-			
+
 			/**
 			 * Footer
 			 * If the number of footer widgets is less than emulation_footer_columns, they will be evenly distributed.
@@ -139,15 +139,15 @@ if ( ! function_exists( 'emulsion_theme_default_val' ) ) {
 			 *
 			 * emulsion_footer_columns 1-4
 			 */
-			
+
 			'emulsion_footer_credit'						 => array( 'default' => '', 'unit' => '', ),
 			'emulsion_footer_columns'						 => array( 'default' => 3, 'unit' => '', ),
-			
+
 			/**
 			 * Advanced
 			 * emulsion_excerpt_length_grid, emulsion_excerpt_length_stream represents the number of lines in the summary display
 			 */
-			
+
 			'emulsion_reset_theme_settings'					 => array( 'default' => 'continue', 'unit' => '', ), // do not change
 			'emulsion_excerpt_length'						 => array( 'default' => 256, 'unit' => '', ),
 			'emulsion_excerpt_linebreak'					 => array( 'default' => 'none', 'unit' => '', ),
@@ -162,11 +162,11 @@ if ( ! function_exists( 'emulsion_theme_default_val' ) ) {
 			'emulsion_relate_posts'							 => array( 'default' => 'enable', 'unit' => '', ), // required emulsion-addons plugin
 			'emulsion_customizer_preview_redirect'			 => array( 'default' => 'disable', 'unit' => '', ), // required emulsion-addons plugin
 			'emulsion_single_post_navigation'				 => array( 'default' => 'enable', 'unit' => '', ),
-			
+
 			/**
 			 * Block editor
 			 */
-			
+
 			'emulsion_alignfull'							 => array( 'default' => 'enable', 'unit' => '', ), // required emulsion-addons plugin
 			'emulsion_box_gap'								 => array( 'default' => 3, 'unit' => 'px', ),
 			'emulsion_block_gallery_section_height'			 => array( 'default' => 100, 'unit' => 'vh', ),
@@ -181,18 +181,18 @@ if ( ! function_exists( 'emulsion_theme_default_val' ) ) {
 			/**
 			 * Post
 			 */
-			
+
 			'emulsion_post_display_date'			 => array( 'default' => 'inherit', 'unit' => '', ), // none, inherit
 			'emulsion_post_display_date_format'		 => array( 'default' => 'default', 'unit' => '', ), // required emulsion-addons plugin
 			'emulsion_post_display_author'			 => array( 'default' => 'inherit', 'unit' => '', ), // none, inherit
 			'emulsion_post_display_author_format'	 => array( 'default' => 'text', 'unit' => '', ), // text inline block
 			'emulsion_post_display_category'		 => array( 'default' => 'inherit', 'unit' => '', ), // none, inherit
 			'emulsion_post_display_tag'				 => array( 'default' => 'inherit', 'unit' => '', ), // none, inherit
-			
+
 			/**
 			 * border
 			 */
-			
+
 			'emulsion_border_global'				 => array( 'default' => '#eeeeee', 'unit' => '', ),
 			'emulsion_border_sidebar'				 => array( 'default' => '#eeeeee', 'unit' => '', ),
 			'emulsion_border_grid'					 => array( 'default' => '#eeeeee', 'unit' => '', ),
@@ -230,14 +230,14 @@ if ( ! function_exists( 'emulsion_theme_default_val' ) ) {
 
 			$result	 = emulsion_theme_default_values($name, $emulsion_default_values[$name]['default'] );
 			$result	 = get_theme_mod( $name, $result );
-			
+
 			return $result;
 		}
 		if ( 'unit_val' === $type ) {
 
 			$result	 =  emulsion_theme_default_values($name, $emulsion_default_values[$name]['default'] );
 			$result	 = get_theme_mod( $name, $result );
-			
+
 			return $result . $emulsion_default_values[$name]['unit'];
 		}
 	}
@@ -386,13 +386,13 @@ function emulsion_theme_default_values( $name, $fallback ) {
 
 			$result = $fallback;
 		}
-		
+
 		set_transient( $transient_name, $result, DAY_IN_SECONDS );
 
 		return $result;
-		
+
 	} else {
-		
+
 		return $transient_val;
 	}
 }
@@ -532,7 +532,7 @@ function emulsion_theme_variables( $variables ) {
 	--thm_border_stream_width:$border_stream_width;
 	--thm_header_text_color:color:$header_text_color;
 	--thm_header_link_color:color:$header_text_color;
-	--thm_header_hover_color:color:$header_text_color;	
+	--thm_header_hover_color:color:$header_text_color;
 	--thm_relate_posts_link_color: $relate_posts_text_color;
     --thm_relate_posts_color: $relate_posts_text_color;
 	--thm_comments_color:$comments_text_color;

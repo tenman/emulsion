@@ -49,13 +49,13 @@ wp-block-calendar, wp-block-categories, wp-block-latest-comments, wp-block-lates
 wp-block-search, wp-block-social-links, wp-block-tag-cloud, wp-block-embed, wp-block-navigation;
 
 @each $core_block in $core_blocks {
-    body{
+  //  body{
         .#{$core_block}{
             @extend %block;
             margin-left:auto;
             margin-right:auto;
         }
-    }
+  //  }
 }
 .wp-block-pullquote,
 .wp-block-quote{
@@ -394,7 +394,7 @@ article{
 }
 .entry-content{
     blockquote.content-excerpt{
-        // if emulsion-addons active   
+        // if emulsion-addons active
         display:block;
         margin:1rem auto;
         padding-left:0;
@@ -402,7 +402,7 @@ article{
         border:none;
         p{
             margin-top:0;
-            margin-bottom:.75rem;          
+            margin-bottom:.75rem;
         }
         br{
             display:var(--thm_excerpt_linebreak);
@@ -834,7 +834,7 @@ ol:not([class|="wp-block"]),
 ul:not([class|="wp-block"]){
     @extend %block;
     padding-left:64px;
-    list-style:none;   
+    list-style:none;
     margin-left:auto;
     margin-right:auto;
     li{
@@ -1136,7 +1136,7 @@ ul:not(.list-style-initial){
         li:before{
             border-radius:50%;
         }
-    } 
+    }
 }
 
 /**
@@ -1149,12 +1149,12 @@ ul.blocks-gallery-grid,
 ul.list-style-tab,
 ul.list-style-inline,
 ul.list-style-initial,
-ul[class|="wp-block"], 
-ul.wp-nav-menu, 
-ul.horizontal-list-group, 
-ul.social-links-menu, 
-ul.relate-posts, 
-ul.sidebar-widget-area-lists, 
+ul[class|="wp-block"],
+ul.wp-nav-menu,
+ul.horizontal-list-group,
+ul.social-links-menu,
+ul.relate-posts,
+ul.sidebar-widget-area-lists,
 ul.footer-widget-area-lists{
 
     padding-left:var(--thm_content_gap);
@@ -1391,7 +1391,7 @@ ul.blocks-gallery-grid{
 .header-layer,
 .layout{
     .posted-on{
-        @extend %block;      
+        @extend %block;
     }
     .horizontal-list-group{
         @include clearfix;
@@ -1433,11 +1433,11 @@ ul.blocks-gallery-grid{
 }
 
 /**
- * This style is for correcting the core block editor style 
+ * This style is for correcting the core block editor style
  * when the theme block css is not applied.
- * The theme's Block CSS will load when the full content is displayed. 
+ * The theme's Block CSS will load when the full content is displayed.
  * Example: The html before read more on the archive page does not use the theme block CSS.
- * 
+ *
  * Efforts to shrink Theme's Block CSS started with WordPress 5.5 in the theme.
  */
 
@@ -1450,7 +1450,7 @@ ul.blocks-gallery-grid{
     & > li > a:first-child{
         display:block;
     }
-    a:first-child{      
+    a:first-child{
         text-align:center;
         padding-left:12px;
         padding-right:12px;
@@ -1458,7 +1458,7 @@ ul.blocks-gallery-grid{
         margin-bottom:.75rem;
     }
     .wp-block-latest-posts__featured-image.alignleft{
-        margin:0 1rem 0 0; 
+        margin:0 1rem 0 0;
         & + a{
             display:block;
             margin-top:2rem;
@@ -1724,7 +1724,7 @@ input{
 }
 .layout input{
     color:#333333 ! important;
-    background:#ffffff ! important;   
+    background:#ffffff ! important;
 }
 .wp-block-search{
     display:flex;
@@ -2099,7 +2099,7 @@ body .fit{
 .layout-grid{
 
     [class|="placeholder"]{
-        max-width:var(--thm_main_width);        
+        max-width:var(--thm_main_width);
     }
 }
 .read-more{
