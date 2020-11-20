@@ -139,7 +139,7 @@
     padding-right:var( --thm_content_gap, 24px );
     box-sizing:border-box;
     &.has-background{
-       // width: calc( var(--thm_content_width, 720px) - var(--thm_content_gap, 24px) * 2);
+        // width: calc( var(--thm_content_width, 720px) - var(--thm_content_gap, 24px) * 2);
     }
 
 }
@@ -181,12 +181,12 @@
     padding:0;
     max-width:100%;
     .article-wrapper{
-       // flex:1 1 var( --thm_content_width, 24% );
+        // flex:1 1 var( --thm_content_width, 24% );
         flex:1 1 auto;
         width: var( --thm_content_width, 296px );
         align-self:stretch;
         margin: var( --thm_box_gap,3px);
-       // min-width: var( --thm_content_width, 296px );//firefox
+        // min-width: var( --thm_content_width, 296px );//firefox
         article{
             display:flex;
             align-items: center;
@@ -282,7 +282,7 @@
 */
 
 %fulltext {
-        &.blog{
+    &.blog{
         .entry-content{
             .content-excerpt:not(:empty){
                 padding-bottom:3rem;
@@ -442,7 +442,7 @@
  * @extend %no-sidebar-alignfull;
  */
 %no-sidebar-alignfull{
-   // width:calc(100vw - 20px);
+    // width:calc(100vw - 20px);
     width:100vw;
     max-width:none;
     position:relative;
@@ -584,6 +584,11 @@
  */
 %list-effect-editor{
     ol:not(.list-style-initial):not(.wp-list-comments){
+        &.circle{
+            li:before{
+                border-radius:50%;
+            }
+        }
         &.list-style-none{
             li{
                 margin-left:0;
@@ -810,7 +815,8 @@
     ol[reversed],
     ol[start],
     ol.list-style-initial{
-        padding-left:40px;
+        padding-left:calc( var(--thm_content_gap) * 3 );
+        padding-right:var(--thm_content_gap);
         li{
             margin-left:0;
             list-style-type:decimal!important;
@@ -862,6 +868,8 @@
         }
     }
     ul.list-style-initial{
+        padding-left:calc( var(--thm_content_gap) * 3 );
+        padding-right:var(--thm_content_gap);
         li{
             list-style-type:initial;
             text-indent:initial;

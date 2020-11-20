@@ -33,6 +33,7 @@
         }
     }
     .header-text{
+
         .site-title{
             padding-top:0;
         }
@@ -46,6 +47,7 @@
     div.entry-text{
         margin-left:auto;
         margin-right:auto;
+        max-width:100%;
         .entry-meta{
             padding-bottom:.75rem;
         }
@@ -70,7 +72,7 @@
             padding-top:.75em;// not rem
             margin-bottom:0;
         }
-       
+
         .taxonomy-description{
             @extend %block;
             margin:0 auto 24px;
@@ -87,7 +89,7 @@
                 margin-bottom:0;
             }
         }
-        
+
     }
     &.cta-layer-active{
         div.page-title-block{
@@ -233,7 +235,7 @@
             z-index:6;
             display:inline-block;
             text-align:right;
-            flex:1 1 auto;            
+            flex:1 1 auto;
             ul.wp-nav-menu{
                 &.top-right[data-direction="vertical"]{
                     margin-right:0;
@@ -247,7 +249,7 @@
                 text-align:left;
                 .menu{
                     margin-right:auto;
-                    margin-left:auto;                 
+                    margin-left:auto;
                     &[data-direction="vertical"]{
                         margin-top:-.685rem;
                     }
@@ -305,7 +307,7 @@
             width:auto;
             max-width: 100%;
             max-height:60px;
-            vertical-align: middle;            
+            vertical-align: middle;
             transform: translate(0, -.5rem);
         }
     }
@@ -413,7 +415,7 @@
             height:100%;
             text-align:center;
             overflow-y:auto;
-            overflow-x:hidden;                            
+            overflow-x:hidden;
             display: -webkit-box;
             -webkit-box-pack: center;
             -webkit-box-align: center;
@@ -427,11 +429,11 @@
             -ms-flex-direction:column;
             flex-direction:column;
             box-sizing:border-box;
-            min-height:25vh;           
+            min-height:25vh;
             & > div{
                 //  flex:1 1 auto;
                 max-width:100%;
-                width:var(--thm_main_width);               
+                width:var(--thm_main_width);
             }
             div .entry-title{
                 width: -moz-fit-content;
@@ -959,6 +961,30 @@ button.wp-custom-header-video-button{
     }
 }
 
+
+.emulsion-layout-has-title{
+    .page-title-block{
+        position:relative;
+        display: -webkit-box;
+        -webkit-box-pack: center;
+        -webkit-box-align: center;
+        -webkit-box-sizing:border-box;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-align: center;
+        align-items: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        -ms-flex-direction:column;
+        flex-direction:column;
+        min-height:25vh;
+        box-sizing:border-box;
+        margin-left:calc(var(--thm_content_gap) * -1);
+        margin-right:calc(var(--thm_content_gap) * -1);
+    }
+
+}
+
 .home{
     .header-video-active,
     .header-image-active{
@@ -971,14 +997,14 @@ button.wp-custom-header-video-button{
 
         .no-header-media.cta-layer-active.template-part-header-custom{
 
-            .cta-layer{            
+            .cta-layer{
 
             }
         }
         .header-video-active.cta-layer-active.template-part-header-custom,
         .header-image-active.cta-layer-active.template-part-header-custom{
             position:relative;
-            .cta-layer{              
+            .cta-layer{
                 position:absolute;
                 bottom: 0;
                 left: 0;
@@ -1003,7 +1029,7 @@ button.wp-custom-header-video-button{
     &.emulsion-header-has-title{
         .cta-layer-active.template-part-header-custom{
 
-            .cta-layer{              
+            .cta-layer{
 
             }
         }
@@ -1027,7 +1053,7 @@ body.single{
         .header-video-active.cta-layer-active.template-part-header-custom,
         .header-image-active.cta-layer-active.template-part-header-custom{
             position:relative;
-            .cta-layer{              
+            .cta-layer{
                 position:absolute;
                 bottom: 0;
                 left: 0;

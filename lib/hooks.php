@@ -30,6 +30,7 @@ function emulsion_hooks_setup() {
 	add_action( 'emulsion_inline_style', 'emulsion_add_amp_css_variables' );
 	add_filter( 'get_the_archive_description', 'wpautop');
 	add_action( 'wp_enqueue_scripts', 'emulsion_not_support_presentation_page_link' );
+	add_filter( 'body_class', 'emulsion_remove_custom_background_class' );
 	/**
 	 * Scripts
 	 */
@@ -136,11 +137,25 @@ if ( ! function_exists( 'emulsion_body_class' ) ) {
 	function emulsion_body_class( $classes ) {
 		global $post;
 
+		$post_id = get_the_ID();
+
 		if ( false === emulsion_the_theme_supports( 'enqueue' ) && ! emulsion_is_amp() ) {
 
 			$classes[]		 = 'emulsion-not-support-presentation';
 			$metabox_flag	 = true;
-			return $classes;
+			//return $classes;
+		}
+		if ( is_page()  && 'no_style' === get_post_meta( $post_id, 'emulsion_page_theme_style_script', true ) ) {
+
+			$classes[]		 = 'emulsion-removed-presentation';
+			$metabox_flag	 = true;
+			//return $classes;
+		}
+		if ( is_single() && 'no_style' === get_post_meta( $post_id, 'emulsion_post_theme_style_script', true ) ) {
+
+			$classes[]		 = 'emulsion-removed-presentation';
+			$metabox_flag	 = true;
+			//return $classes;
 		}
 
 		if ( is_page() ) {
@@ -169,6 +184,31 @@ if ( ! function_exists( 'emulsion_body_class' ) ) {
 					emulsion_the_theme_supports( 'sidebar' ) &&
 					$logged_in &&
 					$metabox_post_control ? 'emulsion-has-sidebar' : 'emulsion-no-sidebar';
+		}
+
+		$title_in_header = get_theme_mod( "emulsion_title_in_header", emulsion_theme_default_val( 'emulsion_title_in_header' ) );
+		// fse needs this
+		if ( 'yes' == $title_in_header ) {
+
+			$classes[] = 'emulsion-header-has-title';
+		}
+		if ( 'no' == $title_in_header ) {
+
+			$classes[] = 'emulsion-layout-has-title';
+		}
+
+		if ( is_singular() ) {
+
+			$classes[] = 'no_bg' === get_post_meta( $post_id, 'emulsion_page_theme_style_script', true ) ? 'metabox-reset-page-presentation': '';
+			$classes[] = 'no_bg' === get_post_meta( $post_id, 'emulsion_post_theme_style_script', true ) ? 'metabox-reset-post-presentation':'';
+			$classes[] = 'no_menu' === get_post_meta( $post_id, 'emulsion_post_primary_menu', true ) ? 'metabox-removed-post-menu': '';
+			$classes[] = 'no_menu' === get_post_meta( $post_id, 'emulsion_page_primary_menu', true ) ? 'metabox-removed-page-menu': '';
+			$classes[] = 'no_bg' === get_post_meta( $post_id, 'emulsion_post_header', true ) ? 'metabox-reset-post-header': '';
+			$classes[] = 'no_bg' === get_post_meta( $post_id, 'emulsion_page_header', true ) ? 'metabox-reset-page-header': '';
+			$classes[] = 'no_header' === get_post_meta( $post_id, 'emulsion_post_header', true ) ? 'metabox-removed-post-header': '';
+			$classes[] = 'no_header' === get_post_meta( $post_id, 'emulsion_page_header', true ) ? 'metabox-removed-page-header': '';
+			$classes[] = 'is-singular';
+
 		}
 
 		if ( get_theme_support( 'align-wide' ) ) {
@@ -1127,10 +1167,12 @@ function emulsion_add_amp_css_variables( $css ) {
 	}
 	return $css;
 }
+
 function emulsion_theme_google_tracking_code() {
 
 	$tag			 = sanitize_text_field( get_theme_mod( 'emulsion_google_analytics_tracking_code' ) );
-	$theme_mod_name	 = 'emulsion_google_analytics_' . md5( $tag );
+	$flag			 = get_theme_mod( 'emulsion_instantclick', emulsion_the_theme_supports( 'instantclick' ) ) ? 'enable': 'disable';
+	$theme_mod_name	 = 'emulsion_google_analytics_' . $tag . $flag;
 
 	if ( $result = get_theme_mod( $theme_mod_name, false ) ) {
 
@@ -1138,7 +1180,6 @@ function emulsion_theme_google_tracking_code() {
 		return;
 	}
 }
-
 
 function emulsion_not_support_presentation_page_link() {
 
@@ -1157,4 +1198,26 @@ function emulsion_not_support_presentation_page_link() {
 EOT;
 		wp_add_inline_script( 'wp-embed', $data );
 	}
+}
+if ( ! function_exists( 'emulsion_remove_custom_background_class' ) ) {
+
+	/**
+	 * If you reset the theme color in the Editor menu, the state will not come out of a custom-background
+	 */
+	function emulsion_remove_custom_background_class( $classes ) {
+
+		$post_id = get_the_ID();
+
+		if ( is_singular() && 'no_bg' == get_post_meta( $post_id, 'emulsion_post_theme_style_script', true ) ) {
+
+			foreach ( $classes as $key => $value ) {
+				if ( $value == 'custom-background' )
+					unset( $classes[$key] );
+			}
+			return $classes;
+		}
+
+		return $classes;
+	}
+
 }

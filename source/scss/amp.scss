@@ -9,7 +9,18 @@
 @import 'comments';
 //@import 'border';
 ///////////////////////////////////////////////////////////////////////////////
-
+/**
+ * minimam color setting
+ */
+body{
+    color:var(--thm_general_text_color);
+    a{
+       color:var(--thm_general_link_color);
+       &:hover{
+           color:var(--thm_general_link_hover_color);
+       }
+    }
+}
 [amp] .placeholder-header{
     display:none;
 }
@@ -19,6 +30,7 @@
         line-height:1.15;
     }
 }
+
 //fallback
 h1,h2,h3,h4,h5,h6{
 
@@ -92,8 +104,8 @@ article header {
     width:fit-content;
     margin-left:auto;
     margin-right:auto;
-    
-     
+
+
     padding-left:var(--thm_content_gap);
     padding-right:var(--thm_content_gap);
 }
@@ -143,15 +155,15 @@ label[for="comment"],
 }
 @media screen and ( max-width : 419px ) {
     // static break point
-    .comment-form .comment-form input[name="author"], 
-    .comment-respond .comment-form input[name="author"], 
-    .comment-form .comment-form input[type="url"], 
-    .comment-respond .comment-form input[type="url"], 
-    .comment-form .comment-form input[type="email"], 
-    .comment-respond .comment-form input[type="email"], 
-    .comment-form .comment-form input[type="author"], 
-    .comment-respond .comment-form input[type="author"], 
-    .comment-form .comment-form input[type="comment"], 
+    .comment-form .comment-form input[name="author"],
+    .comment-respond .comment-form input[name="author"],
+    .comment-form .comment-form input[type="url"],
+    .comment-respond .comment-form input[type="url"],
+    .comment-form .comment-form input[type="email"],
+    .comment-respond .comment-form input[type="email"],
+    .comment-form .comment-form input[type="author"],
+    .comment-respond .comment-form input[type="author"],
+    .comment-form .comment-form input[type="comment"],
     .comment-respond .comment-form input[type="comment"] {
         width: 100%;
         max-width: 100%;
@@ -169,13 +181,13 @@ label[for="comment"],
         }
     }
 
-    .comment-form .comment-form textarea, 
+    .comment-form .comment-form textarea,
     .comment-respond .comment-form textarea{
         width:100%;
         max-width:100%;
         margin-left:0;
     }
-    .comment-form .comment-form input[type="submit"], 
+    .comment-form .comment-form input[type="submit"],
     .comment-respond .comment-form input[type="submit"] {
         margin-left: 0;
 

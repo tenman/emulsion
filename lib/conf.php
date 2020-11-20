@@ -63,8 +63,8 @@ if ( ! function_exists( 'emulsion_theme_default_val' ) ) {
 			'emulsion_general_link_color'			 => array( 'default' => '#666666', 'unit' => '', 'note' => 'emulsion_link_colors', ),
 			'emulsion_general_link_hover_color'		 => array( 'default' => '#333333', 'unit' => '', 'note' => 'emulsion_hover_colors', ),
 			'emulsion_general_text_color'			 => array( 'default' => '#333333', 'unit' => '', 'note' => 'emulsion_contrast_color',),
-			'emulsion_theme_background_color'		 => array( 'default' => get_background_color(), 'note' => 'emulsion_contrast_color', 'unit' => '', ),
-
+		//	'emulsion_theme_background_color'		 => array( 'default' => get_background_color(), 'note' => 'emulsion_contrast_color', 'unit' => '', ),
+			'background_color'		 => array( 'default' =>  get_theme_mod('background_color'), 'note' => 'emulsion_contrast_color', 'unit' => '', ),
 			/**
 			 * Fonts  General
 			 */
@@ -283,6 +283,8 @@ if ( ! function_exists( 'emulsion_the_theme_supports' ) ) {
 			'viewport'					 => array( 'default' => true, ),
 			'block_experimentals'		 => array( 'default' => true, ),
 			'scheme'					 => array( 'default' => true, ),
+			'full_site_editor'			 => array( 'default' => true, ), //Currently depends on gutenberg_is_fse_theme()
+
 		);
 
 		/**
@@ -356,7 +358,8 @@ function emulsion_theme_default_values( $name, $fallback ) {
 
 	$scheme			 = get_theme_mod( 'emulsion_scheme' );
 	$include_path	 = get_template_directory() . '/scheme.php';
-	$transient_name	 = sprintf( '%1$s-%2$s-%3$s', $scheme, $name, md5_file( $include_path ) );
+	$settings        = md5( serialize( get_theme_mods() ) );
+	$transient_name	 = sprintf( '%1$s-%2$s-%3$s-%4$s', $scheme, $name, md5_file( $include_path ), $settings );
 
 	$transient_val = get_transient( $transient_name );
 
@@ -381,10 +384,10 @@ function emulsion_theme_default_values( $name, $fallback ) {
 				$result = $function_name_validate( $function );
 			}
 
-			$result = emulsion_theme_scheme[$scheme][$name];
+			$result = get_theme_mod($name, emulsion_theme_scheme[$scheme][$name]);
 		} else {
 
-			$result = $fallback;
+			$result = get_theme_mod( $name, $fallback );
 		}
 
 		set_transient( $transient_name, $result, DAY_IN_SECONDS );
@@ -405,6 +408,7 @@ function emulsion_theme_variables( $variables ) {
 
 		return $variables;
 	}
+
 
 	$heading_font_scale				 = emulsion_theme_default_val( 'emulsion_heading_font_scale', 'unit_val' );
 	$heading_font_base				 = emulsion_theme_default_val( 'emulsion_heading_font_base', 'unit_val' );
@@ -445,7 +449,8 @@ function emulsion_theme_variables( $variables ) {
 	$content_gap					 = emulsion_theme_default_val( 'emulsion_sidebar_width', 'unit_val' );
 	$box_gap						 = emulsion_theme_default_val( 'emulsion_box_gap', 'unit_val' );
 	$header_bg_color				 = emulsion_theme_default_val( 'emulsion_header_background_color', 'unit_val' );
-	$background_color				 = emulsion_theme_default_val( 'emulsion_theme_background_color', 'unit_val' );
+	$header_text_color = sanitize_hex_color( emulsion_accessible_color( $header_bg_color ) );
+	$background_color				 = emulsion_theme_default_val( 'background_color', 'unit_val' );
 	$background_color				 = sanitize_hex_color( sprintf( '#%1$s', get_background_color() ) );
 	$border_global					 = emulsion_theme_default_val( 'emulsion_border_global', 'unit_val' );
 	$border_sidebar					 = emulsion_theme_default_val( 'emulsion_border_sidebar', 'unit_val' );
@@ -460,90 +465,103 @@ function emulsion_theme_variables( $variables ) {
 	$border_grid_width				 = emulsion_theme_default_val( 'emulsion_border_grid_width', 'unit_val' );
 	$border_stream_width			 = emulsion_theme_default_val( 'emulsion_border_stream_width', 'unit_val' );
 
-
 	$header_sub_background_color = emulsion_theme_default_val( 'emulsion_header_sub_background_color', 'unit_val' );
 
-	$header_background_color = get_theme_mod( 'emulsion_header_background_color', '#eeeeee' );
-	$header_text_color		 = ! empty( sanitize_hex_color_no_hash( get_header_textcolor() ) ) ? 'color:' . sanitize_hex_color( sprintf( '#%1$s', get_header_textcolor() ) ) : 'color:' . sanitize_hex_color( emulsion_accessible_color( $header_background_color ) );
-
-	$relate_posts_background_color	 = get_theme_mod( 'emulsion_relate_posts_bg', '#eeeeee' );
+	$relate_posts_background_color	 = get_theme_mod( 'emulsion_relate_posts_bg', emulsion_theme_default_val( 'emulsion_relate_posts_bg', 'unit_val' ) );
 	$relate_posts_text_color		 = 'color:' . sanitize_hex_color( emulsion_accessible_color( $relate_posts_background_color ) );
 
-	$comments_background_color	 = get_theme_mod( 'emulsion_comments_bg', '#eeeeee' );
+	$comments_background_color	 = get_theme_mod( 'emulsion_comments_bg', emulsion_theme_default_val( 'emulsion_comments_bg', 'unit_val' ) );
 	$comments_text_color		 = 'color:' . sanitize_hex_color( emulsion_accessible_color( $comments_background_color ) );
 
 	$sidebar_text_color = 'color:' . sanitize_hex_color( emulsion_accessible_color( $sidebar_background ) );
 
+	$post_id = get_the_ID();
+	$meta_style_css = '';
+
+	if ( metadata_exists( 'post', $post_id, 'css' ) ) {
+
+		$meta_style = get_post_meta( $post_id, 'css', true );
+
+		$meta_style_css = preg_replace_callback( '![^}]+{[^}]+}!siu', function($matches)  {
+			$result = '';
+			foreach( $matches as $match) {
+					$result .= ' .emulsion-addons-inactive '. $match ;
+			}
+			return $result ;
+				}, $meta_style	);
+	}
+
 	$style = <<<CSS
 .emulsion-addons-inactive body{
 	/* non addons variables @see emulsion_theme_variables */
-	--thm_header_background_gradient_color:$header_sub_background_color;
-	--thm_heading_font_scale:$heading_font_scale;
-	--thm_heading_font_base:$heading_font_base;
-	--thm_header_media_max_height:$header_media_max_height;
-	--thm_post_display_date:$post_display_date;
-	--thm_post_display_author:$post_display_author;
-	--thm_post_display_category:$post_display_category;
-	--thm_post_display_tag:$post_display_tag;
-	--thm_favorite_color_palette:$favorite_color_palette;
-	--thm_header_image_dim:rgba(0,0,0,.3);
+	--thm_border_global:$border_global;
+	--thm_border_global_style:$border_global_style;
+	--thm_border_global_width:$border_global_width;
+	--thm_border_grid:$border_grid;
+	--thm_border_grid_style:$border_grid_style;
+	--thm_border_grid_width:$border_grid_width;
+	--thm_border_sidebar:$border_sidebar;
+	--thm_border_sidebar_style:$border_sidebar_style;
+	--thm_border_sidebar_width:$border_sidebar_width;
+	--thm_border_stream:$border_stream;
+	--thm_border_stream_style:$border_stream_style;
+	--thm_border_stream_width:$border_stream_width;
+	--thm_columns_section_bg: $columns_section_bg;
+	--thm_comments_bg:$comments_bg;
+	--thm_comments_color:$comments_text_color;
 	--thm_content_margin_top:$content_margin_top;
-	--thm_general_text_color:$general_text_color;
+	--thm_excerpt_linebreak:$excerpt_linebreak;
+	--thm_favorite_color_palette:$favorite_color_palette;
+	--thm_gallery_section_bg: $gallery_section_bg;
 	--thm_general_link_color:$general_link_color;
 	--thm_general_link_hover_color:$general_link_hover_color;
-	--thm_excerpt_linebreak:$excerpt_linebreak;
-	--thm_comments_bg:$comments_bg;
-	--thm_sidebar_bg_color:$sidebar_background;
-	--thm_primary_menu_background:$primary_menu_background;
-	--thm_relate_posts_bg:$relate_posts_bg;
+	--thm_general_text_color:$general_text_color;
+	--thm_header_background_gradient_color:$header_sub_background_color;
+	--thm_header_hover_color:$header_text_color;
+	--thm_header_image_dim:rgba(0,0,0,.3);
+	--thm_header_link_color: $header_text_color;
+	--thm_header_media_max_height:$header_media_max_height;
+	--thm_header_text_color:$header_text_color;
+	--thm_heading_font_base:$heading_font_base;
+	--thm_heading_font_scale:$heading_font_scale;
 	--thm_media_text_section_bg:$media_text_section_bg;
 	--thm_media_text_section_height:$media_text_section_height;
-	--thm_columns_section_bg: $columns_section_bg;
+	--thm_post_display_author:$post_display_author;
+	--thm_post_display_category:$post_display_category;
+	--thm_post_display_date:$post_display_date;
+	--thm_post_display_tag:$post_display_tag;
+	--thm_primary_menu_background:$primary_menu_background;
+	--thm_relate_posts_bg:$relate_posts_bg;
+	--thm_relate_posts_link_color: $relate_posts_text_color;
+	--thm_sidebar_bg_color:$sidebar_background;
+	--thm_sidebar_link_color: $sidebar_text_color;
+    --thm_background_color: $background_color;
+    --thm_box_gap: $box_gap;
     --thm_columns_section_height:$columns_section_height;
-	--thm_gallery_section_bg: $gallery_section_bg;
-    --thm_gallery_section_height:$gallery_section_height;
-    --thm_heading_font_transform:$heading_font_transform;
-    --thm_heading_font_weight: $heading_font_weight;
-    --thm_heading_font_family: $heading_font_family;
+    --thm_comments_link_color:$comments_text_color;
     --thm_common_font_family: $common_font_family;
     --thm_common_font_size: $common_font_size;
-    --thm_meta_data_font_size: $meta_data_font_size;
-    --thm_meta_data_font_family: $meta_data_font_family;
-    --thm_meta_data_font_transform: $meta_data_font_transform;
-    --thm_main_width: $main_width;
     --thm_content_width: $content_width;
-    --thm_sidebar_width: $sidebar_width;
-    --thm_main_width-with-sidebar: calc(100vw - var(--thm_sidebar_width) - 48px );
-    --thm_box_gap: $box_gap;
-    --thm_social_icon_color:$general_link_color;
+    --thm_gallery_section_height:$gallery_section_height;
     --thm_header_bg_color: $header_bg_color;
-    --thm_background_color: $background_color;
-	--thm_border_global:$border_global;
-	--thm_border_sidebar:$border_sidebar;
-	--thm_border_grid:$border_grid;
-	--thm_border_stream:$border_stream;
-	--thm_border_global_style:$border_global_style;
-	--thm_border_sidebar_style:$border_sidebar_style;
-	--thm_border_grid_style:$border_grid_style;
-	--thm_border_stream_style:$border_stream_style;
-	--thm_border_global_width:$border_global_width;
-	--thm_border_sidebar_width:$border_sidebar_width;
-	--thm_border_grid_width:$border_grid_width;
-	--thm_border_stream_width:$border_stream_width;
-	--thm_header_text_color:color:$header_text_color;
-	--thm_header_link_color:color:$header_text_color;
-	--thm_header_hover_color:color:$header_text_color;
-	--thm_relate_posts_link_color: $relate_posts_text_color;
+    --thm_heading_font_family: $heading_font_family;
+    --thm_heading_font_transform:$heading_font_transform;
+    --thm_heading_font_weight: $heading_font_weight;
+    --thm_main_width-with-sidebar: calc(100vw - var(--thm_sidebar_width) - 48px );
+    --thm_main_width: $main_width;
+    --thm_meta_data_font_family: $meta_data_font_family;
+    --thm_meta_data_font_size: $meta_data_font_size;
+    --thm_meta_data_font_transform: $meta_data_font_transform;
     --thm_relate_posts_color: $relate_posts_text_color;
-	--thm_comments_color:$comments_text_color;
-    --thm_comments_link_color:$comments_text_color;
-	--thm_sidebar_link_color: $sidebar_text_color;
     --thm_sidebar_hover_color: $sidebar_text_color;
     --thm_sidebar_text_color: $sidebar_text_color;
+    --thm_sidebar_width: $sidebar_width;
+    --thm_social_icon_color:$general_link_color;
 
-	background:var(--thm_background_color);
+
+
 }
-
+$meta_style_css
 CSS;
 
 	return $style;

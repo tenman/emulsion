@@ -49,7 +49,7 @@
         & > .page,
         & > .post{
             article{
-                header{
+               & > header{
                     &.show-post-image{
                         background-attachment:fixed;
                     }
@@ -104,7 +104,7 @@ body.page{
     .search-result-0,
     .not-found{
         padding-bottom:3rem;
-        min-height:60vh;   
+        min-height:60vh;
     }
 }
 /**
@@ -112,7 +112,7 @@ body.page{
  * ========================================================================== */
 main > .post{
     article:not(.has-post-thumbnail) {
-        header{
+       & > header{
             padding-top:calc( var(--thm_common_font_size) * 3 );
         }
     }
@@ -126,7 +126,7 @@ main > .post{
 body.excerpt,
 .post{
     article{
-        header{
+        & > header{
             &.show-post-image{
                 position:relative;
                 min-height:75vh;

@@ -126,7 +126,7 @@ body{
     & > header{
         &.header-layer{
             .site-title{
-                @include font_size(3);
+                @include font_size(3,no-margin);
             }
             .site-description{
                 @include font_size(4,no-margin);
@@ -391,7 +391,7 @@ $step: 100;
     .wp-block-latest-posts{
         .h1,
         h1{
-            font-size:calc(var(--thm_meta_data_font_size) * 2);            
+            font-size:calc(var(--thm_meta_data_font_size) * 2);
         }
         .h2,
         h2{

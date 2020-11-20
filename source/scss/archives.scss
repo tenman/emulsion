@@ -1,6 +1,35 @@
 @import 'scss-@';
 
+div.emulsion-monthly-archive-prev-next-navigation{
+    @extend %block;
+    display: flex;
+    margin: 1.5em auto 0.75em;
+    flex-wrap: wrap;
+    padding: 0;
+    & > div{
+        text-align: center;
+        margin: var(--thm_box_gap, 3px);
+        padding: 0.685rem;
+        flex-basis: 40%;
+        flex-grow: 1;
+        min-width: 100px;
+        &:nth-child(1):nth-last-child(2){
+            flex-grow:0;
+            position:relative;
+            margin-left:auto;
+            margin-right:auto;
+        }
+    }
+}
 .archive{
+    &.paged{
+        .page-title-block{
+            .taxonomy-description{
+                display:none;
+            }
+        }
+    }
+
     .page-title-block{
         margin-left:auto;
         margin-right:auto;
@@ -41,7 +70,7 @@
     }
     .banner{
         margin-left:auto;
-        margin-right:auto;  
+        margin-right:auto;
     }
     &.paged{
         .page-title-block{
@@ -74,6 +103,7 @@
         }
     }
 }
+
 .layout-stream,
 .layout-grid{
     main{
@@ -599,7 +629,7 @@ main .nav-links > div > a{
                 }
             }
             & > .entry-content{
-                
+
                 .content-excerpt{
 
                     &:empty{

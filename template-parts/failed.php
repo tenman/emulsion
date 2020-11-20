@@ -1,4 +1,8 @@
-<div class="emulsion-failed <?php emulsion_template_part_names_class( __FILE__ ) ?>"><?php
+<?php
+
+if( ! emulsion_do_fse() ) {
+
+?><div class="emulsion-failed <?php emulsion_template_part_names_class( __FILE__ ) ?>"><?php
 
 	if ( is_search() ) {
 
@@ -18,4 +22,6 @@
 
 		print get_search_form();
 	}
-?></div>
+?></div><?php
+}
+

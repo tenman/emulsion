@@ -33,6 +33,7 @@ a[href^="tel:"] {
     cursor: pointer;
     display:inline-block;
 }
+
 article,address,aside,blockquote,canvas,dd,article div,dl,dt,fieldset,figure,
 figcaption,footer,form,h1,h2,h3,h4,h5,h6,header,hr,iframe,img,li,main,nav,
 noscript,ol,output,p,pre,section,ul,video{
@@ -42,6 +43,11 @@ noscript,ol,output,p,pre,section,ul,video{
 html{
     font-size:var(--thm_common_font_size);
 }
+
+/**
+ * Default block width
+ */
+
 $core_blocks: wp-block-image, wp-block-gallery,  wp-block-audio, wp-block-cover, wp-block-file, wp-block-video,
 wp-block-code, wp-block-preformatted, wp-block-pullquote, wp-block-table, wp-block-verse, wp-block-buttons,
 wp-block-columns, wp-block-separator, wp-block-spacer, wp-block-media-text, wp-block-group, wp-block-archives,
@@ -49,13 +55,12 @@ wp-block-calendar, wp-block-categories, wp-block-latest-comments, wp-block-lates
 wp-block-search, wp-block-social-links, wp-block-tag-cloud, wp-block-embed, wp-block-navigation;
 
 @each $core_block in $core_blocks {
-  //  body{
-        .#{$core_block}{
-            @extend %block;
-            margin-left:auto;
-            margin-right:auto;
-        }
-  //  }
+
+    .#{$core_block}{
+        @extend %block;
+        margin-left:auto;
+        margin-right:auto;
+    }
 }
 .wp-block-pullquote,
 .wp-block-quote{
@@ -189,6 +194,9 @@ nav{
     margin-left:auto;
     margin-right:auto;
 }
+.header-layer-nav-menu nav{
+    width:auto;
+}
 footer{
     address{
         margin-left:auto;
@@ -286,7 +294,7 @@ article{
             }
         }
     }
-    header{
+    & > header{
         @include clearfix;
         display:block;
         display: -webkit-box;
@@ -887,9 +895,13 @@ ul:not([class|="wp-block"]){
 }
 ol{
     counter-reset: emulsion-counter;
+    &.circle{
+        li:before{
+            border-radius:50%;
+        }
+    }
     li{
         list-style-type:none;
-        // text-indent:-24px;
         *:not(li){
             text-indent:0;
         }
@@ -974,7 +986,6 @@ ol{
  */
 ol.wp-block-latest-comments,
 ol.wp-list-comments,
-ol.list-style-initial,
 ol[class|="wp-block"]{
     padding-left:var(--thm_content_gap);
     padding-right:var(--thm_content_gap);
@@ -1204,6 +1215,8 @@ ul.footer-widget-area-lists{
 }
 
 ul.list-style-initial{
+    padding-left:calc( var(--thm_content_gap) * 3 );
+    padding-right:var(--thm_content_gap);
     li{
         list-style-type:initial;
         text-indent:initial;
@@ -1255,7 +1268,8 @@ ul.list-style-initial{
 ol[reversed],
 ol[start],
 ol.list-style-initial{
-    padding-left:40px;
+    padding-left:calc( var(--thm_content_gap) * 3 );
+    padding-right:var(--thm_content_gap);
     li{
         margin-left:0;
         list-style-type:decimal!important;
@@ -1349,7 +1363,9 @@ ul.list-style-inline:not(.list-style-initial){
         list-style:none;
     }
 }
-
+.footer-widget-area{
+    margin-top:0;
+}
 
 .widget > ul a,
 ul[class|="wp-block"] li span,

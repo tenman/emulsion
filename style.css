@@ -5,7 +5,7 @@ Theme URI: https://www.tenman.info/wp3/emulsion
 Description: block editor, classic editor both supports. Conventional, Image Media New Block Type Image Both media can be displayed correctly.Theme can stop at each theme style page for page builder users. Customizer can easily view changes with automatic preview redirection.Theme is designed with the goal of minimizing user frustration.
 Author: Tenman
 Author URI: https://www.tenman.info/wp3/
-Version: 1.6.2
+Version: 1.6.3
 Tags: one-column, two-columns, grid-layout,left-sidebar, right-sidebar,custom-background, custom-colors, custom-header,custom-logo, custom-menu, editor-style, featured-image-header, featured-images, flexible-header, footer-widgets, full-width-template, post-formats, sticky-post, theme-options, threaded-comments, translation-ready, block-styles, wide-blocks
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -51,19 +51,19 @@ h1 {
     margin: 0.67em 0;
 }
 hr {
-    box-sizing: content-box; 
-    height: 0; 
-    overflow: visible; 
+    box-sizing: content-box;
+    height: 0;
+    overflow: visible;
 }
 pre {
-    font-family: monospace, monospace; 
-    font-size: 1em; 
+    font-family: monospace, monospace;
+    font-size: 1em;
 }
 a {
     background-color: transparent;
 }
 abbr[title] {
-    border-bottom: none; 
+    border-bottom: none;
     text-decoration: underline;
     text-decoration: underline dotted;
 }
@@ -75,7 +75,7 @@ code,
 kbd,
 samp {
     font-family: monospace, monospace;
-    font-size: 1em; 
+    font-size: 1em;
 }
 small {
     font-size: 80%;
@@ -101,17 +101,17 @@ input,
 optgroup,
 select,
 textarea {
-    font-family: inherit; 
+    font-family: inherit;
     font-size: 100%;
     line-height: 1.15;
-    margin: 0; 
+    margin: 0;
 }
 button,
 input {
     overflow: visible;
 }
 button,
-select { 
+select {
     text-transform: none;
 }
 button,
@@ -137,12 +137,12 @@ fieldset {
     padding: 0.35em 0.75em 0.625em;
 }
 legend {
-    box-sizing: border-box; 
-    color: inherit; 
-    display: table; 
-    max-width: 100%; 
-    padding: 0; 
-    white-space: normal; 
+    box-sizing: border-box;
+    color: inherit;
+    display: table;
+    max-width: 100%;
+    padding: 0;
+    white-space: normal;
 }
 progress {
     vertical-align: baseline;
@@ -161,14 +161,14 @@ textarea {
 }
 [type="search"] {
     -webkit-appearance: textfield;
-    outline-offset: -2px; 
+    outline-offset: -2px;
 }
 [type="search"]::-webkit-search-decoration {
     -webkit-appearance: none;
 }
 ::-webkit-file-upload-button {
-    -webkit-appearance: button; 
-    font: inherit; 
+    -webkit-appearance: button;
+    font: inherit;
 }
 details {
     display: block;
@@ -200,7 +200,7 @@ img{
 .navigation,
 .footer-layer{
     margin-left:auto;
-    margin-right:auto;  
+    margin-right:auto;
 }
 header{
     margin-left:auto;
@@ -466,12 +466,15 @@ body:not(.emulsion-not-support-presentation) .wp-block-table{
     --thm_table_pale_blue_background:#e7f5fe;
     --thm_table_pale_pink_background:#ffccf8;
 }
-
+/*
 .emulsion-addons-inactive .is-dark:not(.emulsion-not-support-presentation):not(.emulsion-removed-presentation ){
     color:var(--thm_white_color);
 }
 .emulsion-addons-inactive .is-dark:not(.emulsion-not-support-presentation):not(.emulsion-removed-presentation ) a{
     color:var(--thm_cloud_color);
+}*/
+[class*='scheme-']{
+    background:var(--thm_background_color);
 }
 body {
     color: var(--thm_black_color);
