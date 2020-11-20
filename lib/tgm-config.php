@@ -36,7 +36,12 @@ function emulsion_theme_register_required_plugins() {
 			'slug'		 => 'pwa',
 			'required'	 => false,
 		),
-		
+		array(
+			'name'		 => 'Gutenberg',
+			'slug'		 => 'gutenberg',
+			'required'	 => false,
+		),
+
 	);
 
 	$config = array(
