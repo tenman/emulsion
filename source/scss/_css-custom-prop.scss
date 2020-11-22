@@ -63,7 +63,7 @@
     --thm_heading_font_weight: $heading_font_weight;
     --thm_hover_color:$hover_color;
     --thm_i18n_no_title:$i18n_no_title;//fallback
-    --thm_main_width-with-sidebar: calc(100vw - var(--thm_sidebar_width) - 48px );
+   // --thm_main_width-with-sidebar: calc(100vw - var(--thm_sidebar_width) - 48px );
     --thm_main_width: $main_width;
     --thm_media_text_section_bg: $media_text_section_bg;
     --thm_media_text_section_color: $media_text_section_color;
@@ -138,7 +138,7 @@ body{
     article .has-my-color-background-color {
         background:var(--thm_favorite_color_palette);
     }
-}   
+}
 
 /**
  * For System Theme Color
@@ -569,14 +569,17 @@ body:not(.emulsion-removed-presentation):not(.emulsion-not-support-presentation)
     .has-column{
         main{
             .grid{
-                --thm_main_width:calc(100vw - var(--thm_sidebar_width) - 48px );
+               // --thm_main_width:calc(100vw - var(--thm_sidebar_width) - 48px );
+
             }
             .stream{
-                --thm_main_width:calc(100vw - var(--thm_sidebar_width) - 48px );
+               // --thm_main_width:calc(100vw - var(--thm_sidebar_width) - 48px );
                 --thm_content_width:410px;
             }
+
         }
     }
+
 }
 .wp-customizer{
     // for customizer
@@ -598,14 +601,14 @@ body:not(.emulsion-removed-presentation):not(.emulsion-not-support-presentation)
 #{$stream-condition},
 #{$grid-condition}{
     &:not(.emulsion-removed-presentation):not(.emulsion-not-support-presentation){
-        
+
         .has-column{
             main{
                 .grid{
-                    --thm_main_width:calc(100vw - var(--thm_sidebar_width) - 48px );
+                   // --thm_main_width:calc(100vw - var(--thm_sidebar_width) - 48px );
                 }
                 .stream{
-                    --thm_main_width:calc(100vw - var(--thm_sidebar_width) - 48px );
+                    //--thm_main_width:calc(100vw - var(--thm_sidebar_width) - 48px );
                     --thm_content_width:410px;
                 }
             }
