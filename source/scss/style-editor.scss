@@ -7,6 +7,7 @@
 @import 'block';
 @import 'misc';
 
+
 /**
  * emulsion 1.1.6 Note:
  *
@@ -29,6 +30,30 @@ a:any-link{
     }
 }
 
+/**
+ * Fallback block style
+ */
+[data-type="core/embed"],
+[data-type="core/cover"],
+[data-type="core/html"],
+[data-type="core/freeform"],
+figure,
+blockquote,
+pre,
+p,
+h1,h2,h3,h4,h5,h6,
+ul,ol{
+    @extend %block;
+}
+
+ul.attachments{
+    width:calc(100% - 300px);
+}
+
+/**
+ * Right Sidebar
+ */
+
 body{
     .edit-post-layout .components-editor-notices__snackbar{
         .components-button{
@@ -37,11 +62,81 @@ body{
             }
         }
     }
+    .components-panel{
+        color:var(--thm_black_color);
+        fieldset{
+            legend{
+                .components-base-control__label{
+                    color:var(--thm_black_color);
+                }
+            }
+        }
+        .block-editor-block-card__content{
+            max-width:200px;
+        }
+        .components-panel__body.is-opened > .components-panel__body-title {
+            margin: -16px -16px 5px;
+            max-width: calc(100% + 32px);
+        }
+    }
+    .edit-post-sidebar{
+        box-sizing:initial;
+        .block-editor-block-styles__item{
+            box-sizing:border-box;
+        }
+        .components-circular-option-picker__option-wrapper{
+            box-sizing:border-box;
+        }
+
+
+    }
+}
+.block-editor-inserter__popover .block-editor-inserter__menu .block-editor-inserter__preview-container {
+    display: block!important;
+}
+
+/**
+ * Block inserter preview
+ */
+
+.block-editor-inserter__preview-container{
+
+    .block-editor-block-card{
+
+        .block-editor-block-card__description{
+            display:block;
+            max-width:200px;
+            -ms-word-break: break-all;
+            word-break: break-all;
+            -webkit-hyphens: auto;
+            -moz-hyphens: auto;
+            hyphens: auto;
+        }
+    }
+}
+.block-editor-inserter__panel-content{
+    max-width:100%;
+}
+.block-editor-inserter__panel-title{
+    max-width:100%;
+}
+.editor-block-list-item-group-grid-group-5col .dashicons-admin-appearance,
+.editor-block-list-item-group-grid-group-4col .dashicons-admin-appearance,
+.editor-block-list-item-group-grid-group-3col .dashicons-admin-appearance,
+.editor-block-list-item-group-grid-group-2col .dashicons-admin-appearance,
+.editor-block-list-item-columns-cta-block .dashicons-admin-appearance{
+    color:var(--wp-admin-theme-color);
+}
+
+.components-inline-color-popover{
+    min-width:300px;
+    .components-popover__content{
+        width:100%;
+    }
 }
 /**
  * Theme Color Settings
  */
-
 
 #editor{
     .edit-post-sidebar{
@@ -164,12 +259,15 @@ body.emulsion-color-enable{
  * Caluclate editor main width
  */
 body{
+
     .block-editor-block-list__layout{
         padding-left:0;
         padding-right:0;
+
         .block-editor-block-list__block{
             padding-left:0;
             padding-right:0;
+            max-width:100%;
             &[data-align=full]{
                 margin-left:0;
                 margin-right:0;
@@ -237,9 +335,11 @@ body{
 
     }
 }
+
 /**
  * Entry title
  */
+
 .wp-block{
     &.editor-post-title__block{
         max-width:var(--thm_content_width);
@@ -249,6 +349,11 @@ body{
             font-family:var(--thm_heading_font_family);
         }
     }
+}
+
+
+div.block-editor-block-styles__item-preview{
+    min-height:0;
 }
 /**
  * Fonts
@@ -390,6 +495,9 @@ body{
         width:fit-content ! important;
         margin-right:1rem ! important;
     }
+    .emulsion-archive-count.badge:empty{
+        display:none;
+    }
     p.has-background.badge{
         padding: 0 var(--thm_content_gap, 24px);
     }
@@ -408,25 +516,21 @@ body{
      * emphasis block
      */
     .em{
-        font-weight:bold;
+       // font-weight:bold;
     }
     /**
      * pre formatted
      */
-    div.wp-block-verse{
-        pre{
-            @include font_size(3);
-            lin-height:var(--thm_common_line_height);
+    .wp-block-verse{
+            line-height:var(--thm_common_line_height);
             font-family: var(--thm_common_font_family);
             color:var(--thm_general_text_color);
             padding:1rem;
             a{
                 color:var(--thm_general_link_color);
             }
-        }
     }
-    div.wp-block-preformatted{
-        pre{
+    .wp-block-preformatted{
             lin-height:var(--thm_common_line_height);
             font-size:var(--thm_common_font_size);
             font-family: var(--thm_common_font_family);
@@ -435,9 +539,9 @@ body{
             a{
                 color:var(--thm_general_link_color);
             }
-        }
+
     }
-    div.wp-block-code{
+    .wp-block-code{
         textarea{
             color:#555;
             background: #f8f8ff;
@@ -452,6 +556,10 @@ body{
             }
         }
     }
+    textarea.block-editor-plain-text{
+        color:#555;
+        background: #f8f8ff;
+    }
     .wp-block-navigation-link__submenu-icon{
         //GB7.4
         svg{
@@ -459,6 +567,8 @@ body{
         }
     }
 }
+
+
 .block-editor .edit-post-visual-editor{
     /**
      * Block Classic
@@ -835,11 +945,7 @@ body{
     .wp-block{
         max-width:100%;
     }
-    [data-type="core/paragraph"],
-    [data-type="core/heading"],
-    [data-type="core/list"]{
-        @extend %block;
-    }
+
     .block-editor-block-list__block{
 
         [data-align="center"],// gutenberg 8.6 ?
@@ -878,13 +984,13 @@ body{
             }
         }
         &:not([data-align]){
-            width:$content_width;
-            max-width:100%;
-            margin-left:auto;
-            margin-right:auto;
-            &[data-type="core/button"]{
-                width:auto;
-            }
+            /*  width:$content_width;
+              max-width:100%;
+              margin-left:auto;
+              margin-right:auto;
+              &[data-type="core/button"]{
+                  width:auto;
+              }*/
 
         }
         .wp-block-social-link{
@@ -1316,6 +1422,12 @@ body{
         }
         //WordPress 5.3 button block gutenberg < 7.2 but don't remove'
         &[data-type="core/button"]{
+            .block-editor-rich-text__editable{
+                .wp-block-button__link{
+                    font-size:1rem;
+                }
+            }
+            /*
             &[data-align="left"]{
                 clear:none;
                 display:inline-block;
@@ -1374,7 +1486,7 @@ body{
                         }
                     }
                 }
-            }
+            }*/
         }
     }
 }
@@ -1872,6 +1984,7 @@ p.has-drop-cap:not(:focus):first-letter {
             }
         }
     }
+    .is-style-list-style-inline,
     .list-style-inline,
     .horizontal-list-group{
         @include clearfix;
@@ -1896,6 +2009,7 @@ p.has-drop-cap:not(:focus):first-letter {
             }
         }
     }
+    .is-style-list-style-inline,
     .list-style-inline{
         @include font_size(4);
         padding-left:var(--thm_content_gap);
@@ -2820,7 +2934,7 @@ p.has-drop-cap:not(:focus):first-letter {
                     float:none;
                 }
                 [data-block]{
-                    .wp-block-code{
+                    /*.wp-block-code{
                         background:var(--thm_white_color);
                         padding:1rem;
                         &.dark{
@@ -2831,7 +2945,7 @@ p.has-drop-cap:not(:focus):first-letter {
                                 background: #282b2e;
                             }
                         }
-                    }
+                    }*/
                 }
             }
         }
@@ -3517,7 +3631,7 @@ p.has-drop-cap:not(:focus):first-letter {
             }
         }
         &[data-type="core/categories"]{
-            height:300px;
+            //height:300px;
             overflow:hidden;
             .block-editor-block-list__block-edit{
                 .block-editor-block-mover{
@@ -5254,6 +5368,9 @@ div.components-notice{
  */
 .block-editor-page:not([class*="emulsion-"]), // for No use emulsion-addons
 .emulsion-gb-phase-site{
+    .interface-interface-skeleton__editor{
+        max-width:100vw;
+    }
     .editor-styles-wrapper{
         // same .edit-post-visual-editor
         /**
@@ -5322,6 +5439,7 @@ div.components-notice{
                     }
                 }
                 .block-editor-block-list__layout.is-root-container{
+                    max-width:var(--thm_editor_main_width);
                     .block-editor-warning__message{
                         background:#fff;
                         color:#333;
@@ -5331,8 +5449,8 @@ div.components-notice{
                      */
                     @extend %list-effect-editor;
 
-                    ol:not(.list-style-initial),
-                        ul:not(.list-style-initial){
+                    ol:not(.list-style-initial):not(.is-style-list-style-initial),
+                        ul:not(.list-style-initial):not(.is-style-list-style-initial){
                         &[data-type="core/list"]{
                             li{
                                 text-indent:0;
@@ -5360,7 +5478,7 @@ div.components-notice{
                         }
                     }
                     [data-type="core/paragraph"]{
-                        @extend %block;
+                        // @extend %block;
                     }
                     [data-type="core/group"]{
                         &.has-background{
@@ -5374,77 +5492,77 @@ div.components-notice{
                             font-size:var(--thm_meta_data_font_size);
                         }
                     }
-                 /*   ul.p-block-social-links{
-                        list-style-type:none;
-                        li{
-                            list-style-type:none;
-                        }
-                    }
-                    // GB8.0 - 8.1 .wp-block-navigation There is no class that distinguishes horizontal from vertical in front end
-                    ul[data-type="core/social-links"]{
-                        //GB8.1
-                        height:40px;
-                        &.is-style-default{
-                            li{
-                                flex:0 0 32px;
-                            }
-                        }
-                        &.is-style-logos-only{
-                            li{
-                                flex:0 0 32px;
-                            }
-                        }
-                        &.is-style-pill-shape{
-                            li{
-                                flex:1 0 32px;
-                            }
-                        }
-                        [data-type="core/social-link"]{
-                            list-style:none;
-                            &:not(.is-selected){
-                                &.wp-social-link__is-incomplete{
-                                    opacity:.3;
-                                    filter:grayscale(70%);
-                                }
-                                &:not(.has-child-selected){
-                                    &.wp-social-link__is-incomplete{
-                                        opacity:.3;
-                                        filter:grayscale(70%);
-                                    }
-                                }
-                            }
-                        }
-                        li{
-                            &[data-type="core/social-link"]{
-                                list-style: none;
-                                text-align: center;
-                                display: flex;
-                                flex-direction: column;
-                                justify-content: center;
-                                align-items: center;
-                                margin: 0 0.75rem 0.75rem 0;
-                                padding:0;
-                                button{
-                                    flex:0 0 32px;
-                                    width:100%;
-                                    height:100%;
-                                    display:block;
-                                    padding:0;
-                                    &:before{
-                                        display:none;
-                                    }
-                                    &:before{
-                                        display:none;
-                                    }
-                                }
-                            }
-                        }
-                    }*/
+                    /*   ul.p-block-social-links{
+                           list-style-type:none;
+                           li{
+                               list-style-type:none;
+                           }
+                       }
+                       // GB8.0 - 8.1 .wp-block-navigation There is no class that distinguishes horizontal from vertical in front end
+                       ul[data-type="core/social-links"]{
+                           //GB8.1
+                           height:40px;
+                           &.is-style-default{
+                               li{
+                                   flex:0 0 32px;
+                               }
+                           }
+                           &.is-style-logos-only{
+                               li{
+                                   flex:0 0 32px;
+                               }
+                           }
+                           &.is-style-pill-shape{
+                               li{
+                                   flex:1 0 32px;
+                               }
+                           }
+                           [data-type="core/social-link"]{
+                               list-style:none;
+                               &:not(.is-selected){
+                                   &.wp-social-link__is-incomplete{
+                                       opacity:.3;
+                                       filter:grayscale(70%);
+                                   }
+                                   &:not(.has-child-selected){
+                                       &.wp-social-link__is-incomplete{
+                                           opacity:.3;
+                                           filter:grayscale(70%);
+                                       }
+                                   }
+                               }
+                           }
+                           li{
+                               &[data-type="core/social-link"]{
+                                   list-style: none;
+                                   text-align: center;
+                                   display: flex;
+                                   flex-direction: column;
+                                   justify-content: center;
+                                   align-items: center;
+                                   margin: 0 0.75rem 0.75rem 0;
+                                   padding:0;
+                                   button{
+                                       flex:0 0 32px;
+                                       width:100%;
+                                       height:100%;
+                                       display:block;
+                                       padding:0;
+                                       &:before{
+                                           display:none;
+                                       }
+                                       &:before{
+                                           display:none;
+                                       }
+                                   }
+                               }
+                           }
+                       }*/
                     [data-type="core/latest-posts"]{
                         .wp-block-latest-posts{
                             padding-left:0;
                             &.wp-block-latest-posts__list{
-                                &:not(.list-style-initial){
+                                &:not(.list-style-initial):not(.is-style-list-style-initial){
                                     li:before{
                                         display:none;
                                     }
@@ -5807,8 +5925,10 @@ div.components-notice{
                                 width:auto;
                             }
                         }
+                        .is-style-shrink,
                         .shrink{
-                            text-align:right;
+                            width:50%;
+                            transform: translate(100%, 0);
                         }
                     }
                     & > .wp-block[data-align="right"] {
@@ -5836,8 +5956,10 @@ div.components-notice{
                             }
 
                         }
+                        .is-style-shrink,
                         .shrink{
-                            text-align:left;
+                            width:50%;
+                            transform: translate(-100%, 0);
                         }
                     }
                     & > .wp-block[data-align="wide"] {

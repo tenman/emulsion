@@ -583,12 +583,13 @@
  * @extend %list-effect-editor
  */
 %list-effect-editor{
-    ol:not(.list-style-initial):not(.wp-list-comments){
+    ol:not(.list-style-initial):not(.wp-list-comments):not(.is-style-list-style-initial){
         &.circle{
             li:before{
                 border-radius:50%;
             }
         }
+        &.is-style-list-style-none,
         &.list-style-none{
             li{
                 margin-left:0;
@@ -709,8 +710,8 @@
         }
     }
     //ul[class|="wp-block"]:not(.list-style-initial),
-    ul.wp-block:not(.list-style-initial){
-
+    ul.wp-block:not(.list-style-initial):not(.is-style-list-style-initial){
+        &.is-style-list-style-none,
         &.list-style-none{
             li{
                 margin-left:var(--thm_common_font_size);
@@ -814,6 +815,7 @@
     }
     ol[reversed],
     ol[start],
+    ol.is-style-list-style-initial,
     ol.list-style-initial{
         padding-left:calc( var(--thm_content_gap) * 3 );
         padding-right:var(--thm_content_gap);
@@ -867,6 +869,7 @@
             }
         }
     }
+    ul.is-style-list-style-initial,
     ul.list-style-initial{
         padding-left:calc( var(--thm_content_gap) * 3 );
         padding-right:var(--thm_content_gap);
@@ -918,7 +921,8 @@
             }
         }
     }
-    .list-style-inline:not(.list-style-initial){
+    .is-style-list-style-inline:not(.list-style-initial):not(.is-style-list-style-initial),
+    .list-style-inline:not(.list-style-initial):not(.is-style-list-style-initial){
         @include clearfix;
         @extend %block;
         font-size:var(--thm_meta_data_font_size);

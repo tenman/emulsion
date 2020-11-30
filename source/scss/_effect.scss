@@ -32,7 +32,7 @@ a{
  * front end only style
  * class that transforms a nested list into a tab view
  * ========================================================================== */
-.list-style-tab:not(.list-style-initial):not([id]){
+.list-style-tab:not(.list-style-initial):not([id]):not(.is-style-list-style-initial){
     @extend %block;
     margin:1.5rem auto .75rem;
     &.success-js{
@@ -402,9 +402,10 @@ a{
  * hanging indent
  * Place smileys and emoji at the beginning of the paragraph and display it like a list bullet.
  * =================================================================== */
+.is-style-hanging-indent,
 .hanging-indent{
     padding-left:calc(var(--thm_content_gap) * 2 );
-    text-indent: -1.5rem;
+    text-indent:calc( var(--thm_content_gap) * -1 );
 }
 .h1,
 h1{
@@ -471,61 +472,93 @@ h3{
 /**
  * indent
  * =================================================================== */
+body .block-editor-block-list__layout .block-editor-block-list__block.is-style-indent-5rem,
+.is-style-indent-5rem,
 .indent-5rem{
     padding-left:calc(var(--thm_common_font_size) * 5 + var(--thm_content_gap) );
 }
+body .block-editor-block-list__layout .block-editor-block-list__block.is-style-indent-10rem,
+.is-style-indent-10rem,
 .indent-10rem{
     padding-left:calc(var(--thm_common_font_size) * 10 + var(--thm_content_gap) );
 }
+body .block-editor-block-list__layout .block-editor-block-list__block.is-style-indent-15rem,
+.is-style-indent-15rem,
 .indent-15rem{
     padding-left:calc(var(--thm_common_font_size) * 15 + var(--thm_content_gap) );
 }
+body .block-editor-block-list__layout .block-editor-block-list__block.is-style-indent-20rem,
+.is-style-indent-20rem,
 .indent-20rem{
     padding-left:calc(var(--thm_common_font_size) * 20 + var(--thm_content_gap) );
 }
+body .block-editor-block-list__layout .block-editor-block-list__block.is-style-indent-right-5rem,
+.is-style-indent-right-5rem,
 .indent-right-5rem{
     padding-right:calc(var(--thm_common_font_size) * 5 + var(--thm_content_gap) );
 }
+body .block-editor-block-list__layout .block-editor-block-list__block.is-style-indent-right-10rem,
+.is-style-indent-right-10rem,
 .indent-right-10rem{
     padding-right:calc(var(--thm_common_font_size) * 10 + var(--thm_content_gap) );
 }
+body .block-editor-block-list__layout .block-editor-block-list__block.is-style-indent-right-15rem,
+.is-style-indent-right-15rem,
 .indent-right-15rem{
     padding-right:calc(var(--thm_common_font_size) * 15 + var(--thm_content_gap) );
 }
+body .block-editor-block-list__layout .block-editor-block-list__block.is-style-indent-right-20rem,
+.is-style-indent-right-20rem,
 .indent-right-20rem{
     padding-right:calc(var(--thm_common_font_size) * 20 + var(--thm_content_gap) );
 }
 /**
  * Add one line negative top margin
  */
+body .block-editor-block-list__layout .block-editor-block-list__block.is-style-indent-5rem-n,
+.is-style-indent-5rem-n,
 .indent-5rem-n{
     padding-left:calc(var(--thm_common_font_size) * 5 + var(--thm_content_gap) );
     margin-top:calc(  var(--thm_common_font_size) * var(--thm_content_line_height)  * -2);
 }
+body .block-editor-block-list__layout .block-editor-block-list__block.is-style-indent-10rem-n,
+.is-style-indent-10rem-n,
 .indent-10rem-n{
     padding-left:calc(var(--thm_common_font_size) * 10 + var(--thm_content_gap) );
     margin-top:calc(  var(--thm_common_font_size) * var(--thm_content_line_height)  * -2);
 }
+body .block-editor-block-list__layout .block-editor-block-list__block.is-style-indent-15rem-n,
+.is-style-indent-15rem-n,
 .indent-15rem-n{
     padding-left:calc(var(--thm_common_font_size) * 15 + var(--thm_content_gap) );
     margin-top:calc(  var(--thm_common_font_size) * var(--thm_content_line_height)  * -2);
 }
+body .block-editor-block-list__layout .block-editor-block-list__block.is-style-indent-20rem-n,
+.is-style-indent-20rem-n,
 .indent-20rem-n{
     padding-left:calc(var(--thm_common_font_size) * 20 + var(--thm_content_gap) );
     margin-top:calc(  var(--thm_common_font_size) * var(--thm_content_line_height)  * -2);
 }
+body .block-editor-block-list__layout .block-editor-block-list__block.is-style-indent-right-5rem-n,
+.is-style-indent-right-5rem-n,
 .indent-right-5rem-n{
     padding-right:calc(var(--thm_common_font_size) * 5 + var(--thm_content_gap) );
     margin-top:calc(  var(--thm_common_font_size) * var(--thm_content_line_height)  * -2);
 }
+body .block-editor-block-list__layout .block-editor-block-list__block.is-style-indent-right-10rem-n,
+.is-style-indent-right-10rem-n,
 .indent-right-10rem-n{
     padding-right:calc(var(--thm_common_font_size) * 10 + var(--thm_content_gap) );
     margin-top:calc(  var(--thm_common_font_size) * var(--thm_content_line_height)  * -2);
 }
+body .block-editor-block-list__layout .block-editor-block-list__block.is-style-indent-right-15rem-n,
+.is-style-indent-right-15rem-n,
 .indent-right-15rem-n{
     padding-right:calc(var(--thm_common_font_size) * 15 + var(--thm_content_gap) );
     margin-top:calc(  var(--thm_common_font_size) * var(--thm_content_line_height)  * -2);
 }
+body .block-editor-block-list__layout .block-editor-block-list__block.is-style-indent-right-20rem-n,
+.is-style-indent-right-20rem-n,
 .indent-right-20rem-n{
     padding-right:calc(var(--thm_common_font_size) * 20 + var(--thm_content_gap) );
     margin-top:calc(  var(--thm_common_font_size) * var(--thm_content_line_height)  * -2);
@@ -562,10 +595,12 @@ $indent-classes:('5rem','10rem','15rem','20rem','right-5rem','right-10rem','righ
 }
 @media screen and ( max-width : $content_width  ) {
     @each $type in $indent-classes {
+        .is-style-indent-#{$type},
         .indent-#{$type}{
             padding-left:calc(var(--thm_content_gap) );
             padding-right:calc(var(--thm_content_gap) );
         }
+        .is-style-indent-#{$type}-n,
         .indent-#{$type}-n{
             padding-left:calc(var(--thm_content_gap) );
             padding-right:calc(var(--thm_content_gap) );
@@ -883,7 +918,7 @@ code{
  *
  * ========================================================================== */
 body{
-    .scroll-button-top{
+    .scroll-button-top.skin-button{
         display:none;
     }
     &.on-scroll{
@@ -1041,6 +1076,7 @@ body{
     /**
      * todo edge browser and background-css-pattern-carbon-fiber
      */
+    &.is-dark.custom-background .is-style-carbon-fiber,
     &.is-dark.custom-background .has-background-carbon-fiber,
     &.is-dark.custom-background.background-css-pattern-carbon-fiber{
         will-change:background-size;
@@ -1059,6 +1095,7 @@ body{
             }
         }
     }
+    &.is-light.custom-background .is-style-carbon-fiber,
     &.is-light.custom-background .has-background-carbon-fiber,
     &.is-light.custom-background.background-css-pattern-carbon-fiber{
         will-change:background-size;
@@ -1077,6 +1114,7 @@ body{
             }
         }
     }
+    &.custom-background .is-style-seigaiha,
     &.custom-background .has-background-seigaiha,
     &.custom-background.background-css-pattern-seigaiha{
         background-color:var(--thm_background_color);
@@ -1100,6 +1138,7 @@ body{
     &.single.custom-background.emulsion-has-custom-background-image{
         animation:none;
     }
+    &.is-light.custom-background .is-style-cicada,
     &.is-light.custom-background .has-background-cicada,
     &.is-light.custom-background.background-css-pattern-cicada{
         background-color:var(--thm_background_color);
@@ -1311,6 +1350,8 @@ ul.shrink{
         }
     }
 }
+
+.wp-block-image.is-style-shrink,
 .wp-block-image.shrink{
     figure{
         padding-top:0;
@@ -1916,7 +1957,7 @@ ul.shrink{
     .wp-block-group__inner-container{
         .wp-block-latest-posts{
             li{
-            background:transparent;
+                background:transparent;
             }
         }
     }
@@ -2424,6 +2465,7 @@ body{
             &.columns-is-dark,
             &.columns-is-light{
                 .wp-block-latest-posts__post-date,
+                .is-style-list-style-inline,
                 .list-style-inline li,
                 .horizontal-list-group li,
                 .attachment-pdf .attachment img,
@@ -2487,6 +2529,7 @@ body{
         }
     }
 }
+
 @media(hover: hover) and (pointer: fine) {
     /**
      * Sectionize

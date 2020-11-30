@@ -259,6 +259,7 @@ body{
     .wp-block-latest-posts__post-excerpt > a:only-child,
         .tag-cloud-style-flat a,
         .wp-block-button__link,
+        .is-style-list-style-inline li,
         .list-style-inline li,
         .horizontal-list-group li,
         .skin-button,
@@ -438,7 +439,7 @@ body{
                 .wp-block-column{
                     border-right:var(--thm_common_border, rgba(188,188,188,.5));
                     &:last-child{
-                        
+
                     }
                     @media screen and (max-width: 768px) {
                         border:none;
@@ -609,6 +610,15 @@ body{
                 border-bottom:none;
             }
         }
+    }
+    h1.has-background,
+    h2.has-background,
+    h3.has-background,
+    h4.has-background,
+    h5.has-background,
+    h6.has-background{
+        border-top:1px solid;
+        border-bottom:1px solid;
     }
 
 }

@@ -387,6 +387,12 @@ function emulsion_background_color_filter( $color ) {
 		return $color;
 	}
 
+	if( "ffffff" !== $color ) {
+        // is set background color
+		
+		return $color;
+	}
+
 	if ( ! empty( $scheme = get_theme_mod( 'emulsion_scheme' ) ) ) {
 
 		$result = ! empty( emulsion_theme_scheme[$scheme]['background_color'] )

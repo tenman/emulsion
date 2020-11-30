@@ -39,9 +39,11 @@ div[data-block],
         text-transform:var(--thm_meta_data_font_transform);
     }
 }
+
 /**
  * Monospaced font
  */
+
 .wp-block-code{
     font-size:var(--thm_meta_data_font_size);
     text-transform:none;
@@ -57,12 +59,14 @@ tt {
 kbd, samp,tt {
     line-height:100%;
 }
+
 /**
  * Absolute Font Sizes
  * Override the relative font size and change it to absolute font size.
  *
  *If you change the base font size, overwrite it to suppress the font of the sidebar and menu from becoming large.
  */
+
 [lang="ja"]{
     blockquote{
         cite{
@@ -75,8 +79,10 @@ kbd, samp,tt {
         font-family:italicJa;
         src: local('Meiryo');
     }
-    pre.wp-block-verse{
+    pre.wp-block-verse em{
         font-family:italicJa;
+        font-weight:normal;
+        font-style:italic;
     }
     pre.wp-block-verse.use-font-common{
         font-family:var(--thm_common_font_family);
@@ -340,14 +346,18 @@ $step: 100;
     }
     $step: $step + 100;
 }
+
 /**
  * Editor font sizes
  *
  * has-regular-font-size
+ * has-large-font-size
  */
+
 @each $font_size in $editor_font_sizes {
     $slug: nth($font_size, 1);
     $size: nth($font_size, 2);
+    .wp-block.is-style-has-#{$slug}-font-size,
     .layout .has-#{$slug}-font-size {
         font-size:#{$size}px;
     }
@@ -355,9 +365,6 @@ $step: 100;
         margin:calc( #{$size}px * var(--thm_content_line_height) ) auto;
     }
 }
-/**
- * heading in meta font size block
- */
 
 /**
  * wp-block

@@ -40,7 +40,7 @@ if ( emulsion_do_fse() ) {
 
 		if ( $current_template ) {
 
-			$_wp_current_template_content = empty( $current_template->post_content ) ? __( 'Empty template.', 'gutenberg' ) : $current_template->post_content;
+			$_wp_current_template_content = empty( $current_template->post_content ) ? __( 'Empty template.', 'emulsion' ) : $current_template->post_content;
 
 			if ( isset( $_GET['_wp-find-template'] ) ) {
 				wp_send_json_success( $current_template['template_post'] );
@@ -144,7 +144,7 @@ function emulsion_stop_fse() {
 function emulsion_full_site_editing_notice() {
 	?>
 	<div class="notice notice-warning">
-		<p><?php _e( 'You\'re using an experimental Full Site Editing theme. The function is temporarily stopped, but please use it only for experiments.', 'gutenberg' ); ?></p>
+		<p><?php _e( 'You\'re using an experimental Full Site Editing theme. The function is temporarily stopped, but please use it only for experiments.', 'emulsion' ); ?></p>
 	</div>
 	<?php
 }

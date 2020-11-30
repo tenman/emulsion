@@ -11,25 +11,28 @@ wp-block-embed-wordpress,  wp-block-embed-wordpress-tv;
 //wp-block-embed-spotify wp-block-embed-animoto wp-block-embed-dailymotion wp-block-embed-hulu wp-block-embed-imgur wp-block-embed-crowdsignal
 //wp-block-embed-scribd wp-block-embed-scribd wp-block-embed-smugmug wp-block-embed-speakerdeck  wp-block-embed-tumblr wp-block-embed-videopress
 
-//wp-block-video wp-block-code, wp-block-group,
+//wp-block-video , ,
 
 
 $core_blocks: wp-block-image, wp-block-gallery, wp-block-quote, wp-block-audio, wp-block-cover, wp-block-file, wp-block-video,
 wp-block-code, wp-block-preformatted, wp-block-pullquote, wp-block-table, wp-block-verse, wp-block-buttons,
 wp-block-columns, wp-block-separator, wp-block-spacer, wp-block-media-text, wp-block-archives,
 wp-block-calendar, wp-block-categories, wp-block-latest-comments, wp-block-latest-posts, wp-block-rss,
-wp-block-search, wp-block-social-links, wp-block-tag-cloud, wp-block-embed, wp-block-navigation;
+wp-block-search, wp-block-social-links, wp-block-tag-cloud, wp-block-embed, wp-block-navigation, wp-block-group, wp-block-code;
 
 @each $core_block in $core_blocks {
 
     .enable-alignfull{
         .#{$core_block}{
             // @extend %block; defined elements.scss
+
             &.alignwide{
                 @extend %alignwide;
             }
 
         }
+        .is-style-alignwide,
+        .block-editor__typewriter  .wp-block[data-align="wide"],
         .edit-site .wp-block[data-align="wide"]{
             @extend %alignwide;
             position:static;
@@ -37,13 +40,15 @@ wp-block-search, wp-block-social-links, wp-block-tag-cloud, wp-block-embed, wp-b
         &.emulsion-has-sidebar{
 
             .#{$core_block}{
+
                 &.alignfull{
                     @extend %has-sidebar-alignfull;
 
                     left:0;
-
                 }
             }
+            .is-style-alignfull,
+            .block-editor__typewriter .wp-block[data-align="full"],
             .edit-site .wp-block[data-align="full"]{
                 @extend %has-sidebar-alignfull;
                 position:static!important;
@@ -56,10 +61,13 @@ wp-block-search, wp-block-social-links, wp-block-tag-cloud, wp-block-embed, wp-b
         &.emulsion-no-sidebar{
 
             .#{$core_block}{
+
                 &.alignfull{
                     @extend %no-sidebar-alignfull;
                 }
             }
+            .is-style-alignfull,
+            .block-editor__typewriter .wp-block[data-align="full"],
             .edit-site .wp-block[data-align="full"]{
                 @extend %no-sidebar-alignfull;
                 position:static!important;
@@ -70,40 +78,59 @@ wp-block-search, wp-block-social-links, wp-block-tag-cloud, wp-block-embed, wp-b
         }
 
     }
-
-
-    .#{$core_block}{
-        &.aligncenter {
-            @extend %aligncenter;
-        }
-    }
-    .#{$core_block}{
-        &.alignleft{
-            @extend %alignleft;
-        }
-    }
-    .#{$core_block}{
-        &.alignright{
-            @extend %alignright;
-        }
-    }
-    .#{$core_block}{
-        margin-left:auto;
-        margin-right:auto;
-    }
-    .#{$core_block}__inner-container{
-        h1,h2,h3,h4,h5,h6{
-
-        }
-        div,figure{
-            padding-left:0;
-            padding-right:0;
+    .disable-alignfull,
+    .enable-alignfull{
+        &.emulsion-no-sidebar,
+        &.emulsion-has-sidebar{
+            .#{$core_block}{
+                .is-style-aligncenter,
+                &.aligncenter {
+                    @extend %aligncenter;
+                }
+            }
+            .#{$core_block}{
+                .is-style-alignleft,
+                &.alignleft{
+                    @extend %alignleft;
+                }
+            }
+            .#{$core_block}{
+                .is-style-alignright,
+                &.alignright{
+                    @extend %alignright;
+                }
+            }
+            .#{$core_block}{
+                margin-left:auto;
+                margin-right:auto;
+            }
+            .#{$core_block}__inner-container{
+                .alignwide,
+                .alignfull{
+                    max-width:100%;
+                }
+                p{
+                    max-width:100%;
+                }
+                h1,h2,h3,h4,h5,h6{
+                    max-width:100%;
+                }
+                ol,ul{
+                    max-width:100%;
+                }
+                table{
+                    width:100%;
+                }
+                div,figure{
+                    padding-left:0;
+                    padding-right:0;
+                }
+            }
         }
     }
 
 }
 .enable-alignfull{
-
     .wp-block-group{
         padding-left:0;
         padding-right:0;
@@ -189,6 +216,11 @@ wp-block-search, wp-block-social-links, wp-block-tag-cloud, wp-block-embed, wp-b
     line-height: calc(var(--thm_common_font_size) * var( --thm_content_line_height, 1.5 ));
     font-size: var(--thm_meta_data_font_size);
     text-transform: var(--thm_meta_data_font_transform);
+
+}
+.wp-block-archives.is-style-list-style-inline li{
+    line-height:3rem;
+    padding:0 .6rem;
 }
 /**
  * Embed Wrapper
@@ -656,6 +688,7 @@ body{
         .layout{
             &.has-column{
                 .wp-block-group{
+                    margin-bottom:0;
                     &.grid{
                         @media screen and (max-width: 1120px) {
                             --thm_main_width: calc(100vw);
@@ -676,6 +709,7 @@ body{
     &.emulsion-no-sidebar{
         .layout{
             .wp-block-group{
+                margin-bottom:0;
                 &.grid{
                     .wp-block-group__inner-container{
                         @media screen and (max-width: 768px) {
@@ -916,7 +950,7 @@ article *:first-child.wp-block-group{
 }
 
 .wp-block-social-links{
-   // @extend %block;
+    // @extend %block;
     display:flex;
     justify-content: flex-start;
     padding-left: var(--thm_content_gap);

@@ -590,7 +590,7 @@ function emulsion_register_scripts_and_styles() {
 
 
 	$emulsion_theme_styles = array('common', 'header', 'archives', 'single', 'block-presentation', 'columns', 'accessibility', 'custom-color','gallery', 'comments'
-		,'primary-menu', 'effect', 'boxed', 'responsive', 'fse');
+		,'primary-menu', 'misc', 'boxed', 'responsive', 'fse');
 
 	// instantclick Always need all styles
 
@@ -2333,6 +2333,102 @@ function emulsion_scheme_validate( $input ) {
 	return 'default';
 }
 
+function emulsion_block_editor_assets() {
 
+	wp_enqueue_script( 'emulsion-block', esc_url( get_template_directory_uri() . '/js/block.js' ), 	array( 'wp-blocks', 'wp-i18n' ) );
+}
+
+add_action( 'enqueue_block_editor_assets', 'emulsion_block_editor_assets' );
+
+if ( function_exists( 'register_block_style' ) ) {
+
+	register_block_style( 'core/code', array( 'name' => 'dark', 'label' => esc_html__( 'Dark', 'emulsion' ), ) );
+
+	register_block_style( 'core/tag-cloud', array( 'name' => 'flat', 'label' => esc_html__( 'Flat', 'emulsion' ),
+		'inline_style'	 => '#document .is-style-flat a,#wpbody .is-style-flat a{ '
+		. 'font-size:1rem ! important; display:inline-block;padding:.6rem; }', ) );
+
+/**
+ * Pending
+
+	add_filter('emulsion_inline_style_pre', function( $css ){
+
+		$css .=<<<IMPORT
+		@import url('https://fonts.googleapis.com/css2?family=Nerko+One&display=swap');
+		@import url('https://fonts.googleapis.com/css2?family=Kosugi+Maru&display=swap');
+IMPORT;
+		return $css;
+	});
+
+	register_block_style( 'core/heading', array( 'name' => 'nerko', 'label' => 'nerko',
+		'inline_style'	 => '#document .is-style-nerko{'
+		. "font-family: 'Nerko One', cursive;"
+		. "text-transform: none;"
+		. "}",) );
+
+	register_block_style( 'core/heading', array( 'name' => 'kosugi-maru', 'label' => 'Kosugi Maru',
+		'inline_style'	 => '#document .is-style-kosugi-maru{'
+		. "font-family: 'Kosugi Maru', sans-serif;"
+		. "text-transform: none;"
+		. "}",) );
+*/
+
+	register_block_style( 'core/heading', array( 'name' => 'remove-text-transform', 'label' => esc_html__( 'Remove Text Transform', 'emulsion' ),
+		'inline_style'	 => ' h6.is-style-remove-text-transform,'
+		. ' h5.is-style-remove-text-transform,'
+		. ' h4.is-style-remove-text-transform,'
+		. ' h3.is-style-remove-text-transform,'
+		. ' h2.is-style-remove-text-transform{'
+		. "text-transform: none;"
+		. "}",) );
+
+	register_block_style( 'core/image', array( 'name' => 'circle-mask', 'label' => esc_html__('Circle Mask', 'emulsion' ), ) );
+	register_block_style( 'core/image', array( 'name' => 'shrink', 'label' => esc_html__( 'Align Offset Zero', 'emulsion' ), ) );
+
+	register_block_style( 'core/list', array( 'name' => 'list-style-none', 'label' => esc_html__( 'No Bullet', 'emulsion' ), ) );
+	register_block_style( 'core/list', array( 'name' => 'list-style-inline', 'label' => esc_html__( 'Inline List', 'emulsion' ), ) );
+	register_block_style( 'core/list', array( 'name' => 'list-style-initial', 'label' => esc_html__( 'Remove Theme Bullet', 'emulsion' ), ) );
+
+	register_block_style( 'core/archives', array( 'name' => 'list-style-inline', 'label' => esc_html__('Inline', 'emulsion' ), ) );
+	register_block_style( 'core/categories', array( 'name' => 'list-style-inline', 'label' => esc_html__( 'Inline', 'emulsion' ), ) );
+
+	register_block_style( 'core/paragraph', array( 'name' => 'hanging-indent', 'label' => esc_html__( 'Hanging Indent', 'emulsion' ), ) );
+	register_block_style( 'core/paragraph', array( 'name' => 'indent-5rem', 'label' => esc_html__( 'Left Indent S', 'emulsion' ), ) );
+	register_block_style( 'core/paragraph', array( 'name' => 'indent-10rem', 'label' => esc_html__( 'Left Indent M', 'emulsion' ), ) );
+	register_block_style( 'core/paragraph', array( 'name' => 'indent-15rem', 'label' => esc_html__( 'Left Indent L', 'emulsion' ), ) );
+
+	if( 'ffffff' !== get_theme_mod('background_color') ) {
+
+		register_block_style( 'core/spacer', array( 'name' => 'seigaiha', 'label' => esc_html__( 'Background Pattern Seigaiha', 'emulsion' ), ) );
+		register_block_style( 'core/spacer', array( 'name' => 'carbon-fiber', 'label' => esc_html__( 'Background Pattern Carbon Fiber', 'emulsion' ), ) );
+		register_block_style( 'core/spacer', array( 'name' => 'cicada', 'label' => esc_html__( 'Background Pattern Cicada', 'emulsion' ), ) );
+	}
+
+	register_block_style( 'core/verse', array( 'name' => 'has-regular-font-size', 'label' => esc_html__( 'Regular Font', 'emulsion' ), ) );
+	register_block_style( 'core/verse', array( 'name' => 'has-large-font-size', 'label' => esc_html__( 'Large Font', 'emulsion' ), ) );
+	register_block_style( 'core/verse', array( 'name' => 'has-extra-large-font-size', 'label' => esc_html__( 'Extra Large Font', 'emulsion' ), ) );
+}
+
+function emulsion_block_pattern() {
+
+	if ( function_exists( 'register_block_pattern' ) ) {
+
+		register_block_pattern(
+				'emulsion/block-pattern-list-tab', array(
+			'title'			 => esc_html__( 'Presentation TAB', 'emulsion' ),
+			'content'		 => '<!-- wp:list {"className":"list-style-tab"} --><ul class="list-style-tab"><li>tab 1<ul><li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, </li></ul></li><li>tab 2<ul><li> Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </li></ul></li></ul><!-- /wp:list -->',
+			'categories'	 => array( 'emulsion' ),
+			'description'	 => _x( 'Tabs on the front end', 'Block pattern description', 'emulsion' ),
+				)
+		);
+
+		register_block_pattern_category( 'emulsion', array( 'label' => _x( 'Emulsion', 'Emulsion Block pattern', 'emulsion' ) ) );
+	}
+
+
+
+}
+
+add_action( 'init', 'emulsion_block_pattern' );
 
 do_action( 'emulsion_functions_after' );

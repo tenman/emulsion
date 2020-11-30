@@ -1573,7 +1573,7 @@ body{
     pre code{
         color:#555;
         background: #f8f8ff;
-
+        &.is-style-dark,
         &.dark{
             color: #a9b7c6;
             background: #282b2e;
@@ -1589,7 +1589,7 @@ body{
             color:#555;
             background: #f8f8ff;
         }
-
+        &.is-style-dark,
         &.dark{
             code{
                 color: #a9b7c6;
@@ -2033,6 +2033,7 @@ figure.wp-block-table{
         }
     }
 }
+.is-style-list-style-inline,
 .list-style-inline li,
 .horizontal-list-group li,
 .attachment-pdf .attachment img,
@@ -2419,10 +2420,10 @@ table{
 /**
  * Theme Color Classes
  * ========================================================================== */
-.editor-styles-wrapper ol:not(.list-style-initial):not([id]),
-.editor-styles-wrapper ul:not(.list-style-initial):not([id]),
-body[class] .layout ul:not(.list-style-initial):not([id]),
-body[class] .layout ol:not(.list-style-initial):not([id]){
+.editor-styles-wrapper ol:not(.list-style-initial):not([id]):not(.is-style-list-style-initial),
+.editor-styles-wrapper ul:not(.list-style-initial):not([id]):not(.is-style-list-style-initial),
+body[class] .layout ul:not(.list-style-initial):not([id]):not(.is-style-list-style-initial),
+body[class] .layout ol:not(.list-style-initial):not([id]):not(.is-style-list-style-initial){
     li{
         &:before{
             background:var(--thm_default_bullet_color);
@@ -3212,7 +3213,7 @@ body{
     .entry-content{
         & > .wp-block-table > table,
         & > .shortcode-wrapper > div:not(.gallery),
-            & > p:not(.has-text-color),
+            & > p:not(.has-text-color):not(.has-background),
             & > div:not([class|="wp-block"]):not(.shortcode-wrapper):not(.has-background-media) {
             &.emulsion-initial-color{
                 background:var(--thm_white_color);
