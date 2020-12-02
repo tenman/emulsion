@@ -146,6 +146,9 @@ stream.png
 
 ## Changelog
 ### december 1 2020
+		* 1.6.7
+        * https://github.com/tenman/emulsion/releases
+### december 1 2020
 		* 1.6.6
         * https://github.com/tenman/emulsion/releases
 ### november 22 2020

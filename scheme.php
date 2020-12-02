@@ -94,16 +94,16 @@ const emulsion_theme_scheme = array(
 		'emulsion_post_display_author_format'			 => 'text',
 		'emulsion_post_display_category'				 => 'inherit',
 		'emulsion_post_display_tag'						 => 'inherit',
-		'emulsion_border_global'						 => '#eeeeee',
+		'emulsion_border_global'						 => '#bcbcbc',
 		'emulsion_border_global_style'					 => 'solid',
 		'emulsion_border_global_width'					 => 1,
-		'emulsion_border_sidebar'						 => '#eeeeee',
+		'emulsion_border_sidebar'						 => '#bcbcbc',
 		'emulsion_border_sidebar_style'					 => 'solid',
 		'emulsion_border_sidebar_width'					 => 1,
-		'emulsion_border_grid'							 => '#eeeeee',
+		'emulsion_border_grid'							 => '#bcbcbc',
 		'emulsion_border_grid_style'					 => 'solid',
 		'emulsion_border_grid_width'					 => 1,
-		'emulsion_border_stream'						 => '#eeeeee',
+		'emulsion_border_stream'						 => '#bcbcbc',
 		'emulsion_border_stream_style'					 => 'solid',
 		'emulsion_border_stream_width'					 => 1,
 		'emulsion_google_analytics_tracking_code'		 => '',
@@ -389,7 +389,7 @@ function emulsion_background_color_filter( $color ) {
 
 	if( "ffffff" !== $color ) {
         // is set background color
-		
+
 		return $color;
 	}
 

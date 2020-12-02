@@ -14,14 +14,17 @@
                 background: var(--thm_header_bg_color);
             }
         }
-        .post-navigation,
-        .pagination{
+        .post-navigation .nav-links div{
             color: var(--thm_general_text_color);
             background: var(--thm_background_color);
         }
-        .pagination .current{
+        .pagination .nav-links > *{
+            color: var(--thm_general_text_color);
+            background: var(--thm_background_color);
+        }
+        .pagination .nav-links > .current{
             color:var(--thm_general_text_color);
-            background:rgba(188, 188, 188, .2);
+            background:var(--thm_sub_background_color_lighten);
         }
         .pagination .prev,
         .pagination .next{
@@ -49,14 +52,18 @@
                     background: var(--thm_header_bg_color);
                 }
             }
-            .post-navigation,
-            .pagination{
+            // .post-navigation,
+            .post-navigation .nav-links div{
                 color: var(--thm_general_text_color);
                 background: var(--thm_background_color);
             }
-            .pagination .current{
-                color:var(--thm_header_text_color);
-                background:rgba(188, 188, 188, .2);
+            .pagination .nav-links > *{
+                color: var(--thm_general_text_color);
+                background: var(--thm_background_color);
+            }
+            .pagination .nav-links > .current{
+                color:var(--thm_general_text_color);
+                background:var(--thm_sub_background_color_lighten);
             }
             .pagination .prev,
             .pagination .next{
@@ -144,6 +151,18 @@ body{
         }
     }
 
+    .list-style-tab.success-js{
+        & > li{
+            color:var(--thm_general_link_color);
+            background:var(--thm_background_color);
+
+            &.active{
+                background:var(--thm_sub_background_color_lighten);
+            }
+        }
+
+    }
+
 }
 /**
  * is scroll
@@ -196,21 +215,6 @@ body{
         &.is-light .header-is-default-color ~ .primary-menu-wrapper{
             [for="toc-toggle"]{
                 span{
-                    background:rgba(188, 188, 188, .2);
-                }
-            }
-        }
-        &.is-dark .header-is-default-color ~ .layout{
-            .pagination{
-                .current{
-                    color: var(--thm_header_text_color);
-                    background: var(--thm_header_bg_color);
-                }
-            }
-        }
-        &.is-light .header-is-default-color ~ .layout{
-            .pagination{
-                .current{
                     background:rgba(188, 188, 188, .2);
                 }
             }
@@ -2889,7 +2893,7 @@ a.skin-button{
 .is-light{
     .wp-block-button{
         .wp-block-button__link:not(.has-background){
-            background:var(--thm_sub_background_color_darken);
+            background:var(--thm_sub_background_color_lighten);
         }
     }
 }

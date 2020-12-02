@@ -193,10 +193,10 @@ if ( ! function_exists( 'emulsion_theme_default_val' ) ) {
 			 * border
 			 */
 
-			'emulsion_border_global'				 => array( 'default' => '#eeeeee', 'unit' => '', ),
-			'emulsion_border_sidebar'				 => array( 'default' => '#eeeeee', 'unit' => '', ),
-			'emulsion_border_grid'					 => array( 'default' => '#eeeeee', 'unit' => '', ),
-			'emulsion_border_stream'				 => array( 'default' => '#eeeeee', 'unit' => '', ),
+			'emulsion_border_global'				 => array( 'default' => '#bcbcbc', 'unit' => '', ),
+			'emulsion_border_sidebar'				 => array( 'default' => '#bcbcbc', 'unit' => '', ),
+			'emulsion_border_grid'					 => array( 'default' => '#bcbcbc', 'unit' => '', ),
+			'emulsion_border_stream'				 => array( 'default' => '#bcbcbc', 'unit' => '', ),
 			'emulsion_border_global_style'			 => array( 'default' => 'solid', 'unit' => '', ),
 			'emulsion_border_sidebar_style'			 => array( 'default' => 'solid', 'unit' => '', ),
 			'emulsion_border_grid_style'			 => array( 'default' => 'solid', 'unit' => '', ),

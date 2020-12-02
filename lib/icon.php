@@ -412,7 +412,7 @@ function emulsion_icon_svg_styles( $css ) {
 }
 .menu-social-menu-container{
 	padding-left:var(--thm_content_gap);
-	padding-right:var(--thm_content_gap);	
+	padding-right:var(--thm_content_gap);
 }
 .social-navigation .menu-social-menu-container ul{
     list-style: none;
@@ -436,12 +436,13 @@ function emulsion_icon_svg_styles( $css ) {
     border-radius: calc(  var(--thm_common_font_size) * 2 + 8px);
     display: inline-block;
     height: calc(  var(--thm_common_font_size) * 2 + 6px);
-    /* margin: 0 1em 0.5em 0;*/
     text-align: center;
     width: calc(  var(--thm_common_font_size) * 2 + 6px);
     position:relative;
     border:2px solid rgba(188,188,188,.5);
     background:var(--thm_social_icon_bg_color);
+	
+
 }
 
 .social-navigation a:hover,

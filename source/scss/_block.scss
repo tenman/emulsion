@@ -188,6 +188,20 @@ wp-block-search, wp-block-social-links, wp-block-tag-cloud, wp-block-embed, wp-b
             padding-right:var(--thm_content_gap);
         }
     }
+    .wp-block-buttons{
+        padding-left:0;
+        padding-right:0;
+        .wp-block-button{
+            padding-left:var(--thm_box_gap);
+            padding-right:var(--thm_box_gap);
+            .wp-block-button__link{
+                text-align:center;
+                padding-left:var(--thm_content_gap);
+                padding-right:var(--thm_content_gap);
+                box-sizing:border-box;
+            }
+        }
+    }
     [class|="sectionized"]{
         [class|="wp-block"]{
             &.alignfull{
