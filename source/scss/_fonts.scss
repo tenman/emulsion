@@ -287,7 +287,7 @@ footer.banner{
 .relate-posts-title{
     font-size:22px;
 }
-.entry-content > .sectionized-wp-block-columns > .wp-block-columns{
+#document .wp-block-columns{
     /**
      * Page Layout
      */
@@ -303,6 +303,7 @@ footer.banner{
                 text-transform:var(--thm_meta_data_font_transform);
             }
         }
+        &.is-style-main,
         &.main{
             @include font_size(4);
             margin-top:0;
@@ -370,7 +371,7 @@ $step: 100;
  * wp-block
  */
 .wp-block-columns{
-    .wp-block-column:not(.main){
+    .wp-block-column:not(.main):not(.is-style-main){
         @include font_size(5);
         h1,h2,h3,h4,h5,h6,p,ul,ol,table,.wp-block-table{
             margin-top:20px;

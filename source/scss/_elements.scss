@@ -223,7 +223,8 @@ footer{
 .is-loop.excerpt,
 .is-loop.full_text{
     .article-wrapper:nth-of-type(n+2){
-        content-visibility:auto;
+       //Since the hash link does not work properly, it is pending.
+      //  content-visibility:auto;
     }
 }
 
@@ -1040,6 +1041,7 @@ ol.wp-list-comments{
         overflow:hidden;
     }
 }
+
 ul:not(.list-style-initial):not(.is-style-list-style-initial){
     &.is-style-list-style-none,
     &.list-style-none{
@@ -1153,14 +1155,16 @@ ul:not(.list-style-initial):not(.is-style-list-style-initial){
 /**
  * UL list format exception
  */
-
+.menu-placeholder .toc ul,
 .layout ul.debug-menu-links,
 .layout ul.taxonomy,
 .menu-main-container .toc ul,
 .layout ul.blocks-gallery-grid,
 .layout ul.list-style-tab,
 .layout ul.is-style-list-style-inline,
+.is-root-container ul.is-style-list-style-inline,
 .layout ul.list-style-inline,
+.is-root-container .is-style-list-style-initial,
 .layout ul.is-style-list-style-initial,
 .layout ul.list-style-initial,
 .layout ul[class|="wp-block"],
@@ -1219,6 +1223,8 @@ ul:not(.list-style-initial):not(.is-style-list-style-initial){
 
 ul.is-style-list-style-initial,
 ul.list-style-initial{
+    width:var(--thm_content_width);
+    max-width:100%;
     padding-left:calc( var(--thm_content_gap) * 3 );
     padding-right:var(--thm_content_gap);
     li{
@@ -1452,6 +1458,7 @@ ul.blocks-gallery-grid{
 .list-style-inline{
     li{
         text-indent:0;
+
     }
 }
 
@@ -1560,8 +1567,8 @@ pre {
 }
 pre > code{
     display:block;
-    font-size:var(--thm_meta_data_font_size);
-    padding:var(--thm_meta_data_font_size);
+    font-size:inherit;
+    padding:1rem;
     &:empty{
         display:none;
     }

@@ -5,7 +5,7 @@ Theme URI: https://www.tenman.info/wp3/emulsion
 Description: block editor, classic editor both supports. Conventional, Image Media New Block Type Image Both media can be displayed correctly.Theme can stop at each theme style page for page builder users. Customizer can easily view changes with automatic preview redirection.Theme is designed with the goal of minimizing user frustration.
 Author: Tenman
 Author URI: https://www.tenman.info/wp3/
-Version: 1.6.7
+Version: 1.6.8
 Tags: one-column, two-columns, grid-layout,left-sidebar, right-sidebar,custom-background, custom-colors, custom-header,custom-logo, custom-menu, editor-style, featured-image-header, featured-images, flexible-header, footer-widgets, full-width-template, post-formats, sticky-post, theme-options, threaded-comments, translation-ready, block-patterns, block-styles, wide-blocks
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -248,6 +248,7 @@ body .header-is-light ~ .scroll-button-top:before {
     left: -2px;
     margin: auto;
 }
+
 .header-layer.header-image-active .header-layer-nav-menu .nav-menu-child-opener[type="checkbox"]:checked ~ label:before,
 /*body.is-dark.metabox-reset-post-presentation .header-layer-site-title-navigation .menu .nav-menu-child-opener[type="checkbox"]:checked ~ label:before,*/
 body .header-is-dark .header-layer-site-title-navigation .menu .nav-menu-child-opener[type="checkbox"]:checked ~ label:before,
@@ -307,6 +308,8 @@ body.is-light.metabox-reset-post-presentation .header-layer-site-title-navigatio
     background: url(./images/svg/arrow-up.svg);
     background-size: contain;
 }
+body.is-light .dropdown-on-click-title:after,
+body.is-light .dropdown-on-hover-title:after,
 body > header.header-layer.header-is-light .menu .nav-menu-child-opener-label:before,
 body > header.template-part-header.header-is-light .header-layer-site-title-navigation .menu[data-direction="vertical"] .menu-item .nav-menu-child-opener ~ .nav-menu-child-opener-label:before,
 body.paged .header-layer.header-is-light .header-layer-site-title-navigation .menu .nav-menu-child-opener-label:before ,
@@ -328,12 +331,15 @@ body.is-light.metabox-reset-post-presentation .header-layer-site-title-navigatio
     filter: none;
     -webkit-filter: none;
 }
+
 body.is-dark .header-layer.template-part-header-custom + .primary-menu-wrapper.menu-is-default .menu.wp-nav-menu .nav-menu-child-opener[type="checkbox"]:checked ~ label:before{
     background: url(./images/svg/arrow-up.svg#white);
     background-size: contain;
     filter: none;
     -webkit-filter: none;
 }
+body.is-dark .dropdown-on-click-title:after,
+body.is-dark .dropdown-on-hover-title:after,
 body.is-dark .header-layer.template-part-header-custom + .primary-menu-wrapper.menu-is-default .menu.wp-nav-menu .nav-menu-child-opener-label:before{
     background: url(./images/svg/arrow-down.svg#white);
     background-size: contain;

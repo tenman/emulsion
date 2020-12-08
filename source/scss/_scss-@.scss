@@ -199,27 +199,6 @@
                 align-self: flex-start;
                 margin-top:0;
 
-                /*.wrapper-in-the-loop{
-
-                    display:block;
-                    max-width:100%;
-                    padding:0;
-                    margin:0;
-                    span{
-                        display:block;
-                        width:100%;
-                        .post-thumbnail-in-the-loop{
-                            margin:0 auto -6px;
-                            width:100%;
-                            max-width:100%;
-                            object-fit:contain;
-                        }
-                    }
-                    .entry-title{
-                        display:block;
-                        width:100%;
-                    }
-                }*/
             }
             footer{
                 flex:0 0 auto;
@@ -270,11 +249,13 @@
 /**
  * Box Shacow
  * @extend %boxshadow
+ *
+ * Already outdated
  */
 %boxshadow {
-    -webkit-box-shadow: -1px 3px 4px 0px rgba( 0, 0, 0, .3 );
-    -moz-box-shadow: -1px 3px 4px 0px rgba( 0, 0, 0, .3 );
-    box-shadow: -1px 3px 4px 0px rgba( 0, 0, 0, .3 );
+    -webkit-box-shadow:var(--thm_box_shadow);
+    -moz-box-shadow:var(--thm_box_shadow);
+    box-shadow:var(--thm_box_shadow);
 }
 
 /**

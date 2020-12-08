@@ -233,6 +233,9 @@ if ( ! function_exists( 'emulsion_setup' ) ) {
 		if (  'enable' == get_theme_mod( 'emulsion_alignfull', emulsion_theme_default_val( 'emulsion_alignfull' ) ) ) {
 
 			add_theme_support( 'align-wide' );
+		} else {
+			
+			remove_theme_support( 'align-wide' );
 		}
 		/**
 		 * Block editor experimental style
@@ -2335,7 +2338,7 @@ function emulsion_scheme_validate( $input ) {
 
 function emulsion_block_editor_assets() {
 
-	wp_enqueue_script( 'emulsion-block', esc_url( get_template_directory_uri() . '/js/block.js' ), 	array( 'wp-blocks', 'wp-i18n' ) );
+	wp_enqueue_script( 'emulsion-block', esc_url( get_template_directory_uri() . '/js/block.js' ), 	array( 'wp-blocks', 'wp-i18n','wp-editor' ) );
 }
 
 add_action( 'enqueue_block_editor_assets', 'emulsion_block_editor_assets' );
@@ -2378,7 +2381,12 @@ IMPORT;
 		. ' h5.is-style-remove-text-transform,'
 		. ' h4.is-style-remove-text-transform,'
 		. ' h3.is-style-remove-text-transform,'
-		. ' h2.is-style-remove-text-transform{'
+		. ' h2.is-style-remove-text-transform,'
+		. '#document h6.is-style-remove-text-transform,'
+		. '#document h5.is-style-remove-text-transform,'
+		. '#document h4.is-style-remove-text-transform,'
+		. '#document h3.is-style-remove-text-transform,'
+		. '#document h2.is-style-remove-text-transform{'
 		. "text-transform: none;"
 		. "}",) );
 
@@ -2407,6 +2415,9 @@ IMPORT;
 	register_block_style( 'core/verse', array( 'name' => 'has-regular-font-size', 'label' => esc_html__( 'Regular Font', 'emulsion' ), ) );
 	register_block_style( 'core/verse', array( 'name' => 'has-large-font-size', 'label' => esc_html__( 'Large Font', 'emulsion' ), ) );
 	register_block_style( 'core/verse', array( 'name' => 'has-extra-large-font-size', 'label' => esc_html__( 'Extra Large Font', 'emulsion' ), ) );
+
+	register_block_style( 'core/buttons', array( 'name' => 'has-shadow', 'label' => esc_html__( 'Add Shadow', 'emulsion' ), ) );
+	register_block_style( 'core/column', array( 'name' => 'main', 'label' => esc_html__( 'Main Column', 'emulsion' ), ) );
 }
 
 function emulsion_block_pattern() {

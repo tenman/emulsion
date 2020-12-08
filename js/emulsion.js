@@ -862,6 +862,13 @@ jQuery(function ($) {
         });
 
     });
+
+    $('.dropdown-on-hover, .dropdown-on-click').each(function (i) {
+        $(this).attr({
+            'tabindex': '0',
+        });
+
+    });
 });
 
 

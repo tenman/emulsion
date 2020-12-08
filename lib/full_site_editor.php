@@ -21,7 +21,7 @@ if ( emulsion_do_fse() ) {
 			return;
 		}
 
-		foreach ( get_template_types() as $template_type ) {
+		foreach ( gutenberg_get_template_type_slugs() as $template_type ) {
 			if ( 'embed' === $template_type ) { // Skip 'embed' for now because it is not a regular template type.
 				continue;
 			}
@@ -99,7 +99,7 @@ function emulsion_stop_fse() {
 		remove_filter( 'emulsion_element_classes_root', 'emulsion_element_classes_root_filter' );
 
 		$result = '';
-		foreach ( get_template_types() as $template_type ) {
+		foreach ( gutenberg_get_template_type_slugs() as $template_type ) {
 			if ( 'embed' === $template_type ) { // Skip 'embed' for now because it is not a regular template type.
 				continue;
 			}

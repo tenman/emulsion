@@ -153,9 +153,7 @@ body{
 
     .list-style-tab.success-js{
         & > li{
-            color:var(--thm_general_link_color);
-            background:var(--thm_background_color);
-
+           
             &.active{
                 background:var(--thm_sub_background_color_lighten);
             }
@@ -1414,6 +1412,11 @@ a:-webkit-any-link{
 }
 body{
     $background_tranparent_hover:rgba(188, 188, 188, .2);
+
+    .wp-block-button__link{
+
+        color:var(--thm_general_link_color);
+    }
     &.is-dark{
         div.gallery .gallery-item,/* classic editor */
         .wp-block-gallery .blocks-gallery-item{
@@ -2893,6 +2896,7 @@ a.skin-button{
 .is-light{
     .wp-block-button{
         .wp-block-button__link:not(.has-background){
+
             background:var(--thm_sub_background_color_lighten);
         }
     }
@@ -2908,143 +2912,146 @@ a.skin-button{
             }
         }
     }
-    .wp-block-button{
-        &.is-style-outline{
+    .wp-block-buttons{
+        .wp-block-button{
+            &.is-style-outline{
+                .wp-block-button__link{
+                    color:var(--thm_general_link_color);
+                    background:transparent;
+                    &:not(.has-text-color),
+                        &:not(.has-text-color):active,
+                        &:not(.has-text-color):focus,
+                        &:not(.has-text-color):hover{
+                        color:var(--thm_general_link_color);
+                    }
+                    &:not(.has-background),
+                        &:not(.has-background):active,
+                        &:not(.has-background):focus,
+                        &:not(.has-background):hover{
+                        background:transparent;
+                    }
+                }
+            }
+            &.is-style-default{
+                .wp-block-button__link{
+                    border-radius:calc( var(--thm_common_font_size) * var(--thm_content_line_height));
+                }
+            }
+            &.no-border-radius,
+            &.is-style-squared{
+                // old 7.9 before
+                &.wp-block-button__link{
+                    border-radius:0;
+                }
+            }
             .wp-block-button__link{
-                color:var(--thm_general_link_color);
-                background:transparent;
                 &:not(.has-text-color),
                     &:not(.has-text-color):active,
                     &:not(.has-text-color):focus,
                     &:not(.has-text-color):hover{
-                    color:var(--thm_general_link_color);
+                    // color:var(--thm_white_color);
+                    color:var(--thm_general_text_color);
                 }
                 &:not(.has-background),
                     &:not(.has-background):active,
                     &:not(.has-background):focus,
                     &:not(.has-background):hover{
-                    background:transparent;
+                    color:var(--thm_general_link_color);
+                }
+                &.has-background{
+                    position:relative;
+                }
+                &.has-success-background-color{
+                    color:var(--thm_black_color);
+                }
+                &.has-notice-background-color{
+                    color:var(--thm_black_color);
+                }
+                &.has-info-background-color{
+                    color:var(--thm_black_color);
+                }
+                &.has-alert-background-color{
+                    color:var(--thm_black_color);
+                }
+                &.has-cool-background-color{
+                    color:var(--thm_black_color);
+                }
+                &.has-black-color{
+                    color:var(--thm_black_color);
+                }
+                &.has-gray-color{
+                    color:var(--thm_gray_color);
+                }
+                &.has-white-color{
+                    color:var(--thm_white_color);
+                }
+                &.has-alert-color{
+                    color:var(--thm_alert_color);
+                }
+                &.has-notice-color{
+                    color:var(--thm_notice_color);
+                }
+                &.has-info-color{
+                    color:var(--thm_info_color);
+                }
+                &.has-cool-color{
+                    color:var(--thm_cool_color);
                 }
             }
-        }
-        &.is-style-default{
-            .wp-block-button__link{
-                border-radius:calc( var(--thm_common_font_size) * var(--thm_content_line_height));
+            &.aligncenter{
+                width:fit-content;
             }
-        }
-        &.no-border-radius,
-        &.is-style-squared{
-            // old 7.9 before
-            &.wp-block-button__link{
-                border-radius:0;
-            }
-        }
-        .wp-block-button__link{
-            &:not(.has-text-color),
-                &:not(.has-text-color):active,
-                &:not(.has-text-color):focus,
-                &:not(.has-text-color):hover{
-                color:var(--thm_white_color);
-            }
-            &:not(.has-background),
-                &:not(.has-background):active,
-                &:not(.has-background):focus,
-                &:not(.has-background):hover{
-                color:var(--thm_general_link_color);
-            }
-            &.has-background{
-                position:relative;
-            }
-            &.has-success-background-color{
-                color:var(--thm_black_color);
-            }
-            &.has-notice-background-color{
-                color:var(--thm_black_color);
-            }
-            &.has-info-background-color{
-                color:var(--thm_black_color);
-            }
-            &.has-alert-background-color{
-                color:var(--thm_black_color);
-            }
-            &.has-cool-background-color{
-                color:var(--thm_black_color);
-            }
-            &.has-black-color{
-                color:var(--thm_black_color);
-            }
-            &.has-gray-color{
-                color:var(--thm_gray_color);
-            }
-            &.has-white-color{
-                color:var(--thm_white_color);
-            }
-            &.has-alert-color{
-                color:var(--thm_alert_color);
-            }
-            &.has-notice-color{
-                color:var(--thm_notice_color);
-            }
-            &.has-info-color{
-                color:var(--thm_info_color);
-            }
-            &.has-cool-color{
-                color:var(--thm_cool_color);
-            }
-        }
-        &.aligncenter{
-            width:fit-content;
-        }
-        &.button-has-background{
-            a{
-                &:before {
-                    content: '';
-                    position: absolute;
-                    width: 100%;
-                    height: 100%;
-                    background: var(--thm_white_color);
-                    left: 0;
-                    top: 0;
-                    border-radius: 1.5rem;
-                    z-index:-1;
-                }
-                &.no-border-radius:before{
-                    content: '';
-                    border-radius:0;
+            &.button-has-background{
+                a{
+                    &:before {
+                        content: '';
+                        position: absolute;
+                        width: 100%;
+                        height: 100%;
+                        background: var(--thm_white_color);
+                        left: 0;
+                        top: 0;
+                        border-radius: 1.5rem;
+                        z-index:-1;
+                    }
+                    &.no-border-radius:before{
+                        content: '';
+                        border-radius:0;
+                    }
                 }
             }
-        }
-        &.no-border-radius,
-        &.is-style-squared{ // old 7.9 before
-                            & a{
-                                &:before {
-                                    content: '';
-                                    border-radius:initial;
+            &.no-border-radius,
+            &.is-style-squared{ // old 7.9 before
+                                & a{
+                                    &:before {
+                                        content: '';
+                                        border-radius:initial;
+                                    }
                                 }
-                            }
-        }
-        &.is-style-outline{
-            &:before{
-                display:none;
             }
-            a{
-                &.has-text{
-                    color: var(--thm_general_text_color);
-                    background:transparent;
-                    border-color:var(--thm_common_border, rgba(188,188,188,.5));
-                    border-style:var(--thm_common_border_style);
-                    border-width:var(--thm_common_border_width);
+            &.is-style-outline{
+                &:before{
+                    display:none;
+                }
+                a{
+                    &.has-text{
+                        color: var(--thm_general_text_color);
+                        background:transparent;
+                        border-color:var(--thm_common_border, rgba(188,188,188,.5));
+                        border-style:var(--thm_common_border_style);
+                        border-width:var(--thm_common_border_width);
+                    }
                 }
             }
+            &.is-style-default{
+                border-radius: calc(var(--thm_common_font_size) * var(--thm_content_line_height));
+                overflow:hidden;
+            }
         }
-        &.is-style-default{
-            border-radius: calc(var(--thm_common_font_size) * var(--thm_content_line_height));
-            overflow:hidden;
-        }
-    }
-    .wp-block-categories{
-        .emulsion-cat-count{
-            color: var(--thm_general_text_color);
+        .wp-block-categories{
+            .emulsion-cat-count{
+                color: var(--thm_general_text_color);
+            }
         }
     }
 }

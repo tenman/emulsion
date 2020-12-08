@@ -52,7 +52,7 @@ a{
             }
             &:focus,
                 &.active{
-               
+
                 outline:none;
             }
 
@@ -100,6 +100,15 @@ a{
                     visibility:visible;
                     @include clearfix;
                     top:40px;
+                }
+            }
+        }
+        &.has-background{
+           
+            & > li{
+                &:after{
+                    top:4rem;
+
                 }
             }
         }
@@ -636,7 +645,7 @@ $indent-classes:('5rem','10rem','15rem','20rem','right-5rem','right-10rem','righ
     }
     .toc{
         transition:box-shadow .5s ease-in-out;
-        @extend %boxshadow;
+        box-shadow: var(--thm_box_shadow);
     }
     .wp-block-latest-posts{
         li{
@@ -680,7 +689,7 @@ body{
             }
             .nav-menu-child-opener:checked ~ .sub-menu,
                 .nav-menu-child-opener:checked ~ .children{
-                @extend %boxshadow;
+                box-shadow: var(--thm_box_shadow);
             }
             &[data-direction="vertical"]{
                 .nav-menu-child-opener:checked ~ .sub-menu,
@@ -708,7 +717,7 @@ body{
     &.on-scroll{
         .primary-menu-wrapper,
         .header-layer-site-title-navigation{
-            box-shadow: 0 4px 2px -2px rgba(0,0,0,0.25);
+            box-shadow: var(--thm_box_shadow);
         }
     }
 }
@@ -1690,7 +1699,7 @@ ul.shrink{
      */
     .sidebar-widget-area a[data-title]:hover:after{
         opacity:1;
-        @extend %boxshadow;
+        box-shadow: var(--thm_box_shadow);
     }
 
     /**
@@ -1701,14 +1710,14 @@ ul.shrink{
             &.grid{
                 article:target,
                     article:hover{
-                    @extend %boxshadow;
+                    box-shadow: var(--thm_box_shadow);
                 }
             }
 
             &.stream{
                 article:target,
                     article:hover{
-                    @extend %boxshadow;
+                    box-shadow: var(--thm_box_shadow);
                 }
             }
         }
@@ -1717,7 +1726,7 @@ ul.shrink{
                 background:var(--thm_white_color);
                 &:hover{
 
-                    // @extend %boxshadow;
+
                 }
             }
 
@@ -1725,7 +1734,7 @@ ul.shrink{
                 li{
                     &:hover{
                         background:var(--thm_white_color);
-                        @extend %boxshadow;
+                        box-shadow: var(--thm_box_shadow);
                     }
                 }
             }
@@ -1733,7 +1742,7 @@ ul.shrink{
         .wp-block-rss.is-grid{
             li:hover{
                 background:var(--thm_white_color);
-                @extend %boxshadow;
+                box-shadow: var(--thm_box_shadow);
             }
         }
         .wp-block-latest-comments{
@@ -2529,6 +2538,19 @@ body{
                 margin-bottom:0;
                 background:var(--thm_background_color);
             }
+        }
+    }
+}
+
+
+.wp-block-buttons.is-style-has-shadow{
+
+    .wp-block-button{
+        .wp-block-button__link{
+            box-shadow: var(--thm_box_shadow);
+        }
+        .wp-block-button__link:active{
+            box-shadow:none;
         }
     }
 }

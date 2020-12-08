@@ -59,8 +59,10 @@
                 .#{$fse_block}{
                     &.alignfull{
                         @extend %no-sidebar-alignfull;
+
                     }
                 }
+                
                 .edit-site .wp-block[data-align="full"]{
                     @extend %no-sidebar-alignfull;
                     position:static!important;
@@ -101,6 +103,8 @@
                 margin-right:auto;
             }
             .#{$fse_block}__inner-container{
+                padding-left:0;
+                padding-right:0;
                 h1,h2,h3,h4,h5,h6{
 
                 }
@@ -159,11 +163,11 @@
     .post-navigation,
     .pagination,
     .wp-block-query,
-    [class|="wp-block"],
+   // [class|="wp-block"],
     blockquote cite,
     .description,
     .wp-block-post-date,
-    .entry-content > div,
+   // .entry-content > div,
     address,aside,canvas,dd,dl,dt,fieldset,
     figcaption,hr,iframe,noscript,output,pre,section,video,
     ul,ol,table,p,form,h1,h2,h3,h4,h5,h6{
@@ -176,6 +180,14 @@
         box-sizing:border-box;
     }
 
+    .wp-block-group{
+        &.emulsion-panel{
+            .emulsion-panel-title{
+                margin-top:0;
+                margin-bottom:0;
+            }
+        }
+    }
     /**
      * Structure block
      */
