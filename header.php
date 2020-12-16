@@ -20,11 +20,11 @@
 		emulsion_sidebar_manager();
 		?>
 		<div class="page-wrapper layout">
-			<?php if ( has_action( 'emulsion_prepend_page_wrapper' ) ) { ?>
-				<div class="placeholder-header"><?php do_action( 'emulsion_prepend_page_wrapper' ); ?></div>
-			<?php } ?>
+
+			<?php emulsion_action('emulsion_prepend_page_wrapper'); ?>
+			
 			<main id="main">
 				<?php ! have_posts() ? get_template_part( 'template-parts/failed' ) : ''; ?>
 
-				
+
 

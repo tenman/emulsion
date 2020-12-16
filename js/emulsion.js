@@ -224,6 +224,8 @@ jQuery(function ($) {
         }
     });
 });
+
+
 jQuery(function ($) {
     "use strict";
     /**
@@ -538,7 +540,7 @@ jQuery(function ($) {
                 var parent_width = $(this).parents('.entry-content').width();
                 var negative_margin = parseInt(article_width) - parseInt(parent_width);
                 negative_margin = negative_margin / -2;
-                $(this).css({'width': article_width, 'left': negative_margin, 'visibility': 'visible'});
+                $(this).css({'width': article_width, 'left': negative_margin});
             });
             $(".emulsion-no-sidebar.enable-alignfull .entry-content > .alignfull").not('.wp-block-cover, .wp-block-embed').each(function (i) {
                 var article_width = $(this).parents('article').width();
@@ -547,7 +549,7 @@ jQuery(function ($) {
                 var main_width = $(this).parents('main').width();
                 negative_margin = parseInt(main_width) - parseInt(article_width) + parseInt(negative_margin);
                 negative_margin = negative_margin / -2;
-                $(this).css({'width': article_width, 'left': negative_margin, 'position': 'relative', 'visibility': 'visible'});
+                $(this).css({'width': article_width, 'left': negative_margin, 'position': 'relative'});
             });
         }
         if ($('.emulsion-full').length) {
@@ -556,7 +558,7 @@ jQuery(function ($) {
                 var parent_width = $(this).parents('.entry-content').width();
                 var negative_margin = parseInt(article_width) - parseInt(parent_width);
                 negative_margin = negative_margin / -2;
-                $(this).css({'width': article_width, 'left': negative_margin, 'visibility': 'visible'});
+                $(this).css({'width': article_width, 'left': negative_margin});
             });
             $(".emulsion-no-sidebar.enable-alignfull .entry-content > .emulsion-full").each(function (i) {
                 var article_width = $(this).parents('article').width();
@@ -565,7 +567,7 @@ jQuery(function ($) {
                 var main_width = $(this).parents('main').width();
                 negative_margin = parseInt(main_width) - parseInt(article_width) + parseInt(negative_margin);
                 negative_margin = negative_margin / -2;
-                $(this).css({'width': article_width, 'left': negative_margin, 'position': 'relative', 'visibility': 'visible'});
+                $(this).css({'width': article_width, 'left': negative_margin, 'position': 'relative'});
             });
         }
 
@@ -575,7 +577,7 @@ jQuery(function ($) {
             var parent_width = $(this).parents('.entry-content').width();
             var negative_margin = parseInt(article_width) - parseInt(parent_width);
             var negative_margin = negative_margin / -2;
-            $(this).css({'width': article_width, 'left': negative_margin, 'position': 'relative', 'display': 'flex', 'visibility': 'visible'});
+            $(this).css({'width': article_width, 'left': negative_margin, 'position': 'relative', 'display': 'flex'});
         });
         /**
          * Detect mobile devices.
@@ -1060,5 +1062,24 @@ jQuery(function ($) {
             $(this).children().removeClass('alignwide');
             $(this).addClass('alignwide');
         }
+    });
+});
+jQuery(function ($) {
+    $('.wp-block-search__inside-wrapper[style]').each(function (i) {
+
+        var form_width = $(this).parent().width();
+            form_width = parseInt( form_width );
+            console.log( form_width );
+
+        var content_width = $(this).attr('style');
+            content_width = String( content_width ).replace(/[^0-9]/g, '');
+            content_width = parseInt( content_width ) / 100;
+
+
+        var form_width_result = form_width * content_width;
+
+        $(this).removeAttr('style');
+        $(this).parent().css({'width': form_width_result + 'px','max-width':'100%'});
+
     });
 });

@@ -153,7 +153,7 @@ body{
 
     .list-style-tab.success-js{
         & > li{
-           
+
             &.active{
                 background:var(--thm_sub_background_color_lighten);
             }
@@ -2097,26 +2097,7 @@ table{
         }
     }
 }
-/*
-#wp-calendar{
-    tr{
-        th{
-            border-color:var(--thm_common_border, rgba(188,188,188,.5));
-            border-style:var(--thm_common_border_style);
-            border-width:var(--thm_common_border_width);
-        }
-        td{
-            border-color:var(--thm_common_border, rgba(188,188,188,.5));
-            border-style:var(--thm_common_border_style);
-            border-width:var(--thm_common_border_width);
-        }
-    }
-    tfoot{
-        td{
-            border:none;
-        }
-    }
-}*/
+
 .wp-block-table{
     table{
         background: var(--thm_background_color);
@@ -2883,12 +2864,18 @@ a.skin-button{
 }
 .wp-block-search .wp-block-search__button{
     background: var(--thm_header_bg_color);
+    color:var(--thm_header_text_color);
     &:before{
         //@since 1.2.9 move to style.css background: url(#{$theme_image_dir}svg/search.svg#white);
         background-size:16px 16px;
         background-position:16px 0;
         background-repeat:no-repeat;
     }
+}
+.widget_search .wp-block-search__button{
+    background: var(--thm_header_bg_color);
+    color:var(--thm_header_text_color);
+
 }
 /**
  * Block Button
@@ -3013,6 +3000,7 @@ a.skin-button{
                         top: 0;
                         border-radius: 1.5rem;
                         z-index:-1;
+                        border-radius: inherit;
                     }
                     &.no-border-radius:before{
                         content: '';
@@ -3216,7 +3204,7 @@ body{
  * ========================================================================== */
 .is-dark{
     .entry-content .shortcode-wrapper,
-    .entry-content > div[id]{
+    .entry-content > div[id]:not([class|="wp-block"]){
         padding:1rem;
     }
 }

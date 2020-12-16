@@ -88,7 +88,7 @@
     --thm_sidebar_text_color:$sidebar_color;
     --thm_sidebar_width: $sidebar_width;
     --thm_social_icon_bg_color:$sub_background_color_lighten;
-    --thm_social_icon_color:$general_link_color;
+    --thm_social_icon_color:$general_text_color;
     --thm_sub_background_color_darken:$sub_background_color_darken;
     --thm_sub_background_color_lighten:$sub_background_color_lighten;
     --thm_box_shadow: -1px 3px 4px 0px rgba(0, 0, 0, 0.4);
@@ -99,6 +99,13 @@
     --thm_common_border_style:$border_global_style;
     --thm_common_border_width:$border_global_width;
 }
+.is-dark{
+    --thm_social_icon_bg_color:#000000;
+}
+.is-light{
+    --thm_social_icon_bg_color:#ffffff;
+}
+
 //fallback minimam color style
 
 body{
@@ -141,6 +148,36 @@ body{
     }
 }
 
+
+/**
+ * Fallback colors
+ */
+
+
+body:not(.emulsion-not-support-presentation){
+    --thm_black_color:#333333;
+    --thm_gray_color:#727477;
+    --thm_silver_color:#bebebe;
+    --thm_cloud_color:#ecf0f1;
+    --thm_white_color:#ffffff;
+    --thm_alert_color:rgba(231, 76, 60, 1);
+    --thm_notice_color:rgba(163, 140, 8, 1);
+    --thm_info_color:rgba(22, 160, 133, 1);
+    --thm_cool_color:rgba(52, 152, 219, 1);
+    --thm_alert_color_alpha:rgba(231, 76, 60, .4);
+    --thm_notice_color_alpha:rgba(163, 140, 8, .4);
+    --thm_info_color_alpha:rgba(22, 160, 133, .4);
+    --thm_cool_color_alpha:rgba(52, 152, 219, .4);
+    --thm_lighten:linear-gradient(rgba(255, 255, 255, .2), rgba(255, 255, 255, .2));
+    --thm_darken:linear-gradient(rgba(0, 0, 0, .2), rgba(0, 0, 0, .2));
+    --thm_default_bullet_color:#3498db;
+}
+body:not(.emulsion-not-support-presentation) .wp-block-table{
+    --thm_table_light_gray_background:#f3f4f5;
+    --thm_table_pale_green_background:#e9fbe5;
+    --thm_table_pale_blue_background:#e7f5fe;
+    --thm_table_pale_pink_background:#ffccf8;
+}
 /**
  * For System Theme Color
  * default false
@@ -376,7 +413,7 @@ body{
             [data-block],
             article,
             .entry-content,
-            .placeholder-header{
+            .emulsion-prepend-page-wrapper{
                 *:not(.has-background){
                     --thm_social_icon_color:#ffffff;
                     --thm_general_text_color:#eee;

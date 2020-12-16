@@ -10,7 +10,7 @@ $emulsion_current_post_type		 = trim( get_post_type() );
 <header class="header-layer <?php emulsion_the_header_layer_class() . emulsion_template_part_names_class( __FILE__ ) ?>">
 	<div class="header-layer-site-title-navigation" >
 		<?php  emulsion_site_text_markup(); ?>
-<?php if ( emulsion_the_theme_supports( 'primary_menu' ) 
+<?php if ( emulsion_the_theme_supports( 'primary_menu' )
 		&& ( !is_singular() || is_page() && true == emulsion_metabox_display_control( 'page_menu' )
 		|| is_single() && true == emulsion_metabox_display_control( 'menu' ) ) ) { ?>
 		<div class="header-layer-nav-menu" >
@@ -34,7 +34,9 @@ $emulsion_current_post_type		 = trim( get_post_type() );
 		</div>
 <?php } ?>
 	</div>
-	
+
 	<?php emulsion_the_theme_supports( 'title_in_page_header' ) ? emulsion_page_header_title() : ''; ?>
-	<?php do_action( 'emulsion_append_header_layer' ); ?>
+	<?php emulsion_action('emulsion_append_header_layer');?>
+
+	<?php //emulsion_action('emulsion_append_header_layer'); ?>
 </header>

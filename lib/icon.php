@@ -26,12 +26,12 @@ register_nav_menus( array(
 function emulsion_get_svg( $args = array() ) {
 	// Make sure $args are an array.
 	if ( empty( $args ) ) {
-		return __( 'Please define default parameters in the form of an array.', 'emulsion' );
+		return esc_html__( 'Please define default parameters in the form of an array.', 'emulsion' );
 	}
 
 	// Define an icon.
 	if ( false === array_key_exists( 'icon', $args ) ) {
-		return __( 'Please define an SVG icon filename.', 'emulsion' );
+		return esc_html__( 'Please define an SVG icon filename.', 'emulsion' );
 	}
 
 	// Set defaults.
@@ -56,9 +56,9 @@ function emulsion_get_svg( $args = array() ) {
 	 *
 	 * However, child themes can use the title and description to add information to non-decorative SVG icons to improve accessibility.
 	 *
-	 * Example 1 with title: <?php echo emulsion_get_svg( array( 'icon' => 'arrow-right', 'title' => __( 'This is the title', 'textdomain' ) ) ); ?>
+	 * Example 1 with title: <?php echo emulsion_get_svg( array( 'icon' => 'arrow-right', 'title' => esc_html__( 'This is the title', 'textdomain' ) ) ); ?>
 	 *
-	 * Example 2 with title and description: <?php echo emulsion_get_svg( array( 'icon' => 'arrow-right', 'title' => __( 'This is the title', 'textdomain' ), 'desc' => __( 'This is the description', 'textdomain' ) ) ); ?>
+	 * Example 2 with title and description: <?php echo emulsion_get_svg( array( 'icon' => 'arrow-right', 'title' => esc_html__( 'This is the title', 'textdomain' ), 'desc' => esc_html__( 'This is the description', 'textdomain' ) ) ); ?>
 	 *
 	 * See https://www.paciellogroup.com/blog/2013/12/using-aria-enhance-svg-accessibility/.
 	 */
@@ -396,6 +396,8 @@ function emulsion_icon_svg_styles( $css ) {
     font-size: 16px;
     font-size: var(--thm_common_font_size);
     margin-bottom: 1em;
+	padding-left:0;
+	padding-right:0;
 }
 @media screen and (min-width: 48em) {
     .social-navigation{
@@ -441,7 +443,7 @@ function emulsion_icon_svg_styles( $css ) {
     position:relative;
     border:2px solid rgba(188,188,188,.5);
     background:var(--thm_social_icon_bg_color);
-	
+	color:var(--thm_social_icon_color);
 
 }
 
@@ -507,7 +509,7 @@ body:not(.agent-tablet):not(.agent-mobile-phone) a[href^="tel:"] .icon{
     display:inline-block;
 }
 CSS;
-	//$style	 = emulsion_sanitize_css( $style );
+
 	$style	 = emulsion_remove_spaces_from_css( $style );
 
 	return $css. $style;

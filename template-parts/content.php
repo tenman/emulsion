@@ -1,9 +1,7 @@
 <div class="article-wrapper <?php emulsion_template_part_names_class( __FILE__ ) ?>">
-	<?php
-	if ( has_action( 'emulsion_article_before' ) ) {
-		?><div class="placeholder-article-before"><?php do_action( 'emulsion_article_before' ); ?></div><?php
-	}
-	?>
+
+	<?php	emulsion_action('emulsion_article_before');	?>
+
 	<article id="post-<?php the_ID() ?>" <?php post_class(); ?>>
 		<?php emulsion_article_header(); ?>
 		<div class="entry-content"><?php
@@ -65,11 +63,7 @@
 				}
 				?><?php edit_post_link( esc_html__( 'Edit', 'emulsion' ), '<span class="editor">', '</span>', '', 'skin-button' ); ?></footer>
 	</article>
-				<?php
-				if ( has_action( 'emulsion_article_after' ) ) {
-					?><div class="placeholder-article-after"><?php do_action( 'emulsion_article_after' ); ?></div><?php
-				}
-				?>
+				<?php emulsion_action('emulsion_article_after'); ?>
 </div>
 	<?php if ( is_singular() ) { ?>
 	<div class="comment-wrapper"><?php emulsion_have_comments(); ?></div>

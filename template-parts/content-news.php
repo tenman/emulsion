@@ -7,23 +7,23 @@
 
 ?><div class="article-wrapper <?php emulsion_template_part_names_class( __FILE__ ) ?>">
 	<?php
-	if ( 'list' == emulsion_current_layout_type() && has_action( 'emulsion_article_before' ) ) {
-		?><div class="placeholder-article-before fit"><?php do_action( 'emulsion_article_before' ); ?></div><?php
+	if ( 'list' == emulsion_current_layout_type() ) {
+		 emulsion_action('emulsion_article_before');
 	}
-	?> 	
+	?>
 	<article id="post-<?php the_ID() ?>" <?php post_class(); ?>>
 		<?php emulsion_article_header(); ?>
-		<div class="entry-content"><?php 
+		<div class="entry-content"><?php
 		if( emulsion_theme_addons_exists() ) {
-			
+
 			emulsion_post_content();
 		} else {
-			
-			'excerpt' == emulsion_get_layout_setting() ? the_excerpt() : the_content();	
+
+			'excerpt' == emulsion_get_layout_setting() ? the_excerpt() : the_content();
 		}
 			wp_link_pages( 'before=<div class="wp-link-pages page-break-links clearfix">&after=</div>&next_or_number=number&pagelink=<span>%</span>' ); ?></div>
 		<footer><?php emulsion_theme_addons_exists() ? emulsion_post_excerpt_more(): ''; ?>
-			<?php 
+			<?php
 			if ( has_nav_menu( 'social' ) && is_singular() && emulsion_the_theme_supports( 'social-link-menu' ) ) {
 				?>
 					<nav class="social-navigation" role="navigation" aria-label="<?php esc_attr_e( 'Footer Social Links Menu', 'emulsion' ); ?>">
@@ -42,14 +42,10 @@
 					</nav><!-- .social-navigation -->
 				<?php
 			}
-				?>	
+				?>
 			<?php edit_post_link( esc_html__( 'Edit', 'emulsion' ), '<span class="editor">', '</span>', '', 'skin-button' ); ?></footer>
 	</article>
-	<?php
-	if ( 'list' == emulsion_current_layout_type() && has_action( 'emulsion_article_after' ) ) {
-		?><div class="placeholder-article-before fit"><?php do_action( 'emulsion_article_after' ); ?></div><?php
-	}
-	?> 
+	<?php emulsion_action('emulsion_article_after'); ?>
 </div>
 <?php if ( is_singular() ) { ?>
 	<div class="comment-wrapper"><?php emulsion_have_comments(); ?></div>

@@ -5,7 +5,7 @@ Theme URI: https://www.tenman.info/wp3/emulsion
 Description: block editor, classic editor both supports. Conventional, Image Media New Block Type Image Both media can be displayed correctly.Theme can stop at each theme style page for page builder users. Customizer can easily view changes with automatic preview redirection.Theme is designed with the goal of minimizing user frustration.
 Author: Tenman
 Author URI: https://www.tenman.info/wp3/
-Version: 1.6.8
+Version: 1.6.9
 Tags: one-column, two-columns, grid-layout,left-sidebar, right-sidebar,custom-background, custom-colors, custom-header,custom-logo, custom-menu, editor-style, featured-image-header, featured-images, flexible-header, footer-widgets, full-width-template, post-formats, sticky-post, theme-options, threaded-comments, translation-ready, block-patterns, block-styles, wide-blocks
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -224,12 +224,7 @@ header{
  * #info    : rgba(22, 160, 133,.6)
  * #alert   : rgba(231, 76, 60,.6)
  */
-.wp-block-search .wp-block-search__button:before {
-    background: url(./images/svg/search.svg#white);
-    background-size: 16px 16px;
-    background-position: 16px 0;
-    background-repeat: no-repeat;
-}
+
 body.is-light .scroll-button-top:before,
 body.is-dark .header-is-default-color ~ .scroll-button-top:before,
 body .header-is-default-color ~ .scroll-button-top:before,
@@ -443,35 +438,6 @@ body.is-dark.metabox-reset-post-presentation .header-layer.template-part-header-
 }
 
 
-/**
- * Fallback colors
- */
-
-
-body:not(.emulsion-not-support-presentation){
-    --thm_black_color:#333;
-    --thm_gray_color:#727477;
-    --thm_silver_color:#bebebe;
-    --thm_cloud_color:#ecf0f1;
-    --thm_white_color:#ffffff;
-    --thm_alert_color:rgba(231, 76, 60, 1);
-    --thm_notice_color:rgba(163, 140, 8, 1);
-    --thm_info_color:rgba(22, 160, 133, 1);
-    --thm_cool_color:rgba(52, 152, 219, 1);
-    --thm_alert_color_alpha:rgba(231, 76, 60, .4);
-    --thm_notice_color_alpha:rgba(163, 140, 8, .4);
-    --thm_info_color_alpha:rgba(22, 160, 133, .4);
-    --thm_cool_color_alpha:rgba(52, 152, 219, .4);
-    --thm_lighten:linear-gradient(rgba(255, 255, 255, .2), rgba(255, 255, 255, .2));
-    --thm_darken:linear-gradient(rgba(0, 0, 0, .2), rgba(0, 0, 0, .2));
-    --thm_default_bullet_color:#3498db;
-}
-body:not(.emulsion-not-support-presentation) .wp-block-table{
-    --thm_table_light_gray_background:#f3f4f5;
-    --thm_table_pale_green_background:#e9fbe5;
-    --thm_table_pale_blue_background:#e7f5fe;
-    --thm_table_pale_pink_background:#ffccf8;
-}
 /*
 .emulsion-addons-inactive .is-dark:not(.emulsion-not-support-presentation):not(.emulsion-removed-presentation ){
     color:var(--thm_white_color);

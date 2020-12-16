@@ -190,7 +190,6 @@ body.excerpt,
         display:block;
     }
     [class|="search-result"],
-    .wp-block-search,
     .wp-playlist,
     .gist,
     .social,
@@ -426,7 +425,7 @@ article.format-gallery .entry-content{
  * fallback for plugins block
  */
 .entry-content{
-    & > div[id]{
+    & > div[id]:not([class|="wp-block"]){
         width:var(--thm_content_width);
         margin-left:auto;
         margin-right:auto;

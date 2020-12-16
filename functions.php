@@ -234,7 +234,7 @@ if ( ! function_exists( 'emulsion_setup' ) ) {
 
 			add_theme_support( 'align-wide' );
 		} else {
-			
+
 			remove_theme_support( 'align-wide' );
 		}
 		/**
@@ -637,6 +637,8 @@ function emulsion_register_scripts_and_styles() {
 		emulsion_style_load_controller( 'emulsion-comments' ) ? wp_enqueue_style( 'emulsion-comments' ): '';
 
 		emulsion_style_load_controller( 'emulsion-primary-menu' ) ? wp_enqueue_style( 'emulsion-primary-menu' ) : '';
+
+
 
 		emulsion_style_load_controller( 'emulsion-misc' ) ? wp_enqueue_style( 'emulsion-misc' ) : '';
 
@@ -2150,7 +2152,7 @@ if ( ! function_exists( 'emulsioncustomize_register' ) ) {
 		);
 
 		$wp_customize->add_section( 'emulsion_scheme', array(
-			'title'			 => __( 'SCHEME', 'emulsion' ),
+			'title'			 => esc_html__( 'SCHEME', 'emulsion' ),
 			'description'	 => $emulsion_theme_mod_args['emulsion_scheme']['description'],
 			'priority'		 => 33
 		) );
@@ -2343,6 +2345,11 @@ function emulsion_block_editor_assets() {
 
 add_action( 'enqueue_block_editor_assets', 'emulsion_block_editor_assets' );
 
+
+/**
+ * Experimental block effect
+ */
+
 if ( function_exists( 'register_block_style' ) ) {
 
 	register_block_style( 'core/code', array( 'name' => 'dark', 'label' => esc_html__( 'Dark', 'emulsion' ), ) );
@@ -2429,17 +2436,24 @@ function emulsion_block_pattern() {
 			'title'			 => esc_html__( 'Presentation TAB', 'emulsion' ),
 			'content'		 => '<!-- wp:list {"className":"list-style-tab"} --><ul class="list-style-tab"><li>tab 1<ul><li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, </li></ul></li><li>tab 2<ul><li> Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </li></ul></li></ul><!-- /wp:list -->',
 			'categories'	 => array( 'emulsion' ),
-			'description'	 => _x( 'Tabs on the front end', 'Block pattern description', 'emulsion' ),
+			'description'	 => esc_html_x( 'Tabs on the front end', 'Block pattern description', 'emulsion' ),
 				)
 		);
 
-		register_block_pattern_category( 'emulsion', array( 'label' => _x( 'Emulsion', 'Emulsion Block pattern', 'emulsion' ) ) );
+		register_block_pattern(
+			'emulsion/block-pattern-modal', array(
+			'title'			 => esc_html__( 'Presentation Modal Box', 'emulsion' ),
+			'content'		 => '<!-- wp:buttons --><div class="wp-block-buttons"><!-- wp:button --><div class="wp-block-button"><a class="wp-block-button__link" href="./#modal-group-1">modal link text</a></div><!-- /wp:button --></div><!-- /wp:buttons --><!-- wp:group {"className":"emulsion-modal solid-border modal"} --><div id="modal-group-1" class="wp-block-group emulsion-modal solid-border modal"><div class="wp-block-group__inner-container"><!-- wp:paragraph {"textAlign":"right","placeholder":"Panel Title","className":"emulsion-modal-title alignfull"} --><p class="has-text-align-right emulsion-modal-title alignfull"><a href="./">X</a></p><!-- /wp:paragraph --><!-- wp:group {"className":"emulsion-modal-content"} --><div class="wp-block-group emulsion-modal-content"><div class="wp-block-group__inner-container"><!-- wp:paragraph {"placeholder":"content"} --><p>content</p><!-- /wp:paragraph --></div></div><!-- /wp:group --></div></div><!-- /wp:group -->',
+			'categories'	 => array( 'emulsion' ),
+			'description'	 => esc_html_x( 'Modal Box on the front end', 'Block pattern description', 'emulsion' ),
+				)
+		);
+
+		register_block_pattern_category( 'emulsion', array( 'label' => esc_html_x( 'Emulsion', 'Emulsion Block pattern', 'emulsion' ) ) );
 	}
-
-
-
 }
+add_action('init','emulsion_block_pattern',9);
 
-add_action( 'init', 'emulsion_block_pattern' );
+
 
 do_action( 'emulsion_functions_after' );

@@ -21,18 +21,18 @@
 
 	emulsion_the_theme_supports( 'title_in_page_header' ) ? emulsion_page_header_title() : '';
 
-	do_action( 'emulsion_append_header_layer' );
+	emulsion_action('emulsion_append_header_layer');
 
 	emulsion_search_drawer();
 	?>
 </header>
 	<?php
-	if ( emulsion_the_theme_supports( 'primary_menu' ) 
-			&& ( ! is_singular() 
-			|| is_page() && true == emulsion_metabox_display_control( 'page_menu' ) 
+	if ( emulsion_the_theme_supports( 'primary_menu' )
+			&& ( ! is_singular()
+			|| is_page() && true == emulsion_metabox_display_control( 'page_menu' )
 			|| is_single() && true == emulsion_metabox_display_control( 'menu' ) ) ) {
 		?>
-	<div class="<?php echo esc_attr( emulsion_element_classes( 'primary' ) ); ?>"> 
+	<div class="<?php echo esc_attr( emulsion_element_classes( 'primary' ) ); ?>">
 		<input type="checkbox" id="primary-menu-controll" name="primary-menu-controll" data-skin="hamburger" data-mod="button" />
 		<label for="primary-menu-controll" title="<?php esc_attr_e( 'menu', 'emulsion' ); ?>"><span tabindex="0"></span></label><?php
 	$emulsion_menu_args = array(

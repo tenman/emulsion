@@ -1,7 +1,7 @@
 # Emulsion
  
 Contributors: nobita
-Requires at least: WordPress 5.0
+Requires at least: WordPress 5.3
 Tested up to: WordPress 5.5.3
 Requires PHP: 5.6
 License: GNU General Public License v2 or later
@@ -145,6 +145,9 @@ stream.png
         * Source: https://github.com/LeaVerou/css3patterns
 
 ## Changelog
+### december 16 2020
+		* 1.6.9
+        * https://github.com/tenman/emulsion/releases
 ### december 8 2020
 		* 1.6.8
         * https://github.com/tenman/emulsion/releases

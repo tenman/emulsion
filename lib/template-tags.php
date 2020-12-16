@@ -1366,3 +1366,16 @@ if ( ! function_exists( 'emulsion_header_text_color_fallback' ) ) {
 	}
 
 }
+
+function emulsion_action( $hook_name ) {
+
+	if( ! has_action( $hook_name ) ) {
+
+		return;
+	}
+	printf('<div class="%1$s">', esc_attr( str_replace('_','-', $hook_name) ) );
+
+	do_action( $hook_name );
+
+	printf('</div>');
+}
