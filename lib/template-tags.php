@@ -1144,11 +1144,17 @@ if ( ! function_exists( 'emulsion_attachment_image' ) ) {
 
 			$image					 = get_post_meta( $post_id, 'image', true );
 			$image					 = wp_get_attachment_image_src( $image, $size );
+
 			$alt					 = get_post_meta( $post_id, '_wp_attachment_image_alt', true );
 			$alt_text				 = '';
 			$aria_describedby		 = '';
 			$alt_text				 = empty( $alt ) ? '' : esc_attr( $alt );
 			$attachment_image_html	 = '<a href="%1$s"><img src="%1$s" width="%2$s" height="%3$s" alt="%4$s" describedby="%5$s" /></a>';
+
+			if( empty($image[1] || $image[2])){
+				//@since 1.7.0
+				$attachment_image_html	 = '<a href="%1$s"><img src="%1$s" data-width="%2$s" data-height="%3$s" alt="%4$s" describedby="%5$s" /></a>';
+			}
 			?>
 			<figure class="attachment-image">
 				<?php

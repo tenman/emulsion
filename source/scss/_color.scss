@@ -206,14 +206,14 @@ body{
         &.is-dark .header-is-default-color ~ .primary-menu-wrapper{
             [for="toc-toggle"]{
                 span{
-                    background:var(--thm_sub_background_color_lighten);
+                   // background:var(--thm_sub_background_color_lighten);
                 }
             }
         }
         &.is-light .header-is-default-color ~ .primary-menu-wrapper{
             [for="toc-toggle"]{
                 span{
-                    background:rgba(188, 188, 188, .2);
+                   // background:rgba(188, 188, 188, .2);
                 }
             }
         }
@@ -2106,18 +2106,26 @@ table{
                 color: var(--thm_black_color);
             }
             td{
-                color:#333
+                color:var(--thm_black_color);
             }
+
             thead tr{
+                background: #f8f8ff;
+
             }
+            tfoot tr{
+                background: #f8f8ff;
+
+            }
+
         }
     }
     thead tr{
-        background: #f8f8ff;
+        background:inherit;
         color:var(--thm_general_text_color);
     }
     tfoot tr{
-        background: #f8f8ff;
+        background:inherit;
         color:var(--thm_general_text_color);
     }
     &.is-style-stripes table:not(.has-background){

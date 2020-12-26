@@ -10,7 +10,7 @@ $emulsion_image_alt				 = get_post_meta( $emulsion_post_id, '_wp_attachment_imag
 <div class="article-wrapper <?php emulsion_template_part_names_class( __FILE__ ) ?>">
 
 	<?php emulsion_action('emulsion_article_before'); ?>
-	
+
 	<article id="post-<?php the_ID() ?>" <?php post_class(); ?>>
 		<?php
 

@@ -2340,7 +2340,7 @@ function emulsion_scheme_validate( $input ) {
 
 function emulsion_block_editor_assets() {
 
-	wp_enqueue_script( 'emulsion-block', esc_url( get_template_directory_uri() . '/js/block.js' ), 	array( 'wp-blocks', 'wp-i18n','wp-editor' ) );
+	wp_enqueue_script( 'emulsion-block', esc_url( get_template_directory_uri() . '/js/block.js' ), 	array( 'wp-blocks', 'wp-i18n','wp-editor', 'jquery' ) );
 }
 
 add_action( 'enqueue_block_editor_assets', 'emulsion_block_editor_assets' );
@@ -2425,6 +2425,8 @@ IMPORT;
 
 	register_block_style( 'core/buttons', array( 'name' => 'has-shadow', 'label' => esc_html__( 'Add Shadow', 'emulsion' ), ) );
 	register_block_style( 'core/column', array( 'name' => 'main', 'label' => esc_html__( 'Main Column', 'emulsion' ), ) );
+
+	register_block_style( 'core/column', array( 'name' => 'sticky', 'label' => esc_html__( 'Sticky Column', 'emulsion' ), ) );
 }
 
 function emulsion_block_pattern() {
@@ -2443,7 +2445,7 @@ function emulsion_block_pattern() {
 		register_block_pattern(
 			'emulsion/block-pattern-modal', array(
 			'title'			 => esc_html__( 'Presentation Modal Box', 'emulsion' ),
-			'content'		 => '<!-- wp:buttons --><div class="wp-block-buttons"><!-- wp:button --><div class="wp-block-button"><a class="wp-block-button__link" href="./#modal-group-1">modal link text</a></div><!-- /wp:button --></div><!-- /wp:buttons --><!-- wp:group {"className":"emulsion-modal solid-border modal"} --><div id="modal-group-1" class="wp-block-group emulsion-modal solid-border modal"><div class="wp-block-group__inner-container"><!-- wp:paragraph {"textAlign":"right","placeholder":"Panel Title","className":"emulsion-modal-title alignfull"} --><p class="has-text-align-right emulsion-modal-title alignfull"><a href="./">X</a></p><!-- /wp:paragraph --><!-- wp:group {"className":"emulsion-modal-content"} --><div class="wp-block-group emulsion-modal-content"><div class="wp-block-group__inner-container"><!-- wp:paragraph {"placeholder":"content"} --><p>content</p><!-- /wp:paragraph --></div></div><!-- /wp:group --></div></div><!-- /wp:group -->',
+			'content'		 => '<!-- wp:buttons --><div class="wp-block-buttons modal-open-link"><!-- wp:button --><div class="wp-block-button"><a class="wp-block-button__link" href="./#modal-group-1">modal link text</a></div><!-- /wp:button --></div><!-- /wp:buttons --><!-- wp:group {"className":"emulsion-modal solid-border modal"} --><div id="modal-group-1" class="wp-block-group emulsion-modal solid-border modal"><div class="wp-block-group__inner-container"><!-- wp:paragraph {"textAlign":"right","placeholder":"Panel Title","className":"emulsion-modal-title alignfull"} --><p class="has-text-align-right emulsion-modal-title"><a href="./" onclick="window.history.back(); return false;">X</a></p><!-- /wp:paragraph --><!-- wp:group {"className":"emulsion-modal-content"} --><div class="wp-block-group emulsion-modal-content"><div class="wp-block-group__inner-container"><!-- wp:paragraph {"placeholder":"content"} --><p>content</p><!-- /wp:paragraph --></div></div><!-- /wp:group --></div></div><!-- /wp:group -->',
 			'categories'	 => array( 'emulsion' ),
 			'description'	 => esc_html_x( 'Modal Box on the front end', 'Block pattern description', 'emulsion' ),
 				)

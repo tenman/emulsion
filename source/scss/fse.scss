@@ -62,7 +62,7 @@
 
                     }
                 }
-                
+
                 .edit-site .wp-block[data-align="full"]{
                     @extend %no-sidebar-alignfull;
                     position:static!important;
@@ -144,6 +144,8 @@
         width: var(--thm_content_width);
         padding-left: var(--thm_content_gap);
         padding-right: var(--thm_content_gap);
+        margin-left:auto;
+        margin-right:auto;
         box-sizing:border-box;
         .wp-block-post-author__content{
             width:200px;
@@ -156,6 +158,15 @@
         }
 
     }
+    //wrong html
+    //<div class="class=" wp-block-post-comments-count""="">0</div>
+    .wp-block-post-comments-count{
+        width: var(--thm_content_width);
+        padding-left: var(--thm_content_gap);
+        padding-right: var(--thm_content_gap);
+        margin-left:auto;
+        margin-right:auto;
+    }
     /**
      * Content block
      */
@@ -163,11 +174,11 @@
     .post-navigation,
     .pagination,
     .wp-block-query,
-   // [class|="wp-block"],
+    // [class|="wp-block"],
     blockquote cite,
     .description,
     .wp-block-post-date,
-   // .entry-content > div,
+    // .entry-content > div,
     address,aside,canvas,dd,dl,dt,fieldset,
     figcaption,hr,iframe,noscript,output,pre,section,video,
     ul,ol,table,p,form,h1,h2,h3,h4,h5,h6{

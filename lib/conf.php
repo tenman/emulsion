@@ -449,7 +449,7 @@ function emulsion_theme_variables( $variables ) {
 	$content_gap					 = emulsion_theme_default_val( 'emulsion_sidebar_width', 'unit_val' );
 	$box_gap						 = emulsion_theme_default_val( 'emulsion_box_gap', 'unit_val' );
 	$header_bg_color				 = emulsion_theme_default_val( 'emulsion_header_background_color', 'unit_val' );
-	$header_text_color = sanitize_hex_color( emulsion_accessible_color( $header_bg_color ) );
+	$header_text_color				 = sanitize_hex_color( emulsion_accessible_color( $header_bg_color ) );
 	$background_color				 = emulsion_theme_default_val( 'background_color', 'unit_val' );
 	$background_color				 = sanitize_hex_color( sprintf( '#%1$s', get_background_color() ) );
 	$border_global					 = emulsion_theme_default_val( 'emulsion_border_global', 'unit_val' );

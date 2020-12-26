@@ -64,8 +64,8 @@
             position:absolute;
             right:0;
             z-index:1;
-            width:296px;
-            min-width:296px;
+            width:var(--thm_content_min_width);
+            min-width:var(--thm_content_min_width);
             text-align:right;
         }
         .menu-simple-container{
@@ -814,7 +814,7 @@ body:not(.noscript){
     text-align:right;
     ul.wp-nav-menu{
         &.top-right[data-direction="vertical"]{
-            width:296px;
+            width:var(--thm_content_min_width);
             width:calc(100vw - 72px);
             margin-right:0;
         }

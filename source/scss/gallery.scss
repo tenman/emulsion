@@ -54,7 +54,7 @@
             text-align: center;
             vertical-align: middle;
             flex-direction: column;
-            justify-content: center;
+           // justify-content: center;
             align-items: center;
             .gallery-icon{
                 a{
@@ -227,8 +227,10 @@ ul.wp-block-gallery{
         outline:0;
     }
     .blocks-gallery-item figure:hover{
-        img{
-            filter: brightness(50%);
+        .has-image{
+            img{
+                filter: var(--thm_image_hover_filter);
+            }
         }
         figcaption{
             filter: none;
@@ -266,7 +268,7 @@ ul.wp-block-gallery{
 ul.blocks-gallery-grid{
     left:0;
     width:100%;
-  
+
 }
 figure.wp-block-gallery li.blocks-gallery-item{
     margin:var( --thm_box_gap, 3px );
@@ -344,8 +346,10 @@ figure.wp-block-gallery.alignfull{
         outline:0;
     }
     .blocks-gallery-item figure:hover{
-        img{
-            filter: brightness(50%);
+        .has-image{
+            img{
+                filter: var(--thm_image_hover_filter);
+            }
         }
         figcaption{
             filter: none;

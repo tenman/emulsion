@@ -22,9 +22,6 @@
 		<div class="page-wrapper layout">
 
 			<?php emulsion_action('emulsion_prepend_page_wrapper'); ?>
-			
+
 			<main id="main">
 				<?php ! have_posts() ? get_template_part( 'template-parts/failed' ) : ''; ?>
-
-
-

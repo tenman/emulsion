@@ -458,7 +458,7 @@ jQuery(function ($) {
          if( 'none' !== emulsion_script_vars.posts_page_url){
          $('.home.page a[href="' + emulsion_script_vars.posts_page_url + '"], .single-post a[href="' + emulsion_script_vars.posts_page_url + '"]').attr('data-no-instant', 'data-no-instant');
          }
-        */
+         */
 
         /**
          * instantcclick exclude links
@@ -535,14 +535,14 @@ jQuery(function ($) {
     function emulsion_resizes() {
         if ($('.alignfull').length) {
 
-            $(".emulsion-has-sidebar.enable-alignfull .entry-content > .alignfull").not('.wp-block-cover, .wp-block-embed').each(function (i) {
+            $(".emulsion-has-sidebar.enable-alignfull .entry-content > .alignfull").not('.wp-block-cover, .wp-block-embed, .modal').each(function (i) {
                 var article_width = $(this).parents('article').width();
                 var parent_width = $(this).parents('.entry-content').width();
                 var negative_margin = parseInt(article_width) - parseInt(parent_width);
                 negative_margin = negative_margin / -2;
                 $(this).css({'width': article_width, 'left': negative_margin});
             });
-            $(".emulsion-no-sidebar.enable-alignfull .entry-content > .alignfull").not('.wp-block-cover, .wp-block-embed').each(function (i) {
+            $(".emulsion-no-sidebar.enable-alignfull .entry-content > .alignfull").not('.wp-block-cover, .wp-block-embed, .modal').each(function (i) {
                 var article_width = $(this).parents('article').width();
                 var parent_width = $(this).parents('.entry-content').width();
                 var negative_margin = parseInt(article_width) - parseInt(parent_width);
@@ -976,7 +976,7 @@ jQuery(function ($) {
      * System Theme Color
      */
 
-    if ( 'enable' == emulsion_script_vars.prefers_color_scheme ) {
+    if ('enable' == emulsion_script_vars.prefers_color_scheme) {
 
         const is_dark = window.matchMedia('(prefers-color-scheme: dark)');
 
@@ -1068,18 +1068,65 @@ jQuery(function ($) {
     $('.wp-block-search__inside-wrapper[style]').each(function (i) {
 
         var form_width = $(this).parent().width();
-            form_width = parseInt( form_width );
-            console.log( form_width );
+        form_width = parseInt(form_width);
+        console.log(form_width);
 
         var content_width = $(this).attr('style');
-            content_width = String( content_width ).replace(/[^0-9]/g, '');
-            content_width = parseInt( content_width ) / 100;
+        content_width = String(content_width).replace(/[^0-9]/g, '');
+        content_width = parseInt(content_width) / 100;
 
 
         var form_width_result = form_width * content_width;
 
         $(this).removeAttr('style');
-        $(this).parent().css({'width': form_width_result + 'px','max-width':'100%'});
+        $(this).parent().css({'width': form_width_result + 'px', 'max-width': '100%'});
 
     });
+});
+jQuery(function ($) {
+    $('.wp-block-column').each(function (i) {
+
+        var column_width = $(this).width();
+        column_width = parseInt(column_width);
+
+
+        if (580 > column_width) {
+            $(this).children().removeClass('alignleft alignright alignfull alignwide');
+        }
+
+
+    });
+});
+jQuery(function ($) {
+
+    //Modal box
+
+    $('.modal-open-link').on('click', function () {
+
+        $(this).next('.emulsion-modal').addClass('is-opened');
+    });
+    $('.emulsion-modal-title').on('click', function () {
+
+        $(this).parents('.emulsion-modal').removeClass('is-opened');
+    });
+
+    // dropdown on click
+
+    $('.dropdown-on-click-title').on('click', function() {
+
+        $(this).parents('.dropdown-on-click').addClass('is-opened');
+    });
+
+    $('.dropdown-on-click').blur(function() {
+
+        $(this).removeClass('is-opened');
+    });
+
+
+    $(".is-style-sticky").parents().css("overflow", "visible");
+});
+
+jQuery(function ($) {
+
+    $(".is-style-sticky").parents().css("overflow", "visible");
 });
