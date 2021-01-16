@@ -4,6 +4,7 @@
 @import 'elements';
 @import 'color';
 @import 'block';
+@import 'gallery';
 .mce-content-body .alignleft{
     clear:left;
 }
@@ -48,7 +49,7 @@
         max-width:var(--thm_content_width);
         margin-left:auto;
         margin-right:auto;
-        .gallery-item{          
+        .gallery-item{
             img{
                 vertical-align:middle;
             }
@@ -83,7 +84,24 @@
 #mceResizeHandlene{
     width:7px;
 }
-.blocks-gallery-grid{
-    display:flex;
-    flex-wrap:wrap;
+figure.wp-block-gallery{
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+    .blocks-gallery-grid{
+        display:flex;
+        flex-wrap:wrap;
+        .blocks-gallery-item{
+            &:before{
+                display:none;
+            }
+            figure{
+                margin-block-start:0;
+                margin-block-end:0;
+                margin-top:0;
+                margin-bottom:0;
+            }
+
+        }
+    }
 }

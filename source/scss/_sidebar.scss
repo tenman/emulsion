@@ -1,4 +1,4 @@
-//fonts
+
 body{
     &.emulsion-has-sidebar{
 
@@ -50,7 +50,6 @@ body{
             }
         }
 
-        //page
         .post-navigation{
 
             padding-left:var(--thm_content_gap);
@@ -116,7 +115,6 @@ body{
     }
 
 }
-//elements
 
 .enable-alignfull{
     &.emulsion-has-sidebar{
@@ -180,64 +178,7 @@ body{
         right:0;
     }
 }
-/**
- * Sidebar table wrapper
- * ========================================================================== */
-/**
- * table wrapper
- * The table element is wrapped in the emulsion-table-wrapper class
- * with javascript to preserve the responsive style.
- */
-.textwidget .emulsion-table-wrapper{
-    position:relative;
-    overflow:auto;
-    clear:none;
-    display:table;
-    display:-ms-flexbox;
-    display:flex;
-    max-width:100%;
-    margin-bottom:2em;
-    padding-bottom:1px;
-    width:100%;
-    padding-top:3px;
-}
-.textwidget .emulsion-table-wrapper.alignleft,
-.textwidget .emulsion-table-wrapper.alignright{
-    display:block;
-    max-width:50%;
-    max-width:calc(50% - 1.5em );
-    padding-left:0;
-    padding-right:0;
-}
-.textwidget .emulsion-table-wrapper.alignleft{
-    clear:left;
-    margin:0 1.5em .75em 0;
-}
-.textwidget .emulsion-table-wrapper.alignright{
-    clear:right;
-    margin:0 0 .75em 1.5em;
-    position:relative;
-}
-.textwidget .emulsion-table-wrapper.alignright > .alignright{
-    /* @see emulsion_width_class_and_relate_settings() */
-    position:relative;
-    float:none;
-    left:calc(-50% - 1.5em );
-    -webkit-transform: translate(calc(50% + 1.5em),0);
-    -ms-transform: translate(calc(50% + 1.5em),0);
-    transform: translate(calc(50% + 1.5em),0);
-}
-.textwidget .emulsion-table-wrapper::-webkit-scrollbar{
-    width: 0;
-    height:.5em;
-}
-.textwidget .emulsion-table-wrapper::-webkit-scrollbar-thumb{
-    background-color: var(--thm_black_color);
-    outline: 1px solid var(--thm_black_color);
-}
-.safari .widgettext .emulsion-table-wrapper{
-    display:block;
-}
+
 /**
  * Sidebar fallback
  * ========================================================================== */
@@ -363,6 +304,9 @@ body{
 .footer-widget-area,
 .sidebar-widget-area{
     .widget[id]{
+        &:before{
+            display:none;
+        }
         & > .widgettitle{
 
         }
@@ -373,6 +317,13 @@ body{
             box-sizing:border-box;
             .flex-control-nav{
                 display:flex;
+            }
+        }
+        & > ul{
+            li{
+                &:before{
+                    display:none;
+                }
             }
         }
     }
@@ -612,67 +563,7 @@ body{
             width:calc( 100% - var(--thm_content_gap) * 2 );
             margin-left:auto;
             margin-right:auto;
-            div.emulsion-table-wrapper{
-                padding-left:0;
-                padding-right:0;
-                max-width:100%;
-                overflow:hidden;
-                margin-top:1.5rem;
-                margin-bottom:.75rem;
-                position:static;
-                display:inline;
-                table{
-                    margin:0 auto;
-                    width:99%;
-                    min-width:0;
-                    td{
-                        padding:0;
-                        position:static;
-                        text-align:center;
-                        width:14.2857142857%;
-                        word-wrap: normal;
-                        overflow-wrap: normal;
-                        line-height:3;
-                    }
-                    thead{
-                        th{
-                            padding:0;
-                            border:none;
-                            line-height:3;
-                        }
-                    }
-                    tfoot{
-                        td{
-                            padding-top:.75rem;
-                            border:none;
-                        }
-                        #prev{
-                            text-align:left;
-                        }
-                        #next{
-                            text-align:right;
-                        }
-                    }
-                    tbody{
-                        a{
-                            font-weight:700;
-                        }
-                    }
-                    caption{
-                        @include font_size(2);
-                        margin:.75rem 0 .75rem;
-                        text-align:center;
-                        font-weight:var(--thm_heading_font_weight);
-                        text-transform:var(--thm_heading_font_transform);
-                        font-family:var(--thm_heading_font_family);
-                    }
-                    a{
-                        display:block;
-                        height:100%;
-                        white-space:nowrap;
-                    }
-                }
-            }
+
         }
     }
 }
@@ -816,71 +707,11 @@ body{
         .widget_calendar{
             @include font_size(5);
             width:100%;
-            #calendar_wrap{
-                .emulsion-table-wrapper{
-                    margin-top:0;
-                }
-            }
+
             .calendar_wrap{
                 text-align:center;
                 max-width:100%;
-                div.emulsion-table-wrapper{
-                    padding-left:0;
-                    padding-right:0;
-                    max-width:100%;
-                    overflow:hidden;
-                    margin-top:0!important;
-                    table{
-                        margin:0;
-                        width:calc( 100% - var(--thm_content_gap) * 2 );
-                        td{
-                            padding:0;
-                            position:static;
-                            text-align:center;
-                            width:14.2857142857%;
-                            word-wrap: normal;
-                            overflow-wrap: normal;
-                            line-height:3;
-                        }
-                        thead{
-                            th{
-                                padding:0;
-                                border:none;
-                                line-height:3;
-                            }
-                        }
-                        tfoot{
-                            td{
-                                padding-top:.75rem;
-                                border:none;
-                            }
-                            #prev{
-                                text-align:left;
-                            }
-                            #next{
-                                text-align:right;
-                            }
-                        }
-                        tbody{
-                            a{
-                                font-weight:700;
-                            }
-                        }
-                        caption{
-                            @include font_size(2);
-                            margin:1.5rem 0 .75rem;
-                            text-align:left;
-                            font-weight:var(--thm_heading_font_weight);
-                            text-transform:var(--thm_heading_font_transform);
-                            font-family:var(--thm_heading_font_family);
-                        }
-                        a{
-                            display:block;
-                            height:100%;
-                            white-space:nowrap;
-                        }
-                    }
-                }
+
             }
         }
     }

@@ -33,7 +33,7 @@ a:any-link{
 /**
  * Fallback block style
  */
-
+h1,h2,h3,h4,h5,h6,
 [data-type="core/buttons"],
 [data-type="core/embed"],
 [data-type="core/cover"],
@@ -46,12 +46,6 @@ a:any-link{
 .is-style-list-style-initial,
 .is-root-container pre,
 .is-root-container p,
-.is-root-container h1,
-.is-root-container h2,
-.is-root-container h3,
-.is-root-container h4,
-.is-root-container h5,
-.is-root-container h6,
 .is-root-container ul,
 .is-root-container ol{
     @extend %block;
@@ -245,6 +239,9 @@ div.editor-styles-wrapper .block-editor-block-list__layout.is-root-container > .
             }
         }
     }
+    .edit-post-layout__inserter-panel{
+        box-sizing:unset;
+    }
     .block-editor-inserter__panel-content{
 
         max-width:100%;
@@ -375,6 +372,7 @@ body .edit-post-layout .interface-interface-skeleton__content{
                 border-color:rgba(52, 152, 219, 1) ! important;
             }
         }
+
     }
     [style^="background-image"] .wp-block-cover__inner-container,
     .has-vivid-cyan-blue-to-vivid-purple-gradient-background,
@@ -1539,6 +1537,7 @@ div.wp-block-group{
 
 /**
  * Block Align
+ * @see * Aligns
  */
 
 [class$="inner-container"].block-editor-block-list__layout{
@@ -1562,7 +1561,9 @@ div.wp-block-group{
 
 
     // Block Children
-
+     h1,h2,h3,h4,h5,h6{
+            width:100%;
+     }
 
     [class|="wp-block"],
     [class$="inner-container"]{
@@ -1621,7 +1622,7 @@ div.wp-block-group{
     [data-align="left"],
     &[data-align="left"]{
 
-        @extend %alignleft;
+        // @extend %alignleft;
 
         .is-block-content,
         .alignleft{
@@ -1645,7 +1646,7 @@ div.wp-block-group{
     [data-align="right"],
     &[data-align="right"]{
 
-        @extend %alignright;
+        //   @extend %alignright;
 
         .alignright{
             width:100%;
@@ -2868,8 +2869,6 @@ div.components-notice{
          * Old CSS styles continue to apply. No need to rewrite
          * Simply shows the structure
          */
-        //.block-editor__typewriter{
-        //.editor-styles-wrapper{
 
         .block-editor-writing-flow{
             .editor-post-title{
@@ -2937,7 +2936,7 @@ div.components-notice{
                 }
 
                 [data-type="core/latest-posts"]{
-                    .wp-block-latest-posts{
+                    &.wp-block-latest-posts{
                         padding-left:0;
                         &.wp-block-latest-posts__list{
                             &:not(.list-style-initial):not(.is-style-list-style-initial){
@@ -3217,7 +3216,7 @@ div.components-notice{
                 /**
                  * Aligns
                  */
-                .blocks-gallery-grid.blocks-gallery-grid{
+                .blocks-gallery-grid.blocks-gallery-grid:not(.alignleft):not(.alignright){
                     //OW
                     margin-left:auto;
                     margin-right:auto;
@@ -3228,8 +3227,8 @@ div.components-notice{
                     padding-left:0;
                     padding-right:0;
 
-                     h1,h2,h3,h4,h5,h6,p,ul,ol{
-                            width:100%;
+                    h1,h2,h3,h4,h5,h6,p,ul,ol{
+                        //   width:100%;
                     }
 
                     [class$="__inner-container"]{
@@ -3240,7 +3239,8 @@ div.components-notice{
                     }
 
                     &[data-align="left"]{
-                        min-height:360px; //core overwritte height:0
+                        height:auto;
+                        //  min-height:360px; //core overwritte height:0
                         @extend %alignleft;
                         .alignleft{
                             width:100%;
@@ -3252,7 +3252,8 @@ div.components-notice{
                         }
                     }
                     &[data-align="right"]{
-                        min-height:360px; //core overwritte height:0
+                        height:auto;
+                        //  min-height:360px; //core overwritte height:0
                         @extend %alignright;
                         margin-right:1rem;
 
@@ -3298,7 +3299,7 @@ div.components-notice{
                 }
             }
         }
-        //}
+
     }
     &.enable-alignfull{
         div:not([class]){
@@ -3384,4 +3385,16 @@ div.components-notice{
 #editor div.wp-block-search__button{
     // non space language issue
     white-space:pre ! important;
+}
+
+.edit-post-text-editor{
+    .editor-post-title{
+        max-width:100%;
+        width:auto;
+        .editor-post-title__input{
+            max-width:100%;
+            width:100%;
+        }
+    }
+
 }

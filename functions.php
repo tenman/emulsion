@@ -1,12 +1,12 @@
 <?php
-
 include_once( get_theme_file_path( 'lib/conf.php' ) );
 include_once( get_theme_file_path( 'lib/hooks.php' ) );
 include_once( get_theme_file_path( 'lib/template-tags.php' ) );
 include_once( get_theme_file_path( 'lib/navigation-pagination.php' ) );
 include_once( get_theme_file_path( 'lib/relate-posts.php' ) );
 include_once( get_theme_file_path( 'lib/icon.php' ) );
-
+include_once( get_theme_file_path( 'lib/customize.php' ) );
+include_once( get_theme_file_path( 'lib/blocks.php' ) );
 emulsion_the_theme_supports('scheme') ? include_once( get_theme_file_path( 'scheme.php' ) ): '';
 
 emulsion_the_theme_supports( 'full_site_editor' ) && function_exists('gutenberg_is_fse_theme') ? include_once( get_template_directory(). '/lib/full_site_editor.php' ): '';
@@ -20,51 +20,6 @@ if ( is_admin() && current_user_can( 'edit_theme_options' ) ) {
 	if (  emulsion_the_theme_supports( 'TGMPA' ) ) {
 		include_once( get_theme_file_path( 'lib/tgm-config.php' ) );
 		include_once( get_template_directory() . '/lib/class-tgm-plugin-activation.php' );
-	}
-}
-
-/**
- * Temporary exception settings
- */
-add_action( 'admin_notices', 'emulsion_theme_admin_notice_fse' );
-
-function emulsion_theme_admin_notice_fse() {
-
-	if ( is_readable( get_template_directory() . '/block-templates/index.html' ) ) {
-
-		$message = esc_html__('The file has been renamed from experimental-index.html to index.html for an FSE theme experiment ', 'emulsion');
-
-		if ( ! is_plugin_active( 'gutenberg/gutenberg.php' ) ) {
-
-			$message .= '<br> '. esc_html__('the Gutenberg plugin is not active.', 'emulsion');
-
-			$message .= '<br> '. esc_html__('Require to activate the Gutenberg plugin for the experiment.', 'emulsion');
-		}
-
-		if ( ! is_plugin_active( 'emulsion-addons/emulsion.php' ) ) {
-
-			$message .= '<br> '. esc_html__('the emulsion-addons plugin is not active.', 'emulsion');
-
-			$message .= '<br> '. esc_html__('Require to activate the emulsion-addons plugin for the experiment.', 'emulsion');
-		}
-
-		if( is_plugin_active( 'gutenberg/gutenberg.php' ) && is_plugin_active( 'emulsion-addons/emulsion.php' ) ) {
-
-			$message = esc_html__( "The experiment is ready. when the experiment is finished Don't forget to change 'index.html' to 'experimental-index.html' ", 'emulsion' );
-
-			printf( '<div class="notice notice-error is-dismissible emulsion-addon-error"><p><strong>%1$s</strong></p></div>', $message );
-
-		} else {
-
-			$plugin_install_url = esc_url( admin_url( 'themes.php?page=tgmpa-install-plugins&plugin_status=all' ) );
-
-			printf( '<div class="notice notice-error is-dismissible emulsion-addon-error"><p><strong>%1$s</strong> '
-					. ' <br><a href="%2$s">%3$s</a></p></div>',
-					$message,
-					$plugin_install_url, esc_html__( 'Plugin Activate', 'emulsion' )
-			);
-		}
-
 	}
 }
 
@@ -401,10 +356,19 @@ if ( ! function_exists( 'emulsion_widgets_init' ) ) {
 				'text'			 => "4" )
 			);
 		}
+		register_sidebar( array(
+				'name'			 => esc_html__( 'Search Drawer Content', 'emulsion' ),
+				'id'			 => 'sidebar-5',
+				'description'	 => is_customize_preview() ? esc_html__( '', 'emulsion' ) : '',
+				'before_widget'	 => '<li id="%1$s" class="%2$s widget search-drawer-content" tabindex="-1">',
+				'after_widget'	 => "</li>\n",
+				'before_title'	 => "\n\t<h2 class=\"widgettitle page-footer\">",
+				'after_title'	 => "</h2>\n",
+				'widget_id'		 => 'search-drawer-content',
+				'widget_name'	 => 'search-drawer-content',
+				'text'			 => "5" )
+			);
 	}
-
-
-
 }
 function emulsion_css_variables_saved_value($css){
 
@@ -435,7 +399,6 @@ function emulsion_register_scripts_and_styles() {
 		$emulsion_current_data_version = emulsion_version();
 	}
 
-	////////////////////////////////////////////////////////////////////////////
 	if ( is_singular() ) {
 
 		$post_id	 = absint( get_the_ID() );
@@ -485,8 +448,6 @@ function emulsion_register_scripts_and_styles() {
 			wp_enqueue_style( $handle );
 		}
 	}
-
-/////////////////////////////////////////////////////////////////////////////
 
 	wp_register_style( 'emulsion', get_template_directory_uri(). '/style.css', array(), $emulsion_current_data_version, 'all' );
 	false === wp_style_is( 'emulsion' ) ? wp_enqueue_style( 'emulsion' ): '';
@@ -556,8 +517,6 @@ function emulsion_register_scripts_and_styles() {
 	/**
 	 * load user css files
 	 */
-
-
 
 	wp_register_style( 'emulsion-common', get_template_directory_uri() . '/css/common.css', array(), $emulsion_current_data_version, 'all' );
 
@@ -670,8 +629,6 @@ function emulsion_register_scripts_and_styles() {
 	$inline_style = emulsion_remove_spaces_from_css( $inline_style );
 
 	wp_add_inline_style( 'emulsion', $inline_style );
-
-
 
 	/**
 	 * Child Theme
@@ -1473,7 +1430,6 @@ if ( ! function_exists( 'emulsion_video_controls' ) ) {
 
 }
 
-
 if ( ! function_exists( 'emulsion_request_url' ) ) {
 
 	/**
@@ -2125,337 +2081,5 @@ if ( ! function_exists( 'emulsion_content_type' ) ) {
 	}
 
 }
-
-/**
- * Theme Customizer
- */
-
-add_action( 'customize_register', 'emulsion_customize_register' );
-
-if ( ! function_exists( 'emulsioncustomize_register' ) ) {
-
-	function emulsion_customize_register( $wp_customize ) {
-
-		if( ! emulsion_the_theme_supports('scheme') ) {
-			return;
-		}
-
-		$emulsion_theme_mod_args = array(
-			'emulsion_scheme' => array(
-				'section'			 => 'emulsion_scheme',
-				'default'			 => 'default',
-				'label'				 => esc_html__( 'Radio Icon Control', 'emulsion' ),
-				'description'		 => ! emulsion_theme_addons_exists() ? esc_html__( 'Plugins activate more detailed settings such as fonts and sidebar colors.', 'emulsion' ): '',
-				'sanitize_callback'	 => 'emulsion_scheme_validate',
-				'type'				 => 'emulsionImageRadio',
-			)
-		);
-
-		$wp_customize->add_section( 'emulsion_scheme', array(
-			'title'			 => esc_html__( 'SCHEME', 'emulsion' ),
-			'description'	 => $emulsion_theme_mod_args['emulsion_scheme']['description'],
-			'priority'		 => 33
-		) );
-
-		$wp_customize->add_setting( 'emulsion_scheme', array(
-			'default'			 => $emulsion_theme_mod_args['emulsion_scheme']['default'],
-			'sanitize_callback'	 => $emulsion_theme_mod_args['emulsion_scheme']['sanitize_callback'],
-		) );
-
-		$wp_customize->add_control( new emulsion_Customize_Image_Radio_Control( $wp_customize, 'emulsion_scheme', array(
-			'settings'	 => 'emulsion_scheme',
-			'section'	 => $emulsion_theme_mod_args['emulsion_scheme']['section'],
-			'label'		 => $emulsion_theme_mod_args['emulsion_scheme']['label'],
-				)
-		) );
-	}
-}
-
-/**
- * Custom Control
- */
-if ( class_exists( 'WP_Customize_Control' ) ) {
-
-	class emulsion_Customize_Image_Radio_Control extends WP_Customize_Control {
-
-		public $type = 'emulsionImageRadio';
-
-		public function render_content() {
-
-			$image_dir		 = get_template_directory_uri() . '/images/';
-			$defalt_image	 = get_template_directory_uri() . '/';
-
-			$all_keys = array_keys( emulsion_theme_scheme );
-
-			$choices = array();
-
-			$choices['default'] = sprintf( '%1$s%2$s', $image_dir, 'default.png' );
-
-			foreach ( $all_keys as $key => $val ) {
-
-				$choices[$val] = sprintf( '%1$s%2$s', $image_dir, $val . '.png' );
-			}
-
-			$form_input	 = '<input class="image-select" type="radio" value="%1$s" id="%2$s" name="%3$s" %4$s';
-			$form_label	 = '><label for="%1$s"><img src="%2$s" alt="%3$s" title="%4$s" width="300"></label>';
-			$form_label .= '<details id="details-%7$s"><summary>%5$s</summary><p>%6$s</p></details>';
-			$result		 = '';
-
-			foreach ( $choices as $value => $label_image ) {
-
-				switch ( $value ) {
-					case 'default':
-						$summary	 = esc_html__( 'default', 'emulsion' );
-						$description = esc_html__( 'The default is to set the default value to the default setting of the theme.', 'emulsion' );
-						break;
-					case 'full-size-header':
-						$summary	 = esc_html__( 'full size header', 'emulsion' );
-						$description = esc_html__( 'The home page and featured image are displayed in browser size.', 'emulsion' );
-						$description .= '<p>'. esc_html__( 'You can add a button link on the header image by adding the Header Menu in the menu options.', 'emulsion' ). '</p>';
-						break;
-					case 'midnight':
-						$summary	 = esc_html__( 'midnight', 'emulsion' );
-						$description = esc_html__( 'Change to an indigo dark design.', 'emulsion' );
-						break;
-					case 'daybreak':
-						$summary	 = esc_html__( 'daybreak', 'emulsion' );
-						$description = esc_html__( 'Change to a light and bright design.', 'emulsion' );
-						break;
-					case 'bloging':
-						$summary	 = esc_html__( 'bloging', 'emulsion' );
-						$description = esc_html__( 'Change to a white clean blog design', 'emulsion' );
-						break;
-					case 'grid':
-						$summary	 = esc_html__( 'grid', 'emulsion' );
-						$description = esc_html__( 'Display all archive pages in a grid layout.', 'emulsion' );
-						break;
-					case 'stream':
-						$summary	 = esc_html__( 'stream', 'emulsion' );
-						$description = esc_html__( 'The Stream layout is a theme-specific layout that appears lower than the grid.', 'emulsion' );
-						break;
-					case 'boilerplate':
-						$summary	 = esc_html__( 'boilerplate', 'emulsion' );
-						$description = esc_html__( 'Disable all stylesheets and javascript in the theme. The core style of the block editor is maintained.', 'emulsion' );
-						$description .= '<p>'. esc_html__( 'The plugin allows you to set each post or page.', 'emulsion' ).'</p>';
-						$description .= '<p>'. esc_html__( 'This setting does not support customizer preview. Please open the blog and check.', 'emulsion' ).'</p>';
-						break;
-					default:
-						$summary	 = '';
-						$description = '';
-						break;
-				}
-
-				$checked = checked( $this->value(), $value, false );
-
-				printf( $form_input, esc_attr( $value ), $this->id . $value, esc_attr( $this->id ), $checked );
-				$this->link();
-				printf( $form_label, $this->id . $value, esc_html( $label_image ), esc_attr( $value ), esc_attr( $value ), $summary, $description, $value);
-			}
-		}
-
-	}
-
-}
-
-/**
- * Customizer Styles
- */
-add_action( 'customize_controls_enqueue_scripts', 'emulsion_theme_customizer_style' );
-
-if ( ! function_exists( 'emulsion_theme_customizer_style' ) ) {
-
-	function emulsion_theme_customizer_style() {
-
-		$css = <<< CSS
-.customize-control-emulsionImageRadio input {
-	visibility:hidden;
-}
-.customize-control-emulsionImageRadio input:checked + label{
-	display:block;
-    background-color: #ccc;
-	border:3px solid;
-
-}
-.customize-control-emulsionImageRadio input + label {
-    display: inline-block;
-    cursor: pointer;
-	padding:5px 5px 3px;
-
-}
-[id|="details"]{
-	background:#fff;
-	padding:5px 5px 3px;
-	box-sizing:border-box;
-	width:248px;
-	margin:auto;
-}
-
-CSS;
-
-		wp_add_inline_style( 'customize-controls', $css );
-	}
-
-}
-
-add_action( 'customize_controls_enqueue_scripts', 'emulsion_theme_customizer_script' );
-
-if ( ! function_exists( 'emulsion_theme_customizer_script' ) ) {
-
-	function emulsion_theme_customizer_script() {
-
-		$script = <<< SCRIPT
-(function($){
-
-	wp.customize( 'emulsion_scheme', function( setting ) {
-
-        setting.bind( function( value ) {
-				$('[id|="details"]').removeAttr('open');
-				$('#details-' + value ).attr('open','open');
-        } );
-    } );
-
-})(jQuery);
-
-SCRIPT;
-		if ( is_customize_preview() ) {
-
-			wp_add_inline_script( 'customize-controls', $script );
-		}
-	}
-
-}
-/**
- * Customizer validate
- */
-
-function emulsion_scheme_validate( $input ) {
-
-	if ( array_key_exists( $input, emulsion_theme_scheme ) ) {
-
-		return $input;
-	}
-
-	return 'default';
-}
-
-function emulsion_block_editor_assets() {
-
-	wp_enqueue_script( 'emulsion-block', esc_url( get_template_directory_uri() . '/js/block.js' ), 	array( 'wp-blocks', 'wp-i18n','wp-editor', 'jquery' ) );
-}
-
-add_action( 'enqueue_block_editor_assets', 'emulsion_block_editor_assets' );
-
-
-/**
- * Experimental block effect
- */
-
-if ( function_exists( 'register_block_style' ) ) {
-
-	register_block_style( 'core/code', array( 'name' => 'dark', 'label' => esc_html__( 'Dark', 'emulsion' ), ) );
-
-	register_block_style( 'core/tag-cloud', array( 'name' => 'flat', 'label' => esc_html__( 'Flat', 'emulsion' ),
-		'inline_style'	 => '#document .is-style-flat a,#wpbody .is-style-flat a{ '
-		. 'font-size:1rem ! important; display:inline-block;padding:.6rem; }', ) );
-
-/**
- * Pending
-
-	add_filter('emulsion_inline_style_pre', function( $css ){
-
-		$css .=<<<IMPORT
-		@import url('https://fonts.googleapis.com/css2?family=Nerko+One&display=swap');
-		@import url('https://fonts.googleapis.com/css2?family=Kosugi+Maru&display=swap');
-IMPORT;
-		return $css;
-	});
-
-	register_block_style( 'core/heading', array( 'name' => 'nerko', 'label' => 'nerko',
-		'inline_style'	 => '#document .is-style-nerko{'
-		. "font-family: 'Nerko One', cursive;"
-		. "text-transform: none;"
-		. "}",) );
-
-	register_block_style( 'core/heading', array( 'name' => 'kosugi-maru', 'label' => 'Kosugi Maru',
-		'inline_style'	 => '#document .is-style-kosugi-maru{'
-		. "font-family: 'Kosugi Maru', sans-serif;"
-		. "text-transform: none;"
-		. "}",) );
-*/
-
-	register_block_style( 'core/heading', array( 'name' => 'remove-text-transform', 'label' => esc_html__( 'Remove Text Transform', 'emulsion' ),
-		'inline_style'	 => ' h6.is-style-remove-text-transform,'
-		. ' h5.is-style-remove-text-transform,'
-		. ' h4.is-style-remove-text-transform,'
-		. ' h3.is-style-remove-text-transform,'
-		. ' h2.is-style-remove-text-transform,'
-		. '#document h6.is-style-remove-text-transform,'
-		. '#document h5.is-style-remove-text-transform,'
-		. '#document h4.is-style-remove-text-transform,'
-		. '#document h3.is-style-remove-text-transform,'
-		. '#document h2.is-style-remove-text-transform{'
-		. "text-transform: none;"
-		. "}",) );
-
-	register_block_style( 'core/image', array( 'name' => 'circle-mask', 'label' => esc_html__('Circle Mask', 'emulsion' ), ) );
-	register_block_style( 'core/image', array( 'name' => 'shrink', 'label' => esc_html__( 'Align Offset Zero', 'emulsion' ), ) );
-
-	register_block_style( 'core/list', array( 'name' => 'list-style-none', 'label' => esc_html__( 'No Bullet', 'emulsion' ), ) );
-	register_block_style( 'core/list', array( 'name' => 'list-style-inline', 'label' => esc_html__( 'Inline List', 'emulsion' ), ) );
-	register_block_style( 'core/list', array( 'name' => 'list-style-initial', 'label' => esc_html__( 'Remove Theme Bullet', 'emulsion' ), ) );
-
-	register_block_style( 'core/archives', array( 'name' => 'list-style-inline', 'label' => esc_html__('Inline', 'emulsion' ), ) );
-	register_block_style( 'core/categories', array( 'name' => 'list-style-inline', 'label' => esc_html__( 'Inline', 'emulsion' ), ) );
-
-	register_block_style( 'core/paragraph', array( 'name' => 'hanging-indent', 'label' => esc_html__( 'Hanging Indent', 'emulsion' ), ) );
-	register_block_style( 'core/paragraph', array( 'name' => 'indent-5rem', 'label' => esc_html__( 'Left Indent S', 'emulsion' ), ) );
-	register_block_style( 'core/paragraph', array( 'name' => 'indent-10rem', 'label' => esc_html__( 'Left Indent M', 'emulsion' ), ) );
-	register_block_style( 'core/paragraph', array( 'name' => 'indent-15rem', 'label' => esc_html__( 'Left Indent L', 'emulsion' ), ) );
-
-	if( 'ffffff' !== get_theme_mod('background_color') ) {
-
-		register_block_style( 'core/spacer', array( 'name' => 'seigaiha', 'label' => esc_html__( 'Background Pattern Seigaiha', 'emulsion' ), ) );
-		register_block_style( 'core/spacer', array( 'name' => 'carbon-fiber', 'label' => esc_html__( 'Background Pattern Carbon Fiber', 'emulsion' ), ) );
-		register_block_style( 'core/spacer', array( 'name' => 'cicada', 'label' => esc_html__( 'Background Pattern Cicada', 'emulsion' ), ) );
-	}
-
-	register_block_style( 'core/verse', array( 'name' => 'has-regular-font-size', 'label' => esc_html__( 'Regular Font', 'emulsion' ), ) );
-	register_block_style( 'core/verse', array( 'name' => 'has-large-font-size', 'label' => esc_html__( 'Large Font', 'emulsion' ), ) );
-	register_block_style( 'core/verse', array( 'name' => 'has-extra-large-font-size', 'label' => esc_html__( 'Extra Large Font', 'emulsion' ), ) );
-
-	register_block_style( 'core/buttons', array( 'name' => 'has-shadow', 'label' => esc_html__( 'Add Shadow', 'emulsion' ), ) );
-	register_block_style( 'core/column', array( 'name' => 'main', 'label' => esc_html__( 'Main Column', 'emulsion' ), ) );
-
-	register_block_style( 'core/column', array( 'name' => 'sticky', 'label' => esc_html__( 'Sticky Column', 'emulsion' ), ) );
-}
-
-function emulsion_block_pattern() {
-
-	if ( function_exists( 'register_block_pattern' ) ) {
-
-		register_block_pattern(
-				'emulsion/block-pattern-list-tab', array(
-			'title'			 => esc_html__( 'Presentation TAB', 'emulsion' ),
-			'content'		 => '<!-- wp:list {"className":"list-style-tab"} --><ul class="list-style-tab"><li>tab 1<ul><li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, </li></ul></li><li>tab 2<ul><li> Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </li></ul></li></ul><!-- /wp:list -->',
-			'categories'	 => array( 'emulsion' ),
-			'description'	 => esc_html_x( 'Tabs on the front end', 'Block pattern description', 'emulsion' ),
-				)
-		);
-
-		register_block_pattern(
-			'emulsion/block-pattern-modal', array(
-			'title'			 => esc_html__( 'Presentation Modal Box', 'emulsion' ),
-			'content'		 => '<!-- wp:buttons --><div class="wp-block-buttons modal-open-link"><!-- wp:button --><div class="wp-block-button"><a class="wp-block-button__link" href="./#modal-group-1">modal link text</a></div><!-- /wp:button --></div><!-- /wp:buttons --><!-- wp:group {"className":"emulsion-modal solid-border modal"} --><div id="modal-group-1" class="wp-block-group emulsion-modal solid-border modal"><div class="wp-block-group__inner-container"><!-- wp:paragraph {"textAlign":"right","placeholder":"Panel Title","className":"emulsion-modal-title alignfull"} --><p class="has-text-align-right emulsion-modal-title"><a href="./" onclick="window.history.back(); return false;">X</a></p><!-- /wp:paragraph --><!-- wp:group {"className":"emulsion-modal-content"} --><div class="wp-block-group emulsion-modal-content"><div class="wp-block-group__inner-container"><!-- wp:paragraph {"placeholder":"content"} --><p>content</p><!-- /wp:paragraph --></div></div><!-- /wp:group --></div></div><!-- /wp:group -->',
-			'categories'	 => array( 'emulsion' ),
-			'description'	 => esc_html_x( 'Modal Box on the front end', 'Block pattern description', 'emulsion' ),
-				)
-		);
-
-		register_block_pattern_category( 'emulsion', array( 'label' => esc_html_x( 'Emulsion', 'Emulsion Block pattern', 'emulsion' ) ) );
-	}
-}
-add_action('init','emulsion_block_pattern',9);
-
-
 
 do_action( 'emulsion_functions_after' );

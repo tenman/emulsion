@@ -1464,53 +1464,48 @@ ul.shrink{
  * Play effect
  * Use this class within a group block
  * ========================================================================== */
+.layout{
 
-.layout .badge{
-    position: relative;
-    top: 0;
-    box-sizing: border-box;
-    width:fit-content;
-    display:inline-block;
-    padding-left:var(--thm_content_gap, 24px);
-    padding-right:var(--thm_content_gap, 24px);
-    vertical-align:middle;
 
-    &:before{
-        content: '';
-        display: inline-block;
-        padding-top: calc(50% + var(--thm_content_gap, 24px));
-        padding-bottom:  calc(50% + var(--thm_content_gap, 24px));
-        height: 0;
-        width: 1px;
+    .badge{
+        position: relative;
+        top:0;
+        box-sizing: border-box;
+        width:fit-content;
+        display:inline-block;
+        padding-left:var(--thm_content_gap, 24px);
+        padding-right:var(--thm_content_gap, 24px);
+        //debug
         vertical-align:middle;
-        position:relative;
-    }
-    &.has-background{
+
         &:before{
             content: '';
             display: inline-block;
-            padding-top: 50%;
+            padding-top: calc(50% + var(--thm_content_gap, 24px));
             padding-bottom:  calc(50% + var(--thm_content_gap, 24px));
             height: 0;
-            width: 1px ! important;
+            width: 1px;
             vertical-align:middle;
-            position:relative ! important;
-
+            position:relative;
         }
-    }
+        &.has-background{
+            &:before{
+                content: '';
+                display: inline-block;
+                padding-top: 50%;
+                padding-bottom:  calc(50% + var(--thm_content_gap, 24px));
+                height: 0;
+                width: 1px ! important;
+                vertical-align:middle;
+                position:relative ! important;
 
+            }
+        }
+        
+    }
 }
 [data-block] .badge{
-    /*
-    display:inline-block;
-    width:auto;
-    &:before{
-        content:'';
-        display:none;
-    }
-    &.wp-block-image{
-        display:inline-table;
-    }*/
+
     position: relative;
     top: 0;
     border: 1px solid rgba(127,127,127,.4);
@@ -1536,7 +1531,6 @@ ul.shrink{
 }
 
 .badge:not(.has-image-badge){
-
     &.circle{
         border-radius:9999px;
         //  width:auto;
@@ -1551,19 +1545,19 @@ ul.shrink{
         border-radius: 70% 30% 30% 70%/60% 40% 60% 40%;
         margin-right:-20px;
         mix-blend-mode: multiply;
-        padding:var(--thm_content_gap);
-        padding-top:calc(var(--thm_content_gap) * 1.4);
-        padding-bottom:calc(var(--thm_content_gap) * 1.4);
+        //  padding:var(--thm_content_gap);
+        //   padding-top:calc(var(--thm_content_gap) * 1.4);
+        //  padding-bottom:calc(var(--thm_content_gap) * 1.4);
         &:before{
             content:'';
-            display:none;
+            // display:none;
         }
     }
     &.awarding{
         border-radius: 50% 50% 50% 50% / 10% 10% 90% 90%;
         &:before{
             content:'';
-            display:none;
+            //display:none;
         }
     }
     .exclusion{
@@ -2005,7 +1999,7 @@ ul.shrink{
         margin:var(--thm_box_gap);
         margin-bottom:calc( var(--thm_box_gap) * 2 );
         vertical-align:top;
-   //     min-width: var(--thm_content_min_width);
+        //     min-width: var(--thm_content_min_width);
         &.aligncenter{
             display:block;
         }
@@ -2052,19 +2046,19 @@ ul.shrink{
             }
         }
     }
-   /* & > .size1of1,
-    & > .size1of2,
-    & > .size1of3,
-    & > .size2of3,
-    & > .size1of4,
-    & > .size3of4,
-    & > .size1of5,
-    & > .size2of5,
-    & > .size3of5,
-    & > .size4of5 {
-        // min-width:calc( var(--thm_content_width) / 5 - 1rem );
+    /* & > .size1of1,
+     & > .size1of2,
+     & > .size1of3,
+     & > .size2of3,
+     & > .size1of4,
+     & > .size3of4,
+     & > .size1of5,
+     & > .size2of5,
+     & > .size3of5,
+     & > .size4of5 {
+         // min-width:calc( var(--thm_content_width) / 5 - 1rem );
 
-    }*/
+     }*/
     .size1of3 {
         max-width: calc( 33.33333% - 5px - var(--thm_box_gap) * 2);
     }
@@ -2576,7 +2570,6 @@ body{
         }
     }
 }
-
 
 .wp-block-buttons.is-style-has-shadow{
 

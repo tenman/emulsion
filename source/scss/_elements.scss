@@ -1170,6 +1170,7 @@ ul:not(.list-style-initial):not(.is-style-list-style-initial){
 /**
  * UL list format exception
  */
+.search-drawer .search-info ul.search-drawer-content,
 .primary-menu-wrapper .wp-nav-menu.primary,
 .menu-placeholder .toc ul,
 .layout ul.debug-menu-links,
@@ -1715,14 +1716,7 @@ table {
 .gist-syntax table{
     table-layout:auto;
 }
-.gist{
-    .emulsion-table-wrapper{
-        margin-top:0!important;
-        margin-bottom:0!important;
-        padding-left:0!important;
-        padding-right:0!important;
-    }
-}
+
 /**
  * Forms
  * ========================================================================== */
@@ -2029,7 +2023,7 @@ body .fit{
     justify-content: center;
     -ms-flex-direction:column;
     flex-direction:column;
-    height:100%;
+   // height:100%;
     box-sizing:border-box;
 }
 .horizontally{
@@ -2239,6 +2233,8 @@ body .fit{
  * ========================================================================== */
 .pagination{
     text-align:center;
+            margin-left:auto;//ie
+        margin-right:auto;//ie
 }
 .pagination .nav-links{
     display:flex;

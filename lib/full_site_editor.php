@@ -6,6 +6,47 @@
  * @see emulsion_do_fse() in lib/template_tags.php
  */
 
+add_action( 'admin_notices', 'emulsion_theme_admin_notice_fse' );
+
+function emulsion_theme_admin_notice_fse() {
+
+	if ( is_readable( get_template_directory() . '/block-templates/index.html' ) ) {
+
+		$message = esc_html__('The file has been renamed from experimental-index.html to index.html for an FSE theme experiment ', 'emulsion');
+
+		if ( ! is_plugin_active( 'gutenberg/gutenberg.php' ) ) {
+
+			$message .= '<br> '. esc_html__('the Gutenberg plugin is not active.', 'emulsion');
+
+			$message .= '<br> '. esc_html__('Require to activate the Gutenberg plugin for the experiment.', 'emulsion');
+		}
+
+		if ( ! is_plugin_active( 'emulsion-addons/emulsion.php' ) ) {
+
+			$message .= '<br> '. esc_html__('the emulsion-addons plugin is not active.', 'emulsion');
+
+			$message .= '<br> '. esc_html__('Require to activate the emulsion-addons plugin for the experiment.', 'emulsion');
+		}
+
+		if( is_plugin_active( 'gutenberg/gutenberg.php' ) && is_plugin_active( 'emulsion-addons/emulsion.php' ) ) {
+
+			$message = esc_html__( "The experiment is ready. when the experiment is finished Don't forget to change 'index.html' to 'experimental-index.html' ", 'emulsion' );
+
+			printf( '<div class="notice notice-error is-dismissible emulsion-addon-error"><p><strong>%1$s</strong></p></div>', $message );
+
+		} else {
+
+			$plugin_install_url = esc_url( admin_url( 'themes.php?page=tgmpa-install-plugins&plugin_status=all' ) );
+
+			printf( '<div class="notice notice-error is-dismissible emulsion-addon-error"><p><strong>%1$s</strong> '
+					. ' <br><a href="%2$s">%3$s</a></p></div>',
+					$message,
+					$plugin_install_url, esc_html__( 'Plugin Activate', 'emulsion' )
+			);
+		}
+
+	}
+}
 if ( emulsion_do_fse() ) {
 
 	/**

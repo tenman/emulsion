@@ -2,58 +2,7 @@ jQuery(function ($) {
     "use strict";
     $("body").removeClass('noscript');
     //   $(".primary-menu-wrapper [id].menu").attr('data-type', 'accordion');
-    // element wrap
-    /**
-     * the table element can not be controlled with max-width,
-     *
-     * without WordPress 5.3 figure.wp-block-table. table elements wrapping with <div class="emulsion-table-wrapper"></div>
-     * emulsion-table-wrapper bais set CSS overflow-x auto
-     *
-     * If the table width exceeds the size of the content area, display scroll bars to maintain readability.
-     * If the table width is smaller than the content area, the stretch class displays the content width.
-     *
-     */
-    if ($('table').length) {
-        jQuery(".gist table,.sidebar-widget-area table, .footer-widget-area table").each(function (i) {
-            jQuery(this).wrap('<div class="emulsion-table-wrapper"></div>');
-            var parent_width = $(this).parent('.emulsion-table-wrapper').width();
-            var table_width = $(this).width();
-            if (parent_width > table_width) {
-                $(this).addClass('stretch');
-            }
-        });
-        jQuery("table.wp-block-table, .entry-content > table").not('shrink').each(function (i) {
-            /**
-             * WordPress 5.0 old gutenberg block
-             */
-            jQuery(this).wrap('<figure class="wp-block-table exception"></figure>');
-            var parent_width = $(this).parent('.wp-block-table').width();
-            var table_width = $(this).width();
-            if (parent_width > table_width) {
-                $(this).addClass('stretch');
-            }
-        });
-        jQuery("table.alignleft").each(function (i) {
-            jQuery(this).parent().addClass('alignleft');
-            jQuery(this).removeClass('alignleft');
-        });
-        jQuery("table.alignright").each(function (i) {
-            jQuery(this).parent().addClass('alignright');
-            jQuery(this).removeClass('alignright');
-        });
-        jQuery("table.aligncenter").each(function (i) {
-            jQuery(this).parent().addClass('aligncenter');
-            jQuery(this).removeClass('aligncenter');
-        });
-        jQuery("table.alignfull").each(function (i) {
-            jQuery(this).parent().addClass('alignfull');
-            jQuery(this).removeClass('alignfull');
-        });
-        jQuery("table.alignwide").each(function (i) {
-            jQuery(this).parent().addClass('alignwide');
-            jQuery(this).removeClass('alignwide');
-        });
-    }
+
     /**
      * wp_block wrap
      * WordPress block is wrapping with <section class="sectionized-[block name]"></section>
@@ -342,16 +291,7 @@ jQuery(function ($) {
     }
 
 });
-jQuery(function ($) {
-    "use strict";
-    /**
-     * To suppress the display of the title tooltip and change the attribute name
-     * to the data attribute to enable display control on the CSS.
-     */
-    $('ul,ol').not('[class]').each(function (index) {
-        //  $(this).addClass('emulsion-list');
-    });
-});
+
 jQuery(function ($) {
     "use strict";
     /**
@@ -370,10 +310,16 @@ jQuery(function ($) {
      * Header Search box filter
      * Filter the list of categories and tags according to the search keyword.
      */
+    //$(".search-drawer .wp-block-search .wp-block-search__input").on("keyup touchend", function () {
 
-    $(".search-drawer .wp-block-search .wp-block-search__input").on("keyup touchend", function () {
+    $(".widget_categories.search-drawer-content > ul").addClass('horizontal-list-group');
+
+
+
+
+    $(".search-drawer .wp-block-search__inside-wrapper .wp-block-search__input").on("keyup touchend", function () {
         var value = $(this).val().toLowerCase();
-        $(".search-info li ul li").filter(function () {
+        $(".search-info li ul li, .search-info .tagcloud a").filter(function () {
             $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
         });
     });
@@ -408,21 +354,6 @@ jQuery(function ($) {
 
     });
 });
-jQuery(function ($) {
-
-    /**
-     * Repaire block editor WordPress 5.3.1 + gutenberg 7.1
-     * block latest posts ( full content ) inline code decoded
-     * Since tags such as script are removed, the code cannot be reproduced accurately,
-     * but it is better than being decoded
-     */
-
-    $('.wp-block-latest-posts__post-full-content code').each(function (index) {
-        var html = $(this).html();
-
-        $(this).text(html);
-    });
-});
 
 jQuery(function ($) {
     "use strict";
@@ -447,18 +378,6 @@ jQuery(function ($) {
 
         $('a[href^=http]').not('[href^="' + emulsion_script_vars.home_url + '"]').addClass('external').attr('data-no-instant', 'data-no-instant');
         $('.emulsion-removed-presentation a, .emulsion-not-support-presentation a').attr('data-no-instant', 'data-no-instant');
-
-        /**
-         * instant click isuue fixed
-         * Delete it when you can confirm the stability of the operation.
-
-         $('.single-post a[href*="author"],.single-post a[href*="category"],.single-post a[href*="tag"]').attr('data-no-instant', 'data-no-instant');
-         $('.home.page a[href*="author"],.home.page a[href*="category"],.home.page a[href*="tag"]').attr('data-no-instant', 'data-no-instant');
-         $('.page a').attr('data-no-instant', 'data-no-instant');
-         if( 'none' !== emulsion_script_vars.posts_page_url){
-         $('.home.page a[href="' + emulsion_script_vars.posts_page_url + '"], .single-post a[href="' + emulsion_script_vars.posts_page_url + '"]').attr('data-no-instant', 'data-no-instant');
-         }
-         */
 
         /**
          * instantcclick exclude links
@@ -518,9 +437,7 @@ jQuery(function ($) {
 });
 jQuery(function ($) {
     "use strict";
-    /**
-     * TRANSLATE
-     */
+
     /**
      * Add screen reader text when entry ttle is blank
      */
@@ -1096,6 +1013,10 @@ jQuery(function ($) {
 
 
     });
+    $('.wp-block-latest-posts__list.is-grid .wp-block-latest-posts__post-full-content').each(function (i) {
+
+        $(this).children().removeClass('alignleft alignright alignfull alignwide size1of2 size1of3 size1of4 size2of4 size1of5 size2of5 size3of5');
+    });
 });
 jQuery(function ($) {
 
@@ -1108,22 +1029,51 @@ jQuery(function ($) {
     $('.emulsion-modal-title').on('click', function () {
 
         $(this).parents('.emulsion-modal').removeClass('is-opened');
+
+
     });
+
+    var lastHash = location.hash.substring(1);
+    var lastHash_class = lastHash.replace(/[a-z0-9-_]/g, '');
+
+    $('.modal-close-link').on('click', function () {
+        var Y = window.scrollY;
+        var hash = location.hash.substring(1);
+        var hash_class = hash.replace(/[a-z0-9-_]/g, '');
+        location.hash = hash_class;
+
+        if (hash_class || lastHash_class) {
+            location.reload();
+        }
+        $(window).scrollTop(Y);
+
+    });
+    $(document).on('click', '.modal-close-link', function () {
+        var Y = window.scrollY;
+        var hash = location.hash.substring(1);
+        var hash_class = hash.replace(/[a-z0-9-_]/g, '');
+        location.hash = hash_class;
+
+        if (hash_class || lastHash_class) {
+            location.reload();
+        }
+        $(window).scrollTop(Y);
+
+    });
+
 
     // dropdown on click
 
-    $('.dropdown-on-click-title').on('click', function() {
+    $('.dropdown-on-click-title').on('click', function () {
 
         $(this).parents('.dropdown-on-click').addClass('is-opened');
     });
 
-    $('.dropdown-on-click').blur(function() {
+    $('.dropdown-on-click').blur(function () {
 
         $(this).removeClass('is-opened');
     });
 
-
-    $(".is-style-sticky").parents().css("overflow", "visible");
 });
 
 jQuery(function ($) {
