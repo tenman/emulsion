@@ -7,6 +7,7 @@ include_once( get_theme_file_path( 'lib/relate-posts.php' ) );
 include_once( get_theme_file_path( 'lib/icon.php' ) );
 include_once( get_theme_file_path( 'lib/customize.php' ) );
 include_once( get_theme_file_path( 'lib/blocks.php' ) );
+
 emulsion_the_theme_supports('scheme') ? include_once( get_theme_file_path( 'scheme.php' ) ): '';
 
 emulsion_the_theme_supports( 'full_site_editor' ) && function_exists('gutenberg_is_fse_theme') ? include_once( get_template_directory(). '/lib/full_site_editor.php' ): '';
@@ -38,6 +39,7 @@ function emulsion_theme_admin_notice() {
 		);
 	}
 }
+
 /**
  * Theme Supports
  */
@@ -466,6 +468,7 @@ function emulsion_register_scripts_and_styles() {
 
 		return;
 	}
+
 	if ( is_single() && false == emulsion_metabox_display_control( 'style' ) ) {
 
 		false === wp_style_is( 'emulsion' ) ? wp_enqueue_style( 'emulsion' ): '';
@@ -559,17 +562,20 @@ function emulsion_register_scripts_and_styles() {
 	$support_instantclick	 = emulsion_the_theme_supports( 'instantclick' ) ? 'enable' : 'disable';
 	$support_instantclick	 = 'enable' == get_theme_mod( 'emulsion_instantclick', $support_instantclick ) ? true : false;
 
-	foreach( $emulsion_theme_styles as $emulsion_theme_style ) {
+	foreach ( $emulsion_theme_styles as $emulsion_theme_style ) {
 
-		$handle = sprintf('emulsion-%1$s', $emulsion_theme_style );
-		$uri_part = sprintf('css/%1$s.css', $emulsion_theme_style );
+		$handle		 = sprintf( 'emulsion-%1$s', $emulsion_theme_style );
+		$uri_part	 = sprintf( 'css/%1$s.css', $emulsion_theme_style );
+		$file_path	 = get_theme_file_path( $uri_part );
+		
+		if ( is_readable( $file_path ) ) {
+			$get_css = file( get_theme_file_path( $uri_part ) );
+			$add_css = implode( '', $get_css );
 
-		$get_css = file( get_theme_file_path( $uri_part ) );
-		$add_css = implode( '', $get_css );
-
-		false === wp_style_is( $handle ) && true === $support_instantclick && ! emulsion_is_amp()
-			? add_filter( 'emulsion_inline_style', function($css) use( $add_css ) {return $css.' '.$add_css;}, 9 )
-			: '';
+			false === wp_style_is( $handle ) && true === $support_instantclick && ! emulsion_is_amp() ? add_filter( 'emulsion_inline_style', function($css) use( $add_css ) {
+								return $css . ' ' . $add_css;
+							}, 9 ) : '';
+		}
 	}
 
 
@@ -1249,6 +1255,7 @@ if ( ! function_exists( 'emulsion_layout_control' ) ) {
 		 * change stream to grid
 		 * add_filter('emulsion_layout_control', function($html){ return 'grid'; } );
 		 */
+
 		if ( is_single() ) {
 
 			return;

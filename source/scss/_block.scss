@@ -31,7 +31,7 @@ wp-block-search, wp-block-social-links, wp-block-tag-cloud, wp-block-embed, wp-b
 
         }
         .is-style-alignwide,
-        .block-editor__typewriter  .wp-block[data-align="wide"],
+        .editor-styles-wrapper  .wp-block[data-align="wide"],
         .edit-site .wp-block[data-align="wide"]{
             @extend %alignwide;
             position:static;
@@ -47,7 +47,7 @@ wp-block-search, wp-block-social-links, wp-block-tag-cloud, wp-block-embed, wp-b
                 }
             }
             .emulsion-gb-phase-site .is-style-alignfull,
-            .block-editor__typewriter .wp-block[data-align="full"]{
+            .editor-styles-wrapper .wp-block[data-align="full"]{
                 @extend %has-sidebar-alignfull;
                 width:100% ! important;
                 position:static!important;
@@ -66,7 +66,7 @@ wp-block-search, wp-block-social-links, wp-block-tag-cloud, wp-block-embed, wp-b
                 }
             }
             .emulsion-gb-phase-site .is-style-alignfull,
-            .block-editor__typewriter .wp-block[data-align="full"]{
+            .editor-styles-wrapper .wp-block[data-align="full"]{
                 @extend %no-sidebar-alignfull;
                 width:100% ! important;
                 position:static!important;
@@ -180,7 +180,7 @@ wp-block-search, wp-block-social-links, wp-block-tag-cloud, wp-block-embed, wp-b
 
                 &.alignfull{
 
-                    width:var(--thm_main_width);
+                 //   width:var(--thm_main_width);
                     max-width:100%;
                 }
             }
@@ -1356,7 +1356,7 @@ ul.wp-block-rss{
                                 figure{
                                     width:100%;
                                     img{
-                                        border-radius: none;
+                                        border-radius:0;
                                     }
                                 }
                             }
@@ -2797,7 +2797,7 @@ body:not(.block-editor-page){
             @extend %alignwide;
             position:absolute;
         }
-        
+
         &.alignfull{
             @extend %no-sidebar-alignfull;
             position:absolute;

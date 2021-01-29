@@ -19,7 +19,7 @@ a{
 /**
  * list
  * =================================================================== */
-//.emulsion-gb-phase-site .block-editor__typewriter  [data-block],
+//.emulsion-gb-phase-site .editor-styles-wrapper  [data-block],
 [data-block]{
     .wp-block-gallery{
         .blocks-gallery-item:before{
@@ -458,7 +458,7 @@ h3{
 /**
  * Alternative display of svg icon on edit screen
  */
-.emulsion-gb-phase-site .block-editor__typewriter .block-editor-block-list__layout,
+.emulsion-gb-phase-site .editor-styles-wrapper .block-editor-block-list__layout,
 .emulsion-gb-phase-block [data-block]{
     [class^="ico-"]:before,
         [class*=" ico-"]:before{
@@ -1068,7 +1068,7 @@ body{
         background-size: 0 0;
         background-color:var(--thm_background_color);
         @keyframes is-light-carbon-fiber{
-            100%{                
+            100%{
                 background:
                     radial-gradient(rgba(188,188,188,.5) 15%, transparent 16%) 0 0,
                     radial-gradient(rgba(188,188,188,.5) 15%, transparent 16%) 8px 8px,
@@ -1420,7 +1420,7 @@ ul.shrink{
     width:fit-content;
     display:inline-block;
     padding-left:var(--thm_content_gap, 24px);
-    paddin-right:var(--thm_content_gap, 24px);
+    padding-right:var(--thm_content_gap, 24px);
     vertical-align:middle;
 
     &:before{
@@ -1509,11 +1509,13 @@ ul.shrink{
     }
     &.awarding{
         border-radius: 50% 50% 50% 50% / 10% 10% 90% 90%;
+        padding-top: calc(var(--thm_content_gap) * 1.4);
+        padding-bottom: calc(var(--thm_content_gap) * 1.4);
         &:before{
             content:'';
             display:none;
         }
-    }    
+    }
     .exclusion{
         mix-blend-mode:exclusion;
         background:linear-gradient(90deg,blue 0%,blue 50%,red 50%,red 100%);
@@ -1547,7 +1549,7 @@ ul.shrink{
             border-radius: 70% 30% 30% 70%/60% 40% 60% 40%;
         }
     }
-    &.awarding{     
+    &.awarding{
         display:inline-table;
         img{
             object-fit:cover;
@@ -1696,7 +1698,7 @@ ul.shrink{
         .wp-block-latest-comments{
             .wp-block-latest-comments__comment:hover{
                 background:var(--thm_white_color);
-                
+
             }
         }
 
@@ -1925,7 +1927,7 @@ ul.shrink{
  */
 .entry-content{
     .size1of1 {
-        float:none
+        float:none;
     }
     .size1of1,
     .size1of2,
