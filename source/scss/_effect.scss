@@ -1366,6 +1366,7 @@ ul.shrink{
 
 .wp-block-image.is-style-shrink,
 .wp-block-image.shrink{
+
     figure{
         padding-top:0;
         padding-bottom:0;
@@ -2629,5 +2630,23 @@ body{
                 }
             }
         }
+    }
+}
+CodeMirror{
+    .CodeMirror-scroll{
+        overflow: initial ! important;
+        overflow-x: scroll ! important;
+
+        margin-right:calc(var(--thm_common_font_size) * -1 );
+        padding-right:var(--thm_common_font_size);
+        margin-bottom:calc(var(--thm_common_font_size) * -1 );
+        padding-bottom:var(--thm_common_font_size);
+    }
+}
+
+#cookie-law-info-bar{
+    .shortcode-wrapper{
+        width:auto;
+        margin:auto;
     }
 }

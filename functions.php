@@ -24,6 +24,8 @@ if ( is_admin() && current_user_can( 'edit_theme_options' ) ) {
 	}
 }
 
+
+
 add_action( 'admin_notices', 'emulsion_theme_admin_notice' );
 
 function emulsion_theme_admin_notice() {
@@ -36,6 +38,16 @@ function emulsion_theme_admin_notice() {
 				esc_html__( 'The emulsion-addons plugin is too old.', 'emulsion' ),
 				$plugin_install_url,
 				esc_html__( 'Please update', 'emulsion' )
+		);
+	}
+	if (version_compare(PHP_VERSION, '8.0.0') >= 0) {
+
+		$php8_notice = esc_url( esc_html_x('https://make.wordpress.org/core/2020/11/23/wordpress-and-php-8-0/', 'linked url', 'emulsion') );
+
+		printf( '<div class="notice notice-error is-dismissible emulsion-addon-error"><p><strong>%1$s</strong>  <a href="%2$s">%3$s</a></p></div>',
+				esc_html__( 'emulsion theme notice: May not fully support PHP8 ', 'emulsion' ),
+				$php8_notice,
+				esc_html__( 'WordPress and PHP 8.0', 'emulsion' )
 		);
 	}
 }
@@ -310,7 +322,10 @@ if ( ! function_exists( 'emulsion_widgets_init' ) ) {
 				'after_title'	 => "</h2>\n",
 				'widget_id'		 => 'default',
 				'widget_name'	 => 'default',
-				'text'			 => "1" )
+				'text'			 => "1",
+				'before_sidebar' => '',
+				'after_sidebar'  => '',
+				)
 			);
 		}
 		if ( emulsion_the_theme_supports( 'footer' ) ) {
@@ -325,7 +340,10 @@ if ( ! function_exists( 'emulsion_widgets_init' ) ) {
 				'after_title'	 => "</h2>\n",
 				'widget_id'		 => 'extra',
 				'widget_name'	 => 'extra',
-				'text'			 => "2" )
+				'text'			 => "2",
+				'before_sidebar' => '',
+				'after_sidebar'  => '',
+				)
 			);
 		}
 		if ( emulsion_the_theme_supports( 'sidebar_page' ) ) {
@@ -340,7 +358,10 @@ if ( ! function_exists( 'emulsion_widgets_init' ) ) {
 				'after_title'	 => "</h2>\n",
 				'widget_id'		 => 'sidebar-page',
 				'widget_name'	 => 'sidebar-page',
-				'text'			 => "3" )
+				'text'			 => "3",
+				'before_sidebar' => '',
+				'after_sidebar'  => '',
+				)
 			);
 		}
 		if ( emulsion_the_theme_supports( 'footer_page' ) ) {
@@ -355,7 +376,10 @@ if ( ! function_exists( 'emulsion_widgets_init' ) ) {
 				'after_title'	 => "</h2>\n",
 				'widget_id'		 => 'footer-page',
 				'widget_name'	 => 'footer-page',
-				'text'			 => "4" )
+				'text'			 => "4",
+				'before_sidebar' => '',
+				'after_sidebar'  => '',
+				)
 			);
 		}
 		register_sidebar( array(
@@ -368,7 +392,10 @@ if ( ! function_exists( 'emulsion_widgets_init' ) ) {
 				'after_title'	 => "</h2>\n",
 				'widget_id'		 => 'search-drawer-content',
 				'widget_name'	 => 'search-drawer-content',
-				'text'			 => "5" )
+				'text'			 => "5",
+				'before_sidebar' => '',
+				'after_sidebar'  => '',
+				)
 			);
 	}
 }
@@ -567,7 +594,7 @@ function emulsion_register_scripts_and_styles() {
 		$handle		 = sprintf( 'emulsion-%1$s', $emulsion_theme_style );
 		$uri_part	 = sprintf( 'css/%1$s.css', $emulsion_theme_style );
 		$file_path	 = get_theme_file_path( $uri_part );
-		
+
 		if ( is_readable( $file_path ) ) {
 			$get_css = file( get_theme_file_path( $uri_part ) );
 			$add_css = implode( '', $get_css );

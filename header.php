@@ -15,7 +15,7 @@
 
 		$emulsion_header_type = is_page() ? 'page_header' : 'header';
 
-		emulsion_metabox_display_control( $emulsion_header_type ) ? get_template_part( 'template-parts/header', emulsion_header_layout() ) : '';
+		emulsion_metabox_display_control( $emulsion_header_type )  ? get_template_part( 'template-parts/header', emulsion_header_layout() ) : '';
 
 		emulsion_sidebar_manager();
 		?>

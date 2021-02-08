@@ -48,6 +48,17 @@ function emulsion_theme_admin_notice_fse() {
 	}
 }
 if ( emulsion_do_fse() ) {
+	/**
+	 * The following settings are provisional settings for migrating existing themes and FSE themes.
+	 * You can display the full site editor by adjusting the filter.
+	 *
+	 * the headers are duplicates, but you can hide the theme headers etc. from the post or page metabox.
+	 */
+
+	// if needs pure fse. comment out below filter
+	if( 'transitional' == filter_input( INPUT_GET, 'fse' ) ) {
+		add_action( 'wp_loaded', 'emulsion_gutenberg_add_template_loader_filters' );
+	}
 
 	/**
 	 * Adds necessary filters to use 'wp_template' posts instead of theme template files.
@@ -70,10 +81,7 @@ if ( emulsion_do_fse() ) {
 		}
 	}
 
-	add_action( 'wp_loaded', 'emulsion_gutenberg_add_template_loader_filters' );
-
-	function emulsion_gutenberg_override_query_template( $template, $type,
-			array $templates = array() ) {
+	function emulsion_gutenberg_override_query_template( $template, $type, array $templates = array() ) {
 
 		global $_wp_current_template_content;
 
@@ -81,7 +89,7 @@ if ( emulsion_do_fse() ) {
 
 		if ( $current_template ) {
 
-			$_wp_current_template_content = empty( $current_template->post_content ) ? esc_html__( 'Empty template.', 'emulsion' ) : $current_template->post_content;
+			//$_wp_current_template_content = empty( $current_template->post_content ) ? esc_html__( 'Empty template.', 'emulsion' ) : $current_template->post_content;
 
 			if ( isset( $_GET['_wp-find-template'] ) ) {
 				wp_send_json_success( $current_template['template_post'] );
@@ -98,11 +106,11 @@ if ( emulsion_do_fse() ) {
 
 		// Add hooks for template canvas.
 		// Add viewport meta tag.
-		add_action( 'wp_head', 'gutenberg_viewport_meta_tag', 0 );
+		//add_action( 'wp_head', 'gutenberg_viewport_meta_tag', 0 );
 
 		// Render title tag with content, regardless of whether theme has title-tag support.
-		remove_action( 'wp_head', '_wp_render_title_tag', 1 ); // Remove conditional title tag rendering...
-		add_action( 'wp_head', 'gutenberg_render_title_tag', 1 ); // ...and make it unconditional.
+		//remove_action( 'wp_head', '_wp_render_title_tag', 1 ); // Remove conditional title tag rendering...
+		//add_action( 'wp_head', 'gutenberg_render_title_tag', 1 ); // ...and make it unconditional.
 		// This file will be included instead of the theme's template file.
 		//return gutenberg_dir_path() . 'lib/template-canvas.php';
 
@@ -110,7 +118,9 @@ if ( emulsion_do_fse() ) {
 		return get_template_directory() . '/index.php';
 	}
 
+
 	add_filter( 'emulsion_element_classes_root', 'emulsion_element_classes_root_filter' );
+
 
 	function emulsion_element_classes_root_filter( $class ) {
 
