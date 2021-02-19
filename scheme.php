@@ -377,7 +377,6 @@ const emulsion_theme_scheme = array(
 	),
 );
 
-
 add_filter( 'theme_mod_background_color', 'emulsion_background_color_filter' );
 
 function emulsion_background_color_filter( $color ) {
@@ -387,8 +386,7 @@ function emulsion_background_color_filter( $color ) {
 		return $color;
 	}
 
-	if( "ffffff" !== $color ) {
-        // is set background color
+	if( 'ffffff' !== $color && function_exists( 'emulsion_get_var' ) ) {
 
 		return $color;
 	}
@@ -397,7 +395,7 @@ function emulsion_background_color_filter( $color ) {
 
 		$result = ! empty( emulsion_theme_scheme[$scheme]['background_color'] )
 				? emulsion_theme_scheme[$scheme]['background_color']
-				: $color;
+				: 'ffffff';
 
 		return ltrim( $result, '#' );
 	}

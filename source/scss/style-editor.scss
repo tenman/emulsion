@@ -21,6 +21,11 @@
 a:any-link{
     text-decoration:none;
 }
+body:not(.emulsion-addons){
+    a:any-link{
+        color:#666666;
+    }
+}
 .emulsion-gb-phase-block{
     .alignfull{
         //when block advanced class, conflict front end style.
@@ -1009,8 +1014,8 @@ div.wp-block-group{
     .editor-post-title{
         border-bottom:1px solid rgba(188,188,188,.5);
         @extend %block_main_wide;
-        max-width:100%l
-            .editor-post-title__input{
+        max-width:100%;
+        .editor-post-title__input{
             margin:0 auto;
             text-transform: var( --thm_heading_font_transform);
             font-weight:var(--thm_heading_font_weight);
@@ -2738,11 +2743,39 @@ p.has-drop-cap:not(:focus):first-letter {
             }
 
         }
+        .block-editor-warning{
+            border:1px solid rgba(231, 76, 60,1);
+            background:rgba(231, 76, 60,.4);
+            padding:0;
+            min-height:120px;
+            .block-editor-warning__message{
+
+                width:calc(100% - 2rem);
+                box-sizing:border-box;
+                margin:1rem;
+            }
+            .block-editor-warning__actions{
+                margin-left:1rem;
+            }
+
+        }
         &[data-type="core/missing"]{
+            min-height:120px;
             [data-block]{
                 .block-editor-warning{
                     border:1px solid rgba(231, 76, 60,1);
                     background:rgba(231, 76, 60,.4);
+                    padding:0;
+                    min-height:120px;
+                    .block-editor-warning__message{
+
+                        width:calc(100% - 2rem);
+                        box-sizing:border-box;
+                        margin:1rem;
+                    }
+                    .block-editor-warning__actions{
+                        margin-left:1rem;
+                    }
                 }
             }
         }
@@ -2979,8 +3012,9 @@ div.components-notice{
                 [data-type="core/code"]{
                     white-space:pre-wrap;
                     & > code{
-                        padding:var(--thm_meta_data_font_size);
-                        font-size:var(--thm_meta_data_font_size);
+                        //  padding:var(--thm_meta_data_font_size);
+                        // font-size:var(--thm_meta_data_font_size);
+                        font-size:inherit;
                     }
                 }
 

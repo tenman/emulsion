@@ -34,7 +34,7 @@ a[href^="tel:"] {
     display:inline-block;
 }
 
-article,address,aside,blockquote,canvas,dd,article div,dl,dt,fieldset,figure,
+article,address,aside,blockquote,canvas,dd,dl,dt,fieldset,figure,
 figcaption,footer,form,h1,h2,h3,h4,h5,h6,header,hr,iframe,img,li,main,nav,
 noscript,ol,output,p,pre,section,ul,video{
     max-width:100%;
@@ -46,13 +46,14 @@ html{
 
 /**
  * Default block width
+ * @see emulsion_get_third_party_block_classes() for third party block
  */
 
 $core_blocks: wp-block-image, wp-block-gallery,  wp-block-audio, wp-block-cover, wp-block-file, wp-block-video,
 wp-block-code, wp-block-preformatted, wp-block-pullquote, wp-block-table, wp-block-verse, wp-block-buttons,
 wp-block-columns, wp-block-separator, wp-block-spacer, wp-block-media-text, wp-block-group, wp-block-archives,
 wp-block-calendar, wp-block-categories, wp-block-latest-comments, wp-block-latest-posts, wp-block-rss,
-wp-block-search, wp-block-social-links, wp-block-tag-cloud, wp-block-embed, wp-block-navigation;
+wp-block-search, wp-block-social-links, wp-block-tag-cloud, wp-block-embed, wp-block-navigation, wp-block-page-list;
 
 @each $core_block in $core_blocks {
 
@@ -62,6 +63,7 @@ wp-block-search, wp-block-social-links, wp-block-tag-cloud, wp-block-embed, wp-b
         margin-right:auto;
     }
 }
+
 .wp-block-spacer{
 
     width:calc(var(--thm_content_width) - var(--thm_content_gap) * 2 );
@@ -592,7 +594,6 @@ figure{
     display:block;
     padding-left:0;
     padding-right:0;
-    width:var(--thm_content_width);
     margin-left:auto;
     margin-right:auto;
     figcaption{
@@ -2023,7 +2024,7 @@ body .fit{
     justify-content: center;
     -ms-flex-direction:column;
     flex-direction:column;
-   // height:100%;
+    // height:100%;
     box-sizing:border-box;
 }
 .horizontally{
@@ -2233,8 +2234,8 @@ body .fit{
  * ========================================================================== */
 .pagination{
     text-align:center;
-            margin-left:auto;//ie
-        margin-right:auto;//ie
+    margin-left:auto;//ie
+    margin-right:auto;//ie
 }
 .pagination .nav-links{
     display:flex;

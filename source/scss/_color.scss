@@ -101,6 +101,7 @@ body{
         background:var(--thm_background_color);
     }
 }
+
 .custom-background[class]{
     /**
      *
@@ -204,14 +205,14 @@ body{
         &.is-dark .header-is-default-color ~ .primary-menu-wrapper{
             [for="toc-toggle"]{
                 span{
-                   // background:var(--thm_sub_background_color_lighten);
+                    // background:var(--thm_sub_background_color_lighten);
                 }
             }
         }
         &.is-light .header-is-default-color ~ .primary-menu-wrapper{
             [for="toc-toggle"]{
                 span{
-                   // background:rgba(188, 188, 188, .2);
+                    // background:rgba(188, 188, 188, .2);
                 }
             }
         }
@@ -726,7 +727,7 @@ body{
                     color:var(--thm_header_text_color);
                 }
                 .wp-block-search__button{
-                     color:var(--thm_header_text_color);
+                    color:var(--thm_header_text_color);
                 }
             }
             .taxonomy-description{
@@ -2534,10 +2535,7 @@ body[class] .layout ul{
         }
     }
 }
-.has-stripe-background-color,
-.mark-stripe{
-    background:repeating-linear-gradient( 45deg, #606dbc, #606dbc 10px, #465298 10px, #465298 20px );
-}
+
 .mark-success,
 .mark-cool{
     background:var(--thm_cool_color_alpha);
@@ -2562,13 +2560,23 @@ body[class] .layout ul{
 .has-alert-background-color,
 .mark-alert{
     &:not(.has-text-color){
-        color:var(--thm_black_color);
+        // color:var(--thm_black_color);
+        color:var(--thm_genaral_text_color);
         *:not(.has-text-color){
             color:var(--thm_black_color);
         }
     }
 }
-
+.has-stripe-background-color,
+.mark-stripe{
+    background:repeating-linear-gradient( 45deg, #606dbc, #606dbc 10px, #465298 10px, #465298 20px );
+    &:not(.has-text-color){
+        color:var(--thm_white_color);
+        *:not(.has-text-color){
+            color:var(--thm_white_color);
+        }
+    }
+}
 .has-vivid-cyan-blue-to-vivid-purple-gradient-background,
 .has-midnight-gradient-background,
 .has-gray-background-color,

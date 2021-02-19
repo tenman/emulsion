@@ -28,6 +28,7 @@ function emulsion_hooks_setup() {
 	add_filter( 'admin_body_class', 'emulsion_block_editor_class' );
 	add_filter( 'get_header_image_tag', 'emulsion_amp_add_layout_attribute' );
 	add_action( 'emulsion_inline_style', 'emulsion_add_amp_css_variables' );
+	add_action( 'emulsion_inline_style', 'emulsion_add_third_party_block_css' );
 	add_filter( 'get_the_archive_description', 'wpautop');
 	add_action( 'wp_enqueue_scripts', 'emulsion_not_support_presentation_page_link' );
 	add_filter( 'body_class', 'emulsion_remove_custom_background_class' );
@@ -733,7 +734,12 @@ if ( ! function_exists( 'emulsion_theme_styles' ) ) {
     color: var(--thm_general_text_color);
     background: var(--thm_background_color);
 }
-
+.emulsion-addons-inactive .scheme-midnight{
+	--thm_sub_background_color_darken: rgba(0,0,0,1);
+    --thm_sub_background_color_lighten: rgba(255, 255, 255,.2);
+	--thm_comments_color:#ffffff;
+    --thm_comments_bg:transparent;
+}
 
 .emulsion-addons-inactive .scheme-midnight .banner {
   background: var(--thm_background_color);
@@ -1168,6 +1174,115 @@ function emulsion_add_amp_css_variables( $css ) {
 		$css .= $css_variables;
 	}
 	return $css;
+}
+
+function emulsion_add_third_party_block_css( $css ) {
+
+	$third_party_blocks = emulsion_get_third_party_block_classes();
+
+
+	$result = '';
+
+
+	foreach ( $third_party_blocks as $block_class ) {
+
+		$third_party_block_name = str_replace( array( 'wp-block-', '-' ), array( '', '/' ), $block_class );
+
+		if ( has_block( $third_party_block_name ) ) {
+
+			$default = <<<DEFAULT_STYLE
+
+	width: var( --thm_content_width, 720px );
+    max-width:100%;
+    margin:1.5rem auto .75rem;
+    padding-left:var( --thm_content_gap, 24px );
+    padding-right:var( --thm_content_gap, 24px );
+    box-sizing:border-box;
+
+DEFAULT_STYLE;
+
+			$result .= 'body .' . $block_class . '{' . $default . '}';
+
+			$alignleft = <<<ALIGN_LEFT
+    box-sizing:border-box;
+    clear:left;
+    float:left;
+    max-width:calc( 50% - var(--thm_content_gap) - var(--thm_common_font_size) );
+    margin-right:var(--thm_common_font_size);
+    margin-left:var(--thm_content_gap);
+    margin-top:1.5rem;
+    margin-bottom:.75rem;
+    & > figure{
+        margin-top:0;
+        margin-bottom:0;
+    }
+ALIGN_LEFT;
+
+			$result .= 'body .' . $block_class . '.alignleft{' . $alignleft . '}';
+
+			$alignright = <<<ALIGN_RIGHT
+    box-sizing:border-box;
+    clear:right;
+    float:right;
+    max-width:calc( 50% - var(--thm_content_gap) - var(--thm_common_font_size) );
+    margin-left:var(--thm_content_gap);
+    margin-right:var(--thm_common_font_size);
+    margin-top:1.5rem;
+    margin-bottom:.75rem;
+    & > figure{
+        margin-top:0;
+        margin-bottom:0;
+    }
+ALIGN_RIGHT;
+
+			$result .= 'body .' . $block_class . '.alignright{' . $alignright . '}';
+
+			$aligncenter = <<<ALIGN_CENTER
+    box-sizing:border-box;
+    clear:both;
+    float:none;
+    width:calc( var(--thm_content_width) - var(--thm_align_offset) );
+    max-width:100%;
+    margin:1.5rem auto .75rem;
+ALIGN_CENTER;
+
+			$result .= 'body .' . $block_class . '.aligncenter{' . $aligncenter . '}';
+
+			if ( emulsion_the_theme_supports( 'alignfull' ) ) {
+
+
+				$alignwide = <<<ALIGN_WIDE
+    width:calc( var(--thm_content_width) + var(--thm_align_offset) );
+    position: relative;
+    left:0;
+    margin-left:auto;
+    margin-right:auto;
+    max-width:100%;
+ALIGN_WIDE;
+
+				$result .= 'body .' . $block_class . '.alignwide{' . $alignwide . '}';
+
+				$has_sidebar_alignfull = <<<HAS_SIDEBAR_ALIGN_FULL
+        position:relative;
+    width: calc(var(--thm_main_width-with-sidebar) + 30px);
+    left: calc(var( --thm_sidebar_width) / 2 * -1 - 30px);
+    max-width:none;
+HAS_SIDEBAR_ALIGN_FULL;
+
+				$result .= '.emulsion-has-sidebar .' . $block_class . '.alignfull{' . $has_sidebar_alignfull . '}';
+
+				$no_sidebar_alignfull = <<<NO_SIDEBAR_ALIGN_FULL
+    position:relative;
+    width: calc(var(--thm_main_width-with-sidebar) + 30px);
+    left: calc(var( --thm_sidebar_width) / 2 * -1 - 30px);
+    max-width:none;
+NO_SIDEBAR_ALIGN_FULL;
+
+				$result .= '.emulsion-no-sidebar .' . $block_class . '.alignfull{' . $no_sidebar_alignfull . '}';
+			}
+		}
+	}
+	return $css . emulsion_remove_spaces_from_css( $result );
 }
 
 function emulsion_theme_google_tracking_code() {
