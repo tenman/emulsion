@@ -146,6 +146,9 @@ stream.png
 
 ## Changelog
 ### february 25 2021
+		* 1.7.7
+        * https://github.com/tenman/emulsion/releases
+### february 25 2021
 		* 1.7.6
         * https://github.com/tenman/emulsion/releases
 ### february 19 2021

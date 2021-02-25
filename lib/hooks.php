@@ -1181,6 +1181,10 @@ function emulsion_add_third_party_block_css( $css ) {
 	$third_party_blocks = emulsion_get_third_party_block_classes();
 
 
+	if( empty( $third_party_blocks ) ) {
+		return $css;
+	}
+
 	$result = '';
 
 
@@ -1207,36 +1211,36 @@ DEFAULT_STYLE;
     box-sizing:border-box;
     clear:left;
     float:left;
+	width:calc( 50% - var(--thm_content_gap) - var(--thm_common_font_size) );
     max-width:calc( 50% - var(--thm_content_gap) - var(--thm_common_font_size) );
     margin-right:var(--thm_common_font_size);
     margin-left:var(--thm_content_gap);
     margin-top:1.5rem;
     margin-bottom:.75rem;
-    & > figure{
-        margin-top:0;
-        margin-bottom:0;
-    }
 ALIGN_LEFT;
 
+			$float_child = <<<FLOAT_CHILD
+	margin-top:0;
+	margin-bottom:0;
+FLOAT_CHILD;
+
 			$result .= 'body .' . $block_class . '.alignleft{' . $alignleft . '}';
+			$result .= 'body .' . $block_class . '.alignleft > figure{' . $float_child . '}';
 
 			$alignright = <<<ALIGN_RIGHT
     box-sizing:border-box;
     clear:right;
     float:right;
+	width:calc( 50% - var(--thm_content_gap) - var(--thm_common_font_size) );
     max-width:calc( 50% - var(--thm_content_gap) - var(--thm_common_font_size) );
     margin-left:var(--thm_content_gap);
     margin-right:var(--thm_common_font_size);
     margin-top:1.5rem;
     margin-bottom:.75rem;
-    & > figure{
-        margin-top:0;
-        margin-bottom:0;
-    }
 ALIGN_RIGHT;
 
 			$result .= 'body .' . $block_class . '.alignright{' . $alignright . '}';
-
+			$result .= 'body .' . $block_class . '.alignright > figure{' . $float_child . '}';
 			$aligncenter = <<<ALIGN_CENTER
     box-sizing:border-box;
     clear:both;
@@ -1282,6 +1286,7 @@ NO_SIDEBAR_ALIGN_FULL;
 			}
 		}
 	}
+
 	return $css . emulsion_remove_spaces_from_css( $result );
 }
 
