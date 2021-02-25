@@ -24,6 +24,8 @@ if ( is_admin() && current_user_can( 'edit_theme_options' ) ) {
 	}
 }
 
+
+
 add_action( 'admin_notices', 'emulsion_theme_admin_notice' );
 
 function emulsion_theme_admin_notice() {
@@ -295,10 +297,12 @@ if ( ! function_exists( 'emulsion_setup' ) ) {
 		}
 		/**
 		 * The theme requires a default value for the background color
+		 * theme needs default background color but backgroun-image can not support
 		 */
 		if( false === get_background_color( ) ) {
 			set_theme_mod('background_color','ffffff');
 		}
+
 
 		do_action( 'emulsion_setup_after' );
 	}
@@ -2124,6 +2128,11 @@ if ( ! function_exists( 'emulsion_content_type' ) ) {
 
 function emulsion_get_third_party_block_classes() {
 	global $post;
+
+	if( empty( $post ) ) {
+		return;
+	}
+
 	$blocks	 = parse_blocks( $post->post_content );
 	$result	 = array();
 

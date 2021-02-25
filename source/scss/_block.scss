@@ -23,6 +23,7 @@ wp-block-search, wp-block-social-links, wp-block-tag-cloud, wp-block-embed, wp-b
 
     .enable-alignfull{
         .#{$core_block}{
+            
             // @extend %block; defined elements.scss
 
             &.alignwide{
@@ -277,10 +278,8 @@ wp-block-search, wp-block-social-links, wp-block-tag-cloud, wp-block-embed, wp-b
 .enable-alignfull .wp-block-embed.alignwide.is-type-photo,
 .enable-alignfull .wp-block-embed.alignwide.is-type-rich,.enable-alignfull .wp-block-embed.alignfull.is-type-photo,
 .enable-alignfull .wp-block-embed.alignfull.is-type-rich{
-    //  @extend %block;
     margin-left:auto;
     margin-right:auto;
-
 }
 .is-type-video{
     .wp-block-embed__wrapper{
@@ -291,7 +290,6 @@ wp-block-search, wp-block-social-links, wp-block-tag-cloud, wp-block-embed, wp-b
         height:0;
         margin-top:0;
         margin-bottom:0;
-
     }
 
     .wp-block-embed__wrapper iframe[height],
@@ -944,21 +942,12 @@ article *:first-child.wp-block-group{
         /* add br element loop page */
         display:none;
     }
-
 }
 
 /**
  * Social link
  * ========================================================================== */
-/*
-.sectionized-wp-block-social-links{
-    padding-top:5px;
-    padding-bottom:5px;
-*/
-
-
 ul.wp-block-social-links{
-
     @extend %block;
     display:flex;
     justify-content: flex-start;
@@ -968,7 +957,6 @@ ul.wp-block-social-links{
     &.alignleft{
         justify-content: flex-end;
     }
-
 
     &.has-huge-icon-size{
         &.is-style-pill-shape{
@@ -2895,4 +2883,31 @@ body.emulsion-color-enable .interface-interface-skeleton__content [data-block].i
     outline: none;
     border: none;
     box-shadow: none;
+}
+/**
+ * block page list
+ */
+.wp-block-page-list{
+
+    .wp-block-pages-list__item{
+
+        .wp-block-pages-list__item__link{
+
+        }
+        &.has-child{
+
+            .submenu-container{
+
+            }
+
+            .wp-block-page-list__submenu-icon{
+                svg{
+
+                }
+                & ~ .submenu-container{
+
+                }
+            }
+        }
+    }
 }
