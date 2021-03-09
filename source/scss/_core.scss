@@ -35,7 +35,7 @@ p.has-drop-cap:not(:focus):after{
     padding-top:0;
 }
 p.has-drop-cap{
-    min-height:calc(var(--thm_common_font_size) * var(--thm_content_line_height) * 4);
+    min-height:calc(var(--thm_common_font_size, 16px) * var(--thm_content_line_height, 1.5) * 4);
 }
 .alignleft {
     @extend %alignleft;
@@ -66,6 +66,7 @@ img{
         padding-top:0;
     }
 }
+
 .alignnone {
     box-sizing:border-box;
     display:inline-block;
@@ -116,7 +117,7 @@ article{
         .content-col,
         header{
             .entry-title{
-                padding-left:calc(var(--thm_content_gap) * 2);
+                padding-left:calc(var(--thm_content_gap, 24px) * 2);
                 &:before{
                     content:'\1f4cc';
                     position:absolute;
@@ -238,7 +239,7 @@ span.skin-button{
     width: -moz-fit-content;
     width:fit-content;
     padding:0 1rem;
-    line-height:calc(var(--thm_common_font_size) * 3 - 2px);
+    line-height:calc(var(--thm_common_font_size, 16px) * 3 - 2px);
     margin-top:1.5rem;
     margin-bottom:.75rem;
     margin-left:var(--thm_content_gap, 24px);
@@ -248,7 +249,7 @@ span.skin-button{
 a.skin-button:hover{
     text-decoration:none;
     padding:0 1rem;
-    line-height:calc(var(--thm_common_font_size) * 3);
+    line-height:calc(var(--thm_common_font_size, 16px) * 3);
 }
 #wp-calendar{
     margin-left:auto;

@@ -807,7 +807,17 @@ if ( ! function_exists( 'emulsion_do_fse' ) ) {
 
 	function emulsion_do_fse(){
 
-		if( 'off' == filter_input( INPUT_GET, 'fse' ) && gutenberg_is_fse_theme() ) {
+		if( ! function_exists( 'gutenberg_is_fse_theme' )  ) {
+
+			return false;
+		}
+
+		if( ! gutenberg_is_fse_theme() ) {
+
+			return false;
+		}
+
+		if( 'off' == filter_input( INPUT_GET, 'fse' ) ) {
 
 			return false;
 		}
@@ -1112,7 +1122,7 @@ if ( ! function_exists( 'emulsion_attachment_pagination' ) ) {
 	 */
 	function emulsion_attachment_pagination() {
 		?>
-		<nav class="navigation attachment-navigation">
+		<nav class="navigation attachment-navigation" aria-labelledby="Pagination">
 				<div class="nav-links">
 					<h2 class="screen-reader-text"><?php esc_html_e( 'Image Navigation', 'emulsion' ); ?></h2>
 					<div class="nav-previous"><?php previous_image_link( 0 ); ?></div>

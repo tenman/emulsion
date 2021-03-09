@@ -24,8 +24,6 @@ if ( is_admin() && current_user_can( 'edit_theme_options' ) ) {
 	}
 }
 
-
-
 add_action( 'admin_notices', 'emulsion_theme_admin_notice' );
 
 function emulsion_theme_admin_notice() {
@@ -614,7 +612,10 @@ function emulsion_register_scripts_and_styles() {
 							}, 9 ) : '';
 		}
 	}
-
+	if( $support_instantclick ) {
+		// Cached
+		wp_enqueue_style('admin-bar');
+	}
 
 	if (  ! emulsion_is_amp() && false === $support_instantclick) {
 
@@ -649,6 +650,8 @@ function emulsion_register_scripts_and_styles() {
 		emulsion_style_load_controller( 'emulsion-responsive' ) ? wp_enqueue_style( 'emulsion-responsive' ): '';
 
 		emulsion_style_load_controller( 'emulsion-fse' ) ? wp_enqueue_style( 'emulsion-fse' ): '';
+
+
 	}
 
 
@@ -1352,8 +1355,15 @@ if ( ! function_exists( 'emulsion_block_editor_styles_and_scripts' ) ) {
 
 		if ( is_user_logged_in() && current_user_can( 'edit_posts' ) ) {
 
-			wp_enqueue_style(
-				'emulsion-block-editor-styles', get_theme_file_uri( '/css/style-editor.css' ), array(), $emulsion_current_data_version, 'all' );
+			wp_enqueue_style('emulsion-boxed', get_theme_file_uri( '/css/boxed.css' ), array(), $emulsion_current_data_version, 'all' );
+
+			wp_enqueue_style( 'emulsion-misc', get_theme_file_uri( '/css/misc.css' ), array(), $emulsion_current_data_version, 'all' );
+			wp_enqueue_style( 'emulsion-block-presentation', get_theme_file_uri( '/css/block-presentation.css' ), array(), $emulsion_current_data_version, 'all' );
+			wp_enqueue_style( 'emulsion-block-editor-styles', get_theme_file_uri( '/css/style-editor.css' ), array(), $emulsion_current_data_version, 'all' );
+
+
+
+
 
 			//if( false === function_exists( 'wp_scss_compile' ) && function_exists('emulsion__css_variables') ) {
 			////not active wp-scss plugin and active emulsion-addons plugin

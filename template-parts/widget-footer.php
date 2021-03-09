@@ -6,7 +6,7 @@
 
 		if ( is_active_sidebar( 'sidebar-4' ) && $emulsion_metabox_menu_control ) {
 			?>
-			<aside class="footer-widget-area  <?php echo esc_attr( emulsion_element_classes( 'footer-widget-area' ) ); ?> <?php emulsion_template_part_names_class( __FILE__ ) ?>">
+			<aside class="footer-widget-area  <?php echo esc_attr( emulsion_element_classes( 'footer-widget-area' ) ); ?> <?php emulsion_template_part_names_class( __FILE__ ) ?>" aria-label="footer widget area">
 				<ul class="footer-widget-area-lists"><?php
 					if ( ! dynamic_sidebar( 'sidebar-4' ) ) {
 						echo '<li>';
@@ -27,7 +27,7 @@
 
 		if ( is_active_sidebar( 'sidebar-2' ) && $emulsion_metabox_menu_control ) {
 			?>
-			<aside class="footer-widget-area  <?php echo emulsion_theme_addons_exists() ? esc_attr( emulsion_element_classes( 'footer-widget-area' ) ) : ''; ?> <?php emulsion_template_part_names_class( __FILE__ ) ?>">
+			<aside class="footer-widget-area  <?php echo emulsion_theme_addons_exists() ? esc_attr( emulsion_element_classes( 'footer-widget-area' ) ) : ''; ?> <?php emulsion_template_part_names_class( __FILE__ ) ?>" aria-label="sidebar widget area">
 				<ul class="footer-widget-area-lists"><?php
 					if ( ! dynamic_sidebar( 'sidebar-2' ) ) {
 						echo '<li>';

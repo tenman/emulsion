@@ -12,7 +12,7 @@
     @for $i from 2 through 10 {
         div.gallery-columns-#{$i}.gallery-size-#{$key}{
             width: calc( #{$val}px * #{$i} + var( --thm_box_gap, 3px ) * #{$i * 2} + var(--thm_common_border_width) * #{$i * 2} );
-            max-width:calc(100% - var(--thm_content_gap) * 2);
+            max-width:calc(100% - var(--thm_content_gap, 24px) * 2);
         }
     }
 }
@@ -89,8 +89,8 @@
         &.gallery-columns-7 .gallery-item,
         &.gallery-columns-6 .gallery-item,
         &.gallery-columns-5 .gallery-item {
-            margin-top:var(--thm_box_gap);
-            margin-bottom:var(--thm_box_gap);
+            margin-top:var(--thm_box_gap, 3px);
+            margin-bottom:var(--thm_box_gap, 3px);
         }
         &.gallery-columns-9 .gallery-item figcaption,
         &.gallery-columns-8 .gallery-item figcaption,

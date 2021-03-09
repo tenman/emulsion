@@ -35,18 +35,18 @@ body{
 h1,h2,h3,h4,h5,h6{
 
     font-weight:700;
-    width:var(--thm_content_width);
+    width:var(--thm_content_width, 720px);
     max-width:100%;
-    padding-left:var(--thm_content_gap);
-    padding-right:var(--thm_content_gap);
+    padding-left:var(--thm_content_gap, 24px);
+    padding-right:var(--thm_content_gap, 24px);
     box-sizing: border-box;
     margin:1.5rem auto .75rem;
 }
 p:not(.site-description){
-    width:var(--thm_content_width);
+    width:var(--thm_content_width, 720px);
     max-width:100%;
-    padding-left:var(--thm_content_gap);
-    padding-right:var(--thm_content_gap);
+    padding-left:var(--thm_content_gap, 24px);
+    padding-right:var(--thm_content_gap, 24px);
     box-sizing: border-box;
     margin:1.5rem auto .75rem;
 }
@@ -65,7 +65,7 @@ dl,
 ol,
 table,
 figure{
-    width:var(--thm_content_width);
+    width:var(--thm_content_width, 720px);
     max-width:100%;
     margin:1.5rem auto .75rem;
 }
@@ -79,20 +79,20 @@ address{
 article > div{
 
     & > div{
-        width:var(--thm_content_width);
+        width:var(--thm_content_width, 720px);
         max-width:100%;
         //exception
 
     }
 
     & > [class|="wp-block"]{
-        width:var(--thm_content_width);
+        width:var(--thm_content_width, 720px);
         max-width:100%;
         overflow:hidden;
         margin-top: 1.5rem;
         margin-bottom: 0.75rem;
-        padding-left:var(--thm_content_gap);
-        padding-right:var(--thm_content_gap);
+        padding-left:var(--thm_content_gap, 24px);
+        padding-right:var(--thm_content_gap, 24px);
     }
 }
 article header {
@@ -106,8 +106,8 @@ article header {
     margin-right:auto;
 
 
-    padding-left:var(--thm_content_gap);
-    padding-right:var(--thm_content_gap);
+    padding-left:var(--thm_content_gap, 24px);
+    padding-right:var(--thm_content_gap, 24px);
 }
 .taxonomy-description{
     width: var(--thm_content_width, 720px);
@@ -124,8 +124,8 @@ form > p,
 cite,
 label[for="comment"],
 .comment-reply-title{
-    padding-left:var(--thm_content_gap);
-    padding-right:var(--thm_content_gap);
+    padding-left:var(--thm_content_gap, 24px);
+    padding-right:var(--thm_content_gap, 24px);
 }
 
 .comments .form-submit [type="submit"],
@@ -142,7 +142,7 @@ label[for="comment"],
     width: -moz-fit-content;
     width:fit-content;
     padding:0 1rem;
-    line-height:calc(var(--thm_common_font_size) * 3 - 2px);
+    line-height:calc(var(--thm_common_font_size, 16px) * 3 - 2px);
     margin-top:1.5rem;
     margin-bottom:.75rem;
     margin-left:var(--thm_content_gap, 24px);
@@ -242,7 +242,7 @@ body{
         box-sizing:border-box;
         clear:both;
         float:none;
-        max-width:calc( var(--thm_content_width) - var(--thm_align_offset) );
+        max-width:calc( var(--thm_content_width, 720px) - var(--thm_align_offset) );
         margin:1.5rem auto .75rem;
 
         @media screen and ( max-width : 640px ) {
@@ -277,7 +277,7 @@ body{
     }
     [class|="wp-block"].alignwide,
     .alignwide{
-        width:calc( var(--thm_content_width) + var(--thm_align_offset) );
+        width:calc( var(--thm_content_width, 720px) + var(--thm_align_offset) );
         position: relative;
         left:0;
         margin-left:auto;
@@ -292,8 +292,8 @@ body{
         margin-left:auto;
         margin-right:auto;
         max-width:100%;
-        padding-left:var(--thm_content_gap);
-        padding-right:var(--thm_content_gap);
+        padding-left:var(--thm_content_gap, 24px);
+        padding-right:var(--thm_content_gap, 24px);
 
     }
 }
@@ -433,8 +433,8 @@ div.page-title-block,
     flex-direction:column;
     height:100%;
     box-sizing:border-box;
-    margin-left:calc(var(--thm_content_gap) * -1);
-    margin-right:calc(var(--thm_content_gap) * -1);
+    margin-left:calc(var(--thm_content_gap, 24px) * -1);
+    margin-right:calc(var(--thm_content_gap, 24px) * -1);
 
     background:var(--thm_header_bg_color);
     color:var(--thm_header_text_color);
@@ -449,9 +449,9 @@ main > .stream{
     margin:1.5rem auto 1.5rem;
     .template-part-content-stream{
         flex:1 1 auto;
-        width:var(--thm_content_width);
+        width:var(--thm_content_width, 720px);
         max-width:100%;
-        margin:var(--thm_box_gap);
+        margin:var(--thm_box_gap, 3px);
         .posted-on,
         .entry-meta{
             display:none;
@@ -459,9 +459,9 @@ main > .stream{
     }
     .template-part-content{
         flex:1 1 auto;
-        width:var(--thm_content_width);
+        width:var(--thm_content_width, 720px);
         max-width:100%;
-        margin:var(--thm_box_gap);
+        margin:var(--thm_box_gap, 3px);
     }
 }
 .grid,
@@ -470,8 +470,8 @@ main > .stream{
         .content-col{
             .entry-title{
                 font-size:24px;
-                padding-left: var(--thm_content_gap);
-                padding-right: var(--thm_content_gap);
+                padding-left: var(--thm_content_gap, 24px);
+                padding-right: var(--thm_content_gap, 24px);
                 .trancate-heading{
                     &[data-rows="2"]{
                         height:calc(24px * var(--thm_common_line_height) * 2);
@@ -495,19 +495,19 @@ main > .stream{
         .entry-content,
         .content{
             [data-rows="2"]{
-                height:calc(var(--thm_meta_data_font_size) * var(--thm_content_line_height) * 2);
+                height:calc(var(--thm_meta_data_font_size) * var(--thm_content_line_height, 1.5) * 2);
             }
             [data-rows="3"]{
-                height:calc(var(--thm_meta_data_font_size) * var(--thm_content_line_height) * 3);
+                height:calc(var(--thm_meta_data_font_size) * var(--thm_content_line_height, 1.5) * 3);
             }
             [data-rows="4"]{
-                height:calc(var(--thm_meta_data_font_size) * var(--thm_content_line_height) * 4);
+                height:calc(var(--thm_meta_data_font_size) * var(--thm_content_line_height, 1.5) * 4);
             }
             [data-rows="5"]{
-                height:calc(var(--thm_meta_data_font_size) * var(--thm_content_line_height) * 5);
+                height:calc(var(--thm_meta_data_font_size) * var(--thm_content_line_height, 1.5) * 5);
             }
             [data-rows="6"]{
-                height:calc(var(--thm_meta_data_font_size) * var(--thm_content_line_height) * 6);
+                height:calc(var(--thm_meta_data_font_size) * var(--thm_content_line_height, 1.5) * 6);
             }
         }
     }

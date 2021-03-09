@@ -122,7 +122,7 @@ main .nav-links > div > a{
                         width:fit-content;
                         margin-left:auto;
                         margin-right:auto;
-                        font-size:var(--thm_common_font_size);
+                        font-size:var(--thm_common_font_size, 16px);
                         font-family:var(--thm_common_font_family);
                         font-weight:var(--thm_heading_font_weight);
                         text-transform:var(--thm_heading-font-transform);
@@ -148,7 +148,7 @@ main .nav-links > div > a{
                         width:fit-content;
                         margin-left:auto;
                         margin-right:auto;
-                        font-size:var(--thm_common_font_size);
+                        font-size:var(--thm_common_font_size, 16px);
                         font-family:var(--thm_common_font_family);
                         font-weight:var(--thm_heading_font_weight);
                         text-transform:var(--thm_heading-font-transform);
@@ -231,12 +231,12 @@ body.page{
             margin-left:auto;
             margin-right:auto;
             .attachment-metadata{
-                width:var(--thm_content_width);
+                width:var(--thm_content_width, 720px);
                 max-width:100%;
                 margin-top:1.5rem;
                 margin-bottom:.75rem;
-                padding-left:var(--thm_content_gap);
-                padding-right:var(--thm_content_gap);
+                padding-left:var(--thm_content_gap, 24px);
+                padding-right:var(--thm_content_gap, 24px);
                 .relate-post-title{
                     margin-bottom:.75rem;
                 }
@@ -246,7 +246,7 @@ body.page{
                 }
                 .description-text{
                     margin-bottom:.75rem;
-                    font-size:var(--thm_common_font_size);
+                    font-size:var(--thm_common_font_size, 16px);
                     .label{
                         width:120px;
                         display:inline-block;
@@ -254,7 +254,7 @@ body.page{
                     }
                 }
                 .alt-text{
-                    font-size:var(--thm_common_font_size);
+                    font-size:var(--thm_common_font_size, 16px);
                     margin-bottom:.75rem;
                     .label{
                         width:120px;
@@ -281,17 +281,17 @@ body.page{
     &.post-template-gallery{
         .entry-content{
             figure.wp-block-image{
-                margin-top:var(--thm_box_gap);
-                margin-bottom:var(--thm_box_gap);
+                margin-top:var(--thm_box_gap, 3px);
+                margin-bottom:var(--thm_box_gap, 3px);
                 &.alignfull{
-                    margin-top:var(--thm_box_gap);
-                    margin-bottom:var(--thm_box_gap);
+                    margin-top:var(--thm_box_gap, 3px);
+                    margin-bottom:var(--thm_box_gap, 3px);
                 }
                 figcaption{
                     position: absolute;
                     bottom: 1rem;
                     right: 1rem;
-                    width: calc(100% - var(--thm_content_gap));
+                    width: calc(100% - var(--thm_content_gap, 24px));
                     text-align: right;
                     color: var(--thm_white_color);
                     background: transparent;
@@ -314,7 +314,7 @@ body.page{
                     position: absolute;
                     bottom: 1rem;
                     right: 1rem;
-                    width: calc(100% - var(--thm_content_gap));
+                    width: calc(100% - var(--thm_content_gap, 24px));
                     text-align: right;
                     color: var(--thm_white_color);
                     background: transparent;
@@ -324,17 +324,17 @@ body.page{
                     text-overflow: ellipsis;
                 }
                 &.alignleft{
-                    margin-top:var(--thm_box_gap);
-                    margin-bottom:var(--thm_box_gap);
-                    max-width:calc(50% - var(--thm_box_gap));
-                    margin-right:var(--thm_box_gap);
+                    margin-top:var(--thm_box_gap, 3px);
+                    margin-bottom:var(--thm_box_gap, 3px);
+                    max-width:calc(50% - var(--thm_box_gap, 3px));
+                    margin-right:var(--thm_box_gap, 3px);
                     margin-left:0;
                 }
                 &.alignright{
-                    margin-top:var(--thm_box_gap);
-                    margin-bottom:var(--thm_box_gap);
-                    max-width:calc(50% - var(--thm_box_gap));
-                    margin-left:var(--thm_box_gap);
+                    margin-top:var(--thm_box_gap, 3px);
+                    margin-bottom:var(--thm_box_gap, 3px);
+                    max-width:calc(50% - var(--thm_box_gap, 3px));
+                    margin-left:var(--thm_box_gap, 3px);
                     margin-right:0;
                 }
                 @media screen and ( max-width : $content_width + $content_gap * 2 ) {
@@ -347,24 +347,24 @@ body.page{
                 }
             }
             .wp-block-cover{
-                margin-top:var(--thm_box_gap);
-                margin-bottom:var(--thm_box_gap);
+                margin-top:var(--thm_box_gap, 3px);
+                margin-bottom:var(--thm_box_gap, 3px);
                 &.alignfull{
-                    margin-top:var(--thm_box_gap);
-                    margin-bottom:var(--thm_box_gap);
+                    margin-top:var(--thm_box_gap, 3px);
+                    margin-bottom:var(--thm_box_gap, 3px);
                 }
                 &.alignleft{
-                    margin-top:var(--thm_box_gap);
-                    margin-bottom:var(--thm_box_gap);
-                    max-width:calc(50% - var(--thm_box_gap));
-                    margin-right:var(--thm_box_gap);
+                    margin-top:var(--thm_box_gap, 3px);
+                    margin-bottom:var(--thm_box_gap, 3px);
+                    max-width:calc(50% - var(--thm_box_gap, 3px));
+                    margin-right:var(--thm_box_gap, 3px);
                     margin-left:0;
                 }
                 &.alignright{
-                    margin-top:var(--thm_box_gap);
-                    margin-bottom:var(--thm_box_gap);
-                    max-width:calc(50% - var(--thm_box_gap));
-                    margin-left:var(--thm_box_gap);
+                    margin-top:var(--thm_box_gap, 3px);
+                    margin-bottom:var(--thm_box_gap, 3px);
+                    max-width:calc(50% - var(--thm_box_gap, 3px));
+                    margin-left:var(--thm_box_gap, 3px);
                     margin-right:0;
                 }
                 @media screen and ( max-width : $content_width + $content_gap * 2 ) {
@@ -378,26 +378,26 @@ body.page{
             }
             .wp-block-video{
                 &.alignfull{
-                    margin-top:var(--thm_box_gap);
-                    margin-bottom:var(--thm_box_gap);
+                    margin-top:var(--thm_box_gap, 3px);
+                    margin-bottom:var(--thm_box_gap, 3px);
                 }
                 &.alignleft{
-                    margin-top:var(--thm_box_gap);
-                    margin-bottom:var(--thm_box_gap);
-                    width:calc(50% - var(--thm_box_gap));
-                    max-width:calc(50% - var(--thm_box_gap));
-                    margin-right:var(--thm_box_gap);
+                    margin-top:var(--thm_box_gap, 3px);
+                    margin-bottom:var(--thm_box_gap, 3px);
+                    width:calc(50% - var(--thm_box_gap, 3px));
+                    max-width:calc(50% - var(--thm_box_gap, 3px));
+                    margin-right:var(--thm_box_gap, 3px);
                     margin-left:0;
                     video{
                         padding:0;
                     }
                 }
                 &.alignright{
-                    margin-top:var(--thm_box_gap);
-                    margin-bottom:var(--thm_box_gap);
-                    width:calc(50% - var(--thm_box_gap));
-                    max-width:calc(50% - var(--thm_box_gap));
-                    margin-left:var(--thm_box_gap);
+                    margin-top:var(--thm_box_gap, 3px);
+                    margin-bottom:var(--thm_box_gap, 3px);
+                    width:calc(50% - var(--thm_box_gap, 3px));
+                    max-width:calc(50% - var(--thm_box_gap, 3px));
+                    margin-left:var(--thm_box_gap, 3px);
                     margin-right:0;
                     video{
                         padding:0;
@@ -415,32 +415,32 @@ body.page{
             }
             .wp-block-media-text{
                 &.alignfull{
-                    margin-top:var(--thm_box_gap);
-                    margin-bottom:var(--thm_box_gap);
+                    margin-top:var(--thm_box_gap, 3px);
+                    margin-bottom:var(--thm_box_gap, 3px);
                 }
                 &.alignwide{
-                    margin-top:var(--thm_box_gap);
-                    margin-bottom:var(--thm_box_gap);
+                    margin-top:var(--thm_box_gap, 3px);
+                    margin-bottom:var(--thm_box_gap, 3px);
                 }
             }
             .wp-block-embed{
-                margin:var(--thm_box_gap) auto ;
+                margin:var(--thm_box_gap, 3px) auto ;
                 &.alignfull{
-                    margin-top:var(--thm_box_gap);
-                    margin-bottom:var(--thm_box_gap);
+                    margin-top:var(--thm_box_gap, 3px);
+                    margin-bottom:var(--thm_box_gap, 3px);
                 }
                 &.alignleft{
-                    margin-top:var(--thm_box_gap);
-                    margin-bottom:var(--thm_box_gap);
-                    max-width:calc(50% - var(--thm_box_gap));
-                    margin-right:var(--thm_box_gap);
+                    margin-top:var(--thm_box_gap, 3px);
+                    margin-bottom:var(--thm_box_gap, 3px);
+                    max-width:calc(50% - var(--thm_box_gap, 3px));
+                    margin-right:var(--thm_box_gap, 3px);
                     margin-left:0;
                 }
                 &.alignright{
-                    margin-top:var(--thm_box_gap);
-                    margin-bottom:var(--thm_box_gap);
-                    max-width:calc(50% - var(--thm_box_gap));
-                    margin-left:var(--thm_box_gap);
+                    margin-top:var(--thm_box_gap, 3px);
+                    margin-bottom:var(--thm_box_gap, 3px);
+                    max-width:calc(50% - var(--thm_box_gap, 3px));
+                    margin-left:var(--thm_box_gap, 3px);
                     margin-right:0;
                 }
                 figcaption{

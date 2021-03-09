@@ -15,6 +15,7 @@ h1,h2,h3,h4,h5,h6,
         text-transform:var(--thm_heading_font_transform);
     }
 }
+
 div[data-block],
 .entry-content{
     h1,h2,h3,h4,h5,h6,
@@ -30,8 +31,8 @@ div[data-block],
     .use-font-common{
         font-family:var(--thm_common_font_family);
         line-height:var( --thm_content_line_height );
-        font-size:var(--thm_common_font_size);
-        line-height:var(--thm_content_line_height);
+        font-size:var(--thm_common_font_size, 16px);
+        line-height:var(--thm_content_line_height, 1.5);
     }
     .use-font-meta{
         font-family:var(--thm_meta_data_font_family);
@@ -95,13 +96,13 @@ code{
 }
 pre.wp-block-preformatted{
     lin-height:var(--thm_common_line_height);
-    font-size:var(--thm_common_font_size);
+    font-size:var(--thm_common_font_size, 16px);
     font-family: var(--thm_common_font_family);
 }
 pre.wp-block-verse{
     @include font_size(3);
-    margin-top:calc( var(--thm_common_font_size) * var(--thm_content_line_height) );
-    margin-bottom:calc( var(--thm_common_font_size) * var(--thm_content_line_height) / 2 );
+    margin-top:calc( var(--thm_common_font_size, 16px) * var(--thm_content_line_height, 1.5) );
+    margin-bottom:calc( var(--thm_common_font_size, 16px) * var(--thm_content_line_height, 1.5) / 2 );
     line-height:2;
     font-family: var(--thm_common_font_family);
     font-style:italic;
@@ -185,7 +186,7 @@ body{
                 .widgettitle{
                     font-size:20px
                 }
-                line-height:calc( var(--thm_common_font_size) * var( --thm_content_line_height, 1.5 ) );
+                line-height:calc( var(--thm_common_font_size, 16px) * var( --thm_content_line_height, 1.5 ) );
                 font-size:var(--thm_meta_data_font_size);
                 text-transform:var(--thm_meta_data_font_transform);
             }
@@ -237,7 +238,7 @@ body{
 }
 article{
     footer{
-        font-size:var(--thm_common_font_size);
+        font-size:var(--thm_common_font_size, 16px);
     }
 }
 .post-navigation{
@@ -311,8 +312,8 @@ footer.banner{
             margin-top:0;
             margin-bottom:0;
             line-height:var( --thm_content_line_height );
-            font-size:var(--thm_common_font_size);
-            line-height:var(--thm_content_line_height);
+            font-size:var(--thm_common_font_size, 16px);
+            line-height:var(--thm_content_line_height, 1.5);
             .entry-title a,
             h1,h2,h3,h4,h5,h6,
             .h1,.h2,.h3,.h4,.h5,.h6{
@@ -355,7 +356,7 @@ $step: 100;
         font-size:#{$size}px;
     }
     p.has-#{$slug}-font-size{
-        margin:calc( #{$size}px * var(--thm_content_line_height) ) auto;
+        margin:calc( #{$size}px * var(--thm_content_line_height, 1.5) ) auto;
     }
 }
 
@@ -417,58 +418,119 @@ $step: 100;
  * Editor Style
  *
  */
-.gutenberg__editor{
+.editor-styles-wrapper{
     @if $language == ja {
-        .editor-post-title__block{
-            .editor-post-title__input{
+        .edit-post-visual-editor__post-title-wrapper{
+            .editor-post-title{
+                border-bottom:1px solid rgba(188,188,188,.5);
+                @extend %block_main_wide;
+                max-width:100%;
                 font-family: "-apple-system", "Helvetica Neue", "Yu Gothic", YuGothic, "Noto Sans JP", Verdana, Meiryo, sans-serif;
-                font-family: var(--thm_heading_font_family);
-                font-weight: var(--thm_heading_font_weight);
-                line-height: var(--thm_common_line_height);
-                @include font_size(2);
+                .editor-post-title__input{
+                    margin:0 auto;
+                    text-transform: var( --thm_heading_font_transform);
+                    font-weight:var(--thm_heading_font_weight);
+                    font-family:var(--thm_heading_font_family);
+                    @include font_size(2);
+                }
             }
         }
         .editor-block-list__block{
             font-family: "-apple-system", "Helvetica Neue", "Yu Gothic", YuGothic, "Noto Sans JP", Verdana, Meiryo, sans-serif;
             font-family:var(--thm_common_font_family);
-            font-size:var(--thm_common_font_size);
-            line-height:var(--thm_content_line_height);
+            font-size:var(--thm_common_font_size, 16px);
+            line-height:var(--thm_content_line_height, 1.5);
         }
         .edit-post-visual-editor{
             font-family: "-apple-system", "Helvetica Neue", "Yu Gothic", YuGothic, "Noto Sans JP", Verdana, Meiryo, sans-serif;
             p{
                 font-family: "-apple-system", "Helvetica Neue", "Yu Gothic", YuGothic, "Noto Sans JP", Verdana, Meiryo, sans-serif;
                 font-family:var(--thm_common_font_family);
-                font-size:var(--thm_common_font_size);
-                line-height:var(--thm_content_line_height);
+                font-size:var(--thm_common_font_size, 16px);
+                line-height:var(--thm_content_line_height, 1.5);
             }
         }
     } @else {
-        .editor-post-title__block{
-            .editor-post-title__input{
+        .edit-post-visual-editor__post-title-wrapper{
+            .editor-post-title{
+                border-bottom:1px solid rgba(188,188,188,.5);
+                @extend %block_main_wide;
+                max-width:100%;
                 font-family: 'Roboto', sans-serif;
-                font-family: var(--thm_heading_font_family);
-                font-weight: var(--thm_heading_font_weight);
-                line-height: var(--thm_common_line_height);
-                @include font_size(2);
+                .editor-post-title__input{
+                    margin:0 auto;
+                    text-transform: var( --thm_heading_font_transform);
+                    font-weight:var(--thm_heading_font_weight);
+                    font-family:var(--thm_heading_font_family);
+                    @include font_size(2);
+                }
             }
         }
         .editor-block-list__block{
             font-family: 'Roboto', sans-serif;
             font-family:var(--thm_common_font_family);
-            font-size:var(--thm_common_font_size);
-            line-height:var(--thm_content_line_height);
+            font-size:var(--thm_common_font_size, 16px);
+            line-height:var(--thm_content_line_height, 1.5);
         }
         .edit-post-visual-editor{
             font-family: 'Roboto', sans-serif;
             font-family:var(--thm_common_font_family);
-            font-size:var(--thm_common_font_size);
-            line-height:var(--thm_content_line_height);
+            font-size:var(--thm_common_font_size, 16px);
+            line-height:var(--thm_content_line_height, 1.5);
             p{
                 font-family: 'Roboto', sans-serif;
                 font-family:var(--thm_common_font_family);
-                font-size:var(--thm_common_font_size);
-                line-height:var(--thm_content_line_height);
+                font-size:var(--thm_common_font_size, 16px);
+                line-height:var(--thm_content_line_height, 1.5);
+            }
+        }
+    }
+
+    p{
+        font-family: var(--thm_common_font_family);
+        font-size:var(--thm_common_font_size, 16px);
+        &.h1{
+            @include font_size(1);
+            &.alignwide,
+            &.is-style-emulsion-wide{
+                @extend %block_wide;
+            }
+        }
+        &.h2{
+            @include font_size(2);
+            &.alignwide,
+            &.is-style-emulsion-wide{
+                @extend %alignwide;
+            }
+        }
+        &.h3{
+            @include font_size(3);
+            &.alignwide,
+            &.is-style-emulsion-wide{
+                @extend %alignwide;
+            }
+        }
+        &.h4{
+            @include font_size(4);
+            font-family: var(--thm_heading_font_family);
+            font-weight:var(--thm_heading_font_weight);
+            &.alignwide,
+            &.is-style-emulsion-wide{
+                @extend %alignwide;
+            }
+        }
+        &.h5{
+            @include font_size(5);
+            &.alignwide,
+            &.is-style-emulsion-wide{
+                @extend %alignwide;
+            }
+        }
+        &.h6{
+            @include font_size(6);
+            &.alignwide,
+            &.is-style-emulsion-wide{
+                @extend %alignwide;
             }
         }
     }

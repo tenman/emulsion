@@ -32,9 +32,9 @@
 			|| is_page() && true == emulsion_metabox_display_control( 'page_menu' )
 			|| is_single() && true == emulsion_metabox_display_control( 'menu' ) ) ) {
 		?>
-	<div class="<?php echo esc_attr( emulsion_element_classes( 'primary' ) ); ?>">
-		<input type="checkbox" id="primary-menu-controll" name="primary-menu-controll" data-skin="hamburger" data-mod="button" />
-		<label for="primary-menu-controll" title="<?php esc_attr_e( 'menu', 'emulsion' ); ?>"><span tabindex="0"></span></label><?php
+	<div class="<?php echo esc_attr( emulsion_element_classes( 'primary' ) ); ?>" role="navigation" aria-label="Primary Menu">
+		<input type="checkbox" id="primary-menu-controll" name="primary-menu-controll" data-skin="hamburger" data-mod="button"  role="checkbox" aria-checked="false" aria-label="Open Menu" />
+		<label for="primary-menu-controll" title="<?php esc_attr_e( 'menu', 'emulsion' ); ?>"><span tabindex="0"><svg class="description" width="1" height="1"><desc><?php esc_html_e('Menu', 'emulsion'); ?></desc></svg></span></label><?php
 	$emulsion_menu_args = array(
 		'menu_class'	 => 'menu wp-nav-menu primary',
 		'container'		 => 'nav',
