@@ -37,7 +37,7 @@
     --thm_content_gap: $content_gap;
     --thm_content_line_height: $content_line_height;
     --thm_content_margin_top: $content_margin_top;
-   --thm_content_width: $content_width;
+    --thm_content_width: $content_width;
     --thm_content_min_width: 296px;
     --thm_default_header_height: $default_header_height;
     --thm_excerpt_linebreak: $excerpt_linebreak;
@@ -64,7 +64,7 @@
     --thm_heading_font_weight: $heading_font_weight;
     --thm_hover_color:$hover_color;
     --thm_i18n_no_title:$i18n_no_title;//fallback
-   // --thm_main_width-with-sidebar: calc(100vw - var(--thm_sidebar_width) - 48px );
+    // --thm_main_width-with-sidebar: calc(100vw - var(--thm_sidebar_width) - 48px );
     --thm_main_width: $main_width;
     --thm_media_text_section_bg: $media_text_section_bg;
     --thm_media_text_section_color: $media_text_section_color;
@@ -120,8 +120,11 @@ body{
         .has-#{$slug}-color {
             color:#{$color};
         }
-        .has-#{$slug}-background-color {
-            background:#{$color};
+
+        .has-#{$slug}-background-color{
+            background: var(--thm_alert_color_alpha);
+            background-image:linear-gradient( #{$color, $color}  ), linear-gradient(  var(--thm_white_color), var(--thm_white_color) );
+            color:var(--thm_black_color);
             background-size:cover;
         }
         .wp-block-columns.has-#{$slug}-color{
@@ -130,8 +133,6 @@ body{
             }
         }
         .wp-block-columns.has-#{$slug}-background-color{
-            background:transparent;
-
             &:before{
                 display:none;
             }
@@ -141,7 +142,9 @@ body{
 
             }
         }
+
     }
+
     article .has-my-color {
         color:var(--thm_favorite_color_palette);
     }
@@ -153,12 +156,11 @@ body{
 
 /**
  * Fallback colors
+ * for editor-style,tinymce
  */
-
-
 body:not(.emulsion-not-support-presentation){
     --thm_black_color:#333333;
-    --thm_gray_color:#727477;
+    --thm_gray_color:#A9A9A9;
     --thm_silver_color:#bebebe;
     --thm_cloud_color:#ecf0f1;
     --thm_white_color:#ffffff;
@@ -173,8 +175,13 @@ body:not(.emulsion-not-support-presentation){
     --thm_lighten:linear-gradient(rgba(255, 255, 255, .2), rgba(255, 255, 255, .2));
     --thm_darken:linear-gradient(rgba(0, 0, 0, .2), rgba(0, 0, 0, .2));
     --thm_default_bullet_color:#3498db;
+    --thm_is_style_dark_color:#a9b7c6;
+    --thm_is_style_dark_bg:#282b2e;
+    --thm_code_color:#555555;
+    --thm_code_bg:#f8f8ff;
 }
 body:not(.emulsion-not-support-presentation) .wp-block-table{
+
     --thm_table_light_gray_background:#f3f4f5;
     --thm_table_pale_green_background:#e9fbe5;
     --thm_table_pale_blue_background:#e7f5fe;
@@ -193,7 +200,7 @@ body:not(.emulsion-not-support-presentation) .wp-block-table{
         --thm_general_link_color:#bbb;
         --thm_general_link_hover_color:#eee;
         --thm_background_color:#333;
-        --thm_sub_background_color_lighten:#727477;
+        --thm_sub_background_color_lighten:#A9A9A9;
         --thm_sub_background_color_darken:#000;
         --thm_primary_menu_background:#000;
         --thm_primary_menu_link_color:#bbb;
@@ -591,6 +598,39 @@ body{
                 }
             }
         }
+
+        /**
+         * when disabled javascript
+         */
+        .show-content{
+            display:none;
+        }
+        .menu-item-has-children > a:after{
+            content:'\1f847';
+            background-repeat:no-repeat;
+            display:inline-block;
+            width:24px;
+            height:24px;
+        }
+        .menu-item-has-children .menu-item-has-children > a:after{
+            vertical-align:top;
+            transform: rotate(270deg);
+            margin-left:1rem;
+            margin-top:-.5rem;
+        }
+        .menu-item-has-children .menu-item-has-children.show-left > a:after{
+            transform: rotate(90deg);
+            margin-top:0.2rem;
+        }
+        .search-drawer .search-info{
+            display:none;
+        }
+        .template-part-header{
+            .menu-item-has-children .menu-item-has-children > a:after{
+                vertical-align:top;
+                transform: rotate(90deg);
+            }
+        }
     }
 }
 .emulsion-has-sidebar{
@@ -609,12 +649,12 @@ body:not(.emulsion-removed-presentation):not(.emulsion-not-support-presentation)
     .has-column{
         main{
             .grid{
-               // --thm_main_width:calc(100vw - var(--thm_sidebar_width) - 48px );
+                // --thm_main_width:calc(100vw - var(--thm_sidebar_width) - 48px );
 
             }
             .stream{
-               // --thm_main_width:calc(100vw - var(--thm_sidebar_width) - 48px );
-               --thm_content_width:410px;
+                // --thm_main_width:calc(100vw - var(--thm_sidebar_width) - 48px );
+                --thm_content_width:410px;
             }
 
         }
@@ -624,15 +664,15 @@ body:not(.emulsion-removed-presentation):not(.emulsion-not-support-presentation)
 .wp-customizer{
     // for customizer
     .grid{
-       --thm_content_width: 300px;
+        --thm_content_width: 300px;
         article{
-           --thm_content_width: 100%;
+            --thm_content_width: 100%;
         }
     }
     .stream{
-       --thm_content_width: 400px;
+        --thm_content_width: 400px;
         article{
-           --thm_content_width: 100%;
+            --thm_content_width: 100%;
         }
     }
 }
@@ -645,27 +685,27 @@ body:not(.emulsion-removed-presentation):not(.emulsion-not-support-presentation)
         .has-column{
             main{
                 .grid{
-                   // --thm_main_width:calc(100vw - var(--thm_sidebar_width) - 48px );
+                    // --thm_main_width:calc(100vw - var(--thm_sidebar_width) - 48px );
                 }
                 .stream{
                     //--thm_main_width:calc(100vw - var(--thm_sidebar_width) - 48px );
-                   --thm_content_width:410px;
+                    --thm_content_width:410px;
                 }
             }
         }
         main{
             .grid{
-               --thm_content_width: 300px;
+                --thm_content_width: 300px;
                 article{
-                   --thm_content_width: 100%;
+                    --thm_content_width: 100%;
 
 
                 }
             }
             .stream{
-               --thm_content_width: 400px;
+                --thm_content_width: 400px;
                 article{
-                   --thm_content_width: 100%;
+                    --thm_content_width: 100%;
                     .content{
                         display:block;
                     }

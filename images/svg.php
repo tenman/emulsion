@@ -18,7 +18,7 @@ $emulsion_svg_symbols =<<<SYMBOLS
 		<symbol id="search" viewBox="0 0 32 32" >
 			<path d="M30.055 26.626l-7.09-6.022c-.733-.658-1.516-.961-2.15-.932a11.158 11.158 0 0 0 2.685-7.274c0-6.19-5.026-11.21-11.224-11.21S1.053 6.208 1.053 12.398c0 6.19 5.025 11.21 11.223 11.21 2.78 0 5.323-1.01 7.283-2.682-.029.633.274 1.416.934 2.148l6.03 7.08c1.032 1.146 2.718 1.243 3.747.215 1.03-1.027.933-2.711-.215-3.743zm-17.778-6.754c-4.132 0-7.482-3.346-7.482-7.473s3.35-7.473 7.482-7.473 7.483 3.346 7.483 7.473-3.35 7.473-7.483 7.473z" />
 		</symbol>
-		<symbol id="cross" viewBox="0 0 32 32" >			
+		<symbol id="cross" viewBox="0 0 32 32" >
 			<path d="M30.412 24.913l-8.949-8.91 8.949-8.91a.917.917 0 0 0 0-1.297l-4.227-4.209a.925.925 0 0 0-1.304-.001l-8.949 8.91-8.949-8.91a.923.923 0 0 0-1.303 0l-4.227 4.21a.915.915 0 0 0 0 1.297l8.948 8.91-8.948 8.91a.914.914 0 0 0 0 1.298l4.227 4.208a.925.925 0 0 0 1.303 0l8.95-8.91 8.948 8.91a.923.923 0 0 0 1.303 0l4.228-4.209a.914.914 0 0 0 0-1.297z" stroke="currentColor" stroke-width=".92"/>
 		</symbol>
 		<symbol id="lock" viewBox="0 0 32 32" >
@@ -36,7 +36,7 @@ $emulsion_svg_symbols =<<<SYMBOLS
 		<symbol id="phone" viewBox="0 0 32 32">
 			<path d="M22 20c-2 2-2 4-4 4s-4-2-6-4-4-4-4-6 2-2 4-4-4-8-6-8-6 6-6 6c0 4 4.109 12.109 8 16s12 8 16 8c0 0 6-4 6-6s-6-8-8-6z"></path>
 		</symbol>
-		<symbol id="email" viewBox="0 0 32 32">
+		<symbol id="mail" viewBox="0 0 32 32">
 			<path d="M29 4h-26c-1.65 0-3 1.35-3 3v20c0 1.65 1.35 3 3 3h26c1.65 0 3-1.35 3-3v-20c0-1.65-1.35-3-3-3zM12.461 17.199l-8.461 6.59v-15.676l8.461 9.086zM5.512 8h20.976l-10.488 7.875-10.488-7.875zM12.79 17.553l3.21 3.447 3.21-3.447 6.58 8.447h-19.579l6.58-8.447zM19.539 17.199l8.461-9.086v15.676l-8.461-6.59z"></path>
 		</symbol>
 		<symbol id="rss" viewBox="0 0 32 32">
@@ -133,16 +133,16 @@ $emulsion_svg_symbols =<<<SYMBOLS
 SYMBOLS;
 
 		$emulsion_svg_symbols = apply_filters( 'emulsion_icon_svg_symbols', $emulsion_svg_symbols );
-		
+
 		if( current_user_can( 'edit_theme_options' ) ) {
-			
+
 			// save allowed svg id @type json
-			
+
 			$emulsion_accepted_svg_ids = emulsion_get_svg_ids( $emulsion_svg_symbols );
 		    set_theme_mod( 'emulsion_accepted_svg_ids', $emulsion_accepted_svg_ids );
 		}
-	
+
 		$emulsion_svg = sprintf('<svg xmlns="http://www.w3.org/2000/svg" id="emulsion_theme_svgs"><defs>%1$s</defs></svg>', $emulsion_svg_symbols );
 		$emulsion_svg = apply_filters('emulsion_svg_icon', $emulsion_svg );
 
-		echo ent2ncr( $emulsion_svg );		
+		echo ent2ncr( $emulsion_svg );

@@ -89,13 +89,9 @@ div.emulsion-monthly-archive-prev-next-navigation{
             }
             .emulsion-monthly-archive-prev-next-navigation{
                 @extend %block;
-                margin-left:auto;
-                margin-right:auto;
             }
             .taxonomy-description{
                 @extend %block;
-                margin-left:auto;
-                margin-right:auto;
                 max-width:calc(100% - var(--thm_content_gap, 24px) * 2);
 
 
@@ -272,11 +268,13 @@ div.emulsion-monthly-archive-prev-next-navigation{
                         .emulsion-full,
                         .alignfull{
                             position:relative;
+                            /*
                             left:0;
                             width:calc( var(--thm_main_width) - 24px);
                             max-width:none;
                             margin-left:auto;
-                            margin-right:auto;
+                            margin-right:auto;*/
+                            @extend %has-sidebar-alignfull;
                         }
                         .is-style-circle-mask{
                             overflow:hidden;
@@ -301,10 +299,11 @@ div.emulsion-monthly-archive-prev-next-navigation{
                         }
                         figure.wp-block-image{
                             &.alignfull{
-                                position:relative;
+                               /* position:relative;
                                 left:0;
                                 width:calc( var(--thm_main_width) - 24px);
-                                max-width:none;
+                                max-width:none;*/
+                                @extend %has-sidebar-alignfull;
                             }
                         }
                         .wp-block-tag-cloud,
@@ -552,8 +551,6 @@ main .nav-links > div > a{
         }
         .attachment-content{
             @extend %block;
-            margin-left:auto;
-            margin-right:auto;
             .attachment-metadata{
                 width:var(--thm_content_width, 720px);
                 max-width:100%;

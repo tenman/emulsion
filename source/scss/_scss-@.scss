@@ -133,8 +133,7 @@
 %block {
     width: var(--thm_content_width, 720px );
     max-width:100%;
-    margin-top:1.5rem;
-    margin-bottom:.75rem;
+    margin:1.5rem auto .75rem;
     padding-left:var( --thm_content_gap, 24px );
     padding-right:var( --thm_content_gap, 24px );
     box-sizing:border-box;
@@ -149,8 +148,8 @@
  */
 %block_wide {
     width:calc( var(--thm_content_width, 720px) + var(--thm_align_offset) );
-    margin-top:1.5rem;
-    margin-bottom:.75rem;
+    max-width:100%;
+    margin:1.5rem auto .75rem;
     padding-left:var( --thm_content_gap, 24px );
     padding-right:var( --thm_content_gap, 24px );
     box-sizing:border-box;
@@ -371,6 +370,11 @@
         margin-top:0;
         margin-bottom:0;
     }
+    &.wp-block-media-text{
+        p{
+            max-width:100%;
+        }
+    }
     @media screen and ( max-width : 640px ) {
         // static break point
         width:100%;
@@ -416,10 +420,9 @@
  * @extend %has-sidebar-alignfull;
  */
 %has-sidebar-alignfull{
-    position:relative;
-    width: calc(var(--thm_main_width-with-sidebar) + 30px);
-    left: calc(var( --thm_sidebar_width) / 2 * -1 - 30px);
-    max-width:none;
+   position:relative;
+   width:100%;
+
 }
 /**
  * no sidebar alignfull
@@ -427,11 +430,8 @@
  */
 %no-sidebar-alignfull{
     width:100vw;
-    max-width:none;
     position:relative;
     overflow:visible;
-    left:calc( 50% - 50vw );
-
 }
 /**
  * no sidebar alignfull

@@ -230,6 +230,7 @@ if ( ! function_exists( 'emulsion_body_class' ) ) {
 		$classes[] = emulsion_theme_addons_exists() || get_theme_mod( 'emulsion_border_global' ) || get_theme_mod( 'emulsion_border_global_style' ) || get_theme_mod( 'emulsion_border_global_width' ) ? 'has-border-custom' : 'border-default';
 
 		$classes[] = 'noscript';
+		$classes[] = 'emulsion';
 
 		if ( is_singular() && isset( $post ) ) {
 			$author_name = 'by-' . get_the_author_meta( 'display_name', $post->post_author );
@@ -1169,6 +1170,8 @@ if ( ! function_exists( 'emulsion_block_editor_class' ) ) {
 			$block_editor_class_name .= ' emulsion-gb-deactive';
 		}
 
+		$block_editor_class_name .= ' emulsion';
+		
 		if( 'ffffff' !== get_background_color() ) {
 
 			$block_editor_class_name .= ' custom-background';
@@ -1297,19 +1300,16 @@ ALIGN_WIDE;
 				$result .= 'body .' . $block_class . '.alignwide{' . $alignwide . '}';
 
 				$has_sidebar_alignfull = <<<HAS_SIDEBAR_ALIGN_FULL
-        position:relative;
-    width: calc(var(--thm_main_width-with-sidebar) + 30px);
-    left: calc(var( --thm_sidebar_width) / 2 * -1 - 30px);
-    max-width:none;
+    position:relative;
+	width:100%;
 HAS_SIDEBAR_ALIGN_FULL;
 
 				$result .= '.emulsion-has-sidebar .' . $block_class . '.alignfull{' . $has_sidebar_alignfull . '}';
 
 				$no_sidebar_alignfull = <<<NO_SIDEBAR_ALIGN_FULL
+    width:100vw;
     position:relative;
-    width: calc(var(--thm_main_width-with-sidebar) + 30px);
-    left: calc(var( --thm_sidebar_width) / 2 * -1 - 30px);
-    max-width:none;
+    overflow:visible;
 NO_SIDEBAR_ALIGN_FULL;
 
 				$result .= '.emulsion-no-sidebar .' . $block_class . '.alignfull{' . $no_sidebar_alignfull . '}';

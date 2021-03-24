@@ -31,14 +31,7 @@ jQuery(function ($) {
                 section_title = emulsion_script_vars.block_media_text_class_title;
                 flag = true;
             }
-            if ('wp-block-pullquote' == classes || 'wp-block-quote' == classes) {
-                section_title = emulsion_script_vars.block_quote_class_title;
-                flag = true;
-            }
-            if ('wp-block-buttons' == classes) {
-                section_title = emulsion_script_vars.block_buttons_class_title;
-                flag = true;
-            }
+
             if (flag == true) {
                 $(this).wrap('<section class="sectionized-' + classes + ' ' + brightness_class + '" ></section>');
             }
@@ -298,7 +291,7 @@ jQuery(function ($) {
      * To suppress the display of the title tooltip and change the attribute name
      * to the data attribute to enable display control on the CSS.
      */
-    $('.sidebar-widget-area a, .footer-widget-area a, .page-wrapper a, .search-drawer a, .header-layer a').not('.social-links-menu a, a.has-title, .has-title a').each(function (index) {
+    $('.sidebar-widget-area a, .footer-widget-area a, .page-wrapper a, .search-drawer a, .header-layer a').not('.wp-block-navigation-link__content, .social-links-menu a, a.has-title, .has-title a').each(function (index) {
         var text = $(this).attr('title');
         $(this).removeAttr('title');
         $(this).attr('data-title', text);
@@ -313,10 +306,6 @@ jQuery(function ($) {
     //$(".search-drawer .wp-block-search .wp-block-search__input").on("keyup touchend", function () {
 
     $(".widget_categories.search-drawer-content > ul").addClass('horizontal-list-group');
-
-
-
-
     $(".search-drawer .wp-block-search__inside-wrapper .wp-block-search__input").on("keyup touchend", function () {
         var value = $(this).val().toLowerCase();
         $(".search-info li ul li, .search-info .tagcloud a").filter(function () {
@@ -437,11 +426,9 @@ jQuery(function ($) {
 });
 jQuery(function ($) {
     "use strict";
-
     /**
      * Add screen reader text when entry ttle is blank
      */
-    "use strict";
     $('.entry-title a:empty, .relate-posts a:empty').prepend('<span class="screen-reader-text">' + emulsion_script_vars.i18n_blank_entry_title + '</span><span>...</span>');
 });
 jQuery(function ($) {
@@ -450,52 +437,6 @@ jQuery(function ($) {
      */
     "use strict";
     function emulsion_resizes() {
-        if ($('.alignfull').length) {
-
-            $(".emulsion-has-sidebar.enable-alignfull .entry-content > .alignfull").not('.wp-block-cover, .wp-block-embed, .modal').each(function (i) {
-                var article_width = $(this).parents('article').width();
-                var parent_width = $(this).parents('.entry-content').width();
-                var negative_margin = parseInt(article_width) - parseInt(parent_width);
-                negative_margin = negative_margin / -2;
-                $(this).css({'width': article_width, 'left': negative_margin});
-            });
-            $(".emulsion-no-sidebar.enable-alignfull .entry-content > .alignfull").not('.wp-block-cover, .wp-block-embed, .modal').each(function (i) {
-                var article_width = $(this).parents('article').width();
-                var parent_width = $(this).parents('.entry-content').width();
-                var negative_margin = parseInt(article_width) - parseInt(parent_width);
-                var main_width = $(this).parents('main').width();
-                negative_margin = parseInt(main_width) - parseInt(article_width) + parseInt(negative_margin);
-                negative_margin = negative_margin / -2;
-                $(this).css({'width': article_width, 'left': negative_margin, 'position': 'relative'});
-            });
-        }
-        if ($('.emulsion-full').length) {
-            $(".emulsion-has-sidebar.enable-alignfull .entry-content > .emulsion-full").not('.wp-block-cover').each(function (i) {
-                var article_width = $(this).parents('article').width();
-                var parent_width = $(this).parents('.entry-content').width();
-                var negative_margin = parseInt(article_width) - parseInt(parent_width);
-                negative_margin = negative_margin / -2;
-                $(this).css({'width': article_width, 'left': negative_margin});
-            });
-            $(".emulsion-no-sidebar.enable-alignfull .entry-content > .emulsion-full").each(function (i) {
-                var article_width = $(this).parents('article').width();
-                var parent_width = $(this).parents('.entry-content').width();
-                var negative_margin = parseInt(article_width) - parseInt(parent_width);
-                var main_width = $(this).parents('main').width();
-                negative_margin = parseInt(main_width) - parseInt(article_width) + parseInt(negative_margin);
-                negative_margin = negative_margin / -2;
-                $(this).css({'width': article_width, 'left': negative_margin, 'position': 'relative'});
-            });
-        }
-
-        $('.emulsion-has-sidebar.enable-alignfull .entry-content > .wp-block-cover.alignfull, .emulsion-has-sidebar.enable-alignfull [class|="sectionized"].alignfull').each(function (i) {
-            var sidebar_width = $('aside.sidebar-widget-area').width();
-            var article_width = $(this).parents('article').width();
-            var parent_width = $(this).parents('.entry-content').width();
-            var negative_margin = parseInt(article_width) - parseInt(parent_width);
-            var negative_margin = negative_margin / -2;
-            $(this).css({'width': article_width, 'left': negative_margin, 'position': 'relative', 'display': 'flex'});
-        });
         /**
          * Detect mobile devices.
          * For example, it is used to switch display of the child menu of the primary menu.
@@ -529,7 +470,6 @@ jQuery(function ($) {
     $(window).on("resize", function (e) {
         emulsion_resizes();
     });
-    emulsion_resizes();
 });
 jQuery(function ($) {
     "use strict";
@@ -666,16 +606,24 @@ jQuery(function ($) {
      * contrast check
      */
     if (emulsion_script_vars.force_contrast) {
-        $('.footer-layer, .sidebar-widget-area, .primary-menu-wrapper, .comment-wrapper, .relate-content-wrapper, .entry-content > div:not(.shortcode-wrapper),.entry-content > .shortcode-wrapper > div, .has-background, .entry-content > .has-background:not(.has-text-color)').not('.wp-block-button, .plain').each(function (i) {
+
+        $('.is-dark div[id], .is-dark .shortcode-wrapper').not('#wpadminbar, #site-title, #main, input,[class*="is-style-"], .has-background').each(function (i) {
+
             var background_color_rgb = $(this).css("background-color");
             var general_background_color = emulsion_script_vars.background_color;
+
             if (general_background_color !== background_color_rgb && background_color_rgb.match(/^rgb\(/)) {
+
                 var contrast_color = emulsion_text_color(background_color_rgb);
+
                 if (contrast_color == '#ffffff') {
+
                     $(this).addClass('emulsion-add-dark-color has-background');
                 } else if (contrast_color == '#333333') {
+
                     $(this).addClass('emulsion-add-light-color has-background');
                 }
+
             }
             if (background_color_rgb.match(/^rgba\(/)) {
 
@@ -684,11 +632,14 @@ jQuery(function ($) {
                     $(this).addClass('has-background emulsion-initial-color').css({'position': 'relative', 'z-index': 'auto'}); // chnge 1 to auto 8/27
                     return;
                 }
+
                 if (background_color_rgb == "rgba(0, 0, 0, 0)" || 'transparent' == background_color_rgb) {
                     $(this).addClass('emulsion-current-color');
+
+                } else if (background_color_rgb !== "rgba(0, 0, 0, 0)" && 'transparent' !== background_color_rgb) {
+                    $(this).addClass('emulsion-transparent-correction');
                 } else {
                     $(this).addClass('emulsion-initial-color');
-
                 }
             }
         });
@@ -1084,4 +1035,6 @@ jQuery(function ($) {
 jQuery(function ($) {
 
     $(".menu-main-container").attr('aria-labelledby', 'main menu');
+
+    $('.wp-block-page-list__submenu-icon').attr('tabindex',0);
 });

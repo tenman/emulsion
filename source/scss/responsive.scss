@@ -51,9 +51,9 @@
 @media screen and ( max-width : $content_width  ) {
     //@media screen and ( max-width : 720px  ) {
     body{
-        --thm_main_width: 100%;
-       --thm_content_width: 100%;
-        --thm_main_width-with-sidebar:100%;
+        --thm_main_width: 100vw;
+        --thm_content_width: 100vw;
+        --thm_main_width-with-sidebar:100vw;
     }
     #{$stream-condition},
     #{$grid-condition},
@@ -458,9 +458,10 @@
                     max-width:100%;
                 }
                 &.alignfull{
-                    position:relative;
+                   /* position:relative;
                     width: 100%;
-                    max-width:none;// 1/25
+                    max-width:none;// 1/25*/
+                    @extend %has-sidebar-alignfull;
                 }
             }
         }
@@ -473,13 +474,14 @@
                     width: calc(  var(--thm_content_width, 720px) + var(--thm_align_offset));
                     padding-left:0;
                     padding-right:0;
-                    max-width:none;
+                    //max-width:none;
                 }
                 &.alignfull{
-                    position:static;
+                    /*position:static;
                     width:100%;
                     max-width:none;
-                    left: 0;
+                    left: 0;*/
+                    @extend %no-sidebar-alignfull;
                 }
             }
         }
@@ -801,7 +803,7 @@
         &.emulsion-has-sidebar{
             article{
                 .alignfull{
-                    max-width:none;
+                    //max-width:none;
                 }
             }
         }

@@ -13,10 +13,8 @@
                 //The display position of the content with alignleft and alignright
                 // specified is arranged based on main_width.
 
-                width:var( --thm_main_width, 1280px );
-            }
-            .alignfull{
-                max-width:none;
+                //width:var( --thm_main_width, 1280px );
+                width:100vw;
             }
         }
     }
@@ -176,9 +174,6 @@ body.excerpt,
     & > nav,
     & > menu{
         @extend %block;
-        margin-left:auto;
-        margin-right:auto;
-        max-width:100%;
     }
     & > aside,
     & > section{
@@ -230,18 +225,7 @@ p.has-background {
     box-sizing:border-box;
     padding:.75em var( --thm_content_gap, 24px );
 }
-picture.alignleft,
-section.alignleft,
-aside.alignleft,
-div.alignleft {
-    @extend %alignleft;
-}
-picture.alignright,
-section.alignright,
-aside.alignright,
-div.alignright{
-    @extend %alignright;
-}
+
 .solid-border{
     padding:1em;
 }
@@ -254,7 +238,7 @@ main > .page article footer.fit{
     margin-right:auto;
 }
 /**
- * Post Formats
+ * Post Formats Gallery
  * ========================================================================== */
 
 .wp-block-group.format-gallery,
@@ -343,11 +327,10 @@ article.format-gallery .entry-content{
     .wp-block-columns{
         margin-top:var(--thm_box_gap, 3px);
         margin-bottom:var(--thm_box_gap, 3px);
-        padding-left:0;
-        padding-right:0;
+
         &.alignfull{
-            padding-left:0;
-            padding-right:0;
+           // padding-left:0;
+           // padding-right:0;
         }
         &.alignwide{
             margin-top:var(--thm_box_gap, 3px);
@@ -399,9 +382,10 @@ article.format-gallery .entry-content{
 /**
  * fallback for plugins block
  */
-.entry-content{
+.layout{
     & > div[id]:not([class|="wp-block"]){
         width:var(--thm_content_width, 720px);
+        max-width:100%;
         margin-left:auto;
         margin-right:auto;
         margin-top:3rem;
@@ -413,6 +397,7 @@ article.format-gallery .entry-content{
 }
 .shortcode-wrapper{
     width:var(--thm_content_width, 720px);
+    max-width:100%;
     padding-left:0;
     padding-right:0;
     margin:3rem auto;
@@ -430,12 +415,6 @@ article.format-gallery .entry-content{
         & > *{
             width:100%;
         }
-    }
-    &.alignleft{
-        @extend %alignleft;
-    }
-    &.alignright{
-        @extend %alignright;
     }
 }
 
@@ -467,7 +446,7 @@ article.format-gallery .entry-content{
 .post-navigation{
     .nav-links{
         display:flex;
-        margin:1.5em auto .75em;
+        margin:0 auto;
         flex-wrap:wrap;
         padding:0;
         position:relative;
@@ -484,11 +463,10 @@ article.format-gallery .entry-content{
                 }
                 @supports ( width:fit-content ) or ( width: -moz-fit-content ){
                     .title{
+
                         text-align:left;
                         width: -moz-fit-content;
                         width:fit-content;
-                        margin-left:auto;
-                        margin-right:auto;
                         font-size:var(--thm_common_font_size, 16px);
                         font-family:var(--thm_common_font_family);
                         font-weight:var(--thm_heading_font_weight);
@@ -510,11 +488,10 @@ article.format-gallery .entry-content{
                 }
                 @supports ( width:fit-content ) or ( width: -moz-fit-content ){
                     .title{
+
                         text-align:left;
                         width: -moz-fit-content;
                         width:fit-content;
-                        margin-left:auto;
-                        margin-right:auto;
                         font-size:var(--thm_common_font_size, 16px);
                         font-family:var(--thm_common_font_family);
                         font-weight:var(--thm_heading_font_weight);

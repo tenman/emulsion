@@ -5,12 +5,12 @@ Theme URI: https://www.tenman.info/wp3/emulsion
 Description: block editor, classic editor both supports. Conventional, Image Media New Block Type Image Both media can be displayed correctly.Theme can stop at each theme style page for page builder users. Customizer can easily view changes with automatic preview redirection.Theme is designed with the goal of minimizing user frustration.
 Author: Tenman
 Author URI: https://www.tenman.info/wp3/
-Version: 1.7.8
+Version: 1.7.9
 Tags: one-column, two-columns, grid-layout,left-sidebar, right-sidebar,custom-background, custom-colors, custom-header,custom-logo, custom-menu, editor-style, featured-image-header, featured-images, flexible-header, footer-widgets, full-width-template, post-formats, sticky-post, theme-options, threaded-comments, translation-ready, block-patterns, block-styles, wide-blocks
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: emulsion
-Tested up to: 5.6.2
+Tested up to: 5.7
 Requires PHP: 5.6
 */
 body.custom-background.emulsion-not-support-presentation,
@@ -226,7 +226,6 @@ header{
  */
 
 body.is-light .scroll-button-top:before,
-body.is-dark .header-is-default-color ~ .scroll-button-top:before,
 body .header-is-default-color ~ .scroll-button-top:before,
 body .header-is-light ~ .scroll-button-top:before {
     background: url(./images/svg/arrow-up.svg);
@@ -243,7 +242,8 @@ body .header-is-light ~ .scroll-button-top:before {
     left: -2px;
     margin: auto;
 }
-body.is-dark .header-is-default-color ~ .scroll-button-top:before,
+body.scheme-midnight .header-is-default-color ~ .scroll-button-top:before,
+body .header-is-dark ~ .scroll-button-top:before,
 .header-layer.header-image-active .header-layer-nav-menu .nav-menu-child-opener[type="checkbox"]:checked ~ label:before,
 body .header-is-dark .header-layer-site-title-navigation .menu .nav-menu-child-opener[type="checkbox"]:checked ~ label:before,
 body .header-layer.template-part-header-custom + .primary-menu-wrapper.menu-is-dark .menu.wp-nav-menu .nav-menu-child-opener[type="checkbox"]:checked ~ label:before,
@@ -352,6 +352,10 @@ body.is-dark .header-layer.template-part-header-custom + .primary-menu-wrapper.m
     background-size: contain;
 
 }
+
+
+
+
 body.is-dark .wp-block-page-list__submenu-icon svg{
     fill:var(--thm_white_color);
 }
@@ -441,17 +445,59 @@ body.is-dark.metabox-reset-post-presentation .header-layer.template-part-header-
     background-size:contain;
 }
 
+/**
+ * fallback
+ * Due to other themes, the set color scheme cannot be reproduced. Causes a fatal problem with contrast
+ */
 
-/*
-.emulsion-addons-inactive .is-dark:not(.emulsion-not-support-presentation):not(.emulsion-removed-presentation ){
-    color:var(--thm_white_color);
+.wp-block-cover{
+    background:var(--thm_silver_color);
 }
-.emulsion-addons-inactive .is-dark:not(.emulsion-not-support-presentation):not(.emulsion-removed-presentation ) a{
-    color:var(--thm_cloud_color);
-}*/
+
+
+/**
+ * Basic Color Settings
+ *
+ * If you use the emulsion theme to create an article and then switch to another theme,
+ * the theme color settings will be lost. If you want to keep the color settings
+ * when creating the article even after switching to the theme,
+ * paste the following style into the customizer's custom CSS.
+ */
+
+
+body:not(.emulsion-not-support-presentation){
+    --thm_black_color:#333333;
+    --thm_gray_color:#A9A9A9;
+    --thm_silver_color:#bebebe;
+    --thm_cloud_color:#ecf0f1;
+    --thm_white_color:#ffffff;
+    --thm_alert_color:rgba(231, 76, 60, 1);
+    --thm_notice_color:rgba(163, 140, 8, 1);
+    --thm_info_color:rgba(22, 160, 133, 1);
+    --thm_cool_color:rgba(52, 152, 219, 1);
+    --thm_alert_color_alpha:rgba(231, 76, 60, .4);
+    --thm_notice_color_alpha:rgba(163, 140, 8, .4);
+    --thm_info_color_alpha:rgba(22, 160, 133, .4);
+    --thm_cool_color_alpha:rgba(52, 152, 219, .4);
+    --thm_lighten:linear-gradient(rgba(255, 255, 255, .2), rgba(255, 255, 255, .2));
+    --thm_darken:linear-gradient(rgba(0, 0, 0, .2), rgba(0, 0, 0, .2));
+    --thm_default_bullet_color:#3498db;
+    --thm_is_style_dark_color:#a9b7c6;
+    --thm_is_style_dark_bg:#282b2e;
+    --thm_code_color:#555555;
+    --thm_code_bg:#f8f8ff;
+}
+body:not(.emulsion-not-support-presentation) .wp-block-table{
+    --thm_table_light_gray_background:#f3f4f5;
+    --thm_table_pale_green_background:#e9fbe5;
+    --thm_table_pale_blue_background:#e7f5fe;
+    --thm_table_pale_pink_background:#ffccf8;
+}
+
 [class*='scheme-']{
     background:var(--thm_background_color);
 }
+
 body {
     color: var(--thm_black_color);
 }
@@ -466,7 +512,7 @@ body .grid .article-wrapper article header.show-post-image a {
     color: var(--thm_white_color);
 }
 body .comment-wrapper{
-  /*  var(--thm_comments_bg, #eeeeee);*/
+    /*  var(--thm_comments_bg, #eeeeee);*/
 }
 body .relate-content-wrapper {
     background: var(--thm_relate_posts_bg, #eeeeee);
@@ -497,53 +543,69 @@ body .pagination .current, body .pagination .prev, body .pagination .next {
     color: var(--thm_general_text_color);
     background: rgba(188, 188, 188, 0.2);
 }
-
+:root .has-midnight-gradient-background,
+:root .has-cool-to-warm-spectrum-gradient-background,
+:root .has-luminous-vivid-orange-to-vivid-red-gradient-background,
+:root .has-vivid-cyan-blue-to-vivid-purple-gradient-background{
+    color:var(--thm_white_color);
+}
+:root .has-white-background-color,
+:root .has-electric-grass-gradient-background,
+:root .has-luminous-dusk-gradient-background,
+:root .has-blush-bordeaux-gradient-background,
+:root .has-blush-light-purple-gradient-background,
+:root .has-very-light-gray-to-cyan-bluish-gray-gradient-background,
+:root .has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background,
+:root .has-light-green-cyan-to-vivid-green-cyan-gradient-background,
+:root .has-pale-ocean-gradient-background{
+    color:var(--thm_black_color);
+}
 
 #wpwrap [data-type="core/html"] .wp-block-html .block-editor-plain-text,
 .wp-block-preformatted,
 pre code {
-    color: #555;
-    background: #f8f8ff;
+    color: var(--thm_code_color);
+    background: var(--thm_code_bg);
 }
 
-#wpwrap [data-type="core/html"] .wp-block-html .block-editor-plain-text.dark,
-.wp-block-preformatted.dark,
-pre code.dark {
-    color: #a9b7c6;
-    background: #282b2e;
+#wpwrap [data-type="core/html"] .wp-block-html .block-editor-plain-text.is-style-dark,
+.wp-block-preformatted.is-style-dark,
+pre code.is-style-dark {
+    color: var(--thm_is_style_dark_color);
+    background: var(--thm_is_style_dark_bg);
 }
 
-#wpwrap [data-type="core/html"] .wp-block-html .block-editor-plain-text.dark code,
-.wp-block-preformatted.dark code,
-pre code.dark code,
-#wpwrap [data-type="core/html"] .wp-block-html .block-editor-plain-text.dark .block-editor-plain-text,
-.wp-block-preformatted.dark .block-editor-plain-text,
-pre code.dark .block-editor-plain-text {
-    color: #a9b7c6;
-    background: #282b2e;
+#wpwrap [data-type="core/html"] .wp-block-html .block-editor-plain-text.is-style-dark code,
+.wp-block-preformatted.is-style-dark code,
+pre code.is-style-dark code,
+#wpwrap [data-type="core/html"] .wp-block-html .block-editor-plain-text.is-style-dark .block-editor-plain-text,
+.wp-block-preformatted.is-style-dark .block-editor-plain-text,
+pre code.is-style-dark .block-editor-plain-text {
+    color: var(--thm_is_style_dark_color);
+    background: var(--thm_is_style_dark_bg);
 }
 
 pre.wp-block-code code {
-    color: #555;
-    background: #f8f8ff;
+    color: var(--thm_code_color);
+    background: var(--thm_code_bg);
 }
 
-pre.wp-block-code.dark code {
-    color: #a9b7c6;
-    background: #282b2e;
+pre.wp-block-code.is-style-dark code {
+    color: var(--thm_is_style_dark_color);
+    background: var(--thm_is_style_dark_bg);
 }
 
-pre.wp-block-code.dark code code,
-pre.wp-block-code.dark code .block-editor-plain-text {
-    color: #a9b7c6;
-    background: #282b2e;
+pre.wp-block-code.is-style-dark code code,
+pre.wp-block-code.is-style-dark code .block-editor-plain-text {
+    color: var(--thm_is_style_dark_color);
+    background: var(--thm_is_style_dark_bg);
 }
 
 p > code {
-    color: #555;
-    background: #f8f8ff;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
+    color: var(--thm_code_color);
+    background: var(--thm_code_bg);
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
 }
 
 del,
@@ -566,23 +628,44 @@ h6.has-text-color>a {
 .mark-stripe {
     background: repeating-linear-gradient(45deg, #606dbc, #606dbc 10px, #465298 10px, #465298 20px);
 }
+
 .has-cool-background-color,
 .mark-success,
 .mark-cool {
     background: var(--thm_cool_color_alpha);
+    background-image:linear-gradient( var(--thm_cool_color_alpha), var(--thm_cool_color_alpha) ),
+        linear-gradient(  var(--thm_white_color), var(--thm_white_color) );
+    color:var(--thm_black_color);
 }
+
 .has-notice-background-color,
 .mark-notice {
     background: var(--thm_notice_color_alpha);
+    background-image:linear-gradient( var(--thm_notice_color_alpha), var(--thm_notice_color_alpha) ),
+        linear-gradient(  var(--thm_white_color), var(--thm_white_color) );
+    color:var(--thm_black_color);
 }
 .has-info-background-color,
 .mark-info {
     background: var(--thm_info_color_alpha);
+    background-image:linear-gradient( var(--thm_info_color_alpha), var(--thm_info_color_alpha) ),
+        linear-gradient(  var(--thm_white_color), var(--thm_white_color) );
+    color:var(--thm_black_color);
 }
 
 .has-alert-background-color,
 .mark-alert {
     background: var(--thm_alert_color_alpha);
+    background-image:linear-gradient(  var(--thm_alert_color_alpha),  var(--thm_alert_color_alpha) ),
+        linear-gradient(  var(--thm_white_color), var(--thm_white_color) );
+    color:var(--thm_black_color);
+
+}
+
+.has-gray-background-color,
+.mark-gray{
+    background: var(--thm_gray_color);
+    color: var(--thm_black_color);
 }
 
 .has-stripe-background-color:not(.has-text-color),
@@ -609,7 +692,6 @@ h6.has-text-color>a {
 
 .has-vivid-cyan-blue-to-vivid-purple-gradient-background:not(.has-text-color),
 .has-midnight-gradient-background:not(.has-text-color),
-.has-gray-background-color:not(.has-text-color),
 .has-black-background-color:not(.has-text-color) {
     color: var(--thm_white_color);
 }
@@ -629,11 +711,6 @@ h6.has-text-color>a {
     color: var(--thm_white_color);
 }
 
-
-p.has-background:not(.has-text-color){
-    color: var(--thm_black_color);
-
-}
 p.has-background:not(.has-text-color).emulsion-add-dark-color{
     color:var(--thm_white_color);/* @since 1.1.2 */
 }
@@ -642,4 +719,5 @@ body.emulsion-has-sidebar.is-dark.scheme-midnight .primary-menu-wrapper nav[clas
     border-bottom-style: var(--thm_common_border_style);
     border-bottom-width: var(--thm_common_border_width);
 }
+
 /*------------------------------------------*/

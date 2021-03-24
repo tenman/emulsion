@@ -468,12 +468,14 @@ function emulsion_theme_variables( $variables ) {
 	$header_sub_background_color = emulsion_theme_default_val( 'emulsion_header_sub_background_color', 'unit_val' );
 
 	$relate_posts_background_color	 = get_theme_mod( 'emulsion_relate_posts_bg', emulsion_theme_default_val( 'emulsion_relate_posts_bg', 'unit_val' ) );
-	$relate_posts_text_color		 = 'color:' . sanitize_hex_color( emulsion_accessible_color( $relate_posts_background_color ) );
+	$relate_posts_text_color		 = sanitize_hex_color( emulsion_accessible_color( $relate_posts_background_color ) );
 
 	$comments_background_color	 = get_theme_mod( 'emulsion_comments_bg', emulsion_theme_default_val( 'emulsion_comments_bg', 'unit_val' ) );
-	$comments_text_color		 = 'color:' . sanitize_hex_color( emulsion_accessible_color( $comments_background_color ) );
+	$comments_text_color		 = sanitize_hex_color( emulsion_accessible_color( $comments_background_color ) );
 
-	$sidebar_text_color = 'color:' . sanitize_hex_color( emulsion_accessible_color( $sidebar_background ) );
+	$sidebar_text_color = sanitize_hex_color( emulsion_accessible_color( $sidebar_background ) );
+
+	$primary_menu_link_color =  sanitize_hex_color( emulsion_accessible_color( $primary_menu_background ) );
 
 	$post_id = get_the_ID();
 	$meta_style_css = '';
@@ -494,6 +496,7 @@ function emulsion_theme_variables( $variables ) {
 	$style = <<<CSS
 .emulsion-addons-inactive body{
 	/* non addons variables @see emulsion_theme_variables */
+
 	--thm_border_global:$border_global;
 	--thm_border_global_style:$border_global_style;
 	--thm_border_global_width:$border_global_width;
@@ -531,10 +534,12 @@ function emulsion_theme_variables( $variables ) {
 	--thm_post_display_date:$post_display_date;
 	--thm_post_display_tag:$post_display_tag;
 	--thm_primary_menu_background:$primary_menu_background;
+	--thm_primary_menu_link_color:$primary_menu_link_color;
 	--thm_relate_posts_bg:$relate_posts_bg;
 	--thm_relate_posts_link_color: $relate_posts_text_color;
 	--thm_sidebar_bg_color:$sidebar_background;
 	--thm_sidebar_link_color: $sidebar_text_color;
+	--thm_sidebar_text_color: $sidebar_text_color;
     --thm_background_color: $background_color;
     --thm_box_gap: $box_gap;
     --thm_columns_section_height:$columns_section_height;
