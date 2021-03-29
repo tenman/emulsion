@@ -543,6 +543,7 @@ function emulsion_theme_variables( $variables ) {
 	--thm_post_display_tag:$post_display_tag;
 	--thm_primary_menu_background:$primary_menu_background;
 	--thm_primary_menu_link_color:$primary_menu_link_color;
+	--thm_primary_menu_color:$primary_menu_link_color;
 	--thm_relate_posts_bg:$relate_posts_bg;
 	--thm_relate_posts_link_color: $relate_posts_text_color;
 	--thm_sidebar_bg_color:$sidebar_background;
