@@ -465,6 +465,14 @@ function emulsion_theme_variables( $variables ) {
 	$border_grid_width				 = emulsion_theme_default_val( 'emulsion_border_grid_width', 'unit_val' );
 	$border_stream_width			 = emulsion_theme_default_val( 'emulsion_border_stream_width', 'unit_val' );
 
+
+	if( ( ! empty( get_header_textcolor() ) && is_home() && ! has_header_image() && ! is_header_video_active() ) ||
+	( ! empty( get_header_textcolor() ) && is_singular() &&  ! has_post_thumbnail() ) ) {
+
+		$header_text_color = sprintf('#%1$s', get_header_textcolor() );
+	}
+
+
 	$header_sub_background_color = emulsion_theme_default_val( 'emulsion_header_sub_background_color', 'unit_val' );
 
 	$relate_posts_background_color	 = get_theme_mod( 'emulsion_relate_posts_bg', emulsion_theme_default_val( 'emulsion_relate_posts_bg', 'unit_val' ) );

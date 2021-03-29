@@ -1037,4 +1037,5 @@ jQuery(function ($) {
     $(".menu-main-container").attr('aria-labelledby', 'main menu');
 
     $('.wp-block-page-list__submenu-icon').attr('tabindex',0);
+
 });

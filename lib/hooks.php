@@ -28,6 +28,7 @@ function emulsion_hooks_setup() {
 	add_filter( 'the_excerpt', 'emulsion_excerpt_remove_p' );
 	add_filter( 'gettext_with_context_default', 'emulsion_change_translate', 99, 4 );
 	add_filter( 'the_content_more_link', 'emulsion_read_more_link' );
+	add_filter( 'navigation_markup_template', 'emulsion_remove_role_from_pagination');
 
 
 	add_filter( 'get_header_image_tag', 'emulsion_amp_add_layout_attribute' );
@@ -1171,7 +1172,7 @@ if ( ! function_exists( 'emulsion_block_editor_class' ) ) {
 		}
 
 		$block_editor_class_name .= ' emulsion';
-		
+
 		if( 'ffffff' !== get_background_color() ) {
 
 			$block_editor_class_name .= ' custom-background';
@@ -1190,10 +1191,15 @@ if ( ! function_exists( 'emulsion_block_editor_class' ) ) {
 	}
 
 }
+if ( ! function_exists( 'emulsion_amp_add_layout_attribute' ) ) {
 
-function emulsion_amp_add_layout_attribute( $html ) {
+	function emulsion_amp_add_layout_attribute( $html ) {
+		if ( emulsion_is_amp() ) {
+			return str_replace( ' />', ' layout="responsive" />', $html );
+		}
+		return $html;
+	}
 
-	return str_replace( ' />', ' layout="responsive" />', $html );
 }
 
 function emulsion_add_amp_css_variables( $css ) {
@@ -1209,25 +1215,18 @@ function emulsion_add_amp_css_variables( $css ) {
 	return $css;
 }
 
-function emulsion_add_third_party_block_css( $css ) {
+if ( ! function_exists( 'emulsion_add_third_party_block_css' ) ) {
 
-	$third_party_blocks = emulsion_get_third_party_block_classes();
+	function emulsion_add_third_party_block_css( $css ) {
 
+		$third_party_blocks = emulsion_get_third_party_block_classes();
 
-	if( empty( $third_party_blocks ) ) {
-		return $css;
-	}
+		if ( empty( $third_party_blocks ) ) {
+			return $css;
+		}
 
-	$result = '';
-
-
-	foreach ( $third_party_blocks as $block_class ) {
-
-		$third_party_block_name = str_replace( array( 'wp-block-', '-' ), array( '', '/' ), $block_class );
-
-		if ( has_block( $third_party_block_name ) ) {
-
-			$default = <<<DEFAULT_STYLE
+		$result					 = '';
+		$default				 = <<<DEFAULT_STYLE
 
 	width: var( --thm_content_width, 720px );
     max-width:100%;
@@ -1237,10 +1236,7 @@ function emulsion_add_third_party_block_css( $css ) {
     box-sizing:border-box;
 
 DEFAULT_STYLE;
-
-			$result .= 'body .' . $block_class . '{' . $default . '}';
-
-			$alignleft = <<<ALIGN_LEFT
+		$alignleft				 = <<<ALIGN_LEFT
     box-sizing:border-box;
     clear:left;
     float:left;
@@ -1251,16 +1247,7 @@ DEFAULT_STYLE;
     margin-top:1.5rem;
     margin-bottom:.75rem;
 ALIGN_LEFT;
-
-			$float_child = <<<FLOAT_CHILD
-	margin-top:0;
-	margin-bottom:0;
-FLOAT_CHILD;
-
-			$result .= 'body .' . $block_class . '.alignleft{' . $alignleft . '}';
-			$result .= 'body .' . $block_class . '.alignleft > figure{' . $float_child . '}';
-
-			$alignright = <<<ALIGN_RIGHT
+		$alignright				 = <<<ALIGN_RIGHT
     box-sizing:border-box;
     clear:right;
     float:right;
@@ -1271,10 +1258,11 @@ FLOAT_CHILD;
     margin-top:1.5rem;
     margin-bottom:.75rem;
 ALIGN_RIGHT;
-
-			$result .= 'body .' . $block_class . '.alignright{' . $alignright . '}';
-			$result .= 'body .' . $block_class . '.alignright > figure{' . $float_child . '}';
-			$aligncenter = <<<ALIGN_CENTER
+		$float_child			 = <<<FLOAT_CHILD
+	margin-top:0;
+	margin-bottom:0;
+FLOAT_CHILD;
+		$aligncenter			 = <<<ALIGN_CENTER
     box-sizing:border-box;
     clear:both;
     float:none;
@@ -1282,13 +1270,7 @@ ALIGN_RIGHT;
     max-width:100%;
     margin:1.5rem auto .75rem;
 ALIGN_CENTER;
-
-			$result .= 'body .' . $block_class . '.aligncenter{' . $aligncenter . '}';
-
-			if ( emulsion_the_theme_supports( 'alignfull' ) ) {
-
-
-				$alignwide = <<<ALIGN_WIDE
+		$alignwide				 = <<<ALIGN_WIDE
     width:calc( var(--thm_content_width) + var(--thm_align_offset) );
     position: relative;
     left:0;
@@ -1296,49 +1278,65 @@ ALIGN_CENTER;
     margin-right:auto;
     max-width:100%;
 ALIGN_WIDE;
-
-				$result .= 'body .' . $block_class . '.alignwide{' . $alignwide . '}';
-
-				$has_sidebar_alignfull = <<<HAS_SIDEBAR_ALIGN_FULL
+		$has_sidebar_alignfull	 = <<<HAS_SIDEBAR_ALIGN_FULL
     position:relative;
 	width:100%;
 HAS_SIDEBAR_ALIGN_FULL;
-
-				$result .= '.emulsion-has-sidebar .' . $block_class . '.alignfull{' . $has_sidebar_alignfull . '}';
-
-				$no_sidebar_alignfull = <<<NO_SIDEBAR_ALIGN_FULL
+		$no_sidebar_alignfull	 = <<<NO_SIDEBAR_ALIGN_FULL
     width:100vw;
     position:relative;
     overflow:visible;
 NO_SIDEBAR_ALIGN_FULL;
 
-				$result .= '.emulsion-no-sidebar .' . $block_class . '.alignfull{' . $no_sidebar_alignfull . '}';
-			}
+		foreach ( $third_party_blocks as $block_class ) {
+				$result .= 'body .' . $block_class . '{' . $default . '}';
+
+				$result	 .= 'body .' . $block_class . '.alignleft{' . $alignleft . '}';
+				$result	 .= 'body .' . $block_class . '.alignleft > figure{' . $float_child . '}';
+
+				$result	 .= 'body .' . $block_class . '.alignright{' . $alignright . '}';
+				$result	 .= 'body .' . $block_class . '.alignright > figure{' . $float_child . '}';
+
+				$result .= 'body .' . $block_class . '.aligncenter{' . $aligncenter . '}';
+
+				if ( emulsion_the_theme_supports( 'alignfull' ) ) {
+
+					$result	 .= 'body .' . $block_class . '.alignwide{' . $alignwide . '}';
+					$result	 .= '.emulsion-has-sidebar .' . $block_class . '.alignfull{' . $has_sidebar_alignfull . '}';
+					$result	 .= '.emulsion-no-sidebar .' . $block_class . '.alignfull{' . $no_sidebar_alignfull . '}';
+				}
+		}
+
+		return $css . emulsion_remove_spaces_from_css( $result );
+	}
+
+}
+
+if ( ! function_exists( 'emulsion_theme_google_tracking_code' ) ) {
+
+	function emulsion_theme_google_tracking_code() {
+
+		$tag			 = sanitize_text_field( get_theme_mod( 'emulsion_google_analytics_tracking_code' ) );
+		$flag			 = get_theme_mod( 'emulsion_instantclick', emulsion_the_theme_supports( 'instantclick' ) ) ? 'enable' : 'disable';
+		$theme_mod_name	 = 'emulsion_google_analytics_' . $tag . $flag;
+
+		if ( $result = get_theme_mod( $theme_mod_name, false ) ) {
+
+			echo $result;
+			return;
 		}
 	}
 
-	return $css . emulsion_remove_spaces_from_css( $result );
 }
 
-function emulsion_theme_google_tracking_code() {
+if ( ! function_exists( 'emulsion_not_support_presentation_page_link' ) ) {
 
-	$tag			 = sanitize_text_field( get_theme_mod( 'emulsion_google_analytics_tracking_code' ) );
-	$flag			 = get_theme_mod( 'emulsion_instantclick', emulsion_the_theme_supports( 'instantclick' ) ) ? 'enable': 'disable';
-	$theme_mod_name	 = 'emulsion_google_analytics_' . $tag . $flag;
+	function emulsion_not_support_presentation_page_link() {
 
-	if ( $result = get_theme_mod( $theme_mod_name, false ) ) {
+		$post_id = absint( get_the_ID() );
 
-		echo $result;
-		return;
-	}
-}
-
-function emulsion_not_support_presentation_page_link() {
-
-	$post_id = absint( get_the_ID() );
-
-	if ( is_singular() && metadata_exists( 'post', $post_id, 'emulsion_post_theme_style_script' ) ) {
-		$data = <<<EOT
+		if ( is_singular() && metadata_exists( 'post', $post_id, 'emulsion_post_theme_style_script' ) ) {
+			$data = <<<EOT
 
 (function () {
 	if(document.getElementsByClassName('emulsion-removed-presentation').length || document.getElementsByClassName('emulsion-not-support-presentation').length ){
@@ -1348,9 +1346,12 @@ function emulsion_not_support_presentation_page_link() {
 })();
 
 EOT;
-		wp_add_inline_script( 'wp-embed', $data );
+			wp_add_inline_script( 'wp-embed', $data );
+		}
 	}
+
 }
+
 if ( ! function_exists( 'emulsion_remove_custom_background_class' ) ) {
 
 	/**
@@ -1372,4 +1373,11 @@ if ( ! function_exists( 'emulsion_remove_custom_background_class' ) ) {
 		return $classes;
 	}
 
+}
+if( ! function_exists('emulsion_remove_role_from_pagination') ) {
+
+	function emulsion_remove_role_from_pagination( $template ) {
+
+		return str_replace( 'role="navigation"', '', $template );
+	}
 }

@@ -1,10 +1,33 @@
 
 
+:root   .has-link-color a:not(.wp-block-button__link){
+
+/**
+ * core default color remove;
+ *
+ * If you have set the link color in another theme and you switch to this theme,
+ * the CSS variables do not exist
+ * and will prevent the default color of the core link color from being applied.
+ */
+    color: var(--wp--style--color--link);
+}
 
 .has-custom-style,
 .custom-background{
     background:var(--thm_background_color);
 }
+
+
+/*
+fill
+stroke
+text-decoration-color
+text-emphasis-color
+column-rule-color
+-webkit-tap-highlight-color
+*/
+
+
 .custom-background[class]{
     /**
      *
@@ -867,10 +890,11 @@ body{
     .has-alert-background-color,
     .has-notice-background-color{
         color: var(--thm_black_color);
-        
-        [class$="inner-container"]:not(.has-background):not(.has-text-color){
+
+        [class$="inner-container"] *:not(.has-background):not(.has-text-color){
             color: var(--thm_black_color);
         }
+
     }
 
     .has-dark-background-color,

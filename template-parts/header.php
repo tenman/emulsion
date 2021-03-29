@@ -14,7 +14,7 @@ $emulsion_current_post_type		 = trim( get_post_type() );
 		&& ( !is_singular() || is_page() && true == emulsion_metabox_display_control( 'page_menu' )
 		|| is_single() && true == emulsion_metabox_display_control( 'menu' ) ) ) { ?>
 		<div class="header-layer-nav-menu" >
-			<input type="checkbox" id="primary-menu-controll" name="primary-menu-controll" data-skin="hamburger" data-mod="form" role="checkbox" aria-checked="false" aria-label="Menu" />
+			<input type="checkbox" id="primary-menu-controll" name="primary-menu-controll" data-skin="hamburger" data-mod="form" aria-checked="false" aria-label="Menu" />
 			<label for="primary-menu-controll" title="<?php esc_attr_e( 'menu', 'emulsion' ); ?>"><span tabindex="0"><svg class="description" width="1" height="1"><desc><?php esc_html_e('Menu', 'emulsion'); ?></desc></svg></span></label>
 			<?php
 			$emulsion_menu_args		 = array(

@@ -122,9 +122,8 @@ body{
         }
 
         .has-#{$slug}-background-color{
-            background: var(--thm_alert_color_alpha);
+            background:#{$color};
             background-image:linear-gradient( #{$color, $color}  ), linear-gradient(  var(--thm_white_color), var(--thm_white_color) );
-            color:var(--thm_black_color);
             background-size:cover;
         }
         .wp-block-columns.has-#{$slug}-color{
@@ -179,6 +178,7 @@ body:not(.emulsion-not-support-presentation){
     --thm_is_style_dark_bg:#282b2e;
     --thm_code_color:#555555;
     --thm_code_bg:#f8f8ff;
+
 }
 body:not(.emulsion-not-support-presentation) .wp-block-table{
 

@@ -147,7 +147,7 @@ if ( ! function_exists( 'emulsion_setup' ) ) {
 				'editor-color-palette', array(
 			array(
 				'name'	 => esc_html__( 'Black', 'emulsion' ),
-				'slug'	 => 'black',
+				'slug'	 => sanitize_title( 'black' ),
 				'color'	 => '#333333',
 			),
 			array(
@@ -1049,6 +1049,7 @@ if ( ! function_exists( 'emulsion_the_header_layer_class' ) ) {
 		$class_name = apply_filters( 'emulsion_the_header_layer_class', $class_name );
 
 		echo emulsion_class_name_sanitize( $class_name . ' ' . $class );
+
 	}
 
 }

@@ -5,7 +5,7 @@ Theme URI: https://www.tenman.info/wp3/emulsion
 Description: block editor, classic editor both supports. Conventional, Image Media New Block Type Image Both media can be displayed correctly.Theme can stop at each theme style page for page builder users. Customizer can easily view changes with automatic preview redirection.Theme is designed with the goal of minimizing user frustration.
 Author: Tenman
 Author URI: https://www.tenman.info/wp3/
-Version: 1.7.9
+Version: 1.8.0
 Tags: one-column, two-columns, grid-layout,left-sidebar, right-sidebar,custom-background, custom-colors, custom-header,custom-logo, custom-menu, editor-style, featured-image-header, featured-images, flexible-header, footer-widgets, full-width-template, post-formats, sticky-post, theme-options, threaded-comments, translation-ready, block-patterns, block-styles, wide-blocks
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -449,9 +449,19 @@ body.is-dark.metabox-reset-post-presentation .header-layer.template-part-header-
  * fallback
  * Due to other themes, the set color scheme cannot be reproduced. Causes a fatal problem with contrast
  */
-
-.wp-block-cover{
+.wp-block-cover__inner-container:first-child{
+   color:var(--thm_black_color);
+}
+[class*="background-color"],
+.has-background{
     background:var(--thm_silver_color);
+    color:var(--thm_black_color);
+}
+
+.has-vivid-cyan-blue-background-color,
+.has-vivid-red-background-color,
+.has-vivid-purple-background-color{
+    color:var(--thm_white_color);
 }
 
 
@@ -678,7 +688,8 @@ h6.has-text-color>a {
 .mark-alert:not(.has-text-color) {
     color: var(--thm_black_color);
 }
-
+.has-gray-background-color:not(.has-text-color) *:not(.has-text-color),
+/*has-black-background-color:not(.has-text-color) *:not(.has-text-color)*/
 .has-stripe-background-color:not(.has-text-color) *:not(.has-text-color),
 .mark-stripe:not(.has-text-color) *:not(.has-text-color),
 .mark-success:not(.has-text-color) *:not(.has-text-color),
@@ -697,17 +708,16 @@ h6.has-text-color>a {
 }
 
 .has-vivid-cyan-blue-to-vivid-purple-gradient-background:not(.has-text-color) *:not(.has-text-color),
-.has-midnight-gradient-background:not(.has-text-color) *:not(.has-text-color),
-.has-gray-background-color:not(.has-text-color) *:not(.has-text-color),
-.has-black-background-color:not(.has-text-color) *:not(.has-text-color) {
+.has-midnight-gradient-background:not(.has-text-color) *:not(.has-text-color){
     color: var(--thm_white_color);
 }
 
 .has-black-background-color {
     background: var(--thm_black_color);
 }
-
-.has-black-background-color:not(.has-text-color) {
+.emulsion .wp-block-cover.has-black-background-color *:not(.has-text-color),
+.emulsion .has-background.has-black-background-color a,
+.emulsion .has-background.has-black-background-color:not(.has-text-color) {
     color: var(--thm_white_color);
 }
 
