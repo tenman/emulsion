@@ -24,6 +24,7 @@ if ( is_admin() && current_user_can( 'edit_theme_options' ) ) {
 	}
 }
 
+
 add_action( 'admin_notices', 'emulsion_theme_admin_notice' );
 
 function emulsion_theme_admin_notice() {

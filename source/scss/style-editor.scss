@@ -311,6 +311,26 @@ div.editor-styles-wrapper .block-editor-block-list__layout.is-root-container > .
 /**
  * Color
  */
+/**
+ * fallback
+ * Due to other themes, the set color scheme cannot be reproduced. Causes a fatal problem with contrast
+ */
+
+.wp-block-cover__inner-container:first-child{
+    color:var(--thm_black_color);
+}
+[class*="background-color"],
+.has-background{
+
+    background:var(--thm_unknown-bg);
+    color:var(--thm_black_color);
+}
+
+.has-vivid-cyan-blue-background-color,
+.has-vivid-red-background-color,
+.has-vivid-purple-background-color{
+    color:var(--thm_white_color);
+}
 
 body .edit-post-layout .interface-interface-skeleton__content{
     //OW
@@ -1412,10 +1432,14 @@ div.editor-styles-wrapper{
             pre {
                 font-family: Consolas, Monaco, monospace;
             }
-            td,
-            th {
-                font-family: inherit;
-                font-size: inherit;
+            table{
+                width:100%;
+                td,
+                th {
+                    font-family: inherit;
+                    font-size: inherit;
+                    padding:.7rem;
+                }
             }
             /* For emoji replacement images */
 
@@ -1877,7 +1901,7 @@ div.is-root-container .wp-block-media-text.alignright{
 
     [data-align="right"],
     &[data-align="right"]{
-         & > [data-type]{
+        & > [data-type]{
             //OW
             margin:auto;
         }
@@ -2682,6 +2706,40 @@ div.components-notice{
                     margin:1.5rem auto .75rem;
                     & > [data-type]{
                         width:100%;
+                    }
+                }
+                .emulsion-panel{
+
+                    .emulsion-panel-title{
+                        width:100%;
+                        margin:0 auto;
+                    }
+                }
+                .emulsion-modal{
+                    .emulsion-modal-title{
+                        width:100%;
+                        margin:0 auto;
+                        .modal-close-link{
+                            text-decoration:none;
+                        }
+                    }
+                }
+                .dropdown-on-hover{
+                    .dropdown-on-hover-title{
+                        width:100%;
+                        margin:0 auto;
+                        .modal-close-link{
+                            text-decoration:none;
+                        }
+                    }
+                }
+                .dropdown-on-click{
+                    .dropdown-on-click-title{
+                        width:100%;
+                        margin:0 auto;
+                        .modal-close-link{
+                            text-decoration:none;
+                        }
                     }
                 }
                 .wp-block-navigation.is-vertical{

@@ -33,8 +33,12 @@
 
 						the_content();
 					} else {
+						
+						echo '<p>';
 
 						the_excerpt();
+
+						echo '</p>';
 					}
 
 					echo '</blockquote>';

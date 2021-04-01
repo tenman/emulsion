@@ -2,7 +2,7 @@
 
 $html = <<<HTML
 <!-- wp:buttons -->
-<div class="wp-block-buttons modal-open-link">
+<div class="wp-block-buttons modal-open-link emulsion-dependency">
 	<!-- wp:button -->
 	<div class="wp-block-button">
 		<a class="wp-block-button__link" href="./#modal-group-1">modal link text</a>
@@ -15,8 +15,8 @@ $html = <<<HTML
 <div id="modal-group-1" class="wp-block-group emulsion-modal solid-border modal">
 	<div class="wp-block-group__inner-container">
 
-		<!-- wp:paragraph {"textAlign":"right","placeholder":"Panel Title","className":"emulsion-modal-title alignfull"} -->
-		<p class="has-text-align-right emulsion-modal-title">
+		<!-- wp:paragraph {"textAlign":"right","placeholder":"Panel Title","className":"emulsion-modal-title alignfull emulsion-dependency"} -->
+		<p class="has-text-align-right emulsion-modal-title emulsion-dependency">
 			<a href="./" class="modal-close-link">X</a>
 		</p>
 		<!-- /wp:paragraph -->

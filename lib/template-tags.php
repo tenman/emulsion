@@ -13,14 +13,14 @@ if ( ! function_exists( 'emulsion_get_site_title' ) ) {
 				</a>
 			</h1>
 	 * Has Logo
-			<h1 class="site-title" id="site-title">
+			<h1 class="site-title has-custom-logo" id="site-title">
 				<a href="https://www.tenman.info/wp-37/" rel="home" class="site-title-link">
 					<span class="custom-logo-wrap"><img width="600" height="60" src="[logo-uri]" class="custom-logo" alt="Site Title" aria-hidden="true"></span>
 					<span class="site-title-text">Site Title</span>
 				</a>
 			</h1>
 	 * Has Logo Front Page ( empty alt, add class link-disabled ) WordPress 5.5 relate change
-			<h1 class="site-title" id="site-title">
+			<h1 class="site-title has-custom-logo" id="site-title">
 				<a href="https://www.tenman.info/wp-37/" rel="home" class="site-title-link link-disabled">
 					<span class="custom-logo-wrap"><img width="600" height="60" src="[logo-uri]" class="custom-logo" alt="" aria-hidden="true"></span>
 					<span class="site-title-text">Site Title</span>
@@ -61,7 +61,7 @@ if ( ! function_exists( 'emulsion_get_site_title' ) ) {
 		}
 
 		$custom_logo_attr	 = apply_filters( 'get_custom_logo_image_attributes', $custom_logo_attr , $custom_logo_id, $blog_id );
-
+		$hax_custom_logo = '';
 		if ( has_custom_logo() ) {
 
 			$logo = sprintf( '<span class="custom-logo-wrap"><img width="%1$d" height="%2$d" src="%3$s" class="%4$s" alt="%5$s" aria-hidden="%6$s"></span>',
@@ -72,6 +72,8 @@ if ( ! function_exists( 'emulsion_get_site_title' ) ) {
 					esc_attr( $custom_logo_attr['alt'] ),
 					esc_attr( $custom_logo_attr['aria-hidden'] )
 			);
+
+			$has_custom_logo = 'has-custom-logo';
 
 			$site_title_text_class	 .= false === strstr( $site_title_text_class, 'screen-reader-text' ) ? ' screen-reader-text' : '';
 		}
@@ -87,7 +89,7 @@ if ( ! function_exists( 'emulsion_get_site_title' ) ) {
 				esc_url( home_url( '/' ) ),
 				"home",
 				get_bloginfo( 'name', 'display' ),
-				apply_filters( 'emulsion_get_site_title_class', 'site-title' ),
+				apply_filters( 'emulsion_get_site_title_class', 'site-title '. $has_custom_logo ),
 				$logo,
 				$site_title_text_class,
 				$site_title_link_class

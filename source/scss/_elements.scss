@@ -157,8 +157,13 @@ body{
             position:relative;
             width:-moz-fit-content;
             width:fit-content;
+
         }
     }
+}
+.custom-logo-wrap img{
+    height:32px;
+    height: clamp(24px, calc( 100vw / 72 * 3), 32px);
 }
 .emulsion-monthly-archive-prev-next-navigation,
 nav{
@@ -358,9 +363,12 @@ article{
         padding-left:0;
         padding-right:0;
         border:none;
+
         p{
             margin-top:0;
             margin-bottom:.75rem;
+            width:-moz-fit-content;
+            width:fit-content;
         }
         br{
             display:var(--thm_excerpt_linebreak);
@@ -2078,6 +2086,9 @@ body .fit{
                 height:48px;
                 line-height:48px;
                 text-align:center;
+                color:var(--thm_header_text_color);
+                background: var(--thm_header_bg_color);
+                text-transform: uppercase;
             }
         }
     }

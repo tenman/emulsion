@@ -117,6 +117,7 @@ body{
     @each $color_pallet in $editor_color_palettes {
         $slug: nth($color_pallet, 1);
         $color: nth($color_pallet, 2);
+
         .has-#{$slug}-color {
             color:#{$color};
         }
@@ -178,6 +179,8 @@ body:not(.emulsion-not-support-presentation){
     --thm_is_style_dark_bg:#282b2e;
     --thm_code_color:#555555;
     --thm_code_bg:#f8f8ff;
+    // relate: style.css, color-pallet.css
+    --thm_unknown-bg:#a1c0e0;
 
 }
 body:not(.emulsion-not-support-presentation) .wp-block-table{

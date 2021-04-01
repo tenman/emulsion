@@ -5,7 +5,7 @@ Theme URI: https://www.tenman.info/wp3/emulsion
 Description: block editor, classic editor both supports. Conventional, Image Media New Block Type Image Both media can be displayed correctly.Theme can stop at each theme style page for page builder users. Customizer can easily view changes with automatic preview redirection.Theme is designed with the goal of minimizing user frustration.
 Author: Tenman
 Author URI: https://www.tenman.info/wp3/
-Version: 1.8.1
+Version: 1.8.2
 Tags: one-column, two-columns, grid-layout,left-sidebar, right-sidebar,custom-background, custom-colors, custom-header,custom-logo, custom-menu, editor-style, featured-image-header, featured-images, flexible-header, footer-widgets, full-width-template, post-formats, sticky-post, theme-options, threaded-comments, translation-ready, block-patterns, block-styles, wide-blocks
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -357,10 +357,10 @@ body.is-dark .header-layer.template-part-header-custom + .primary-menu-wrapper.m
 
 
 body.is-dark .wp-block-page-list__submenu-icon svg{
-    fill:var(--thm_white_color);
+    fill:var(--thm_white_color, #ffffff);
 }
 body.is-light .wp-block-page-list__submenu-icon svg{
-    fill:var(--thm_black_color);
+    fill:var(--thm_black_color, #333333);
 }
 .emulsion-addons-inactive .scroll-button-top:before {
     content: ' ';
@@ -450,18 +450,18 @@ body.is-dark.metabox-reset-post-presentation .header-layer.template-part-header-
  * Due to other themes, the set color scheme cannot be reproduced. Causes a fatal problem with contrast
  */
 .wp-block-cover__inner-container:first-child{
-   color:var(--thm_black_color);
+   color:var(--thm_black_color, #333333);
 }
 [class*="background-color"],
 .has-background{
-    background:var(--thm_silver_color);
-    color:var(--thm_black_color);
+    background:var(--thm_unknown-bg);
+    color:var(--thm_black_color, #333333);
 }
 
 .has-vivid-cyan-blue-background-color,
 .has-vivid-red-background-color,
 .has-vivid-purple-background-color{
-    color:var(--thm_white_color);
+    color:var(--thm_white_color, #ffffff);
 }
 
 
@@ -496,6 +496,7 @@ body:not(.emulsion-not-support-presentation){
     --thm_is_style_dark_bg:#282b2e;
     --thm_code_color:#555555;
     --thm_code_bg:#f8f8ff;
+    --thm_unknown-bg:#a1c0e0;
 }
 body:not(.emulsion-not-support-presentation) .wp-block-table{
     --thm_table_light_gray_background:#f3f4f5;
@@ -509,17 +510,17 @@ body:not(.emulsion-not-support-presentation) .wp-block-table{
 }
 
 body {
-    color: var(--thm_black_color);
+    color: var(--thm_black_color, #333333);
 }
 body a {
-    color: var(--thm_gray_color);
+    color: var(--thm_gray_color, #A9A9A9);
 }
 
 body .grid .article-wrapper article header a {
 
 }
 body .grid .article-wrapper article header.show-post-image a {
-    color: var(--thm_white_color);
+    color: var(--thm_white_color, #ffffff);
 }
 body .comment-wrapper{
     /*  var(--thm_comments_bg, #eeeeee);*/
@@ -528,14 +529,14 @@ body .relate-content-wrapper {
     background: var(--thm_relate_posts_bg, #eeeeee);
 }
 body .toc, body .primary-menu-wrapper {
-    background: var(--thm_white_color);
+    background: var(--thm_white_color, #ffffff);
 }
 body .toc .children, body .primary-menu-wrapper .children, body .toc .sub-menu, body .primary-menu-wrapper .sub-menu {
-    background: var(--thm_white_color);
+    background: var(--thm_white_color, #ffffff);
 }
 body .emulsion-add-dark-color *, body .show-post-image *, body .header-image-active * {
-    color: var(--thm_white_color);
-    border-color: var(--thm_white_color);
+    color: var(--thm_white_color, #ffffff);
+    border-color: var(--thm_white_color, #ffffff);
 }
 .emulsion-removed-presentation .emulsion-add-dark-color *,
 .emulsion-removed-presentation .show-post-image *,
@@ -553,11 +554,12 @@ body .pagination .current, body .pagination .prev, body .pagination .next {
     color: var(--thm_general_text_color);
     background: rgba(188, 188, 188, 0.2);
 }
+
 :root .has-midnight-gradient-background,
 :root .has-cool-to-warm-spectrum-gradient-background,
 :root .has-luminous-vivid-orange-to-vivid-red-gradient-background,
 :root .has-vivid-cyan-blue-to-vivid-purple-gradient-background{
-    color:var(--thm_white_color);
+    color:var(--thm_white_color, #ffffff);
 }
 :root .has-white-background-color,
 :root .has-electric-grass-gradient-background,
@@ -568,21 +570,21 @@ body .pagination .current, body .pagination .prev, body .pagination .next {
 :root .has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background,
 :root .has-light-green-cyan-to-vivid-green-cyan-gradient-background,
 :root .has-pale-ocean-gradient-background{
-    color:var(--thm_black_color);
+    color:var(--thm_black_color, #333333);
 }
 
 #wpwrap [data-type="core/html"] .wp-block-html .block-editor-plain-text,
 .wp-block-preformatted,
 pre code {
-    color: var(--thm_code_color);
-    background: var(--thm_code_bg);
+    color: var(--thm_code_color, #555555);
+    background: var(--thm_code_bg, #f8f8ff);
 }
 
 #wpwrap [data-type="core/html"] .wp-block-html .block-editor-plain-text.is-style-dark,
 .wp-block-preformatted.is-style-dark,
 pre code.is-style-dark {
-    color: var(--thm_is_style_dark_color);
-    background: var(--thm_is_style_dark_bg);
+    color: var(--thm_is_style_dark_color, #a9b7c6);
+    background: var(--thm_is_style_dark_bg, #282b2e);
 }
 
 #wpwrap [data-type="core/html"] .wp-block-html .block-editor-plain-text.is-style-dark code,
@@ -591,29 +593,29 @@ pre code.is-style-dark code,
 #wpwrap [data-type="core/html"] .wp-block-html .block-editor-plain-text.is-style-dark .block-editor-plain-text,
 .wp-block-preformatted.is-style-dark .block-editor-plain-text,
 pre code.is-style-dark .block-editor-plain-text {
-    color: var(--thm_is_style_dark_color);
-    background: var(--thm_is_style_dark_bg);
+    color: var(--thm_is_style_dark_color, #a9b7c6);
+    background: var(--thm_is_style_dark_bg, #282b2e);
 }
 
 pre.wp-block-code code {
-    color: var(--thm_code_color);
-    background: var(--thm_code_bg);
+    color: var(--thm_code_color, #555555);
+    background: var(--thm_code_bg, #f8f8ff);
 }
 
 pre.wp-block-code.is-style-dark code {
-    color: var(--thm_is_style_dark_color);
-    background: var(--thm_is_style_dark_bg);
+    color: var(--thm_is_style_dark_color, #a9b7c6);
+    background: var(--thm_is_style_dark_bg, #282b2e);
 }
 
 pre.wp-block-code.is-style-dark code code,
 pre.wp-block-code.is-style-dark code .block-editor-plain-text {
-    color: var(--thm_is_style_dark_color);
-    background: var(--thm_is_style_dark_bg);
+    color: var(--thm_is_style_dark_color, #a9b7c6);
+    background: var(--thm_is_style_dark_bg, #282b2e);
 }
 
 p > code {
-    color: var(--thm_code_color);
-    background: var(--thm_code_bg);
+    color: var(--thm_code_color, #555555);
+    background: var(--thm_code_bg, #f8f8ff);
     padding-left: 0.25rem;
     padding-right: 0.25rem;
 }
@@ -642,40 +644,40 @@ h6.has-text-color>a {
 .has-cool-background-color,
 .mark-success,
 .mark-cool {
-    background: var(--thm_cool_color_alpha);
-    background-image:linear-gradient( var(--thm_cool_color_alpha), var(--thm_cool_color_alpha) ),
-        linear-gradient(  var(--thm_white_color), var(--thm_white_color) );
-    color:var(--thm_black_color);
+    background: var(--thm_cool_color_alpha, rgba(52, 152, 219, .4));
+    background-image:linear-gradient( var(--thm_cool_color_alpha, rgba(52, 152, 219, .4)), var(--thm_cool_color_alpha, rgba(52, 152, 219, .4)) ),
+        linear-gradient(  var(--thm_white_color, #ffffff), var(--thm_white_color, #ffffff) );
+    color:var(--thm_black_color, #333333);
 }
 
 .has-notice-background-color,
 .mark-notice {
-    background: var(--thm_notice_color_alpha);
-    background-image:linear-gradient( var(--thm_notice_color_alpha), var(--thm_notice_color_alpha) ),
-        linear-gradient(  var(--thm_white_color), var(--thm_white_color) );
-    color:var(--thm_black_color);
+    background: var(--thm_notice_color_alpha, rgba(163, 140, 8, .4));
+    background-image:linear-gradient( var(--thm_notice_color_alpha, rgba(163, 140, 8, .4)), var(--thm_notice_color_alpha, rgba(163, 140, 8, .4)) ),
+        linear-gradient(  var(--thm_white_color, #ffffff), var(--thm_white_color, #ffffff) );
+    color:var(--thm_black_color, #333333);
 }
 .has-info-background-color,
 .mark-info {
-    background: var(--thm_info_color_alpha);
-    background-image:linear-gradient( var(--thm_info_color_alpha), var(--thm_info_color_alpha) ),
-        linear-gradient(  var(--thm_white_color), var(--thm_white_color) );
-    color:var(--thm_black_color);
+    background: var(--thm_info_color_alpha, rgba(22, 160, 133, .4));
+    background-image:linear-gradient( var(--thm_info_color_alpha, rgba(22, 160, 133, .4)), var(--thm_info_color_alpha, rgba(22, 160, 133, .4)) ),
+        linear-gradient(  var(--thm_white_color, #ffffff), var(--thm_white_color, #ffffff) );
+    color:var(--thm_black_color, #333333);
 }
 
 .has-alert-background-color,
 .mark-alert {
-    background: var(--thm_alert_color_alpha);
-    background-image:linear-gradient(  var(--thm_alert_color_alpha),  var(--thm_alert_color_alpha) ),
-        linear-gradient(  var(--thm_white_color), var(--thm_white_color) );
-    color:var(--thm_black_color);
+    background: var(--thm_alert_color_alpha, rgba(231, 76, 60, .4));
+    background-image:linear-gradient(  var(--thm_alert_color_alpha, rgba(231, 76, 60, .4)),  var(--thm_alert_color_alpha, rgba(231, 76, 60, .4)) ),
+        linear-gradient(  var(--thm_white_color, #ffffff), var(--thm_white_color, #ffffff) );
+    color:var(--thm_black_color, #333333);
 
 }
 
 .has-gray-background-color,
 .mark-gray{
-    background: var(--thm_gray_color);
-    color: var(--thm_black_color);
+    background: var(--thm_gray_color, #A9A9A9);
+    color: var(--thm_black_color, #333333);
 }
 
 .has-stripe-background-color:not(.has-text-color),
@@ -686,7 +688,7 @@ h6.has-text-color>a {
 .mark-info:not(.has-text-color),
 .has-alert-background-color:not(.has-text-color),
 .mark-alert:not(.has-text-color) {
-    color: var(--thm_black_color);
+    color: var(--thm_black_color, #333333);
 }
 .has-gray-background-color:not(.has-text-color) *:not(.has-text-color),
 /*has-black-background-color:not(.has-text-color) *:not(.has-text-color)*/
@@ -698,36 +700,36 @@ h6.has-text-color>a {
 .mark-info:not(.has-text-color) *:not(.has-text-color),
 .has-alert-background-color:not(.has-text-color) *:not(.has-text-color),
 .mark-alert:not(.has-text-color) *:not(.has-text-color) {
-    color: var(--thm_black_color);
+    color: var(--thm_black_color, #333333);
 }
 
 .has-vivid-cyan-blue-to-vivid-purple-gradient-background:not(.has-text-color),
 .has-midnight-gradient-background:not(.has-text-color),
 .has-black-background-color:not(.has-text-color) {
-    color: var(--thm_white_color);
+    color: var(--thm_white_color, #ffffff);
 }
 
 .has-vivid-cyan-blue-to-vivid-purple-gradient-background:not(.has-text-color) *:not(.has-text-color),
 .has-midnight-gradient-background:not(.has-text-color) *:not(.has-text-color){
-    color: var(--thm_white_color);
+    color: var(--thm_white_color, #ffffff);
 }
 
 .has-black-background-color {
-    background: var(--thm_black_color);
+    background: var(--thm_black_color, #333333);
 }
 .emulsion .wp-block-cover.has-black-background-color *:not(.has-text-color),
 .emulsion .has-background.has-black-background-color a,
 .emulsion .has-background.has-black-background-color:not(.has-text-color) {
-    color: var(--thm_white_color);
+    color: var(--thm_white_color, #ffffff);
 }
 
 p.has-background:not(.has-text-color).emulsion-add-dark-color{
-    color:var(--thm_white_color);/* @since 1.1.2 */
+    color:var(--thm_white_color, #ffffff);/* @since 1.1.2 */
 }
 body.emulsion-has-sidebar.is-dark.scheme-midnight .primary-menu-wrapper nav[class|="menu"]{
     border-bottom-color: var(--thm_common_border, rgba(188, 188, 188, .5));
-    border-bottom-style: var(--thm_common_border_style);
-    border-bottom-width: var(--thm_common_border_width);
+    border-bottom-style: var(--thm_common_border_style, solid);
+    border-bottom-width: var(--thm_common_border_width, 1px);
 }
 
 /*------------------------------------------*/
