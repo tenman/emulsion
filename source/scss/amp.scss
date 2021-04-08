@@ -14,8 +14,9 @@
  * minimam color setting
  */
 body{
+
     color:var(--thm_general_text_color);
-    a{
+    a:any-link{
         color:var(--thm_general_link_color);
         &:hover{
             color:var(--thm_general_link_hover_color);
@@ -29,6 +30,12 @@ body{
     line-height:1.5;
     h1,h2,h3,h4,h5,h6{
         line-height:1.15;
+    }
+    .has-link-color{
+        --wp--preset--color--alert: rgba(231,76,60,1);
+        --wp--preset--color--notice: rgba(163,140,8,1);
+        --wp--preset--color--info: rgba(22,160,133,1);
+        --wp--preset--color--cool: rgba(52,152,219,1);
     }
 }
 
@@ -94,6 +101,17 @@ article > div{
         margin-bottom: 0.75rem;
         padding-left:var(--thm_content_gap, 24px);
         padding-right:var(--thm_content_gap, 24px);
+    }
+    & > .wp-block-media-text{
+        padding-left:0;
+        padding-right:0;
+        &.alignfull{
+            padding-left:0;
+            padding-right:0;
+        }
+        p{
+            width:auto;
+        }
     }
 }
 article header {
@@ -557,6 +575,9 @@ main > .stream{
 article .has-background:not(.has-text-color) *:not(.has-text-color){
     color:var(--thm_black_color);
 }
+article .has-black-background-color:not(.has-text-color) *:not(.has-text-color) {
+    color:var(--thm_white_color);
+}
 .custom-background{
 
     background:var(--thm_background_color);
@@ -596,9 +617,13 @@ article .has-background:not(.has-text-color) *:not(.has-text-color){
         }
     }
 }
-:root:not(#_):not(#_):not(#_):not(#_):not(#_):not(#_):not(#_):not(#_) body.noscript.enable-alignfull .wp-block-pullquote.has-background {
-    background: #eee;
+:root:not(#_):not(#_):not(#_):not(#_):not(#_):not(#_):not(#_):not(#_) body.noscript.enable-alignfull .wp-block-group.has-background:not([class*="gradient-background"]),
+:root:not(#_):not(#_):not(#_):not(#_):not(#_):not(#_):not(#_):not(#_) body.noscript.enable-alignfull .wp-block-pullquote.has-background:not([class*="gradient-background"]) {
+    //background: #eee;
     color:var(--thm_black_color);
+    a{
+        color:var(--thm_black_color);
+    }
 }
 
 /* border */
@@ -634,4 +659,13 @@ table td{
 .post-navigation .nav-links .nav-next a .title,
 .post-navigation .nav-links .nav-previous a .title{
     margin:auto;
+}
+/**
+ * Hide elements that don't make sense for theme-dependent block patterns
+ */
+
+.emulsion-modal-title,  /* old version */
+.modal-open-link,       /* old version */
+.emulsion-dependency{   /* @since 1.8.1 */
+    display:none;
 }

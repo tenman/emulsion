@@ -61,7 +61,7 @@ if ( ! function_exists( 'emulsion_get_site_title' ) ) {
 		}
 
 		$custom_logo_attr	 = apply_filters( 'get_custom_logo_image_attributes', $custom_logo_attr , $custom_logo_id, $blog_id );
-		$hax_custom_logo = '';
+		$has_custom_logo = '';
 		if ( has_custom_logo() ) {
 
 			$logo = sprintf( '<span class="custom-logo-wrap"><img width="%1$d" height="%2$d" src="%3$s" class="%4$s" alt="%5$s" aria-hidden="%6$s"></span>',

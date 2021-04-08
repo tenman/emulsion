@@ -109,8 +109,8 @@ body.excerpt,
         & > header{
             &.show-post-image{
                 position:relative;
-                min-height:75vh;
-
+                //min-height:75vh;
+                min-height:var(--thm_header_media_max_height, 75vh);
                 background-size:cover;
                 background-repeat:no-repeat;
                 background-position: center center;
@@ -401,6 +401,7 @@ article.format-gallery .entry-content{
     padding-left:0;
     padding-right:0;
     margin:3rem auto;
+    box-sizing:border-box;
 
     &.wrap-caption{
         margin-top:0;

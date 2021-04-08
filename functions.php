@@ -29,6 +29,17 @@ add_action( 'admin_notices', 'emulsion_theme_admin_notice' );
 
 function emulsion_theme_admin_notice() {
 
+		if ( ! is_plugin_active('emulsion-addons/emulsion.php') &&  is_plugin_active('wp-scss/wp-scss.php') ) {
+
+		$plugin_install_url = esc_url( admin_url( 'themes.php?page=tgmpa-install-plugins&plugin_status=all' ) );
+
+		printf( '<div class="notice notice-error is-dismissible emulsion-addon-error"><p><strong>%1$s</strong>  <a href="%2$s">%3$s</a></p></div>',
+				esc_html__( 'If you want to use the wp-scss plugin, you need to activate the emulsion-addons plugin', 'emulsion' ),
+				$plugin_install_url,
+				esc_html__( 'Please update', 'emulsion' )
+		);
+	}
+
 	if ( is_plugin_active('emulsion-addons/emulsion.php') && ! function_exists( 'emulsion_addons_default_values' ) ) {
 
 		$plugin_install_url = esc_url( admin_url( 'themes.php?page=tgmpa-install-plugins&plugin_status=all' ) );
@@ -898,12 +909,7 @@ function emulsion_register_scripts_and_styles() {
 			'content_gap'					 => emulsion_theme_addons_exists() ? absint( emulsion_get_css_variables_values( 'content_gap' ) ) : 24,
 			'background_color'				 => $emulsion_background_color,
 			'force_contrast'				 => true,
-			'block_columns_class'			 => emulsion_theme_addons_exists() ? sanitize_html_class( emulsion_sectionized_class( 'columns' ) ) : "is-default",
-			'block_columns_class_title'		 => esc_html__( 'Columns block', 'emulsion' ),
-			'block_media_text_class'		 => emulsion_theme_addons_exists() ? sanitize_html_class( emulsion_sectionized_class( 'media_text' ) ) : "is-default",
-			'block_media_text_class_title'	 => esc_html__( 'Media text block', 'emulsion' ),
-			'block_gallery_class'			 => emulsion_theme_addons_exists() ? sanitize_html_class( emulsion_sectionized_class( 'gallery' ) ) : "is-default",
-			'block_gallery_class_title'		 => esc_html__( 'Gallery block', 'emulsion' ),
+
 			'block_quote_class_title'		 => esc_html__( 'Quote block', 'emulsion' ),
 			'block_buttons_class_title'		 => esc_html__( 'Buttons block', 'emulsion' ),
 			'meta_description'				 => ! empty( emulsion_meta_description() ) ? emulsion_meta_description() : 'none',
@@ -1796,11 +1802,11 @@ if ( ! function_exists( 'emulsion_block_experimentals_style' ) ) {
 
 		body.enable-block-experimentals{
 			/* exception pallet color. text color not used alpha */
-			--wp--preset--color--alert: rgba(231, 76, 60,1);
+		/*	--wp--preset--color--alert: rgba(231, 76, 60,1);
 			--wp--preset--color--notice: rgba(163, 140, 8,1);
 			--wp--preset--color--info: rgba(22, 160, 133,1);
 			--wp--preset--color--cool: rgba(52, 152, 219,1);
-			--wp--preset--color--silver: #bebebe;
+			--wp--preset--color--silver: #bebebe;*/
 		}
 
 		/* for experimental-custom-spacing cover block */

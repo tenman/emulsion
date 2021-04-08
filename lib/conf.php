@@ -169,12 +169,12 @@ if ( ! function_exists( 'emulsion_theme_default_val' ) ) {
 
 			'emulsion_alignfull'							 => array( 'default' => 'enable', 'unit' => '', ), // required emulsion-addons plugin
 			'emulsion_box_gap'								 => array( 'default' => 3, 'unit' => 'px', ),
-			'emulsion_block_gallery_section_height'			 => array( 'default' => 100, 'unit' => 'vh', ),
-			'emulsion_block_gallery_section_bg'				 => array( 'default' => '#ffffff', 'unit' => '',  'note' => 'emulsion_get_background_color', ), // required emulsion-addons plugin
-			'emulsion_block_columns_section_height'			 => array( 'default' => 0, 'unit' => 'vh', ),
-			'emulsion_block_columns_section_bg'				 => array( 'default' => '#ffffff', 'unit' => '', 'note' => 'emulsion_get_background_color', ), // required emulsion-addons plugin
-			'emulsion_block_media_text_section_height'		 => array( 'default' => 0, 'unit' => 'vh', ),
-			'emulsion_block_media_text_section_bg'			 => array( 'default' => '#ffffff',  'unit' => '', 'note' => 'emulsion_get_background_color',), // required emulsion-addons plugin
+			//'emulsion_block_gallery_section_height'			 => array( 'default' => 0, 'unit' => 'vh', ),
+			//'emulsion_block_gallery_section_bg'				 => array( 'default' => '#ffffff', 'unit' => '',  'note' => 'emulsion_get_background_color', ), // required emulsion-addons plugin
+			//'emulsion_block_columns_section_height'			 => array( 'default' => 0, 'unit' => 'vh', ),
+			//'emulsion_block_columns_section_bg'				 => array( 'default' => '#ffffff', 'unit' => '', 'note' => 'emulsion_get_background_color', ), // required emulsion-addons plugin
+			//'emulsion_block_media_text_section_height'		 => array( 'default' => 0, 'unit' => 'vh', ),
+			//'emulsion_block_media_text_section_bg'			 => array( 'default' => '#ffffff',  'unit' => '', 'note' => 'emulsion_get_background_color',), // required emulsion-addons plugin
 			'emulsion_colors_for_editor'					 => array( 'default' => 'enable', 'unit' => '', ), // required emulsion-addons plugin
 			'emulsion_favorite_color_palette'				 => array( 'default' => '#bebebe', 'unit' => '', ), // required emulsion-addons plugin
 
@@ -270,7 +270,7 @@ if ( ! function_exists( 'emulsion_the_theme_supports' ) ) {
 			'tooltip'					 => array( 'default' => true, ),
 			'amp'						 => array( 'default' => true, ),
 			'entry_content_filter'		 => array( 'default' => true, ),
-			'block_sectionize'			 => array( 'default' => true, ), //Change not recommended
+			'block_sectionize'			 => array( 'default' => false, ), //Change not recommended
 			'background_css_pattern'	 => array( 'default' => false, ), // required emulsion-addons,amp plugin
 			'meta_description'			 => array( 'default' => true, ),
 			'TGMPA'						 => array( 'default' => true, ),
@@ -428,12 +428,7 @@ function emulsion_theme_variables( $variables ) {
 	$sidebar_background				 = emulsion_theme_default_val( 'emulsion_sidebar_background', 'unit_val' );
 	$primary_menu_background		 = emulsion_theme_default_val( 'emulsion_primary_menu_background', 'unit_val' );
 	$relate_posts_bg				 = emulsion_theme_default_val( 'emulsion_relate_posts_bg', 'unit_val' );
-	$media_text_section_bg			 = emulsion_theme_default_val( 'emulsion_block_media_text_section_bg', 'unit_val' );
-	$media_text_section_height		 = emulsion_theme_default_val( 'emulsion_block_media_text_section_height', 'unit_val' );
-	$columns_section_bg				 = emulsion_theme_default_val( 'emulsion_block_columns_section_bg', 'unit_val' );
-	$columns_section_height			 = emulsion_theme_default_val( 'emulsion_block_columns_section_height', 'unit_val' );
-	$gallery_section_bg				 = emulsion_theme_default_val( 'emulsion_block_gallery_section_bg', 'unit_val' );
-	$gallery_section_height			 = emulsion_theme_default_val( 'emulsion_block_gallery_section_height', 'unit_val' );
+
 	$heading_font_transform			 = emulsion_theme_default_val( 'emulsion_heading_font_transform', 'unit_val' );
 	$heading_font_weight			 = emulsion_theme_default_val( 'emulsion_heading_font_weight', 'unit_val' );
 	$heading_font_family			 = emulsion_theme_default_val( 'emulsion_heading_font_family', 'unit_val' );
@@ -517,13 +512,12 @@ function emulsion_theme_variables( $variables ) {
 	--thm_border_stream:$border_stream;
 	--thm_border_stream_style:$border_stream_style;
 	--thm_border_stream_width:$border_stream_width;
-	--thm_columns_section_bg: $columns_section_bg;
 	--thm_comments_bg:$comments_bg;
 	--thm_comments_color:$comments_text_color;
 	--thm_content_margin_top:$content_margin_top;
 	--thm_excerpt_linebreak:$excerpt_linebreak;
 	--thm_favorite_color_palette:$favorite_color_palette;
-	--thm_gallery_section_bg: $gallery_section_bg;
+
 	--thm_general_link_color:$general_link_color;
 	--thm_general_link_hover_color:$general_link_hover_color;
 	--thm_general_text_color:$general_text_color;
@@ -535,8 +529,7 @@ function emulsion_theme_variables( $variables ) {
 	--thm_header_text_color:$header_text_color;
 	--thm_heading_font_base:$heading_font_base;
 	--thm_heading_font_scale:$heading_font_scale;
-	--thm_media_text_section_bg:$media_text_section_bg;
-	--thm_media_text_section_height:$media_text_section_height;
+
 	--thm_post_display_author:$post_display_author;
 	--thm_post_display_category:$post_display_category;
 	--thm_post_display_date:$post_display_date;
@@ -551,12 +544,12 @@ function emulsion_theme_variables( $variables ) {
 	--thm_sidebar_text_color: $sidebar_text_color;
     --thm_background_color: $background_color;
     --thm_box_gap: $box_gap;
-    --thm_columns_section_height:$columns_section_height;
+
     --thm_comments_link_color:$comments_text_color;
     --thm_common_font_family: $common_font_family;
     --thm_common_font_size: $common_font_size;
     --thm_content_width: $content_width;
-    --thm_gallery_section_height:$gallery_section_height;
+
     --thm_header_bg_color: $header_bg_color;
     --thm_heading_font_family: $heading_font_family;
     --thm_heading_font_transform:$heading_font_transform;

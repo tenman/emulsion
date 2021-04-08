@@ -21,10 +21,7 @@
     --thm_border_stream_width:$border_stream_width;
     --thm_box_gap: $box_gap;
     --thm_caption_height: $caption_height;
-    --thm_columns_section_bg: $columns_section_bg;
-    --thm_columns_section_color: $columns_section_color;
-    --thm_columns_section_height:$columns_section_height;
-    --thm_columns_section_link_color: $columns_section_link_color;
+
     --thm_comments_bg:$comments_bg;
     --thm_comments_color:$comments_color;
     --thm_comments_link_color:$comments_link_color;
@@ -43,10 +40,7 @@
     --thm_excerpt_linebreak: $excerpt_linebreak;
     --thm_favorite_color_palette:$favorite_color_palette;
     --thm_footer_widget_width: $footer_widget_width;
-    --thm_gallery_section_bg: $gallery_section_bg;
-    --thm_gallery_section_color: $gallery_section_color;
-    --thm_gallery_section_height:$gallery_section_height;
-    --thm_gallery_section_link_color: $gallery_section_link_color;
+
     --thm_general_link_color: $general_link_color;
     --thm_general_link_hover_color: $general_link_hover_color;
     --thm_general_text_color: $general_text_color;
@@ -66,10 +60,7 @@
     --thm_i18n_no_title:$i18n_no_title;//fallback
     // --thm_main_width-with-sidebar: calc(100vw - var(--thm_sidebar_width) - 48px );
     --thm_main_width: $main_width;
-    --thm_media_text_section_bg: $media_text_section_bg;
-    --thm_media_text_section_color: $media_text_section_color;
-    --thm_media_text_section_height:$media_text_section_height;
-    --thm_media_text_section_link_color: $media_text_section_link_color;
+
     --thm_meta_data_font_family: $meta_data_font_family;
     --thm_meta_data_font_size: $meta_data_font_size;
     --thm_meta_data_font_transform: $meta_data_font_transform;
@@ -119,7 +110,8 @@ body{
         $color: nth($color_pallet, 2);
 
         .has-#{$slug}-color {
-            color:#{$color};
+            // OW over write global-styles-inline-css
+            color:#{str-replace($color,.4,1)} ! important;
         }
 
         .has-#{$slug}-background-color{
@@ -127,19 +119,10 @@ body{
             background-image:linear-gradient( #{$color, $color}  ), linear-gradient(  var(--thm_white_color), var(--thm_white_color) );
             background-size:cover;
         }
-        .wp-block-columns.has-#{$slug}-color{
-            .wp-block-column{
-                color:#{$color};
-            }
-        }
+
         .wp-block-columns.has-#{$slug}-background-color{
             &:before{
                 display:none;
-            }
-            .wp-block-column{
-                background:#{$color};
-                background-size:cover;
-
             }
         }
 
@@ -442,31 +425,7 @@ body:not(.emulsion-not-support-presentation) .wp-block-table{
                 .wp-block-navigation-link__content{
                     text-shadow:none;
                 }
-                section[class|="sectionized"].sectionized-wp-block-columns *{
-                    color:var(--thm_white_color);
-                    code,
-                    .wp-block-code,
-                    .wp-block-table td,
-                    .emulsion-current-color,
-                    .mark-cool,
-                    .mark-notice,
-                    .mark-gray,
-                    .mark-info,
-                    .nark-alert,
-                    .wp-block-calendar th,
-                    .wp-block-calendar td,
-                    .product,
-                    .skin-button,
-                    pre,
-                    .has-background:not(.has-text-color){
-                        text-shadow:none;
-                        color: var(--thm_black_color);
-                        a{
-                            color:var(--thm_silver_color);
-                            text-shadow:none;
-                        }
-                    }
-                }
+
                 .post-password-form .message,
                 .wp-block-categories,
                 .wp-block-verse,
@@ -542,6 +501,7 @@ body{
             margin-right:auto;
         }
         &.enable-alignfull{
+
             .wp-block-image{
                 &.alignwide,
                 &.alignfull{

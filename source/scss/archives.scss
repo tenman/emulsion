@@ -968,8 +968,7 @@ body.excerpt:not(.layout-grid){
         header{
             &.show-post-image{
                 position:relative;
-                min-height:75vh;
-
+                min-height:var(--thm_header_media_max_height, 75vh);
                 background-size:cover;
                 background-repeat:no-repeat;
                 background-position: center center;
@@ -1000,7 +999,8 @@ body.excerpt:not(.layout-grid){
                     justify-content: center;
                     -ms-flex-direction:column;
                     flex-direction:column;
-                    min-height:75vh;
+                    //min-height:75vh;
+                    min-height:var(--thm_header_media_max_height, 75vh);
                     box-sizing:border-box;
 
                     background-size:cover;

@@ -37,6 +37,7 @@ function emulsion_hooks_setup() {
 	add_filter( 'get_the_archive_description', 'wpautop');
 	add_action( 'wp_enqueue_scripts', 'emulsion_not_support_presentation_page_link' );
 	add_filter( 'body_class', 'emulsion_remove_custom_background_class' );
+	add_filter( 'wp_img_tag_add_loading_attr', 'emulsion_skip_loading_lazy_image', 10, 3 );
 	/**
 	 * Scripts
 	 */
@@ -1380,4 +1381,19 @@ if( ! function_exists('emulsion_remove_role_from_pagination') ) {
 
 		return str_replace( 'role="navigation"', '', $template );
 	}
+}
+
+function emulsion_skip_loading_lazy_image( $value, $image, $context ) {
+
+    if ( 'the_content' === $context ) {
+
+        if ( false !== strpos( $image, 'custom-logo' ) ) {
+            return false;
+        }
+
+		if ( false !== strpos( $image, 'wp-post-image' ) ) {
+            return false;
+        }
+    }
+    return $value;
 }

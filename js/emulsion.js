@@ -4,52 +4,6 @@ jQuery(function ($) {
     //   $(".primary-menu-wrapper [id].menu").attr('data-type', 'accordion');
 
     /**
-     * wp_block wrap
-     * WordPress block is wrapping with <section class="sectionized-[block name]"></section>
-     * and if possible add unique id for each block can do indivisual CSS design
-     * Note:We can not guarantee that id is a completely unique value. After editing, the id value also changes.
-     */
-    //.not('.wp-block-image,.wp-block-cover, .wp-block-embed, .wp-block-group, .wp-block-table, .wp-block-spacer, .wp-block-button, .wp-block-separator, .wp-block-navigation, .wp-block-latest-comments, .wp-block-categories, .wp-block-archives')
-    if (true == emulsion_script_vars.block_sectionize) {
-        $('[class|="wp-block"].alignfull').wrap(function () {
-            var classes = $(this).attr('class').match(/wp-block-\S+/);
-            var flag = false;
-            var brightness_class = '';
-            var section_title = '';
-            if ('wp-block-columns' == classes) {
-                brightness_class = 'columns-' + emulsion_script_vars.block_columns_class;
-                section_title = emulsion_script_vars.block_columns_class_title;
-                flag = true;
-            }
-            if ('wp-block-gallery' == classes) {
-                brightness_class = 'gallery-' + emulsion_script_vars.block_gallery_class;
-                section_title = emulsion_script_vars.block_gallery_class_title;
-                flag = true;
-            }
-            if ('wp-block-media-text' == classes) {
-                brightness_class = 'media-text-' + emulsion_script_vars.block_media_text_class;
-                section_title = emulsion_script_vars.block_media_text_class_title;
-                flag = true;
-            }
-
-            if (flag == true) {
-                $(this).wrap('<section class="sectionized-' + classes + ' ' + brightness_class + '" ></section>');
-            }
-
-            var string = $(this).html().slice(0, 4);
-            var id = $(this).html().length;
-            id = classes + '-' + parseInt(emulsion_script_vars.post_id) + '-' + parseInt(id);
-            if ('is_preview' !== emulsion_script_vars.is_customize_preview && flag == true) {
-
-                if (section_title) {
-                    $(this).parent().addClass(id).prepend('<h2 class="screen-reader-text">' + section_title + '</h2>');
-                } else {
-                    $(this).parent().addClass(id);
-                }
-            }
-        });
-    }
-    /**
      * wp-block unwrap
      */
     if ($('.wp-block-image').length) {
@@ -255,6 +209,7 @@ jQuery(function ($) {
         $(this).attr('title', text);
     });
 });
+
 jQuery(function ($) {
     "use strict";
     /**
@@ -313,6 +268,7 @@ jQuery(function ($) {
         });
     });
 });
+
 jQuery(function ($) {
     "use strict";
     /**
@@ -607,7 +563,7 @@ jQuery(function ($) {
      */
     if (emulsion_script_vars.force_contrast) {
 
-        $('.is-dark div[id], .is-dark .shortcode-wrapper').not('#wpadminbar, #site-title, #main, input,[class*="is-style-"], .has-background').each(function (i) {
+        $('.is-dark div[id], .is-dark .shortcode-wrapper').not('#wpadminbar, #site-title, #main, input,[class*="is-style-"]').each(function (i) {
 
             var background_color_rgb = $(this).css("background-color");
             var general_background_color = emulsion_script_vars.background_color;

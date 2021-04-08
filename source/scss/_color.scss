@@ -2,13 +2,13 @@
 
 :root   .has-link-color a:not(.wp-block-button__link){
 
-/**
- * core default color remove;
- *
- * If you have set the link color in another theme and you switch to this theme,
- * the CSS variables do not exist
- * and will prevent the default color of the core link color from being applied.
- */
+    /**
+     * core default color remove;
+     *
+     * If you have set the link color in another theme and you switch to this theme,
+     * the CSS variables do not exist
+     * and will prevent the default color of the core link color from being applied.
+     */
     color: var(--wp--style--color--link);
 }
 
@@ -897,6 +897,7 @@ body{
 
     }
 
+
     .has-dark-background-color,
     .mark-dark{
         color:var(--thm_white_color);
@@ -1000,24 +1001,6 @@ body{
 
 }
 
-#document{
-    .has-alert-color,
-    [style="color:rgba(231, 76, 60,.4)"]{
-        color:rgba(231, 76, 60,1) ! important;
-    }
-    .has-notice-color,
-    [style="color:rgba(163, 140, 8,.4)"]{
-        color:rgba(163, 140, 8,1) ! important;
-    }
-    .has-info-color,
-    [style="color:rgba(22, 160, 133,.4)"]{
-        color:rgba(22, 160, 133,1) ! important;
-    }
-    .has-cool-color,
-    [style="color:rgba(52, 152, 219,.4)"]{
-        color:rgba(52, 152, 219,1) ! important;
-    }
-}
 body{
     /**
      * Header reset
@@ -1067,6 +1050,46 @@ body{
     }
 }
 #{$body_id}{
+    .emulsion-add-light-color{
+        color:var(--thm_black_color) ! important;
+        a{
+            color:var(--thm_gray_color);
+        }
+    }
+    .emulsion-add-dark-color{
+        color:var(--thm_white_color);
+        a{
+            color:#ccc;
+        }
+        .wp-block-button:not(.has-text-color):not(.has-background){
+            a:not(.has-text-color){
+                color: var(--thm_black_color);
+            }
+        }
+        p{
+            color:var(--thm_white_color);
+            &.has-background:not(.has-text-color){
+                color:var(--thm_white_color);
+            }
+        }
+        .post-password-form .message,
+        .wp-block-code,
+        .wp-block-table th,
+        .wp-block-table td,
+        .wp-block-calendar th,
+        .wp-block-calendar td,
+        .product,
+        .skin-button,
+        pre,
+        .has-background:not(.has-text-color){
+            text-shadow:none;
+            color: var(--thm_black_color);
+            a{
+                color:var(--thm_gray_color);
+                text-shadow:none;
+            }
+        }
+    }
     .entry-content{
         & > .wp-block-table > table,
         & > .shortcode-wrapper > div:not(.gallery),
@@ -1102,46 +1125,7 @@ body{
                     background:transparent;
                 }
             }
-            &.emulsion-add-light-color{
-                color:var(--thm_black_color) ! important;
-                a{
-                    color:var(--thm_gray_color);
-                }
-            }
-            &.emulsion-add-dark-color{
-                color:var(--thm_white_color);
-                a{
-                    color:#ccc;
-                }
-                .wp-block-button:not(.has-text-color):not(.has-background){
-                    a:not(.has-text-color){
-                        color: var(--thm_black_color);
-                    }
-                }
-                p{
-                    color:var(--thm_white_color);
-                    &.has-background:not(.has-text-color){
-                        color:var(--thm_white_color);
-                    }
-                }
-                .post-password-form .message,
-                .wp-block-code,
-                .wp-block-table th,
-                .wp-block-table td,
-                .wp-block-calendar th,
-                .wp-block-calendar td,
-                .product,
-                .skin-button,
-                pre,
-                .has-background:not(.has-text-color){
-                    text-shadow:none;
-                    color: var(--thm_black_color);
-                    a{
-                        color:var(--thm_gray_color);
-                        text-shadow:none;
-                    }
-                }
-            }
+
         }
     }
 }

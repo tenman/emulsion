@@ -421,8 +421,8 @@
  * @extend %has-sidebar-alignfull;
  */
 %has-sidebar-alignfull{
-   position:relative;
-   width:100%;
+    position:relative;
+    width:100%;
 
 }
 /**
@@ -433,6 +433,14 @@
     width:100vw;
     position:relative;
     overflow:visible;
+
+    @media screen and ( min-width : 1280px ) {
+        // Limit width
+        width:1600px;
+        margin-left:auto;
+        margin-right:auto;
+        max-width:100%
+    }
 }
 /**
  * no sidebar alignfull
@@ -986,4 +994,13 @@
             text-indent:0;
         }
     }
+}
+@function str-replace($string, $search, $replace: '') {
+  $index: str-index($string, $search);
+
+  @if $index {
+    @return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+  }
+
+  @return $string;
 }
