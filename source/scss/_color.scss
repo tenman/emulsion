@@ -2,14 +2,7 @@
 
 :root   .has-link-color a:not(.wp-block-button__link){
 
-    /**
-     * core default color remove;
-     *
-     * If you have set the link color in another theme and you switch to this theme,
-     * the CSS variables do not exist
-     * and will prevent the default color of the core link color from being applied.
-     */
-    color: var(--wp--style--color--link);
+    color: var(--wp--style--color--link,var(--thm_general_link_color));
 }
 
 .has-custom-style,
@@ -55,6 +48,7 @@ column-rule-color
 }
 .emulsion-prepend-page-wrapper,
 main{
+
     color:var(--thm_general_text_color);
     a{
         color:var(--thm_general_link_color);
@@ -62,6 +56,18 @@ main{
             color:var(--thm_general_link_hover_color);
         }
     }
+    .has-background{
+        *{
+            color:inherit;
+            a{
+                color:inherit;
+                &:hover{
+                    color:inherit;
+                }
+            }
+        }
+    }
+
 }
 .show-post-image{
     color: var(--thm_white_color);
@@ -871,7 +877,20 @@ table{
         }
     }
 }
+/**
+ * Pullquote
+ * ========================================================================== */
+.wp-block-pullquote.has-background.is-style-default{
+    //.is-style-default is not apply background color
+    blockquote:not(.has-text-color){
 
+        color:var(--thm_general_text_color);
+
+        *:not(.has-text-color){
+            color:var(--thm_general_text_color);
+        }
+    }
+}
 /**
  * Misc
  * ========================================================================== */
@@ -1133,3 +1152,54 @@ body{
  * Plugin fallback
  * END
  * ========================================================================== */
+
+//　default theme color
+
+$twenty_twenty_one_palette: dark-gray #28303D, green #D1E4DD, blue #D1DFE4, purple #D1D1E4, red #E4D1D1, orange #E4DAD1, yellow #EEEADD;
+body{
+    @each $twenty_twenty_one_color in $twenty_twenty_one_palette {
+        $slug: nth($twenty_twenty_one_color, 1);
+        $color: nth($twenty_twenty_one_color, 2);
+
+        .has-#{$slug}-color {
+            // OW over write global-styles-inline-css
+            color:#{$color} ! important;
+        }
+        --global--color-#{$slug}:#{$color};
+
+
+        .has-#{$slug}-background-color{
+            background:var(--global--color-#{$slug});
+        }
+    }
+}
+body{
+    .has-purple-to-yellow-gradient-background {
+        background-image: linear-gradient(160deg, var(--global--color-purple), var(--global--color-yellow));
+    }
+    .has-yellow-to-purple-gradient-background {
+        background-image: linear-gradient(160deg, var(--global--color-yellow), var(--global--color-purple));
+    }
+    .has-green-to-yellow-gradient-background {
+        background-image: linear-gradient(160deg, var(--global--color-green), var(--global--color-yellow));
+    }
+    .has-yellow-to-green-gradient-background {
+        background-image: linear-gradient(160deg, var(--global--color-yellow), var(--global--color-green));
+    }
+    .has-red-to-yellow-gradient-background {
+        background-image: linear-gradient(160deg, var(--global--color-red), var(--global--color-yellow));
+    }
+    .has-yellow-to-red-gradient-background {
+        background-image: linear-gradient(160deg, var(--global--color-yellow), var(--global--color-red));
+    }
+    .has-purple-to-red-gradient-background {
+        background-image: linear-gradient(160deg, var(--global--color-purple), var(--global--color-red));
+    }
+    .has-red-to-purple-gradient-background {
+        background-image: linear-gradient(160deg, var(--global--color-red), var(--global--color-purple));
+    }
+    .has-dark-gray-background-color:not(.has-text-color){
+        // twenty twenty one
+        color:var(--thm_white_color);
+    }
+}

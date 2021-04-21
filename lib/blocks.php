@@ -75,6 +75,7 @@ function emulsion_block_pattern() {
 				'content'		 => include( $template_path ),
 				'categories'	 => array( 'emulsion' ),
 				'description'	 => esc_html_x( 'Tabs on the front end', 'Block pattern description', 'emulsion' ),
+				'keywords'		 => 'tab',
 					)
 			);
 		}
@@ -88,6 +89,7 @@ function emulsion_block_pattern() {
 				'content'		 => include( $template_path ),
 				'categories'	 => array( 'emulsion' ),
 				'description'	 => esc_html_x( 'Modal Box on the front end', 'Block pattern description', 'emulsion' ),
+				'keywords'		 => 'modal',
 					)
 			);
 		}

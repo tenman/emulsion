@@ -1,8 +1,10 @@
 <?php
+
 /**
  * Theme emulsion
  * header template part file
  */
+
 ?><!DOCTYPE html>
 <html <?php language_attributes(); ?> id="document" <?php printf( 'class="%1$s"', esc_attr( emulsion_element_classes( 'root' ) ) ); ?>>
 	<head>
@@ -25,4 +27,3 @@
 
 			<main id="main">
 				<?php ! have_posts() ? get_template_part( 'template-parts/failed' ) : ''; ?>
-

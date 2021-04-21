@@ -1,20 +1,4 @@
-/**
- * SCSS Server Side variabls mixin etc
- * #{$upload_base_dir} required wp-scss plugin active
- */
-/**
- * Upload base URL
-    #{$upload_base_dir}
- * Theme Image holder URL
-    #{$theme_image_dir}
- * Example
-    .my_img{
-        width:200px;
-        height:150px;
-        border:1px solid;
-        background:url('#{$upload_base_dir}mapmaster.png');
-    }
-*/
+
 @function is_dark(){
     $color-brightness: round((red($background_color) * 299) + (green($background_color) * 587) + (blue($background_color) * 114) / 1000);
     $light-color: round((red(#ffffff) * 299) + (green(#ffffff) * 587) + (blue(#ffffff) * 114) / 1000);
@@ -435,11 +419,12 @@
     overflow:visible;
 
     @media screen and ( min-width : 1280px ) {
+
         // Limit width
         width:1600px;
         margin-left:auto;
         margin-right:auto;
-        max-width:100%
+        max-width:100%;
     }
 }
 /**

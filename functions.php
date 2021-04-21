@@ -23,8 +23,10 @@ if ( is_admin() && current_user_can( 'edit_theme_options' ) ) {
 		include_once( get_template_directory() . '/lib/class-tgm-plugin-activation.php' );
 	}
 }
+if ( is_customize_preview() ) {
 
-
+	add_theme_support( 'starter-content', emulsion_get_starter_content() );
+}
 add_action( 'admin_notices', 'emulsion_theme_admin_notice' );
 
 function emulsion_theme_admin_notice() {
@@ -135,69 +137,7 @@ if ( ! function_exists( 'emulsion_setup' ) ) {
 			),
 		) );
 
-		/**
-		 * editor-color-palette
-		 *
-		 * Note: Do not remove Black and White color settings
-		 *
-		 * The color of the color palette is the same color scheme applied to the background and text
-		 * Without white and black color settings, it may not be possible to ensure sufficient contrast.
-		 */
 
-		$emulsion_favorite_color_palette		 = sanitize_text_field( get_theme_mod( 'emulsion_favorite_color_palette', false ) );
-		$emulsion_favorite_color_palette_default = sanitize_text_field( emulsion_theme_default_val( 'emulsion_favorite_color_palette' ) );
-
-		if ( $emulsion_favorite_color_palette !== $emulsion_favorite_color_palette_default ) {
-
-			$emulsion_favorite_color_name = esc_html__( 'My Color', 'emulsion' );
-		} else {
-
-			$emulsion_favorite_color_name = esc_html__( 'Silver', 'emulsion' );
-		}
-
-		add_theme_support(
-				'editor-color-palette', array(
-			array(
-				'name'	 => esc_html__( 'Black', 'emulsion' ),
-				'slug'	 => sanitize_title( 'black' ),
-				'color'	 => '#333333',
-			),
-			array(
-				'name'	 => esc_html__( 'Gray', 'emulsion' ),
-				'slug'	 => sanitize_title( 'gray' ),
-				'color'	 => '#A9A9A9',
-			),
-			array(
-				'name'	 => esc_html__( 'White', 'emulsion' ),
-				'slug'	 => sanitize_title( 'white' ),
-				'color'	 => '#ffffff',
-			),
-			array(
-				'name'	 => esc_html__( 'Alert', 'emulsion' ),
-				'slug'	 => sanitize_title( 'alert' ),
-				'color'	 => 'rgba(231, 76, 60,.4)',
-			),
-			array(
-				'name'	 => esc_html__( 'Notice', 'emulsion' ),
-				'slug'	 => sanitize_title( 'notice' ),
-				'color'	 => 'rgba(163, 140, 8,.4)',
-			),
-			array(
-				'name'	 => esc_html__( 'Info', 'emulsion' ),
-				'slug'	 => sanitize_title( 'info' ),
-				'color'	 => 'rgba(22, 160, 133,.4)',
-			),
-			array(
-				'name'	 => esc_html__( 'Cool', 'emulsion' ),
-				'slug'	 => sanitize_title( 'cool' ),
-				'color'	 => 'rgba(52, 152, 219,.4)',
-			),
-			array(
-				'name'	 => $emulsion_favorite_color_name,
-				'slug'	 => sanitize_title_with_dashes( $emulsion_favorite_color_name ),
-				'color'	 => $emulsion_favorite_color_palette,
-			),
-		) );
 		/**
 		 * Block editor Custom Line height
 		 */
@@ -309,8 +249,15 @@ if ( ! function_exists( 'emulsion_setup' ) ) {
 		 * The theme requires a default value for the background color
 		 * theme needs default background color but backgroun-image can not support
 		 */
+
 		if( false === get_background_color( ) ) {
 			set_theme_mod('background_color','ffffff');
+		}
+		if( get_theme_mod('emulsion_background_remenber') && ! emulsion_theme_addons_exists() ) {
+			//Even if you set the background color in the emulsion-addons plugin and then deactivate the plugin,
+			//the background color will be remembered and applied.
+
+			add_filter('theme_mod_background_color', function($color){ return get_theme_mod('emulsion_background_remenber');});
 		}
 
 
@@ -627,7 +574,7 @@ function emulsion_register_scripts_and_styles() {
 		}
 	}
 
-	if( $support_instantclick && false === wp_style_is( 'admin-bar' ) ) {
+	if( $support_instantclick && false === wp_style_is( 'admin-bar' ) && is_user_logged_in() ) {
 		// Cached
 		wp_enqueue_style('admin-bar');
 	}
@@ -1774,18 +1721,20 @@ if ( function_exists( 'amp_init' ) ) {
 }
 
 if ( ! function_exists( 'emulsion_amp_exclude_supports' ) ) {
-
+	// AMP remove supports
 	// Works if emulsion-addons plugin is disabled
 	// If the plugin is enabled, see below
 	// add_filter( 'emulsion_template_pre', 'emulsion_amp_setting' );
 
 	function emulsion_amp_exclude_supports( $default, $name ) {
+
 		$remove_supports = array( 'search_drawer', 'enqueue', 'primary_menu', 'title_in_page_header', 'instantclick', 'toc', 'tooltip' );
 
-
 		if ( in_array( $name, $remove_supports ) ) {
+
 			return false;
 		}
+
 		add_filter( 'post_thumbnail_html', '__return_empty_string' );
 
 		return $default;
@@ -2149,35 +2098,76 @@ if ( ! function_exists( 'emulsion_content_type' ) ) {
 	}
 
 }
+if ( ! function_exists( 'emulsion_get_third_party_block_classes' ) ) {
 
-function emulsion_get_third_party_block_classes() {
-	global $post;
+	function emulsion_get_third_party_block_classes() {
+		global $post;
 
-	if( empty( $post ) ) {
-		return;
-	}
-
-	$blocks	 = parse_blocks( $post->post_content );
-	$result	 = array();
-
-	foreach ( $blocks as $block ) {
-
-		if ( ! isset( $block['blockName'] ) ) {
-			continue;
+		if ( empty( $post ) ) {
+			return;
 		}
 
-		$block_id = $block['blockName'];
+		$blocks	 = parse_blocks( $post->post_content );
+		$result	 = array();
 
-		if ( false === strpos( $block_id, 'core/' ) ) {
+		foreach ( $blocks as $block ) {
 
-			$block_id = rtrim( $block_id, '*' );
+			if ( ! isset( $block['blockName'] ) ) {
+				continue;
+			}
 
-			$class_name = sprintf( 'wp-block-%1$s', str_replace( '/', '-', $block_id ) );
+			$block_id = $block['blockName'];
 
-			$result[] = sanitize_html_class( $class_name );
+			if ( false === strpos( $block_id, 'core/' ) ) {
+
+				$block_id = rtrim( $block_id, '*' );
+
+				$class_name = sprintf( 'wp-block-%1$s', str_replace( '/', '-', $block_id ) );
+
+				$result[] = sanitize_html_class( $class_name );
+			}
 		}
+		return $result;
 	}
-	return $result;
+
 }
+//if ( ! function_exists( 'emulsion_get_starter_content' ) ) {
+
+	function emulsion_get_starter_content() {
+
+		$template_path = get_template_directory() . '/starter-content/content.php';
+
+		$starter_content = array(
+			'posts' => array(
+				'front' => array(
+					'post_type'		 => 'page',
+					'post_title'	 => esc_html_x( 'emulsion home demo', 'Theme starter content', 'emulsion' ),
+					'post_content'	 => include( $template_path ),
+				),
+				'about',
+				'contact',
+				'blog',
+			),
+			'options' => array(
+				'show_on_front'	 => 'page',
+				'page_on_front'	 => '{{front}}',
+				'page_for_posts' => '{{blog}}',
+			),
+			'nav_menus' => array(
+				'primary' => array(
+					'name'	 => esc_html__( 'emulsion starter demo menu', 'emulsion' ),
+					'items'	 => array(
+						'link_home',
+						'page_about',
+						'page_blog',
+						'page_contact',
+					),
+				),
+			),
+		);
+		return apply_filters( 'emulsion_starter_content', $starter_content );
+	}
+
+//}
 
 do_action( 'emulsion_functions_after' );

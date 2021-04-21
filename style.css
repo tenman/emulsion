@@ -5,7 +5,7 @@ Theme URI: https://www.tenman.info/wp3/emulsion
 Description: block editor, classic editor both supports. Conventional, Image Media New Block Type Image Both media can be displayed correctly.Theme can stop at each theme style page for page builder users. Customizer can easily view changes with automatic preview redirection.Theme is designed with the goal of minimizing user frustration.
 Author: Tenman
 Author URI: https://www.tenman.info/wp3/
-Version: 1.9.0
+Version: 1.9.1
 Tags: one-column, two-columns, grid-layout,left-sidebar, right-sidebar,custom-background, custom-colors, custom-header,custom-logo, custom-menu, editor-style, featured-image-header, featured-images, flexible-header, footer-widgets, full-width-template, post-formats, sticky-post, theme-options, threaded-comments, translation-ready, block-patterns, block-styles, wide-blocks
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -452,11 +452,29 @@ body.is-dark.metabox-reset-post-presentation .header-layer.template-part-header-
 .wp-block-cover__inner-container:first-child{
    color:var(--thm_black_color, #333333);
 }
+
 [class*="background-color"],
 .has-background{
     background:var(--thm_unknown-bg);
     color:var(--thm_black_color, #333333);
 }
+
+[style*="gradient-background"]:not(.has-text-color) *:not(.has-text-color),
+.entry-content [style*="radial-gradient"]:not(.has-text-color) *:not(.has-text-color),
+.entry-content [style*="linear-gradient"]:not(.has-text-color) *:not(.has-text-color){
+    color:#fff;
+    mix-blend-mode: difference;
+}
+
+.layout .has-text-color *,
+.layout .has-text-color *,
+[style*="radial-gradient"].has-text-color,
+[style*="linear-gradient"] *.has-text-color,
+[style*="radial-gradient"] *.has-text-color,
+[style*="linear-gradient"] *.has-text-color{
+    mix-blend-mode: normal;
+}
+
 
 .has-vivid-cyan-blue-background-color,
 .has-vivid-red-background-color,

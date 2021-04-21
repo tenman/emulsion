@@ -326,10 +326,33 @@ div.editor-styles-wrapper .block-editor-block-list__layout.is-root-container > .
     color:var(--thm_black_color);
 }
 
+[style*="radial-gradient"]:not(.has-text-color) *:not(.has-text-color),
+[style*="linear-gradient"]:not(.has-text-color) *:not(.has-text-color),
+[style*="gradient-background"]:not(.has-text-color){
+    color:#fff;
+    mix-blend-mode: difference;
+}
+//.has-background.has-text-color,
+[style*="gradient-background"] *.has-text-color,
+[style*="radial-gradient"] *.has-text-color,
+[style*="linear-gradient"] *.has-text-color,
+[style*="radial-gradient"].has-text-color,
+[style*="linear-gradient"].has-text-color,
+[style*="gradient-background"].has-text-color{
+    mix-blend-mode: normal;
+}
+#editor .has-black-background-color:not(.has-text-color),
+#editor [style*="background-color: rgb(0, 0, 0);"]:not(.has-text-color):not(button){
+    background:rgb(0,0,0);
+    color:var(--thm_white_color) ! important;
+}
+
+
 .has-vivid-cyan-blue-background-color,
 .has-vivid-red-background-color,
 .has-vivid-purple-background-color{
-    color:var(--thm_white_color);
+    //todo remove important
+    color:var(--thm_white_color) ! important;
 }
 
 body .edit-post-layout .interface-interface-skeleton__content{
@@ -418,6 +441,9 @@ body{
                 :not[style|="background"]{// cover
                                       p{
                                           //@since 1.1.1 block cover text ccontrast issue
+                                          color:var(--thm_general_text_color);
+                                      }
+                                      li{
                                           color:var(--thm_general_text_color);
                                       }
             }
@@ -732,82 +758,6 @@ body{
 
                     }
                 }
-                /*
-                    .wp-block-gallery{
-                        color:var(--thm_gallery_section_color);
-                        background:var(--thm_gallery_section_bg);
-                        min-height:var(--thm_gallery_section_height);
-                        * {
-                            color:var(--thm_columns_section_color);
-                        }
-                        &.has-white-background-color,
-                        &.has-cool-background-color,
-                        &.has-info-background-color,
-                        &.has-alert-background-color,
-                        &.has-notice-background-color{
-                            *:not(.has-background):not(.has-text-color){
-                                color: var(--thm_black_color);
-                            }
-
-                        }
-                    }
-                    .wp-block-columns{
-                        color:var(--thm_columns_section_color);
-                        background:var(--thm_columns_section_bg);
-                        min-height:var(--thm_columns_section_height);
-
-                        .wp-block-table table:not(.has-background) th,
-                            .wp-block-table table:not(.has-background) td{
-                            color:var(--thm_columns_section_color);
-                            background:var(--thm_columns_section_bg);
-                        }
-                        &.has-white-background-color,
-                        &.has-cool-background-color,
-                        &.has-info-background-color,
-                        &.has-alert-background-color,
-                        &.has-notice-background-color{
-                            *:not(.has-background):not(.has-text-color){
-                                color: var(--thm_black_color);
-                            }
-
-                        }
-                    }
-                    .wp-block-group{
-                        color:var(--thm_group_section_color);
-                        background:var(--thm_group_section_bg);
-                        min-height:var(--thm_group_section_height);
-                        &:not(.has-background):not[style|="background"]{
-                            * {
-                                color:var(--thm_group_section_color);
-                            }
-                        }
-                        &.has-white-background-color,
-                        &.has-cool-background-color,
-                        &.has-info-background-color,
-                        &.has-alert-background-color,
-                        &.has-notice-background-color{
-                            *:not(.has-background):not(.has-text-color){
-                                color: var(--thm_black_color);
-                            }
-
-                        }
-                    }
-                    .wp-block-cover{
-                        &.has-white-background-color,
-                        &.has-cool-background-color,
-                        &.has-info-background-color,
-                        &.has-alert-background-color,
-                        &.has-notice-background-color{
-                            *:not(.has-background):not(.has-text-color){
-                                color: var(--thm_black_color);
-                            }
-
-
-                        }
-                    }
-                */
-
-
             }
             div.gallery{
                 display: -webkit-box;
@@ -850,7 +800,7 @@ body{
                     }
                 }
             }
-            li,
+
             .wp-caption-dd{
                 color:var(--thm_general_text_color);
             }
@@ -902,6 +852,10 @@ body{
             }
             p.has-background:not(.has-text-color){
                 color:var(--thm_black_color);
+            }
+            p.has-dark-gray-background-color:not(.has-text-color){
+                // twenty twenty one
+                color:var(--thm_white_color);
             }
             p.has-gray-background-color:not(.has-text-color){
                 color:var(--thm_white_color);
@@ -1013,6 +967,54 @@ body{
         }
 
 
+    }
+}
+
+
+//　default theme color
+
+$twenty_twenty_one_palette: dark-gray #28303D, green #D1E4DD, blue #D1DFE4, purple #D1D1E4, red #E4D1D1, orange #E4DAD1, yellow #EEEADD;
+body{
+    @each $twenty_twenty_one_color in $twenty_twenty_one_palette {
+        $slug: nth($twenty_twenty_one_color, 1);
+        $color: nth($twenty_twenty_one_color, 2);
+
+        .has-#{$slug}-color {
+            // OW over write global-styles-inline-css
+            color:#{$color} ! important;
+        }
+        --global--color-#{$slug}:#{$color};
+
+
+        .has-#{$slug}-background-color{
+            background:var(--global--color-#{$slug});
+        }
+    }
+}
+body{
+    .has-purple-to-yellow-gradient-background {
+	background-image: linear-gradient(160deg, var(--global--color-purple), var(--global--color-yellow));
+    }
+    .has-yellow-to-purple-gradient-background {
+        background-image: linear-gradient(160deg, var(--global--color-yellow), var(--global--color-purple));
+    }
+    .has-green-to-yellow-gradient-background {
+        background-image: linear-gradient(160deg, var(--global--color-green), var(--global--color-yellow));
+    }
+    .has-yellow-to-green-gradient-background {
+        background-image: linear-gradient(160deg, var(--global--color-yellow), var(--global--color-green));
+    }
+    .has-red-to-yellow-gradient-background {
+        background-image: linear-gradient(160deg, var(--global--color-red), var(--global--color-yellow));
+    }
+    .has-yellow-to-red-gradient-background {
+        background-image: linear-gradient(160deg, var(--global--color-yellow), var(--global--color-red));
+    }
+    .has-purple-to-red-gradient-background {
+        background-image: linear-gradient(160deg, var(--global--color-purple), var(--global--color-red));
+    }
+    .has-red-to-purple-gradient-background {
+        background-image: linear-gradient(160deg, var(--global--color-red), var(--global--color-purple));
     }
 }
 /** Todo
@@ -1823,7 +1825,7 @@ div.is-root-container .wp-block-media-text.alignright{
     h1,h2,h3,h4,h5,h6{
         width:100%;
     }
-    [class|="wp-block"],
+    //0416 [class|="wp-block"],
     [class$="inner-container"]{
         width:100%;
     }
@@ -1987,14 +1989,18 @@ div.is-root-container .wp-block-media-text.alignright{
             }
         }
     }
-
+    .wp-block{
+        @extend %block;
+    }
     .wp-block[data-align] {
-        [class|="wp-block"]{
+        //0416
+        /*[class|="wp-block"]{
+            border:1px solid red;
             margin:0 auto;
             padding:0;
             float:none;
             width:100%;
-        }
+        }*/
     }
 
     ul[class|="wp-block"]{

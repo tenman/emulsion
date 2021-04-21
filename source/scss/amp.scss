@@ -27,6 +27,7 @@ body{
     display:none;
 }
 :root{
+
     line-height:1.5;
     h1,h2,h3,h4,h5,h6{
         line-height:1.15;
@@ -37,6 +38,8 @@ body{
         --wp--preset--color--info: rgba(22,160,133,1);
         --wp--preset--color--cool: rgba(52,152,219,1);
     }
+
+
 }
 
 //fallback
@@ -578,6 +581,47 @@ article .has-background:not(.has-text-color) *:not(.has-text-color){
 article .has-black-background-color:not(.has-text-color) *:not(.has-text-color) {
     color:var(--thm_white_color);
 }
+#main{
+    article .has-background.has-midnight-gradient-background,
+    article .has-background.has-cool-to-warm-spectrum-gradient-background,
+    article .has-background.has-luminous-vivid-orange-to-vivid-red-gradient-background,
+    article .has-background.has-vivid-cyan-blue-to-vivid-purple-gradient-background,
+        article .has-background.has-midnight-gradient-background *:not(.has-text-color),
+    article .has-background.has-cool-to-warm-spectrum-gradient-background *:not(.has-text-color),
+    article .has-background.has-luminous-vivid-orange-to-vivid-red-gradient-background *:not(.has-text-color),
+    article .has-background.has-vivid-cyan-blue-to-vivid-purple-gradient-background *:not(.has-text-color){
+        color:var(--thm_white_color, #ffffff);
+    }
+    article .has-background.has-white-background-color,
+    article .has-background.has-electric-grass-gradient-background,
+    article .has-background.has-luminous-dusk-gradient-background,
+    article .has-background.has-blush-bordeaux-gradient-background,
+    article .has-background.has-blush-light-purple-gradient-background,
+    article .has-background.has-very-light-gray-to-cyan-bluish-gray-gradient-background,
+    article .has-background.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background,
+    article .has-background.has-light-green-cyan-to-vivid-green-cyan-gradient-background,
+    article .has-background.has-pale-ocean-gradient-background *:not(.has-text-color),
+    article .has-background.has-white-background-color *:not(.has-text-color),
+    article .has-background.has-electric-grass-gradient-background *:not(.has-text-color),
+    article .has-background.has-luminous-dusk-gradient-background *:not(.has-text-color),
+    article .has-background.has-blush-bordeaux-gradient-background *:not(.has-text-color),
+    article .has-background.has-blush-light-purple-gradient-background *:not(.has-text-color),
+    article .has-background.has-very-light-gray-to-cyan-bluish-gray-gradient-background *:not(.has-text-color),
+    article .has-background.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background *:not(.has-text-color),
+    article .has-background.has-light-green-cyan-to-vivid-green-cyan-gradient-background *:not(.has-text-color),
+    article .has-background.has-pale-ocean-gradient-background *:not(.has-text-color){
+        color:var(--thm_black_color, #333333);
+    }
+}
+.wp-block-search .wp-block-search__button{
+
+    background:var(--thm_header_bg_color);
+    color:var(--thm_header_text_color);
+
+    svg{
+        fill:var(--thm_header_text_color);
+    }
+}
 .custom-background{
 
     background:var(--thm_background_color);
@@ -618,8 +662,9 @@ article .has-black-background-color:not(.has-text-color) *:not(.has-text-color) 
     }
 }
 :root:not(#_):not(#_):not(#_):not(#_):not(#_):not(#_):not(#_):not(#_) body.noscript.enable-alignfull .wp-block-group.has-background:not([class*="gradient-background"]),
-:root:not(#_):not(#_):not(#_):not(#_):not(#_):not(#_):not(#_):not(#_) body.noscript.enable-alignfull .wp-block-pullquote.has-background:not([class*="gradient-background"]) {
-    //background: #eee;
+:root:not(#_):not(#_):not(#_):not(#_):not(#_):not(#_):not(#_):not(#_) body.noscript.enable-alignfull .wp-block-pullquote.has-background:not([class*="gradient-background"]),
+.has-background{
+    background:var(--thm_unknown-bg);
     color:var(--thm_black_color);
     a{
         color:var(--thm_black_color);
@@ -668,4 +713,10 @@ table td{
 .modal-open-link,       /* old version */
 .emulsion-dependency{   /* @since 1.8.1 */
     display:none;
+}
+body .wp-block-group.alignfull:first-of-type{
+    margin-top:0;
+}
+.wp-block-group .wp-block-group__inner-container{
+    overflow:hidden;
 }

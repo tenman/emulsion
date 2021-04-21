@@ -114,11 +114,13 @@ body{
             color:#{str-replace($color,.4,1)} ! important;
         }
 
+
         .has-#{$slug}-background-color{
             background:#{$color};
             background-image:linear-gradient( #{$color, $color}  ), linear-gradient(  var(--thm_white_color), var(--thm_white_color) );
             background-size:cover;
         }
+
 
         .wp-block-columns.has-#{$slug}-background-color{
             &:before{
