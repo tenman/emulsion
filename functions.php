@@ -23,6 +23,7 @@ if ( is_admin() && current_user_can( 'edit_theme_options' ) ) {
 		include_once( get_template_directory() . '/lib/class-tgm-plugin-activation.php' );
 	}
 }
+
 if ( is_customize_preview() ) {
 
 	add_theme_support( 'starter-content', emulsion_get_starter_content() );
@@ -42,16 +43,6 @@ function emulsion_theme_admin_notice() {
 		);
 	}
 
-	if ( is_plugin_active('emulsion-addons/emulsion.php') && ! function_exists( 'emulsion_addons_default_values' ) ) {
-
-		$plugin_install_url = esc_url( admin_url( 'themes.php?page=tgmpa-install-plugins&plugin_status=all' ) );
-
-		printf( '<div class="notice notice-error is-dismissible emulsion-addon-error"><p><strong>%1$s</strong>  <a href="%2$s">%3$s</a></p></div>',
-				esc_html__( 'The emulsion-addons plugin is too old.', 'emulsion' ),
-				$plugin_install_url,
-				esc_html__( 'Please update', 'emulsion' )
-		);
-	}
 	if (version_compare(PHP_VERSION, '8.0.0') >= 0) {
 
 		$php8_notice = esc_url( esc_html_x('https://make.wordpress.org/core/2020/11/23/wordpress-and-php-8-0/', 'linked url', 'emulsion') );

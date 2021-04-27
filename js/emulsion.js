@@ -1003,3 +1003,17 @@ jQuery(function ($) {
     $('.wp-block-page-list__submenu-icon').attr('tabindex', 0);
 
 });
+
+// FSE experimental
+
+jQuery(function ($) {
+
+    $(".wp-block-query-loop .wp-block-post-featured-image").each(function (i) {
+
+        $(this).parent().addClass('has-post-thumbnail');
+    });
+
+
+
+});
+

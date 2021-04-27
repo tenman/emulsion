@@ -3213,7 +3213,22 @@ div.components-notice{
 /**
  * FSE
  */
+//header footer article aside main section
 
+.enable-alignfull{
+    [core/template-part]{
+        @extend %has-sidebar-alignfull;
+        margin:0 auto;
+    }
+    .fse-header{
+        @extend %has-sidebar-alignfull;
+        margin:0 auto;
+    }
+    .fse-footer{
+        @extend %has-sidebar-alignfull;
+        margin:0 auto;
+    }
+}
 .edit-site{
     .interface-interface-skeleton__content{
         width:var(--thm_editor_main_width);

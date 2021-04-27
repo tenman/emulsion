@@ -16,13 +16,24 @@
 body{
 
     color:var(--thm_general_text_color);
-    a:any-link{
+    a{
         color:var(--thm_general_link_color);
         &:hover{
             color:var(--thm_general_link_hover_color);
         }
     }
+    .show-post-image {
+        color: var(--thm_white_color,#fff);
+        border-color: var(--thm_white_color,#fff);
+        a{
+            color:var(--thm_cloud_color,#ecf0f1);
+            &:hover{
+                color:var(--thm_white_color,#fff);
+            }
+        }
+    }
 }
+
 [amp] .emulsion-prepend-page-wrapper{
     display:none;
 }
@@ -586,10 +597,10 @@ article .has-black-background-color:not(.has-text-color) *:not(.has-text-color) 
     article .has-background.has-cool-to-warm-spectrum-gradient-background,
     article .has-background.has-luminous-vivid-orange-to-vivid-red-gradient-background,
     article .has-background.has-vivid-cyan-blue-to-vivid-purple-gradient-background,
-        article .has-background.has-midnight-gradient-background *:not(.has-text-color),
-    article .has-background.has-cool-to-warm-spectrum-gradient-background *:not(.has-text-color),
-    article .has-background.has-luminous-vivid-orange-to-vivid-red-gradient-background *:not(.has-text-color),
-    article .has-background.has-vivid-cyan-blue-to-vivid-purple-gradient-background *:not(.has-text-color){
+    article .has-background.has-midnight-gradient-background *:not(.has-text-color),
+        article .has-background.has-cool-to-warm-spectrum-gradient-background *:not(.has-text-color),
+        article .has-background.has-luminous-vivid-orange-to-vivid-red-gradient-background *:not(.has-text-color),
+        article .has-background.has-vivid-cyan-blue-to-vivid-purple-gradient-background *:not(.has-text-color){
         color:var(--thm_white_color, #ffffff);
     }
     article .has-background.has-white-background-color,
@@ -601,15 +612,15 @@ article .has-black-background-color:not(.has-text-color) *:not(.has-text-color) 
     article .has-background.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background,
     article .has-background.has-light-green-cyan-to-vivid-green-cyan-gradient-background,
     article .has-background.has-pale-ocean-gradient-background *:not(.has-text-color),
-    article .has-background.has-white-background-color *:not(.has-text-color),
-    article .has-background.has-electric-grass-gradient-background *:not(.has-text-color),
-    article .has-background.has-luminous-dusk-gradient-background *:not(.has-text-color),
-    article .has-background.has-blush-bordeaux-gradient-background *:not(.has-text-color),
-    article .has-background.has-blush-light-purple-gradient-background *:not(.has-text-color),
-    article .has-background.has-very-light-gray-to-cyan-bluish-gray-gradient-background *:not(.has-text-color),
-    article .has-background.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background *:not(.has-text-color),
-    article .has-background.has-light-green-cyan-to-vivid-green-cyan-gradient-background *:not(.has-text-color),
-    article .has-background.has-pale-ocean-gradient-background *:not(.has-text-color){
+        article .has-background.has-white-background-color *:not(.has-text-color),
+        article .has-background.has-electric-grass-gradient-background *:not(.has-text-color),
+        article .has-background.has-luminous-dusk-gradient-background *:not(.has-text-color),
+        article .has-background.has-blush-bordeaux-gradient-background *:not(.has-text-color),
+        article .has-background.has-blush-light-purple-gradient-background *:not(.has-text-color),
+        article .has-background.has-very-light-gray-to-cyan-bluish-gray-gradient-background *:not(.has-text-color),
+        article .has-background.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background *:not(.has-text-color),
+        article .has-background.has-light-green-cyan-to-vivid-green-cyan-gradient-background *:not(.has-text-color),
+        article .has-background.has-pale-ocean-gradient-background *:not(.has-text-color){
         color:var(--thm_black_color, #333333);
     }
 }
