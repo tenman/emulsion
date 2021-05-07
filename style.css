@@ -5,7 +5,7 @@ Theme URI: https://www.tenman.info/wp3/emulsion
 Description: block editor, classic editor both supports. Conventional, Image Media New Block Type Image Both media can be displayed correctly.Theme can stop at each theme style page for page builder users. Customizer can easily view changes with automatic preview redirection.Theme is designed with the goal of minimizing user frustration.
 Author: Tenman
 Author URI: https://www.tenman.info/wp3/
-Version: 1.9.2
+Version: 1.9.3
 Tags: one-column, two-columns, grid-layout,left-sidebar, right-sidebar,custom-background, custom-colors, custom-header,custom-logo, custom-menu, editor-style, featured-image-header, featured-images, flexible-header, footer-widgets, full-width-template, post-formats, sticky-post, theme-options, threaded-comments, translation-ready, block-patterns, block-styles, wide-blocks
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -450,7 +450,7 @@ body.is-dark.metabox-reset-post-presentation .header-layer.template-part-header-
  * Due to other themes, the set color scheme cannot be reproduced. Causes a fatal problem with contrast
  */
 .wp-block-cover__inner-container:first-child{
-   color:var(--thm_black_color, #333333);
+    color:var(--thm_black_color, #333333);
 }
 
 [class*="background-color"],
@@ -751,3 +751,34 @@ body.emulsion-has-sidebar.is-dark.scheme-midnight .primary-menu-wrapper nav[clas
 }
 
 /*------------------------------------------*/
+/* Temporary setting, wordpress.org preview has been changed to FSE, so add a style for preview 2021/5/6 */
+
+.page-id-10000.by- .fse-header{
+    width:100vw;
+    overflow:hidden;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
+}
+.page-id-10000.by- .fse-header .wp-block-site-title{
+    width:100%;
+    margin: 0 auto;
+    padding-top: var(--thm_content_gap, 24px);
+    padding-left: var(--thm_content_gap, 24px);
+    font-size: 24px;
+    line-height: 1.15;
+}
+.page-id-10000.by- .wp-block-template-part .fse-header .wp-block-site-tagline{
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto 0.75rem;
+    padding-left: var(--thm_content_gap, 24px);
+    padding-right: var(--thm_content_gap, 24px);
+    box-sizing: border-box;
+}
+.page-id-10000.by- .article-header{
+    display:none;
+}
+.page-id-10000.by- .wp-block-group.alignfull.grid{
+    width:auto;
+}

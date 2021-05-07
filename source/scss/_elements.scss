@@ -1275,7 +1275,7 @@ ul.list-style-inline:not(.list-style-initial):not(.is-style-list-style-initial){
         margin:var( --thm_box_gap,3px );
         flex:1 1 auto;
         text-indent:0;
-        
+
         &:before{
             content:none;
             display:none ! important;
@@ -1882,12 +1882,18 @@ body .fit{
 .trancate{
     max-width:100%;
     overflow:hidden; //@since 1.1.2
+
 }
 .on-trancate{
     display:block;
     //overflow:hidden; @since 1.1.2
 }
-
+#document{
+    .trancate{
+        padding-top:0;
+        padding-bottom:0;
+    }
+}
 /**
  * wp_nav_menu
  * ========================================================================== */

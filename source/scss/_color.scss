@@ -1058,6 +1058,76 @@ body{
         }
     }
 }
+
+body[class]{
+    .icon-success,
+    .icon-cool{
+        & > a >  svg.icon, //button
+        & > li > svg.icon,
+        & > svg.icon{
+            --thm_social_icon_color:rgba(52, 152, 219, 1);
+            fill:var(--thm_cool_color);
+        }
+    }
+    .icon-notice{
+        & > a >  svg.icon, //button
+        & > li > svg.icon,
+        & > svg.icon{
+            --thm_social_icon_color:rgba(163, 140, 8, 1);
+            fill:var(--thm_notice_color);
+        }
+    }
+    .icon-info{
+        & > a >  svg.icon, //button
+        & > li > svg.icon,
+        & > svg.icon{
+            --thm_social_icon_color:rgba(22, 160, 133, 1);
+            fill:var(--thm_info_color);
+        }
+    }
+    .icon-alert{
+        & > a >  svg.icon, //button
+        & > li > svg.icon,
+        & > svg.icon{
+            --thm_social_icon_color:rgba(231, 76, 60, 1);
+            fill:var(--thm_alert_color);
+        }
+    }
+    .icon-dark{
+        & > a >  svg.icon, //button
+        & > li > svg.icon,
+        & > svg.icon{
+            --thm_social_icon_color:#000;
+            fill:#000;
+        }
+    }
+    /**
+     * hand writing svg color class
+     */
+    svg.icon{
+        &.icon-success,
+        &.icon-cool{
+            --thm_social_icon_color:rgba(52, 152, 219, 1);
+            fill:var(--thm_cool_color);
+        }
+        &.icon-notice{
+            --thm_social_icon_color:rgba(163, 140, 8, 1);
+            fill:var(--thm_notice_color);
+        }
+        &.icon-info{
+            --thm_social_icon_color:rgba(22, 160, 133, 1);
+            fill:var(--thm_info_color);
+        }
+        &.icon-alert{
+            --thm_social_icon_color:rgba(231, 76, 60, 1);
+            fill:var(--thm_alert_color);
+        }
+        &.icon-dark{
+            --thm_social_icon_color:#000;
+            fill:#000;
+        }
+    }
+}
 /**
  * Plugin fallback
  * START

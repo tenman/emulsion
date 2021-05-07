@@ -203,4 +203,5 @@ wp.blocks.registerBlockVariation(
 jQuery(function ($) {
 
     $(".is-style-sticky").parents().css("overflow", "visible");
+    
 });

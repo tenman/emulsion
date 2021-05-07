@@ -150,7 +150,7 @@ figure.wp-block-gallery{
     justify-content: center;
     -ms-flex-direction:column;
     flex-direction:column;
-   // height:100%;
+    // height:100%;
     box-sizing:border-box;
 }
 .wp-block-cover-image,
@@ -183,8 +183,64 @@ figure.wp-block-gallery{
 
         a{
             line-height:3;
-        padding-left:var(--thm_content_gap);
-        padding-right:var(--thm_content_gap);
+            padding-left:var(--thm_content_gap);
+            padding-right:var(--thm_content_gap);
         }
     }
 }
+
+.mce-content-body .size1of1,
+.mce-content-body .size1of2,
+.mce-content-body .size1of3,
+.mce-content-body .size2of3,
+.mce-content-body .size1of4,
+.mce-content-body .size3of4,
+.mce-content-body .size1of5,
+.mce-content-body .size2of5,
+.mce-content-body .size3of5,
+.mce-content-body .size4of5 {
+    box-sizing:border-box;
+    display:inline-block;
+    margin:var(--thm_box_gap, 3px);
+    margin-bottom:calc( var(--thm_box_gap, 3px) * 2 );
+    vertical-align:top;
+    &.aligncenter{
+        display:block;
+        margin-left:auto;
+        margin-right:auto;
+    }
+}
+
+.mce-content-body .size1of3 {
+
+    width: calc( 33.33333% - 1rem - var(--thm_box_gap, 3px) * 2);
+}
+.mce-content-body .size1of4 {
+
+    width: calc( 24.99% - 1rem - var(--thm_box_gap, 3px) * 2 );
+}
+.mce-content-body .size1of2 {
+
+    width: calc( 50% - 1rem - var(--thm_box_gap, 3px) * 2 );
+}
+.mce-content-body .size1of5 {
+
+    width: calc( 19.99% - 1rem - var(--thm_box_gap, 3px) * 2 );
+}
+.mce-content-body .size2of3 {
+    width: calc( 66.66666% - 1rem - var(--thm_box_gap, 3px) * 2 );
+}
+.mce-content-body .size2of5 {
+    width: calc( 40% - 1rem - var(--thm_box_gap, 3px) * 2 );
+}
+.mce-content-body .size3of4 {
+    width: calc( 75% - 1rem - var(--thm_box_gap, 3px) * 2 );
+}
+.mce-content-body .size3of5 {
+    width: calc( 60% - 1rem - var(--thm_box_gap, 3px) * 2 );
+}
+.mce-content-body .wp-block.size4of5 {
+    width: calc( 80% - 1rem - var(--thm_box_gap, 3px) * 2 );
+    width: calc( 80% - 1rem - var(--thm_box_gap, 3px) * 2 );
+}
+

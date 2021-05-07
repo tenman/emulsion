@@ -878,11 +878,14 @@ if ( ! function_exists( 'emulsion_do_fse' ) ) {
 	}
 }
 
+
 if ( ! function_exists( 'emulsion_have_posts' ) ) {
 
 	function emulsion_have_posts() {
 
 		global  $_wp_current_template_content;
+
+
 
 		if( emulsion_do_fse() && ! is_null( $_wp_current_template_content ) ) {
 
