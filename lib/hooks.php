@@ -41,7 +41,13 @@ function emulsion_hooks_setup() {
 	/**
 	 * Scripts
 	 */
-	false === emulsion_is_amp() ? add_filter( 'emulsion_inline_script', 'emulsion_get_rest' ) : '';
+	//false === emulsion_is_amp() ? add_filter( 'emulsion_inline_script', 'emulsion_get_rest' ) : '';
+	add_action( 'wp', static function () {
+		if ( false === emulsion_is_amp() ) {
+			add_filter( 'emulsion_inline_script', 'emulsion_get_rest' );
+		}
+	} );
+
 	true === emulsion_the_theme_supports( 'lazyload' ) ? add_filter( 'emulsion_lazyload_script', 'emulsion_lazyload' ) : '';
 	true === emulsion_the_theme_supports( 'instantclick' ) ? add_filter( 'emulsion_instantclick_script', 'emulsion_instantclick' ) : '';
 
@@ -110,12 +116,11 @@ function emulsion_hooks_setup() {
 
 	}
 
-
-
 	//JSON-LD add desscription
-	add_filter( 'amp_post_template_metadata', 'emulsion_amp_description', 10, 2 );
+	if( defined( 'AMP_VERSION' ) && version_compare( AMP_VERSION, '2.1.2', '>=' ) ) {
 
-
+		add_filter( 'amp_post_template_metadata', 'emulsion_amp_description', 10, 2 );
+	}
 
 	do_action( 'emulsion_hooks_setup_after' );
 }

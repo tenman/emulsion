@@ -1,3 +1,7 @@
+/**
+ * todo: Currently blockVariation titles cannot be internationalized
+ *
+ */
 wp.blocks.registerBlockVariation(
         'core/columns', {
             name: 'cta-block',
@@ -203,5 +207,5 @@ wp.blocks.registerBlockVariation(
 jQuery(function ($) {
 
     $(".is-style-sticky").parents().css("overflow", "visible");
-    
+
 });

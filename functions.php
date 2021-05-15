@@ -565,7 +565,7 @@ function emulsion_register_scripts_and_styles() {
 		}
 	}
 
-	if( $support_instantclick && false === wp_style_is( 'admin-bar' ) && is_user_logged_in() ) {
+	if( $support_instantclick && false === wp_style_is( 'admin-bar' ) /*&& is_user_logged_in()*/ ) {
 		// Cached
 		wp_enqueue_style('admin-bar');
 	}
@@ -2160,6 +2160,8 @@ if ( ! function_exists( 'emulsion_get_third_party_block_classes' ) ) {
 	}
 
 //}
+
+
 
 do_action( 'emulsion_functions_after' );
 

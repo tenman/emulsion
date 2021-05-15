@@ -43,6 +43,18 @@ function emulsion_theme_admin_notice_fse() {
 	}
 }
 
+if ( function_exists( 'gutenberg_is_fse_theme' ) && ! gutenberg_is_fse_theme() ) {
+	/**
+	 * Gutenberg 10.5.4
+	 * Fixed an issue where the theme would load without determining the FSE theme when it had an FSE template part file
+	 */
+	remove_action( 'wp_loaded', 'gutenberg_add_template_loader_filters' );
+
+
+}
+
+
+
 if ( emulsion_do_fse() ) {
 	/**
 	 * The following settings are provisional settings for migrating existing themes and FSE themes.

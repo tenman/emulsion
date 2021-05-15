@@ -396,6 +396,23 @@ footer.banner{
         }
     }
 }
+body.scheme-midnight{
+    .header-layer{
+        &.cta-layer-active{
+            &.header-is-default-color{
+                .cta-layer{
+                    a:any-link{
+                        color:var(--thm_header_text_color);
+                        background:var( --thm_header_bg_color);
+                        &:hover{
+                            filter: brightness(110%);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
 /**
  * Primary Menu
  * ========================================================================== */
