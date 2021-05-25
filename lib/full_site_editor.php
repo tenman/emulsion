@@ -44,6 +44,7 @@ function emulsion_theme_admin_notice_fse() {
 }
 
 if ( function_exists( 'gutenberg_is_fse_theme' ) && ! gutenberg_is_fse_theme() ) {
+//if ( function_exists( 'gutenberg_supports_block_templates' ) && ! gutenberg_supports_block_templates() ) {
 	/**
 	 * Gutenberg 10.5.4
 	 * Fixed an issue where the theme would load without determining the FSE theme when it had an FSE template part file
@@ -72,7 +73,7 @@ if ( emulsion_do_fse() ) {
 	 */
 	function emulsion_gutenberg_add_template_loader_filters() {
 		if ( ! gutenberg_is_fse_theme() || ! emulsion_the_theme_supports( 'full_site_editor' ) ) {
-
+		//if ( ! gutenberg_supports_block_templates() || ! emulsion_the_theme_supports( 'full_site_editor' ) ) {
 			return;
 		}
 		if ( ! function_exists( 'gutenberg_resolve_template' ) ) {
@@ -178,7 +179,7 @@ if ( emulsion_do_fse() ) {
 	function emulsion_element_classes_root_filter( $class ) {
 
 		if ( function_exists( 'gutenberg_is_fse_theme' ) && gutenberg_is_fse_theme() ) {
-
+		//if ( function_exists( 'gutenberg_supports_block_templates' ) && gutenberg_supports_block_templates() ) {
 			$class .= ' emulsion-fse-active';
 		}
 		return $class;
@@ -192,6 +193,7 @@ if ( emulsion_do_fse() ) {
 function emulsion_stop_fse() {
 
 	if ( gutenberg_is_fse_theme() ) {
+	//if ( gutenberg_supports_block_templates() ) {
 		add_action( 'admin_menu', 'emulsion_remove_menus' );
 
 		function emulsion_remove_menus() {
@@ -358,7 +360,7 @@ add_action( 'init', 'emulsion_gutenberg_register_block_core_query_loop', 20 );
 
 
 if ( 'off' == filter_input( INPUT_GET, 'fse' ) && gutenberg_is_fse_theme() ) {
-
+//if ( 'off' == filter_input( INPUT_GET, 'fse' ) && gutenberg_supports_block_templates() ) {
 	emulsion_stop_fse();
 }
 

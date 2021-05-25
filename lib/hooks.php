@@ -39,6 +39,16 @@ function emulsion_hooks_setup() {
 	add_filter( 'body_class', 'emulsion_remove_custom_background_class' );
 	add_filter( 'wp_img_tag_add_loading_attr', 'emulsion_skip_loading_lazy_image', 10, 3 );
 	/**
+	 * Block editor notation
+	 */
+	if ( function_exists( 'do_blocks' ) ) {
+		
+		add_action( 'theme_mod_emulsion_header_html', 'do_blocks' );
+		add_action( 'theme_mod_emulsion_footer_credit', 'do_blocks' );
+	}
+
+	add_filter( 'excerpt_allowed_blocks','emulsion_excerpt_allowed_blocks');
+	/**
 	 * Scripts
 	 */
 	//false === emulsion_is_amp() ? add_filter( 'emulsion_inline_script', 'emulsion_get_rest' ) : '';
@@ -1411,4 +1421,14 @@ function emulsion_skip_loading_lazy_image( $value, $image, $context ) {
         }
     }
     return $value;
+}
+
+function emulsion_excerpt_allowed_blocks( $allowed_blocks ){
+
+	if ( ! in_array( 'core/group', $allowed_blocks, true ) ) {
+
+		$allowed_blocks[] = 'core/group';
+	}
+
+	return $allowed_blocks;
 }

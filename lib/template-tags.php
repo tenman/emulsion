@@ -810,11 +810,12 @@ if ( ! function_exists( 'emulsion_do_fse' ) ) {
 	function emulsion_do_fse(){
 
 		if( ! function_exists( 'gutenberg_is_fse_theme' )  ) {
-
+		//if( ! function_exists( 'gutenberg_supports_block_templates' )  ) {
 			return false;
 		}
 
 		if( ! gutenberg_is_fse_theme() ) {
+		//if( ! gutenberg_supports_block_templates() ) {
 
 			return false;
 		}
@@ -871,7 +872,7 @@ if ( ! function_exists( 'emulsion_do_fse' ) ) {
 
 
 		if( emulsion_the_theme_supports( 'full_site_editor' ) && function_exists( 'gutenberg_is_fse_theme' ) && gutenberg_is_fse_theme() ) {
-
+		//if( emulsion_the_theme_supports( 'full_site_editor' ) && function_exists( 'gutenberg_supports_block_templates' ) && gutenberg_supports_block_templates() ) {
 			$result = true;
 		}
 		return apply_filters( 'emulsion_do_fse', $result );

@@ -1337,14 +1337,17 @@ ul.shrink{
                 padding-bottom:.5rem;
             }
         }
+
         &.alignleft{
             margin-right:1rem;
             text-align:right;
+            figcaption,
             table{
                 text-align:left;
                 width: calc(var(--thm_content_width, 720px) / 2 - var(--thm_content_gap, 24px) * 2);
                 margin-right:0;
             }
+
             @media screen and ( max-width : 640px ) {
                 // static break point
                 table{
@@ -1356,6 +1359,8 @@ ul.shrink{
         }
         &.alignright{
             margin-left:1rem;
+
+            figcaption,
             table{
                 width: calc(var(--thm_content_width, 720px) / 2 - var(--thm_content_gap, 24px) * 2);
                 margin-left:0;

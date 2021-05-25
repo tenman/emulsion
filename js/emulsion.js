@@ -325,6 +325,10 @@ jQuery(function ($) {
         $('a[href^=http]').not('[href^="' + emulsion_script_vars.home_url + '"]').addClass('external').attr('data-no-instant', 'data-no-instant');
         $('.emulsion-removed-presentation a, .emulsion-not-support-presentation a').attr('data-no-instant', 'data-no-instant');
 
+        $('.logged-in a').attr('data-no-instant', 'data-no-instant');
+
+
+
         /**
          * instantcclick exclude links
          */

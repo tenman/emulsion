@@ -53,15 +53,7 @@ wp-block-search, wp-block-social-links, wp-block-tag-cloud, wp-block-embed, wp-b
                     @extend %no-sidebar-alignfull;
                 }
             }
-            .emulsion-gb-phase-site .is-style-alignfull,
-            .editor-styles-wrapper .wp-block[data-align="full"]{
-                @extend %no-sidebar-alignfull;
-                width:100% ! important;
-                position:static!important;
-                margin-left:auto;
-                margin-right:auto;
 
-            }
         }
 
     }
@@ -125,6 +117,19 @@ wp-block-search, wp-block-social-links, wp-block-tag-cloud, wp-block-embed, wp-b
         @extend %alignwide;
         position:static;
     }
+    &.emulsion-no-sidebar{
+
+        .emulsion-gb-phase-site .is-style-alignfull,
+        .editor-styles-wrapper .wp-block[data-align="full"]{
+            @extend %no-sidebar-alignfull;
+            width:100% ! important;
+            position:static!important;
+            margin-left:auto;
+            margin-right:auto;
+
+        }
+    }
+
 
     &.emulsion-has-sidebar{
 
@@ -252,8 +257,7 @@ wp-block-search, wp-block-social-links, wp-block-tag-cloud, wp-block-embed, wp-b
     }
     .wp-block-buttons{
 
-        padding-left:var(--thm_content_gap, 24px);
-        padding-right:var(--thm_content_gap, 24px);
+        @extend %block;
 
         .wp-block-button:not(.badge){
             padding-left:var(--thm_box_gap, 3px);
@@ -270,12 +274,28 @@ wp-block-search, wp-block-social-links, wp-block-tag-cloud, wp-block-embed, wp-b
                     display:none;
                 }
             }
+
         }
+
         &.is-vertical{
             .wp-block-button__link{
                 min-width:146px;
             }
         }
+        &.is-content-justification-left{
+
+        }
+        &.is-content-justification-right{
+
+        }
+        &.is-content-justification-center{
+
+        }
+        &.is-content-justification-space-between{
+
+        }
+
+
     }
 
     [class|="wp-block"]{
@@ -2991,10 +3011,5 @@ body.emulsion-color-enable .interface-interface-skeleton__content [data-block].i
     }
 }
 
-.wp-block-buttons{
-    width:var(--thm_content_width);
-    max-width:100%;
-    margin-left:auto;
-    margin-right:auto;
-}
+
 
