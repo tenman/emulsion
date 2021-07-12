@@ -56,9 +56,10 @@ if ( function_exists( 'register_block_style' ) ) {
 	}
 
 	register_block_style( 'core/buttons', array( 'name' => 'has-shadow', 'label' => esc_html__( 'Add Shadow', 'emulsion' ), ) );
-	register_block_style( 'core/column', array( 'name' => 'main', 'label' => esc_html__( 'Main Column', 'emulsion' ), ) );
 
+	register_block_style( 'core/column', array( 'name' => 'main', 'label' => esc_html__( 'Main Column', 'emulsion' ), ) );
 	register_block_style( 'core/column', array( 'name' => 'sticky', 'label' => esc_html__( 'Sticky Column', 'emulsion' ), ) );
+
 }
 
 function emulsion_block_pattern() {
@@ -94,7 +95,13 @@ function emulsion_block_pattern() {
 			);
 		}
 
+
+
 		register_block_pattern_category( 'emulsion', array( 'label' => esc_html_x( 'Emulsion', 'Emulsion Block pattern', 'emulsion' ) ) );
+
+		register_block_pattern_category( 'emulsion-query-template', array( 'label' => esc_html_x( 'Emulsion Query Template', 'Emulsion Block pattern', 'emulsion' ) ) );
+
+
 	}
 }
 add_action('init','emulsion_block_pattern',9);

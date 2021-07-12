@@ -2,6 +2,7 @@
  * todo: Currently blockVariation titles cannot be internationalized
  *
  */
+
 wp.blocks.registerBlockVariation(
         'core/columns', {
             name: 'cta-block',
@@ -42,7 +43,7 @@ wp.blocks.registerBlockVariation(
             scope: ['inserter'],
             innerBlocks: [
                 ['core/group', {className: 'size1of2'}, [
-                        ['core/image']
+                        ['core/image', {className: 'alignfull'}]
                     ]],
                 ['core/group', {className: 'size1of2 centered'}, [
                         ['core/heading', {level: 2, placeholder: 'Title', align: 'center'}],
@@ -52,7 +53,7 @@ wp.blocks.registerBlockVariation(
             ],
             attributes: {
                 align: 'full',
-                className: 'grid'
+                className: 'grid grid-group-2col grid-group'
             }
         }
 );
@@ -80,7 +81,7 @@ wp.blocks.registerBlockVariation(
             ],
             attributes: {
                 align: 'full',
-                className: 'grid'
+                className: 'grid grid-group-3col grid-group'
             }
         }
 );
@@ -111,7 +112,7 @@ wp.blocks.registerBlockVariation(
             ],
             attributes: {
                 align: 'full',
-                className: 'grid'
+                className: 'grid grid-group-4col grid-group'
             }
         }
 );
@@ -146,7 +147,7 @@ wp.blocks.registerBlockVariation(
             ],
             attributes: {
                 align: 'full',
-                className: 'grid'
+                className: 'grid grid-group-5col grid-group'
             }
         }
 );

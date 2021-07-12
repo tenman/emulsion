@@ -79,7 +79,7 @@ if ( ! function_exists( 'emulsion_theme_default_val' ) ) {
 
 			'emulsion_heading_font_family'		 => array( 'default' => 'serif', 'unit' => '', ), // required emulsion-addons plugin
 			'emulsion_heading_font_weight'		 => array( 'default' => '700', 'unit' => '', ), // required emulsion-addons plugin
-			'emulsion_heading_font_base'		 => array( 'default' => 16, 'unit' => 'px',  'note' => 'get_theme_mod(emulsion_common_font_size)',), // required emulsion-addons plugin
+			'emulsion_heading_font_base'		 => array( 'default' => 16, 'unit' => '',  'note' => 'get_theme_mod(emulsion_common_font_size)',), // required emulsion-addons plugin
 			'emulsion_heading_font_scale'		 => array( 'default' => 'xxx', 'unit' => '', ), // required emulsion-addons plugin
 			'emulsion_heading_font_transform'	 => array( 'default' => 'uppercase', 'unit' => '', ), // required emulsion-addons plugin
 			'emulsion_heading_google_font_url'	 => array( 'default' => '', 'unit' => '', ), // required emulsion-addons plugin
@@ -276,7 +276,7 @@ if ( ! function_exists( 'emulsion_the_theme_supports' ) ) {
 			'metabox'					 => array( 'default' => false ), // required emulsion-addons,amp plugin
 			'viewport'					 => array( 'default' => true, ),
 			'block_experimentals'		 => array( 'default' => true, ),
-			'scheme'					 => array( 'default' => true, ),
+			'scheme'					 => array( 'default' => true ),
 			'full_site_editor'			 => array( 'default' => true, ), //Currently depends on gutenberg_is_fse_theme()
 
 		);
@@ -394,9 +394,94 @@ function emulsion_theme_default_values( $name, $fallback ) {
 	}
 }
 
+function emulsion_wp_scss_set_variables_fallback( $variables ) {
+	/**
+	 * If the wp-scss plugin is used without using the emulsion-addons plugin, a compile error will occur.
+	 */
+
+	if ( ( ! empty( get_header_textcolor() ) && is_home() && ! has_header_image() && ! is_header_video_active() ) ||
+			( ! empty( get_header_textcolor() ) && is_singular() && ! has_post_thumbnail() ) ) {
+
+		$header_text_color = sprintf( '#%1$s', get_header_textcolor() );
+	}
+	$variables = array(
+		'heading_font_scale'				 => get_theme_mod( 'emulsion_heading_font_scale', emulsion_theme_default_val( 'emulsion_heading_font_scale', 'unit_val' ) ),
+		'heading_font_base'					 => get_theme_mod( 'emulsion_heading_font_base', emulsion_theme_default_val( 'emulsion_heading_font_base', 'val' ) ),
+		'header_media_max_height'			 => get_theme_mod( 'emulsion_header_media_max_height', emulsion_theme_default_val( 'emulsion_header_media_max_height', 'unit_val' ) ),
+		'post_display_date'					 => get_theme_mod( 'emulsion_post_display_date', emulsion_theme_default_val( 'emulsion_post_display_date', 'unit_val' ) ),
+		'post_display_author'				 => get_theme_mod( 'emulsion_post_display_author', emulsion_theme_default_val( 'emulsion_post_display_author', 'unit_val' ) ),
+		'post_display_category'				 => get_theme_mod( 'emulsion_post_display_category', emulsion_theme_default_val( 'emulsion_post_display_category', 'unit_val' ) ),
+		'post_display_tag'					 => get_theme_mod( 'emulsion_post_display_tag', emulsion_theme_default_val( 'emulsion_post_display_tag', 'unit_val' ) ),
+		'favorite_color_palette'			 => get_theme_mod( 'emulsion_favorite_color_palette', emulsion_theme_default_val( 'emulsion_favorite_color_palette', 'unit_val' ) ),
+		'content_margin_top'				 => get_theme_mod( 'emulsion_content_margin_top', emulsion_theme_default_val( 'emulsion_content_margin_top', 'unit_val' ) ),
+		'general_text_color'				 => get_theme_mod( 'emulsion_general_text_color', emulsion_theme_default_val( 'emulsion_general_text_color', 'unit_val' ) ),
+		'general_link_color'				 => get_theme_mod( 'emulsion_general_link_color', emulsion_theme_default_val( 'emulsion_general_link_color', 'unit_val' ) ),
+		'general_link_hover_color'			 => get_theme_mod( 'emulsion_general_link_hover_color', emulsion_theme_default_val( 'emulsion_general_link_hover_color', 'unit_val' ) ),
+		'excerpt_linebreak'					 => get_theme_mod( 'emulsion_excerpt_linebreak', emulsion_theme_default_val( 'emulsion_excerpt_linebreak', 'unit_val' ) ),
+		'comments_bg'						 => get_theme_mod( 'emulsion_comments_bg', emulsion_theme_default_val( 'emulsion_comments_bg', 'unit_val' ) ),
+		'sidebar_background'				 => $emulsion_sidebar_background = get_theme_mod( 'emulsion_sidebar_background', emulsion_theme_default_val( 'emulsion_sidebar_background', 'unit_val' ) ),
+		'sidebar_text_color'				 => sanitize_hex_color( emulsion_accessible_color( $emulsion_sidebar_background ) ),
+		'primary_menu_background'			 => get_theme_mod( 'emulsion_primary_menu_background', emulsion_theme_default_val( 'emulsion_primary_menu_background', 'unit_val' ) ),
+		'primary_menu_link_color'			 => sanitize_hex_color( emulsion_accessible_color( $emulsion_primary_menu_background ) ),
+		'relate_posts_bg'					 => get_theme_mod( 'emulsion_relate_posts_bg', emulsion_theme_default_val( 'emulsion_relate_posts_bg', 'unit_val' ) ),
+		'heading_font_transform'			 => get_theme_mod( 'emulsion_heading_font_transform', emulsion_theme_default_val( 'emulsion_heading_font_transform', 'unit_val' ) ),
+		'heading_font_weight'				 => get_theme_mod( 'emulsion_heading_font_weight', emulsion_theme_default_val( 'emulsion_heading_font_weight', 'unit_val' ) ),
+		'heading_font_family'				 => get_theme_mod( 'emulsion_heading_font_family', emulsion_theme_default_val( 'emulsion_heading_font_family', 'unit_val' ) ),
+		'common_font_family'				 => get_theme_mod( 'emulsion_common_font_family', emulsion_theme_default_val( 'emulsion_common_font_family', 'unit_val' ) ),
+		'common_font_size'					 => get_theme_mod( 'emulsion_common_font_size', emulsion_theme_default_val( 'emulsion_common_font_size', 'unit_val' ) ),
+		'meta_data_font_size'				 => get_theme_mod( 'emulsion_widget_meta_font_size', emulsion_theme_default_val( 'emulsion_widget_meta_font_size', 'unit_val' ) ),
+		'meta_data_font_family'				 => get_theme_mod( 'emulsion_widget_meta_font_family', emulsion_theme_default_val( 'emulsion_widget_meta_font_family', 'unit_val' ) ),
+		'meta_data_font_transform'			 => get_theme_mod( 'emulsion_widget_meta_font_transform', emulsion_theme_default_val( 'emulsion_widget_meta_font_transform', 'unit_val' ) ),
+		'align_offset'						 => get_theme_mod( 'emulsion_widget_meta_font_transform', emulsion_theme_default_val( 'emulsion_widget_meta_font_transform', 'unit_val' ) ),
+		'main_width'						 => get_theme_mod( 'emulsion_main_width', emulsion_theme_default_val( 'emulsion_main_width', 'unit_val' ) ),
+		'content_width'						 => get_theme_mod( 'emulsion_content_width', emulsion_theme_default_val( 'emulsion_content_width', 'unit_val' ) ),
+		'sidebar_width'						 => get_theme_mod( 'emulsion_sidebar_width', emulsion_theme_default_val( 'emulsion_sidebar_width', 'unit_val' ) ),
+		'content_gap'						 => get_theme_mod( 'emulsion_sidebar_width', emulsion_theme_default_val( 'emulsion_sidebar_width', 'unit_val' ) ),
+		'box_gap'							 => get_theme_mod( 'emulsion_box_gap', emulsion_theme_default_val( 'emulsion_box_gap', 'unit_val' ) ),
+		'header_bg_color'					 => $emulsion_header_background_color = get_theme_mod( 'emulsion_header_background_color', emulsion_theme_default_val( 'emulsion_header_background_color', 'unit_val' ) ),
+		'header_text_color'					 => sanitize_hex_color( emulsion_accessible_color( $emulsion_header_background_color ) ),
+		'background_color'					 => sanitize_hex_color( sprintf( '#%1s', get_theme_mod( 'background_color', emulsion_theme_default_val( 'background_color', 'unit_val' ) ) ) ),
+		'sub_background_color_lighten'		 => sanitize_hex_color( sprintf( '#%1s', get_theme_mod( 'background_color', emulsion_theme_default_val( 'background_color', 'unit_val' ) ) ) ),
+		'border_global'						 => get_theme_mod( 'emulsion_border_global', emulsion_theme_default_val( 'emulsion_border_global', 'unit_val' ) ),
+		'border_sidebar'					 => get_theme_mod( 'emulsion_border_sidebar', emulsion_theme_default_val( 'emulsion_border_sidebar', 'unit_val' ) ),
+		'border_grid'						 => get_theme_mod( 'emulsion_border_grid', emulsion_theme_default_val( 'emulsion_border_grid', 'unit_val' ) ),
+		'border_stream'						 => get_theme_mod( 'emulsion_border_stream', emulsion_theme_default_val( 'emulsion_border_stream', 'unit_val' ) ),
+		'border_global_style'				 => get_theme_mod( 'emulsion_border_global_style', emulsion_theme_default_val( 'emulsion_border_global_style', 'unit_val' ) ),
+		'border_sidebar_style'				 => get_theme_mod( 'emulsion_border_sidebar_style', emulsion_theme_default_val( 'emulsion_border_sidebar_style', 'unit_val' ) ),
+		'border_grid_style'					 => get_theme_mod( 'emulsion_border_grid_style', emulsion_theme_default_val( 'emulsion_border_grid_style', 'unit_val' ) ),
+		'border_stream_style'			 => get_theme_mod( 'emulsion_border_stream_style', emulsion_theme_default_val( 'emulsion_border_stream_style', 'unit_val' ) ),
+		'border_global_width'			 => get_theme_mod( 'emulsion_border_global_width', emulsion_theme_default_val( 'emulsion_border_global_width', 'unit_val' ) ),
+		'border_sidebar_width'			 => get_theme_mod( 'emulsion_border_sidebar_width', emulsion_theme_default_val( 'emulsion_border_sidebar_width', 'unit_val' ) ),
+		'border_grid_width'				 => get_theme_mod( 'emulsion_border_grid_width', emulsion_theme_default_val( 'emulsion_border_grid_width', 'unit_val' ) ),
+		'border_stream_width'			 => get_theme_mod( 'emulsion_border_stream_width', emulsion_theme_default_val( 'emulsion_border_stream_width', 'unit_val' ) ),
+		'header_sub_background_color'	 => get_theme_mod( 'emulsion_header_sub_background_color', emulsion_theme_default_val( 'emulsion_header_sub_background_color', 'unit_val' ) ),
+		'relate_posts_background_color'	 => $emulsion_relate_posts_bg = get_theme_mod( 'emulsion_relate_posts_bg', emulsion_theme_default_val( 'emulsion_relate_posts_bg', 'unit_val' ) ),
+		'relate_posts_text_color'		 => sanitize_hex_color( emulsion_accessible_color( $emulsion_relate_posts_bg ) ),
+		'comments_background_color'		 => $emulsion_comments_bg = get_theme_mod( 'emulsion_comments_bg', emulsion_theme_default_val( 'emulsion_comments_bg', 'unit_val' ) ),
+		'comments_text_color'			 => sanitize_hex_color( emulsion_accessible_color( $emulsion_comments_bg ) ),
+		'sidebar_position'				 => get_theme_mod( 'emulsion_sidebar_position', emulsion_theme_default_val( 'emulsion_sidebar_position', 'unit_val' ) ),
+		'header_text_color'				 => $header_text_color,
+		'editor_color_palettes'			 => '#fafafa',
+		'thm_content_gap'				 => '24px',
+		'content_line_height'			 => 1.5,
+		'common_line_height'			 => 1.15,
+		'body_id'						 => 'emulsion',
+		'image_sizes'					 => emulsion_theme_image_sizes_for_scss(),
+		'editor_font_sizes'				 => emulsion_theme_get_font_sizes(),
+		'language'						 => esc_attr( get_locale() ),
+	);
+		return $variables;
+}
+
+
+add_filter( 'theme_mod_emulsion__css_variables', 'emulsion_custom_field_css' );
+
 add_filter( 'theme_mod_emulsion__css_variables', 'emulsion_theme_variables' );
 
 function emulsion_theme_variables( $variables ) {
+	/**
+	 * Auxiliary for scheme settings to work plugin-independently
+	 */
 
 	if ( emulsion_theme_addons_exists() ) {
 
@@ -541,6 +626,8 @@ function emulsion_theme_variables( $variables ) {
     --thm_comments_link_color:$comments_text_color;
     --thm_common_font_family: $common_font_family;
     --thm_common_font_size: $common_font_size;
+	--thm_common_line_height:1.15;
+	--thm_content_line_height:1.5;
     --thm_content_width: $content_width;
 
     --thm_header_bg_color: $header_bg_color;
@@ -557,7 +644,12 @@ function emulsion_theme_variables( $variables ) {
     --thm_sidebar_text_color: $sidebar_text_color;
     --thm_sidebar_width: $sidebar_width;
     --thm_social_icon_color:$general_link_color;
-
+	--thm_h6_font_size:calc(var(--thm_heading_font_base) * 0.6875px);
+	--thm_h5_font_size:calc(var(--thm_heading_font_base) * 0.8125px);
+	--thm_h4_font_size:calc(var(--thm_heading_font_base) * 1px);
+	--thm_h3_font_size:calc(var(--thm_heading_font_base) * 1.5px);
+	--thm_h2_font_size: calc(var(--thm_heading_font_base) * 2px);
+	--thm_h1_font_size: calc(var(--thm_heading_font_base) * 3px);
 
 
 }
@@ -565,4 +657,24 @@ $meta_style_css
 CSS;
 
 	return $style;
+}
+
+function emulsion_custom_field_css( $css ) {
+
+	$post_id		 = get_the_ID();
+	$meta_style_css	 = '';
+
+	if ( metadata_exists( 'post', $post_id, 'css' ) ) {
+
+		$meta_style = get_post_meta( $post_id, 'css', true );
+
+		$meta_style_css = preg_replace_callback( '![^}]+{[^}]+}!siu', function($matches) {
+			$result = '';
+			foreach ( $matches as $match ) {
+				$result .= ' .postid-' . absint( $post_id ) . ' ' . $match;
+			}
+			return $result;
+		}, $meta_style );
+	}
+	return $css . $meta_style_css;
 }

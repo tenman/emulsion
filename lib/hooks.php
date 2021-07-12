@@ -13,7 +13,7 @@ function emulsion_hooks_setup() {
 
 	add_action( 'wp_head', 'emulsion_meta_elements' );
 	add_action( 'wp_head', 'emulsion_pingback_header' );
-	add_action( 'wp_body_open', 'emulsion_skip_link' );
+	'fse' !== get_theme_mod('emulsion_editor_support') ? add_action( 'wp_body_open', 'emulsion_skip_link' ) : '';
 	add_filter( 'get_the_archive_title', 'emulsion_archive_title_filter' );
 	add_filter( 'the_title', 'emulsion_empty_the_title_fallback' );
 	add_filter( 'the_content', 'emulsion_entry_content_filter', 11 );
@@ -33,7 +33,11 @@ function emulsion_hooks_setup() {
 
 	add_filter( 'get_header_image_tag', 'emulsion_amp_add_layout_attribute' );
 	add_action( 'emulsion_inline_style', 'emulsion_add_amp_css_variables' );
+
+	
 	add_action( 'emulsion_inline_style', 'emulsion_add_third_party_block_css' );
+	add_filter( 'emulsion_inline_style', 'emulsion_add_common_font_css' );
+	add_filter( 'emulsion_inline_style', 'emulsion_heading_font_css' );
 	add_filter( 'get_the_archive_description', 'wpautop');
 	add_action( 'wp_enqueue_scripts', 'emulsion_not_support_presentation_page_link' );
 	add_filter( 'body_class', 'emulsion_remove_custom_background_class' );
@@ -42,7 +46,7 @@ function emulsion_hooks_setup() {
 	 * Block editor notation
 	 */
 	if ( function_exists( 'do_blocks' ) ) {
-		
+
 		add_action( 'theme_mod_emulsion_header_html', 'do_blocks' );
 		add_action( 'theme_mod_emulsion_footer_credit', 'do_blocks' );
 	}
@@ -63,7 +67,10 @@ function emulsion_hooks_setup() {
 
 	true === emulsion_the_theme_supports( 'toc' ) ? add_filter( 'emulsion_toc_script', 'emulsion_toc' ) : '';
 
+	if( ! is_user_logged_in()){
 
+		add_filter( 'emulsion_inline_style', 'emulsion_theme_styles' );
+	}
 
 	if ( ! emulsion_theme_addons_exists() ) {
 
@@ -96,6 +103,10 @@ function emulsion_hooks_setup() {
 		 * Plugin Settings relate
 		 */
 		add_action( 'wp_footer', 'emulsion_theme_google_tracking_code', 99 );
+
+		if ( function_exists( 'wp_scss_compile' ) ) {
+			add_filter( 'wp_scss_variables', 'emulsion_wp_scss_set_variables_fallback' );
+		}
 	}
 
 	/**
@@ -158,7 +169,7 @@ if ( ! function_exists( 'emulsion_body_class' ) ) {
 	 * @return array;
 	 */
 	function emulsion_body_class( $classes ) {
-		global $post;
+		global $post, $template;
 
 		$post_id = get_the_ID();
 
@@ -233,7 +244,13 @@ if ( ! function_exists( 'emulsion_body_class' ) ) {
 			$classes[] = 'no_header' === get_post_meta( $post_id, 'emulsion_page_header', true ) ? 'metabox-removed-page-header': '';
 			$classes[] = 'is-singular';
 
+			$emulsion_post_id = get_the_ID();
+
+			$classes[] = comments_open( $emulsion_post_id ) ? 'is-comments-open' : 'is-comments-close';
+
 		}
+
+
 
 		if ( get_theme_support( 'align-wide' ) ) {
 
@@ -277,10 +294,45 @@ if ( ! function_exists( 'emulsion_body_class' ) ) {
 
 			$classes[] = 'no-block';
 		}
-		$post_id = get_the_ID();
-		$setting = get_post_meta( $post_id, 'emulsion_post_header', true );
-		$setting_page = get_post_meta( $post_id, 'emulsion_page_header', true );
 
+		if ( emulsion_the_theme_supports( 'full_site_editor' ) && emulsion_do_fse() ) {
+
+			$classes[] = 'emulsion-fse-active';
+
+			// A compromised setting as I can't find an easy way to determine if the template is excerpt or post content
+			$classes[] = 'full_text';
+		}
+		/**
+		 * Font family class
+		 */
+
+		$heading_font_family = get_theme_mod( 'emulsion_heading_font_family', emulsion_theme_default_val( 'emulsion_heading_font_family' ) );
+
+		$classes[]			 = sanitize_html_class( 'font-heading-' . $heading_font_family );
+
+		if( function_exists('emulsion_get_css_variables_values') ) {
+
+			$common_font_family	 = emulsion_get_css_variables_values( 'common_font_family' );
+		} else {
+
+			$common_font_family	 = emulsion_theme_default_val( 'emulsion_common_font_family' );
+		}
+
+		$classes[]			 = sanitize_html_class( 'font-common-' . $common_font_family );
+
+		if ( 'transitional' == filter_input( INPUT_GET, 'fse' ) ) {
+
+			$classes[] = 'is-presentation-transitional';
+		} elseif ( 'off' == filter_input( INPUT_GET, 'fse' ) ) {
+
+			$classes[] = 'is-presentation-theme';
+		} else {
+
+			$classes[] = sanitize_html_class( 'is-presentation-' . get_theme_mod( 'emulsion_editor_support' ) );
+		}
+		// current template
+
+		$classes[] = 'is-tpl-'. emulsion_get_template();
 
 		return $classes;
 	}
@@ -325,6 +377,7 @@ if ( ! function_exists( 'emulsion_skip_link' ) ) {
 				esc_attr__( 'Skip to content', 'emulsion' ),
 				esc_html__( 'Skip to content', 'emulsion' )
 		);
+
 	}
 
 }
@@ -758,6 +811,9 @@ if ( ! function_exists( 'emulsion_theme_styles' ) ) {
 /* @see emulsion_theme_styles */
 {$uncagegorized_hide_style}
 
+.emulsion-addons-inactive aside h1{
+	line-height:var(--thm_common_line_height, 1.15);
+}
 .emulsion-addons-inactive .header-layer{
 	background-color:var(--thm_header_bg_color);
 	color:var(--thm_header_text_color);
@@ -769,10 +825,12 @@ if ( ! function_exists( 'emulsion_theme_styles' ) ) {
 .emulsion-addons-inactive .scheme-midnight{
 	--thm_sub_background_color_darken: rgba(0,0,0,1);
     --thm_sub_background_color_lighten: rgba(255, 255, 255,.2);
-	--thm_comments_color:#ffffff;
-    --thm_comments_bg:transparent;
-}
 
+}
+.emulsion-addons-inactive .scheme-midnight{
+	background: var(--thm_background_color);
+	font-size:var(--thm_common_font_size);
+}
 .emulsion-addons-inactive .scheme-midnight .banner {
   background: var(--thm_background_color);
   color: var(--thm_general_text_color);
@@ -821,13 +879,20 @@ if ( ! function_exists( 'emulsion_theme_styles' ) ) {
         z-index:100000;
     }
 }
-.emulsion-addons-inactive main > .excerpt .entry-content{
-	width:var(--thm_content_width);
-	padding-left:var(--thm_content_gap);
-	padding-right:var(--thm_content_gap);
-	max-width:100%;
+.emulsion-addons-inactive main > .excerpt .entry-content .content-excerpt p{
+	width:-moz-fit-content;
+	width:fit-content;
+	max-width:var(--thm_content_width);
 	margin-left:auto;
 	margin-right:auto;
+	padding-left:var(--thm_content_gap, 24px);
+	padding-right:var(--thm_content_gap, 24px);
+}
+.emulsion-addons-inactive main > .excerpt .entry-content .content-excerpt{
+	width:100%;
+}
+.emulsion-addons-inactive main > .excerpt .entry-content{
+	width:100%;
 }
 .emulsion-addons-inactive .wp-block-rss__item{
 	padding-left: var(--thm_content_gap);
@@ -885,10 +950,10 @@ if ( ! function_exists( 'emulsion_theme_styles' ) ) {
   display: none;
 }
 .emulsion-addons-inactive main > .excerpt article{
-            border-bottom-color:var(--thm_common_border, rgba(188,188,188,.5));
-            border-bottom-style:var(--thm_common_border_style);
-            border-bottom-width:var(--thm_common_border_width);
-        }
+	border-bottom-color:var(--thm_common_border, rgba(188,188,188,.5));
+	border-bottom-style:var(--thm_common_border_style, solid);
+	border-bottom-width:var(--thm_common_border_width, 1px);
+}
 
 @media screen and (max-width: {$responsive_break_point}px) {
 	.emulsion-addons-inactive body body.emulsion-has-sidebar .alignfull{
@@ -1192,6 +1257,8 @@ if ( ! function_exists( 'emulsion_block_editor_class' ) ) {
 			$block_editor_class_name .= ' emulsion-gb-deactive';
 		}
 
+		$block_editor_class_name .= ' '. sanitize_html_class( 'is-presentation-' . get_theme_mod( 'emulsion_editor_support', 'theme' ) );
+
 		$block_editor_class_name .= ' emulsion';
 
 		if( 'ffffff' !== get_background_color() ) {
@@ -1431,4 +1498,311 @@ function emulsion_excerpt_allowed_blocks( $allowed_blocks ){
 	}
 
 	return $allowed_blocks;
+}
+if ( ! function_exists( 'emulsion_add_common_font_css' ) ) {
+
+	function emulsion_add_common_font_css( $css ) {
+
+		$pre_filter = apply_filters ( 'emulsion_add_common_font_css_pre', false );
+
+		if( false !== $pre_filter  ) {
+
+			return $css. $pre_filter;
+		}
+
+		$transient_name = __FUNCTION__;
+
+		if ( is_customize_preview() ) {
+
+			delete_transient( $transient_name );
+		}
+
+
+		$transient_val = get_transient( $transient_name );
+
+		if ( false !== ( $transient_val ) && ! is_user_logged_in() ) {
+
+			return $css . $transient_val;
+		}
+
+		$inline_style = emulsion_sanitize_css( $css );
+
+		if ( function_exists( 'emulsion_get_var' ) ) {
+			$font_google_family_url	 = get_theme_mod( 'emulsion_common_google_font_url', emulsion_get_var( 'emulsion_common_google_font_url' ) );
+			$fallback_font_family	 = get_theme_mod( 'emulsion_common_font_family', emulsion_get_var( 'emulsion_common_font_family' ) );
+			$font_size				 = get_theme_mod( 'emulsion_common_font_size', emulsion_get_var( 'emulsion_common_font_size' ) );
+		} else {
+			$font_google_family_url	 = emulsion_theme_default_val('emulsion_common_google_font_url');
+			$fallback_font_family	 = emulsion_theme_default_val('emulsion_common_font_family');
+			$font_size				 = emulsion_theme_default_val('emulsion_common_font_size');
+		}
+
+		if ( function_exists( 'emulsion_get_google_font_family_from_url' ) && ! empty( $font_google_family_url ) ) {
+
+			$font_family = emulsion_get_google_font_family_from_url( $font_google_family_url, $fallback_font_family );
+		} else {
+
+			$font_family = $fallback_font_family;
+		}
+
+		$inline_style	 .= <<<CSS
+			:root{
+				font-family:$font_family;
+
+			}
+			.font-common-$fallback_font_family{
+				font-family:$font_family;
+
+			}
+CSS;
+		$inline_style	 = emulsion_sanitize_css( $inline_style );
+		$inline_style	 = emulsion_remove_spaces_from_css( $inline_style );
+		set_transient( $transient_name, $inline_style, 60 * 60 * 24 );
+
+		return $css . $inline_style;
+	}
+
+}
+if ( ! function_exists( 'emulsion_heading_font_css' ) ) {
+
+	function emulsion_heading_font_css( $css ) {
+
+		$pre_filter = apply_filters ( 'emulsion_heading_font_css_pre', false );
+
+		if( false !== $pre_filter  ) {
+
+			return $css. $pre_filter;
+		}
+
+		$transient_name = __FUNCTION__;
+
+		if ( is_customize_preview() ) {
+
+			delete_transient( $transient_name );
+		}
+
+		$transient_val = get_transient( $transient_name );
+
+		if ( false !== ( $transient_val ) && ! is_user_logged_in() ) {
+
+			return $css . $transient_val;
+		}
+
+
+		$inline_style = emulsion_sanitize_css( $css );
+
+		if ( function_exists( 'emulsion_get_var' ) ) {
+
+			$font_google_family_url	 = get_theme_mod( 'emulsion_heading_google_font_url', emulsion_get_var( 'emulsion_heading_google_font_url' ) );
+			$fallback_font_family	 = get_theme_mod( 'emulsion_heading_font_family', emulsion_get_var( 'emulsion_heading_font_family' ) );
+			$font_scale				 = get_theme_mod( 'emulsion_heading_font_scale', emulsion_get_var( 'emulsion_heading_font_scale' ) );
+			$heading_font_base		 = get_theme_mod( 'emulsion_heading_font_base', emulsion_get_var( 'emulsion_heading_font_base' ) );
+
+			$font_google_family_url_meta = get_theme_mod( 'emulsion_widget_meta_google_font_url', emulsion_get_var( 'emulsion_widget_meta_google_font_url' ) );
+			$fallback_font_family_meta	 = get_theme_mod( 'emulsion_widget_meta_font_family', emulsion_get_var( 'emulsion_widget_meta_font_family' ) );
+			$heading_font_base_meta		 = get_theme_mod( 'emulsion_widget_meta_font_size', emulsion_get_var( 'emulsion_widget_meta_font_size' ) );
+		} else {
+
+			$font_google_family_url	 = emulsion_theme_default_val('emulsion_heading_google_font_url');
+			$fallback_font_family	 = emulsion_theme_default_val('emulsion_heading_font_family');
+			$font_scale				 = emulsion_theme_default_val('emulsion_heading_font_scale');
+			$heading_font_base		 = emulsion_theme_default_val('emulsion_heading_font_base');
+
+			$font_google_family_url_meta = emulsion_theme_default_val( 'emulsion_widget_meta_google_font_url' );
+			$fallback_font_family_meta	 = emulsion_theme_default_val( 'emulsion_widget_meta_font_family' );
+			$heading_font_base_meta		 = emulsion_theme_default_val( 'emulsion_widget_meta_font_size' );
+		}
+		if ( 'xx' == $font_scale ) {
+			$h6	 = $heading_font_base * 0.6875 . 'px';
+			$h5	 = $heading_font_base * 0.8125 . 'px';
+			$h4	 = $heading_font_base * 1 . 'px';
+			$h3	 = $heading_font_base * 1.17 . 'px';  // H3
+			$h2	 = $heading_font_base * 1.4 . 'px';   // H2
+			$h1	 = $heading_font_base * 2 . 'px';   // H1
+		// meta font
+			$h6_meta	 = $heading_font_base_meta * 0.6875 . 'px';
+			$h5_meta	 = $heading_font_base_meta * 0.8125 . 'px';
+			$h4_meta	 = $heading_font_base_meta * 1 . 'px';
+			$h3_meta	 = $heading_font_base_meta * 1.17 . 'px';  // H3
+			$h2_meta	 = $heading_font_base_meta * 1.4 . 'px';   // H2
+			$h1_meta	 = $heading_font_base_meta * 2 . 'px';   // H1
+		}
+		if ( 'xxx' == $font_scale ) {
+			$h6	 = $heading_font_base * 0.6875 . 'px';
+			$h5	 = $heading_font_base * 0.8125 . 'px';
+			$h4	 = $heading_font_base * 1 . 'px';
+			$h3	 = $heading_font_base * 1.5 . 'px';  // H3
+			$h2	 = $heading_font_base * 2 . 'px';   // H2
+			$h1	 = $heading_font_base * 3 . 'px';   // H1
+
+			$h6_meta	 = $heading_font_base_meta * 0.6875 . 'px';
+			$h5_meta	 = $heading_font_base_meta * 0.8125 . 'px';
+			$h4_meta	 = $heading_font_base_meta * 1 . 'px';
+			$h3_meta	 = $heading_font_base_meta * 1.5 . 'px';  // H3
+			$h2_meta	 = $heading_font_base_meta * 2 . 'px';   // H2
+			$h1_meta	 = $heading_font_base_meta * 3 . 'px';   // H1
+
+
+		}
+		if ( function_exists( 'emulsion_get_var' ) ) {
+
+			$font_weight	 = get_theme_mod( 'emulsion_heading_font_weight', emulsion_get_var( 'emulsion_heading_font_weight' ) );
+
+			$text_transform	 = get_theme_mod( 'emulsion_heading_font_transform', emulsion_get_var( 'emulsion_heading_font_transform' ) );
+
+			$font_weight_meta		 = get_theme_mod( 'emulsion_heading_font_weight', emulsion_get_var( 'emulsion_heading_font_weight' ) );
+			$text_transform_meta	 = get_theme_mod( 'emulsion_widget_meta_font_transform', emulsion_get_var( 'emulsion_widget_meta_font_transform' ) );
+		} else {
+			$font_weight			 = emulsion_theme_default_val( 'emulsion_heading_font_weight' );
+			$text_transform			 = emulsion_theme_default_val( 'emulsion_heading_font_transform' );
+			$fallback_font_family	 = emulsion_theme_default_val( 'emulsion_heading_font_family' );
+
+			$font_weight_meta			 = emulsion_theme_default_val( 'emulsion_heading_font_weight' );
+			$text_transform_meta		 = emulsion_theme_default_val( 'emulsion_widget_meta_font_transform' );
+			$fallback_font_family_meta	 = emulsion_theme_default_val( 'emulsion_widget_meta_font_family' );
+		}
+
+		if ( function_exists( 'emulsion_get_google_font_family_from_url' ) && ! empty( $font_google_family_url ) ) {
+
+			$font_family = emulsion_get_google_font_family_from_url( $font_google_family_url, $fallback_font_family );
+
+			$font_family_meta = emulsion_get_google_font_family_from_url( $font_google_family_url_meta, $fallback_font_family_meta );
+		} else {
+
+			$font_family = $fallback_font_family;
+
+			$font_family_meta = $fallback_font_family_meta;
+		}
+
+		$inline_style	 .= <<<CSS
+		body.font-heading-$fallback_font_family .h6,
+		body.font-heading-$fallback_font_family .h5,
+		body.font-heading-$fallback_font_family .h4,
+		body.font-heading-$fallback_font_family h6,
+		body.font-heading-$fallback_font_family h5,
+		body.font-heading-$fallback_font_family h4{
+			font-family:$font_family;
+			font-weight:$font_weight;
+			text-transform:$text_transform;
+		}
+		body.font-heading-$fallback_font_family .entry-title,
+		body.font-heading-$fallback_font_family .h1,
+		body.font-heading-$fallback_font_family h1,
+		body.font-heading-$fallback_font_family .h2,
+		body.font-heading-$fallback_font_family h2,
+		body.font-heading-$fallback_font_family .h3,
+		body.font-heading-$fallback_font_family h3{
+			font-family:$font_family;
+			font-weight:$font_weight;
+			text-transform:$text_transform;
+		}
+		body.font-heading-$fallback_font_family aside .h6,
+		body.font-heading-$fallback_font_family aside .h5,
+		body.font-heading-$fallback_font_family aside .h4,
+		body.font-heading-$fallback_font_family aside h6,
+		body.font-heading-$fallback_font_family aside h5,
+		body.font-heading-$fallback_font_family aside h4{
+			font-family:$font_family_meta;
+			font-weight:$font_weight_meta;
+			text-transform:$text_transform_meta;
+		}
+		body.font-heading-$fallback_font_family aside .entry-title,
+		body.font-heading-$fallback_font_family aside .h1,
+		body.font-heading-$fallback_font_family aside h1,
+		body.font-heading-$fallback_font_family aside .h2,
+		body.font-heading-$fallback_font_family aside h2,
+		body.font-heading-$fallback_font_family aside .h3,
+		body.font-heading-$fallback_font_family aside h3{
+			font-family:$font_family_meta;
+			font-weight:$font_weight_meta;
+			text-transform:$text_transform_meta;
+		}
+
+		body.font-heading-$fallback_font_family .h1,
+		body.font-heading-$fallback_font_family h1{
+			font-size:{$h1};
+
+		}
+		body.font-heading-$fallback_font_family .h2,
+		body.font-heading-$fallback_font_family h2{
+			font-size:{$h2};
+		}
+		body.font-heading-$fallback_font_family .h3,
+		body.font-heading-$fallback_font_family h3{
+			font-size:{$h3};
+		}
+		body.font-heading-$fallback_font_family .h4,
+		body.font-heading-$fallback_font_family h4{
+			font-size:{$h4};
+		}
+		body.font-heading-$fallback_font_family .h5,
+		body.font-heading-$fallback_font_family h5{
+			font-size:{$h5};
+		}
+		body.font-heading-$fallback_font_family .h6,
+		body.font-heading-$fallback_font_family h6{
+			font-size:{$h6};
+		}
+
+		body.font-heading-$fallback_font_family aside .h1,
+		body.font-heading-$fallback_font_family aside h1{
+			font-size:{$h1_meta};
+
+		}
+		body.font-heading-$fallback_font_family aside .h2,
+		body.font-heading-$fallback_font_family aside h2{
+			font-size:{$h2_meta};
+		}
+		body.font-heading-$fallback_font_family aside .h3,
+		body.font-heading-$fallback_font_family adide h3{
+			font-size:{$h3_meta};
+		}
+		body.font-heading-$fallback_font_family aside .h4,
+		body.font-heading-$fallback_font_family aside h4{
+			font-size:{$h4_meta};
+		}
+		body.font-heading-$fallback_font_family aside .h5,
+		body.font-heading-$fallback_font_family aside h5{
+			font-size:{$h5_meta};
+		}
+		body.font-heading-$fallback_font_family aside .h6,
+		body.font-heading-$fallback_font_family aside h6{
+			font-size:{$h6_meta};
+		}
+
+		@media screen and ( max-width : 640px ) {
+
+			body.font-heading-$fallback_font_family .h1,
+			body.font-heading-$fallback_font_family h1{
+				font-size:{$h2};
+
+			}
+			body.font-heading-$fallback_font_family .page-wrapper article header .entry-title,
+			body.font-heading-$fallback_font_family .h2,
+			body.font-heading-$fallback_font_family h2{
+				font-size:{$h3};
+			}
+			body.font-heading-$fallback_font_family .h4,
+			body.font-heading-$fallback_font_family h4,
+			body.font-heading-$fallback_font_family .h3,
+			body.font-heading-$fallback_font_family h3{
+				font-size:var(--thm_common_font_size);
+			}
+			body.font-heading-$fallback_font_family .h5,
+			body.font-heading-$fallback_font_family h5{
+				font-size:{$h5};
+			}
+			body.font-heading-$fallback_font_family .h6,
+			body.font-heading-$fallback_font_family h6{
+				font-size:{$h6};
+			}
+		}
+CSS;
+		$inline_style	 = emulsion_sanitize_css( $inline_style );
+		$inline_style	 = emulsion_remove_spaces_from_css( $inline_style );
+
+		set_transient( $transient_name, $inline_style, 60 * 60 * 24 );
+		return $css . $inline_style;
+	}
+
 }

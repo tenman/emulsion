@@ -8,7 +8,7 @@
  */
 
 if ( ! emulsion_theme_addons_exists() ) {
-	
+
 	return;
 }
 

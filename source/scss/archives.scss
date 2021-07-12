@@ -80,7 +80,11 @@ div.emulsion-monthly-archive-prev-next-navigation{
         }
     }
     main{
+
+        // title in page header OFF
+
         .page-title-block{
+
             overflow:hidden;
             .archive-title{
                 @extend %block_main_wide;
@@ -119,11 +123,15 @@ div.emulsion-monthly-archive-prev-next-navigation{
     @extend %grid;
     margin-left:auto;
     margin-right:auto;
-    margin-top:var(--thm_box_gap, 3px);
+    margin-top:.75rem;
 
     .article-wrapper{
         article{
             header{
+                &.show-post-image{
+                    height:25vh;
+
+                }
                 .entry-meta{
                     margin-top:0;
                     ul{
@@ -143,7 +151,7 @@ div.emulsion-monthly-archive-prev-next-navigation{
         }
         &:nth-child(2),
             &:nth-child(1){
-            width:40%;
+            //width:40%;
         }
         &:only-child{
             flex: 0 1 auto;
@@ -567,7 +575,7 @@ main .nav-links > div > a{
                 }
                 .description-text{
                     margin-bottom:.75rem;
-                    font-size:var(--thm_common_font_size, 16px);
+                    font-size:1rem;
                     .label{
                         width:120px;
                         display:inline-block;
@@ -575,7 +583,7 @@ main .nav-links > div > a{
                     }
                 }
                 .alt-text{
-                    font-size:var(--thm_common_font_size, 16px);
+                    font-size:1rem;
                     margin-bottom:.75rem;
                     .label{
                         width:120px;
@@ -901,12 +909,13 @@ main .nav-links > div > a{
     article{
         header{
             width:100%;
-            display: block;
+           // display: block;
             margin-top: 0;
             position: relative;
             background-size: cover;
 
             &.show-post-image{
+
                 background-size:cover;
                 background-repeat:no-repeat;
                 &:before{
@@ -967,7 +976,7 @@ body.excerpt:not(.layout-grid){
         header{
             &.show-post-image{
                 position:relative;
-                min-height:var(--thm_header_media_max_height, 75vh);
+                height:var(--thm_header_media_max_height, 75vh);
                 background-size:cover;
                 background-repeat:no-repeat;
                 background-position: center center;
@@ -999,7 +1008,7 @@ body.excerpt:not(.layout-grid){
                     -ms-flex-direction:column;
                     flex-direction:column;
                     //min-height:75vh;
-                    min-height:var(--thm_header_media_max_height, 75vh);
+                    height:var(--thm_header_media_max_height, 75vh);
                     box-sizing:border-box;
 
                     background-size:cover;

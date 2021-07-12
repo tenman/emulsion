@@ -9,8 +9,7 @@
     ul.wp-nav-menu[data-direction="horizontal"]{
         --thm_main_width: 100%;
     }
-    #{$stream-condition},
-    #{$grid-condition},
+
     .layout_stream,
     .layout-grid{
         &.emulsion-has-sidebar{
@@ -55,8 +54,7 @@
         --thm_content_width: 100vw;
         --thm_main_width-with-sidebar:100vw;
     }
-    #{$stream-condition},
-    #{$grid-condition},
+
     .layout_stream,
     .layout-grid{
         .has-column{
@@ -103,7 +101,7 @@
         @include font_size( 3, no-margin );
     }
     //page.scss
-    #{$grid-condition}{
+    .layout-grid{
         .grid{
             .article-wrapper:nth-child(2),
                 .article-wrapper:nth-child(1){
@@ -112,7 +110,7 @@
             }
         }
     }
-    #{$stream-condition}{
+    .layout-stream{
         .stream{
             .article-wrapper{
                 flex:1 1 auto;
@@ -753,14 +751,14 @@
         position:relative;
         z-index:1;
         flex-basis:100%;
-        width:100vw;
-        max-width:100vw;
+        width:100%;
+        max-width:100%;
         flex:0 0;
 
     }
     ul.sidebar-widget-area-lists{
-        width:100vw;
-        max-width:100vw;
+        width:100%;
+        max-width:100%;
     }
 }
 @media screen and ( min-width : $content_width + $sidebar_width + 1px + 16px ) {

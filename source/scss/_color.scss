@@ -10,7 +10,6 @@
     background:var(--thm_background_color);
 }
 
-
 /*
 fill
 stroke
@@ -19,7 +18,6 @@ text-emphasis-color
 column-rule-color
 -webkit-tap-highlight-color
 */
-
 
 .custom-background[class]{
     /**
@@ -46,29 +44,32 @@ column-rule-color
     }
 
 }
-.emulsion-prepend-page-wrapper,
-main{
+.is-presentation-theme{
+    .emulsion-prepend-page-wrapper,
+    main{
 
-    color:var(--thm_general_text_color);
-    a{
-        color:var(--thm_general_link_color);
-        &:hover{
-            color:var(--thm_general_link_hover_color);
+        color:var(--thm_general_text_color);
+        a{
+            color:var(--thm_general_link_color);
+            &:hover{
+                color:var(--thm_general_link_hover_color);
+            }
         }
-    }
-    .has-background{
-        *{
-            color:inherit;
-            a{
+        .has-background{
+            *{
                 color:inherit;
-                &:hover{
+                a{
                     color:inherit;
+                    &:hover{
+                        color:inherit;
+                    }
                 }
             }
         }
     }
-
 }
+
+
 .show-post-image{
     color: var(--thm_white_color);
     *{
@@ -85,6 +86,7 @@ main{
 /**
  * action placeholder
  */
+
 .emulsion-sidebar-page-widget-fallback,
 .emulsion-sidebar-widget-fallback,
 .emulsion-footer-page-widget-fallback,
@@ -98,6 +100,7 @@ main{
         }
     }
 }
+
 .emulsion-drawer-after,
 .emulsion-drawer-before,
 .emulsion-append-header-layer{
@@ -109,21 +112,22 @@ main{
         }
     }
 }
-.emulsion-article-after,
-.emulsion-article-before,
-.emulsion-article-wrapper-after,
-.emulsion-article-wrapper-before,
-.emulsion-prepend-page-wrapper{
-    color:var(--thm_general_text_color);
-    a:any-link{
-        color:var(--thm_general_link_color);
-        background:transparent;
-        &:hover{
-            color:var(--thm_general_link_hover_color);
+.is-presentation-theme{
+    .emulsion-article-after,
+    .emulsion-article-before,
+    .emulsion-article-wrapper-after,
+    .emulsion-article-wrapper-before,
+    .emulsion-prepend-page-wrapper{
+        color:var(--thm_general_text_color);
+        a:any-link{
+            color:var(--thm_general_link_color);
+            background:transparent;
+            &:hover{
+                color:var(--thm_general_link_hover_color);
+            }
         }
     }
 }
-
 /**
  * header
  * ========================================================================== */
@@ -339,10 +343,7 @@ body{
                         .site-title-text{
                             color: var(--thm_header_text_color);
                             text-shadow:none;
-                            font-family: var(--thm_heading_font_family);
-                            font-weight: var(--thm_heading_font_weight);
-                            text-transform: var(--thm_heading_font_transform);
-                            @include font_size(3);
+
                         }
                         .site-description{
                             color: var(--thm_header_text_color);
@@ -507,8 +508,52 @@ body.scheme-midnight{
             color:var(--thm_sidebar_hover_color);
         }
     }
-}
 
+    .wp-block-navigation-link__container{
+        color:var(--thm_black_color);
+        a:any-link{
+            color:var(--thm_black_color);
+        }
+    }
+}
+.widget{
+    *:not(.has-text-color):not(input):not(textarea){
+        color:var(--thm_sidebar_text_color);
+    }
+    .wp-block-navigation-link{
+        background:var(--thm_sidebar_bg_color);
+        .wp-block-navigation-link__content{
+            .wp-block-navigation-link__label{
+
+            }
+        }
+    }
+}
+.scheme-midnight{
+    .footer-widget-area,
+    .sidebar-widget-area{
+        color:var(--thm_general_text_color);
+        a:any-link{
+            color:var(--thm_general_link_color);
+
+            &:hover{
+                color:var(--thm_general_link_hover_color);
+            }
+        }
+        #wp-calendar caption,
+        #wp-calendar td,
+        #wp-calendar caption, #wp-calendar td{
+            color:var(--thm_general_text_color);
+            a:any-link{
+                color:var(--thm_general_link_color);
+
+                &:hover{
+                    color:var(--thm_general_link_hover_color);
+                }
+            }
+        }
+    }
+}
 /**
  * Relate Contents
  * ========================================================================== */
@@ -691,12 +736,21 @@ table{
             border-color:var(--thm_sub_background_color_darken);
         }
     }
+    &:not(.has-background){
+        background:inherit;
+        color:inherit;
+    }
 }
 
 .wp-block-table{
     table{
         background: var(--thm_background_color);
         border-spacing:0;
+
+        &:not(.has-background){
+            background:inherit;
+            color:inherit;
+        }
         &.has-background{
             th{
                 color: var(--thm_black_color);
@@ -974,6 +1028,7 @@ body{
         #wp-calendar thead th{
             color:var(--thm_black_color);
         }
+
     }
 
     .wp-block-button{
@@ -1235,6 +1290,10 @@ body[class]{
         }
     }
 }
+.content-excerpt [class|="wp-container"].has-background,
+.content-excerpt p.has-background{
+    background:transparent;
+}
 /**
  * Plugin fallback
  * END
@@ -1289,4 +1348,54 @@ body{
         // twenty twenty one
         color:var(--thm_white_color);
     }
+}
+
+/**
+ * FSE
+ *
+ * The pallet setting of theme.json is not reflected when using PHPtemplate
+ * Let's write the palette value of theme.json below
+ */
+
+.has-emulsion-black-color{
+    color:#000000;
+}
+.has-emulsion-white-color{
+    color:#ffffff;
+}
+.has-emulsion-muted-color{
+    color:#ecf0f1;
+}
+.has-emulsion-alert-color{
+    color:#ED4F32;
+}
+.has-emulsion-warning-color{
+    color:#EDE04D;
+}
+.has-emulsion-notice-color{
+    color:#4bb1cf;
+}
+.has-emulsion-info-color{
+    color:#4bb1cf;
+}
+.has-emulsion-black-background-color{
+    background-color:#000000;
+}
+.has-emulsion-white-background-color{
+    background-color:#ffffff;
+}
+.has-emulsion-muted-background-color{
+    background-color:#ecf0f1;
+}
+.has-emulsion-alert-background-color{
+    background-color:#ED4F32;
+}
+.has-emulsion-warning-background-color{
+    background-color:#EDE04D;
+}
+.has-emulsion-notice-background-color{
+    background-color:#4bb1cf;
+}
+.has-emulsion-info-background-color{
+    color:#4bb1cf;
 }

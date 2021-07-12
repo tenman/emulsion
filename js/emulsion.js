@@ -357,7 +357,7 @@ jQuery(function ($) {
     $(window).scroll(function () {
         var ua = navigator.userAgent;
         var scrolle_y = $(window).scrollTop();
-        var offset_primary_menu = $('body > .header-layer').height();
+        var offset_primary_menu = $('body .header-layer').height();
         if (parseInt(scrolle_y) < parseInt(offset_primary_menu) || parseInt(scrolle_y) < 20) {
             $('body').removeClass('on-scroll');
         }
@@ -1012,12 +1012,9 @@ jQuery(function ($) {
 
 jQuery(function ($) {
 
-    $(".wp-block-query-loop .wp-block-post-featured-image").each(function (i) {
+    $(".wp-block-post-template .wp-block-post-featured-image").each(function (i) {
 
         $(this).parent().addClass('has-post-thumbnail');
     });
-
-
-
 });
 

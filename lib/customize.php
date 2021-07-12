@@ -22,7 +22,23 @@ if ( ! function_exists( 'emulsioncustomize_register' ) ) {
 				'description'		 => ! emulsion_theme_addons_exists() ? esc_html__( 'Plugins activate more detailed settings such as fonts and sidebar colors.', 'emulsion' ): '',
 				'sanitize_callback'	 => 'emulsion_scheme_validate',
 				'type'				 => 'emulsionImageRadio',
-			)
+			),
+			'emulsion_editor_support' => array(
+				'section'			 => 'emulsion_editor',
+				'default'			 => 'theme',
+				'label'				 => esc_html__( 'Editor', 'emulsion' ),
+				'description'		 => esc_html__( 'Choose between using the new template system or the old template (requred Gutenberg plugin)', 'emulsion' ),
+				'sanitize_callback'	 => 'emulsion_editor_support_validate',
+				'type'				 => 'radio',
+				'choices'			 => array(
+					'experimental'   => esc_html__( 'Experimental Mode (Emulsion-addons plugin required)', 'emulsion' ),
+					'fse'			 => esc_html__( 'Full Site Editor (HTML Template)', 'emulsion' ),
+					'transitional'	 => esc_html__( 'FSE Transitional', 'emulsion' ),
+					'theme'			 => esc_html__( 'Theme Default (PHP Template)', 'emulsion' ),
+				),
+			),
+
+
 		);
 
 		$wp_customize->add_section( 'emulsion_scheme', array(
@@ -42,6 +58,29 @@ if ( ! function_exists( 'emulsioncustomize_register' ) ) {
 			'label'		 => $emulsion_theme_mod_args['emulsion_scheme']['label'],
 				)
 		) );
+
+		if ( ! is_child_theme() ) {
+
+			$wp_customize->add_section( 'emulsion_editor', array(
+				'title'			 => esc_html__( 'Full Site Editor', 'emulsion' ),
+				'description'	 => $emulsion_theme_mod_args['emulsion_scheme']['description'],
+				'priority'		 => 33
+			) );
+			$wp_customize->add_setting( 'emulsion_editor_support', array(
+				'default'			 => $emulsion_theme_mod_args['emulsion_editor_support']['default'],
+				'sanitize_callback'	 => $emulsion_theme_mod_args['emulsion_editor_support']['sanitize_callback'],
+			) );
+
+			$wp_customize->add_control( 'emulsion_editor_support', array(
+				'settings'		 => 'emulsion_editor_support',
+				'section'		 => $emulsion_theme_mod_args['emulsion_editor_support']['section'],
+				'label'			 => $emulsion_theme_mod_args['emulsion_editor_support']['label'],
+				'description'	 => $emulsion_theme_mod_args['emulsion_editor_support']['description'],
+				'type'			 => $emulsion_theme_mod_args['emulsion_editor_support']['type'],
+				'choices'		 => $emulsion_theme_mod_args['emulsion_editor_support']['choices'],
+			) );
+
+		}
 	}
 }
 
@@ -163,7 +202,19 @@ if ( ! function_exists( 'emulsion_theme_customizer_style' ) ) {
 	width:248px;
 	margin:auto;
 }
+.customize-panel-back, .customize-section-back {
+	display:inline-block;
 
+}
+#customize-controls .customize-pane-child .customize-section-title h3,
+#customize-controls .customize-pane-child h3.customize-section-title,
+#customize-outer-theme-controls .customize-pane-child .customize-section-title h3,
+#customize-outer-theme-controls .customize-pane-child h3.customize-section-title,
+#customize-controls .customize-info .panel-title {
+	display: inline-block;
+	max-width: calc(100% - 50px);
+				vertical-align:middle;
+}
 CSS;
 
 		wp_add_inline_style( 'customize-controls', $css );
@@ -211,4 +262,30 @@ function emulsion_scheme_validate( $input ) {
 	}
 
 	return 'default';
+}
+
+function emulsion_editor_support_validate( $input ) {
+
+	$values			 = array('fse',	'transitional',	'theme','experimental');
+	$default_value	 = 'theme';
+
+	if ( in_array( $input, $values ) ) {
+
+		return $input;
+	}
+
+	return $default_value;
+}
+
+function emulsion_color_control_validate( $input ) {
+
+	$values			 = array('fse',	'theme');
+	$default_value	 = 'theme';
+
+	if ( in_array( $input, $values ) ) {
+
+		return $input;
+	}
+
+	return $default_value;
 }

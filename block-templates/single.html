@@ -1,28 +1,32 @@
-<!-- wp:post-featured-image /-->
+<!-- wp:template-part {"slug":"header","theme":"emulsion","tagName":"header", "align":"full", "className":"fse-header header-layer single-tpl-header alignfull","gradient":"blush-light-purple"} /-->
 
-<!-- wp:template-part {"slug":"header","theme":"emulsion"} /-->
-<main>
-    <div class="article-wrapper">
+<!-- wp:group {"align":"full","tagName":"main"} -->
+<main class="wp-block-group alignfull">
+    <!-- wp:group {"align":"full","className":"article-wrapper"} -->
+    <div class="wp-block-group article-wrapper alignfull">
 
-        <article>
+        <!-- wp:group {,"tagName":"article", "align":"full","className":"post"} -->
+        <article class="wp-block-group alignfull post">
 
+            <!-- wp:post-featured-image /-->
 
-            <!-- wp:template-part {"slug":"post-header","theme":"emulsion", "className":"post-header"} /-->
+            <!-- wp:template-part {"slug":"post-header","theme":"emulsion","tagName":"header","className":"post-header wp-block-template-post-header"} /-->
 
             <!-- wp:post-content /-->
 
-            <footer class="article-footer">
+            <!-- wp:template-part {"slug":"post-footer","theme":"emulsion", "tagName":"footer", "className":"post-footer wp-block-template-part-post-footer","style":{"color":{"background":"#eeeeee"}}} /-->
 
-                <!-- wp:post-comments /-->
-
-            </footer>
         </article>
+        <!-- /wp:group -->
     </div>
-    <nav class="navigation post-navigation" aria-labelledby="Pagination">
-        <h2 class="screen-reader-text">Pagination</h2>
-        <!-- wp:query-pagination-previous /-->
-        <!-- wp:query-pagination-next /-->
-    </nav>
+    <!-- /wp:group -->
 
 </main>
-<!-- wp:template-part {"slug":"footer","theme":"emulsion"} /-->
+<!-- /wp:group -->
+<!-- wp:group {"align":"wide","tagName":"nav","class":"wp-block-post-navigation"} -->
+	<nav class="wp-block-group alignwide wp-block-post-navigation">
+	<!-- wp:post-navigation-link {"type":"previous"} /-->
+	<!-- wp:post-navigation-link /-->
+	</nav>
+<!-- /wp:group -->
+<!-- wp:template-part {"slug":"footer","theme":"emulsion", "tagName":"footer", "align":"full", "className":"footer-layer fse-footer banner single-tpl-footer alignfull","gradient":"blush-light-purple"} /-->

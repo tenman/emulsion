@@ -4,24 +4,49 @@ body{
     font-kerning: auto;
     font-family: var(--thm_common_font_family);
 }
-
-.entry-title a,
-h1,h2,h3,h4,h5,h6,
-.h1,.h2,.h3,.h4,.h5,.h6{
-    font-family:var(--thm_heading_font_family);
-    font-weight:var(--thm_heading_font_weight);
-    text-transform:var(--thm_heading_font_transform);
-    a{
+.is-presentation-theme{
+    // FSE font setting use theme.json
+    // If you used plugin, set CSS with PHP filter in more detail
+    .entry-title a,
+    h1,h2,h3,h4,h5,h6,
+    .h1,.h2,.h3,.h4,.h5,.h6{
+        font-family:var(--thm_heading_font_family);
+        font-weight:var(--thm_heading_font_weight);
         text-transform:var(--thm_heading_font_transform);
+        a{
+            text-transform:var(--thm_heading_font_transform);
+        }
+    }
+
+    h1,.h1{
+        font-size:var(--thm_h1_font_size);
+        line-height:var(--thm_common_line_height);
+    }
+    h2,.h2{
+        font-size:var(--thm_h2_font_size);
+        line-height:var(--thm_common_line_height);
+    }
+    h3,.h3{
+        font-size:var(--thm_h3_font_size);
+        line-height:var(--thm_common_line_height);
+    }
+    h4,.h4{
+        font-size:var(--thm_h4_font_size);
+        line-height:var(--thm_common_line_height);
+    }
+    h5,.h5{
+        font-size:var(--thm_h5_font_size);
+        line-height:var(--thm_common_line_height);
+    }
+    h6,.h6{
+        font-size:var(--thm_h6_font_size);
+        line-height:var(--thm_common_line_height);
     }
 }
 
 div[data-block],
 .entry-content{
-    h1,h2,h3,h4,h5,h6,
-    .h1,.h2,.h3,.h4,.h5,.h6{
-        line-height:var( --thm_common_line_height, 1.15 );
-    }
+
     .use-font-heading{
         font-family:var(--thm_heading_font_family);
         font-weight:var(--thm_heading_font_weight);
@@ -30,9 +55,8 @@ div[data-block],
     }
     .use-font-common{
         font-family:var(--thm_common_font_family);
-        line-height:var( --thm_content_line_height );
-        font-size:var(--thm_common_font_size, 16px);
-        line-height:var(--thm_content_line_height, 1.5);
+        line-height:var(--thm_content_line_height);
+        font-size:var(--thm_common_font_size);
     }
     .use-font-meta{
         font-family:var(--thm_meta_data_font_family);
@@ -96,13 +120,13 @@ code{
 }
 pre.wp-block-preformatted{
     lin-height:var(--thm_common_line_height);
-    font-size:var(--thm_common_font_size, 16px);
+    font-size:var(--thm_common_font_size);
     font-family: var(--thm_common_font_family);
 }
 pre.wp-block-verse{
-    @include font_size(3);
-    margin-top:calc( var(--thm_common_font_size, 16px) * var(--thm_content_line_height, 1.5) );
-    margin-bottom:calc( var(--thm_common_font_size, 16px) * var(--thm_content_line_height, 1.5) / 2 );
+    font-size:var(--thm_h3_font_size);
+    margin-top:calc( var(--thm_common_font_size) * var(--thm_content_line_height, 1.5) );
+    margin-bottom:calc( var(--thm_common_font_size) * var(--thm_content_line_height, 1.5) / 2 );
     line-height:2;
     font-family: var(--thm_common_font_family);
     font-style:italic;
@@ -128,15 +152,21 @@ body{
     }
     .wp-embed
     .menu-placeholder{
-        font-size:16px;
+        font-size:var(--thm_common_font_size);
     }
     & > header{
         &.header-layer{
             .site-title{
-                @include font_size(3,no-margin);
+                font-size:var(--thm_h3_font_size);
+                font-family:var(--thm_heading_font_family);
+                font-weight:var(--thm_heading_font_weight);
+                text-transform:var(--thm_heading_font_transform);
+                line-height:var( --thm_common_line_height, 1.15 );
             }
             .site-description{
-                @include font_size(4,no-margin);
+                font-family:var(--thm_common_font_family);
+                line-height:var(--thm_content_line_height);
+                font-size:var(--thm_common_font_size);
             }
             .taxonomy-description{
                 font-size:var(--thm_meta_data_font_size);
@@ -152,6 +182,7 @@ body{
         font-size:var(--thm_meta_data_font_size);
         text-transform:var(--thm_meta_data_font_transform);
     }
+
 
     article{
         .skin-button{
@@ -186,7 +217,7 @@ body{
                 .widgettitle{
                     font-size:20px
                 }
-                line-height:calc( var(--thm_common_font_size, 16px) * var( --thm_content_line_height, 1.5 ) );
+                line-height:calc( var(--thm_common_font_size) * var( --thm_content_line_height, 1.5 ) );
                 font-size:var(--thm_meta_data_font_size);
                 text-transform:var(--thm_meta_data_font_transform);
             }
@@ -229,10 +260,10 @@ body{
     }
 }
 .relate-content-wrapper{
-        font-family:var(--thm_common_font_family);
-        line-height:var( --thm_content_line_height );
-        font-size:var(--thm_common_font_size, 16px);
-        line-height:var(--thm_content_line_height, 1.5);
+    font-family:var(--thm_common_font_family);
+    line-height:var( --thm_content_line_height );
+    font-size:var(--thm_common_font_size);
+    line-height:var(--thm_content_line_height, 1.5);
     .relate-posts-title{
         font-size:calc(var(--thm_meta_data_font_size) * 1.4);
         text-transform:var(--thm_meta_data_font_transform);
@@ -240,7 +271,7 @@ body{
 }
 article{
     footer{
-        font-size:var(--thm_common_font_size, 16px);
+        font-size:var(--thm_common_font_size);
     }
 }
 .post-navigation{
@@ -299,7 +330,7 @@ footer.banner{
     .wp-block-column{
 
         &.sidebar{
-            @include font_size(5);
+            font-size:var(--thm_h5_font_size);
             margin-top:0;
             font-size:var(--thm_meta_data_font_size);
             text-transform:var(--thm_meta_data_font_transform);
@@ -310,11 +341,7 @@ footer.banner{
         }
         &.is-style-main,
         &.main{
-            @include font_size(4);
-            margin-top:0;
-            margin-bottom:0;
-            line-height:var( --thm_content_line_height );
-            font-size:var(--thm_common_font_size, 16px);
+            font-size:var(--thm_common_font_size);
             line-height:var(--thm_content_line_height, 1.5);
             .entry-title a,
             h1,h2,h3,h4,h5,h6,
@@ -432,17 +459,18 @@ $step: 100;
                 font-family: "-apple-system", "Helvetica Neue", "Yu Gothic", YuGothic, "Noto Sans JP", Verdana, Meiryo, sans-serif;
                 .editor-post-title__input{
                     margin:0 auto;
-                    text-transform: var( --thm_heading_font_transform);
-                    font-weight:var(--thm_heading_font_weight);
+                    font-size:var(--thm_h2_font_size);
                     font-family:var(--thm_heading_font_family);
-                    @include font_size(2);
+                    font-weight:var(--thm_heading_font_weight);
+                    text-transform:var(--thm_heading_font_transform);
+                    line-height:var( --thm_common_line_height, 1.15 );
                 }
             }
         }
         .editor-block-list__block{
             font-family: "-apple-system", "Helvetica Neue", "Yu Gothic", YuGothic, "Noto Sans JP", Verdana, Meiryo, sans-serif;
             font-family:var(--thm_common_font_family);
-            font-size:var(--thm_common_font_size, 16px);
+            font-size:var(--thm_common_font_size);
             line-height:var(--thm_content_line_height, 1.5);
         }
         .edit-post-visual-editor{
@@ -450,7 +478,7 @@ $step: 100;
             p{
                 font-family: "-apple-system", "Helvetica Neue", "Yu Gothic", YuGothic, "Noto Sans JP", Verdana, Meiryo, sans-serif;
                 font-family:var(--thm_common_font_family);
-                font-size:var(--thm_common_font_size, 16px);
+                font-size:var(--thm_common_font_size);
                 line-height:var(--thm_content_line_height, 1.5);
             }
         }
@@ -463,28 +491,29 @@ $step: 100;
                 font-family: 'Roboto', sans-serif;
                 .editor-post-title__input{
                     margin:0 auto;
-                    text-transform: var( --thm_heading_font_transform);
-                    font-weight:var(--thm_heading_font_weight);
+                    font-size:var(--thm_h2_font_size);
                     font-family:var(--thm_heading_font_family);
-                    @include font_size(2);
+                    font-weight:var(--thm_heading_font_weight);
+                    text-transform:var(--thm_heading_font_transform);
+                    line-height:var( --thm_common_line_height, 1.15 );
                 }
             }
         }
         .editor-block-list__block{
             font-family: 'Roboto', sans-serif;
             font-family:var(--thm_common_font_family);
-            font-size:var(--thm_common_font_size, 16px);
+            font-size:var(--thm_common_font_size);
             line-height:var(--thm_content_line_height, 1.5);
         }
         .edit-post-visual-editor{
             font-family: 'Roboto', sans-serif;
             font-family:var(--thm_common_font_family);
-            font-size:var(--thm_common_font_size, 16px);
+            font-size:var(--thm_common_font_size);
             line-height:var(--thm_content_line_height, 1.5);
             p{
                 font-family: 'Roboto', sans-serif;
                 font-family:var(--thm_common_font_family);
-                font-size:var(--thm_common_font_size, 16px);
+                font-size:var(--thm_common_font_size);
                 line-height:var(--thm_content_line_height, 1.5);
             }
         }
@@ -492,46 +521,71 @@ $step: 100;
 
     p{
         font-family: var(--thm_common_font_family);
-        font-size:var(--thm_common_font_size, 16px);
+        font-size:var(--thm_common_font_size);
         &.h1{
-            @include font_size(1);
+            font-size:var(--thm_h1_font_size);
+            font-family:var(--thm_heading_font_family);
+            font-weight:var(--thm_heading_font_weight);
+            text-transform:var(--thm_heading_font_transform);
+            line-height:var( --thm_common_line_height, 1.15 );
             &.alignwide,
             &.is-style-emulsion-wide{
                 @extend %block_wide;
             }
         }
         &.h2{
-            @include font_size(2);
+            font-size:var(--thm_h2_font_size);
+            font-family:var(--thm_heading_font_family);
+            font-weight:var(--thm_heading_font_weight);
+            text-transform:var(--thm_heading_font_transform);
+            line-height:var( --thm_common_line_height, 1.15 );
             &.alignwide,
             &.is-style-emulsion-wide{
                 @extend %alignwide;
             }
         }
         &.h3{
-            @include font_size(3);
+            font-size:var(--thm_h3_font_size);
+            font-family:var(--thm_heading_font_family);
+            font-weight:var(--thm_heading_font_weight);
+            text-transform:var(--thm_heading_font_transform);
+            line-height:var( --thm_common_line_height, 1.15 );
             &.alignwide,
             &.is-style-emulsion-wide{
                 @extend %alignwide;
             }
         }
         &.h4{
-            @include font_size(4);
+            font-size:var(--thm_h4_font_size);
+            font-family:var(--thm_heading_font_family);
+            font-weight:var(--thm_heading_font_weight);
+            text-transform:var(--thm_heading_font_transform);
+            line-height:var( --thm_common_line_height, 1.15 );
             font-family: var(--thm_heading_font_family);
             font-weight:var(--thm_heading_font_weight);
+
             &.alignwide,
             &.is-style-emulsion-wide{
                 @extend %alignwide;
             }
         }
         &.h5{
-            @include font_size(5);
+            font-size:var(--thm_h5_font_size);
+            font-family:var(--thm_heading_font_family);
+            font-weight:var(--thm_heading_font_weight);
+            text-transform:var(--thm_heading_font_transform);
+            line-height:var( --thm_common_line_height, 1.15 );
             &.alignwide,
             &.is-style-emulsion-wide{
                 @extend %alignwide;
             }
         }
         &.h6{
-            @include font_size(6);
+            font-size:var(--thm_h6_font_size);
+            font-family:var(--thm_heading_font_family);
+            font-weight:var(--thm_heading_font_weight);
+            text-transform:var(--thm_heading_font_transform);
+            line-height:var( --thm_common_line_height, 1.15 );
             &.alignwide,
             &.is-style-emulsion-wide{
                 @extend %alignwide;

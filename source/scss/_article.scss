@@ -1,39 +1,4 @@
 /**
- * Content Width
- * ========================================================================== */
-.format-gallery .entry-content{
-    padding-top:0;
-    padding-bottom:0;
-}
-.enable-alignfull{
-    &.emulsion-no-sidebar{
-        article{
-            & > .entry-content{
-
-                //The display position of the content with alignleft and alignright
-                // specified is arranged based on main_width.
-
-                //width:var( --thm_main_width, 1280px );
-                width:100vw;
-            }
-        }
-    }
-}
-#document{
-    .disable-alignfull{
-        article{
-            & > .entry-content{
-                width:var(--thm_content_width, 720px );
-            }
-        }
-        .alignwide{
-            @extend %block;
-        }
-    }
-}
-
-
-/**
  * No Sidebar
  * ========================================================================== */
 .emulsion-no-sidebar{
@@ -77,7 +42,7 @@ body.page{
     article{
         margin-top:var(--thm_content_margin_top);
         .entry-content{
-            padding-bottom:3rem;
+           // padding-bottom:3rem;
             min-height:60vh;
         }
     }
@@ -95,10 +60,11 @@ body.page{
 main > .post{
     article:not(.has-post-thumbnail) {
         & > header{
-            padding-top:calc( var(--thm_common_font_size, 16px) * 3 );
+            padding-top:calc( 1rem * 3 );
         }
     }
 }
+
 .emulsion-addons-inactive body,
 .single,
 .post-type-archive,
@@ -111,8 +77,7 @@ body.excerpt,
         & > header{
             &.show-post-image{
                 position:relative;
-                //min-height:75vh;
-                min-height:var(--thm_header_media_max_height, 75vh);
+                height:var(--thm_header_media_max_height, 75vh);
                 background-size:cover;
                 background-repeat:no-repeat;
                 background-position: center center;
@@ -242,7 +207,10 @@ main > .page article footer.fit{
 /**
  * Post Formats Gallery
  * ========================================================================== */
-
+.format-gallery .entry-content{
+    padding-top:0;
+    padding-bottom:0;
+}
 .wp-block-group.format-gallery,
 article.format-gallery .entry-content{
     margin-top:0;
@@ -458,6 +426,7 @@ article.format-gallery .entry-content{
                 display:block;
                 width:auto;
                 text-align:center;
+                padding:.685rem;
                 .text{
                     display:block;
                 }
@@ -470,7 +439,7 @@ article.format-gallery .entry-content{
                         text-align:left;
                         width: -moz-fit-content;
                         width:fit-content;
-                        font-size:var(--thm_common_font_size, 16px);
+                        font-size:1rem;
                         font-family:var(--thm_common_font_family);
                         font-weight:var(--thm_heading_font_weight);
                         text-transform:var(--thm_heading_font_transform);
@@ -483,6 +452,7 @@ article.format-gallery .entry-content{
                 display:block;
                 width:auto;
                 text-align:center;
+                padding:.685rem;
                 .text{
                     display:block;
                 }
@@ -495,7 +465,7 @@ article.format-gallery .entry-content{
                         text-align:left;
                         width: -moz-fit-content;
                         width:fit-content;
-                        font-size:var(--thm_common_font_size, 16px);
+                        font-size:1rem;
                         font-family:var(--thm_common_font_family);
                         font-weight:var(--thm_heading_font_weight);
                         text-transform:var(--thm_heading_font_transform);
@@ -506,7 +476,7 @@ article.format-gallery .entry-content{
         & > div{
             text-align:center;
             margin:3px;
-            padding:.685rem;
+            padding:0;
             flex-basis: auto;
             flex-grow: 1;
             min-width:240px;
