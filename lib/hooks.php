@@ -34,7 +34,7 @@ function emulsion_hooks_setup() {
 	add_filter( 'get_header_image_tag', 'emulsion_amp_add_layout_attribute' );
 	add_action( 'emulsion_inline_style', 'emulsion_add_amp_css_variables' );
 
-	
+
 	add_action( 'emulsion_inline_style', 'emulsion_add_third_party_block_css' );
 	add_filter( 'emulsion_inline_style', 'emulsion_add_common_font_css' );
 	add_filter( 'emulsion_inline_style', 'emulsion_heading_font_css' );
@@ -73,6 +73,13 @@ function emulsion_hooks_setup() {
 	}
 
 	if ( ! emulsion_theme_addons_exists() ) {
+
+		add_filter( 'render_block_core/shortcode', function($content) {
+			if ( '[emulsion_relate_posts]' == $content ) {
+
+				return;
+			}
+		} );
 
 		/**
 		 * Theme Style
@@ -672,8 +679,11 @@ if ( ! function_exists( 'emulsion_toc' ) ) {
 		$support = emulsion_the_theme_supports( 'toc' );
 
 		if ( $support ) {
-			$script	 = "jQuery('.toc').siblings('#toc-toggle, label').remove();\n"; // for browser back issue
-			$script	 .= "jQuery('.toc').toc({'scrollToOffset':84, 'container':'main','anchorName': function(i, heading, prefix) { return prefix+'-'+i;},}).before('<input type=\"checkbox\" id=\"toc-toggle\" name=\"toc-toggle\" data-skin=\"inset\" /><label for=\"toc-toggle\"  title=\"" . esc_attr__( 'TOC', 'emulsion' ) . "\"><span></span><i class=\"toc-text screen-reader-text\">TOC</i></label>');";
+			$script	 = "jQuery('.menu-placeholder .toc, .wp-site-blocks .toc').siblings('#toc-toggle, label').remove();\n"; // for browser back issue
+
+			$script	 .= "jQuery('.menu-placeholder .toc').toc({'scrollToOffset':84, 'container':'main','anchorName': function(i, heading, prefix) { return prefix+'-'+i;},}).before('<input type=\"checkbox\" id=\"toc-toggle\" name=\"toc-toggle\" data-skin=\"inset\" /><label for=\"toc-toggle\"  title=\"" . esc_attr__( 'TOC', 'emulsion' ) . "\"><span></span><i class=\"toc-text screen-reader-text\">TOC</i></label>');";
+
+			$script	 .= "jQuery('.wp-site-blocks .toc').toc({'scrollToOffset':5, 'container':'main','anchorName': function(i, heading, prefix) { return prefix+'-'+i;},})";
 
 			return $script;
 		}

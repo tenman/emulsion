@@ -1012,9 +1012,5 @@ jQuery(function ($) {
 
 jQuery(function ($) {
 
-    $(".wp-block-post-template .wp-block-post-featured-image").each(function (i) {
-
-        $(this).parent().addClass('has-post-thumbnail');
-    });
 });
 

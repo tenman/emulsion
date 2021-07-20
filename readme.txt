@@ -2,7 +2,7 @@
  
 Contributors: nobita
 Requires at least: WordPress 5.3
-Tested up to: WordPress 5.7.2
+Tested up to: WordPress 5.8.0
 Requires PHP: 5.6
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -145,6 +145,9 @@ stream.png
         * Source: https://github.com/LeaVerou/css3patterns
 
 ## Changelog
+### july 21 2021
+		* 2.0.1
+        * https://github.com/tenman/emulsion/releases
 ### july 12 2021
 		* 2.0.0
         * https://github.com/tenman/emulsion/releases

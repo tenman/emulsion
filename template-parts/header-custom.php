@@ -11,7 +11,7 @@
 			'yes' == get_theme_mod( 'emulsion_title_in_header', emulsion_theme_default_val( 'emulsion_title_in_header' ) ) &&
 			is_singular( array( $current_post_type ) ) &&
 			! post_password_required( $post ) ) {
-		?><div class="post-featured-image"><?php the_post_thumbnail('post-thumbnail', array('layout' => 'responsive')); //get_the_post_thumbnail ?></div><?php
+		?><div class="post-featured-image"><?php the_post_thumbnail( 'post-thumbnail', array('layout' => 'responsive', 'loading' => 'eager' ) ); //get_the_post_thumbnail ?></div><?php
 	} else {
 
 		false !== emulsion_home_type() && ! is_paged() ? the_custom_header_markup() : '';
