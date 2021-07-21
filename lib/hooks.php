@@ -73,13 +73,17 @@ function emulsion_hooks_setup() {
 	}
 
 	if ( ! emulsion_theme_addons_exists() ) {
-
+		/**
+		 * Todo worked but with warning errors
+		 *
 		add_filter( 'render_block_core/shortcode', function($content) {
 			if ( '[emulsion_relate_posts]' == $content ) {
 
 				return;
 			}
 		} );
+		 *
+		 */
 
 		/**
 		 * Theme Style
