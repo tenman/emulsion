@@ -114,12 +114,17 @@ body{
             .size-#{$class}{
                 img{
                     width:#{$width}px;
-                    height:#{$height}px;
+                    height:auto;
+                    @if $height != 0 {
+                        height:#{$height}px;
+                    }
                 }
             }
         }
     }
 }
+
+
 
 
 /**

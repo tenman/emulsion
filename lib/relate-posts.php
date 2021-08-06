@@ -211,7 +211,7 @@ if ( ! function_exists( 'emulsion_get_related_posts' ) ) {
 
 			if ( ! empty( $relate_posts ) && is_single() && ! is_attachment() ) {
 
-				$result = sprintf( '<h2 class="relate-posts-title fit">%1$s</h2><ul class="relate-posts fit">', esc_html__( 'Relate Posts', 'emulsion' ) );
+				$result = sprintf( '<!-- wp:html --><h2 class="relate-posts-title fit">%1$s</h2><ul class="relate-posts fit">', esc_html__( 'Relate Posts', 'emulsion' ) );
 
 					foreach ( $relate_posts as $relate_post ) {
 
@@ -221,7 +221,7 @@ if ( ! function_exists( 'emulsion_get_related_posts' ) ) {
 
 							if ( has_post_thumbnail( $post_id ) ) {
 
-								$result .= sprintf( '<li>', get_the_post_thumbnail( $post_id, 'thumbnail' ) );
+								$result .= sprintf( '<li>%1$s', get_the_post_thumbnail( $post_id, 'thumbnail' ) );
 
 							} else {
 
@@ -236,7 +236,7 @@ if ( ! function_exists( 'emulsion_get_related_posts' ) ) {
 					}
 					wp_reset_postdata();
 				}
-				return $result.'</ul>';
+				return $result.'</ul><!-- /wp:html -->';
 		}
 	}
 }

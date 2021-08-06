@@ -50,6 +50,8 @@ function emulsion_hooks_setup() {
 		add_action( 'theme_mod_emulsion_header_html', 'do_blocks' );
 		add_action( 'theme_mod_emulsion_footer_credit', 'do_blocks' );
 	}
+	//Post title cannot be displayed in header when html template is loaded
+	'html' == get_theme_mod( 'emulsion_header_template' ) ? add_filter('theme_mod_emulsion_title_in_header', function($yesno){return 'no'; }): '';
 
 	add_filter( 'excerpt_allowed_blocks','emulsion_excerpt_allowed_blocks');
 	/**
@@ -72,18 +74,38 @@ function emulsion_hooks_setup() {
 		add_filter( 'emulsion_inline_style', 'emulsion_theme_styles' );
 	}
 
+
+
+
+	add_filter( 'render_block_core/list', function( $content ) {
+
+		// Change static contents to dinamic contents
+
+		if ( strstr( $content, 'emulsion-block-pattern-relate-posts' ) ) {
+
+			$template_path = get_template_directory() . '/block-patterns/block-pattern-relate-posts.php';
+
+			return include( $template_path );
+		}
+		return $content;
+	} );
+
+
+
+
+
 	if ( ! emulsion_theme_addons_exists() ) {
-		/**
-		 * Todo worked but with warning errors
-		 *
+
+		remove_shortcode( 'emulsion_relate_posts' );
+
 		add_filter( 'render_block_core/shortcode', function($content) {
-			if ( '[emulsion_relate_posts]' == $content ) {
+
+			if ( '[emulsion_relate_posts]' == trim( strip_tags($content) ) ) {
 
 				return;
 			}
+			return $content;
 		} );
-		 *
-		 */
 
 		/**
 		 * Theme Style
@@ -339,7 +361,7 @@ if ( ! function_exists( 'emulsion_body_class' ) ) {
 			$classes[] = 'is-presentation-theme';
 		} else {
 
-			$classes[] = sanitize_html_class( 'is-presentation-' . get_theme_mod( 'emulsion_editor_support' ) );
+			$classes[] = sanitize_html_class( 'is-presentation-' . get_theme_mod( 'emulsion_editor_support', 'theme' ) );
 		}
 		// current template
 

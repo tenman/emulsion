@@ -209,6 +209,12 @@ if ( ! function_exists( 'emulsion_setup' ) ) {
 
 			return $css;
 		}
+		add_filter( 'block_editor_settings_all', function( $settings ) {
+
+			$settings['defaultBlockTemplate'] = file_get_contents( get_theme_file_path( 'block-templates/default.html' ) );
+
+			return $settings;
+		} );
 
 		/**
 		 * Custom Header media
@@ -2425,7 +2431,39 @@ if ( ! function_exists( 'emulsion_theme_get_font_sizes' ) ) {
 
 }
 
+function emulsion_block_template_part( $part ) {
+
+	$template_part = gutenberg_get_block_template( get_stylesheet() . '//' . $part, 'wp_template_part' );
+
+	if ( ! $template_part || empty( $template_part->content ) ) {
+
+		return;
+	}
+	if( 'header' == $template_part->area ){
+
+		$classes = 'wp-block-template-part-'. sanitize_html_class( $template_part->slug ) . ' fse-header header-layer wp-block-template-part included-block-template-part';
+
+		printf( '<%1$s class="%3$s">%2$s</%1$s>', esc_attr( $template_part->area ), do_blocks( $template_part->content ), $classes );
+
+		return;
+	}
+	if( 'footer' == $template_part->area ){
+
+		$classes = 'wp-block-template-part-'. sanitize_html_class( $template_part->slug ) . ' fse-footer footer-layer wp-block-template-part included-block-template-part';
+
+		printf( '<%1$s class="%3$s">%2$s</%1$s>', esc_attr( $template_part->area ), do_blocks( $template_part->content ), $classes );
+
+		return;
+	}
+
+	if( 'uncategorized' == $template_part->area ){
+
+		$classes = 'wp-block-template-part-'. sanitize_html_class( $template_part->slug ) . ' wp-block-template-part included-block-template';
+
+		printf( '<%1$s class="%3$s">%2$s</%1$s>', 'div', do_blocks( $template_part->content ), $classes );
+	}
+
+}
 
 
 do_action( 'emulsion_functions_after' );
-

@@ -907,7 +907,7 @@ details[open] summary ~ * {
                     padding-bottom:0;
                 }
             }
-            
+
         }
     }
     &.on-scroll{
@@ -2101,4 +2101,17 @@ CodeMirror{
         width:auto;
         margin:auto;
     }
+}
+.show-relate-pages li{
+    visibility:hidden;
+    position:absolute;
+}
+.show-relate-pages li.current-menu-item *,
+.show-relate-pages li.current-menu-ancestor *,
+.show-relate-pages li.current-menu-item,
+.show-relate-pages li.current-menu-ancestor{
+    display:block;
+    background:transparent;
+    visibility:visible;
+    position:relative;
 }

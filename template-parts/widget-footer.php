@@ -42,6 +42,11 @@
 			<?php
 		}
 	}
+
+	if( 'html' !== get_theme_mod('emulsion_footer_template') ) {
+	?><footer class="banner" id="footer"><?php emulsion_footer_text(); ?></footer><?php
+	} else {
+		 gutenberg_block_template_part( 'footer' );
+	}
 	?>
-	<footer class="banner" id="footer"><?php emulsion_footer_text(); ?></footer>
 </div>

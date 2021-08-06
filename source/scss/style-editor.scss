@@ -26,6 +26,7 @@ body.emulsion-color-enable  #editor .interface-interface-skeleton__content .edit
  * [data-type]
         [data-type="core/xxxxx"]
  * FSE
+ * Widget editor
  * Template Editor
  * No activate gutenberg plugin
  * ICON
@@ -1937,7 +1938,7 @@ div.is-root-container .wp-block-media-text.alignright{
         padding-right:var(--thm_content_gap, 24px);
     }
     // Block Children
-    h1,h2,h3,h4,h5,h6{
+    h1,h2,h3,h4,h5,h6,.wp-block-site-tagline{
         width:100%;
     }
     //0416 [class|="wp-block"],
@@ -2329,6 +2330,52 @@ div.is-root-container .wp-block-media-text.alignright{
 
     img{
         vertical-align:middle;
+    }
+
+    .wrap-emulsion_relate_posts{
+
+        .relate-posts{
+            li{
+
+                .relate-post-no-icon{
+                    vertical-align: middle;
+                    display: inline-block;
+                    width: 48px;
+                    height: 48px;
+                    line-height: 48px;
+                    text-align: center;
+                    color: var(--thm_header_text_color);
+                    background: var(--thm_header_bg_color);
+                    text-transform: uppercase;
+
+                }
+                .wp-post-image{
+                    vertical-align: middle;
+                    width: auto;
+                    max-width: 48px;
+                    height: 48px;
+                    margin-left: 0;
+                    margin-right: 0;
+                    padding-left: 0;
+                    padding-right: 0;
+                }
+                a{
+                    vertical-align: middle;
+                    display: inline-block;
+                    margin-left: 1rem;
+                    height: 100%;
+                    max-width: calc(100% - 48px - 2rem);
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    line-height: 48px;
+                    font-weight: 700;
+                }
+                &:before{
+                    display:none ! important;
+                }
+            }
+        }
     }
 }
 
@@ -3386,16 +3433,24 @@ body.editor-styles-wrapper{
                 max-width:100%;
             }
         }
+
         li:before{
             display:none !important;
         }
-
-
-
+        [data-type="core/query-pagination"]{
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: row;
+            justify-content: space-evenly;
+        }
     }
-
 }
 
+.edit-site-template-card__content{
+    width: auto;
+    max-width: calc(100% - 48px);
+
+}
 .toplevel_page_gutenberg-edit-site{
 
     .editor-styles-wrapper{
@@ -3889,7 +3944,7 @@ body.editor-styles-wrapper{
         [data-type="core/template-part"]{
             margin:0 auto;
             padding:0;
-           h1[data-type="core/site-title"]{
+            h1[data-type="core/site-title"]{
                 font-size:24px;
                 margin:0
             }
@@ -3899,9 +3954,25 @@ body.editor-styles-wrapper{
             }
         }
     }
-         img{
-            max-width:100% ! important;
-        }
+    img{
+        max-width:100% ! important;
+    }
+    .wp-block-post-navigation{
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        justify-content: space-evenly;
+    }
+}
+/**
+ * Widget editor
+ */
+
+.edit-widgets-main-block-list{
+    [data-type="core/table"].is-selected td{
+        border:1px solid var(--thm_border_global);
+    }
+
 }
 /**
  * ICON

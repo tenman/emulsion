@@ -421,8 +421,15 @@ function emulsion_revert_widgets_area() {
 	}*/
 	//echo $result;
 
-//gutenberg_get_block_template('emulsion//header', 'wp_template_part' )->source
+//var_dump( gutenberg_get_block_template('emulsion//header', 'wp_template_part' )->source );
 //string(5) "theme"
 
 //	$theme_json = new WP_Theme_JSON( $some_data_here );
 //var_dump($theme_json->get_settings());
+/*
+	$settings = gutenberg_get_default_block_editor_settings();
+	$all      = WP_Theme_JSON_Resolver_Gutenberg::get_merged_data( $settings );
+
+	$stylesheet = gutenberg_experimental_global_styles_get_stylesheet( $all );
+var_dump( $stylesheet);
+ */

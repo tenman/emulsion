@@ -96,6 +96,21 @@ function emulsion_block_pattern() {
 		}
 
 
+		$template_path = get_template_directory().'/block-patterns/block-pattern-relate-posts.php';
+
+		if( is_readable( $template_path ) ) {
+
+			register_block_pattern(
+				'emulsion/block-pattern-relate-posts', array(
+				'title'			 => esc_html__( 'Presentation Relate Posts', 'emulsion' ),
+				'content'		 => include( $template_path ),
+				'categories'	 => array( 'emulsion' ),
+				'description'	 => esc_html_x( 'Show Relate Posts', 'Block pattern description', 'emulsion' ),
+				'keywords'		 => 'sticky',
+					)
+			);
+		}
+
 
 		register_block_pattern_category( 'emulsion', array( 'label' => esc_html_x( 'Emulsion', 'Emulsion Block pattern', 'emulsion' ) ) );
 
