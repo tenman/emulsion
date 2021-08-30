@@ -31,7 +31,6 @@ function emulsion_hooks_setup() {
 	add_filter( 'navigation_markup_template', 'emulsion_remove_role_from_pagination' );
 
 	add_filter( 'get_header_image_tag', 'emulsion_amp_add_layout_attribute' );
-	add_filter( 'emulsion_inline_style', 'emulsion_theme_inline_styles' );
 	add_filter( 'get_the_archive_description', 'wpautop' );
 	add_action( 'wp_enqueue_scripts', 'emulsion_not_support_presentation_page_link' );
 	add_filter( 'body_class', 'emulsion_remove_custom_background_class' );
@@ -1823,12 +1822,3 @@ CSS;
 	}
 
 }
-
-function emulsion_theme_inline_styles( $css ) {
-
-
-
-	return $css . $style;
-}
-
-
