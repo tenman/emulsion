@@ -387,7 +387,7 @@ SYMBOL;
 	}
 }
 
-add_filter( 'emulsion_inline_style',  'emulsion_icon_svg_styles', 11 );
+
 
 function emulsion_icon_svg_styles( $css ) {
 

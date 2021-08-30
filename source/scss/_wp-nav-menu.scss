@@ -155,14 +155,12 @@
     .menu-active{
         position: fixed;
         top: 0;
-        //  max-width: calc(var(--thm_sidebar_width) + var(--thm_main_width));
         left:0;
         right:0;
-        z-index: 10;
+        z-index: 1000;
         margin-top:0;
         margin-bottom:0;
         .primary{
-            // @extend %block_main_wide;
             margin-top:0;
             margin-bottom:0;
             & > li{
@@ -230,7 +228,7 @@ header{
 nav[class|="menu"]{
     // @extend %block_main_wide;
     //@include font_size(5, no-margin);
-   // font-size:var(--thm_meta_data_font_size);
+   // font-size:var(--thm_meta_data_font_size, 13px);
    // font-family:var(--thm_meta_data_font_family);
    // text-transform:var(--thm_meta_data_font_transform);
 
@@ -826,7 +824,7 @@ input[type="checkbox"][data-skin="inset"]:checked + label span:after {
 body{
     .template-part-header-custom{
         & + .primary-menu-wrapper{
-            
+
             &.menu-is-light,
             &.menu-is-dark{
                 background:var(--thm_primary_menu_background);

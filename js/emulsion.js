@@ -1,6 +1,8 @@
 jQuery(function ($) {
     "use strict";
     $("body").removeClass('noscript');
+
+
     //   $(".primary-menu-wrapper [id].menu").attr('data-type', 'accordion');
 
     /**
@@ -97,27 +99,27 @@ jQuery(function ($) {
     $('#primary-menu-controll').focusin(function (e) {
         var chk_status = $(this).prop("checked");
         if (chk_status) {
-            $(this).prop('checked', false).attr('aria-checked', false);
+            $(this).prop('checked', false);
         } else {
-            $(this).prop('checked', true).attr('aria-checked', true);
-            ;
+            $(this).prop('checked', true);
+
         }
     });
     $('.layout a').focusin(function () {
         // close tab navigation
-        $('#primary-menu-controll').prop('checked', false).attr('aria-checked', false);
+        $('#primary-menu-controll').prop('checked', false);
     });
     $('.layout,.header-layer').not('.template-part-header').on('click', function () {
         // close Click around the button
-        $('#primary-menu-controll').prop('checked', false).attr('aria-checked', false);
+        $('#primary-menu-controll').prop('checked', false);
     });
     $('#primary-menu-controll').on('click', function (e) {
         // button click
         var chk_status = $(this).prop("checked");
         if (chk_status) {
-            $(this).prop('checked', false).attr('aria-checked', false);
+            $(this).prop('checked', false);
         } else {
-            $(this).prop('checked', true).attr('aria-checked', true);
+            $(this).prop('checked', true);
         }
     });
 });

@@ -3,7 +3,7 @@ body{
 
         .sidebar-widget-area{
 
-            font-size:var(--thm_meta_data_font_size);
+            font-size:var(--thm_meta_data_font_size, 13px);
             text-transform:var(--thm_meta_data_font_transform);
 
             position:relative;
@@ -35,7 +35,7 @@ body{
                 li{
 
                     //line-height:calc( 1rem * var( --thm_content_line_height, 1.5 ) );
-                    //  font-size:var(--thm_meta_data_font_size);
+                    //  font-size:var(--thm_meta_data_font_size, 13px);
                     // text-transform:var(--thm_meta_data_font_transform);
 
                     #wp-calendar caption,
@@ -184,9 +184,12 @@ body{
         padding-left:var(--thm_content_gap, 24px);
         padding-right:var(--thm_content_gap, 24px);
         &.wp-block-latest-posts__featured-image{
-                    padding-left:0;
-        padding-right:0;
+            padding-left:0;
+            padding-right:0;
         }
+    }
+    .shortcode-wrapper{
+        padding:0;
     }
     &.widget_search{
         .wp-block-search__inside-wrapper{
@@ -530,7 +533,7 @@ body{
                 }
                 .wp-block-latest-posts__post-full-content,
                 .wp-block-latest-posts__post-excerpt{
-                    line-height:var(--thm_content_line_height);
+                    line-height:var(--thm_content_line_height, 1.5);
                 }
 
             }
@@ -655,7 +658,7 @@ body{
                     padding-top: 0.71rem;
                     padding-bottom: 0.71rem;
                     line-height: calc(1rem * var( --thm_content_line_height, 1.5 ));
-                    font-size: var(--thm_meta_data_font_size);
+                    font-size: var(--thm_meta_data_font_size, 13px);
                     text-transform: var(--thm_meta_data_font_transform);
                     &  > a{
                         padding-top:calc( 1rem * var( --thm_content_line_height, 1.5 ) / 4 );
@@ -792,7 +795,7 @@ body{
                         padding-top: 0.71rem;
                         padding-bottom: 0.71rem;
                         line-height: calc(1rem * var( --thm_content_line_height, 1.5 ));
-                        font-size: var(--thm_meta_data_font_size);
+                        font-size: var(--thm_meta_data_font_size, 13px);
                         text-transform: var(--thm_meta_data_font_transform);
                         &  > a{
                             padding-top:calc( 1rem * var( --thm_content_line_height, 1.5 ) / 4 );

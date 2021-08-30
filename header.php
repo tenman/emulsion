@@ -23,8 +23,6 @@
 
 		} else {
 
-
-
 			if( is_home() ) {
 				$template_part = 'header-rich';
 			} elseif( is_single() || is_page() ) {
@@ -34,6 +32,7 @@
 			}
 
 			emulsion_block_template_part( $template_part );
+
 		}
 
 		emulsion_sidebar_manager();

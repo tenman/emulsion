@@ -14,6 +14,8 @@ if ( ! defined( 'EMULSION_DARK_MODE_SUPPORT' ) ) {
 	define( 'EMULSION_DARK_MODE_SUPPORT', false );
 }
 
+
+
 /**
  * Note:content width
  * required smaller than emulsion_main_width value (default 1280)

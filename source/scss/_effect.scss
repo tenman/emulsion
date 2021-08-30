@@ -430,21 +430,21 @@ h3{
     h1{
         &.hanging-indent{
             padding-left:1.5em;
-            text-indent:calc(var(--thm_meta_data_font_size) * -2.5);
+            text-indent:calc(var(--thm_meta_data_font_size, 13px) * -2.5);
         }
     }
     .h2,
     h2{
         &.hanging-indent{
             padding-left:1.5em;
-            text-indent:calc(var(--thm_meta_data_font_size) * -2);
+            text-indent:calc(var(--thm_meta_data_font_size, 13px) * -2);
         }
     }
     .h3,
     h3{
         &.hanging-indent{
             padding-left:1.5em;
-            text-indent:calc(var(--thm_meta_data_font_size) * -2);
+            text-indent:calc(var(--thm_meta_data_font_size, 13px) * -2);
         }
     }
 }
@@ -1249,7 +1249,7 @@ body{
     a{
         //editor style
         //over write style attribute style
-        font-size:var(--thm_meta_data_font_size) ! important;
+        font-size:var(--thm_meta_data_font_size, 13px) ! important;
         text-decoration:none ! important;
     }
 }
@@ -1263,7 +1263,7 @@ ul.shrink{
     li{
         padding-top:.5rem;
         padding-bottom:.5rem;
-        font-size:var(--thm_meta_data_font_size);
+        font-size:var(--thm_meta_data_font_size, 13px);
     }
     &.alignleft{
         box-sizing:border-box;
@@ -1323,7 +1323,7 @@ ul.shrink{
     &.shrink{
         margin-top:1.5rem;
         margin-bottom:.75rem;
-        font-size:var(--thm_meta_data_font_size);
+        font-size:var(--thm_meta_data_font_size, 13px);
         margin-left:auto;
         margin-right:auto;
         table{
@@ -1379,7 +1379,7 @@ ul.shrink{
     figure{
         padding-top:0;
         padding-bottom:0;
-        font-size:var(--thm_meta_data_font_size);
+        font-size:var(--thm_meta_data_font_size, 13px);
         margin:0;
     }
     &.alignleft{

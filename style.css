@@ -5,7 +5,7 @@ Theme URI: https://www.tenman.info/wp3/emulsion
 Description: block editor, classic editor both supports. Conventional, Image Media New Block Type Image Both media can be displayed correctly.Theme can stop at each theme style page for page builder users. Customizer can easily view changes with automatic preview redirection.Theme is designed with the goal of minimizing user frustration.
 Author: Tenman
 Author URI: https://www.tenman.info/wp3/
-Version: 2.0.3
+Version: 2.0.4
 Tags: one-column, two-columns, grid-layout,left-sidebar, right-sidebar,custom-background, custom-colors, custom-header,custom-logo, custom-menu, editor-style, featured-image-header, featured-images, flexible-header, footer-widgets, full-width-template, post-formats, sticky-post, theme-options, threaded-comments, translation-ready, block-patterns, block-styles, wide-blocks
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -46,10 +46,11 @@ html {
 body {
     margin: 0;
 }
+/*
 h1 {
     font-size: 2em;
     margin: 0.67em 0;
-}
+}*/
 hr {
     box-sizing: content-box;
     height: 0;
@@ -448,11 +449,13 @@ body.is-dark.metabox-reset-post-presentation .header-layer.template-part-header-
     color:var(--thm_black_color, #333333);
 }
 
-
+.wp-block-cover-image.has-background-dim:not([class*=-background-color]),
+.wp-block-cover.has-background-dim:not([class*=-background-color]),
 .has-background{
     background:var(--thm_unknown-bg);
     color:var(--thm_black_color, #333333);
 }
+
 
 [style*="gradient-background"]:not(.has-text-color) *:not(.has-text-color),
 .entry-content [style*="radial-gradient"]:not(.has-text-color) *:not(.has-text-color),

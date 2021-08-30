@@ -1383,3 +1383,4 @@ function emulsion_action( $hook_name ) {
 
 	printf('</div>');
 }
+

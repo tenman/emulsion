@@ -1,8 +1,8 @@
 <?php
 
 function emulsion_block_editor_assets() {
-
-	wp_enqueue_script( 'emulsion-block', esc_url( get_template_directory_uri() . '/js/block.js' ), 	array( 'wp-blocks', 'wp-i18n','wp-editor', 'jquery' ) );
+	// 'wp-editor',Error occurred in block editor( 5.9-alpha-51653 )
+	wp_enqueue_script( 'emulsion-block', esc_url( get_template_directory_uri() . '/js/block.js' ), 	array( 'wp-blocks', 'wp-i18n', 'jquery' ) );
 }
 
 add_action( 'enqueue_block_editor_assets', 'emulsion_block_editor_assets' );

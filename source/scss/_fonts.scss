@@ -55,12 +55,12 @@ div[data-block],
     }
     .use-font-common{
         font-family:var(--thm_common_font_family);
-        line-height:var(--thm_content_line_height);
-        font-size:var(--thm_common_font_size);
+        line-height:var(--thm_content_line_height, 1.5);
+        font-size:var(--thm_common_font_size, 16px);
     }
     .use-font-meta{
         font-family:var(--thm_meta_data_font_family);
-        font-size:var(--thm_meta_data_font_size);
+        font-size:var(--thm_meta_data_font_size, 13px);
         text-transform:var(--thm_meta_data_font_transform);
     }
 }
@@ -70,7 +70,7 @@ div[data-block],
  */
 
 .wp-block-code{
-    font-size:var(--thm_meta_data_font_size);
+    font-size:var(--thm_meta_data_font_size, 13px);
     text-transform:none;
 }
 .wp-block-code,
@@ -95,7 +95,7 @@ kbd, samp,tt {
 [lang="ja"]{
     blockquote{
         cite{
-            font-size:var(--thm_meta_data_font_size);
+            font-size:var(--thm_meta_data_font_size, 13px);
             text-transform:var(--thm_meta_data_font_transform);
             font-style:normal;
         }
@@ -120,13 +120,13 @@ code{
 }
 pre.wp-block-preformatted{
     lin-height:var(--thm_common_line_height);
-    font-size:var(--thm_common_font_size);
+    font-size:var(--thm_common_font_size, 16px);
     font-family: var(--thm_common_font_family);
 }
 pre.wp-block-verse{
     font-size:var(--thm_h3_font_size);
-    margin-top:calc( var(--thm_common_font_size) * var(--thm_content_line_height, 1.5) );
-    margin-bottom:calc( var(--thm_common_font_size) * var(--thm_content_line_height, 1.5) / 2 );
+    margin-top:calc( var(--thm_common_font_size, 16px) * var(--thm_content_line_height, 1.5) );
+    margin-bottom:calc( var(--thm_common_font_size, 16px) * var(--thm_content_line_height, 1.5) / 2 );
     line-height:2;
     font-family: var(--thm_common_font_family);
     font-style:italic;
@@ -137,11 +137,11 @@ body{
         line-height:var(--thm_common_line_height);
     }
     .tag-cloud-style-flat a{
-        font-size:var(--thm_meta_data_font_size);
+        font-size:var(--thm_meta_data_font_size, 13px);
         text-transform:var(--thm_meta_data_font_transform);
     }
     .primary-menu-wrapper a{
-        font-size:var(--thm_meta_data_font_size);
+        font-size:var(--thm_meta_data_font_size, 13px);
         text-transform:var(--thm_meta_data_font_transform);
     }
     .relate-posts{
@@ -152,12 +152,12 @@ body{
     }
     .wp-embed
     .menu-placeholder{
-        font-size:var(--thm_common_font_size);
+        font-size:var(--thm_common_font_size, 16px);
     }
     & > header{
         &.header-layer{
             .site-title{
-                font-size:var(--thm_h3_font_size);
+                font-size:24px;
                 font-family:var(--thm_heading_font_family);
                 font-weight:var(--thm_heading_font_weight);
                 text-transform:var(--thm_heading_font_transform);
@@ -165,45 +165,45 @@ body{
             }
             .site-description{
                 font-family:var(--thm_common_font_family);
-                line-height:var(--thm_content_line_height);
-                font-size:var(--thm_common_font_size);
+                line-height:var(--thm_content_line_height, 1.5);
+                font-size:var(--thm_common_font_size, 16px);
             }
             .taxonomy-description{
-                font-size:var(--thm_meta_data_font_size);
+                font-size:var(--thm_meta_data_font_size, 13px);
                 text-transform:var(--thm_meta_data_font_transform);
             }
         }
     }
     .taxonomy-description{
-        font-size:var(--thm_meta_data_font_size);
+        font-size:var(--thm_meta_data_font_size, 13px);
         text-transform:var(--thm_meta_data_font_transform);
     }
     .trancate{
-        font-size:var(--thm_meta_data_font_size);
+        font-size:var(--thm_meta_data_font_size, 13px);
         text-transform:var(--thm_meta_data_font_transform);
     }
 
 
     article{
         .skin-button{
-            font-size:var(--thm_meta_data_font_size);
+            font-size:var(--thm_meta_data_font_size, 13px);
             text-transform:var(--thm_meta_data_font_transform);
         }
         &.post-password-required{
             .message{
-                font-size:var(--thm_meta_data_font_size);
+                font-size:var(--thm_meta_data_font_size, 13px);
                 text-transform:var(--thm_meta_data_font_transform);
             }
         }
         figcaption{
-            font-size:var(--thm_meta_data_font_size);
+            font-size:var(--thm_meta_data_font_size, 13px);
             text-transform:var(--thm_meta_data_font_transform);
         }
     }
     .wp-block-search{
         .wp-block-search__label,
         .wp-block-search__button{
-            font-size:var(--thm_meta_data_font_size);
+            font-size:var(--thm_meta_data_font_size, 13px);
             text-transform:var(--thm_meta_data_font_transform);
         }
 
@@ -217,43 +217,43 @@ body{
                 .widgettitle{
                     font-size:20px
                 }
-                line-height:calc( var(--thm_common_font_size) * var( --thm_content_line_height, 1.5 ) );
-                font-size:var(--thm_meta_data_font_size);
+                line-height:calc( var(--thm_common_font_size, 16px) * var( --thm_content_line_height, 1.5 ) );
+                font-size:var(--thm_meta_data_font_size, 13px);
                 text-transform:var(--thm_meta_data_font_transform);
             }
-            font-size:var(--thm_meta_data_font_size);
+            font-size:var(--thm_meta_data_font_size, 13px);
             text-transform:var(--thm_meta_data_font_transform);
         }
         .emulsion-archive-count,
         .emulsion-cat-count,
         a{
-            font-size:var(--thm_meta_data_font_size);
+            font-size:var(--thm_meta_data_font_size, 13px);
             text-transform:var(--thm_meta_data_font_transform);
         }
         .calendar_wrap{
             #wp-calendar{
                 th,
                 td{
-                    font-size:var(--thm_meta_data_font_size);
+                    font-size:var(--thm_meta_data_font_size, 13px);
                     text-transform:var(--thm_meta_data_font_transform);
                 }
             }
         }
         [name="cat"],
         [name="archive-dropdown"]{
-            font-size:var(--thm_meta_data_font_size);
+            font-size:var(--thm_meta_data_font_size, 13px);
             text-transform:var(--thm_meta_data_font_transform);
         }
         &.widget_rss{
             .rss-date,
             cite{
-                font-size:var(--thm_meta_data_font_size);
+                font-size:var(--thm_meta_data_font_size, 13px);
                 text-transform:var(--thm_meta_data_font_transform);
             }
         }
         &.widget_recent_comments{
             .recentcomments{
-                font-size:var(--thm_meta_data_font_size);
+                font-size:var(--thm_meta_data_font_size, 13px);
                 text-transform:var(--thm_meta_data_font_transform);
             }
         }
@@ -262,50 +262,50 @@ body{
 .relate-content-wrapper{
     font-family:var(--thm_common_font_family);
     line-height:var( --thm_content_line_height );
-    font-size:var(--thm_common_font_size);
+    font-size:var(--thm_common_font_size, 16px);
     line-height:var(--thm_content_line_height, 1.5);
     .relate-posts-title{
-        font-size:calc(var(--thm_meta_data_font_size) * 1.4);
+        font-size:calc(var(--thm_meta_data_font_size, 13px) * 1.4);
         text-transform:var(--thm_meta_data_font_transform);
     }
 }
 article{
     footer{
-        font-size:var(--thm_common_font_size);
+        font-size:var(--thm_common_font_size, 16px);
     }
 }
 .post-navigation{
     a{
-        font-size:var(--thm_meta_data_font_size);
+        font-size:var(--thm_meta_data_font_size, 13px);
         text-transform:var(--thm_meta_data_font_transform);
     }
 }
 footer.banner{
-    font-size:var(--thm_meta_data_font_size);
+    font-size:var(--thm_meta_data_font_size, 13px);
     .privacy-policy-link{
-        font-size:var(--thm_meta_data_font_size);
+        font-size:var(--thm_meta_data_font_size, 13px);
     }
     a{
-        font-size:var(--thm_meta_data_font_size);
+        font-size:var(--thm_meta_data_font_size, 13px);
         text-transform:var(--thm_meta_data_font_transform);
     }
 }
 .entry-meta{
     a{
-        font-size:var(--thm_meta_data_font_size);
+        font-size:var(--thm_meta_data_font_size, 13px);
         text-transform:var(--thm_meta_data_font_transform);
     }
 }
 .posted-on{
     a{
-        font-size:var(--thm_meta_data_font_size);
+        font-size:var(--thm_meta_data_font_size, 13px);
         text-transform:var(--thm_meta_data_font_transform);
     }
 }
 .footer-widget-area{
     .footer-widget-area-lists{
         a{
-            font-size:var(--thm_meta_data_font_size);
+            font-size:var(--thm_meta_data_font_size, 13px);
             text-transform:var(--thm_meta_data_font_transform);
         }
     }
@@ -332,16 +332,16 @@ footer.banner{
         &.sidebar{
             font-size:var(--thm_h5_font_size);
             margin-top:0;
-            font-size:var(--thm_meta_data_font_size);
+            font-size:var(--thm_meta_data_font_size, 13px);
             text-transform:var(--thm_meta_data_font_transform);
             .wp-block-latest-comments__comment-meta{
-                font-size:var(--thm_meta_data_font_size);
+                font-size:var(--thm_meta_data_font_size, 13px);
                 text-transform:var(--thm_meta_data_font_transform);
             }
         }
         &.is-style-main,
         &.main{
-            font-size:var(--thm_common_font_size);
+            font-size:var(--thm_common_font_size, 16px);
             line-height:var(--thm_content_line_height, 1.5);
             .entry-title a,
             h1,h2,h3,h4,h5,h6,
@@ -409,19 +409,19 @@ $step: 100;
         }
         .h1,
         h1{
-            font-size:calc(var(--thm_meta_data_font_size) * 2);
+            font-size:calc(var(--thm_meta_data_font_size, 13px) * 2);
         }
         .h2,
         h2{
-            font-size:calc(var(--thm_meta_data_font_size) * 1.4);
+            font-size:calc(var(--thm_meta_data_font_size, 13px) * 1.4);
         }
         .h3,
         h3{
-            font-size:calc(var(--thm_meta_data_font_size) * 1.17);
+            font-size:calc(var(--thm_meta_data_font_size, 13px) * 1.17);
         }
         .h4,
         h4{
-            font-size:calc(var(--thm_meta_data_font_size) * 1);
+            font-size:calc(var(--thm_meta_data_font_size, 13px) * 1);
         }
     }
 }
@@ -429,19 +429,19 @@ $step: 100;
     .wp-block-latest-posts{
         .h1,
         h1{
-            font-size:calc(var(--thm_meta_data_font_size) * 2);
+            font-size:calc(var(--thm_meta_data_font_size, 13px) * 2);
         }
         .h2,
         h2{
-            font-size:calc(var(--thm_meta_data_font_size) * 1.4);
+            font-size:calc(var(--thm_meta_data_font_size, 13px) * 1.4);
         }
         .h3,
         h3{
-            font-size:calc(var(--thm_meta_data_font_size) * 1.17);
+            font-size:calc(var(--thm_meta_data_font_size, 13px) * 1.17);
         }
         .h4,
         h4{
-            font-size:calc(var(--thm_meta_data_font_size) * 1);
+            font-size:calc(var(--thm_meta_data_font_size, 13px) * 1);
         }
     }
 }
@@ -470,7 +470,7 @@ $step: 100;
         .editor-block-list__block{
             font-family: "-apple-system", "Helvetica Neue", "Yu Gothic", YuGothic, "Noto Sans JP", Verdana, Meiryo, sans-serif;
             font-family:var(--thm_common_font_family);
-            font-size:var(--thm_common_font_size);
+            font-size:var(--thm_common_font_size, 16px);
             line-height:var(--thm_content_line_height, 1.5);
         }
         .edit-post-visual-editor{
@@ -478,7 +478,7 @@ $step: 100;
             p{
                 font-family: "-apple-system", "Helvetica Neue", "Yu Gothic", YuGothic, "Noto Sans JP", Verdana, Meiryo, sans-serif;
                 font-family:var(--thm_common_font_family);
-                font-size:var(--thm_common_font_size);
+                font-size:var(--thm_common_font_size, 16px);
                 line-height:var(--thm_content_line_height, 1.5);
             }
         }
@@ -502,18 +502,18 @@ $step: 100;
         .editor-block-list__block{
             font-family: 'Roboto', sans-serif;
             font-family:var(--thm_common_font_family);
-            font-size:var(--thm_common_font_size);
+            font-size:var(--thm_common_font_size, 16px);
             line-height:var(--thm_content_line_height, 1.5);
         }
         .edit-post-visual-editor{
             font-family: 'Roboto', sans-serif;
             font-family:var(--thm_common_font_family);
-            font-size:var(--thm_common_font_size);
+            font-size:var(--thm_common_font_size, 16px);
             line-height:var(--thm_content_line_height, 1.5);
             p{
                 font-family: 'Roboto', sans-serif;
                 font-family:var(--thm_common_font_family);
-                font-size:var(--thm_common_font_size);
+                font-size:var(--thm_common_font_size, 16px);
                 line-height:var(--thm_content_line_height, 1.5);
             }
         }
@@ -521,7 +521,7 @@ $step: 100;
 
     p{
         font-family: var(--thm_common_font_family);
-        font-size:var(--thm_common_font_size);
+        font-size:var(--thm_common_font_size, 16px);
         &.h1{
             font-size:var(--thm_h1_font_size);
             font-family:var(--thm_heading_font_family);
