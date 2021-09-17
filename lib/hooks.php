@@ -828,6 +828,12 @@ if ( ! function_exists( 'emulsion_theme_styles' ) ) {
 /* @see emulsion_theme_styles */
 {$uncagegorized_hide_style}
 
+.emulsion-addons-inactive .excerpt .article-wrapper{
+	border-bottom-color:var(--thm_common_border);
+	border-bottom-style:var(--thm_border_global_style);
+	border-bottom-width:var(--thm_border_global_width);
+}
+
 .emulsion-addons-inactive aside h1{
 	line-height:var(--thm_common_line_height, 1.15);
 }
@@ -862,7 +868,7 @@ if ( ! function_exists( 'emulsion_theme_styles' ) ) {
 	color:var(--thm_header_text_color);
 }
 .emulsion-addons-inactive body > header.header-layer .site-description,
-.emulsion-addons-inactive body body > header.header-layer .site-title-link{
+.emulsion-addons-inactive body > header.header-layer .site-title-link{
 	color:var(--thm_header_text_color);
 }
 .emulsion-addons-inactive main .grid .trancate-heading,

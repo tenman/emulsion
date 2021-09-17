@@ -269,8 +269,8 @@ body{
                     .entry-text,
                     .entry-text a:any-link{
                     color:var(--thm_white_color);
-                    background:transparent;
                     text-shadow: #000 1px 0 10px;
+                    background:transparent;
                     &:hover{
                         color: var(--thm_cloud_color);
                     }
@@ -421,8 +421,8 @@ body.scheme-midnight{
 
 .template-part-header-custom{
     & + .primary-menu-wrapper{
-        background:var(--thm_primary_menu_background);
         color:var(--thm_primary_menu_color);
+        background:var(--thm_primary_menu_background);
         a{
             color:var(--thm_primary_menu_link_color);
             &:hover{
@@ -431,8 +431,8 @@ body.scheme-midnight{
         }
         .children,
         .sub-menu{
-            background:var(--thm_primary_menu_background);
             color:var(--thm_primary_menu_color);
+            background:var(--thm_primary_menu_background);
             a{
                 color:var(--thm_primary_menu_link_color);
                 &:hover{
@@ -456,11 +456,11 @@ body.scheme-midnight{
     .wp-nav-menu{
         .sub-menu,
         .children{
+            color:var(--thm_header_text_color);
+            background:var(--thm_header_bg_color);
             border-color:var(--thm_common_border, rgba(188,188,188,.5));
             border-style:var(--thm_common_border_style);
             border-width:var(--thm_common_border_width);
-            color:var(--thm_header_text_color);
-            background:var(--thm_header_bg_color);
             li:hover{
                 color:var(--thm_header_hover_color);
             }
@@ -476,8 +476,8 @@ body.scheme-midnight{
         }
     }
     .toc{
-        background:var(--thm_primary_menu_background);
         color:var(--thm_primary_menu_color);
+        background:var(--thm_primary_menu_background);
         a{
             color:var(--thm_primary_menu_link_color);
         }
@@ -485,8 +485,8 @@ body.scheme-midnight{
             @include font_size(5);
             li{
                 &.toc-active{
-                    list-style-type:disc;
                     color:red;
+                    list-style-type:disc;
                     a{
                         color:var(--thm_primary_menu_link_color);
                     }
@@ -504,8 +504,8 @@ body.scheme-midnight{
 }
 .footer-widget-area,
 .sidebar-widget-area{
-    background:var(--thm_sidebar_bg_color);
     color:var(--thm_sidebar_text_color);
+    background:var(--thm_sidebar_bg_color);
     a:any-link{
         color:var(--thm_sidebar_link_color);
 
@@ -527,11 +527,7 @@ body.scheme-midnight{
     }
     .wp-block-navigation-link{
         background:var(--thm_sidebar_bg_color);
-        .wp-block-navigation-link__content{
-            .wp-block-navigation-link__label{
-
-            }
-        }
+        
     }
 }
 .scheme-midnight{
@@ -564,8 +560,8 @@ body.scheme-midnight{
  * ========================================================================== */
 
 .relate-content-wrapper{
-    background:var(--thm_relate_posts_bg);
     color:var(--thm_relate_posts_color);
+    background:var(--thm_relate_posts_bg);
     a:any-link{
         color:var(--thm_relate_posts_link_color);
         &:hover{
@@ -658,10 +654,10 @@ figure.wp-block-table{
         .stream-wrapper{
             color:var(--thm_general_text_color);
             .entry-title{
-                text-transform:var(--thm_heading_font_transform);
-                font-weight:var(--thm_heading_font_weight);
                 font-family:var(--thm_heading_font_family);
+                font-weight:var(--thm_heading_font_weight);
                 color: var(--thm_general_text_color);
+                text-transform:var(--thm_heading_font_transform);
                 a{
                     color:var(--thm_general_link_color);
                     &:hover{
@@ -730,31 +726,31 @@ table{
     tr{
         th{
             border-color:var(--thm_common_border, rgba(188,188,188,.5));
+            border-color:var(--thm_sub_background_color_darken);
             border-style:var(--thm_common_border_style);
             border-width:var(--thm_common_border_width);
-            border-color:var(--thm_sub_background_color_darken);
         }
         td{
             border-color:var(--thm_common_border, rgba(188,188,188,.5));
+            border-color:var(--thm_sub_background_color_darken);
             border-style:var(--thm_common_border_style);
             border-width:var(--thm_common_border_width);
-            border-color:var(--thm_sub_background_color_darken);
         }
     }
     &:not(.has-background){
-        background:inherit;
         color:inherit;
+        background:inherit;
     }
 }
 
 .wp-block-table{
     table{
-        background: var(--thm_background_color);
         border-spacing:0;
+        background: var(--thm_background_color);
 
         &:not(.has-background){
-            background:inherit;
             color:inherit;
+            background:inherit;
         }
         &.has-background{
             th{
@@ -776,8 +772,8 @@ table{
         }
     }
     thead tr{
-        background:inherit;
         color:var(--thm_general_text_color);
+        background:inherit;
         th{
             border-color:var(--thm_common_border, rgba(188,188,188,.5));
             border-style:var(--thm_common_border_style, solid);
@@ -787,13 +783,13 @@ table{
         }
     }
     tfoot tr{
-        background:inherit;
         color:var(--thm_general_text_color);
+        background:inherit;
     }
     &.is-style-stripes table:not(.has-background){
         tbody tr:nth-child(odd) {
-            background-color: var(--thm_sub_background_color_darken);
             color:var(--thm_general_text_color);
+            background-color: var(--thm_sub_background_color_darken);
             td{
                 color:var(--thm_general_text_color);
             }
@@ -801,13 +797,13 @@ table{
     }
     &.is-style-stripes table.has-background{
         thead tr th{
-            background: var(--thm_code_bg);
             color:var(--thm_black_color);
+            background: var(--thm_code_bg);
             // color:var(--thm_general_text_color);
         }
         tfoot tr td{
-            background: var(--thm_code_bg);
             color:var(--thm_black_color);
+            background: var(--thm_code_bg);
             // color:var(--thm_general_text_color);
         }
         &.is-style-stripes .has-subtle-light-gray-background-color tbody tr:nth-child(odd){
@@ -939,11 +935,11 @@ table{
     .sidebar-is-dark,
     main{
         .ui-tooltip {
-            background:var(--thm_white_color);
             color: var(--thm_black_color);
+            background:var(--thm_white_color);
             .ui-tooltip-content:before{
-                border-color:var(--thm_white_color);
                 border: 10px solid transparent;
+                border-color:var(--thm_white_color);
                 border-top: 10px solid  var(--thm_white_color);
             }
             &.bottom-tooltip .ui-tooltip-content:before{
@@ -975,8 +971,8 @@ body{
     ul:not(.list-style-initial):not(.is-style-list-style-initial),
         ol:not(.list-style-initial):not(.is-style-list-style-initial){
         li:before{
-            background:var(--thm_default_bullet_color);
             color:var(--thm_white_color);
+            background:var(--thm_default_bullet_color);
         }
     }
     .has-white-background-color,
@@ -1051,9 +1047,9 @@ body{
         &.is-style-outline{
 
             .wp-block-button__link{
+                color:var(--thm_general_text_color);
 
                 background:transparent ! important;
-                color:var(--thm_general_text_color);
                 &:hover{
                     color:var(--thm_general_text_color);
                 }
@@ -1075,8 +1071,8 @@ body{
     .read-more .skin-button,
     .editor .skin-button{
         color:var(--thm_header_text_color);
-        background: var(--thm_header_bg_color);
         text-decoration:none;
+        background: var(--thm_header_bg_color);
         &:hover{
             color:var(--thm_header_hover_color);
             background: var(--thm_header_bg_color);
@@ -1105,8 +1101,8 @@ body{
         .header-layer{
             &.no-header-media{
                 &.header-is-default-color{
-                    background:var(--thm_white_color);
                     color:var(--thm_black_color);
+                    background:var(--thm_white_color);
                     .entry-text .posted-on .entry-date,
                     .entry-text .posted-on a,
                     .entry-text .posted-on .author a,
@@ -1249,8 +1245,8 @@ body[class]{
         .skin-button,
         pre,
         .has-background:not(.has-text-color){
-            text-shadow:none;
             color: var(--thm_black_color);
+            text-shadow:none;
             a{
                 color:var(--thm_gray_color);
                 text-shadow:none;
@@ -1264,11 +1260,11 @@ body[class]{
             & > div:not([class|="wp-block"]):not(.shortcode-wrapper):not(.has-background-media) {
 
             &.emulsion-initial-color{
+                color:var(--thm_black_color);
                 background:var(--thm_white_color);
                 li:before{
                     display:none;
                 }
-                color:var(--thm_black_color);
                 a{
                     color:var(--thm_gray_color);
                 }

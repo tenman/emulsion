@@ -476,7 +476,7 @@ function emulsion_wp_scss_set_variables_fallback( $variables ) {
 }
 
 
-add_filter( 'theme_mod_emulsion__css_variables', 'emulsion_custom_field_css' );
+
 
 add_filter( 'theme_mod_emulsion__css_variables', 'emulsion_theme_variables' );
 
@@ -560,21 +560,6 @@ function emulsion_theme_variables( $variables ) {
 
 	$primary_menu_link_color =  sanitize_hex_color( emulsion_accessible_color( $primary_menu_background ) );
 
-	$post_id = get_the_ID();
-	$meta_style_css = '';
-
-	if ( metadata_exists( 'post', $post_id, 'css' ) ) {
-
-		$meta_style = get_post_meta( $post_id, 'css', true );
-
-		$meta_style_css = preg_replace_callback( '![^}]+{[^}]+}!siu', function($matches)  {
-			$result = '';
-			foreach( $matches as $match) {
-					$result .= ' .emulsion-addons-inactive '. $match ;
-			}
-			return $result ;
-				}, $meta_style	);
-	}
 
 	$style = <<<CSS
 .emulsion-addons-inactive body{
@@ -655,28 +640,8 @@ function emulsion_theme_variables( $variables ) {
 
 
 }
-$meta_style_css
 CSS;
 
 	return $style;
 }
 
-function emulsion_custom_field_css( $css ) {
-
-	$post_id		 = get_the_ID();
-	$meta_style_css	 = '';
-
-	if ( metadata_exists( 'post', $post_id, 'css' ) ) {
-
-		$meta_style = get_post_meta( $post_id, 'css', true );
-
-		$meta_style_css = preg_replace_callback( '![^}]+{[^}]+}!siu', function($matches) {
-			$result = '';
-			foreach ( $matches as $match ) {
-				$result .= ' .postid-' . absint( $post_id ) . ' ' . $match;
-			}
-			return $result;
-		}, $meta_style );
-	}
-	return $css . $meta_style_css;
-}

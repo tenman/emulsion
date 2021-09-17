@@ -7,6 +7,7 @@ function emulsion_block_editor_assets() {
 
 add_action( 'enqueue_block_editor_assets', 'emulsion_block_editor_assets' );
 
+
 /**
  * Experimental block effect
  */
@@ -94,8 +95,6 @@ function emulsion_block_pattern() {
 					)
 			);
 		}
-
-
 		$template_path = get_template_directory().'/block-patterns/block-pattern-relate-posts.php';
 
 		if( is_readable( $template_path ) ) {
