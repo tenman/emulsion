@@ -66,6 +66,7 @@
             ]
         },
         "spacing": {
+
             "customPadding": true,
             "customMargin": true,
             "__experimentalDefaultControls": {
@@ -119,7 +120,21 @@
                 },
                 "supports": {
                     "anchor": true,
-                    "className": false
+                    "className": true
+                }
+            },
+            "core/post-terms": {
+                "typography": {
+                    "fontSize": "var(--thm_h5_font_size)",
+                    "lineHeight": "var(--thm_content_line_height)",
+                    "fontFamily": "var(--thm_common_font_family)"
+                }
+            },
+            "core/post-comments-link": {
+                "typography": {
+                    "fontSize": "var(--thm_h5_font_size)",
+                    "lineHeight": "var(--thm_content_line_height)",
+                    "fontFamily": "var(--thm_common_font_family)"
                 }
             }
         }
@@ -137,19 +152,23 @@
     "templateParts": [
         {
             "name": "header",
-            "area": "header"
+            "area": "header",
+            "description": "Site Title + Archive Title"
         },
         {
             "name": "header-singular",
-            "area": "header"
+            "area": "header",
+            "description": "Site Title"
         },
         {
             "name": "header-rich",
-            "area": "header"
+            "area": "header",
+            "description": "Site Title + Header Image"
         },
         {
             "name": "footer",
-            "area": "footer"
+            "area": "footer",
+            "description": "Footer"
         }
     ],
     "styles": {

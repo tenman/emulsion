@@ -1,5 +1,5 @@
-body{
-    &.emulsion-has-sidebar{
+//body{
+    body.emulsion-has-sidebar{
 
         .sidebar-widget-area{
 
@@ -113,7 +113,7 @@ body{
         }
     }
 
-}
+//}
 
 .enable-alignfull{
     &.emulsion-has-sidebar{
@@ -128,9 +128,9 @@ body{
 /**
  * Sidebar Sequential Control
  * ========================================================================== */
-body{
-    &.search-no-results,
-    &.error404{
+//body{
+    body.search-no-results,
+    body.error404{
         .sidebar-widget-area{
             display:none;
             .sidebar-widget-area-lists{
@@ -145,7 +145,7 @@ body{
             }
         }
     }
-    &.emulsion-has-sidebar{
+    body.emulsion-has-sidebar{
         .sidebar-widget-area {
             min-height:calc(100vh - 80px);
             padding-bottom:80px;
@@ -156,17 +156,17 @@ body{
             margin-left:auto;
         }
     }
-    .emulsion-no-sidebar{
+    body.emulsion-no-sidebar{
         .sidebar-widget-area{
             display:none;
         }
     }
-    &:not(.emulsion-has-sidebar) .sidebar-widget-area{
+    body:not(.emulsion-has-sidebar) .sidebar-widget-area{
         position:absolute;
         right:0;
         visibility:hidden;
     }
-}
+//}
 
 /**
  * Sidebar fallback
@@ -446,9 +446,9 @@ body{
             border-top:none;
             border-bottom:none;
             li{
-                margin-top:var(--thm_box_gap);
-                margin-bottom:var(--thm_box_gap);
-                border:none;
+                box-sizing:border-box;
+                max-width:calc(100% - var(--thm_box_gap) * 2);
+                margin:var(--thm_box_gap);
             }
         }
 
@@ -931,8 +931,11 @@ body{
     .sidebar-widget-area .widget:last-child{
         position: -webkit-sticky;
         position: sticky;
-        top: 100px;
+        top: 52px;
         align-self: flex-start;
+    }
+    &.logged-in .sidebar-widget-area .widget:last-child{
+        top: 84px;
     }
     &.on-scroll{
         overflow:visible;
@@ -1006,8 +1009,8 @@ body{
     }
 }
 
-body{
-    .header-layer{
+//body{
+    body .header-layer{
         .drawer-block{
             .wp-block-search__inside-wrapper{
                 [type="submit"],
@@ -1017,7 +1020,7 @@ body{
             }
         }
     }
-    &.emulsion-has-sidebar{
+    body.emulsion-has-sidebar{
         .sidebar-widget-area-lists{
             padding-right:0;
             padding-left:0;
@@ -1091,7 +1094,7 @@ body{
         }
     }
 
-    &.is-dark{
+    body.is-dark{
         .sidebar-widget-area{
 
             &.emulsion-add-dark-color{
@@ -1123,7 +1126,7 @@ body{
     }
 
 
-}
+//}
 .widget{
     .wp-block-contact-form-7-contact-form-selector{
         padding:0;

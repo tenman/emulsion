@@ -16,7 +16,7 @@ $emulsion_link_text = esc_html__( 'link', 'emulsion' );
 $emulsion_lorem_text = esc_html__('Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum', 'emulsion');
 
 $html = <<<HTML
-<!-- wp:group {"align":"full","style":{"color":{"gradient":"linear-gradient(115deg,rgb(7,7,7) 0%,rgb(0,0,0) 44%,rgb(0,0,0) 53%,rgb(238,238,238) 53%,rgb(238,238,238) 100%)"}}} -->
+<!-- wp:group {"layout":{"inherit":true}, "align":"full","style":{"color":{"gradient":"linear-gradient(115deg,rgb(7,7,7) 0%,rgb(0,0,0) 44%,rgb(0,0,0) 53%,rgb(238,238,238) 53%,rgb(238,238,238) 100%)"}}} -->
 <div class="wp-block-group alignfull has-background" style="background:linear-gradient(115deg,rgb(7,7,7) 0%,rgb(0,0,0) 44%,rgb(0,0,0) 53%,rgb(238,238,238) 53%,rgb(238,238,238) 100%)">
 	<div class="wp-block-group__inner-container">
 
@@ -137,10 +137,10 @@ $html = <<<HTML
 	<!-- /wp:column --></div>
 <!-- /wp:columns -->
 
-<!-- wp:group {"align":"full","className":"grid"} -->
+<!-- wp:group {"align":"full","className":"grid", "layout":{"inherit":true}} -->
 <div class="wp-block-group alignfull grid">
 	<div class="wp-block-group__inner-container">
-		<!-- wp:group {"className":"size1of2"} -->
+		<!-- wp:group {"className":"size1of2", "layout":{"inherit":true}} -->
 		<div class="wp-block-group size1of2">
 			<div class="wp-block-group__inner-container">
 				<!-- wp:image {"align":"full","id":76879,"sizeSlug":"large","linkDestination":"none"} -->

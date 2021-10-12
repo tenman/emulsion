@@ -20,7 +20,7 @@
 
 			if ( ! empty( $relate_posts )  ) {
 
-				$result = sprintf( '<!-- wp:group {"className":"emulsion-block-pattern-relate-posts wrap-emulsion_relate_posts"} --><div class="emulsion-block-pattern-relate-posts wp-block-group wrap-emulsion_relate_posts"><!-- wp:heading --><h2 class="relate-posts-title fit">%1$s</h2><!-- /wp:heading --><!-- wp:list --><ul class="relate-posts fit">', esc_html__( 'Relate Posts', 'emulsion' ) );
+				$result = sprintf( '<!-- wp:group {"className":"emulsion-block-pattern-relate-posts wrap-emulsion_relate_posts", "layout":{"inherit":true}} --><div class="emulsion-block-pattern-relate-posts wp-block-group wrap-emulsion_relate_posts"><!-- wp:heading --><h2 class="relate-posts-title fit">%1$s</h2><!-- /wp:heading --><!-- wp:list --><ul class="relate-posts fit">', esc_html__( 'Relate Posts', 'emulsion' ) );
 
 					foreach ( $relate_posts as $relate_post ) {
 

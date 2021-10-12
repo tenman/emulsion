@@ -10,7 +10,6 @@ function emulsion_hooks_setup() {
 	add_filter( 'admin_body_class', 'emulsion_block_editor_class' );
 	add_filter( 'body_class', 'emulsion_body_background_class' );
 
-
 	add_action( 'wp_head', 'emulsion_meta_elements' );
 	add_action( 'wp_head', 'emulsion_pingback_header' );
 	'fse' !== get_theme_mod( 'emulsion_editor_support' ) ? add_action( 'wp_body_open', 'emulsion_skip_link' ) : '';
@@ -44,7 +43,7 @@ function emulsion_hooks_setup() {
 		add_action( 'theme_mod_emulsion_footer_credit', 'do_blocks' );
 	}
 	//Post title cannot be displayed in header when html template is loaded
-	'html' == get_theme_mod( 'emulsion_header_template' ) ? add_filter( 'theme_mod_emulsion_title_in_header', function($yesno) {
+	'html' == get_theme_mod( 'emulsion_header_template' ) ? add_filter( 'theme_mod_emulsion_title_in_header', function ( $yesno ) {
 						return 'no';
 					} ) : '';
 
@@ -64,7 +63,7 @@ function emulsion_hooks_setup() {
 
 	true === emulsion_the_theme_supports( 'toc' ) ? add_filter( 'emulsion_toc_script', 'emulsion_toc' ) : '';
 
-	add_filter( 'render_block_core/list', function( $content ) {
+	add_filter( 'render_block_core/list', function ( $content ) {
 
 		// Change static contents to dinamic contents
 
@@ -81,7 +80,7 @@ function emulsion_hooks_setup() {
 
 		remove_shortcode( 'emulsion_relate_posts' );
 
-		add_filter( 'render_block_core/shortcode', function($content) {
+		add_filter( 'render_block_core/shortcode', function ( $content ) {
 
 			if ( '[emulsion_relate_posts]' == trim( strip_tags( $content ) ) ) {
 
@@ -90,15 +89,12 @@ function emulsion_hooks_setup() {
 			return $content;
 		} );
 
-
-
 		/**
 		 * CJK language ( CJK unified ideographs ) issue instant fix
 		 * For languages that do not use single-byte spaces,
 		 * solve the problem of string overflow in the_excerpt ()
 		 */
 		add_filter( 'get_the_excerpt', 'emulsion_force_excerpt' );
-
 
 		/**
 		 * Data validations
@@ -816,17 +812,18 @@ if ( ! function_exists( 'emulsion_theme_styles' ) ) {
 		$responsive_break_point	 = emulsion_theme_default_val( 'emulsion_content_width' ) + emulsion_theme_default_val( 'emulsion_sidebar_width' ) + emulsion_theme_default_val( 'emulsion_common_font_size' );
 		$responsive_break_point	 = absint( $responsive_break_point );
 
-
 		/* hide uncategorized category */
 		$uncagegorized_hide_style = absint( get_category_by_slug( 'uncategorized' )->term_id ) == absint( get_option( 'default_category' ) ) ? '#document .cat-item-1{display:none;}' : '';
-
-
 
 		$customize_saved = <<< CUSTOMIZED_CSS
 
 {$variables}
 /* @see emulsion_theme_styles */
 {$uncagegorized_hide_style}
+
+.emulsion-addons-inactive{
+	--thm_content_gap:24px;
+}
 
 .emulsion-addons-inactive .excerpt .article-wrapper{
 	border-bottom-color:var(--thm_common_border);
@@ -852,6 +849,7 @@ if ( ! function_exists( 'emulsion_theme_styles' ) ) {
 }
 .emulsion-addons-inactive .scheme-midnight{
 	background: var(--thm_background_color);
+	color: var(--thm_general_text_color);
 	font-size:var(--thm_common_font_size);
 }
 .emulsion-addons-inactive .scheme-midnight .banner {
@@ -1107,6 +1105,11 @@ if ( ! function_exists( 'emulsion_customizer_controls_script' ) ) {
 
 	function emulsion_customizer_controls_script() {
 
+		if ( is_plugin_active( 'emulsion-addons/emulsion.php' ) ) {
+
+			return;
+		}
+
 		$plugin_install_url	 = esc_url( admin_url( 'themes.php?page=tgmpa-install-plugins&plugin_status=all' ) );
 		$message			 = sprintf( '<p>%1$s</p><a href="%2$s">%3$s</a>', esc_html__( 'You can use the emulsion-addons plugin for further customization.', 'emulsion' ), esc_url( $plugin_install_url ), esc_html__( 'Install Plugin', 'emulsion' )
 		);
@@ -1133,7 +1136,7 @@ if ( ! function_exists( 'emulsion_customizer_controls_script' ) ) {
 
 SCRIPT;
 
-		if ( is_customize_preview() && ! emulsion_theme_addons_exists() && current_user_can( 'edit_theme_options' ) ) {
+		if ( is_customize_preview() && current_user_can( 'edit_theme_options' ) ) {
 
 			wp_add_inline_script( 'customize-controls', $script );
 		}
@@ -1316,9 +1319,9 @@ function emulsion_add_amp_css_variables( $css ) {
 
 	// emulsion-addons active and wp-scss not active
 
-	$css_variables	 = get_theme_mod( 'emulsion__css_variables', false );
+	$css_variables = get_theme_mod( 'emulsion__css_variables', false );
 
-	$wp_css_status	 = get_theme_mod( 'emulsion_wp_scss_status' );
+	$wp_css_status = get_theme_mod( 'emulsion_wp_scss_status' );
 
 	if ( emulsion_is_amp() && 'active' !== $wp_css_status && ! empty( $css_variables ) ) {
 		$css .= $css_variables;
@@ -1552,19 +1555,17 @@ if ( ! function_exists( 'emulsion_add_common_font_css' ) ) {
 		$inline_style = emulsion_sanitize_css( $css );
 
 		if ( function_exists( 'emulsion_get_var' ) ) {
+
 			$font_google_family_url	 = get_theme_mod( 'emulsion_common_google_font_url', emulsion_get_var( 'emulsion_common_google_font_url' ) );
 			$fallback_font_family	 = get_theme_mod( 'emulsion_common_font_family', emulsion_get_var( 'emulsion_common_font_family' ) );
 			$font_size				 = get_theme_mod( 'emulsion_common_font_size', emulsion_get_var( 'emulsion_common_font_size' ) );
+
+			$font_family = ! empty( $font_google_family_url ) ? emulsion_get_google_font_family_from_url( $font_google_family_url, $fallback_font_family ): $fallback_font_family;
+
 		} else {
 			$font_google_family_url	 = emulsion_theme_default_val( 'emulsion_common_google_font_url' );
 			$fallback_font_family	 = emulsion_theme_default_val( 'emulsion_common_font_family' );
 			$font_size				 = emulsion_theme_default_val( 'emulsion_common_font_size' );
-		}
-
-		if ( function_exists( 'emulsion_get_google_font_family_from_url' ) && ! empty( $font_google_family_url ) ) {
-
-			$font_family = emulsion_get_google_font_family_from_url( $font_google_family_url, $fallback_font_family );
-		} else {
 
 			$font_family = $fallback_font_family;
 		}
@@ -1618,24 +1619,39 @@ if ( ! function_exists( 'emulsion_heading_font_css' ) ) {
 		if ( function_exists( 'emulsion_get_var' ) ) {
 
 			$font_google_family_url	 = get_theme_mod( 'emulsion_heading_google_font_url', emulsion_get_var( 'emulsion_heading_google_font_url' ) );
-			$fallback_font_family	 = get_theme_mod( 'emulsion_heading_font_family', emulsion_get_var( 'emulsion_heading_font_family' ) );
+			$font_family			 = get_theme_mod( 'emulsion_heading_font_family', emulsion_get_var( 'emulsion_heading_font_family' ) );
 			$font_scale				 = get_theme_mod( 'emulsion_heading_font_scale', emulsion_get_var( 'emulsion_heading_font_scale' ) );
 			$heading_font_base		 = get_theme_mod( 'emulsion_heading_font_base', emulsion_get_var( 'emulsion_heading_font_base' ) );
+			$font_weight			 = get_theme_mod( 'emulsion_heading_font_weight', emulsion_get_var( 'emulsion_heading_font_weight' ) );
+			$text_transform			 = get_theme_mod( 'emulsion_heading_font_transform', emulsion_get_var( 'emulsion_heading_font_transform' ) );
 
 			$font_google_family_url_meta = get_theme_mod( 'emulsion_widget_meta_google_font_url', emulsion_get_var( 'emulsion_widget_meta_google_font_url' ) );
-			$fallback_font_family_meta	 = get_theme_mod( 'emulsion_widget_meta_font_family', emulsion_get_var( 'emulsion_widget_meta_font_family' ) );
+			$font_family_meta			 = get_theme_mod( 'emulsion_widget_meta_font_family', emulsion_get_var( 'emulsion_widget_meta_font_family' ) );
 			$heading_font_base_meta		 = get_theme_mod( 'emulsion_widget_meta_font_size', emulsion_get_var( 'emulsion_widget_meta_font_size' ) );
+			$font_weight_meta			 = get_theme_mod( 'emulsion_heading_font_weight', emulsion_get_var( 'emulsion_heading_font_weight' ) );
+			$text_transform_meta		 = get_theme_mod( 'emulsion_widget_meta_font_transform', emulsion_get_var( 'emulsion_widget_meta_font_transform' ) );
+			$font_family_meta			 = get_theme_mod( 'emulsion_widget_meta_font_family', emulsion_theme_default_val( 'emulsion_widget_meta_font_family' ) );
+
+			$fallback_font_family	 = get_theme_mod( 'emulsion_common_font_family', emulsion_get_var( 'emulsion_common_font_family' ) );
 		} else {
 
 			$font_google_family_url	 = emulsion_theme_default_val( 'emulsion_heading_google_font_url' );
-			$fallback_font_family	 = emulsion_theme_default_val( 'emulsion_heading_font_family' );
 			$font_scale				 = emulsion_theme_default_val( 'emulsion_heading_font_scale' );
 			$heading_font_base		 = emulsion_theme_default_val( 'emulsion_heading_font_base' );
+			$font_weight			 = emulsion_theme_default_val( 'emulsion_heading_font_weight' );
+			$text_transform			 = emulsion_theme_default_val( 'emulsion_heading_font_transform' );
+			$font_family			 = emulsion_theme_default_val( 'emulsion_heading_font_family' );
 
 			$font_google_family_url_meta = emulsion_theme_default_val( 'emulsion_widget_meta_google_font_url' );
-			$fallback_font_family_meta	 = emulsion_theme_default_val( 'emulsion_widget_meta_font_family' );
+			$font_family_meta			 = emulsion_theme_default_val( 'emulsion_widget_meta_font_family' );
 			$heading_font_base_meta		 = emulsion_theme_default_val( 'emulsion_widget_meta_font_size' );
+			$font_weight_meta			 = emulsion_theme_default_val( 'emulsion_heading_font_weight' );
+			$text_transform_meta		 = emulsion_theme_default_val( 'emulsion_widget_meta_font_transform' );
+			$font_family_meta			 = emulsion_theme_default_val( 'emulsion_widget_meta_font_family' );
+
+			$fallback_font_family	 = emulsion_theme_default_val( 'emulsion_common_font_family' );
 		}
+
 		if ( 'xx' == $font_scale ) {
 			$h6		 = $heading_font_base * 0.6875 . 'px';
 			$h5		 = $heading_font_base * 0.8125 . 'px';
@@ -1666,156 +1682,139 @@ if ( ! function_exists( 'emulsion_heading_font_css' ) ) {
 			$h2_meta = $heading_font_base_meta * 2 . 'px';   // H2
 			$h1_meta = $heading_font_base_meta * 3 . 'px';   // H1
 		}
-		if ( function_exists( 'emulsion_get_var' ) ) {
 
-			$font_weight = get_theme_mod( 'emulsion_heading_font_weight', emulsion_get_var( 'emulsion_heading_font_weight' ) );
+		if ( function_exists( 'emulsion_get_google_font_family_from_url' ) ) {
 
-			$text_transform = get_theme_mod( 'emulsion_heading_font_transform', emulsion_get_var( 'emulsion_heading_font_transform' ) );
+			if ( ! empty( $font_google_family_url ) ) {
 
-			$font_weight_meta	 = get_theme_mod( 'emulsion_heading_font_weight', emulsion_get_var( 'emulsion_heading_font_weight' ) );
-			$text_transform_meta = get_theme_mod( 'emulsion_widget_meta_font_transform', emulsion_get_var( 'emulsion_widget_meta_font_transform' ) );
-		} else {
-			$font_weight			 = emulsion_theme_default_val( 'emulsion_heading_font_weight' );
-			$text_transform			 = emulsion_theme_default_val( 'emulsion_heading_font_transform' );
-			$fallback_font_family	 = emulsion_theme_default_val( 'emulsion_heading_font_family' );
+				$font_family = emulsion_get_google_font_family_from_url( $font_google_family_url, $fallback_font_family );
+			}
+			if ( ! empty( $font_google_family_url_meta ) ) {
 
-			$font_weight_meta			 = emulsion_theme_default_val( 'emulsion_heading_font_weight' );
-			$text_transform_meta		 = emulsion_theme_default_val( 'emulsion_widget_meta_font_transform' );
-			$fallback_font_family_meta	 = emulsion_theme_default_val( 'emulsion_widget_meta_font_family' );
-		}
-
-		if ( function_exists( 'emulsion_get_google_font_family_from_url' ) && ! empty( $font_google_family_url ) ) {
-
-			$font_family = emulsion_get_google_font_family_from_url( $font_google_family_url, $fallback_font_family );
-
-			$font_family_meta = emulsion_get_google_font_family_from_url( $font_google_family_url_meta, $fallback_font_family_meta );
-		} else {
-
-			$font_family = $fallback_font_family;
-
-			$font_family_meta = $fallback_font_family_meta;
+				$font_family_meta = emulsion_get_google_font_family_from_url( $font_google_family_url_meta, $fallback_font_family_meta );
+			}
 		}
 
 		$inline_style	 .= <<<CSS
-		body.font-heading-$fallback_font_family .h6,
-		body.font-heading-$fallback_font_family .h5,
-		body.font-heading-$fallback_font_family .h4,
-		body.font-heading-$fallback_font_family h6,
-		body.font-heading-$fallback_font_family h5,
-		body.font-heading-$fallback_font_family h4{
-			font-family:$font_family;
-			font-weight:$font_weight;
+		body.font-heading-{$fallback_font_family} .h6,
+		body.font-heading-{$fallback_font_family} .h5,
+		body.font-heading-{$fallback_font_family} .h4,
+		body.font-heading-{$fallback_font_family} h6,
+		body.font-heading-{$fallback_font_family} h5,
+		body.font-heading-{$fallback_font_family} h4{
+			font-family:{$font_family};
+			font-weight:{$font_weight};
 			text-transform:$text_transform;
 		}
-		body.font-heading-$fallback_font_family .entry-title,
-		body.font-heading-$fallback_font_family .h1,
-		body.font-heading-$fallback_font_family h1,
-		body.font-heading-$fallback_font_family .h2,
-		body.font-heading-$fallback_font_family h2,
-		body.font-heading-$fallback_font_family .h3,
-		body.font-heading-$fallback_font_family h3{
-			font-family:$font_family;
-			font-weight:$font_weight;
-			text-transform:$text_transform;
+		body.font-heading-{$fallback_font_family} .entry-title,
+		body.font-heading-{$fallback_font_family} .h1,
+		body.font-heading-{$fallback_font_family} h1,
+		body.font-heading-{$fallback_font_family} .h2,
+		body.font-heading-{$fallback_font_family} h2,
+		body.font-heading-{$fallback_font_family} .h3,
+		body.font-heading-{$fallback_font_family} h3{
+			font-family:{$font_family};
+			font-weight:{$font_weight};
+			text-transform:{$text_transform};
 		}
-		body.font-heading-$fallback_font_family aside .h6,
-		body.font-heading-$fallback_font_family aside .h5,
-		body.font-heading-$fallback_font_family aside .h4,
-		body.font-heading-$fallback_font_family aside h6,
-		body.font-heading-$fallback_font_family aside h5,
-		body.font-heading-$fallback_font_family aside h4{
-			font-family:$font_family_meta;
-			font-weight:$font_weight_meta;
-			text-transform:$text_transform_meta;
+		body.font-heading-{$fallback_font_family} aside .h6,
+		body.font-heading-{$fallback_font_family} aside .h5,
+		body.font-heading-{$fallback_font_family} aside .h4,
+		body.font-heading-{$fallback_font_family} aside h6,
+		body.font-heading-{$fallback_font_family} aside h5,
+		body.font-heading-{$fallback_font_family} aside h4{
+			font-family:{$font_family_meta};
+			font-weight:{$font_weight_meta};
+			text-transform:{$text_transform_meta};
 		}
-		body.font-heading-$fallback_font_family aside .entry-title,
-		body.font-heading-$fallback_font_family aside .h1,
-		body.font-heading-$fallback_font_family aside h1,
-		body.font-heading-$fallback_font_family aside .h2,
-		body.font-heading-$fallback_font_family aside h2,
-		body.font-heading-$fallback_font_family aside .h3,
-		body.font-heading-$fallback_font_family aside h3{
-			font-family:$font_family_meta;
-			font-weight:$font_weight_meta;
-			text-transform:$text_transform_meta;
+		body.font-heading-{$fallback_font_family} aside .entry-title,
+		body.font-heading-{$fallback_font_family} aside .h1,
+		body.font-heading-{$fallback_font_family} aside h1,
+		body.font-heading-{$fallback_font_family} aside .h2,
+		body.font-heading-{$fallback_font_family} aside h2,
+		body.font-heading-{$fallback_font_family} aside .h3,
+		body.font-heading-{$fallback_font_family} aside h3{
+			font-family:{$font_family_meta};
+			font-weight:{$font_weight_meta};
+			text-transform:{$text_transform_meta};
 		}
 
-		body.font-heading-$fallback_font_family .h1,
-		body.font-heading-$fallback_font_family h1{
+		body.font-heading-{$fallback_font_family} .h1,
+		body.font-heading-{$fallback_font_family} h1{
 			font-size:{$h1};
 
 		}
-		body.font-heading-$fallback_font_family .h2,
-		body.font-heading-$fallback_font_family h2{
+		body.font-heading-{$fallback_font_family} .h2,
+		body.font-heading-{$fallback_font_family} h2{
 			font-size:{$h2};
 		}
-		body.font-heading-$fallback_font_family .h3,
-		body.font-heading-$fallback_font_family h3{
+		body.font-heading-{$fallback_font_family} .h3,
+		body.font-heading-{$fallback_font_family} h3{
 			font-size:{$h3};
 		}
-		body.font-heading-$fallback_font_family .h4,
-		body.font-heading-$fallback_font_family h4{
+		body.font-heading-{$fallback_font_family} .h4,
+		body.font-heading-{$fallback_font_family} h4{
 			font-size:{$h4};
 		}
-		body.font-heading-$fallback_font_family .h5,
-		body.font-heading-$fallback_font_family h5{
+		body.font-heading-{$fallback_font_family} .h5,
+		body.font-heading-{$fallback_font_family} h5{
 			font-size:{$h5};
 		}
-		body.font-heading-$fallback_font_family .h6,
-		body.font-heading-$fallback_font_family h6{
+		body.font-heading-{$fallback_font_family} .h6,
+		body.font-heading-{$fallback_font_family} h6{
 			font-size:{$h6};
 		}
 
-		body.font-heading-$fallback_font_family aside .h1,
-		body.font-heading-$fallback_font_family aside h1{
+		body.font-heading-{$fallback_font_family} aside .h1,
+		body.font-heading-{$fallback_font_family} aside h1{
 			font-size:{$h1_meta};
 
 		}
-		body.font-heading-$fallback_font_family aside .h2,
-		body.font-heading-$fallback_font_family aside h2{
+		body.font-heading-{$fallback_font_family} aside .h2,
+		body.font-heading-{$fallback_font_family} aside h2{
 			font-size:{$h2_meta};
 		}
-		body.font-heading-$fallback_font_family aside .h3,
-		body.font-heading-$fallback_font_family adide h3{
+		body.font-heading-{$fallback_font_family} aside .h3,
+		body.font-heading-{$fallback_font_family} adide h3{
 			font-size:{$h3_meta};
 		}
-		body.font-heading-$fallback_font_family aside .h4,
-		body.font-heading-$fallback_font_family aside h4{
+		body.font-heading-{$fallback_font_family} aside .h4,
+		body.font-heading-{$fallback_font_family} aside h4{
 			font-size:{$h4_meta};
 		}
-		body.font-heading-$fallback_font_family aside .h5,
-		body.font-heading-$fallback_font_family aside h5{
+		body.font-heading-{$fallback_font_family} aside .h5,
+		body.font-heading-{$fallback_font_family} aside h5{
 			font-size:{$h5_meta};
 		}
-		body.font-heading-$fallback_font_family aside .h6,
-		body.font-heading-$fallback_font_family aside h6{
+		body.font-heading-{$fallback_font_family} aside .h6,
+		body.font-heading-{$fallback_font_family} aside h6{
 			font-size:{$h6_meta};
 		}
 
 		@media screen and ( max-width : 640px ) {
 
-			body.font-heading-$fallback_font_family .h1,
-			body.font-heading-$fallback_font_family h1{
+			body.font-heading-{$fallback_font_family} .h1,
+			body.font-heading-{$fallback_font_family} h1{
 				font-size:{$h2};
 
 			}
-			body.font-heading-$fallback_font_family .page-wrapper article header .entry-title,
-			body.font-heading-$fallback_font_family .h2,
-			body.font-heading-$fallback_font_family h2{
+			body.font-heading-{$fallback_font_family} .page-wrapper article header .entry-title,
+			body.font-heading-{$fallback_font_family} .h2,
+			body.font-heading-{$fallback_font_family} h2{
 				font-size:{$h3};
 			}
-			body.font-heading-$fallback_font_family .h4,
-			body.font-heading-$fallback_font_family h4,
-			body.font-heading-$fallback_font_family .h3,
-			body.font-heading-$fallback_font_family h3{
+			body.font-heading-{$fallback_font_family} .h4,
+			body.font-heading-{$fallback_font_family} h4,
+			body.font-heading-{$fallback_font_family} .h3,
+			body.font-heading-{$fallback_font_family} h3{
 				font-size:var(--thm_common_font_size);
 			}
-			body.font-heading-$fallback_font_family .h5,
-			body.font-heading-$fallback_font_family h5{
+			body.font-heading-{$fallback_font_family} .h5,
+			body.font-heading-{$fallback_font_family} h5{
 				font-size:{$h5};
 			}
-			body.font-heading-$fallback_font_family .h6,
-			body.font-heading-$fallback_font_family h6{
+			body.font-heading-{$fallback_font_family} .h6,
+			body.font-heading-{$fallback_font_family} h6{
 				font-size:{$h6};
 			}
 		}

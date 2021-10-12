@@ -1,8 +1,8 @@
 # Emulsion
- 
+
 Contributors: nobita
 Requires at least: WordPress 5.3
-Tested up to: WordPress 5.8.0
+Tested up to: WordPress 5.8
 Requires PHP: 5.6
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -73,10 +73,10 @@ stream.png
 ### SVG
 
 'behance',  'codepen',  'deviantart',  'digg',  'dockerhub',  'dribbble',  'dropbox',
-'facebook',  'flickr',  'foursquare',  'google-plus',  'github',  'instagram',  
-'linkedin',  'envelope-o',  'medium',  'pinterest-p',  'periscope',  'get-pocket',  
-'reddit-alien',  'skype',  'skype',  'slideshare',  'snapchat-ghost',  'soundcloud',  
-'spotify',  'stumbleupon',  'tumblr',  'twitch',  'twitter',  'vimeo',  'vine',  
+'facebook',  'flickr',  'foursquare',  'google-plus',  'github',  'instagram',
+'linkedin',  'envelope-o',  'medium',  'pinterest-p',  'periscope',  'get-pocket',
+'reddit-alien',  'skype',  'skype',  'slideshare',  'snapchat-ghost',  'soundcloud',
+'spotify',  'stumbleupon',  'tumblr',  'twitch',  'twitter',  'vimeo',  'vine',
 'vk',  'wordpress',  'wordpress',  'yelp',  'youtube',
 
 * Above SVG symbol License
@@ -85,11 +85,11 @@ stream.png
 	License: GNU General Public License v2 or later
         License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-'default',  'icon-expand',  'enlarge',  'shrink',  'search',  'cross',  'lock',  'play',  'pause',  
-'icon-behance',  'phone',  'email',  'rss',  'embed',  'bell',  'location',  'pdf',  'zip',  'html5',  
-'category',  'tag',  'clock',  'contrast',  'home',  'bookmark',  'quote',  'edit',  'web',  'human',  
+'default',  'icon-expand',  'enlarge',  'shrink',  'search',  'cross',  'lock',  'play',  'pause',
+'icon-behance',  'phone',  'email',  'rss',  'embed',  'bell',  'location',  'pdf',  'zip',  'html5',
+'category',  'tag',  'clock',  'contrast',  'home',  'bookmark',  'quote',  'edit',  'web',  'human',
 'new-tab',  'checkbox_checked',  'checkbox',  'radio_checked',  'radio',  'notice',  'info',  'block',
-  
+
 * Other SVG symbol License
 	* Copyright: Copyright (c) 2019, Tenman
 	* License: GNU General Public License v2.0
@@ -128,7 +128,7 @@ stream.png
         * v0.3.2
         * http://projects.jga.me/toc/
         * copyright Greg Allen 2014
-        * MIT License	
+        * MIT License
 * smooth-scroller - Javascript lib to handle smooth scrolling
         * v0.1.2
         * https://github.com/firstandthird/smooth-scroller
@@ -140,11 +140,14 @@ stream.png
 * normalize.css, Copyright 2012-2016 Nicolas Gallagher and Jonathan Neal
 	* License: MIT
 	* Source: https://necolas.github.io/normalize.css/
-* css3patterns 
+* css3patterns
 	* License: MIT
         * Source: https://github.com/LeaVerou/css3patterns
 
 ## Changelog
+### October 12 2021
+		* 2.0.7
+        * https://github.com/tenman/emulsion/releases
 ### September 17 2021
 		* 2.0.6
         * https://github.com/tenman/emulsion/releases
@@ -406,7 +409,7 @@ stream.png
         * https://github.com/tenman/emulsion/releases
 ### nobember 10 2019
 		* 0.9.7
-        * https://github.com/tenman/emulsion/releases		
+        * https://github.com/tenman/emulsion/releases
 ### august 15 2019
         * 0.9.6
         * https://github.com/tenman/emulsion/releases

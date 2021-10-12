@@ -783,7 +783,7 @@ input[type="checkbox"][data-skin="inset"] + label span:after {
     height: 5px;
     content: '';
     background: transparent;
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+   // -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
     filter: alpha(opacity=0);
     border: 3px solid var(--thm_black_color);
     border-top: none;
@@ -810,8 +810,8 @@ input[type="checkbox"][data-skin="inset"]:checked + label span:after {
     opacity: 1;
 }
 
-body{
-    .template-part-header-custom{
+//body{
+    body .template-part-header-custom{
         & + .primary-menu-wrapper{
 
             &.menu-is-light,
@@ -827,7 +827,7 @@ body{
             }
         }
     }
-}
+//}
 .menu-is-dark,
 .menu-is-light{
     .menu-main-container{

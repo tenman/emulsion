@@ -63,16 +63,16 @@ noscript,ol,output,p,pre,section,ul,video{
  * @see emulsion_get_third_party_block_classes() for third party block
  */
 $core_blocks: wp-block-image, wp-block-gallery,  wp-block-audio, wp-block-cover, wp-block-file, wp-block-video,
-wp-block-code, wp-block-preformatted, wp-block-table, wp-block-verse, wp-block-buttons,
+wp-block-code, wp-block-preformatted, wp-block-table, wp-block-verse, wp-block-buttons, wp-block-query,
 wp-block-columns, wp-block-separator, wp-block-spacer, wp-block-media-text, wp-block-group, wp-block-archives,
-wp-block-calendar, wp-block-categories, wp-block-latest-comments, wp-block-latest-posts, wp-block-rss,
+wp-block-calendar, wp-block-categories, wp-block-latest-comments, wp-block-latest-posts, wp-block-rss, wp-block-template-part,
 wp-block-search, wp-block-social-links, wp-block-tag-cloud, wp-block-embed, wp-block-navigation, wp-block-page-list;
 @each $core_block in $core_blocks {
-    body{
-        .#{$core_block}{
-            @extend %block;
-        }
+    //body{
+    .#{$core_block}{
+        @extend %block;
     }
+    //}
 }
 
 .wp-block-spacer{
@@ -117,25 +117,23 @@ wp-block-search, wp-block-social-links, wp-block-tag-cloud, wp-block-embed, wp-b
     }
 }
 //exception
-#document{
-    body{
-        .wp-block-table,
-        .wp-block-media-text,
-        .wp-block-columns{
-            padding-right:0;
-            padding-left:0;
-        }
-        &.disable-alignfull{
-            article,
-            .entry-content,
-            [class|="placeholder"],
-            .alignfull,
-            .alignwide{
-                @extend %block;
-            }
-        }
+
+#document body .wp-block-table,
+#document body .wp-block-media-text,
+#document body .wp-block-columns{
+    padding-right:0;
+    padding-left:0;
+}
+#document body.disable-alignfull{
+    article,
+    .entry-content,
+    [class|="placeholder"],
+    .alignfull,
+    .alignwide{
+        @extend %block;
     }
 }
+
 .emulsion-no-sidebar{
 
     article{
@@ -380,6 +378,9 @@ article{
     width:100%;
     overflow:hidden;
 }
+.wp-block-post-excerpt{
+    line-height:1.5;
+}
 .entry-content{
     blockquote.content-excerpt{
         // if emulsion-addons active
@@ -555,8 +556,11 @@ i.toc-text{
 kbd{
     display:inline-block;
     padding:.1em .6em;
-    margin:0 .1em;
+    margin:0 .25em;
     font-size:var(--thm_meta_data_font_size, 13px);
+}
+u{
+    text-decoration: underline 1px dashed var(--thm_general_text_color);
 }
 mark{
     padding-right:.3rem;
@@ -567,7 +571,7 @@ q{
 }
 strong{
     strong{
-        text-decoration:underline;
+        text-decoration: underline 1px dashed var(--thm_general_text_color);
     }
 }
 /* itaric elements */
@@ -658,7 +662,6 @@ picture{
 .wp-block-pullquote.h1 blockquote p,
 .h1,
 h1{
-    //  @include font_size(1);
     @extend %block;
     &.alignwide,
     &.is-style-emulsion-wide{
@@ -671,7 +674,6 @@ h1{
 .wp-block-pullquote.h2 blockquote p,
 .h2,
 h2{
-    //  @include font_size(2);
     @extend %block;
     &.alignwide,
     &.is-style-emulsion-wide{
@@ -684,7 +686,6 @@ h2{
 .wp-block-pullquote.h3 blockquote p,
 .h3,
 h3{
-    //  @include font_size(3);
     @extend %block;
     &.alignwide,
     &.is-style-emulsion-wide{
@@ -697,7 +698,6 @@ h3{
 .wp-block-pullquote.h4 blockquote p,
 .h4,
 h4{
-    //  @include font_size(4);
     @extend %block;
     &.alignwide,
     &.is-style-emulsion-wide{
@@ -710,7 +710,6 @@ h4{
 .wp-block-pullquote.h5 blockquote p,
 .h5,
 h5{
-    // @include font_size(5);
     @extend %block;
     &.alignwide,
     &.is-style-emulsion-wide{
@@ -723,7 +722,6 @@ h5{
 .wp-block-pullquote.h6 blockquote p,
 .h6,
 h6{
-    //  @include font_size(6);
     @extend %block;
     &.alignwide,
     &.is-style-emulsion-wide{
@@ -1878,20 +1876,17 @@ input{
         }
     }
 }
-body{
-    .layout-block{
-        .wp-block-search{
-            &.alignleft,
-            &.alignright{
-                display:flex;
-            }
+//body{
+body .layout-block{
+    .wp-block-search{
+        &.alignleft,
+        &.alignright{
+            display:flex;
         }
     }
 }
-label{
-    padding-right:.5rem;
-    padding-left:.5rem;
-}
+//}
+
 legend{
     padding:.74rem;
 }
@@ -1907,12 +1902,15 @@ form select,
     box-sizing:border-box;
     display:block;
     max-width:100%;
-    padding-top:.625rem;
-    padding-right:0.625rem;
-    padding-bottom:.625rem;
-    padding-left:0.625rem;
+
     margin-right:auto;
     margin-left:auto;
+    option{
+        padding-top:.625rem;
+        padding-right:0.625rem;
+        padding-bottom:.625rem;
+        padding-left:0.625rem;
+    }
 }
 form > p{
     padding-right:0;

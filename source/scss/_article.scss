@@ -53,6 +53,9 @@ body.page{
         padding-bottom:3rem;
     }
 }
+.emulsion-layout-no-title article header{
+    display:none;
+}
 /**
  * Post Thumbnail
  * ========================================================================== */
@@ -111,20 +114,14 @@ body.excerpt,
     }
     li > div{
         display: inline-block;
+        max-width:100%;
         vertical-align: text-top;
     }
 
     .aligncenter {
         @extend %aligncenter;
     }
-    .wp-block-image.alignleft,
-    :not(figure) img.alignleft{
-        position:relative;
-    }
-    .wp-block-image.alignright,
-    :not(figure) img.alignright{
-        position:relative;
-    }
+
     [class|="search-result"]{
         display:block;
     }

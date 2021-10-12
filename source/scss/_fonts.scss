@@ -78,7 +78,7 @@ pre[class],
 pre code,
 .form-allowed-tags code,
 code, kbd, samp,
-tt {
+tt{
     font-family:'Osaka', 'Consolas', 'Courier New', 'Courier', 'MS Gothic', monospace;
 }
 kbd, samp,tt {
@@ -131,84 +131,86 @@ pre.wp-block-verse{
     font-style:italic;
     line-height:2;
 }
-body{
-    .has-large-font-size,
-    .has-extra-large-font-size{
-        line-height:var(--thm_common_line_height);
-    }
-    .tag-cloud-style-flat a{
-        font-size:var(--thm_meta_data_font_size, 13px);
-        text-transform:var(--thm_meta_data_font_transform);
-    }
-    .primary-menu-wrapper a{
-        font-size:var(--thm_meta_data_font_size, 13px);
-        text-transform:var(--thm_meta_data_font_transform);
-    }
-    .relate-posts{
-        .relate-post-no-icon{
-            font-family:fantasy,serif;
-            font-size:24px;
-        }
-    }
-    .wp-embed
-    .menu-placeholder{
-        font-size:var(--thm_common_font_size, 16px);
-    }
-    & > header{
-        &.header-layer{
-            .site-title{
-                font-family:var(--thm_heading_font_family);
-                font-size:24px;
-                font-weight:var(--thm_heading_font_weight);
-                line-height:var( --thm_common_line_height, 1.15 );
-                text-transform:var(--thm_heading_font_transform);
-            }
-            .site-description{
-                font-family:var(--thm_common_font_family);
-                font-size:var(--thm_common_font_size, 16px);
-                line-height:var(--thm_content_line_height, 1.5);
-            }
-            .taxonomy-description{
-                font-size:var(--thm_meta_data_font_size, 13px);
-                text-transform:var(--thm_meta_data_font_transform);
-            }
-        }
-    }
-    .taxonomy-description{
-        font-size:var(--thm_meta_data_font_size, 13px);
-        text-transform:var(--thm_meta_data_font_transform);
-    }
-    .trancate{
-        font-size:var(--thm_meta_data_font_size, 13px);
-        text-transform:var(--thm_meta_data_font_transform);
-    }
-
-
-    article{
-        .skin-button{
-            font-size:var(--thm_meta_data_font_size, 13px);
-            text-transform:var(--thm_meta_data_font_transform);
-        }
-        &.post-password-required{
-            .message{
-                font-size:var(--thm_meta_data_font_size, 13px);
-                text-transform:var(--thm_meta_data_font_transform);
-            }
-        }
-        figcaption{
-            font-size:var(--thm_meta_data_font_size, 13px);
-            text-transform:var(--thm_meta_data_font_transform);
-        }
-    }
-    .wp-block-search{
-        .wp-block-search__label,
-        .wp-block-search__button{
-            font-size:var(--thm_meta_data_font_size, 13px);
-            text-transform:var(--thm_meta_data_font_transform);
-        }
-
+//body{
+body .has-large-font-size,
+body .has-extra-large-font-size{
+    line-height:var(--thm_common_line_height);
+}
+body .tag-cloud-style-flat a{
+    font-size:var(--thm_meta_data_font_size, 13px);
+    text-transform:var(--thm_meta_data_font_transform);
+}
+body .primary-menu-wrapper a{
+    font-size:var(--thm_meta_data_font_size, 13px);
+    text-transform:var(--thm_meta_data_font_transform);
+}
+body .relate-posts{
+    .relate-post-no-icon{
+        font-family:fantasy,serif;
+        font-size:24px;
     }
 }
+body .wp-embed
+body .menu-placeholder{
+    font-size:var(--thm_common_font_size, 16px);
+}
+body > header{
+    &.header-layer{
+        .site-title{
+            font-family:var(--thm_heading_font_family);
+            font-size:24px;
+            font-weight:var(--thm_heading_font_weight);
+            line-height:var( --thm_common_line_height, 1.15 );
+            text-transform:var(--thm_heading_font_transform);
+        }
+        .site-description{
+            font-family:var(--thm_common_font_family);
+            font-size:var(--thm_common_font_size, 16px);
+            line-height:var(--thm_content_line_height, 1.5);
+        }
+        .taxonomy-description{
+            font-size:var(--thm_meta_data_font_size, 13px);
+            text-transform:var(--thm_meta_data_font_transform);
+        }
+    }
+}
+body .taxsonomy,
+body .wp-block-post-date,
+body .taxonomy-description{
+    font-size:var(--thm_meta_data_font_size, 13px);
+    text-transform:var(--thm_meta_data_font_transform);
+}
+body .trancate{
+    font-size:var(--thm_meta_data_font_size, 13px);
+    text-transform:var(--thm_meta_data_font_transform);
+}
+
+
+body article{
+    .skin-button{
+        font-size:var(--thm_meta_data_font_size, 13px);
+        text-transform:var(--thm_meta_data_font_transform);
+    }
+    &.post-password-required{
+        .message{
+            font-size:var(--thm_meta_data_font_size, 13px);
+            text-transform:var(--thm_meta_data_font_transform);
+        }
+    }
+    figcaption{
+        font-size:var(--thm_meta_data_font_size, 13px);
+        text-transform:var(--thm_meta_data_font_transform);
+    }
+}
+body .wp-block-search{
+    .wp-block-search__label,
+    .wp-block-search__button{
+        font-size:var(--thm_meta_data_font_size, 13px);
+        text-transform:var(--thm_meta_data_font_transform);
+    }
+
+}
+//}
 .footer-widget-area{
     &.template-part-widget-footer{
         .footer-widget-area-lists{
@@ -394,9 +396,9 @@ $step: 100;
  */
 .wp-block-columns{
     .wp-block-column:not(.main):not(.is-style-main){
-        @include font_size(5);
         margin-top:0;
         margin-bottom:0;
+        font-size:var(--thm_meta_data_font_size, 13px);
         h1,h2,h3,h4,h5,h6,p,ul,ol,table,.wp-block-table{
             margin-top:20px;
             margin-bottom:20px;
@@ -488,7 +490,7 @@ $step: 100;
                 max-width:100%;
                 border-bottom:1px solid rgba(188,188,188,.5);
                 @extend %block_main_wide;
-              //  font-family: 'Roboto', sans-serif;
+                //  font-family: 'Roboto', sans-serif;
                 .editor-post-title__input{
                     margin:0 auto;
                     font-family:var(--thm_heading_font_family);

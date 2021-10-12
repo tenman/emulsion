@@ -267,8 +267,9 @@
         margin-right:auto;
         margin-left:auto;
         clear:both;
-        &[class|="wp-block"]{
+        &[class|="wp-block"]:not(.wp-block-template-part-header-content){
             display:block;
+
         }
         &.wp-block-columns{
             padding-right:0;
@@ -294,14 +295,10 @@
         max-width:100%;
         padding-right:var(--thm_content_gap, 24px);
         padding-left:var(--thm_content_gap, 24px);
-        margin-right:0;
-        margin-left:0;
+        margin-right:auto;
+        margin-left:auto;
     }
-    .entry-content .wp-block-table{
-        max-width:100%;
-        margin-right:0;
-        margin-left:0;
-    }
+
     .wp-block-table.stretch,
     .hentry .entry-content .alignright,
     .hentry .entry-content .alignleft,
@@ -310,16 +307,16 @@
     .entry-content  .wp-block-table.alignfull,
     .entry-content  .wp-block-table.alignwide{
         width:100%;
-        margin-right:0;
-        margin-left:0;
+        margin-right:auto;
+        margin-left:auto;
     }
     .enable-alignfull #main .wp-block-cover.alignleft .wp-block-cover__inner-container,
     .enable-alignfull #main .wp-block-cover.alignright .wp-block-cover__inner-container{
         margin-top:20%;
     }
     .entry-content .wp-block-media-text{
-        margin-right:0;
-        margin-left:0;
+        margin-right:auto;
+        margin-left:auto;
     }
     .hentry .entry-content [class|="wp-block-embed"].alignfull{
         display:block;
@@ -641,7 +638,7 @@
     .header-layer-nav-menu input[type="checkbox"][data-skin="hamburger"]:checked ~ nav{
         position:absolute;
         top:1.5rem;
-        right:48px;
+      //  right:48px;
         z-index:10;
         display:block;
         visibility:visible;
@@ -864,7 +861,7 @@ body{
                         width:100vw;
                         height:53px;
                         nav[class|="menu"]{
-                            width:calc(100vw - 48px);
+                            width:100%;
                         }
                         input[type="checkbox"][data-skin="hamburger"]:checked ~ nav{
                             top:0;

@@ -796,7 +796,7 @@ body .edit-post-layout .interface-interface-skeleton__content{
                 display: -webkit-box;
                 display: -ms-flexbox;
                 display: flex;
-                -ms-flex-wrap: wrap;
+
                 flex-wrap: wrap;
                 align-items: stretch;
                 float:none;
@@ -1015,45 +1015,45 @@ body{
     }
 }
 
-body{
-    .has-background:not(.has-text-color){
+//body{
+    body .has-background:not(.has-text-color){
         color:var(--thm_black_color, #333333);
     }
-    .has-dark-gray-background-color:not(.has-text-color){
+    body .has-dark-gray-background-color:not(.has-text-color){
         // twenty twenty one
         color:var(--thm_white_color, #ffffff);
     }
-    .has-gray-background-color:not(.has-text-color){
+    body .has-gray-background-color:not(.has-text-color){
         color:var(--thm_white_color, #ffffff);
     }
-    .has-black-background-color:not(.has-text-color){
+    body .has-black-background-color:not(.has-text-color){
         color:var(--thm_white_color, #ffffff);
     }
-    .has-purple-to-yellow-gradient-background {
+    body .has-purple-to-yellow-gradient-background {
         background-image: linear-gradient(160deg, var(--global--color-purple), var(--global--color-yellow));
     }
-    .has-yellow-to-purple-gradient-background {
+    body .has-yellow-to-purple-gradient-background {
         background-image: linear-gradient(160deg, var(--global--color-yellow), var(--global--color-purple));
     }
-    .has-green-to-yellow-gradient-background {
+    body .has-green-to-yellow-gradient-background {
         background-image: linear-gradient(160deg, var(--global--color-green), var(--global--color-yellow));
     }
-    .has-yellow-to-green-gradient-background {
+    body .has-yellow-to-green-gradient-background {
         background-image: linear-gradient(160deg, var(--global--color-yellow), var(--global--color-green));
     }
-    .has-red-to-yellow-gradient-background {
+    body .has-red-to-yellow-gradient-background {
         background-image: linear-gradient(160deg, var(--global--color-red), var(--global--color-yellow));
     }
-    .has-yellow-to-red-gradient-background {
+    body .has-yellow-to-red-gradient-background {
         background-image: linear-gradient(160deg, var(--global--color-yellow), var(--global--color-red));
     }
-    .has-purple-to-red-gradient-background {
+    body .has-purple-to-red-gradient-background {
         background-image: linear-gradient(160deg, var(--global--color-purple), var(--global--color-red));
     }
-    .has-red-to-purple-gradient-background {
+    body .has-red-to-purple-gradient-background {
         background-image: linear-gradient(160deg, var(--global--color-red), var(--global--color-purple));
     }
-}
+//}
 /** Todo
  *
 .emulsion-gb-phase-site .editor-styles-wrapper .wp-block-columns,
@@ -1942,8 +1942,8 @@ div.is-root-container .wp-block-media-text.alignright{
 }
 
 .wp-block{
-    margin-right:auto;
-    margin-left:auto;
+    margin:0 auto;
+
     &[data-align="full"] .wp-block-group > .wp-block-group__inner-container > .wp-block:not(.wp-block-group):not(.wp-block-columns):not(.wp-block-image){
         padding-right:var(--thm_content_gap, 24px);
         //OW
@@ -2021,9 +2021,24 @@ div.is-root-container .wp-block-media-text.alignright{
                 }
             }
         }
+        .wp-block-image{
+           
+            position:relative;
+
+
+        }
         .wp-block-image.is-style-shrink{
-            margin-right:0;
+            margin-right:1rem;
             margin-left:auto;
+            .components-resizable-box__container{
+                img{
+                    margin-left:auto;
+                    margin-right:1rem;
+                }
+            }
+            img{
+                width:50%;
+            }
         }
         .wp-block-image:not(.resized){
             display:block;
@@ -2055,7 +2070,10 @@ div.is-root-container .wp-block-media-text.alignright{
         }
         .wp-block-image.is-style-shrink{
             margin-right:auto;
-            margin-left:0;
+            margin-left:1rem;
+            img{
+                width:50%;
+            }
         }
         .wp-block-image:not(.resized){
             display:block;
@@ -3269,6 +3287,7 @@ div.components-notice{
                     width:auto;
                     height:auto;
                     @extend %alignleft;
+                    margin:0 auto;
                     .alignleft{
                         width:100%;
                         max-width: calc(100% - var(--thm_content_gap, 24px) - 1rem);
@@ -3439,6 +3458,14 @@ body.editor-styles-wrapper{
     //OW
     .wp-block-post-template.is-flex-container li, .wp-block-query-loop.is-flex-container li {
         margin: var(--thm_box_gap);
+    }
+}
+.wp-block-post-template.is-flex-container li, .wp-block-query-loop.is-flex-container li {
+    //OW .editor-styles-wrapper .edit-post-visual-editor__post-title-wrapper > *,
+    //   .editor-styles-wrapper  .block-editor-block-list__layout.is-root-container > *
+    [data-type="core/post-excerpt"],
+    [data-type="core/post-featured-image"]{
+        max-width:100% !important;
     }
 }
 .edit-site-template-card__content{
@@ -3879,11 +3906,11 @@ body.editor-styles-wrapper{
         &:not(.has-icon-background-color){
             &:not(.has-icon-color){
                 .wp-social-link-chain {
-                    color:var(--thm_social_icon_color);
+                    color:var(--thm_social_icon_color, #666);
                     border: 2px solid rgba(188,188,188,.5);
                     a{
                         svg{
-                            fill:var(--thm_social_icon_color);
+                            fill:var(--thm_social_icon_color, #666);
                         }
                     }
                 }
@@ -3895,7 +3922,7 @@ body.editor-styles-wrapper{
                     //gutenberg deactivated WordPress 5.6
                     a{
                         svg{
-                            fill:var(--thm_social_icon_color);
+                            fill:var(--thm_social_icon_color, #666);
                         }
                     }
                 }

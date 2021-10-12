@@ -108,11 +108,13 @@ const emulsion_theme_scheme = array(
 		'emulsion_border_stream_width'					 => 1,
 		'emulsion_google_analytics_tracking_code'		 => '',
 	),
-	'full-size-header'	 => array(
+	/* deplecated Core features supported
+	 * 	'full-size-header'	 => array(
 		'emulsion_header_media_max_height'	 => 100,
 		'emulsion_common_google_font_url'	 => 'https://fonts.googleapis.com/css2?family=Raleway:wght@400&display=swap',
 		'emulsion_heading_google_font_url'	 => 'https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap',
 	),
+	 */
 	'midnight'			 => array(
 		'background_color'								 => '#1b262c',
 		'emulsion_header_gradient'						 => 'enable',

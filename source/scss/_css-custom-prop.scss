@@ -427,8 +427,8 @@ body{
  * No Script Presentation
  */
 
-body{
-    &.noscript{
+//body{
+    body.noscript{
 
         &.single-post.custom-background.emulsion-has-custom-background-image,
         &.page.custom-background.emulsion-has-custom-background-image{
@@ -524,10 +524,16 @@ body{
         }
         .menu-item-has-children > a:after{
             display:inline-block;
-            width:24px;
-            height:24px;
-            content:'\1f847';
+            width: calc(var(--thm_meta_data_font_size) * 1.5);
+            height: calc(var(--thm_meta_data_font_size) * 1.5);
+            //content:'\1f847';
+            content:'';
+            background: url(../images/svg/arrow-down.svg);
+            vertical-align:middle;
+            background-size:1rem;
             background-repeat:no-repeat;
+            background-postion:center;
+            margin-left:.25rem;
         }
         .menu-item-has-children .menu-item-has-children > a:after{
             margin-top:-.5rem;
@@ -549,7 +555,7 @@ body{
             }
         }
     }
-}
+//}
 .emulsion-has-sidebar{
     .has-column{
         .page-wrapper{
@@ -664,8 +670,8 @@ body:not(.emulsion-removed-presentation):not(.emulsion-not-support-presentation)
 /**
  * Extend block group
  * ========================================================================== */
-body{
-    &.emulsion-has-sidebar{
+//body{
+    body.emulsion-has-sidebar{
         .layout{
             &.has-column{
                 .wp-block-group{
@@ -689,7 +695,7 @@ body{
         }
     }
 
-    &.emulsion-no-sidebar{
+    body.emulsion-no-sidebar{
         .layout{
             .wp-block-group{
 
@@ -712,7 +718,7 @@ body{
         }
     }
 
-    &.emulsion-gb-phase-site .editor-styles-wrapper .block-editor-block-list__layout.is-root-container{
+    body.emulsion-gb-phase-site .editor-styles-wrapper .block-editor-block-list__layout.is-root-container{
 
         .wp-block-group.grid{
             --thm_content_width:720px;
@@ -830,8 +836,8 @@ body{
             //}
         }
     }
-    .wp-site-blocks,
-    .layout{
+    body .wp-site-blocks,
+    body .layout{
 
         .wp-block-group.grid{
             --thm_content_width:720px;
@@ -985,7 +991,7 @@ body{
         }
 
     }
-}
+//}
 /**
  * sizes
  */

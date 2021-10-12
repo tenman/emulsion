@@ -15,9 +15,8 @@
  * @since removed @if( $header_background_gradient_color != $header_bg_color )
  */
 @mixin bg-gradient($angle: 90deg) {
-    background: -o-linear-gradient($angle,  var(--thm_header_bg_color), var(--thm_header_background_gradient_color));
+    background: -webkit-gradient(linear,  left top, left bottom,  from($angle),  color-stop(var(--thm_header_bg_color)), to(var(--thm_header_background_gradient_color)) );
     background: linear-gradient($angle,  var(--thm_header_bg_color), var(--thm_header_background_gradient_color) );
-    background-image: -ms-linear-gradient($angle, var(--thm_header_bg_color), var(--thm_header_background_gradient_color) );
 }
 /**
  * Contrast Color
@@ -424,7 +423,7 @@
 %has-sidebar-alignfull{
     position:relative;
     width:100%;
-
+    max-width:100%;
 }
 /**
  * no sidebar alignfull
@@ -433,6 +432,7 @@
 %no-sidebar-alignfull{
     position:relative;
     width:100vw;
+    max-width:100%;
     overflow:visible;
 
     @media screen and ( min-width : 1280px ) {

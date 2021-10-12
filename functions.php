@@ -29,7 +29,6 @@ if ( is_customize_preview() ) {
 	add_theme_support( 'starter-content', emulsion_get_starter_content() );
 }
 
-
 add_action( 'admin_notices', 'emulsion_theme_admin_notice' );
 
 function emulsion_theme_admin_notice() {
@@ -911,11 +910,8 @@ if ( ! function_exists( 'emulsion_the_header_layer_class' ) ) {
 
 			if ( ! post_password_required( $post_id ) ) {
 				// Post using featured image
-				if ( has_post_thumbnail( $post_id ) &&
-						'yes' == get_theme_mod( 'emulsion_title_in_header', emulsion_theme_default_val( 'emulsion_title_in_header' ) &&
-								'custom' == get_theme_mod( 'emulsion_header_layout', emulsion_theme_default_val( 'emulsion_header_layout' ) ) &&
-								! empty( get_the_post_thumbnail() ) )  // like woocommerce
-				) {
+
+				if( emulsion_media_display_judgment() ) {
 
 					$class_name .= ' header-image-active';
 				} elseif ( emulsion_is_amp() && has_post_thumbnail( $post_id ) ) {
@@ -953,6 +949,24 @@ if ( ! function_exists( 'emulsion_the_header_layer_class' ) ) {
 		echo emulsion_class_name_sanitize( $class_name . ' ' . $class );
 	}
 
+}
+function emulsion_media_display_judgment() {
+
+	$current_post_type = trim( get_post_type() );
+	$post_id			 = get_the_ID();
+
+	if ( has_post_thumbnail( $post_id ) &&
+		! emulsion_is_amp() &&
+		'yes' == get_theme_mod( 'emulsion_title_in_header', emulsion_theme_default_val( 'emulsion_title_in_header' ) &&
+		'custom' == get_theme_mod( 'emulsion_header_layout', emulsion_theme_default_val( 'emulsion_header_layout' ) ) &&
+		! empty( get_the_post_thumbnail() ) ) &&  // like woocommerce
+		is_singular( array( $current_post_type ) ) &&
+		! post_password_required( $post_id )
+	) {
+
+		return true;
+	}
+	return false;
 }
 
 if ( ! function_exists( 'emulsion_body_background_class' ) ) {
@@ -2188,6 +2202,7 @@ if ( ! function_exists( 'emulsion_content_type' ) ) {
 
 if ( ! function_exists( 'emulsion_get_third_party_block_classes' ) ) {
 
+
 	function emulsion_get_third_party_block_classes() {
 		global $post;
 
@@ -2227,8 +2242,6 @@ function emulsion_get_template() {
 	$current_template_class = str_replace( '.', '-', basename( $template ) );
 
 	$template = sanitize_html_class( $current_template_class );
-
-
 
 	if ( 'template-canvas-php' == $template ) {
 		/*
@@ -2381,7 +2394,9 @@ if ( ! function_exists( 'emulsion_theme_get_font_sizes' ) ) {
 
 function emulsion_block_template_part( $part ) {
 
-	if ( ! function_exists( 'gutenberg_get_block_template' ) ) {
+
+
+	if ( ! function_exists( 'gutenberg_get_block_template' )   ) {
 
 		printf( '<div class="error" style="%2$s">%1$s</div>', esc_html__( 'Required gutenberg plugin', 'emulsion' ), 'padding:1.5rem; text-align:center;border:1px dashed red;' );
 
@@ -2484,4 +2499,3 @@ if ( ! function_exists( 'emulsion_custom_field_css' ) ) {
 }
 
 do_action( 'emulsion_functions_after' );
-

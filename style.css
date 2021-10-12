@@ -5,18 +5,18 @@ Theme URI: https://www.tenman.info/wp3/emulsion
 Description: block editor, classic editor both supports. Conventional, Image Media New Block Type Image Both media can be displayed correctly.Theme can stop at each theme style page for page builder users. Customizer can easily view changes with automatic preview redirection.Theme is designed with the goal of minimizing user frustration.
 Author: Tenman
 Author URI: https://www.tenman.info/wp3/
-Version: 2.0.6
+Version: 2.0.7
 Tags: one-column, two-columns, grid-layout,left-sidebar, right-sidebar,custom-background, custom-colors, custom-header,custom-logo, custom-menu, editor-style, featured-image-header, featured-images, flexible-header, footer-widgets, full-width-template, post-formats, sticky-post, theme-options, threaded-comments, translation-ready, block-patterns, block-styles, wide-blocks
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: emulsion
-Tested up to: 5.8.0
+Tested up to: 5.8
 Requires PHP: 5.6
 */
 body.custom-background.emulsion-not-support-presentation,
 body.custom-background.emulsion-removed-presentation{
-    background:#fff;
     color:#333;
+    background:#fff;
 }
 body.emulsion-removed-presentation .entry-text,
 body.emulsion-not-support-presentation .entry-text,
@@ -46,27 +46,23 @@ html {
 body {
     margin: 0;
 }
-/*
-h1 {
-    font-size: 2em;
-    margin: 0.67em 0;
-}*/
+
 hr {
     box-sizing: content-box;
     height: 0;
     overflow: visible;
 }
 pre {
-    font-family: monospace, monospace;
+    font-family: monospace;
     font-size: 1em;
 }
 a {
     background-color: transparent;
+    color:var(--thm_general_link_color, #666666 );
 }
 abbr[title] {
-    border-bottom: none;
-    text-decoration: underline;
     text-decoration: underline dotted;
+    border-bottom: none;
 }
 b,
 strong {
@@ -75,7 +71,7 @@ strong {
 code,
 kbd,
 samp {
-    font-family: monospace, monospace;
+    font-family: monospace;
     font-size: 1em;
 }
 small {
@@ -83,9 +79,9 @@ small {
 }
 sub,
 sup {
+    position: relative;
     font-size: 75%;
     line-height: 0;
-    position: relative;
     vertical-align: baseline;
 }
 sub {
@@ -102,10 +98,10 @@ input,
 optgroup,
 select,
 textarea {
+    margin: 0;
     font-family: inherit;
     font-size: 100%;
     line-height: 1.15;
-    margin: 0;
 }
 button,
 input {
@@ -125,8 +121,8 @@ button::-moz-focus-inner,
 [type="button"]::-moz-focus-inner,
 [type="reset"]::-moz-focus-inner,
 [type="submit"]::-moz-focus-inner {
-    border-style: none;
     padding: 0;
+    border-style: none;
 }
 button:-moz-focusring,
 [type="button"]:-moz-focusring,
@@ -139,10 +135,10 @@ fieldset {
 }
 legend {
     box-sizing: border-box;
-    color: inherit;
     display: table;
     max-width: 100%;
     padding: 0;
+    color: inherit;
     white-space: normal;
 }
 progress {
@@ -194,12 +190,12 @@ img{
 .layout,
 .navigation,
 .footer-layer{
-    margin-left:auto;
     margin-right:auto;
+    margin-left:auto;
 }
 header{
-    margin-left:auto;
     margin-right:auto;
+    margin-left:auto;
     overflow:hidden;
 }
 .template-part-header{
@@ -223,19 +219,19 @@ header{
 body.is-light .scroll-button-top:before,
 body .header-is-default-color ~ .scroll-button-top:before,
 body .header-is-light ~ .scroll-button-top:before {
-    background: url(./images/svg/arrow-up.svg);
-    background-size: contain;
-    background-position: center center;
-    background-repeat: no-repeat;
-    width: 16px;
-    height: 16px;
     position: absolute;
-    display: block;
     top: 0;
     right: 0;
     bottom: 0;
     left: -2px;
+    display: block;
+    width: 16px;
+    height: 16px;
     margin: auto;
+    background: url(./images/svg/arrow-up.svg);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
 }
 body.scheme-midnight .header-is-default-color ~ .scroll-button-top:before,
 body .header-is-dark ~ .scroll-button-top:before,
@@ -262,19 +258,19 @@ body.is-dark.metabox-reset-post-presentation .header-layer.template-part-header-
     background-size: contain
 }
 body .header-is-dark ~ .scroll-button-top:before {
-    background: url(./images/svg/arrow-up.svg#white);
-    background-size: contain;
-    background-position: center center;
-    background-repeat: no-repeat;
-    width: 16px;
-    height: 18px;
     position: absolute;
-    display: block;
     top: 0;
     right: 0;
     bottom: 0;
     left: -2px;
-    margin: auto
+    display: block;
+    width: 16px;
+    height: 18px;
+    margin: auto;
+    background: url(./images/svg/arrow-up.svg#white);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain
 }
 
 
@@ -315,30 +311,29 @@ body.is-dark.metabox-reset-page-presentation .header-layer.template-part-header-
 body.is-light.metabox-reset-page-presentation .header-layer.template-part-header-custom + .primary-menu-wrapper .wp-nav-menu.menu .nav-menu-child-opener-label:before,
 body.is-light.metabox-reset-post-presentation .header-layer-site-title-navigation .menu .nav-menu-child-opener-label:before {
     background: url(./images/svg/arrow-down.svg);
-    background-size: contain;
     filter: none;
-    -webkit-filter: none;
+    background-size: contain;
 }
 
 body.is-dark .header-layer.template-part-header-custom + .primary-menu-wrapper.menu-is-default .menu.wp-nav-menu .nav-menu-child-opener[type="checkbox"]:checked ~ label:before{
     background: url(./images/svg/arrow-up.svg#white);
-    background-size: contain;
+
     filter: none;
-    -webkit-filter: none;
+    background-size: contain;
 }
 body.is-dark .dropdown-on-click-title:after,
 body.is-dark .dropdown-on-hover-title:after,
 body.is-dark .header-layer.template-part-header-custom + .primary-menu-wrapper.menu-is-default .menu.wp-nav-menu .nav-menu-child-opener-label:before{
     background: url(./images/svg/arrow-down.svg#white);
-    background-size: contain;
+
     filter: none;
-    -webkit-filter: none;
+    background-size: contain;
 }
 .emulsion-addons-inactive  body > .template-part-header .menu .nav-menu-child-opener-label:before{
     background: url(./images/svg/arrow-down.svg);
-    background-size: contain;
+
     filter: none;
-    -webkit-filter: none;
+    background-size: contain;
 
 }
 .emulsion-addons-inactive body > .template-part-header .menu .nav-menu-child-opener[type="checkbox"]:checked ~ label:before{
@@ -348,9 +343,6 @@ body.is-dark .header-layer.template-part-header-custom + .primary-menu-wrapper.m
 
 }
 
-
-
-
 body.is-dark .wp-block-page-list__submenu-icon svg{
     fill:var(--thm_white_color, #ffffff);
 }
@@ -358,31 +350,31 @@ body.is-light .wp-block-page-list__submenu-icon svg{
     fill:var(--thm_black_color, #333333);
 }
 .emulsion-addons-inactive .scroll-button-top:before {
-    content: ' ';
-    background-size: contain;
-    background-position: center center;
-    background-repeat: no-repeat;
-    width: 16px;
-    height: 18px;
     position: absolute;
-    display: block;
     top: 0;
     right: 0;
     bottom: 0;
     left: -2px;
+    display: block;
+    width: 16px;
+    height: 18px;
     margin: auto;
+    content: ' ';
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
 }
 .emulsion-addons-inactive .is-light .scroll-button-top:before {
     background: url(./images/svg/arrow-up.svg);
-    background-size: contain;
-    background-position: center center;
     background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
 }
 .emulsion-addons-inactive .is-dark .scroll-button-top:before {
     background: url(./images/svg/arrow-up.svg#white);
-    background-size: contain;
-    background-position: center center;
     background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
 }
 
 .header-layer.header-image-active .header-layer-nav-menu .nav-menu-child-opener-label:before,
@@ -403,16 +395,16 @@ body > header.template-part-header.header-is-dark .header-layer-site-title-navig
 body > header.header-layer.header-is-dark .menu .nav-menu-child-opener-label:before,
 body.has-category-colors.category > header.header-layer.template-part-header .header-layer-site-title-navigation .nav-menu-child-opener-label:before {
     background: url(./images/svg/arrow-down.svg#white);
-    background-size: contain;
+
     filter: none;
-    -webkit-filter: none
+    background-size: contain
 }
 
 body.is-dark.metabox-reset-post-presentation .header-layer.template-part-header-custom + .primary-menu-wrapper .menu.wp-nav-menu .nav-menu-child-opener-label:before{
     background: url(./images/svg/arrow-down.svg);
-    background-size: contain;
+
     filter: none;
-    -webkit-filter: none
+    background-size: contain
 }
 
 .post-password-required .theme-message .post-password-form .message:before {
@@ -452,8 +444,8 @@ body.is-dark.metabox-reset-post-presentation .header-layer.template-part-header-
 .wp-block-cover-image.has-background-dim:not([class*=-background-color]),
 .wp-block-cover.has-background-dim:not([class*=-background-color]),
 .has-background{
-    background:var(--thm_unknown-bg);
     color:var(--thm_black_color, #333333);
+    background:var(--thm_unknown-bg);
 }
 
 
@@ -489,7 +481,10 @@ body.is-dark.metabox-reset-post-presentation .header-layer.template-part-header-
  * when creating the article even after switching to the theme,
  * paste the following style into the customizer's custom CSS.
  */
-
+body{
+    --wp--style--block-gap:calc(var(--thm_box_gap, 3px) * 2);
+    --gallery-block--gutter-size:calc(var(--thm_box_gap, 3px) * 2);
+}
 
 
 body:not(.emulsion-not-support-presentation){
@@ -523,23 +518,18 @@ body:not(.emulsion-not-support-presentation) .wp-block-table{
 }
 
 body[class*='scheme-']:not(.emulsion-fse-active){
-    background:var(--thm_background_color);
+   /* background:var(--thm_background_color); */
 }
 
 /*body:not(.emulsion-fse-active) {*/
 :root{
-    color: var(--thm_black_color, #333333);
+    color:var(--thm_general_text_color, #333333);
 }
 
-body .grid .article-wrapper article header a {
-
-}
 body .grid .article-wrapper article header.show-post-image a {
     color: var(--thm_white_color, #ffffff);
 }
-body .comment-wrapper{
-    /*  var(--thm_comments_bg, #eeeeee);*/
-}
+
 body .relate-content-wrapper {
     background: var(--thm_relate_posts_bg, #eeeeee);
 }
@@ -570,21 +560,21 @@ body .pagination .current, body .pagination .prev, body .pagination .next {
     background: rgba(188, 188, 188, 0.2);
 }
 
-:root .has-midnight-gradient-background,
-:root .has-cool-to-warm-spectrum-gradient-background,
-:root .has-luminous-vivid-orange-to-vivid-red-gradient-background,
-:root .has-vivid-cyan-blue-to-vivid-purple-gradient-background{
+html .has-midnight-gradient-background,
+html .has-cool-to-warm-spectrum-gradient-background,
+html .has-luminous-vivid-orange-to-vivid-red-gradient-background,
+html .has-vivid-cyan-blue-to-vivid-purple-gradient-background{
     color:var(--thm_white_color, #ffffff);
 }
-:root .has-white-background-color,
-:root .has-electric-grass-gradient-background,
-:root .has-luminous-dusk-gradient-background,
-:root .has-blush-bordeaux-gradient-background,
-:root .has-blush-light-purple-gradient-background,
-:root .has-very-light-gray-to-cyan-bluish-gray-gradient-background,
-:root .has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background,
-:root .has-light-green-cyan-to-vivid-green-cyan-gradient-background,
-:root .has-pale-ocean-gradient-background{
+html .has-white-background-color,
+html .has-electric-grass-gradient-background,
+html .has-luminous-dusk-gradient-background,
+html .has-blush-bordeaux-gradient-background,
+html .has-blush-light-purple-gradient-background,
+html .has-very-light-gray-to-cyan-bluish-gray-gradient-background,
+html .has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background,
+html .has-light-green-cyan-to-vivid-green-cyan-gradient-background,
+html .has-pale-ocean-gradient-background{
     color:var(--thm_black_color, #333333);
 }
 
@@ -629,10 +619,10 @@ pre.wp-block-code.is-style-dark code .block-editor-plain-text {
 }
 
 p > code {
+    padding-right: 0.25rem;
+    padding-left: 0.25rem;
     color: var(--thm_code_color, #555555);
     background: var(--thm_code_bg, #f8f8ff);
-    padding-left: 0.25rem;
-    padding-right: 0.25rem;
 }
 
 del,
@@ -659,40 +649,40 @@ h6.has-text-color>a {
 .has-cool-background-color,
 .mark-success,
 .mark-cool {
+    color:var(--thm_black_color, #333333);
     background: var(--thm_cool_color_alpha, rgba(52, 152, 219, .4));
     background-image:linear-gradient( var(--thm_cool_color_alpha, rgba(52, 152, 219, .4)), var(--thm_cool_color_alpha, rgba(52, 152, 219, .4)) ),
         linear-gradient(  var(--thm_white_color, #ffffff), var(--thm_white_color, #ffffff) );
-    color:var(--thm_black_color, #333333);
 }
 
 .has-notice-background-color,
 .mark-notice {
+    color:var(--thm_black_color, #333333);
     background: var(--thm_notice_color_alpha, rgba(163, 140, 8, .4));
     background-image:linear-gradient( var(--thm_notice_color_alpha, rgba(163, 140, 8, .4)), var(--thm_notice_color_alpha, rgba(163, 140, 8, .4)) ),
         linear-gradient(  var(--thm_white_color, #ffffff), var(--thm_white_color, #ffffff) );
-    color:var(--thm_black_color, #333333);
 }
 .has-info-background-color,
 .mark-info {
+    color:var(--thm_black_color, #333333);
     background: var(--thm_info_color_alpha, rgba(22, 160, 133, .4));
     background-image:linear-gradient( var(--thm_info_color_alpha, rgba(22, 160, 133, .4)), var(--thm_info_color_alpha, rgba(22, 160, 133, .4)) ),
         linear-gradient(  var(--thm_white_color, #ffffff), var(--thm_white_color, #ffffff) );
-    color:var(--thm_black_color, #333333);
 }
 
 .has-alert-background-color,
 .mark-alert {
+    color:var(--thm_black_color, #333333);
     background: var(--thm_alert_color_alpha, rgba(231, 76, 60, .4));
     background-image:linear-gradient(  var(--thm_alert_color_alpha, rgba(231, 76, 60, .4)),  var(--thm_alert_color_alpha, rgba(231, 76, 60, .4)) ),
         linear-gradient(  var(--thm_white_color, #ffffff), var(--thm_white_color, #ffffff) );
-    color:var(--thm_black_color, #333333);
 
 }
 
 .has-gray-background-color,
 .mark-gray{
-    background: var(--thm_gray_color, #A9A9A9);
     color: var(--thm_black_color, #333333);
+    background: var(--thm_gray_color, #A9A9A9);
 }
 
 .has-stripe-background-color:not(.has-text-color),
@@ -746,5 +736,3 @@ body.emulsion-has-sidebar.is-dark.scheme-midnight .primary-menu-wrapper nav[clas
     border-bottom-style: var(--thm_common_border_style, solid);
     border-bottom-width: var(--thm_common_border_width, 1px);
 }
-
-/*------------------------------------------*/

@@ -7,10 +7,8 @@
 	<?php
 	$current_post_type = trim( get_post_type() );
 
-	if ( has_post_thumbnail() &&
-			'yes' == get_theme_mod( 'emulsion_title_in_header', emulsion_theme_default_val( 'emulsion_title_in_header' ) ) &&
-			is_singular( array( $current_post_type ) ) &&
-			! post_password_required( $post ) ) {
+	if( emulsion_media_display_judgment() ) {
+		
 		?><div class="post-featured-image"><?php the_post_thumbnail( 'post-thumbnail', array('layout' => 'responsive', 'loading' => 'eager' ) ); //get_the_post_thumbnail ?></div><?php
 	} else {
 

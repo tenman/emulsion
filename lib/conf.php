@@ -14,8 +14,6 @@ if ( ! defined( 'EMULSION_DARK_MODE_SUPPORT' ) ) {
 	define( 'EMULSION_DARK_MODE_SUPPORT', false );
 }
 
-
-
 /**
  * Note:content width
  * required smaller than emulsion_main_width value (default 1280)
@@ -406,6 +404,7 @@ function emulsion_wp_scss_set_variables_fallback( $variables ) {
 
 		$header_text_color = sprintf( '#%1$s', get_header_textcolor() );
 	}
+
 	$variables = array(
 		'heading_font_scale'				 => get_theme_mod( 'emulsion_heading_font_scale', emulsion_theme_default_val( 'emulsion_heading_font_scale', 'unit_val' ) ),
 		'heading_font_base'					 => get_theme_mod( 'emulsion_heading_font_base', emulsion_theme_default_val( 'emulsion_heading_font_base', 'val' ) ),
