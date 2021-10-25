@@ -5,7 +5,7 @@ Theme URI: https://www.tenman.info/wp3/emulsion
 Description: block editor, classic editor both supports. Conventional, Image Media New Block Type Image Both media can be displayed correctly.Theme can stop at each theme style page for page builder users. Customizer can easily view changes with automatic preview redirection.Theme is designed with the goal of minimizing user frustration.
 Author: Tenman
 Author URI: https://www.tenman.info/wp3/
-Version: 2.0.7
+Version: 2.0.8
 Tags: one-column, two-columns, grid-layout,left-sidebar, right-sidebar,custom-background, custom-colors, custom-header,custom-logo, custom-menu, editor-style, featured-image-header, featured-images, flexible-header, footer-widgets, full-width-template, post-formats, sticky-post, theme-options, threaded-comments, translation-ready, block-patterns, block-styles, wide-blocks
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -13,6 +13,7 @@ Text Domain: emulsion
 Tested up to: 5.8
 Requires PHP: 5.6
 */
+
 body.custom-background.emulsion-not-support-presentation,
 body.custom-background.emulsion-removed-presentation{
     color:#333;
@@ -24,6 +25,18 @@ body.emulsion-not-support-presentation #primary-menu-controll,
 body.emulsion-removed-presentation #primary-menu-controll{
     display:none;
 }
+/**
+ *
+ */
+
+.is-presentation-fse.scheme-boilerplate .wp-block-navigation__responsive-container-content,
+.scheme-boilerplate .layout,
+.scheme-boilerplate .primary-menu-wrapper{
+        width:720px;
+        max-width:calc(100% - 24px);
+        margin:0 auto;
+
+    }
 
 
 /**
@@ -40,7 +53,6 @@ body.emulsion-removed-presentation #primary-menu-controll{
  */
 
 html {
-    line-height: 1.15;
     -webkit-text-size-adjust: 100%;
 }
 body {
@@ -57,8 +69,8 @@ pre {
     font-size: 1em;
 }
 a {
-    background-color: transparent;
     color:var(--thm_general_link_color, #666666 );
+    background-color: transparent;
 }
 abbr[title] {
     text-decoration: underline dotted;

@@ -48,6 +48,7 @@ function emulsion_theme_admin_notice_fse() {
 }
 
 if ( 'theme' == get_theme_mod( 'emulsion_editor_support' ) ) {
+
 	// todo can't remove. can't hide with CSS because the message doesn't have a special class
 	remove_action( 'admin_notices', 'gutenberg_full_site_editing_notice' );
 }

@@ -970,7 +970,6 @@ ol{
 /**
  * OL list format exception
  */
-
 ol.wp-block-latest-comments,
 ol.wp-list-comments,
 ol[class|="wp-block"]{
@@ -1627,7 +1626,14 @@ pre > code{
 /**
  * Table
  * ========================================================================== */
-
+figure.wp-block-table.no-wrap{
+    table{
+        max-width:none;
+        th,td,tfoot,thead{
+            white-space:pre;
+        }
+    }
+}
 table {
     box-sizing:border-box;
     display:table;

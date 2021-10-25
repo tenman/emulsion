@@ -42,7 +42,9 @@ function emulsion_hooks_setup() {
 		add_action( 'theme_mod_emulsion_header_html', 'do_blocks' );
 		add_action( 'theme_mod_emulsion_footer_credit', 'do_blocks' );
 	}
+
 	//Post title cannot be displayed in header when html template is loaded
+
 	'html' == get_theme_mod( 'emulsion_header_template' ) ? add_filter( 'theme_mod_emulsion_title_in_header', function ( $yesno ) {
 						return 'no';
 					} ) : '';
@@ -72,6 +74,15 @@ function emulsion_hooks_setup() {
 			$template_path = get_template_directory() . '/block-patterns/block-pattern-relate-posts.php';
 
 			return include( $template_path );
+		}
+		return $content;
+	} );
+
+	add_filter( 'render_block_core/navigation', function ( $content ) {
+
+		if ( 'transitional' == get_theme_mod( 'emulsion_editor_support' ) ) {
+
+			return;
 		}
 		return $content;
 	} );
@@ -237,8 +248,9 @@ if ( ! function_exists( 'emulsion_body_class' ) ) {
 		}
 
 		if ( true === emulsion_the_theme_supports( 'title_in_page_header' ) ) {
-
+			// fse mode allways return no
 			$title_in_header = get_theme_mod( "emulsion_title_in_header", emulsion_theme_default_val( 'emulsion_title_in_header' ) );
+
 			// fse needs this
 			if ( 'yes' == $title_in_header ) {
 
