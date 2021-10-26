@@ -97,6 +97,23 @@ body{
         text-decoration: solid underline purple 1px;
     }
 }
+//site editor layout issue
+
+body{
+    [class|="wp-container"]{
+        & > *{
+            max-width:100%;
+        }
+        & > .alignleft{
+            margin-right:1rem !important;
+            margin-left:var(--thm_content_gap, 24px) !important;
+        }
+        & > .alignright{
+            margin-right:var(--thm_content_gap, 24px) !important;
+            margin-left:1rem !important;
+        }
+    }
+}
 
 .wp-site-blocks{
     overflow:hidden;
@@ -531,8 +548,8 @@ $fse_blocks: wp-block-site-title, wp-block-site-tagline, wp-block-post-title, wp
         margin:0 auto;
     }
     .header-text .alignleft{
-        margin-left:0 !important;
         margin-right:0 !important;
+        margin-left:0 !important;
     }
 
 }
@@ -896,8 +913,8 @@ $fse_blocks: wp-block-site-title, wp-block-site-tagline, wp-block-post-title, wp
 
 .emulsion.is-presentation-fse{
     .wp-block-navigation{
-        z-index:30;
         position:relative;
+        z-index:30;
         width:-moz-fit-content;
         width:fit-content;
         .wp-block-navigation__container{
@@ -906,14 +923,14 @@ $fse_blocks: wp-block-site-title, wp-block-site-tagline, wp-block-post-title, wp
             .wp-block-navigation-item{
                 flex:1 1 auto;
                 a{
-                    display:flex;
                     position:relative;
                     z-index:20;
+                    display:flex;
                 }
             }
             .wp-block-navigation__submenu-container:not(#specificity){
-                margin:0 auto;
                 padding:0;
+                margin:0 auto;
             }
             .wp-block-navigation__submenu-icon{
                 display:inline-block;
@@ -924,11 +941,11 @@ $fse_blocks: wp-block-site-title, wp-block-site-tagline, wp-block-post-title, wp
 
         &.fse-primary{
             .wp-block-navigation__container{
-                background:var(--thm_primary_menu_background, #ffffff);
                 color:var(--thm_primary_menu_color, #333333);
+                background:var(--thm_primary_menu_background, #ffffff);
                 .wp-block-navigation__submenu-container{
-                    background:var(--thm_primary_menu_background, #ffffff);
                     color:var(--thm_primary_menu_color, #333333);
+                    background:var(--thm_primary_menu_background, #ffffff);
                     .wp-block-navigation-item{
                         a{
                             color:var(--thm_primary_menu_link_color, #666666);
@@ -945,15 +962,15 @@ $fse_blocks: wp-block-site-title, wp-block-site-tagline, wp-block-post-title, wp
                         .wp-block-navigation__container{
                             display:block;
                             .wp-block-navigation-item{
-                                display:block;
                                 position:static;
+                                display:block;
 
 
                             }
                             .wp-block-navigation__submenu-container{
                                 .wp-block-navigation__submenu-container{
-                                    display:block;
                                     position: static;
+                                    display:block;
 
                                 }
 
@@ -981,9 +998,9 @@ $fse_blocks: wp-block-site-title, wp-block-site-tagline, wp-block-post-title, wp
                             display:inline-block;
                             width:100%;
                             .wp-block-navigation-link__content{
+                                display:block;
                                 padding-right:0;
                                 padding-left:0;
-                                display:block;
                             }
 
                         }
@@ -991,9 +1008,9 @@ $fse_blocks: wp-block-site-title, wp-block-site-tagline, wp-block-post-title, wp
                             display:block;
 
                             .wp-block-navigation-item{
-                                display:inline-block;
                                 position: absolute;
                                 left: 100%;
+                                display:inline-block;
                                 border: 1px solid rgba(0,0,0,.15);
                                 .wp-block-navigation-link__submenu-icon{
                                     margin:0;

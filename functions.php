@@ -2301,9 +2301,9 @@ function emulsion_get_template() {
 		$post_id		 = get_the_ID();
 		$custom_template = get_post_meta( $post_id, '_wp_page_template', true );
 
-		if ( ! empty( $custom_template ) ) {
+		if ( ! empty( $custom_template ) && 'default' !== $custom_template ) {
 
-			return  sanitize_html_class( $custom_template );
+			return  sanitize_html_class( $custom_template. '_template' );
 		}
 
 		if ( is_404() && is_readable( get_template_directory() . '/block-templates/404.html' ) ) {
