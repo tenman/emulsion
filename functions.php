@@ -280,9 +280,6 @@ if ( ! function_exists( 'emulsion_widgets_init' ) ) {
 
 	function emulsion_widgets_init() {
 
-		if ( 'fse' == get_theme_mod( 'emulsion_editor_support' ) ) {
-			return;
-		}
 
 		if ( emulsion_the_theme_supports( 'sidebar' ) ) {
 

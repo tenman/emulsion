@@ -835,6 +835,7 @@ if ( ! function_exists( 'emulsion_theme_styles' ) ) {
 
 .emulsion-addons-inactive{
 	--thm_content_gap:24px;
+	--thm_align_offset:200px;
 }
 
 .emulsion-addons-inactive .excerpt .article-wrapper{

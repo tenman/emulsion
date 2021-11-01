@@ -440,6 +440,7 @@ body.scheme-midnight{
         }
     }
 }
+
 .header-layer-site-title-navigation{
     color:var(--thm_header_text_color);
     background:var( --thm_header_bg_color);
@@ -861,6 +862,17 @@ table{
 /**
  *
  * ========================================================================== */
+.menu-main-container{
+    background:var(--thm_primary_menu_background);
+    color:var(--thm_primary_menu_color);
+    .wp-nav-menu{
+        &.primary{
+            a{
+                color:var(--thm_primary_menu_color);
+            }
+        }
+    }
+}
 .has-category-colors{
     &.category{
         & > header{
@@ -1326,7 +1338,7 @@ body{
         }
     }
 }
-//body{
+
 body .has-purple-to-yellow-gradient-background {
     background-image: linear-gradient(160deg, var(--global--color-purple), var(--global--color-yellow));
 }
@@ -1355,7 +1367,8 @@ body .has-dark-gray-background-color:not(.has-text-color){
     // twenty twenty one
     color:var(--thm_white_color);
 }
-//}
+
+
 
 /**
  * FSE

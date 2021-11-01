@@ -26,11 +26,11 @@ if ( function_exists( 'register_block_style' ) ) {
 		. ' h4.is-style-remove-text-transform,'
 		. ' h3.is-style-remove-text-transform,'
 		. ' h2.is-style-remove-text-transform,'
-		. '#document h6.is-style-remove-text-transform,'
-		. '#document h5.is-style-remove-text-transform,'
-		. '#document h4.is-style-remove-text-transform,'
-		. '#document h3.is-style-remove-text-transform,'
-		. '#document h2.is-style-remove-text-transform{'
+		. '.editor-styles-wrapper h6.is-style-remove-text-transform,'
+		. '.editor-styles-wrapper h5.is-style-remove-text-transform,'
+		. '.editor-styles-wrapper h4.is-style-remove-text-transform,'
+		. '.editor-styles-wrapper h3.is-style-remove-text-transform,'
+		. '.editor-styles-wrapper h2.is-style-remove-text-transform{'
 		. "text-transform: none;"
 		. "}",) );
 

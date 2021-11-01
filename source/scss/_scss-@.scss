@@ -131,7 +131,7 @@
  */
 %block_wide {
     box-sizing:border-box;
-    width:calc( var(--thm_content_width, 720px) + var(--thm_align_offset) );
+    width:calc( var(--thm_content_width, 720px) + var(--thm_align_offset, 200px) );
     max-width:100%;
     padding-right:var( --thm_content_gap, 24px );
     padding-left:var( --thm_content_gap, 24px );
@@ -266,7 +266,7 @@
     article{
         & > header{
             .entry-title{
-                max-width:calc( var(--thm_content_width, 720px) + var(--thm_align_offset) );
+                max-width:calc( var(--thm_content_width, 720px) + var(--thm_align_offset, 200px) );
                 margin-right:auto;
                 margin-left:auto;
             }
@@ -390,7 +390,7 @@
 %aligncenter {
     box-sizing:border-box;
     float:none;
-    width:calc( var(--thm_content_width, 720px) - var(--thm_align_offset) );
+    width:calc( var(--thm_content_width, 720px) - var(--thm_align_offset, 200px) );
     max-width:100%;
     margin:1.5rem auto .75rem;
     clear:both;
@@ -410,7 +410,7 @@
 %alignwide{
     position: relative;
     left:0;
-    width:calc( var(--thm_content_width, 720px) + var(--thm_align_offset) );
+    width:calc( var(--thm_content_width, 720px) + var(--thm_align_offset, 200px) );
     max-width:100%;
     margin-right:auto;
     margin-left:auto

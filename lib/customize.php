@@ -10,8 +10,23 @@ if ( ! function_exists( 'emulsioncustomize_register' ) ) {
 	function emulsion_customize_register( $wp_customize ) {
 
 
-
 		$emulsion_theme_mod_args = array(
+
+			'emulsion_editor_support'	 => array(
+				'section'			 => 'emulsion_editor',
+				'default'			 => 'theme',
+				'label'				 => esc_html__( 'Theme Operation Mode Setting', 'emulsion' ),
+				'description'		 => esc_html__( 'This theme can be run as either the currently widely used theme ( php template ) or the latest Full site editiong theme ( html template ) by changing the settings.', 'emulsion' ).
+										sprintf('<p><a href="%1$s" target="blank" style="text-decoration:underline">%2$s</a></p>', 'https://www.tenman.info/wp3/emulsion/en/2021/10/28/emulsion-theme-editor-type/',esc_html__('More Details', 'emulsion') ),
+				'sanitize_callback'	 => 'emulsion_editor_support_validate',
+				'type'				 => 'radio',
+				'choices'			 => array(
+					'experimental'	 => esc_html__( 'Experimental Mode', 'emulsion' ),
+					'fse'			 => esc_html__( 'Full Site Editing Theme', 'emulsion' ),
+					'transitional'	 => esc_html__( 'FSE Transitional Theme', 'emulsion' ),
+					'theme'			 => esc_html__( 'Classic Theme', 'emulsion' ),
+				),
+			),
 			'emulsion_scheme'			 => array(
 				'section'			 => 'emulsion_scheme',
 				'default'			 => 'default',
@@ -19,20 +34,6 @@ if ( ! function_exists( 'emulsioncustomize_register' ) ) {
 				'description'		 => ! emulsion_theme_addons_exists() ? esc_html__( 'Plugins activate more detailed settings such as fonts and sidebar colors.', 'emulsion' ) : '',
 				'sanitize_callback'	 => 'emulsion_scheme_validate',
 				'type'				 => 'emulsionImageRadio',
-			),
-			'emulsion_editor_support'	 => array(
-				'section'			 => 'emulsion_editor',
-				'default'			 => 'theme',
-				'label'				 => esc_html__( 'Editor', 'emulsion' ),
-				'description'		 => esc_html__( 'Choose between using the new template system or the old template (requred Gutenberg plugin)', 'emulsion' ),
-				'sanitize_callback'	 => 'emulsion_editor_support_validate',
-				'type'				 => 'radio',
-				'choices'			 => array(
-					'experimental'	 => esc_html__( 'Experimental Mode (Emulsion-addons plugin required)', 'emulsion' ),
-					'fse'			 => esc_html__( 'Full Site Editor (HTML Template)', 'emulsion' ),
-					'transitional'	 => esc_html__( 'FSE Transitional', 'emulsion' ),
-					'theme'			 => esc_html__( 'Theme Default (PHP Template)', 'emulsion' ),
-				),
 			),
 			'emulsion_header_template'	 => array(
 				'section'			 => 'emulsion_editor',
@@ -63,10 +64,11 @@ if ( ! function_exists( 'emulsioncustomize_register' ) ) {
 		if ( ! emulsion_the_theme_supports( 'scheme' ) ) {
 
 			unset( $emulsion_theme_mod_args['emulsion_scheme'] );
+
 		} else {
 
 			$wp_customize->add_section( 'emulsion_scheme', array(
-				'title'			 => esc_html__( 'SCHEME', 'emulsion' ),
+				'title'			 => esc_html__( 'One Click Configs', 'emulsion' ),
 				'description'	 => $emulsion_theme_mod_args['emulsion_scheme']['description'],
 				'priority'		 => 33
 			) );
@@ -87,10 +89,11 @@ if ( ! function_exists( 'emulsioncustomize_register' ) ) {
 		if ( ! is_child_theme() ) {
 
 			$wp_customize->add_section( 'emulsion_editor', array(
-				'title'			 => esc_html__( 'Full Site Editor', 'emulsion' ),
+				'title'			 => esc_html__( 'Theme Scheme', 'emulsion' ),
 				'description'	 => $emulsion_theme_mod_args['emulsion_scheme']['description'],
-				'priority'		 => 33
+				'priority'		 => 20
 			) );
+
 			$wp_customize->add_setting( 'emulsion_editor_support', array(
 				'default'			 => $emulsion_theme_mod_args['emulsion_editor_support']['default'],
 				'sanitize_callback'	 => $emulsion_theme_mod_args['emulsion_editor_support']['sanitize_callback'],
@@ -104,6 +107,8 @@ if ( ! function_exists( 'emulsioncustomize_register' ) ) {
 				'type'			 => $emulsion_theme_mod_args['emulsion_editor_support']['type'],
 				'choices'		 => $emulsion_theme_mod_args['emulsion_editor_support']['choices'],
 			) );
+
+
 
 			$wp_customize->add_setting( 'emulsion_header_template', array(
 				'default'			 => $emulsion_theme_mod_args['emulsion_header_template']['default'],
@@ -252,8 +257,12 @@ if ( ! function_exists( 'emulsion_theme_customizer_style' ) ) {
 	background:#fff;
 	padding:5px 5px 3px;
 	box-sizing:border-box;
-	width:248px;
+	width:100%;
 	margin:auto;
+	font-size:16px;
+}
+[id|="details"] p{
+	font-size:16px;
 }
 .customize-panel-back, .customize-section-back {
 	display:inline-block;
@@ -268,11 +277,35 @@ if ( ! function_exists( 'emulsion_theme_customizer_style' ) ) {
 	max-width: calc(100% - 50px);
 				vertical-align:middle;
 }
+
+#customize-controls .customize-pane-child .customize-section-title h3,
+#customize-controls .customize-pane-child h3.customize-section-title,
+#customize-outer-theme-controls .customize-pane-child .customize-section-title h3,
+#customize-outer-theme-controls .customize-pane-child h3.customize-section-title, #customize-controls .customize-info .panel-title{
+	display:block;
+}
 CSS;
 
 if( 'fse' == get_theme_mod('emulsion_editor_support') )	{
-	
+
 		$css .=<<<CSS2
+		#customize-theme-controls #accordion-section-emulsion_section_single_post_navigation,
+		#customize-theme-controls #accordion-section-emulsion_section_advanced_customizer,
+		#customize-theme-controls #accordion-section-emulsion_section_advanced_relate_posts,
+		#customize-theme-controls #accordion-section-emulsion_section_advanced_search_drawer,
+		#customize-theme-controls #accordion-section-emulsion_section_advanced_instantclick,
+		#customize-theme-controls #accordion-section-emulsion_section_advanced_lazyload,
+		#customize-theme-controls #accordion-section-emulsion_section_advanced_sticky_sidebar,
+		#customize-theme-controls #accordion-section-emulsion_section_advanced_tooltip,
+		#customize-theme-controls #accordion-section-emulsion_section_advanced_toc,
+		#customize-theme-controls #accordion-section-emulsion_section_advanced_excerpt,
+		/*#customize-theme-controls #accordion-panel-emulsion_theme_settings_advanced_panel,*/
+		#customize-theme-controls #accordion-section-header_image,
+		#customize-theme-controls #accordion-panel-emulsion_theme_settings_post_panel,
+		#customize-theme-controls #accordion-panel-emulsion_theme_settings_layout_panel,
+		#customize-theme-controls #accordion-panel-emulsion_theme_settings_fonts_panel,
+		#customize-theme-controls #accordion-panel-emulsion_theme_settings_border_panel,
+		#customize-theme-controls #accordion-section-colors,
 		#customize-control-emulsion_scheme #details-stream,
 		#customize-control-emulsion_scheme [for="emulsion_schemestream"],
 		#customize-control-emulsion_scheme #details-grid,
@@ -283,11 +316,11 @@ if( 'fse' == get_theme_mod('emulsion_editor_support') )	{
 		#customize-control-emulsion_scheme [for="emulsion_schemedaybreak"],
 		#customize-control-emulsion_scheme #details-midnight,
 		#customize-control-emulsion_scheme [for="emulsion_schememidnight"]{
-			display:none;
+			display:none !important;
 
 		}
-
 CSS2;
+
 }
 
 		wp_add_inline_style( 'customize-controls', $css );
@@ -301,6 +334,12 @@ if ( ! function_exists( 'emulsion_theme_customizer_script' ) ) {
 
 	function emulsion_theme_customizer_script() {
 
+		$emulsion_gutenberg_install_url = esc_url( admin_url( 'themes.php?page=tgmpa-install-plugins&plugin_status=all' ) );
+
+		$emulsion_gutengerg_status = is_plugin_active( 'gutenberg/gutenberg.php')
+				? '<p class="is-gutenberg-active">'. esc_html__( 'Important settings have changed. Please save it and view the blog.If you need more settings, please reopen Customize', 'emulsion' ). '</p>'
+				: sprintf('<p class="need-gutenberg-activate"><h3><a href="%1$s">%3$s</a></h3>%2$s</p>', $emulsion_gutenberg_install_url, esc_html__( 'If you choose anything other than default, you need to activate the Gutenberg Plugin. ', 'emulsion') ,esc_html__( 'Please Click and Install Gutenberg Plugin', 'emulsion' ) );
+
 		$script = <<< SCRIPT
 (function($){
 
@@ -311,6 +350,24 @@ if ( ! function_exists( 'emulsion_theme_customizer_script' ) ) {
 				$('#details-' + value ).attr('open','open');
         } );
     } );
+	wp.customize('emulsion_editor_support', function (setting) {
+        setting.bind(function (value) {
+            var code = 'need_plugin_gutenberg_activate';
+
+            if ('theme' !==  value ) {
+                setting.notifications.add(code, new wp.customize.Notification(
+                        code,
+                        {
+                            type: 'warning',
+                            message: '$emulsion_gutengerg_status'
+                        }
+                ));
+            } else {
+
+                setting.notifications.remove(code);
+            }
+        });
+    });
 
 })(jQuery);
 

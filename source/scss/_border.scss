@@ -370,9 +370,27 @@ del:hover:before,
     }
 
 }
+
 hr{
-    border-bottom:1px solid rgba(188,188,188,.7);
     &.wp-block-separator{
+        border:none;
+        clear:both;
+        height:3rem;
+        position:relative;
+        &:before{
+            position:absolute;
+            top:0;
+            right:0;
+            bottom:0;
+            left:0;
+            width:50%;
+            height:2px;
+            border-bottom:1px solid;
+            margin:auto;
+            color:inherit ! important;
+            content:'' ! important;
+            background:transparent!important;
+        }
         &.is-style-dots{
             height:3rem;
             &:before{
@@ -385,8 +403,15 @@ hr{
                 background:transparent!important;
             }
         }
+
+        &.is-style-wide{
+            &:before{
+                width:100%;
+            }
+        }
     }
 }
+
 body.page,
 body.single{
     .article-wrapper{

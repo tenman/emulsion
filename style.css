@@ -5,7 +5,7 @@ Theme URI: https://www.tenman.info/wp3/emulsion
 Description: block editor, classic editor both supports. Conventional, Image Media New Block Type Image Both media can be displayed correctly.Theme can stop at each theme style page for page builder users. Customizer can easily view changes with automatic preview redirection.Theme is designed with the goal of minimizing user frustration.
 Author: Tenman
 Author URI: https://www.tenman.info/wp3/
-Version: 2.0.9
+Version: 2.1.0
 Tags: one-column, two-columns, grid-layout,left-sidebar, right-sidebar,custom-background, custom-colors, custom-header,custom-logo, custom-menu, editor-style, featured-image-header, featured-images, flexible-header, footer-widgets, full-width-template, post-formats, sticky-post, theme-options, threaded-comments, translation-ready, block-patterns, block-styles, wide-blocks
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -453,12 +453,6 @@ body.is-dark.metabox-reset-post-presentation .header-layer.template-part-header-
     color:var(--thm_black_color, #333333);
 }
 
-.wp-block-cover-image.has-background-dim:not([class*=-background-color]),
-.wp-block-cover.has-background-dim:not([class*=-background-color]),
-.has-background{
-    color:var(--thm_black_color, #333333);
-    background:var(--thm_unknown-bg);
-}
 
 
 [style*="gradient-background"]:not(.has-text-color) *:not(.has-text-color),
@@ -482,6 +476,9 @@ body.is-dark.metabox-reset-post-presentation .header-layer.template-part-header-
 .has-vivid-red-background-color,
 .has-vivid-purple-background-color{
     color:var(--thm_white_color, #ffffff);
+    a{
+        color:var(--thm_white_color, #ffffff);
+    }
 }
 
 
@@ -521,6 +518,7 @@ body:not(.emulsion-not-support-presentation){
     --thm_code_color:#555555;
     --thm_code_bg:#f8f8ff;
     --thm_unknown-bg:#a1c0e0;
+    --thm_unknown-color:rgba(231, 76, 60, 1);
 }
 body:not(.emulsion-not-support-presentation) .wp-block-table{
     --thm_table_light_gray_background:#f3f4f5;
@@ -529,11 +527,16 @@ body:not(.emulsion-not-support-presentation) .wp-block-table{
     --thm_table_pale_pink_background:#ffccf8;
 }
 
-body[class*='scheme-']:not(.emulsion-fse-active){
-   /* background:var(--thm_background_color); */
+.wp-block-cover-image.has-background-dim:not([class*=-background-color]),
+.wp-block-cover.has-background-dim:not([class*=-background-color]),
+.has-background{
+    color:var(--thm_black_color, #333333);
+    background:var(--thm_unknown-bg);
+}
+.has-inline-color{
+    color:var(--thm_unknown-color);
 }
 
-/*body:not(.emulsion-fse-active) {*/
 :root{
     color:var(--thm_general_text_color, #333333);
 }

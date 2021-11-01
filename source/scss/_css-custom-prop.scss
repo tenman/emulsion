@@ -615,12 +615,14 @@ body:not(.emulsion-removed-presentation):not(.emulsion-not-support-presentation)
             }
         }
         main{
-            .grid{
+           & > .grid{
                 --thm_content_width: 300px;
                 article{
                     --thm_content_width: 100%;
 
-
+                    .entry-meta{
+                        display:none;
+                    }
                 }
             }
             .stream{

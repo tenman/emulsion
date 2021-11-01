@@ -566,8 +566,7 @@ footer.wp-block-template-part,
             @include font_size(2);
             cite{
                 @include font_size(5);
-                padding-right:0;
-                padding-left:0;
+                padding:0 var(--thm_content_gap, 24px);
                 margin-top:.75rem;
                 margin-bottom:.75rem;
                 font-style:normal;
@@ -686,6 +685,43 @@ figure.wp-block-pullquote{
     &.has-regular-font-size{
         p{
             @include font_size(0);
+            padding:0;
+        }
+    }
+    &.has-text-align-left{
+
+        blockquote:not(#specificity){
+            width:100%;
+            cite,
+            p:not(.specificity){
+                width:auto;
+                margin:.75rem 0 .75rem;
+                text-align:left;
+            }
+        }
+    }
+    &.has-text-align-right{
+        blockquote:not(#specificity){
+            width:100%;
+            cite,
+            p{
+                width:auto;
+                margin-top:.75rem;
+                margin-bottom:.75rem;
+                text-align:right;
+            }
+        }
+    }
+    &.has-text-align-center{
+        blockquote:not(#specificity){
+            width:100%;
+            cite,
+            p{
+                width:auto;
+                margin-top:.75rem;
+                margin-bottom:.75rem;
+                text-align:center;
+            }
         }
     }
     &.alignleft{
@@ -697,6 +733,7 @@ figure.wp-block-pullquote{
         p{
 
             @include font_size(3);
+
         }
     }
     &.alignright{
@@ -712,7 +749,7 @@ figure.wp-block-pullquote{
     }
     blockquote{
         display:block;
-        width:auto;
+        width:100%;
         max-width:100%;
         margin-top:0;
         margin-right:auto;
@@ -722,8 +759,7 @@ figure.wp-block-pullquote{
         p{
             width: -moz-fit-content;
             width:fit-content;
-            padding-right:var(--thm_content_gap, 24px);
-            padding-left:var(--thm_content_gap, 24px);
+            padding:0;
             margin-right:auto;
             margin-left:auto;
             line-height:1.5;
@@ -811,7 +847,12 @@ figure.wp-block-pullquote{
         content: '';
     }
 }
-
+//OW
+.wp-block-pullquote.alignleft, .wp-block-pullquote.alignright,
+.wp-block-pullquote.has-text-align-left,
+.wp-block-pullquote.has-text-align-right{
+    max-width:100%;
+}
 /**
  * block group
  * ========================================================================== */
@@ -1869,7 +1910,7 @@ body .wp-block-table{
     }
     &.aligncenter{
         @extend %aligncenter;
-        width: calc(var(--thm_content_width, 720px) - var(--thm_align_offset));
+        width: calc(var(--thm_content_width, 720px) - var(--thm_align_offset, 200px));
         padding-top:1.5em;
         padding-bottom:.75em;
         margin-top:0;
@@ -2470,9 +2511,6 @@ nav.wp-block-navigation{
             width:fit-content;
             margin-right:auto;
             margin-left:auto;
-            //  li{
-            border:1px solid red;
-            //  }
         }
     }
     &.items-justified-space-between{
@@ -2536,17 +2574,17 @@ nav.wp-block-navigation{
     }
 }
 .emulsion .editor-styles-wrapper .wp-block-navigation{
-      .wp-block-navigation__container{
-          .wp-block-navigation-item{
-              &.has-child{
-                  .wp-block-navigation-item{
-                      margin-left:0;
-                      border:1px solid blue;
-                  }
-              }
+    .wp-block-navigation__container{
+        .wp-block-navigation-item{
+            &.has-child{
+                .wp-block-navigation-item{
+                    margin-left:0;
+                    border:1px solid blue;
+                }
+            }
 
-          }
-      }
+        }
+    }
 
 }
 .emulsion-addons-inactive .wp-block-navigation,
@@ -2563,8 +2601,7 @@ nav.wp-block-navigation{
         margin-left:auto;
         .wp-block-navigation-link{
             flex:1 1 auto;
-            padding-top:3px;
-            padding-bottom:4px;
+            padding:0;
             margin:0;
             &.has-child{
                 .wp-block-navigation-link__container{

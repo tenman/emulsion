@@ -84,6 +84,8 @@ h1,h2,h3,h4,h5,h6,
 
     @extend %block;
 }
+
+
 .is-root-container > div:not([data-align]).wp-block-template-part{
     width:100%;
 
@@ -286,6 +288,73 @@ div.editor-styles-wrapper .block-editor-block-list__layout.is-root-container > .
     }
     .block-editor-block-styles__item-preview{
         min-height:0;
+    }
+}
+
+.editor-styles-wrapper{
+    .wp-block-quote{
+        p{
+            width:-moz-fit-content;
+            width:fit-content;
+        }
+        &.has-text-align-right,
+        &.has-text-align-center,
+        &.has-text-align-left{
+            p{
+                width:100%;
+            }
+        }
+        cite{
+            padding:0 var(--thm_content_gap, 24px);
+        }
+    }
+}
+
+#wpbody .editor-styles-wrapper hr{
+    border-bottom:none;
+}
+hr{
+    &.wp-block-separator{
+        border:none;
+        clear:both;
+        height:3rem;
+        position:relative;
+        &.is-style-dots{
+            height:3rem;
+            &:before{
+                width:fit-content;
+                height:3rem;
+                margin:1rem auto;
+                font-size:3rem;
+                color:inherit ! important;
+                content:'\2026' ! important;
+                background:transparent!important;
+            }
+        }
+        &.is-style-wide,
+        &.is-style-default{
+            clear:both;
+            height:3rem;
+            &:before{
+                position:absolute;
+                top:0;
+                right:0;
+                bottom:0;
+                left:0;
+                width:50%;
+                height:2px;
+                border-bottom:1px solid;
+                margin:auto;
+                color:inherit ! important;
+                content:'' ! important;
+                background:transparent!important;
+            }
+        }
+        &.is-style-wide{
+            &:before{
+                width:100%;
+            }
+        }
     }
 }
 .block-editor-inserter__popover .block-editor-inserter__menu .block-editor-inserter__preview-container {
@@ -3471,6 +3540,10 @@ body.editor-styles-wrapper{
                 }
             }
         }
+        main.wp-block-group{
+            width:100%;
+            max-width:100%;
+        }
         .wp-block{
 
             div:not([class]){
@@ -4074,6 +4147,9 @@ body.post-type-wp_template{
         .wp-block-latest-posts__post-author{
             text-align:center;
         }
+        ul:not(.list-style-initial):not(.is-style-list-style-initial) li:before{
+            display:none;
+        }
 
     }
 }
@@ -4084,7 +4160,6 @@ body.post-type-wp_template{
 body{
     &.modal-open{
         .media-frame{
-            border:1px solid red;
             .media-frame-title{
                 h1{
                     font-size:1.5rem;

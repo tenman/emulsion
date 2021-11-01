@@ -77,7 +77,7 @@ body{
 
         width:-moz-fit-content;
         width:fit-content;
-        max-width:calc( var(--thm_content_width, 720px) - var(--thm_align_offset) );
+        max-width:calc( var(--thm_content_width, 720px) - var(--thm_align_offset, 200px) );
         margin:1.5rem auto .75rem;
         clear:both;
 
@@ -115,7 +115,7 @@ body{
     .alignwide{
         position: relative;
         left:0;
-        width:calc( var(--thm_content_width, 720px) + var(--thm_align_offset) );
+        width:calc( var(--thm_content_width, 720px) + var(--thm_align_offset, 200px) );
         max-width:100%;
         margin-right:auto;
         margin-left:auto
@@ -136,13 +136,30 @@ body{
     /**
      * Extend block group
      * ========================================================================== */
-
-    //body{
-
     body .layout,
     // no fse amp
     body .wp-site-blocks{
         // AMP + FSE
+        .wp-block-navigation.fse-primary{
+            .wp-block-navigation__responsive-container{
+                .wp-block-navigation__responsive-container-content{
+                    .wp-block-navigation__submenu-container{
+                        left:0;
+                        .wp-block-navigation-link__content{
+                            display:inline-block;
+                            width:200%;
+                            left:0;
+                            span.wp-block-navigation-link__label{
+                                display:inline-block;
+                            }
+                            span.wp-block-navigation-link__submenu-icon{
+                                display:inline-block;
+                            }
+                        }
+                    }
+                }
+            }
+        }
         .wp-block-group{
             &.grid{
                 & > .wp-block-group{
@@ -208,7 +225,7 @@ body{
 
     }
 
-    //}
+
     // pure fse
     .logged-in.emulsion-fse-active{
         &.is-singular{
@@ -663,15 +680,15 @@ body{
             margin-bottom:0;
         }
         .wp-block-post-date:not(#specificity){
-           display:block;
-           float:none;
-           text-align:center;
+            display:block;
+            float:none;
+            text-align:center;
         }
         .wp-block-post-author:not(#specificity){
-           justify-content: center;
-           float:none;
-           width:auto;
-           text-align:center;
+            justify-content: center;
+            float:none;
+            width:auto;
+            text-align:center;
         }
     }
 }
@@ -939,8 +956,25 @@ label[for="comment"],
 
     }
 }
-
-
+hr{
+    width:720px;
+    max-width:100%;
+    margin:1.5rem auto;
+}
+blockquote.wp-block-quote{
+    border-left-style:solid;
+    border-left-width:2px;
+    p{
+        margin-top:.75rem;
+    }
+}
+figure.wp-block-pullquote{
+    margin:1.5rem auto .75rem;
+    border-top-style:solid;
+    border-top-width:2px;
+    border-bottom-style:solid;
+    border-bottom-width:2px;
+}
 
 p.badge,
 .badge{
@@ -1039,45 +1073,7 @@ div.wp-block-image.is-style-rounded{
 .site-title.has-custom-logo + .site-description{
     display:none;
 }
-/*
-body > header.header-image-active.template-part-header-custom{
-    position:relative;
-    width:100vw;
-    height: var(--thm_header_media_max_height, 75vh);
-    overflow:hidden;
-    amp-img{
 
-        z-index: 1;
-        object-fit:cover;
-    }
-
-    .header-text {
-        position: absolute;
-        top: 0;
-        right: 0;
-        left: 0;
-        z-index:3;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 100%;
-        margin: auto;
-        .site-title{
-            font-size: 48px;
-            font-weight: normal;
-            line-height: 1.15;
-            text-align: center;
-        }
-        .site-description{
-            text-align:center;
-        }
-    }
-    *{
-        color: var(--thm_white_color);
-        border-color: var(--thm_white_color);
-    }
-}*/
 
 .layout-grid{
     header ~ .layout{
@@ -1108,7 +1104,7 @@ body > header.header-image-active.template-part-header-custom{
 }
 
 div.page-title-block{
-//.emulsion-header-has-title div.page-title-block{
+    //.emulsion-header-has-title div.page-title-block{
     -webkit-box-sizing:border-box;
     box-sizing:border-box;
     display: -webkit-box;
@@ -1426,7 +1422,7 @@ body > header.header-image-active.template-part-header-custom {
     width: 100vw;
     height:auto;
     overflow: hidden;
-    border:1px solid red !important;
+
     .post-featured-image{
         display:none !important;
         amp-img{
