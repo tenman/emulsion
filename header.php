@@ -5,6 +5,7 @@
  * header template part file
  */
 
+
 ?><!DOCTYPE html>
 <html <?php language_attributes(); ?> id="document" <?php printf( 'class="%1$s"', esc_attr( emulsion_element_classes( 'root' ) ) ); ?>>
 	<head>

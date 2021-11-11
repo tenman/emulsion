@@ -33,7 +33,7 @@
 
 						the_content();
 					} else {
-						
+
 						echo '<p>';
 
 						the_excerpt();
@@ -59,7 +59,7 @@
 							'depth'			 => 1,
 							'link_before'	 => '<span class="screen-reader-text">',
 							'link_after'	 => '</span>' . emulsion_get_svg( array( 'icon' => 'chain' ) ),
-							'items_wrap'	 => '<h2 class="screen-reader-text">' . esc_html__( 'Social navigation', 'emulsion' ) . '</h2><ul id="%1$s" class="%2$s">%3$s</ul>',
+							'items_wrap'	 => '<h2 class="screen-reader-text" tabindex="0" style="top:0">' . esc_html__( 'Social navigation', 'emulsion' ) . '</h2><ul id="%1$s" class="%2$s">%3$s</ul>',
 							'item_spacing'	 => 'discard',
 						)
 				);

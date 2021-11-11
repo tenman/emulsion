@@ -8,8 +8,11 @@ a{
     display:block;
     width: 0;
     content: "";
-    border-bottom:1px solid var(--thm_general_text_color);
+    border-bottom:1px solid currentColor;
     transition: width .5s;
+}
+body.is-dark .entry-title a:after {
+    border-bottom:1px solid #ffffff;
 }
 .entry-title a:hover:after {
     width: 100%;

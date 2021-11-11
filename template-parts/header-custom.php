@@ -2,13 +2,14 @@
 /**
  * default header template
  */
+
 ?>
 <header class="header-layer clearfix <?php emulsion_the_header_layer_class() . emulsion_template_part_names_class( __FILE__ ) ?>">
 	<?php
 	$current_post_type = trim( get_post_type() );
 
 	if( emulsion_media_display_judgment() ) {
-		
+
 		?><div class="post-featured-image"><?php the_post_thumbnail( 'post-thumbnail', array('layout' => 'responsive', 'loading' => 'eager' ) ); //get_the_post_thumbnail ?></div><?php
 	} else {
 
@@ -42,7 +43,7 @@
 		'echo'			 => true,
 		'depth'			 => 0,
 		'theme_location' => 'primary',
-		'items_wrap'	 => '<h2 class="screen-reader-text">' . esc_html__( 'Primary navigation', 'emulsion' ) . '</h2><ul id="%1$s" class="%2$s" data-direction="horizontal" data-type="accordion">%3$s</ul>',
+		'items_wrap'	 => '<h2 class="screen-reader-text" tabindex="0" style="top:1rem;">' . esc_html__( 'Primary navigation', 'emulsion' ) . '</h2><ul id="%1$s" class="%2$s" data-direction="horizontal" data-type="accordion">%3$s</ul>',
 		'walker'		 => '',
 		'item_spacing'	 => 'discard',
 	);//data-type="accordion"

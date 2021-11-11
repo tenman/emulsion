@@ -154,6 +154,22 @@ if ( ! function_exists( 'emulsion_setup' ) ) {
 		 * Block editor experimental style
 		 */
 
+		/**
+		 * Disable Only load styles for used blocks
+		 * Currently these styles are inserted in the footer. This means more detail in the style,
+		 * which has stopped working due to the issue of overwriting the style of the theme.
+		 * Hope that detail issues will be resolved in the future
+		 * https://make.wordpress.org/core/2021/07/01/block-styles-loading-enhancements-in-wordpress-5-8/
+		 */
+
+		get_theme_mod('emulsion_should_load_separate_core_block_assets', 'disable') ? add_filter( 'should_load_separate_core_block_assets', '__return_false' ): '';
+
+		/**
+		 * class="wp-container-xxxxxxxx" and inline style remove
+		 */
+
+		get_theme_mod('emulsion_gutenberg_render_layout_support_flag', 'disable') ? remove_filter( 'render_block', 'gutenberg_render_layout_support_flag'): '';
+
 		if ( emulsion_the_theme_supports( 'block_experimentals' ) && emulsion_is_plugin_active( 'gutenberg/gutenberg.php' ) ) {
 
 			add_theme_support( 'custom-spacing' );

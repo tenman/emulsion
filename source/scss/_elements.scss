@@ -17,6 +17,7 @@ main{
     table{
         a:link{
             text-decoration:underline;
+            text-decoration-color: currentColor;
         }
     }
     .badge{
@@ -512,12 +513,12 @@ iframe{
 }
 hr{
     @extend %block;
-    border:none;
-    clear:both;
-    height:2px;
     position:relative;
-    border-bottom:1px solid;
+    height:2px;
     margin:1.5rem auto 1.5rem;
+    clear:both;
+    border:none;
+    border-bottom:1px solid;
 }
 /**
  * Demarcating edits
@@ -970,6 +971,7 @@ ol{
 /**
  * OL list format exception
  */
+ul.wp-block-page-list:not(.list-style-initial):not(.is-style-list-style-initial),
 ol.wp-block-latest-comments,
 ol.wp-list-comments,
 ol[class|="wp-block"]{
@@ -1374,7 +1376,7 @@ ul.list-style-inline:not(.list-style-initial):not(.is-style-list-style-initial){
 
 .widget > ul a,
 ul[class|="wp-block"] li span,
-ul[class|="wp-block"] li:not(.wp-social-link):not(.cat-item) a:not(.wp-block-navigation-link__content){
+ul[class|="wp-block"] li:not(.wp-social-link):not(.cat-item) a:not(.wp-block-navigation-item__content){
     display:block;
     padding-top: calc(1rem * var( --thm_content_line_height, 1.5 ) / 4);
     padding-right: calc(1rem * var( --thm_content_line_height, 1.5 ) / 2);
@@ -1774,7 +1776,7 @@ button{
     width: -moz-fit-content;
     width: fit-content;
     padding: 0.685rem;
-    margin-top: 1.5rem;
+    margin-top: .75rem;
     margin-right: var(--thm_content_gap, 24px);
     margin-bottom: 0.75rem;
     margin-left: var(--thm_content_gap, 24px);

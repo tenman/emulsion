@@ -1107,7 +1107,7 @@ if ( ! function_exists( 'emulsion_attachment_pagination' ) ) {
 		?>
 		<nav class="navigation attachment-navigation" aria-labelledby="Pagination">
 				<div class="nav-links">
-					<h2 class="screen-reader-text"><?php esc_html_e( 'Image Navigation', 'emulsion' ); ?></h2>
+					<h2 class="screen-reader-text" tabindex="0" style="top:0"><?php esc_html_e( 'Image Navigation', 'emulsion' ); ?></h2>
 					<div class="nav-previous"><?php previous_image_link( 0 ); ?></div>
 					<div class="nav-next"><?php next_image_link( 0 ); ?></div>
 				</div>

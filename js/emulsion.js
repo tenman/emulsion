@@ -249,7 +249,7 @@ jQuery(function ($) {
      * To suppress the display of the title tooltip and change the attribute name
      * to the data attribute to enable display control on the CSS.
      */
-    $('.sidebar-widget-area a, .footer-widget-area a, .page-wrapper a, .search-drawer a, .header-layer a').not('.wp-block-navigation-link__content, .social-links-menu a, a.has-title, .has-title a').each(function (index) {
+    $('.sidebar-widget-area a, .footer-widget-area a, .page-wrapper a, .search-drawer a, .header-layer a').not('.wp-block-navigation-item__content, .social-links-menu a, a.has-title, .has-title a').each(function (index) {
         var text = $(this).attr('title');
         $(this).removeAttr('title');
         $(this).attr('data-title', text);

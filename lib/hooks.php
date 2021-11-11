@@ -20,7 +20,9 @@ function emulsion_hooks_setup() {
 	add_filter( 'do_shortcode_tag', 'emulsion_shortcode_tag_filter', 99, 4 );
 	add_filter( 'the_password_form', 'emulsion_get_the_password_form', 11 );
 	add_filter( 'oembed_default_width', 'emulsion_oembed_default_width', 99 );
-	add_filter( 'excerpt_length', 'emulsion_excerpt_length_with_lang', 99 );
+
+	'theme' == get_theme_mod( 'emulsion_editor_support', 'theme' ) ? add_filter( 'excerpt_length', 'emulsion_excerpt_length_with_lang', 99 ): '';
+
 	add_action( 'customize_controls_enqueue_scripts', 'emulsion_customizer_controls_script' );
 	add_action( 'customize_controls_enqueue_scripts', 'emulsion_customizer_controls_style' );
 	add_filter( 'theme_templates', 'emulsion_theme_templates' );
@@ -78,14 +80,14 @@ function emulsion_hooks_setup() {
 		return $content;
 	} );
 
-	add_filter( 'render_block_core/navigation', function ( $content ) {
+	add_filter( 'render_block_core/navigation', function ( $content, $block ) {
 
-		if ( 'transitional' == get_theme_mod( 'emulsion_editor_support' ) ) {
+		if ( 'transitional' == get_theme_mod( 'emulsion_editor_support' ) && 'fse-primary' == $block["attrs"]["className"] ) {
 
 			return;
 		}
 		return $content;
-	} );
+	}, 10,  2 );
 
 	if ( ! emulsion_theme_addons_exists() ) {
 
@@ -105,7 +107,7 @@ function emulsion_hooks_setup() {
 		 * For languages that do not use single-byte spaces,
 		 * solve the problem of string overflow in the_excerpt ()
 		 */
-		add_filter( 'get_the_excerpt', 'emulsion_force_excerpt' );
+		'theme' == get_theme_mod( 'emulsion_editor_support', 'theme' ) ? add_filter( 'get_the_excerpt', 'emulsion_force_excerpt' ): '';
 
 		/**
 		 * Data validations
