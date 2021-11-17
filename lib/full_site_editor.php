@@ -71,8 +71,6 @@ if ( ! emulsion_do_fse() ) {
 	remove_action( 'wp_loaded', 'gutenberg_add_template_loader_filters' );
 }
 
-function_exists( 'gutenberg_the_skip_link' ) ? remove_action( 'wp_footer', 'gutenberg_the_skip_link' ) : '';
-
 function_exists( 'the_block_template_skip_link' ) ? remove_action( 'wp_footer', 'the_block_template_skip_link' ) : '';
 
 // adminbar: show customize menu when fse mode

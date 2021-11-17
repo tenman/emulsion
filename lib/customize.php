@@ -63,24 +63,36 @@ if ( ! function_exists( 'emulsioncustomize_register' ) ) {
 				'section'			 => 'emulsion_editor',
 				'default'			 => 'disable',
 				'label'				 => esc_html__( 'Sparate Core Block CSS Load', 'emulsion' ),
-				'description'		 => esc_html__( '', 'emulsion' ),
+				'description'		 => esc_html__( 'It loads the required styles when the block is used, but the hard-coded styles affect the display of the theme.', 'emulsion' ),
 				'sanitize_callback'	 => 'emulsion_should_load_separate_core_block_assets_validate',
 				'type'				 => 'radio',
 				'choices'			 => array(
 					'disable'		 => esc_html__( 'Disabled', 'emulsion' ),
-					'enable'	 => esc_html__( 'Enabled', 'emulsion' ),
+					'enable'		 => esc_html__( 'Enabled', 'emulsion' ),
 				),
 			),
 			'emulsion_gutenberg_render_layout_support_flag'	 => array(
 				'section'			 => 'emulsion_editor',
 				'default'			 => 'disable',
 				'label'				 => esc_html__( 'Renders the layout config to the block wrapper', 'emulsion' ),
-				'description'		 => esc_html__( '', 'emulsion' ),
+				'description'		 => esc_html__( 'The hard-coded inline styles affect the display of the theme. use Class wp-container-XXXXXXXXXXXX', 'emulsion' ),
 				'sanitize_callback'	 => 'emulsion_gutenberg_render_layout_support_flag_validate',
 				'type'				 => 'radio',
 				'choices'			 => array(
-					'disable'		 => esc_html__( 'Disabled', 'emulsion' ),
-					'enable'	 => esc_html__( 'Enabled', 'emulsion' ),
+					'disable'		 => esc_html__( 'Use Theme Features', 'emulsion' ),
+					'enable'		 => esc_html__( 'Use Gutenberg features', 'emulsion' ),
+				),
+			),
+			'emulsion_render_elements_support'	 => array(
+				'section'			 => 'emulsion_editor',
+				'default'			 => 'disable',
+				'label'				 => esc_html__( 'Elements styles block support.', 'emulsion' ),
+				'description'		 => esc_html__( 'link style gutenberg use Class wp-elements-XXXXXXXXXXXX, theme use Class has-[preset color name]-link-color', 'emulsion' ),
+				'sanitize_callback'	 => 'emulsion_render_elements_support_validate',
+				'type'				 => 'radio',
+				'choices'			 => array(
+					'disable'		 => esc_html__( 'Use Theme Features', 'emulsion' ),
+					'enable'		 => esc_html__( 'Use Gutenberg features', 'emulsion' ),
 				),
 			),
 		);
@@ -189,6 +201,22 @@ if ( ! function_exists( 'emulsioncustomize_register' ) ) {
 				'type'			 => $emulsion_theme_mod_args['emulsion_gutenberg_render_layout_support_flag']['type'],
 				'choices'		 => $emulsion_theme_mod_args['emulsion_gutenberg_render_layout_support_flag']['choices'],
 			) );
+
+			$wp_customize->add_setting( 'emulsion_render_elements_support', array(
+				'default'			 => $emulsion_theme_mod_args['emulsion_render_elements_support']['default'],
+				'sanitize_callback'	 => $emulsion_theme_mod_args['emulsion_render_elements_support']['sanitize_callback'],
+			) );
+
+			$wp_customize->add_control( 'emulsion_render_elements_support', array(
+				'settings'		 => 'emulsion_render_elements_support',
+				'section'		 => $emulsion_theme_mod_args['emulsion_render_elements_support']['section'],
+				'label'			 => $emulsion_theme_mod_args['emulsion_render_elements_support']['label'],
+				'description'	 => $emulsion_theme_mod_args['emulsion_render_elements_support']['description'],
+				'type'			 => $emulsion_theme_mod_args['emulsion_render_elements_support']['type'],
+				'choices'		 => $emulsion_theme_mod_args['emulsion_render_elements_support']['choices'],
+			) );
+
+			//
 		}
 	}
 
@@ -479,6 +507,17 @@ function emulsion_color_control_validate( $input ) {
 		return $input;
 	}
 
+	return $default_value;
+}
+
+function emulsion_render_elements_support_validate( $input ) {
+	$values			 = array( 'enable', 'disable' );
+	$default_value	 = 'disable';
+
+	if ( in_array( $input, $values ) ) {
+
+		return $input;
+	}
 	return $default_value;
 }
 

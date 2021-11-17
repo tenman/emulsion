@@ -610,8 +610,9 @@ $indent-classes:('5rem','10rem','15rem','20rem','right-5rem','right-10rem','righ
         }
     }
     .toc{
-        box-shadow: var(--thm_box_shadow);
-        transition:box-shadow .5s ease-in-out;
+
+       filter: var(--thm_filter_shadow, drop-shadow(3px 3px 3px rgba(0,0,0,0.3)));
+       transition:filter .5s ease-in-out;
     }
     .wp-block-latest-posts{
         li{
@@ -653,7 +654,7 @@ body .menu-is-light{
         }
         .nav-menu-child-opener:checked ~ .sub-menu,
             .nav-menu-child-opener:checked ~ .children{
-            box-shadow: var(--thm_box_shadow);
+            filter: var(--thm_filter_shadow, drop-shadow(3px 3px 3px rgba(0,0,0,0.3)));
         }
         &[data-direction="vertical"]{
             .nav-menu-child-opener:checked ~ .sub-menu,
@@ -681,7 +682,7 @@ body .menu-is-light{
 body.on-scroll{
     .primary-menu-wrapper,
     .header-layer-site-title-navigation{
-        box-shadow: var(--thm_box_shadow);
+        filter: var(--thm_filter_shadow, drop-shadow(3px 3px 3px rgba(0,0,0,0.3)));
     }
 }
 //}
@@ -1667,45 +1668,25 @@ ul.shrink{
      * Category description
      */
     .sidebar-widget-area a[data-title]:hover:after{
-        box-shadow: var(--thm_box_shadow);
+        filter: var(--thm_filter_shadow, drop-shadow(3px 3px 3px rgba(0,0,0,0.3)));
         opacity:1;
     }
     /**
      * Grid Article
      */
     .is-light{
-        .border-default{
-            &.grid{
-                article:target,
-                    article:hover{
-                    box-shadow: var(--thm_box_shadow);
-                }
-            }
-            &.stream{
-                article:target,
-                    article:hover{
-                    box-shadow: var(--thm_box_shadow);
-                }
-            }
-        }
+
         .wp-block-latest-posts{
             li{
                 background:var(--thm_white_color);
 
             }
-            &.is-grid{
-                li{
-                    &:hover{
-                        background:var(--thm_white_color);
-                        box-shadow: var(--thm_box_shadow);
-                    }
-                }
-            }
+
         }
         .wp-block-rss.is-grid{
             li:hover{
                 background:var(--thm_white_color);
-                box-shadow: var(--thm_box_shadow);
+
             }
         }
         .wp-block-latest-comments{
@@ -2053,10 +2034,10 @@ ul.shrink{
 .wp-block-buttons.is-style-has-shadow{
     .wp-block-button{
         .wp-block-button__link{
-            box-shadow: var(--thm_box_shadow);
+            filter: var(--thm_filter_shadow, drop-shadow(3px 3px 3px rgba(0,0,0,0.3)));
         }
         .wp-block-button__link:active{
-            box-shadow:none;
+            filter:none;
         }
     }
 }

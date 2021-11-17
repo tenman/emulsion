@@ -172,7 +172,17 @@ div.editor-styles-wrapper .block-editor-block-list__layout.is-root-container > .
 /**
  * Right Sidebar
  */
-
+.block-editor-page,
+.appearance_page_gutenberg-edit-site{
+   .components-base-control__field{
+        fieldset{
+            width:100%;
+            .components-flex{
+                width:248px;
+            }
+        }
+    }
+}
 .interface-interface-skeleton__sidebar{
     overflow:auto;
     .edit-post-sidebar{
@@ -307,6 +317,14 @@ div.editor-styles-wrapper .block-editor-block-list__layout.is-root-container > .
         cite{
             padding:0 var(--thm_content_gap, 24px);
         }
+    }
+    .wp-block-buttons{
+        .wp-block{
+            &.wp-block-button{
+                flex:0 1 auto;
+            }
+        }
+
     }
 }
 
@@ -3036,6 +3054,10 @@ div.components-notice{
                         margin:6px;
                     }
                 }
+                &.block-list-appender{
+                    margin:0;
+                }
+
 
             }
             .grid-group{
@@ -3590,6 +3612,7 @@ body.is-presentation-transitional{
 
 body.editor-styles-wrapper{
 
+
     .fse-query-post-template{
         width:100%;
         padding:0;
@@ -3651,7 +3674,7 @@ body.editor-styles-wrapper{
             .wp-block-post-excerpt{
                 div,
                 p{
-                max-width:100%;
+                    max-width:100%;
                 }
             }
 

@@ -796,7 +796,7 @@ jQuery(function ($) {
     $('.is-singular .entry-content h1[id],.is-singular .entry-content h2[id],.is-singular .entry-content h3[id],.is-singular .entry-content h4[id],.is-singular .entry-content h5[id],.is-singular .entry-content h6[id]').each(function (i) {
         var fragment = $(this).attr('id');
         if ($(this).find("a").length == 0) {
-            $(this).wrapInner($('<a href="#' + fragment + '"></a>'));
+            //   $(this).wrapInner($('<a href="#' + fragment + '"></a>'));
         }
     });
 });
@@ -1010,9 +1010,10 @@ jQuery(function ($) {
 
 });
 
-// FSE experimental
-
 jQuery(function ($) {
-
+    $('.navigation .screen-reader-text').attr('tabindex', 0).css({'top': '-2rem'});
 });
-
+jQuery(function ($) {
+    $('.wp-block-navigation .wp-block-navigation__submenu-icon').attr('tabindex', 0);
+    $('.wp-block-navigation .wp-block-navigation__submenu-icon:focus, .wp-block-navigation .wp-block-navigation__submenu-icon:active,.wp-block-navigation .wp-block-navigation__submenu-icon:focus-within').attr('aria-expanded', true);
+});

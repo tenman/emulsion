@@ -1,6 +1,6 @@
 :root   .has-link-color a:not(.wp-block-button__link){
 
-  //  color: var(--wp--style--color--link,var(--thm_general_link_color));
+    //  color: var(--wp--style--color--link,var(--thm_general_link_color));
 }
 
 .has-custom-style,
@@ -43,17 +43,18 @@ column-rule-color
 
 }
 .is-presentation-theme{
+    a{
+        color:var(--thm_general_link_color);
+        &:hover{
+            color:var(--thm_general_link_hover_color);
+        }
+    }
     .emulsion-prepend-page-wrapper,
     main{
 
         color:var(--thm_general_text_color);
-        a{
-            color:var(--thm_general_link_color);
-            &:hover{
-                color:var(--thm_general_link_hover_color);
-            }
-        }
-        .has-background{
+
+        .has-background:not(.has-link-color){
             *{
                 color:inherit;
                 a{
@@ -1421,6 +1422,26 @@ body .has-dark-gray-background-color:not(.has-text-color){
     background-color:#4bb1cf;
 }
 .has-emulsion-info-background-color{
+    background-color:#4bb1cf;
+}
+.has-emulsion-black-link-color a{
+    color:#000000;
+}
+.has-emulsion-white-link-color a{
+    color:#ffffff;
+}
+.has-emulsion-muted-link-color a{
+    color:#ecf0f1;
+}
+.has-emulsion-alert-link-color a{
+    color:#ED4F32;
+}
+.has-emulsion-warning-link-color a{
+    color:#EDE04D;
+}
+.has-emulsion-notice-link-color a{
     color:#4bb1cf;
 }
-
+.has-emulsion-info-link-color a{
+    color:#4bb1cf;
+}

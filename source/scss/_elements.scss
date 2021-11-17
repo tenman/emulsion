@@ -1135,7 +1135,7 @@ ul:not(.list-style-initial):not(.is-style-list-style-initial){
  * UL list format exception
  */
 
-.legacy-widget-preview .widget_meta > ul,
+.legacy-widget-{}preview .widget_meta > ul,
 .legacy-widget-preview .menu-main-container > ul,
 .legacy-widget-preview .widget_categories > ul,
 .layout ul.footer-widget-area-lists .widget_archive > ul,
@@ -1624,7 +1624,9 @@ pre > code{
         display:none;
     }
 }
-
+.wp-block-codemirror-blocks-code-block{
+    margin:1.5rem auto .75rem;
+}
 /**
  * Table
  * ========================================================================== */
@@ -2307,7 +2309,9 @@ body .fit{
 /**
  * Pagination
  * ========================================================================== */
-
+.navigation{
+    position:relative;
+}
 .pagination{
     margin-right:auto;
     margin-left:auto;
@@ -2552,5 +2556,20 @@ main{
     &.content-none{
 
         display:none;
+    }
+}
+.is-flex-container{
+    display:flex;
+    flex-wrap:wrap;
+}
+.is-vertical{
+    &.items-justified-left{
+        align-items: flex-start;
+    }
+    &.items-justified-right{
+        align-items: flex-end;
+    }
+    &.items-justified-center{
+        align-items: center;
     }
 }
