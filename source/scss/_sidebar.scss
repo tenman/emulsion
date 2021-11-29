@@ -27,6 +27,11 @@ body.emulsion-has-sidebar{
             & > li{
                 &:first-child{
                     margin-top:0;
+                    & > figure,
+                    & > div,
+                    & > ul{
+                        margin-top:0;
+                    }
                 }
                 padding-right:0;
                 padding-left:0;
@@ -377,6 +382,9 @@ body:not(.emulsion-has-sidebar) .sidebar-widget-area{
     @if(  $sidebar_position == 'right') {
         order:2;
     }
+
+
+
     a[data-title]:hover:after {
         position:absolute;
         top:3rem;
@@ -391,6 +399,14 @@ body:not(.emulsion-has-sidebar) .sidebar-widget-area{
         content: attr( data-title );
         background:var(--thm_white_color);
     }
+
+    .is-style-list-style-inline{
+        a[data-title]:hover:after{
+            content:'';
+            display:none;
+        }
+    }
+
     & > ul{
         padding:0;
         margin-top:0;
@@ -467,7 +483,7 @@ body:not(.emulsion-has-sidebar) .sidebar-widget-area{
             border-bottom:none;
 
             li{
-                border:none;
+                //  border:none;
             }
         }
         .wp-block-loginout{

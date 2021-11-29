@@ -496,20 +496,21 @@ map{
 iframe{
     display:block;
     width: var(--thm_content_width, 720px );
-    height:auto;
     margin-right:auto;
     margin-left:auto;
     border:none;
     aspect-ratio: 16 / 9;
 }
-.wp-block-embed__wrapper{
-    iframe{
-        height:0;
-        padding-right:0;
-        padding-left:0;
-        margin:0;
-        aspect-ratio: none;
+
+.wp-block-embed{
+    .wp-block-embed__wrapper{
+        iframe{
+            aspect-ratio:initial;
+        }
     }
+}
+.wp-embed-footer{
+    margin-top:0;
 }
 hr{
     @extend %block;
@@ -1625,7 +1626,8 @@ pre > code{
     }
 }
 .wp-block-codemirror-blocks-code-block{
-    margin:1.5rem auto .75rem;
+    @extend %block;
+    box-sizing:border-box;
 }
 /**
  * Table
@@ -2345,7 +2347,21 @@ body .fit{
     margin-top:0 ! important;
     margin-bottom:0 ! important;
 }
-
+.position-center{
+    display:block ! important;
+    margin-left:auto ! important;
+    margin-right:auto ! important;
+}
+.position-left{
+    display:block ! important;
+    margin-left:0 ! important;
+    margin-right:auto ! important;
+}
+.position-right{
+    display:block ! important;
+    margin-left:auto ! important;
+    margin-right:0 ! important;
+}
 /**
  * fse tag in theme
  */

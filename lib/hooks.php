@@ -9,10 +9,15 @@ function emulsion_hooks_setup() {
 	add_filter( 'body_class', 'emulsion_body_class' );
 	add_filter( 'admin_body_class', 'emulsion_block_editor_class' );
 	add_filter( 'body_class', 'emulsion_body_background_class' );
+	add_filter( 'body_class', 'emulsion_remove_custom_background_class' );
 
 	add_action( 'wp_head', 'emulsion_meta_elements' );
 	add_action( 'wp_head', 'emulsion_pingback_header' );
 	'fse' !== get_theme_mod( 'emulsion_editor_support' ) ? add_action( 'wp_body_open', 'emulsion_skip_link' ) : '';
+	add_action( 'customize_controls_enqueue_scripts', 'emulsion_customizer_controls_script' );
+	add_action( 'customize_controls_enqueue_scripts', 'emulsion_customizer_controls_style' );
+	add_action( 'wp_enqueue_scripts', 'emulsion_not_support_presentation_page_link' );
+
 	add_filter( 'get_the_archive_title', 'emulsion_archive_title_filter' );
 	add_filter( 'the_title', 'emulsion_empty_the_title_fallback' );
 	add_filter( 'the_content', 'emulsion_entry_content_filter', 11 );
@@ -20,25 +25,21 @@ function emulsion_hooks_setup() {
 	add_filter( 'do_shortcode_tag', 'emulsion_shortcode_tag_filter', 99, 4 );
 	add_filter( 'the_password_form', 'emulsion_get_the_password_form', 11 );
 	add_filter( 'oembed_default_width', 'emulsion_oembed_default_width', 99 );
-
 	'theme' == get_theme_mod( 'emulsion_editor_support', 'theme' ) ? add_filter( 'excerpt_length', 'emulsion_excerpt_length_with_lang', 99 ): '';
-
-	add_action( 'customize_controls_enqueue_scripts', 'emulsion_customizer_controls_script' );
-	add_action( 'customize_controls_enqueue_scripts', 'emulsion_customizer_controls_style' );
+	add_filter( 'upload_mimes', 'emulsion_add_file_type_type_uploads' );
 	add_filter( 'theme_templates', 'emulsion_theme_templates' );
 	add_filter( 'the_excerpt', 'emulsion_excerpt_remove_p' );
 	add_filter( 'gettext_with_context_default', 'emulsion_change_translate', 99, 4 );
 	add_filter( 'the_content_more_link', 'emulsion_read_more_link' );
 	add_filter( 'navigation_markup_template', 'emulsion_remove_role_from_pagination' );
-
 	add_filter( 'get_header_image_tag', 'emulsion_amp_add_layout_attribute' );
 	add_filter( 'get_the_archive_description', 'wpautop' );
-	add_action( 'wp_enqueue_scripts', 'emulsion_not_support_presentation_page_link' );
-	add_filter( 'body_class', 'emulsion_remove_custom_background_class' );
 	add_filter( 'wp_img_tag_add_loading_attr', 'emulsion_skip_loading_lazy_image', 10, 3 );
+
 	/**
 	 * Block editor notation
 	 */
+
 	if ( function_exists( 'do_blocks' ) ) {
 
 		add_action( 'theme_mod_emulsion_header_html', 'do_blocks' );
@@ -52,10 +53,11 @@ function emulsion_hooks_setup() {
 					} ) : '';
 
 	add_filter( 'excerpt_allowed_blocks', 'emulsion_excerpt_allowed_blocks' );
+
 	/**
 	 * Scripts
 	 */
-	//false === emulsion_is_amp() ? add_filter( 'emulsion_inline_script', 'emulsion_get_rest' ) : '';
+
 	add_action( 'wp', static function () {
 		if ( false === emulsion_is_amp() ) {
 			add_filter( 'emulsion_inline_script', 'emulsion_get_rest' );
@@ -108,7 +110,6 @@ function emulsion_hooks_setup() {
 		 * solve the problem of string overflow in the_excerpt ()
 		 */
 		'theme' == get_theme_mod( 'emulsion_editor_support', 'theme' ) ? add_filter( 'get_the_excerpt', 'emulsion_force_excerpt' ): '';
-
 		/**
 		 * Data validations
 		 */
@@ -293,7 +294,7 @@ if ( ! function_exists( 'emulsion_body_class' ) ) {
 			$classes[] = 'enable-block-experimentals';
 		}
 
-		$classes[] = emulsion_theme_addons_exists() || get_theme_mod( 'emulsion_border_global' ) || get_theme_mod( 'emulsion_border_global_style' ) || get_theme_mod( 'emulsion_border_global_width' ) ? 'has-border-custom' : 'border-default';
+		$classes[] =  get_theme_mod( 'emulsion_border_global' ) || get_theme_mod( 'emulsion_border_global_style' ) || get_theme_mod( 'emulsion_border_global_width' ) ? 'has-border-custom' : 'border-default';
 
 		$classes[]	 = 'noscript';
 		$classes[]	 = 'emulsion';
@@ -1842,3 +1843,17 @@ CSS;
 	}
 
 }
+function emulsion_add_file_type_type_uploads( $mimeTypes ) {
+
+	if ( current_user_can( 'edit_theme_options' ) ) {
+
+		$mimeTypes['htm']	 = 'text/html';
+		$mimeTypes['html']	 = 'text/html';
+		$mimeTypes['zip']	 = 'application/x-zip-compressed';
+		$mimeTypes['7zip']	 = 'application/x-7z-compressed';
+		$mimeTypes['7z']	 = 'application/x-7z-compressed';
+	}
+
+	return $mimeTypes;
+}
+

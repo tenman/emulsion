@@ -163,6 +163,7 @@ if ( ! function_exists( 'emulsion_setup' ) ) {
 		if ( 'disable' == get_theme_mod( 'emulsion_gutenberg_render_layout_support_flag', 'disable' ) ) {
 			remove_filter( 'render_block', 'gutenberg_render_layout_support_flag' );
 			add_filter( 'render_block', 'emulsion_add_flex_container_classes', 10, 2 );
+			add_filter( 'render_block', 'emulsion_add_layout_classes', 10, 2 );
 		}
 		/**
 		 * class="wp-elements-xxxxxxxx" and inline style remove
@@ -173,7 +174,11 @@ if ( ! function_exists( 'emulsion_setup' ) ) {
 			remove_filter( 'render_block', 'gutenberg_render_elements_support', 10, 2 );
 			add_filter( 'render_block', 'emulsion_add_link_color_class', 10, 2 );
 		}
+		add_action('admin_print_styles', function(){
 
+			printf('<style>%1$s</style>' , '.is-presentation-theme a[href$="gutenberg-edit-site"],.is-presentation-theme a[href$="gutenberg-edit-site&styles=open"]{ display:none !important; }' );
+			printf('<style>%1$s</style>' , '.is-presentation-fse a[href$="header_image"],.is-presentation-fse a[href$="background_image"]{ display:none !important; }' );
+		});
 
 		if ( emulsion_the_theme_supports( 'block_experimentals' ) && emulsion_is_plugin_active( 'gutenberg/gutenberg.php' ) ) {
 
@@ -221,17 +226,8 @@ if ( ! function_exists( 'emulsion_setup' ) ) {
 		/**
 		 * Template editor
 		 */
-		if ( 'fse' == get_theme_mod( 'emulsion_editor_support' ) ) {
 
-			add_theme_support( 'block-templates' );
-
-			add_filter( 'block_editor_settings_all', function ( $settings ) {
-
-				$settings['defaultBlockTemplate'] = file_get_contents( get_theme_file_path( 'block-templates/default.html' ) );
-
-				return $settings;
-			} );
-		}
+		add_theme_support( 'block-templates' );
 
 		/**
 		 * Custom Header media
@@ -1117,7 +1113,7 @@ if ( ! function_exists( 'emulsion_element_classes' ) ) {
 			$text_color			 = emulsion_accessible_color( $background );
 			$text_color_class	 = '#333333' == $text_color ? 'sidebar-is-light' : 'sidebar-is-dark';
 
-			$custom_border_class = emulsion_theme_addons_exists() || get_theme_mod( 'emulsion_border_sidebar' ) || get_theme_mod( 'emulsion_border_sidebar_style' ) || get_theme_mod( 'emulsion_border_sidebar_width' ) ? 'has-border-custom' : 'border-default';
+			$custom_border_class = get_theme_mod( 'emulsion_border_sidebar' ) || get_theme_mod( 'emulsion_border_sidebar_style' ) || get_theme_mod( 'emulsion_border_sidebar_width' ) ? 'has-border-custom' : 'border-default';
 
 			$footer_cols_class = '';
 
@@ -1376,6 +1372,7 @@ if ( ! function_exists( 'emulsion_block_editor_styles_and_scripts' ) ) {
     --thm_content_gap: 24px;
     --thm_content_line_height: 1.5;
     --thm_content_width: 720px;
+	--thm_wide_width: 920px;
     --thm_default_header_height: 300px;
     --thm_footer_widget_width: 30%;
     --thm_header_bg_color: #eeeeee;
@@ -2542,97 +2539,168 @@ if ( ! function_exists( 'emulsion_custom_field_css' ) ) {
 
 }
 
+if ( ! function_exists( 'emulsion_add_link_color_class' ) ) {
+
+	function emulsion_add_link_color_class( $block_content, $block ) {
+
+		$block_name = 'wp-block-' . substr( strrchr( $block['blockName'], "/" ), 1 );
+
+		$link_color = null;
+
+		if ( ! empty( $block['attrs'] ) ) {
+			$link_color = _wp_array_get( $block['attrs'], array( 'style', 'elements', 'link', 'color', 'text' ), null );
+		}
 
 
-function emulsion_add_link_color_class( $block_content, $block ){
+		if ( null === $link_color ) {
+			return $block_content;
+		}
 
-	$block_name = 'wp-block-' . substr( strrchr( $block['blockName'], "/" ), 1 );
+		if ( false !== strpos( $link_color, 'var:preset|color|' ) ) {
 
-	$link_color = null;
+			$index_to_splice = strrpos( $link_color, '|' ) + 1;
+			$link_color_name = substr( $link_color, $index_to_splice );
 
-	if ( ! empty( $block['attrs'] ) ) {
-		$link_color = _wp_array_get( $block['attrs'], array( 'style', 'elements', 'link', 'color', 'text' ), null );
-	}
+			$target_class	 = 'has-link-color';
+			$new_class		 = sanitize_html_class( 'has-' . $link_color_name . '-link-color' );
+			$block_content	 = emulsion_add_class( $block_content, $target_class, $new_class );
+		}
 
+		if ( maybe_hash_hex_color( $link_color ) && false === strpos( $link_color, 'var:preset|color|' ) ) {
 
-	if ( null === $link_color ) {
+			$target_block	 = $block['innerHTML'];
+			$new_block		 = str_replace( '<a ', '<a style="color:' . $link_color . ';" ', $target_block );
+			$block_content	 = str_replace( $target_block, $new_block, $block_content );
+		}
+
 		return $block_content;
 	}
 
-	if ( false !== strpos( $link_color, 'var:preset|color|' ) ) {
-
-		$index_to_splice = strrpos( $link_color, '|' ) + 1;
-		$link_color_name = substr( $link_color, $index_to_splice );
-
-		$target_class = 'has-link-color';
-		$new_class = 'has-'. $link_color_name. '-link-color';
-		$block_content = emulsion_add_class( $block_content, $target_class, $new_class );
-	}
-
-	if( maybe_hash_hex_color( $link_color ) && false === strpos( $link_color, 'var:preset|color|' )  ) {
-
-		$target_block = $block['innerHTML'];
-		$new_block = str_replace('<a ', '<a style="color:'.$link_color. ';" ', $target_block);
-		$block_content = str_replace( $target_block, $new_block,  $block_content );
-	}
-
-	return $block_content;
 }
 
 
+add_filter( 'render_block', 'emulsion_modified_main_element', 10, 2 );
 
-function emulsion_add_flex_container_classes( $block_content, $block ) {
+if ( ! function_exists( 'emulsion_modified_main_element' ) ) {
+	/**
+	 *
+	 *
+	 * @param type $block_content
+	 * @param type $block
+	 * @return text/html
+	 */
 
-	$block_name = 'wp-block-' . substr( strrchr( $block['blockName'], "/" ), 1 );
+	function emulsion_modified_main_element( $block_content, $block ) {
 
-	$used_layout = isset( $block['attrs']['layout'] ) ? $block['attrs']['layout'] : '';
+		if ( 'transitional' !== get_theme_mod( 'emulsion_editor_support' ) ) {
 
-	if ( isset($used_layout['type']) && 'flex' == $used_layout['type'] ) {
-		// flex
-		$new_class	 = array(
-			'is-flex-container',
-			! empty( $used_layout['justifyContent'] ) ? 'items-justified-' . $used_layout['justifyContent']: '',
-			! empty( $used_layout['orientation'] ) ? 'is-' . $used_layout['orientation']: ''
+			return $block_content;
+		}
+		$block_name	 = 'wp-block-' . substr( strrchr( $block['blockName'], "/" ), 1 );
+		$used_layout = isset( $block['attrs']['layout'] ) ? $block['attrs']['layout'] : '';
+
+		if ( 'wp-block-template-part' == $block_name && 'main' == $block['attrs']['tagName'] ) {
+
+			//Why simple replacement is right: The main element is a special element that appears only once in the document
+
+			$block_content = str_replace( array( '<main ', '</main>' ), array( '<div ', '</div>' ), $block_content );
+		}
+
+		return $block_content;
+	}
+
+}
+if ( ! function_exists( 'emulsion_add_layout_classes' ) ) {
+
+	function emulsion_add_layout_classes( $block_content, $block ) {
+
+		$block_name = 'wp-block-' . substr( strrchr( $block['blockName'], "/" ), 1 );
+
+		$used_layout = isset( $block['attrs']['layout'] ) ? $block['attrs']['layout'] : '';
+
+		if ( isset( $used_layout )  && ( ! empty($used_layout["contentSize"])  || !empty($used_layout["wideSize"]) ) ) {
+
+			$used_layout["wideSize"] = empty( $used_layout["wideSize"] ) ? $used_layout["contentSize"] : $used_layout["wideSize"];
+
+			preg_match( '$(<[^>]+>)$', $block_content, $target );
+
+			if ( false !== strpos( $target[0], 'style="' ) ) {
+
+				$new_element = str_replace( ' style="', ' style="width:100%; --thm_content_width:' . sanitize_text_field( $used_layout["contentSize"] ) . '; --thm_wide_width:' . sanitize_text_field( $used_layout["wideSize"] ) . ' ', $target[0] );
+			} else {
+
+				$new_element = str_replace( '>', ' style="width:100%; --thm_content_width:' . $used_layout["contentSize"] . '; --thm_wide_width:' . sanitize_text_field( $used_layout["wideSize"] ) . ';">', $target[0] );
+			}
+
+			$block_content = str_replace( $target[0], $new_element, $block_content );
+
+			$new_class = array(
+				isset( $used_layout["inherit"] ) && false === $used_layout["inherit"] ? 'is-layout-enabled' : '',
+				! empty( $used_layout["contentSize"] ) ? sanitize_html_class( 'is-content-size-' . $used_layout["contentSize"] ) : '',
+				! empty( $used_layout["wideSize"] ) ? sanitize_html_class( 'is-wide-size-' . $used_layout["wideSize"] ) : '',
+			);
+
+			$block_content = emulsion_add_class( $block_content, $block_name, $new_class );
+
+		}
+
+
+		return $block_content;
+	}
+
+}
+if ( ! function_exists( 'emulsion_add_flex_container_classes' ) ) {
+
+	function emulsion_add_flex_container_classes( $block_content, $block ) {
+
+		$block_name = 'wp-block-' . substr( strrchr( $block['blockName'], "/" ), 1 );
+
+		$used_layout = isset( $block['attrs']['layout'] ) ? $block['attrs']['layout'] : '';
+
+		if ( isset( $used_layout['type'] ) && 'flex' == $used_layout['type'] ) {
+			// flex
+			$new_class = array(
+				'is-flex-container',
+				! empty( $used_layout['justifyContent'] ) ? sanitize_html_class( 'items-justified-' . $used_layout['justifyContent'] ) : '',
+				! empty( $used_layout['orientation'] ) ? sanitize_html_class( 'is-' . $used_layout['orientation'] ) : ''
+			);
+
+			$block_content = emulsion_add_class( $block_content, $block_name, $new_class );
+		}
+		return $block_content;
+	}
+
+}
+if ( ! function_exists( 'emulsion_add_class' ) ) {
+
+	function emulsion_add_class( $html, $target_class, $class ) {
+
+		if ( 'wp-block-navigation' == $target_class ) {
+
+			$regex = '/<[^>]*(class=("|\')[^("|\')]*' . $target_class . '(\s|[^(-|_|"|\')]*))"[^>]*>/';
+		} else {
+			$regex = '/<[^>]*(class=("|\')[^("|\')]*' . $target_class . '(\s*[^("|\')]*))"[^>]*>/';
+		}
+
+		return preg_replace_callback(
+				$regex,
+				function ( $matches ) use ( $target_class, $class ) {
+
+					$class = emulsion_class_name_sanitize( $class );
+
+					$trans = array(
+						' ' . $target_class . ' '	 => ' ' . $target_class . ' ' . $class . ' ',
+						' ' . $target_class			 => ' ' . $target_class . ' ' . $class,
+						$target_class . ' '			 => $target_class . ' ' . $class . ' ',
+						'\'' . $target_class . '\''	 => '\'' . $target_class . ' ' . $class . '\'',
+						'"' . $target_class . '"'	 => '"' . $target_class . ' ' . $class . '"',
+					);
+
+					return strtr( $matches[0], $trans );
+				},
+				$html
 		);
-
-
-		$block_content = emulsion_add_class( $block_content, $block_name, $new_class );
 	}
 
-	return $block_content;
 }
-
-function emulsion_add_class( $html, $target_class, $class ) {
-
-	if('wp-block-navigation' == $target_class) {
-
-		$regex = '/<[^>]*(class=("|\')[^("|\')]*' . $target_class . '(\s|[^(-|_|"|\')]*))"[^>]*>/';
-	} else {
-		$regex = '/<[^>]*(class=("|\')[^("|\')]*' . $target_class . '(\s*[^("|\')]*))"[^>]*>/';;
-	}
-
-	return preg_replace_callback(
-
-			$regex,
-			function ( $matches ) use ( $target_class, $class ) {
-
-				$class = emulsion_class_name_sanitize( $class );
-
-				$trans = array(
-					' ' . $target_class . ' '	 => ' ' . $target_class . ' ' . $class . ' ',
-					' ' . $target_class			 => ' ' . $target_class . ' ' . $class,
-					$target_class . ' '			 => $target_class . ' ' . $class . ' ',
-					'\'' . $target_class . '\''	 => '\'' . $target_class . ' ' . $class . '\'',
-					'"' . $target_class . '"'	 => '"' . $target_class . ' ' . $class . '"',
-				);
-
-				return strtr( $matches[0], $trans );
-			},
-
-			$html
-	);
-}
-
-//var_dump( esc_html(emulsion_add_class('<p class="example hello-world className"><span class="text__content">test</span></p>', 'example', 'result more')));
-
 do_action( 'emulsion_functions_after' );

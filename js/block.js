@@ -204,3 +204,40 @@ wp.blocks.registerBlockVariation(
             }
         }
 );
+
+document.addEventListener("DOMContentLoaded", function () {
+    var body = document.body;
+
+    if (body.classList.contains('appearance_page_gutenberg-edit-site') && !body.classList.contains('is-presentation-fse')) {
+        window.wp.data.dispatch('core/notices').createNotice(
+                'warning',
+                'The settings made here will not take effect unless you change the theme settings.<br /> Please open the customizer from the link below and select <b>Full Site Editing Theme</b>.',
+                {
+                    __unstableHTML: true, // true = allows HTML; default false
+                    isDismissible: true,
+                    actions: [
+                        {
+                            url: 'customize.php?autofocus[section]=emulsion_editor',
+                            label: 'Change setting in Customizer',
+                        },
+                    ],
+                }
+        )
+    }
+    if (body.classList.contains('widgets-php') && body.classList.contains('is-presentation-fse')) {
+        window.wp.data.dispatch('core/notices').createNotice(
+                'warning',
+                'The settings made here will not take effect unless you change the theme settings.<br />Please open the customizer from the link below and select <b>FSE Transitional Theme or Classic Theme</b>.',
+                {
+                    __unstableHTML: true, // true = allows HTML; default false
+                    isDismissible: true,
+                    actions: [
+                        {
+                            url: 'customize.php?autofocus[section]=emulsion_editor',
+                            label: 'Change setting in Customizer',
+                        },
+                    ],
+                }
+        )
+    }
+});

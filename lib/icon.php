@@ -412,10 +412,7 @@ function emulsion_icon_svg_styles( $css ) {
         text-align:left;
     }
 }
-.menu-social-menu-container{
-	padding-left:var(--thm_content_gap);
-	padding-right:var(--thm_content_gap);
-}
+
 .social-navigation .menu-social-menu-container ul{
     list-style: none;
     margin-bottom: 0;

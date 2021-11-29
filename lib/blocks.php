@@ -95,7 +95,8 @@ function emulsion_block_pattern() {
 					)
 			);
 		}
-		$template_path = get_template_directory().'/block-patterns/block-pattern-relate-posts.php';
+		
+		/*$template_path = get_template_directory().'/block-patterns/block-pattern-relate-posts.php';
 
 		if( is_readable( $template_path ) ) {
 
@@ -108,7 +109,7 @@ function emulsion_block_pattern() {
 				'keywords'		 => 'sticky',
 					)
 			);
-		}
+		}*/
 
 
 		register_block_pattern_category( 'emulsion', array( 'label' => esc_html_x( 'Emulsion', 'Emulsion Block pattern', 'emulsion' ) ) );

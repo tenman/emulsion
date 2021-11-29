@@ -615,7 +615,7 @@ function emulsion_theme_variables( $variables ) {
 	--thm_common_line_height:1.15;
 	--thm_content_line_height:1.5;
     --thm_content_width: $content_width;
-
+	--thm_wide_width: 920px;
     --thm_header_bg_color: $header_bg_color;
     --thm_heading_font_family: $heading_font_family;
     --thm_heading_font_transform:$heading_font_transform;

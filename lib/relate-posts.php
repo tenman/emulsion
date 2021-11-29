@@ -12,6 +12,7 @@ if ( ! function_exists( 'emulsion_related_posts_finder' ) ) {
 	function emulsion_related_posts_finder( $type = 'automatic' ) {
 
 		global $post;
+
 		if ( ! isset( $post ) && empty( $post ) ) {
 			return;
 		}

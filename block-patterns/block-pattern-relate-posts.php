@@ -5,11 +5,10 @@
 
 			return;
 		}
-
+		
 		$algo = emulsion_related_posts_finder();
 
 		$html = '';
-
 
 		if ( ! empty( $algo ) ) {
 

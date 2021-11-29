@@ -1,8 +1,8 @@
 <?php
 
 $html = <<<HTML
-<!-- wp:list {"className":"list-style-tab"} -->
-<ul class="list-style-tab">
+<!-- wp:list {"className":"list-style-tab emulsion-block-pattern-list-tab"} -->
+<ul class="list-style-tab emulsion-block-pattern-list-tab">
 	<li>tab 1
 		<ul>
 			<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, </li>

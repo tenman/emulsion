@@ -286,9 +286,10 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 						break;
 					case 'boilerplate':
 						$summary	 = esc_html__( 'boilerplate', 'emulsion' );
-						$description = esc_html__( 'Disable all stylesheets and javascript in the theme. The core style of the block editor is maintained.', 'emulsion' );
-						$description .= '<p>' . esc_html__( 'The plugin allows you to set each post or page.', 'emulsion' ) . '</p>';
-						$description .= '<p>' . esc_html__( 'This setting does not support customizer preview. Please open the blog and check.', 'emulsion' ) . '</p>';
+						'fse' !== get_theme_mod('emulsion_editor_support') ? $description = esc_html__( 'Disable all stylesheets in the theme. The core style of the block editor is maintained.', 'emulsion' ): '';
+						'fse' == get_theme_mod('emulsion_editor_support') ?$description = esc_html__( 'Only the Gutenberg block style and the core block style are valid, and most styles in the theme are disabled. Style by theme.json works', 'emulsion' ):'';
+
+						
 						break;
 					default:
 						$summary	 = '';
