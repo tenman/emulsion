@@ -26,7 +26,7 @@ function emulsion_hooks_setup() {
 	add_filter( 'the_password_form', 'emulsion_get_the_password_form', 11 );
 	add_filter( 'oembed_default_width', 'emulsion_oembed_default_width', 99 );
 	'theme' == get_theme_mod( 'emulsion_editor_support', 'theme' ) ? add_filter( 'excerpt_length', 'emulsion_excerpt_length_with_lang', 99 ): '';
-	add_filter( 'upload_mimes', 'emulsion_add_file_type_type_uploads' );
+
 	add_filter( 'theme_templates', 'emulsion_theme_templates' );
 	add_filter( 'the_excerpt', 'emulsion_excerpt_remove_p' );
 	add_filter( 'gettext_with_context_default', 'emulsion_change_translate', 99, 4 );
@@ -1843,17 +1843,5 @@ CSS;
 	}
 
 }
-function emulsion_add_file_type_type_uploads( $mimeTypes ) {
 
-	if ( current_user_can( 'edit_theme_options' ) ) {
-
-		$mimeTypes['htm']	 = 'text/html';
-		$mimeTypes['html']	 = 'text/html';
-		$mimeTypes['zip']	 = 'application/x-zip-compressed';
-		$mimeTypes['7zip']	 = 'application/x-7z-compressed';
-		$mimeTypes['7z']	 = 'application/x-7z-compressed';
-	}
-
-	return $mimeTypes;
-}
 
