@@ -145,6 +145,9 @@ stream.png
         * Source: https://github.com/LeaVerou/css3patterns
 
 ## Changelog
+### December 10 2021
+		* 2.1.5
+        * https://github.com/tenman/emulsion/releases
 ### November 30 2021
 		* 2.1.4
         * https://github.com/tenman/emulsion/releases

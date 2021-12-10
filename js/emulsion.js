@@ -1017,3 +1017,9 @@ jQuery(function ($) {
     $('.wp-block-navigation .wp-block-navigation__submenu-icon').attr('tabindex', 0);
     $('.wp-block-navigation .wp-block-navigation__submenu-icon:focus, .wp-block-navigation .wp-block-navigation__submenu-icon:active,.wp-block-navigation .wp-block-navigation__submenu-icon:focus-within').attr('aria-expanded', true);
 });
+jQuery(function ($) {
+    $('.alignleft .size-thumbnail,.alignright .size-thumbnail').parent().addClass('size-thumbnail');
+    $('.alignleft .size-mediuml,.alignright .size-medium').parent().addClass('size-medium');
+    $('.alignleft .size-large,.alignright .size-large').parent().addClass('size-large');
+     $('.alignleft .size-full,.alignright .size-full').parent().addClass('size-full');
+});

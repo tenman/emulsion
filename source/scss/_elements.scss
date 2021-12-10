@@ -139,8 +139,7 @@ wp-block-search, wp-block-social-links, wp-block-tag-cloud, wp-block-embed, wp-b
 
     article{
         & > header{
-            width:var(--thm_main_width);
-            max-width:100%;
+            width:100%;
         }
         &.has-post-thumbnail{
             & > header{
@@ -426,6 +425,9 @@ article{
             display:var(--thm_excerpt_linebreak);
         }
     }
+}
+address{
+    text-align:center;
 }
 aside{
     @extend %block;
@@ -1136,7 +1138,7 @@ ul:not(.list-style-initial):not(.is-style-list-style-initial){
  * UL list format exception
  */
 
-.legacy-widget-{}preview .widget_meta > ul,
+.legacy-widget-preview .widget_meta > ul,
 .legacy-widget-preview .menu-main-container > ul,
 .legacy-widget-preview .widget_categories > ul,
 .layout ul.footer-widget-area-lists .widget_archive > ul,
@@ -1341,6 +1343,8 @@ ul.list-style-inline:not(.list-style-initial):not(.is-style-list-style-initial){
     flex-wrap:wrap;
     align-items: center;
     justify-content: center;
+    padding-right:var(--thm_content_gap);
+    padding-left:var(--thm_content_gap);
     li{
         z-index:2;
         display:inline-block;
@@ -2209,10 +2213,10 @@ body .fit{
             }
             .relate-post-no-icon{
                 display:inline-block;
-                width:48px;
-                height:48px;
+                width:46px;
+                height:46px;
                 padding:0;
-                line-height:48px;
+                line-height:46px;
                 color:var(--thm_header_text_color);
                 text-align:center;
                 text-transform: uppercase;
@@ -2349,18 +2353,18 @@ body .fit{
 }
 .position-center{
     display:block ! important;
-    margin-left:auto ! important;
     margin-right:auto ! important;
+    margin-left:auto ! important;
 }
 .position-left{
     display:block ! important;
-    margin-left:0 ! important;
     margin-right:auto ! important;
+    margin-left:0 ! important;
 }
 .position-right{
     display:block ! important;
-    margin-left:auto ! important;
     margin-right:0 ! important;
+    margin-left:auto ! important;
 }
 /**
  * fse tag in theme

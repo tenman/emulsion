@@ -9,6 +9,34 @@ body.emulsion-color-enable  #editor .interface-interface-skeleton__content .edit
     color: var(--thm_general_text_color) ! important;
     background: var(--thm_background_color) ! important;
 }
+//site editor layout issue
+
+.block-editor-page{
+    #editor{
+        .editor-styles-wrapper  .block-editor-block-list__layout.is-root-container{
+
+            & > *{
+                max-width:100%;
+            }
+            & > [data-align="left"]{
+
+                margin-right:1rem !important;
+                margin-left:var(--thm_content_gap, 24px) !important;
+            }
+            & > [data-align="right"]{
+                margin-right:var(--thm_content_gap, 24px) !important;
+                margin-left:1rem !important;
+            }
+        }
+        .editor-styles-wrapper figure.wp-block-gallery {
+            display:flex;
+        }
+        .editor-styles-wrapper [data-type="core/freeform"] .wp-block-freeform .wpview-wrap[data-wpview-type="gallery"]{
+            height:auto;
+        }
+    }
+}
+
 /**
  * Fallback
  * Right Sidebar
@@ -396,7 +424,7 @@ hr{
  * Block inserter preview
  */
 .edit-post-editor__inserter-panel{
-//.edit-post-layout__inserter-panel{
+    //.edit-post-layout__inserter-panel{
 
     .block-editor-inserter__main-area{
         overflow-x:hidden;
@@ -2067,18 +2095,18 @@ div.is-root-container .wp-block-media-text.alignright{
     }
     .wp-block.position-center{
         display:block ! important;
-        margin-left:auto ! important;
         margin-right:auto ! important;
+        margin-left:auto ! important;
     }
     .wp-block.position-left{
         display:block ! important;
-        margin-left:0 ! important;
         margin-right:auto ! important;
+        margin-left:0 ! important;
     }
     .wp-block.position-right{
         display:block ! important;
-        margin-left:auto ! important;
         margin-right:0 ! important;
+        margin-left:auto ! important;
     }
 
 
@@ -2213,6 +2241,7 @@ div.is-root-container .wp-block-media-text.alignright{
             }
             img{
                 width:50%;
+                object-fit:cover;
             }
         }
         .wp-block-image:not(.resized){
@@ -2248,6 +2277,7 @@ div.is-root-container .wp-block-media-text.alignright{
             margin-left:1rem;
             img{
                 width:50%;
+                object-fit:cover;
             }
         }
         .wp-block-image:not(.resized){
@@ -3470,6 +3500,12 @@ div.components-notice{
                         }
                     }
                 }
+                .wp-block-navigation-placeholder__controls{
+                    hr{
+                        width:auto;
+                        border:1px solid red;
+                    }
+                }
             }
             /**
              * Aligns
@@ -3606,7 +3642,14 @@ body.is-presentation-transitional{
         padding:0;
         div.wp-block-cover__inner-container{
             position:relative;
-            overflow-y:auto;
+            overflow-y:visible;
+            .wp-block-navigation__submenu-container{
+                .wp-block-navigation-item{
+                    margin-top:0;
+                    margin-bottom:0;
+                }
+
+            }
         }
         &.has-custom-content-position{
 
@@ -3636,10 +3679,25 @@ body.is-presentation-transitional{
 /**
  * FSE
  */
-
+.appearance_page_gutenberg-edit-site{
+    //outer iframe
+    .edit-site-visual-editor .block-editor-block-contextual-toolbar.is-fixed:empty{
+        display:none;
+    }
+}
 body.editor-styles-wrapper{
 
+    .wp-block-template-part{
+        &.fse-header{
+            width:100%;
+            padding:0;
+            margin:0 auto;
+        }
+    }
 
+    .wp-block-navigation-placeholder__actions.wp-block-navigation-placeholder__actions hr{
+        width:auto;
+    }
     .fse-query-post-template{
         width:100%;
         padding:0;
@@ -3716,6 +3774,7 @@ body.editor-styles-wrapper{
             }
         }
     }
+
     .edit-site-block-editor__block-list{
 
         .is-root-container{
@@ -4070,6 +4129,7 @@ body.editor-styles-wrapper{
                         filter:brightness(70%);
                         object-fit:cover;
                     }
+
                 }
                 .wp-block-post-excerpt__excerpt{
                     display:none;

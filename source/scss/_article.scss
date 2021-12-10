@@ -2,25 +2,12 @@
  * No Sidebar
  * ========================================================================== */
 .emulsion-no-sidebar{
-    main{
-
-        & > .page,
-        & > .post{
-            article{
-                & > header{
-                    &.show-post-image{
-                        background-attachment:fixed;
-                    }
-                }
-            }
-        }
-    }
     &.attachment{
         main{
             article{
-                width:calc(100vw - 17px);
+                width:100%;
                 .attachment-image{
-                    width:calc(100vw - 17px);
+                    width:100%;
                     width: -moz-fit-content;
                     width:fit-content;
                     margin-top:0;
@@ -46,24 +33,10 @@ body.page{
         }
     }
 }
-[amp]{
-    .search-result-0,
-    .not-found{
-        min-height:60vh;
-        padding-bottom:3rem;
-    }
-}
 
 /**
  * Post Thumbnail
  * ========================================================================== */
-main > .post{
-    article:not(.has-post-thumbnail) {
-        & > header{
-            padding-top:calc( 1rem * 3 );
-        }
-    }
-}
 
 .emulsion-addons-inactive body,
 .single,
@@ -75,6 +48,7 @@ body.excerpt,
 .post{
     article{
         & > header{
+            // not title in header and not singular
             &.show-post-image{
                 position:relative;
                 height:var(--thm_header_media_max_height, 75vh);
@@ -174,22 +148,14 @@ body.excerpt,
     }
 }
 
-.has-background{
-    position:relative;
-    -webkit-box-sizing:border-box;
-    box-sizing:border-box;
-
-}
-
-p.has-background {
+.emulsion .has-background{ //OW
     position:relative;
     -webkit-box-sizing:border-box;
     box-sizing:border-box;
     padding:.75em var( --thm_content_gap, 24px );
 }
-
 .solid-border{
-    padding:1em;
+    padding:.75em var( --thm_content_gap, 24px );
 }
 main > .post article header.fit,
 main > .page article header.fit,
@@ -688,14 +654,3 @@ article.format-gallery .entry-content{
         }
     }
 }
-/*
-#document .is-presentation-theme.emulsion-header-has-title.is-singular article .post-header {
-    display:block;
-}
-
-#document .is-presentation-fse.emulsion-header-has-title.is-singular article .post-header {
-    display:block;
-}
-#document .is-presentation-transitional.emulsion-header-has-title.is-singular article .post-header {
-    display: none;
-}*/

@@ -2,6 +2,7 @@
  * todo: Currently blockVariation titles cannot be internationalized
  *
  */
+
 wp.blocks.registerBlockVariation(
         'core/columns', {
             name: 'cta-block',
@@ -204,11 +205,20 @@ wp.blocks.registerBlockVariation(
             }
         }
 );
+function emulsionGetParameterByName(name, url = window.location.href) {
+
+    name = name.replace(/[\[\]]/g, '\\$&');
+    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
 
 document.addEventListener("DOMContentLoaded", function () {
     var body = document.body;
 
-    if (body.classList.contains('appearance_page_gutenberg-edit-site') && !body.classList.contains('is-presentation-fse')) {
+    if (body.classList.contains('appearance_page_gutenberg-edit-site') && !body.classList.contains('is-presentation-fse') && !emulsionGetParameterByName('postType')) {
         window.wp.data.dispatch('core/notices').createNotice(
                 'warning',
                 'The settings made here will not take effect unless you change the theme settings.<br /> Please open the customizer from the link below and select <b>Full Site Editing Theme</b>.',

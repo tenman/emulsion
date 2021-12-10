@@ -799,7 +799,7 @@ if ( ! function_exists( 'emulsion_theme_image_dir' ) ) {
 if ( ! function_exists( 'emulsion_make_css_variable' ) ) {
 
 	function emulsion_make_css_variable( $theme_mod_name ) {
-
+//
 		//exceptions todo Ensuring consistency
 		$replace_pairs = array(
 			'emulsion_header_background_color'		 => '--thm_header_bg_color',
@@ -821,6 +821,11 @@ if ( ! function_exists( 'emulsion_make_css_variable' ) ) {
 if ( ! function_exists( 'emulsion_theme_styles' ) ) {
 
 	function emulsion_theme_styles( $css ) {
+
+		if( emulsion_inline_style_load_controller( __FUNCTION__ ) ) {
+
+			return $css;
+		}
 
 		$variables = false !== get_theme_mod( 'emulsion__css_variables' ) ? get_theme_mod( 'emulsion__css_variables' ) : '';
 
@@ -1546,6 +1551,7 @@ if ( ! function_exists( 'emulsion_add_common_font_css' ) ) {
 
 	function emulsion_add_common_font_css( $css ) {
 
+
 		$pre_filter = apply_filters( 'emulsion_add_common_font_css_pre', false );
 
 		if ( false !== $pre_filter ) {
@@ -1614,6 +1620,8 @@ if ( ! function_exists( 'emulsion_heading_font_css' ) ) {
 
 			return $css . $pre_filter;
 		}
+
+
 
 		$transient_name = __FUNCTION__;
 
@@ -1712,6 +1720,10 @@ if ( ! function_exists( 'emulsion_heading_font_css' ) ) {
 		}
 
 		$inline_style	 .= <<<CSS
+				/* emulsion_heading_font_css */
+		:root{
+			--thm_heading_font_base:{$heading_font_base};
+		}
 		body.font-heading-{$fallback_font_family} .h6,
 		body.font-heading-{$fallback_font_family} .h5,
 		body.font-heading-{$fallback_font_family} .h4,

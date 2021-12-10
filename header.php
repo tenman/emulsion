@@ -44,4 +44,3 @@
 
 			<main id="main">
 				<?php ! have_posts() ? get_template_part( 'template-parts/failed' ) : ''; ?>
-

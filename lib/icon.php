@@ -391,6 +391,11 @@ SYMBOL;
 
 function emulsion_icon_svg_styles( $css ) {
 
+	if( 'fse' == get_theme_mod('emulsion_editor_support') ){
+
+		return $css;
+	}
+
 	$style =<<<CSS
 .social-navigation{
     font-size: 16px;

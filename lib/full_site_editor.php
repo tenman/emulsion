@@ -83,6 +83,7 @@ function_exists( 'modify_admin_bar' ) ? add_action( 'admin_bar_menu', 'modify_ad
 
 
 
+
 if ( emulsion_do_fse() ) {
 
 	/**
@@ -124,7 +125,7 @@ if ( emulsion_do_fse() ) {
 
 		add_filter( 'emulsion_the_theme_supports', function ( $support, $name ) {
 
-			$remove_supports = array( 'sidebar', 'sidebar-page', 'title_in_page_header', 'scheme' );
+			$remove_supports = array( 'sidebar', 'sidebar-page', 'title_in_page_header' );
 			$theme_mode		 = get_theme_mod( 'emulsion_editor_support', false );
 
 			if ( in_array( $name, $remove_supports ) && 'fse' == $theme_mode ) {
@@ -204,19 +205,40 @@ function emulsion_php_custom_template_names_callback( $test ) {
 /**
  * Stop Site editor
  */
+function emulsion_add_template_loader_filters() {
+	if ( ! current_theme_supports( 'block-templates' ) ) {
+		return;
+	}
+$result = '';
+	$template_types = array_keys( get_default_block_template_types() );
+	foreach ( $template_types as $template_type ) {
+		// Skip 'embed' for now because it is not a regular template type.
+		if ( 'embed' === $template_type ) {
+			continue;
+		}
+		$result .= remove_filter( str_replace( '-', '', $template_type ) . '_template', 'locate_block_template', 20, 3 ) ? '':' '.$template_type;
+	}
+
+	// Request to resolve a template.
+	if ( isset( $_GET['_wp-find-template'] ) ) {
+		add_filter( 'pre_get_posts', '_resolve_template_for_new_post' );
+	}
+}
 function emulsion_stop_fse() {
 
 	if ( gutenberg_is_fse_theme() ) {
 
+
+
+		add_action( 'wp_loaded', 'emulsion_add_template_loader_filters' );
+
 		remove_filter( 'emulsion_element_classes_root', 'emulsion_element_classes_root_filter' );
-		//to do
-	//	remove_theme_support( 'block-templates' );
 
 		$result = '';
 
-		if ( function_exists( 'get_template_types' ) ) {
+		if ( function_exists( 'get_default_block_template_types' ) ) {
 
-			$html_templates = get_template_types();
+			$html_templates = array_keys( get_default_block_template_types() );
 		} else {
 
 			$html_templates = gutenberg_get_template_type_slugs();
@@ -233,26 +255,30 @@ function emulsion_stop_fse() {
 			}
 		}
 
+		if ( 'theme' == get_theme_mod( 'emulsion_editor_support' ) ) {
 
+			add_action( 'wp_loaded', 'emulsion_gutenberg_add_template_loader_filters' );
+		}
+		if ( 'theme' == filter_input( INPUT_GET, 'fse' ) ) {
 
-		
+			add_action( 'wp_loaded', 'emulsion_gutenberg_add_template_loader_filters' );
+		}
 
 		$result	 .= remove_action( 'admin_bar_menu', 'gutenberg_adminbar_items', 50 ) ? '' : ' gutenberg_adminbar_items';
 
 		$result	 .= remove_filter( 'menu_order', 'gutenberg_menu_order' ) ? '' : ' gutenberg_menu_order';
 		$result	 .= remove_action( 'admin_menu', 'gutenberg_remove_legacy_pages' ) ? '' : ' gutenberg_remove_legacy_pages';
 		$result	 .= remove_action( 'wp_loaded', 'gutenberg_add_template_loader_filters' ) ? '' : ' gutenberg_add_template_loader_filters';
+		if( function_exists( '_add_template_loader_filters') ) {
+			$result .= add_action( 'wp_loaded', '_add_template_loader_filters' ) ? '': ' _add_template_loader_filters';
+		}
 		$result .= remove_action( 'admin_menu', 'gutenberg_fix_template_part_admin_menu_entry' ) ? '' : ' gutenberg_fix_template_part_admin_menu_entry';
 		$result	 .= remove_action( 'admin_menu', 'gutenberg_fix_template_admin_menu_entry' ) ? '' : ' gutenberg_fix_template_admin_menu_entry';
 		//check
 		$result	 .= remove_action( 'init', 'gutenberg_register_block_core_post_content', 20 ) ? '' : ' gutenberg_register_block_core_post_content';
-		//$result	 .= remove_action( 'admin_notices', 'gutenberg_full_site_editing_notice' ) ? '' : ' gutenberg_full_site_editing_notice';
 		$result	 .= remove_action( 'wp_enqueue_scripts', 'gutenberg_experimental_global_styles_enqueue_assets' ) ? '' : ' gutenberg_experimental_global_styles_enqueue_assets';
 
 		add_action( 'admin_notices', 'emulsion_full_site_editing_notice' );
-
-		has_filter( 'emulsion_add_common_font_css_pre' ) ? remove_filter( 'emulsion_add_common_font_css_pre', '__return_empty_string' ) : '';
-		has_filter( 'emulsion_heading_font_css_pre' ) ? remove_filter( 'emulsion_heading_font_css_pre', '__return_empty_string' ) : '';
 
 		if ( empty( $result ) ) {
 
