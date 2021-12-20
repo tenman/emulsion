@@ -413,7 +413,6 @@ function emulsion_register_scripts_and_styles() {
 			$jquery_dependency = array( );
 		}
 
-
 	$emulsion_current_data_version = null;
 
 	if ( is_user_logged_in() ) {
@@ -564,8 +563,8 @@ function emulsion_register_scripts_and_styles() {
 		// Cached
 		wp_enqueue_style( 'admin-bar' );
 	}
-
-	if ( true === $support_instantclick && ! emulsion_is_amp() ) {
+//
+	if ( true === $support_instantclick  && ! emulsion_is_amp() ) {
 
 		foreach ( $emulsion_theme_styles as $emulsion_theme_style ) {
 
@@ -1632,8 +1631,6 @@ if ( ! function_exists( 'emulsion_is_amp' ) ) {
 
 		if ( function_exists( 'is_amp_endpoint' ) ) {
 
-
-
 			return is_amp_endpoint();
 		}
 
@@ -1782,7 +1779,8 @@ if ( function_exists( 'amp_init' ) ) {
 	 * AMP
 	 * https://wordpress.org/plugins/amp/
 	 */
-	add_action( 'amp_post_template_css', 'emulsion_theme_amp_css' );
+	$amp_options = get_option( 'amp-options' );
+	'amp-reader' == $amp_options["theme_support"] ? add_action( 'amp_post_template_css', 'emulsion_theme_amp_css' ):'';
 
 	if ( ! function_exists( 'emulsion_theme_amp_css' ) ) {
 
@@ -2753,5 +2751,96 @@ if ( ! function_exists( 'emulsion_add_class' ) ) {
 	}
 
 }
+
+add_filter( 'render_block', 'emulsion_posted_on_classes', 10, 2 );
+
+if ( ! function_exists( 'emulsion_posted_on_classes' ) ) {
+	/**
+	 *
+	 *
+	 * @param type $block_content
+	 * @param type $block
+	 * @return text/html
+	 */
+
+	function emulsion_posted_on_classes( $block_content, $block ) {
+
+		if ( 'theme' == get_theme_mod( 'emulsion_editor_support' ) ) {
+
+			return $block_content;
+		}
+
+		// The bio setting is true for enable, but string C for disable. Why ?
+
+		$block_name					 = 'wp-block-' . substr( strrchr( $block['blockName'], "/" ), 1 );
+		$author_bio_setting			 = ! empty( $block["innerBlocks"][1]["blockName"]['attr']["showBio"] ) && is_bool( $block["innerBlocks"][1]["blockName"]['attr']["showBio"] ) && true == $block["innerBlocks"][1]["blockName"]['attr']["showBio"] ? true: false;
+		$block_has_posted_on_class	 = ! empty( $block['attrs']['className'] ) && false !== strstr( $block['attrs']['className'], 'posted-on' ) ? true : false;
+
+		if ( 'wp-block-group' == $block_name && $block_has_posted_on_class && $author_bio_setting ) {
+
+			$new_class = array( 'has-author-bio' );
+			$block_content = emulsion_add_class( $block_content, $block_name, $new_class );
+		}
+
+		return $block_content;
+	}
+
+}
+
+add_filter( 'render_block', 'emulsion_modify_cjk_excerpt', 10, 2 );
+
+if ( ! function_exists( 'emulsion_modify_cjk_excerpt' ) ) {
+
+	/**
+	 * CJK language excerpt
+	 * For languages that don't use spaces between words, we'll add an excerpt feature based on the number of characters.
+	 *
+	 * @param type $block_content
+	 * @param type $block
+	 * @return text/html
+	 */
+
+	function emulsion_modify_cjk_excerpt( $block_content, $block ) {
+
+		if ( 'theme' == get_theme_mod( 'emulsion_editor_support' ) ) {
+
+			return $block_content;
+		}
+
+		// The bio setting is true for enable, but string C for disable. Why ?
+
+		$block_name	 = 'wp-block-' . substr( strrchr( $block['blockName'], "/" ), 1 );
+		$is_lang_cjk = emulsion_lang_cjk();
+
+		if ( 'wp-block-post-excerpt' == $block_name && $is_lang_cjk ) {
+
+			$new_excerpt = wp_html_excerpt( $block_content, 256, '...' );
+
+			return sprintf( '<div class="wp-block-post-excerpt"><p class="wp-block-post-excerpt__excerpt">%1$s</p></div>', $new_excerpt );
+		}
+
+
+		return $block_content;
+	}
+
+}
+
+if ( ! function_exists( 'emulsion_sanitize_css' ) ) {
+
+	/**
+	 * CSS sanitize
+	 */
+	function emulsion_sanitize_css( $css ) {
+
+		/**
+		 *
+		 * Please add filter style sanitize code. if need
+		 *
+		 */
+		return wp_strip_all_tags( $css );
+	}
+
+}
 do_action( 'emulsion_functions_after' );
+
 

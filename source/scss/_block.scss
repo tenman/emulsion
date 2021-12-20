@@ -2539,8 +2539,8 @@ body .wp-block-cover.alignfull:first-of-type{
  * ========================================================================== */
 .wp-block-group{
     nav.wp-block-navigation:only-child{
-        margin-top:var(--thm_box_gap);
-        margin-bottom:var(--thm_box_gap);
+        margin-top:var(--thm_box_gap, 3px);
+        margin-bottom:var(--thm_box_gap, 3px);
     }
 }
 
@@ -3358,7 +3358,18 @@ body.emulsion-color-enable .interface-interface-skeleton__content [data-block].i
         }
     }
 }
-.emulsion .wp-block-query{
+body .wp-block-query{
+   .wp-block-post-template{
+        padding:0;
+        li{
+            position:relative;
+            &:before{
+                display:none;
+            }
+        }
+   }
+}
+body:not(.full_text) .wp-block-query{
 
     //share fse
 

@@ -21,7 +21,6 @@ if ( ! function_exists( 'emulsioncustomize_register' ) ) {
 				'sanitize_callback'	 => 'emulsion_editor_support_validate',
 				'type'				 => 'radio',
 				'choices'			 => array(
-					'experimental'	 => esc_html__( 'Experimental Mode', 'emulsion' ),
 					'fse'			 => esc_html__( 'Full Site Editing Theme', 'emulsion' ),
 					'transitional'	 => esc_html__( 'FSE Transitional Theme', 'emulsion' ),
 					'theme'			 => esc_html__( 'Classic Theme', 'emulsion' ),
@@ -63,7 +62,7 @@ if ( ! function_exists( 'emulsioncustomize_register' ) ) {
 				'section'			 => 'emulsion_editor',
 				'default'			 => 'disable',
 				'label'				 => esc_html__( 'Sparate Core Block CSS Load', 'emulsion' ),
-				'description'		 => esc_html__( 'It loads the required styles when the block is used, but the hard-coded styles affect the display of the theme.', 'emulsion' ),
+				'description'		 => esc_html__( 'Check for the presence of the block and load the required style.', 'emulsion' ),
 				'sanitize_callback'	 => 'emulsion_should_load_separate_core_block_assets_validate',
 				'type'				 => 'radio',
 				'choices'			 => array(
@@ -289,7 +288,7 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 						'fse' !== get_theme_mod('emulsion_editor_support') ? $description = esc_html__( 'Disable all stylesheets in the theme. The core style of the block editor is maintained.', 'emulsion' ): '';
 						'fse' == get_theme_mod('emulsion_editor_support') ?$description = esc_html__( 'Only the Gutenberg block style and the core block style are valid, and most styles in the theme are disabled. Style by theme.json works', 'emulsion' ):'';
 
-						
+
 						break;
 					default:
 						$summary	 = '';
@@ -487,7 +486,7 @@ function emulsion_scheme_validate( $input ) {
 
 function emulsion_editor_support_validate( $input ) {
 
-	$values			 = array( 'fse', 'transitional', 'theme', 'experimental' );
+	$values			 = array( 'fse', 'transitional', 'theme' );
 	$default_value	 = 'theme';
 
 	if ( in_array( $input, $values ) ) {

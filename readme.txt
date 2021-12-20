@@ -10,7 +10,7 @@ Tags: one-column, two-columns, left-sidebar, right-sidebar, custom-colors, custo
 
 ## Description
 
-block editor, classic editor both supports. Conventional, Image Media New Block Type Image Both media can be displayed correctly.
+By switching Customize / Theme Operation Mode. A universal theme that allows you to use the latest Setting Full Site Editing (Editor), Block Editor, Block Template.You can also view the traditional sidebar by selecting FSE Transitional Theme.You will be free to go back and forth between the future of WordPress and the present.
 
 * Archives layout
 	* Archive has 3 layout. list, grid and stream
@@ -145,6 +145,9 @@ stream.png
         * Source: https://github.com/LeaVerou/css3patterns
 
 ## Changelog
+### December 20 2021
+		* 2.1.6
+        * https://github.com/tenman/emulsion/releases
 ### December 10 2021
 		* 2.1.5
         * https://github.com/tenman/emulsion/releases

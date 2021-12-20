@@ -52,8 +52,6 @@ function emulsion_hooks_setup() {
 						return 'no';
 					} ) : '';
 
-	add_filter( 'excerpt_allowed_blocks', 'emulsion_excerpt_allowed_blocks' );
-
 	/**
 	 * Scripts
 	 */
@@ -1009,22 +1007,7 @@ CUSTOMIZED_CSS;
 
 }
 
-if ( ! function_exists( 'emulsion_sanitize_css' ) ) {
 
-	/**
-	 * CSS sanitize
-	 */
-	function emulsion_sanitize_css( $css ) {
-
-		/**
-		 *
-		 * Please add filter style sanitize code. if need
-		 *
-		 */
-		return wp_strip_all_tags( $css );
-	}
-
-}
 if ( ! function_exists( 'emulsion_force_excerpt' ) ) {
 
 	function emulsion_force_excerpt( $excerpt ) {
@@ -1535,16 +1518,6 @@ function emulsion_skip_loading_lazy_image( $value, $image, $context ) {
 		}
 	}
 	return $value;
-}
-
-function emulsion_excerpt_allowed_blocks( $allowed_blocks ) {
-
-	if ( ! in_array( 'core/group', $allowed_blocks, true ) ) {
-
-		$allowed_blocks[] = 'core/group';
-	}
-
-	return $allowed_blocks;
 }
 
 if ( ! function_exists( 'emulsion_add_common_font_css' ) ) {

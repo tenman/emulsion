@@ -2,9 +2,9 @@
  * Borders
  * ========================================================================== */
 .has-border-custom{
-    --thm_common_border:var(--thm_border_global);
-    --thm_common_border_style:var(--thm_border_global_style);
-    --thm_common_border_width:var(--thm_border_global_width);
+    --thm_common_border:var(--thm_border_global, rgba(188,188,188,.5));
+    --thm_common_border_style:var(--thm_border_global_style,solid);
+    --thm_common_border_width:var(--thm_border_global_width,1px);
 }
 .is-dark .border-default,/* sidebar, footer */
 .is-dark.border-default{
@@ -37,10 +37,17 @@ body.noscript{
     }
 }
 body.layout-list{
-    article:not(.comment-body):not(.has-post-thumbnail){
-        border-bottom-color:var(--thm_common_border, rgba(188,188,188,.5));
-        border-bottom-style:var(--thm_common_border_style, solid);
-        border-bottom-width:var(--thm_common_border_width, 1px);
+    article:not(.comment-body):not(.has-post-thumbnail):after {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: -1px;
+        left: 0;
+        width: 720px;
+        max-width: 100%;
+        margin: auto;
+        content: ' ';
+        border-bottom: var(--thm_common_border_width, 1px) var(--thm_common_border_style, solid) var(--thm_common_border, rgba(188,188,188,.5));
     }
 }
 
@@ -554,10 +561,10 @@ figure.wp-block-table{
 
 .sidebar-widget-area,
 .footer-widget-area{
-        &.border-default .widget > ul > li{
-         border-bottom-color:var(--thm_common_border, rgba(188,188,188,.5));
-         border-bottom-style:var(--thm_common_border_style, solid);
-         border-bottom-width:var(--thm_common_border_width, 1px);
+    &.border-default .widget > ul > li{
+        border-bottom-color:var(--thm_common_border, rgba(188,188,188,.5));
+        border-bottom-style:var(--thm_common_border_style, solid);
+        border-bottom-width:var(--thm_common_border_width, 1px);
     }
 }
 

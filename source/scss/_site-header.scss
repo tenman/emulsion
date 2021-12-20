@@ -930,7 +930,17 @@ body .wp-custom-header{
         height:var(--thm_header_media_max_height, 75vh);
     }
 }
+.emulsion-amp-standard{
+    .header-layer.template-part-header-custom .wp-custom-header{
+        overflow:hidden;
+    }
+    .header-layer.template-part-header-custom .wp-custom-header amp-img {
+        display: block;
+        width: 100vw;
+        height: auto;
 
+    }
+}
 body .header-video-active{
 
     iframe#wp-custom-header-video{
@@ -1036,7 +1046,7 @@ button.wp-custom-header-video-button{
                         left:0;
                         display: block;
                         width:90vw;
-                        height: 20vh;
+                        height: 10vh;
                         margin-right:auto;
                         margin-left:auto;
                         .site-title{
@@ -1418,6 +1428,11 @@ body.page{
                 }
             }
         }
+    }
+}
+.emulsion-layout-no-title{
+    .header-layer{
+        display:none;
     }
 }
 .cta-layer-active{

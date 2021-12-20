@@ -834,8 +834,8 @@ summary{
  * List.
  * ========================================================================== */
 
-ol:not([class|="wp-block"]),
-ul:not([class|="wp-block"]){
+ol:not([class|="wp-block"]):not([class*="wp-block-"]),
+ul:not([class|="wp-block"]):not([class*="wp-block-"]){
     @extend %block;
     padding-left:64px;
     list-style:none;
@@ -1380,7 +1380,7 @@ ul.list-style-inline:not(.list-style-initial):not(.is-style-list-style-initial){
 }
 
 .widget > ul a,
-ul[class|="wp-block"] li span,
+ul[class|="wp-block"] li span:not(.wp-block-navigation-item__label),
 ul[class|="wp-block"] li:not(.wp-social-link):not(.cat-item) a:not(.wp-block-navigation-item__content){
     display:block;
     padding-top: calc(1rem * var( --thm_content_line_height, 1.5 ) / 4);
