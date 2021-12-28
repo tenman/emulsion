@@ -2,12 +2,84 @@
  * todo: Currently blockVariation titles cannot be internationalized
  *
  */
+/**
+ * Pending has error
+ * wrong <!-- wp:list {"ordered":{"default":true}} -->
+ * correct <!-- wp:list {"ordered":true} -->
+ * @type type
+ */
+/*
+wp.blocks.registerBlockVariation(
+        'core/list', {
+            name: 'ol',
+            title: wp.i18n.__('ol', 'emulsion'),
+            icon: 'html',
+            scope: ['inserter'],
+            attributes: {
+                align: '',
+                className: '',
+                "ordered": true,
+            }
+        }
+);
+wp.blocks.registerBlockVariation(
+        'core/list', {
+            name: 'ul',
+            title: wp.i18n.__('ul', 'emulsion'),
+            icon: 'html',
+            scope: ['inserter'],
+            attributes: {
+                align: '',
+                className: ''
+            }
+        }
+);
+*/
+
+wp.blocks.registerBlockVariation(
+        'core/group', {
+            name: 'section',
+            title: wp.i18n.__('section', 'emulsion'),
+            icon: 'html',
+            scope: ['inserter'],
+            attributes: {
+                align: 'full',
+                className: '',
+                "tagName": "section"
+            }
+        }
+);
+wp.blocks.registerBlockVariation(
+        'core/group', {
+            name: 'aside',
+            title: wp.i18n.__('aside', 'emulsion'),
+            icon: 'html',
+            scope: ['inserter'],
+            attributes: {
+                align: 'full',
+                className: '',
+                "tagName": "aside"
+            },
+        }
+);
+wp.blocks.registerBlockVariation(
+        'core/group', {
+            name: 'div',
+            title: wp.i18n.__('div', 'emulsion'),
+            icon: 'html',
+            scope: ['inserter'],
+            attributes: {
+                align: 'full',
+                className: ''
+            }
+        }
+);
 
 wp.blocks.registerBlockVariation(
         'core/heading', {
             name: 'h2',
             title: wp.i18n.__('h2', 'emulsion'),
-            icon: 'heading',
+            icon: 'html',
             scope: ['inserter'],
             attributes: {
                 align: '',
@@ -20,7 +92,7 @@ wp.blocks.registerBlockVariation(
         'core/heading', {
             name: 'h3',
             title: wp.i18n.__('h3', 'emulsion'),
-            icon: 'heading',
+            icon: 'html',
             scope: ['inserter'],
             attributes: {
                 align: '',
@@ -33,7 +105,7 @@ wp.blocks.registerBlockVariation(
         'core/heading', {
             name: 'h4',
             title: wp.i18n.__('h4', 'emulsion'),
-            icon: 'heading',
+            icon: 'html',
             scope: ['inserter'],
             attributes: {
                 align: '',
@@ -46,7 +118,7 @@ wp.blocks.registerBlockVariation(
         'core/heading', {
             name: 'h5',
             title: wp.i18n.__('h5', 'emulsion'),
-            icon: 'heading',
+            icon: 'html',
             scope: ['inserter'],
             attributes: {
                 align: '',
@@ -59,7 +131,7 @@ wp.blocks.registerBlockVariation(
         'core/heading', {
             name: 'h6',
             title: wp.i18n.__('h6', 'emulsion'),
-            icon: 'heading',
+            icon: 'html',
             scope: ['inserter'],
             attributes: {
                 align: '',
@@ -74,7 +146,7 @@ wp.blocks.registerBlockVariation(
             title: wp.i18n.__('CTA Block', 'emulsion'),
             icon: 'admin-appearance',
             scope: ['inserter'],
-            keywords: [ "emulsion", "columns", "call to action", "cta" ],
+            keywords: ["emulsion", "columns", "call to action", "cta"],
             innerBlocks: [
                 ['core/column', {}, [
                         ['core/image'],
@@ -107,7 +179,7 @@ wp.blocks.registerBlockVariation(
             title: wp.i18n.__('Group Grid 2', 'emulsion'),
             icon: 'admin-appearance',
             scope: ['inserter'],
-            keywords: [ "emulsion", "container", "wrapper", "grid", "2column", "photo", "image", "img" ],
+            keywords: ["emulsion", "container", "wrapper", "grid", "2column", "photo", "image", "img"],
             innerBlocks: [
                 ['core/group', {className: 'size1of2'}, [
                         ['core/image', {className: 'alignfull'}]
@@ -131,7 +203,7 @@ wp.blocks.registerBlockVariation(
             title: wp.i18n.__('Group Grid 3', 'emulsion'),
             icon: 'admin-appearance',
             scope: ['inserter'],
-            keywords: [ "emulsion", "container", "wrapper", "grid", "3column" ],
+            keywords: ["emulsion", "container", "wrapper", "grid", "3column"],
             innerBlocks: [
                 ['core/group', {className: 'size1of3 centered'}, [
                         ['core/heading', {level: 2, placeholder: 'Title', align: 'center'}],
@@ -159,7 +231,7 @@ wp.blocks.registerBlockVariation(
             title: wp.i18n.__('Group Grid 4', 'emulsion'),
             icon: 'admin-appearance',
             scope: ['inserter'],
-            keywords: [ "emulsion", "container", "wrapper", "grid", "4column" ],
+            keywords: ["emulsion", "container", "wrapper", "grid", "4column"],
             innerBlocks: [
                 ['core/group', {className: 'size1of4 centered'}, [
                         ['core/heading', {level: 2, placeholder: 'Title', align: 'center'}],
@@ -191,7 +263,7 @@ wp.blocks.registerBlockVariation(
             title: wp.i18n.__('Group Grid 5', 'emulsion'),
             icon: 'admin-appearance',
             scope: ['inserter'],
-            keywords: [ "emulsion", "container", "wrapper", "grid", "5column" ],
+            keywords: ["emulsion", "container", "wrapper", "grid", "5column"],
             innerBlocks: [
                 ['core/group', {className: 'size1of5 centered'}, [
                         ['core/heading', {level: 2, placeholder: 'Title', align: 'center'}],
@@ -227,7 +299,7 @@ wp.blocks.registerBlockVariation(
             title: wp.i18n.__('Panel', 'emulsion'),
             icon: 'admin-appearance',
             scope: ['inserter'],
-            keywords: [ "emulsion", "container", "wrapper", "panel" ],
+            keywords: ["emulsion", "container", "wrapper", "panel"],
             innerBlocks: [
 
                 ['core/heading', {level: 4, placeholder: 'Panel Title', className: 'emulsion-panel-title'}],
@@ -248,7 +320,7 @@ wp.blocks.registerBlockVariation(
             title: wp.i18n.__('Dropdown on hover', 'emulsion'),
             icon: 'admin-appearance',
             scope: ['inserter'],
-            keywords: [ "emulsion", "container", "wrapper", "panel", "dropdown" ],
+            keywords: ["emulsion", "container", "wrapper", "panel", "dropdown"],
             innerBlocks: [
                 ['core/paragraph', {placeholder: 'Dropdown Title', className: 'dropdown-on-hover-title'}],
                 ['core/group', {className: 'dropdown-on-hover-content'}, [
@@ -266,7 +338,7 @@ wp.blocks.registerBlockVariation(
             title: wp.i18n.__('Dropdown on click', 'emulsion'),
             icon: 'admin-appearance',
             scope: ['inserter'],
-            keywords: [ "emulsion", "container", "wrapper", "panel", "dropdown" ],
+            keywords: ["emulsion", "container", "wrapper", "panel", "dropdown"],
             innerBlocks: [
                 ['core/paragraph', {placeholder: 'Dropdown Title', className: 'dropdown-on-click-title'}],
                 ['core/group', {className: 'dropdown-on-click-content'}, [
