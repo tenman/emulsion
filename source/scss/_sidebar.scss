@@ -90,7 +90,8 @@ body.emulsion-has-sidebar{
         flex:1 1 auto;
         flex-basis:var(--thm_content_width, 720px);
         order:1;
-        min-width:var(--thm_content_width, 720px);
+        //min-width:var(--thm_content_width, 720px);
+        min-width:var(--thm_content_min_width, 296px);
 
     }
     &.layout-stream,
@@ -729,7 +730,7 @@ body{
                 & > li{
                     // Customizer relate cols
                     flex:1 1 var( --thm_footer_widget_width );
-                    min-width:var(--thm_content_min_width);
+                    min-width:var(--thm_content_min_width, 296px);
                     margin:var(--thm_box_gap, 3px);
                     list-style:none;
                     .widgettitle{

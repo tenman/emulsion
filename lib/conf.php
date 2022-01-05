@@ -636,6 +636,8 @@ function emulsion_theme_variables( $variables ) {
 	--thm_h3_font_size:calc(var(--thm_heading_font_base) * 1.5px);
 	--thm_h2_font_size: calc(var(--thm_heading_font_base) * 2px);
 	--thm_h1_font_size: calc(var(--thm_heading_font_base) * 3px);
+	--thm_footer_widget_width:30%;
+	--thm_content_min_width:296px;
 
 
 }

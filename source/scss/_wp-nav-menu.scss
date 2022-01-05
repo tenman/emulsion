@@ -65,8 +65,8 @@
             bottom:0;
             z-index:1;
             flex:1 1 auto;
-            width:var(--thm_content_min_width);
-            min-width:var(--thm_content_min_width);
+            width:var(--thm_content_min_width, 296px);
+            min-width:var(--thm_content_min_width, 296px);
             text-align:right;
         }
         .menu-simple-container{
@@ -688,7 +688,7 @@ nav[class|="menu"]{
     text-align:right;
     ul.wp-nav-menu{
         &.top-right[data-direction="vertical"]{
-            width:var(--thm_content_min_width);
+            width:var(--thm_content_min_width, 296px);
             width:calc(100vw - 72px);
             margin-right:0;
         }

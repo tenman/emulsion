@@ -36,7 +36,8 @@ body.noscript{
         }
     }
 }
-body.layout-list{
+body:not(.is-presentation-transitional).layout-list{
+    .article-wrapper:not(:first-child){
     article:not(.comment-body):not(.has-post-thumbnail):after {
         position: absolute;
         top: 0;
@@ -48,6 +49,7 @@ body.layout-list{
         margin: auto;
         content: ' ';
         border-bottom: var(--thm_common_border_width, 1px) var(--thm_common_border_style, solid) var(--thm_common_border, rgba(188,188,188,.5));
+    }
     }
 }
 

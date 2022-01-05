@@ -799,7 +799,12 @@ if ( ! function_exists( 'emulsion_home_type' ) ) {
 	}
 
 }
+if ( ! function_exists( 'emulsion_get_theme_operation_mode' ) ) {
+	function emulsion_get_theme_operation_mode() {
 
+		return sanitize_text_field( get_theme_mod( 'emulsion_editor_support' ) );
+	}
+}
 if ( ! function_exists( 'emulsion_do_fse' ) ) {
 
 	/**
@@ -809,13 +814,17 @@ if ( ! function_exists( 'emulsion_do_fse' ) ) {
 
 	function emulsion_do_fse(){
 
+		if( function_exists('wp_is_block_theme') ) {
+
+			return wp_is_block_theme();
+		}
+
 		if( ! function_exists( 'gutenberg_is_fse_theme' )  ) {
-		//if( ! function_exists( 'gutenberg_supports_block_templates' )  ) {
+
 			return false;
 		}
 
 		if( ! gutenberg_is_fse_theme() ) {
-		//if( ! gutenberg_supports_block_templates() ) {
 
 			return false;
 		}
@@ -825,11 +834,6 @@ if ( ! function_exists( 'emulsion_do_fse' ) ) {
 			return false;
 		}
 
-
-		if( 'off' == filter_input( INPUT_GET, 'fse' ) ) {
-
-			return false;
-		}
 		if( 'fse' == get_theme_mod('emulsion_editor_support') ) {
 
 			return true;
@@ -863,12 +867,15 @@ if ( ! function_exists( 'emulsion_have_posts' ) ) {
 
 		global  $_wp_current_template_content;
 
+		if( emulsion_do_fse() && 'theme' !== get_theme_mod('emulsion_editor_support') && ! is_null( $_wp_current_template_content ) ) {
 
+			if( function_exists('get_the_block_template_html') ) {
 
-		if( emulsion_do_fse() && ! is_null( $_wp_current_template_content ) ) {
+				echo get_the_block_template_html();
+			} else {
 
-			gutenberg_render_the_template();
-
+				function_exists('gutenberg_render_the_template') ? gutenberg_render_the_template() : '' ;
+			}
 			return;
 		}
 
@@ -1384,3 +1391,24 @@ function emulsion_action( $hook_name ) {
 	printf('</div>');
 }
 
+
+function emulsion_header_manager() {
+
+	if ( 'html' !== get_theme_mod( 'emulsion_header_template' ) ) {
+
+		$emulsion_header_type = is_page() ? 'page_header' : 'header';
+
+		emulsion_metabox_display_control( $emulsion_header_type ) ? get_template_part( 'template-parts/header', emulsion_header_layout() ) : '';
+	} else {
+
+		if ( is_home() ) {
+			$template_part = 'header-rich';
+		} elseif ( is_single() || is_page() ) {
+			$template_part = 'header-singular';
+		} else {
+			$template_part = 'header';
+		}
+
+		emulsion_block_template_part( $template_part );
+	}
+}

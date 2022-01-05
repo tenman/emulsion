@@ -210,21 +210,21 @@ div.editor-styles-wrapper .block-editor-block-list__layout.is-root-container > .
     }
 }
 .interface-interface-skeleton__sidebar{
-
-
-    //interface-complementary-area
-    box-sizing:initial;
     overflow:auto;
     .edit-post-sidebar{
 
         h2,
         h3{
-            width:auto;
             padding:0;
             font-size:1rem;
+            width:auto;
             text-transform:none;
         }
     }
+
+
+    //interface-complementary-area
+    box-sizing:initial;
     .block-editor-block-styles__item{
         box-sizing:border-box;
     }
@@ -640,17 +640,73 @@ body .edit-post-editor .interface-interface-skeleton__content{
 }
 .is-presentation-theme{
     .components-input-control__container{
-        option[value|="wp-custom-template"]{
-            color:green;
+
+        option{
+            color:#aaa;
         }
-
+        option:first-child{
+            color:#333;
+        }
+        option[value$=".php"]{
+            color:#333;
+        }
     }
-    .edit-post-template__actions button{
-        // color:gray;
-        // text-decoration:none;
-
+}
+.is-presentation-fse{
+    .components-input-control__container{
+        option{
+            color:#333;
+        }
+        option[value$=".php"]{
+            color:#aaa;
+        }
+    }
+}
+.editor-styles-wrapper.block-editor-writing-flow{
+     .has-extra-small-font-size{
+        font-size:var(--wp--preset--font-size--extra-small, 10px);
+        p{
+            font-size:var(--wp--preset--font-size--extra-small, 10px);
+        }
+    }
+    .has-small-font-size{
+        font-size:var(--wp--preset--font-size--small, --thm_meta_data_font_size);
+        p{
+            font-size:var(--wp--preset--font-size--small, --thm_meta_data_font_size);
+        }
+    }
+    .wp-block-pullquote__citation,
+    .has-normal-font-size{
+        font-size:var(--wp--preset--font-size--normal, --thm_common_font_size);
+        p{
+            font-size:var(--wp--preset--font-size--normal, --thm_common_font_size);
+        }
+    }
+    .has-medium-font-size{
+        font-size:var(--wp--preset--font-size--medium, 20px);
+        p{
+            font-size:var(--wp--preset--font-size--medium);
+        }
+    }
+    .has-large-font-size{
+        font-size:var(--wp--preset--font-size--large, --thm_h3_font_size);
+        p{
+            font-size:var(--wp--preset--font-size--large, --thm_h3_font_size);
+        }
     }
 
+    .has-extra-large-font-size{
+        font-size:var(--wp--preset--font-size--extra-large, --thm_h2_font_size);
+        p{
+            font-size:var(--wp--preset--font-size--extra-large, --thm_h2_font_size);
+        }
+    }
+    .has-huge-font-size{
+        font-size:var(--wp--preset--font-size--huge, 48px);
+        p{
+            font-size:var(--wp--preset--font-size--huge, 48px);
+        }
+    }
 }
 .is-presentation-transitional,
 .is-presentation-theme{
@@ -715,6 +771,7 @@ body .edit-post-editor .interface-interface-skeleton__content{
                 border-color:rgba(188,188,188,.5);
                 border-top:2px solid;
                 border-bottom:2px solid;
+
                 .is-style-solid-color{
                     &.has-success-background-color{
                         color:var(--thm_black_color, #333333);
@@ -1497,9 +1554,9 @@ div.wp-block-group{
  */
 
 div.editor-styles-wrapper{
-    --thm_common_border:var(--thm_border_global, rgba(188,188,188,.5));
-    --thm_common_border_style:$border_global_style;
-    --thm_common_border_width:$border_global_width;
+    --thm_common_border:rgba(188,188,188,.5);
+    --thm_common_border_style:solid;
+    --thm_common_border_width:1px;
 
     font-size:1rem;
     line-height:var(--thm_content_line_height, 1.5);
@@ -2362,7 +2419,19 @@ div.is-root-container .wp-block-media-text.alignright{
             }
         }
     }
+    /**
+     * block group
+     */
 
+    .wp-block-group{
+        border-color: #ccc;
+        border-style: solid;
+        border-width: 1px;
+        &.is-selected{
+            border-width: 3px;
+            border-color: var(--wp-admin-theme-color);
+        }
+    }
     /**
      * block spacer
      */
@@ -2623,6 +2692,13 @@ div.is-root-container .wp-block-media-text.alignright{
     .block-editor-block-list__layout.is-root-container > *{
         //OW
         max-width:100% !important;
+    }
+    .components-placeholder.block-editor-block-variation-picker{
+        .block-editor-block-variation-picker__variations{
+            li:before{
+                display:none;
+            }
+        }
     }
 }
 

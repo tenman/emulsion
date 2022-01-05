@@ -2,13 +2,7 @@
  * todo: Currently blockVariation titles cannot be internationalized
  *
  */
-/**
- * Pending has error
- * wrong <!-- wp:list {"ordered":{"default":true}} -->
- * correct <!-- wp:list {"ordered":true} -->
- * @type type
- */
-/*
+
 wp.blocks.registerBlockVariation(
         'core/list', {
             name: 'ol',
@@ -34,7 +28,6 @@ wp.blocks.registerBlockVariation(
             }
         }
 );
-*/
 
 wp.blocks.registerBlockVariation(
         'core/group', {
@@ -364,7 +357,24 @@ function emulsionGetParameterByName(name, url = window.location.href) {
 
 document.addEventListener("DOMContentLoaded", function () {
     var body = document.body;
-
+    //5.9
+    if (body.classList.contains('site-editor-php') && !body.classList.contains('is-presentation-fse') && !emulsionGetParameterByName('postType')) {
+        window.wp.data.dispatch('core/notices').createNotice(
+                'warning',
+                'The settings made here will not take effect unless you change the theme settings.<br /> Please open the customizer from the link below and select <b>Full Site Editing Theme</b>.',
+                {
+                    __unstableHTML: true, // true = allows HTML; default false
+                    isDismissible: true,
+                    actions: [
+                        {
+                            url: 'customize.php?autofocus[section]=emulsion_editor',
+                            label: 'Change setting in Customizer',
+                        },
+                    ],
+                }
+        )
+    }
+    //for 5.8
     if (body.classList.contains('appearance_page_gutenberg-edit-site') && !body.classList.contains('is-presentation-fse') && !emulsionGetParameterByName('postType')) {
         window.wp.data.dispatch('core/notices').createNotice(
                 'warning',

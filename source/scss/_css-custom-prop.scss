@@ -68,7 +68,9 @@ body{
 
         .has-#{$slug}-color {
             // OW over write global-styles-inline-css
-            color:#{str-replace($color,'.4','1')} ! important;
+            //error is not string
+            //color:#{str-replace($color,'.4','1')} ! important;
+            color:#{set-nth($color, .4, 1)} ! important;
         }
 
 

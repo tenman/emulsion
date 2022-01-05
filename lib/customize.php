@@ -11,13 +11,12 @@ if ( ! function_exists( 'emulsioncustomize_register' ) ) {
 
 
 		$emulsion_theme_mod_args = array(
-
-			'emulsion_editor_support'	 => array(
+			'emulsion_editor_support'							 => array(
 				'section'			 => 'emulsion_editor',
 				'default'			 => 'theme',
 				'label'				 => esc_html__( 'Theme Operation Mode Setting', 'emulsion' ),
-				'description'		 => esc_html__( 'This theme can be run as either the currently widely used theme ( php template ) or the latest Full site editiong theme ( html template ) by changing the settings.', 'emulsion' ).
-										sprintf('<p><a href="%1$s" target="blank" style="text-decoration:underline">%2$s</a></p>', 'https://www.tenman.info/wp3/emulsion/en/2021/10/28/emulsion-theme-editor-type/',esc_html__('More Details', 'emulsion') ),
+				'description'		 => esc_html__( 'This theme can be run as either the currently widely used theme ( php template ) or the latest Full site editiong theme ( html template ) by changing the settings.', 'emulsion' ) .
+				sprintf( '<p><a href="%1$s" target="blank" style="text-decoration:underline">%2$s</a></p>', 'https://www.tenman.info/wp3/emulsion/en/2021/10/28/emulsion-theme-editor-type/', esc_html__( 'More Details', 'emulsion' ) ),
 				'sanitize_callback'	 => 'emulsion_editor_support_validate',
 				'type'				 => 'radio',
 				'choices'			 => array(
@@ -26,7 +25,7 @@ if ( ! function_exists( 'emulsioncustomize_register' ) ) {
 					'theme'			 => esc_html__( 'Classic Theme', 'emulsion' ),
 				),
 			),
-			'emulsion_scheme'			 => array(
+			'emulsion_scheme'									 => array(
 				'section'			 => 'emulsion_scheme',
 				'default'			 => 'default',
 				'label'				 => esc_html__( 'Radio Icon Control', 'emulsion' ),
@@ -34,7 +33,7 @@ if ( ! function_exists( 'emulsioncustomize_register' ) ) {
 				'sanitize_callback'	 => 'emulsion_scheme_validate',
 				'type'				 => 'emulsionImageRadio',
 			),
-			'emulsion_header_template'	 => array(
+			'emulsion_header_template'							 => array(
 				'section'			 => 'emulsion_editor',
 				'default'			 => 'default',
 				'label'				 => esc_html__( 'Header Template', 'emulsion' ),
@@ -46,7 +45,7 @@ if ( ! function_exists( 'emulsioncustomize_register' ) ) {
 					'default'	 => esc_html__( 'Depends on editor settings', 'emulsion' ),
 				),
 			),
-			'emulsion_footer_template'	 => array(
+			'emulsion_footer_template'							 => array(
 				'section'			 => 'emulsion_editor',
 				'default'			 => 'default',
 				'label'				 => esc_html__( 'Footer Template', 'emulsion' ),
@@ -66,11 +65,11 @@ if ( ! function_exists( 'emulsioncustomize_register' ) ) {
 				'sanitize_callback'	 => 'emulsion_should_load_separate_core_block_assets_validate',
 				'type'				 => 'radio',
 				'choices'			 => array(
-					'disable'		 => esc_html__( 'Disabled', 'emulsion' ),
-					'enable'		 => esc_html__( 'Enabled', 'emulsion' ),
+					'disable'	 => esc_html__( 'Disabled', 'emulsion' ),
+					'enable'	 => esc_html__( 'Enabled', 'emulsion' ),
 				),
 			),
-			'emulsion_gutenberg_render_layout_support_flag'	 => array(
+			'emulsion_gutenberg_render_layout_support_flag'		 => array(
 				'section'			 => 'emulsion_editor',
 				'default'			 => 'disable',
 				'label'				 => esc_html__( 'Renders the layout config to the block wrapper', 'emulsion' ),
@@ -78,11 +77,11 @@ if ( ! function_exists( 'emulsioncustomize_register' ) ) {
 				'sanitize_callback'	 => 'emulsion_gutenberg_render_layout_support_flag_validate',
 				'type'				 => 'radio',
 				'choices'			 => array(
-					'disable'		 => esc_html__( 'Use Theme Features', 'emulsion' ),
-					'enable'		 => esc_html__( 'Use Gutenberg features', 'emulsion' ),
+					'disable'	 => esc_html__( 'Use Theme Features', 'emulsion' ),
+					'enable'	 => esc_html__( 'Use Gutenberg features', 'emulsion' ),
 				),
 			),
-			'emulsion_render_elements_support'	 => array(
+			'emulsion_render_elements_support'					 => array(
 				'section'			 => 'emulsion_editor',
 				'default'			 => 'disable',
 				'label'				 => esc_html__( 'Elements styles block support.', 'emulsion' ),
@@ -90,8 +89,8 @@ if ( ! function_exists( 'emulsioncustomize_register' ) ) {
 				'sanitize_callback'	 => 'emulsion_render_elements_support_validate',
 				'type'				 => 'radio',
 				'choices'			 => array(
-					'disable'		 => esc_html__( 'Use Theme Features', 'emulsion' ),
-					'enable'		 => esc_html__( 'Use Gutenberg features', 'emulsion' ),
+					'disable'	 => esc_html__( 'Use Theme Features', 'emulsion' ),
+					'enable'	 => esc_html__( 'Use Gutenberg features', 'emulsion' ),
 				),
 			),
 		);
@@ -99,7 +98,6 @@ if ( ! function_exists( 'emulsioncustomize_register' ) ) {
 		if ( ! emulsion_the_theme_supports( 'scheme' ) ) {
 
 			unset( $emulsion_theme_mod_args['emulsion_scheme'] );
-
 		} else {
 
 			$wp_customize->add_section( 'emulsion_scheme', array(
@@ -142,8 +140,6 @@ if ( ! function_exists( 'emulsioncustomize_register' ) ) {
 				'type'			 => $emulsion_theme_mod_args['emulsion_editor_support']['type'],
 				'choices'		 => $emulsion_theme_mod_args['emulsion_editor_support']['choices'],
 			) );
-
-
 
 			$wp_customize->add_setting( 'emulsion_header_template', array(
 				'default'			 => $emulsion_theme_mod_args['emulsion_header_template']['default'],
@@ -285,9 +281,8 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 						break;
 					case 'boilerplate':
 						$summary	 = esc_html__( 'boilerplate', 'emulsion' );
-						'fse' !== get_theme_mod('emulsion_editor_support') ? $description = esc_html__( 'Disable all stylesheets in the theme. The core style of the block editor is maintained.', 'emulsion' ): '';
-						'fse' == get_theme_mod('emulsion_editor_support') ?$description = esc_html__( 'Only the Gutenberg block style and the core block style are valid, and most styles in the theme are disabled. Style by theme.json works', 'emulsion' ):'';
-
+						'fse' !== get_theme_mod( 'emulsion_editor_support' ) ? $description = esc_html__( 'Disable all stylesheets in the theme. The core style of the block editor is maintained.', 'emulsion' ) : '';
+						'fse' == get_theme_mod( 'emulsion_editor_support' ) ? $description = esc_html__( 'Only the Gutenberg block style and the core block style are valid, and most styles in the theme are disabled. Style by theme.json works', 'emulsion' ) : '';
 
 						break;
 					default:
@@ -377,9 +372,9 @@ if ( ! function_exists( 'emulsion_theme_customizer_style' ) ) {
 }
 CSS;
 
-if( 'fse' == get_theme_mod('emulsion_editor_support') )	{
+		if ( 'fse' == get_theme_mod( 'emulsion_editor_support' ) ) {
 
-		$css .=<<<CSS2
+			$css .= <<<CSS2
 		#customize-theme-controls #accordion-section-emulsion_section_single_post_navigation,
 		#customize-theme-controls #accordion-section-emulsion_section_advanced_customizer,
 		#customize-theme-controls #accordion-section-emulsion_section_advanced_relate_posts,
@@ -411,15 +406,42 @@ if( 'fse' == get_theme_mod('emulsion_editor_support') )	{
 
 		}
 CSS2;
+		}
 
-}
+		if ( 'simple' == get_theme_mod( 'emulsion_header_layout', emulsion_theme_default_val( 'emulsion_header_layout' ) ) ) {
+
+			$css .= <<<CSS3
+		#customize-theme-controls #accordion-section-header_image{
+			display:none !important;
+		}
+CSS3;
+		}
+
+		if ( 'transitional' == get_theme_mod( 'emulsion_editor_support' ) ) {
+
+			$css .= <<<CSS4
+
+		#customize-control-emulsion_scheme #details-stream,
+		#customize-control-emulsion_scheme [for="emulsion_schemestream"],
+		#customize-control-emulsion_scheme #details-grid,
+		#customize-control-emulsion_scheme [for="emulsion_schemegrid"],
+		#customize-control-emulsion_scheme #details-bloging{
+			display:none !important;
+
+		}
+CSS4;
+		}
+
 
 		wp_add_inline_style( 'customize-controls', $css );
 	}
 
 }
 
-add_action( 'customize_controls_enqueue_scripts', 'emulsion_theme_customizer_script' );
+if( version_compare( $wp_version, '5.9-bata', '<' ) ) {
+
+	add_action( 'customize_controls_enqueue_scripts', 'emulsion_theme_customizer_script' );
+}
 
 if ( ! function_exists( 'emulsion_theme_customizer_script' ) ) {
 
@@ -427,9 +449,7 @@ if ( ! function_exists( 'emulsion_theme_customizer_script' ) ) {
 
 		$emulsion_gutenberg_install_url = esc_url( admin_url( 'themes.php?page=tgmpa-install-plugins&plugin_status=all' ) );
 
-		$emulsion_gutengerg_status = is_plugin_active( 'gutenberg/gutenberg.php')
-				? '<p class="is-gutenberg-active">'. esc_html__( 'Important settings have changed. Please save it and view the blog.If you need more settings, please reopen Customize', 'emulsion' ). '</p>'
-				: sprintf('<p class="need-gutenberg-activate"><h3><a href="%1$s">%3$s</a></h3>%2$s</p>', $emulsion_gutenberg_install_url, esc_html__( 'If you choose anything other than default, you need to activate the Gutenberg Plugin. ', 'emulsion') ,esc_html__( 'Please Click and Install Gutenberg Plugin', 'emulsion' ) );
+		$emulsion_gutengerg_status = is_plugin_active( 'gutenberg/gutenberg.php' ) ? '<p class="is-gutenberg-active">' . esc_html__( 'Important settings have changed. Please save it and view the blog.If you need more settings, please reopen Customize', 'emulsion' ) . '</p>' : sprintf( '<p class="need-gutenberg-activate"><h3><a href="%1$s">%3$s</a></h3>%2$s</p>', $emulsion_gutenberg_install_url, esc_html__( 'If you choose anything other than default, you need to activate the Gutenberg Plugin. ', 'emulsion' ), esc_html__( 'Please Click and Install Gutenberg Plugin', 'emulsion' ) );
 
 		$script = <<< SCRIPT
 (function($){
@@ -521,7 +541,7 @@ function emulsion_render_elements_support_validate( $input ) {
 	return $default_value;
 }
 
-function emulsion_gutenberg_render_layout_support_flag_validate( $input ){
+function emulsion_gutenberg_render_layout_support_flag_validate( $input ) {
 	$values			 = array( 'enable', 'disable' );
 	$default_value	 = 'disable';
 
@@ -531,7 +551,8 @@ function emulsion_gutenberg_render_layout_support_flag_validate( $input ){
 	}
 	return $default_value;
 }
-function emulsion_should_load_separate_core_block_assets_validate( $input ){
+
+function emulsion_should_load_separate_core_block_assets_validate( $input ) {
 	$values			 = array( 'enable', 'disable' );
 	$default_value	 = 'disable';
 

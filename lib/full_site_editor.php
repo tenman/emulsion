@@ -11,7 +11,7 @@ add_action( 'admin_notices', 'emulsion_theme_admin_notice_fse' );
 
 function emulsion_theme_admin_notice_fse() {
 
-	if ( emulsion_do_fse() && 'experimental' == get_theme_mod( 'emulsion_editor_support' ) ) {
+	if ( emulsion_do_fse() && 'experimental' == emulsion_get_theme_operation_mode() ) {
 
 		$message = esc_html__( 'The file has been renamed from experimental-index.html to index.html for an FSE theme experiment ', 'emulsion' );
 
@@ -45,7 +45,7 @@ function emulsion_theme_admin_notice_fse() {
 	}
 }
 
-if ( 'theme' == get_theme_mod( 'emulsion_editor_support' ) ) {
+if ( 'theme' == emulsion_get_theme_operation_mode() ) {
 
 	// todo can't remove. can't hide with CSS because the message doesn't have a special class
 	//remove_action( 'admin_notices', 'gutenberg_full_site_editing_notice' );
@@ -63,25 +63,10 @@ function emulsion_full_site_editing_notice() {
  * Fiters
  */
 
-if ( ! emulsion_do_fse() ) {
-
-	remove_action( 'wp_loaded', 'gutenberg_add_template_loader_filters' );
-}
-
-function_exists( 'the_block_template_skip_link' ) ? remove_action( 'wp_footer', 'the_block_template_skip_link' ) : '';
-
-if('transitional' == get_theme_mod('emulsion_editor_support') ){
-
-	function_exists( 'gutenberg_the_skip_link' ) ? remove_action( 'wp_footer', 'gutenberg_the_skip_link' ) : '';
-}
-
-// adminbar: show customize menu when fse mode
-function_exists( 'gutenberg_adminbar_items' ) ? remove_action( 'admin_bar_menu', 'gutenberg_adminbar_items', 50 ) : '';
-
-//add widget fse widget
-function_exists( 'modify_admin_bar' ) ? add_action( 'admin_bar_menu', 'modify_admin_bar', 40 ) : '';
-
-
+has_action( 'wp_footer', 'the_block_template_skip_link' ) ? remove_action( 'wp_footer', 'the_block_template_skip_link' ) : '';
+has_action( 'wp_footer', 'gutenberg_the_skip_link' ) && 'transitional' == get_theme_mod('emulsion_editor_support') ? remove_action( 'wp_footer', 'gutenberg_the_skip_link' ) : '';
+has_action( 'admin_bar_menu', 'gutenberg_adminbar_items') ? remove_action( 'admin_bar_menu', 'gutenberg_adminbar_items', 50 ) : '';
+has_action( 'admin_bar_menu', 'modify_admin_bar', 40 ) ? add_action( 'admin_bar_menu', 'modify_admin_bar', 40 ) : '';
 
 
 if ( emulsion_do_fse() ) {
@@ -94,7 +79,7 @@ if ( emulsion_do_fse() ) {
 	 * remove common font style
 	 */
 
-	if ( 'fse' == emulsion_get_fse_experimental() ) {
+	if ( 'fse' == emulsion_get_theme_operation_mode() ) {
 
 		add_filter( 'emulsion_add_common_font_css_pre', '__return_empty_string' );
 
@@ -117,7 +102,7 @@ if ( emulsion_do_fse() ) {
 		 * Remove core custom-background class and relate color class
 		 */
 
-		add_filter( 'body_class', 'emulsion_remove_body_classes', 30 );
+		add_filter( 'body_class', 'emulsion_fse_exclude_body_class', 30 );
 
 		/**
 		 * Classic Sidebar Class Remove
@@ -142,6 +127,40 @@ if ( emulsion_do_fse() ) {
 
 		//add_filter( 'emulsion_widget_meta_font_css_pre', '__return_empty_string');
 	}
+
+	/**
+	 * The following settings are provisional settings for migrating existing themes and FSE themes.
+	 * You can display the full site editor by adjusting the filter.
+	 *
+	 * the headers are duplicates, but you can hide the theme headers etc. from the post or page metabox.
+	 */
+
+	// if needs pure fse. comment out below filter
+	if ( 'transitional' == emulsion_get_theme_operation_mode() ) {
+
+		add_action( 'wp_loaded', 'emulsion_gutenberg_add_template_loader_filters' );
+	}
+} else {
+
+	has_filter( 'wp_loaded', 'gutenberg_add_template_loader_filters' ) ? remove_action( 'wp_loaded', 'gutenberg_add_template_loader_filters' ): '';
+	has_filter( 'wp_loaded', '_add_template_loader_filters' ) ? remove_action( 'wp_loaded', '_add_template_loader_filters' ): '';
+
+}
+
+// current: emulsion_the_theme_supports('full_site_editor') allways true
+
+! emulsion_the_theme_supports( 'full_site_editor' ) ? emulsion_stop_fse(): '';
+'theme' == emulsion_get_theme_operation_mode() ? emulsion_stop_fse(): '';
+
+
+function emulsion_html_template_names_callback( $template ) {
+
+	return basename( $template, '.html' );
+}
+
+function emulsion_php_custom_template_names_callback( $template ) {
+
+	return array('template-page/' . basename( $template ) => $template );
 }
 
 /**
@@ -149,60 +168,12 @@ if ( emulsion_do_fse() ) {
  * @param type $classes
  * @return type
  */
-function emulsion_remove_body_classes( $classes ) {
+function emulsion_fse_exclude_body_class( $classes ) {
 
 	$result = array_diff( $classes, array( 'custom-background', 'is-light', 'is-dark', 'scheme-midnight' ) );
 
 	return $result;
 }
-
-if ( emulsion_do_fse() ) {
-	/**
-	 * The following settings are provisional settings for migrating existing themes and FSE themes.
-	 * You can display the full site editor by adjusting the filter.
-	 *
-	 * the headers are duplicates, but you can hide the theme headers etc. from the post or page metabox.
-	 */
-	// if needs pure fse. comment out below filter
-	if ( 'transitional' == get_theme_mod( 'emulsion_editor_support' ) ) {
-
-		add_action( 'wp_loaded', 'emulsion_gutenberg_add_template_loader_filters' );
-	}
-	/*
-	if ( 'transitional' == filter_input( INPUT_GET, 'fse' ) ) {
-
-		add_action( 'wp_loaded', 'emulsion_gutenberg_add_template_loader_filters' );
-	}*/
-}
-
-/*
-if ( 'off' == filter_input( INPUT_GET, 'fse' ) && gutenberg_is_fse_theme() ) {
-
-	emulsion_stop_fse();
-
-}*/
-
-if ( ! emulsion_the_theme_supports( 'full_site_editor' ) ) {
-	// current: emulsion_the_theme_supports('full_site_editor') allways true
-	emulsion_stop_fse();
-}
-
-
-if ( 'theme' == get_theme_mod( 'emulsion_editor_support' ) ) {
-
-	emulsion_stop_fse();
-}
-
-function emulsion_html_template_names_callback( $test ) {
-
-	return basename( $test, '.html' );
-}
-
-function emulsion_php_custom_template_names_callback( $test ) {
-
-	return array('template-page/' . basename( $test ) => $test );
-}
-
 /**
  * Stop Site editor
  */
@@ -210,7 +181,7 @@ function emulsion_add_template_loader_filters() {
 	if ( ! current_theme_supports( 'block-templates' ) ) {
 		return;
 	}
-$result = '';
+	$result = '';
 	$template_types = array_keys( get_default_block_template_types() );
 	foreach ( $template_types as $template_type ) {
 		// Skip 'embed' for now because it is not a regular template type.
@@ -225,11 +196,10 @@ $result = '';
 		add_filter( 'pre_get_posts', '_resolve_template_for_new_post' );
 	}
 }
+
 function emulsion_stop_fse() {
 
-	if ( gutenberg_is_fse_theme() ) {
-
-
+	if ( function_exists('gutenberg_is_fse_theme') && gutenberg_is_fse_theme() || function_exists('wp_is_block_theme') && wp_is_block_theme() ) {
 
 		add_action( 'wp_loaded', 'emulsion_add_template_loader_filters' );
 
@@ -251,19 +221,30 @@ function emulsion_stop_fse() {
 			}
 			if ( has_filter( str_replace( '-', '', $template_type ) . '_template' ) ) {
 
-				$result .= remove_filter( str_replace( '-', '', $template_type ) . '_template', 'gutenberg_override_query_template', 20, 3 ) ? '' : ' ' . $template_type;
+				if( function_exists('gutenberg_override_query_template') ) {
+
+					$result .= remove_filter( str_replace( '-', '', $template_type ) . '_template', 'gutenberg_override_query_template', 20, 3 ) ? '' : ' ' . $template_type;
+				}
+				////block-template.php
+				if( function_exists('locate_block_template') ) {
+
+					$result .= remove_filter( str_replace( '-', '', $template_type ) . '_template', 'locate_block_template', 20, 3 ) ? '' : ' ' . $template_type;
+
+				}
 			}
 		}
 
-		if ( 'theme' == get_theme_mod( 'emulsion_editor_support' ) ) {
+		if ( 'theme' == emulsion_get_theme_operation_mode() ) {
 
 			add_action( 'wp_loaded', 'emulsion_gutenberg_add_template_loader_filters' );
 		}
 
-
+		//block-template.php
 		$result	 .= remove_action( 'wp_loaded', 'gutenberg_add_template_loader_filters' ) ? '' : ' gutenberg_add_template_loader_filters';
+
 		if( function_exists( '_add_template_loader_filters') ) {
-			$result .= add_action( 'wp_loaded', '_add_template_loader_filters' ) ? '': ' _add_template_loader_filters';
+
+			$result .= remove_action( 'wp_loaded', '_add_template_loader_filters' ) ? '': ' _add_template_loader_filters';
 		}
 
 		//check
@@ -280,15 +261,6 @@ function emulsion_stop_fse() {
 			return 'faild filter:' . $result;
 		}
 	}
-}
-
-/**
- *
- * @return boolean
- */
-function emulsion_get_fse_experimental() {
-
-	return get_theme_mod( 'emulsion_editor_support' );
 }
 
 /**
@@ -331,12 +303,18 @@ function emulsion_custom_template_include( $template ) {
  */
 function emulsion_gutenberg_add_template_loader_filters() {
 
-	if ( ! gutenberg_is_fse_theme() || ! emulsion_the_theme_supports( 'full_site_editor' ) ) {
+	if( ! emulsion_do_fse() || ! emulsion_the_theme_supports( 'full_site_editor' ) ) {
 
 		return;
 	}
 
-	$html_templates = array_keys( get_default_block_template_types() );
+	$html_templates = array();
+
+	if ( function_exists( 'get_default_block_template_types' ) ) {
+
+		$html_templates = array_keys( get_default_block_template_types() );
+	}
+
 
 	foreach ( $html_templates as $template_type ) {
 		if ( 'embed' === $template_type ) {
@@ -347,6 +325,7 @@ function emulsion_gutenberg_add_template_loader_filters() {
 		add_filter( str_replace( '-', '', $template_type ) . '_template', 'emulsion_custom_template_include', 21 );
 	}
 }
+
 add_action( 'admin_bar_menu', 'emulsion_admin_bar_customize_menu',60);
 
 function emulsion_get_customize_page_url(){
@@ -403,7 +382,38 @@ function emulsion_admin_bar_customize_menu( $wp_admin_bar ) {
 	add_action( 'wp_before_admin_bar_render', 'wp_customize_support_script' );
 }
 
+function emulsion_load_block_page_templates( $templates, $theme, $post,
+		$post_type ) {
+	/**
+	 * Todo this filter not work ? javascript filter ?
+	 */
+	$html_template	 = array();
+	$php_template	 = array();
 
+	foreach ( $templates as $key => $val ) {
+		if ( false === strstr( $key, '.php' ) ) {
+
+			$html_template[$key] = $val;
+		} else {
+
+			$php_template[$key] = $val;
+		}
+	}
+
+	if ( 'theme' == emulsion_get_theme_operation_mode() ) {
+
+		return $php_template;
+	}
+	if ( 'fse' == emulsion_get_theme_operation_mode() ) {
+
+		return $html_template;
+	}
+
+
+	return $templates;
+}
+
+add_filter( 'theme_templates', 'emulsion_load_block_page_templates', 20, 4 );
 
 // Experimental purpose
 

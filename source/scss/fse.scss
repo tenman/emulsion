@@ -133,7 +133,7 @@ a[href^="tel:"] {
     --thm_heading_font_weight: 700;
     --thm_hover_color: #333333;
     --thm_i18n_no_title: 無題;
-  //  --thm_main_width-with-sidebar: calc(100vw - var(--thm_sidebar_width) - 48px);
+    //  --thm_main_width-with-sidebar: calc(100vw - var(--thm_sidebar_width) - 48px);
     --thm_main_width: 1280px;
     --thm_meta_data_font_family: sans-serif;
     --thm_meta_data_font_size: 13px;
@@ -191,7 +191,7 @@ body{
         color:var(--wp--preset--color--white, #ffffff);
     }
 }
-.emulsion div.wp-block-file{
+body:not(.is-presentation-fse) div.wp-block-file{
     a.wp-block-file__button{
         color:#333333;
     }
@@ -611,16 +611,37 @@ $fse_blocks: wp-block-site-title, wp-block-site-tagline, wp-block-post-title, wp
         max-width:100%;
     }
 }
-.disable-alignfull{
+#document .disable-alignfull{
     .wp-site-blocks{
         box-sizing:border-box;
         width: var(--wp--custom--width--content, 720px );
         max-width:100%;
-        padding:0;
-        padding-right:var( --wp--custom--padding--content, 24px );
-        padding-left:var( --wp--custom--padding--content, 24px );
-        margin:var(--wp--custom--margin--block);
+        padding-right:0;
+        padding-left:0;
         margin:0 auto;
+        .fse-query-post-template{
+            width:100%;
+            padding-right:0;
+            padding-left:0;
+            .wp-block-query{
+                width:100%;
+                padding-right:0;
+                padding-left:0;
+            }
+            .wp-block-post-template{
+                width:100%;
+                padding-right:0;
+                padding-left:0;
+                article{
+                    width:100%;
+                    padding-right:0;
+                    padding-left:0;
+                }
+            }
+            .wp-block-template-post-header{
+                width:auto;
+            }
+        }
     }
 }
 .search{
@@ -698,11 +719,11 @@ $fse_blocks: wp-block-site-title, wp-block-site-tagline, wp-block-post-title, wp
 .emulsion{
     &.is-presentation-theme{
         .header-layer{
-            color:var(--thm_header_text_color);
-            background:var( --thm_header_bg_color);
-            background: -o-linear-gradient(90deg,  var(--thm_header_bg_color), var(--thm_header_background_gradient_color));
-            background: linear-gradient(90deg,  var(--thm_header_bg_color), var(--thm_header_background_gradient_color) );
-            background-image: -ms-linear-gradient(90deg, var(--thm_header_bg_color), var(--thm_header_background_gradient_color) );
+            // color:var(--thm_header_text_color);
+            // background:var( --thm_header_bg_color);
+            //background: -o-linear-gradient(90deg,  var(--thm_header_bg_color), var(--thm_header_background_gradient_color));
+            // background: linear-gradient(90deg,  var(--thm_header_bg_color), var(--thm_header_background_gradient_color) );
+            //background-image: -ms-linear-gradient(90deg, var(--thm_header_bg_color), var(--thm_header_background_gradient_color) );
 
 
             a:any-link{
@@ -973,8 +994,8 @@ $fse_blocks: wp-block-site-title, wp-block-site-tagline, wp-block-post-title, wp
                         .wp-block-navigation-item{
                             display:inline-block;
                             .wp-block-navigation-item__content{
-                                padding-right:0;
-                                padding-left:0;
+                               // padding-right:0;
+                               // padding-left:0;
                             }
 
                         }
@@ -1250,10 +1271,16 @@ body.emulsion .entry-content .wp-block-columns.emulsion-cta-block{
 }
 .emulsion-fse-active{
 
+
+
     .wp-block-post-featured-image{
         margin-bottom:0;
     }
 
+}
+.wp-block-post-author{
+    width:-moz-fit-content;
+    width:fit-content;
 }
 .post-header{
     z-index:10;
@@ -2092,11 +2119,13 @@ main.wp-block-group,
 }
 #document{
     .is-presentation-transitional{
-        main{
-            .wp-site-blocks{
-                .fse-header,
-                .fse-footer{
-                    display:none;
+        &.is-singular{
+            main{
+                .wp-site-blocks{
+                    .fse-header,
+                    .fse-footer{
+                        display:none;
+                    }
                 }
             }
         }
