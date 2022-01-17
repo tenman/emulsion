@@ -177,7 +177,7 @@ nav[class|="menu"]{
 }
 .show-post-image,
 .header-image-active{
-    *{
+    .header-text{
         border-color:var(--thm_white_color);
     }
 }
@@ -917,8 +917,10 @@ h6.has-background{
     }
     .show-post-image,
     .header-image-active{
-        border-color:var(--thm_white_color);
-
+       // border-color:var(--thm_white_color);
+       .wp-custom-header{
+       border:none;
+       }
         .horizontal-list-group li{
             border-color:var(--thm_white_color);
             border-style:solid;

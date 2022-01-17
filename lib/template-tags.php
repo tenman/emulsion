@@ -1111,6 +1111,7 @@ if ( ! function_exists( 'emulsion_attachment_pagination' ) ) {
 	 * Print attachment image pagination
 	 */
 	function emulsion_attachment_pagination() {
+
 		?>
 		<nav class="navigation attachment-navigation" aria-labelledby="Pagination">
 				<div class="nav-links">
@@ -1149,19 +1150,20 @@ if ( ! function_exists( 'emulsion_attachment_image' ) ) {
 			$alt_text				 = '';
 			$aria_describedby		 = '';
 			$alt_text				 = empty( $alt ) ? '' : esc_attr( $alt );
-			$attachment_image_html	 = '<a href="%1$s"><img src="%1$s" width="%2$s" height="%3$s" alt="%4$s" describedby="%5$s" /></a>';
+			$attachment_image_html	 = '<a href="%1$s"><img src="%1$s" width="%2$s" height="%3$s" alt="%4$s" /></a>';
 
 			if( empty($image[1] || $image[2])){
 				//@since 1.7.0
-				$attachment_image_html	 = '<a href="%1$s"><img src="%1$s" data-width="%2$s" data-height="%3$s" alt="%4$s" describedby="%5$s" /></a>';
+				$attachment_image_html	 = '<a href="%1$s"><img src="%1$s" data-width="%2$s" data-height="%3$s" alt="%4$s" /></a>';
 			}
 			?>
 			<figure class="attachment-image">
 				<?php
 				printf( $attachment_image_html,
-						esc_url( $image[0] ), esc_attr( $image[1] ),
-						esc_attr( $image[2] ), esc_attr( $alt_text ),
-						esc_attr( $aria_describedby )
+						esc_url( $image[0] ),
+						esc_attr( $image[1] ),
+						esc_attr( $image[2] ),
+						esc_attr( $alt_text )
 				);
 				?>
 				<figcaption><?php echo empty( $excerpt ) ? '': wp_kses_post( $excerpt ); ?></figcaption>

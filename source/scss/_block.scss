@@ -614,7 +614,7 @@ button.wp-block-navigation-submenu__toggle{
             margin:.75rem auto .75rem;
             @include font_size(2);
             cite{
-                @include font_size(5);
+                font-size:var(--thm_meta_data_font_size);
                 padding:0 var(--thm_content_gap, 24px);
                 margin-top:.75rem;
                 margin-bottom:.75rem;
@@ -665,7 +665,7 @@ button.wp-block-navigation-submenu__toggle{
             text-align:left;
         }
         cite{
-            @include font_size(5);
+            font-size:var(--thm_meta_data_font_size);
             margin-top:.75rem;
             margin-bottom:.75rem;
         }
@@ -2692,8 +2692,11 @@ body .wp-block-cover.alignfull:first-of-type{
             .wp-block-navigation-item__content{
                 text-align:center;
             }
+            &.open-on-click,
             &.open-on-hover-click{
-                padding:.4rem 1rem;
+               .wp-block-navigation__submenu-container{
+                   z-index:200;
+               }
             }
             &.has-background{
                 border:1px solid #ffffff;
@@ -3639,3 +3642,4 @@ body:not(.full_text) .wp-block-query{
 .wp-block-comments-query-loop:empty{
     display:none;
 }
+

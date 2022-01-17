@@ -196,8 +196,35 @@ div.editor-styles-wrapper .block-editor-block-list__layout.is-root-container > .
 }
 
 /**
+ * Top bar
+ * Entire block editor
+ */
+.interface-interface-skeleton__header{
+    h1{
+        font-size:18px;
+        font-weight:700;
+        font-family:sans-serif;
+        padding:0;
+    }
+}
+/**
  * Right Sidebar
  */
+
+.interface-interface-skeleton__sidebar{
+    h2{
+        font-size:18px;
+        font-weight:700;
+        font-family:sans-serif;
+        padding:0;
+    }
+    h3{
+        font-size:18px;
+        font-weight:700;
+        font-family:sans-serif;
+        padding:0;
+    }
+}
 .block-editor-page,
 .appearance_page_gutenberg-edit-site{
     .components-base-control__field{
@@ -294,35 +321,37 @@ div.editor-styles-wrapper .block-editor-block-list__layout.is-root-container > .
 .components-text-control__input[type=week]{
     box-sizing:border-box;
 }
-#postcustom{
-    table{
-        display:block;
-        border:none;
-    }
-    th{
-        width:230px;
-    }
-    tr{
-        display:block;
-        width:230px;
-        margin-bottom:1rem;
-        background:#ddd;
-    }
-    th,
-    td{
-        box-sizing:border-box;
-        display:list-item;
-        width:230px;
-        margin-top:3px;
-        list-style-type:none;
-        border:none;
-    }
-    th.left,
-    td.left{
-        width:230px;
-    }
-    label{
-        vertical-align:top;
+.edit-post-sidebar{
+    #postcustom{
+        table{
+            display:block;
+            border:none;
+        }
+        th{
+            width:230px;
+        }
+        tr{
+            display:block;
+            width:230px;
+            margin-bottom:1rem;
+            background:#ddd;
+        }
+        th,
+        td{
+            box-sizing:border-box;
+            display:list-item;
+            width:230px;
+            margin-top:3px;
+            list-style-type:none;
+            border:none;
+        }
+        th.left,
+        td.left{
+            width:230px;
+        }
+        label{
+            vertical-align:top;
+        }
     }
 }
 .block-editor-block-styles__item-preview{
@@ -638,6 +667,8 @@ body .edit-post-editor .interface-interface-skeleton__content{
     }
 
 }
+/**
+ * Hold because it affects other than template options
 .is-presentation-theme{
     .components-input-control__container{
 
@@ -661,9 +692,9 @@ body .edit-post-editor .interface-interface-skeleton__content{
             color:#aaa;
         }
     }
-}
+}*/
 .editor-styles-wrapper.block-editor-writing-flow{
-     .has-extra-small-font-size{
+    .has-extra-small-font-size{
         font-size:var(--wp--preset--font-size--extra-small, 10px);
         p{
             font-size:var(--wp--preset--font-size--extra-small, 10px);
@@ -3760,16 +3791,23 @@ body.is-presentation-transitional{
 /**
  * FSE
  */
+.site-editor-php,
 .appearance_page_gutenberg-edit-site{
     //outer iframe
 
     .edit-site-visual-editor .block-editor-block-contextual-toolbar.is-fixed:empty{
         display:none;
     }
-
+    .has-border-custom .edit-site-list-table,
     .edit-site-list-table{
         th,td{
             border:none;
+        }
+    }
+    .edit-site-navigation-panel{
+        a:any-link,
+            *{
+            color:#fff;
         }
     }
     .components-grid{

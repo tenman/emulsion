@@ -415,6 +415,20 @@ function emulsion_load_block_page_templates( $templates, $theme, $post,
 
 add_filter( 'theme_templates', 'emulsion_load_block_page_templates', 20, 4 );
 
+'disable' == get_theme_mod( 'emulsion_custom_css_support') ? emulsion_custom_css_support() : '';
+
+function emulsion_custom_css_support() {
+	global $wp_customize;
+
+	if ( 'theme' !== emulsion_get_theme_operation_mode() ) {
+		remove_action( 'wp_head', 'wp_custom_css_cb', 101 );
+
+		add_action( 'customize_register', function ( $wp_customize ) {
+			$wp_customize->remove_section( 'custom_css' );
+		} );
+	}
+}
+
 // Experimental purpose
 
 /**
