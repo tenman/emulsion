@@ -985,6 +985,7 @@ $fse_blocks: wp-block-site-title, wp-block-site-tagline, wp-block-post-title, wp
             .wp-block-navigation__responsive-container:not(#specificity){
 
                 &.has-modal-open{
+                    display:block;
                     .wp-block-navigation__responsive-container-content{
                         width:100%;
                         .wp-block-navigation__container{
@@ -1533,11 +1534,20 @@ html:not([class]){
     .wp-block-term-description{
         width:var(--wp--custom--width--content, 720px);
         max-width:100%;
-        margin-bottom:1.5rem;
+        margin-bottom:3rem;
+        &:empty{
+            display:none;
+            margin:0;
+        }
         p{
             width:-moz-fit-content;
             width:fit-content;
             margin:auto;
+        }
+    }
+    .archive-title{
+        .wp-block-query-title{
+            visibility:visible;
         }
     }
     .archive-title:last-child{
@@ -2333,6 +2343,7 @@ body .scroll-button-top:before {
         -ms-flex-pack: center;
     }
 }
+
 .is-presentation-transitional.scheme-bloging{
     .footer-layer,
     .header-layer{

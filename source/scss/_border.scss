@@ -37,9 +37,10 @@ body.noscript{
     }
 }
 body:not(.is-presentation-transitional).layout-list{
-    .article-wrapper:not(:first-child){
+    .article-wrapper{
     article:not(.comment-body):not(.has-post-thumbnail):after {
         position: absolute;
+        display:block;
         top: 0;
         right: 0;
         bottom: -1px;
@@ -178,7 +179,7 @@ nav[class|="menu"]{
 .show-post-image,
 .header-image-active{
     .header-text{
-        border-color:var(--thm_white_color);
+        border-color:var(--thm_white_color, #ffffff);
     }
 }
 .footer-layer{
@@ -917,12 +918,12 @@ h6.has-background{
     }
     .show-post-image,
     .header-image-active{
-       // border-color:var(--thm_white_color);
+       // border-color:var(--thm_white_color, #ffffff);
        .wp-custom-header{
        border:none;
        }
         .horizontal-list-group li{
-            border-color:var(--thm_white_color);
+            border-color:var(--thm_white_color, #ffffff);
             border-style:solid;
             border-width:1px;
         }

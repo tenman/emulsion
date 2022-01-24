@@ -669,30 +669,26 @@ body .edit-post-editor .interface-interface-skeleton__content{
 }
 /**
  * Hold because it affects other than template options
+ */
 .is-presentation-theme{
     .components-input-control__container{
 
-        option{
-            color:#aaa;
-        }
         option:first-child{
             color:#333;
         }
         option[value$=".php"]{
             color:#333;
         }
+        option[value|="wp-custom-template"],
+        option[value="single-with-toc"]{
+            display:none;
+        }
+
     }
+    .edit-post-template__actions{
+            display:none;
+        }
 }
-.is-presentation-fse{
-    .components-input-control__container{
-        option{
-            color:#333;
-        }
-        option[value$=".php"]{
-            color:#aaa;
-        }
-    }
-}*/
 .editor-styles-wrapper.block-editor-writing-flow{
     .has-extra-small-font-size{
         font-size:var(--wp--preset--font-size--extra-small, 10px);

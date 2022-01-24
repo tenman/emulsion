@@ -307,6 +307,7 @@ nav[class|="menu"]{
                 padding-right:1rem;
                 padding-left:1rem;
                 text-align:center;
+                z-index:7;
             }
             li{
                 position:relative;
@@ -798,7 +799,7 @@ input[type="checkbox"][data-skin="inset"] + label span:after {
 input[type="checkbox"][data-skin="inset"]:checked + label span{
     background:#16a085;
     &:after{
-        border: 3px solid var(--thm_white_color);
+        border: 3px solid var(--thm_white_color, #ffffff);
         border-top: none;
         border-right: none;
     }

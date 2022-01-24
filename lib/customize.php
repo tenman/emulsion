@@ -131,7 +131,7 @@ if ( ! function_exists( 'emulsioncustomize_register' ) ) {
 			) );
 		}
 
-		if ( ! is_child_theme() ) {
+		//if ( ! is_child_theme() ) {
 
 			$wp_customize->add_section( 'emulsion_editor', array(
 				'title'			 => esc_html__( 'Theme Scheme', 'emulsion' ),
@@ -237,7 +237,7 @@ if ( ! function_exists( 'emulsioncustomize_register' ) ) {
 				'choices'		 => $emulsion_theme_mod_args['emulsion_custom_css_support']['choices'],
 			) );
 
-		}
+		//}
 	}
 
 }
@@ -465,7 +465,7 @@ CSS4;
 
 if( version_compare( $wp_version, '5.9-bata', '<' ) ) {
 
-	add_action( 'customize_controls_enqueue_scripts', 'emulsion_theme_customizer_script' );
+	//add_action( 'customize_controls_enqueue_scripts', 'emulsion_theme_customizer_script' );
 }
 
 if ( ! function_exists( 'emulsion_theme_customizer_script' ) ) {
@@ -474,7 +474,9 @@ if ( ! function_exists( 'emulsion_theme_customizer_script' ) ) {
 
 		$emulsion_gutenberg_install_url = esc_url( admin_url( 'themes.php?page=tgmpa-install-plugins&plugin_status=all' ) );
 
-		$emulsion_gutengerg_status = is_plugin_active( 'gutenberg/gutenberg.php' ) ? '<p class="is-gutenberg-active">' . esc_html__( 'Important settings have changed. Please save it and view the blog.If you need more settings, please reopen Customize', 'emulsion' ) . '</p>' : sprintf( '<p class="need-gutenberg-activate"><h3><a href="%1$s">%3$s</a></h3>%2$s</p>', $emulsion_gutenberg_install_url, esc_html__( 'If you choose anything other than default, you need to activate the Gutenberg Plugin. ', 'emulsion' ), esc_html__( 'Please Click and Install Gutenberg Plugin', 'emulsion' ) );
+		$emulsion_gutengerg_status = is_plugin_active( 'gutenberg/gutenberg.php' )
+				? sprintf('<p class="is-gutenberg-active">%1$s</p>', esc_html__( 'Important settings have changed. Please save it and view the blog.If you need more settings, please reopen Customize', 'emulsion' ) )
+				: sprintf( '<p class="need-gutenberg-activate"><h3><a href="%1$s">%3$s</a></h3>%2$s</p>', $emulsion_gutenberg_install_url, esc_html__( 'If you choose anything other than default, you need to activate the Gutenberg Plugin. ', 'emulsion' ), esc_html__( 'Please Click and Install Gutenberg Plugin', 'emulsion' ) );
 
 		$script = <<< SCRIPT
 (function($){
@@ -623,3 +625,63 @@ function emulsion_footer_template_validate( $input ) {
 
 	return $default_value;
 }
+
+add_action( 'customize_controls_enqueue_scripts', 'emulsion_customizer_script' );
+
+function emulsion_customizer_script(){
+
+	$current_theme_mode = get_theme_mod('emulsion_editor_support');
+
+
+	$script=<<<SCRIPT
+(function ( $ ) {
+	var current_theme_mode = '{$current_theme_mode}';
+
+	if( 'fse' == current_theme_mode ){
+		var message = `<div id="fse-message-preview" style="overflow:hidden;width:100%;height:100vh;background:#000;color:#fff">
+					<h1 style="color:#fff;margin-top:25vh;line-height:1.5">The theme scheme setting is Full Site Editing Theme. The preview cannot be displayed with this setting.</h1>
+					<p style="margin:1rem auto;width:720px;max-width:100%;">Use the new editor (Dashboard / Apprearance / Dditor) to customize your site.</p>
+						</div>`;
+		$('#customize-preview').prepend( message );
+	}
+
+	wp.customize('emulsion_editor_support', function (value) {
+        value.bind(function (newval) {
+			var current_theme_mode = '{$current_theme_mode}';
+
+			if( 'fse' !== current_theme_mode ){
+				if('fse' == newval ){
+
+				var message = `<div id="fse-message-preview" style="overflow:hidden;width:100%;height:100vh;background:#000;color:#fff">
+					<h1 style="color:#fff;margin-top:25vh">Full Site Editor has been Activated</h1>
+					<p style="margin:1rem auto;width:720px;max-width:100%;">Use the new editor (Dashboard / Apprearance / Editor) to customize your site.</p>
+						</div>`;
+
+					$('#customize-preview').prepend(message);
+
+				} else {
+					$('#fse-message-preview').remove();
+				}
+			}
+			if( 'fse' == current_theme_mode ){
+
+				var message = `<div id="fse-message-preview" style="overflow:hidden;width:100%;height:100vh;background:#000;color:#fff">
+					<h1 style="color:#fff;margin-top:25vh;line-height:1.5">The theme mode has been changed to <span style="color:lime">` + newval + `</span>
+						Please save. Reload the browser to see the preview.</h1>
+						</div>`;
+
+					$('#customize-preview').prepend(message);
+			}
+
+        });
+    });
+})(jQuery);
+SCRIPT;
+
+
+	if ( is_customize_preview() ) {
+		wp_add_inline_script( 'customize-controls', $script );
+	}
+}
+
+

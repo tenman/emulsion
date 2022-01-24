@@ -76,7 +76,7 @@ body{
 
         .has-#{$slug}-background-color{
             background:#{$color};
-            background-image:linear-gradient( #{$color, $color}  ), linear-gradient(  var(--thm_white_color), var(--thm_white_color) );
+            background-image:linear-gradient( #{$color, $color}  ), linear-gradient(  var(--thm_white_color, #ffffff), var(--thm_white_color, #ffffff) );
             background-size:cover;
         }
 
@@ -431,14 +431,14 @@ body{
                     }
                 }
                 &.emulsion-add-dark-color{
-                    color:var(--thm_white_color);
+                    color:var(--thm_white_color, #ffffff);
                     a{
                         color:#ccc;
                     }
                     p{
-                        color:var(--thm_white_color);
+                        color:var(--thm_white_color, #ffffff);
                         &.has-background:not(.has-text-color){
-                            color:var(--thm_white_color);
+                            color:var(--thm_white_color, #ffffff);
                         }
                     }
                     .post-password-form .message,
@@ -487,7 +487,7 @@ body{
                 .wp-block-categories,
                 .wp-block-verse,
                 .social-navigation{
-                    color:var(--thm_white_color);
+                    color:var(--thm_white_color, #ffffff);
                 }
                 .wp-block-code,
                 .wp-block-table td,

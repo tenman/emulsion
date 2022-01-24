@@ -272,7 +272,7 @@ function emulsion_stop_fse() {
 function emulsion_custom_template_include( $template ) {
 
 	$new_template = '';
-
+	
 	if ( 'template-canvas.php' === basename( $template ) ) {
 
 		if ( is_singular() ) {

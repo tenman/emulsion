@@ -1,7 +1,4 @@
 <?php
-if( ! emulsion_the_theme_supports( 'social-link-menu' ) ) {
-	return;
-}
 /**
  * SVG icons related functions and filters
  * The social icons refer to those used in the Twenty_Seventeen theme.

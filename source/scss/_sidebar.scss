@@ -398,7 +398,7 @@ body:not(.emulsion-has-sidebar) .sidebar-widget-area{
         padding:1rem;
         color:var(--thm_black_color);
         content: attr( data-title );
-        background:var(--thm_white_color);
+        background:var(--thm_white_color, #ffffff);
     }
 
     .is-style-list-style-inline{
@@ -785,8 +785,8 @@ body{
         }
         &.sidebar-is-dark{
             .footer-widget-area-lists > li > ul::-webkit-scrollbar-thumb{
-                background-color: var(--thm_white_color);
-                outline: 1px solid var(--thm_white_color);
+                background-color: var(--thm_white_color, #ffffff);
+                outline: 1px solid var(--thm_white_color, #ffffff);
             }
         }
         .widget_nav_menu{
@@ -1131,7 +1131,7 @@ body.is-dark{
                     option,
                     select{
                         color:var(--thm_black_color);
-                        background:var(--thm_white_color);
+                        background:var(--thm_white_color, #ffffff);
                     }
                 }
                 .widget_block{
@@ -1141,7 +1141,7 @@ body.is-dark{
                         option,
                         select{
                             color:var(--thm_black_color);
-                            background:var(--thm_white_color);
+                            background:var(--thm_white_color, #ffffff);
                         }
                     }
 
