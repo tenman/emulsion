@@ -107,32 +107,37 @@ body{
     $width: nth($size, 2);
     $height: nth($size, 3);
 
-    div.wp-block-image{
+    @if( $width < var(--thm_main_width) / 2 - var(--thm_content_gap) * 3){
+        div.wp-block-image{
+            width:auto;
 
-        &.alignright,
-        &.alignleft{
-            // width:auto;
-            &.size-#{$class}{
-                width:#{$width}px;
-                height:auto;
+            &.alignright,
+            &.alignleft{
 
-                .size-#{$class}{
-                    margin:0;
-                }
-                &.is-resized{
-                    width:auto;
-                }
-                img{
-                    object-fit:cover;
-                }
-
-            }
-            .size-#{$class}{
-                img{
+                &.size-#{$class}{
                     width:#{$width}px;
                     height:auto;
-                    @if $height != 0 {
-                        height:#{$height}px;
+
+                    .size-#{$class}{
+                        margin:0;
+                    }
+                    &.is-resized{
+                        width:auto;
+                    }
+                    img{
+                        object-fit:cover;
+                    }
+
+                }
+                .size-#{$class}{
+                    width:#{$width}px;
+                    img{
+                        width:#{$width}px;
+                        height:auto;
+
+                        @if $height != 0 {
+                            height:#{$height}px;
+                        }
                     }
                 }
             }

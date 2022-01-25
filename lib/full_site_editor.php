@@ -269,33 +269,46 @@ function emulsion_stop_fse() {
  * @param type $template
  * @return type
  */
-function emulsion_custom_template_include( $template ) {
+if ( ! function_exists( 'emulsion_custom_template_include' ) ) {
 
-	$new_template = '';
-	
-	if ( 'template-canvas.php' === basename( $template ) ) {
+	function emulsion_custom_template_include( $template ) {
 
-		if ( is_singular() ) {
+		$new_template = '';
 
-			$new_template = locate_template( array( 'singular.php' ) );
-		} elseif ( is_search() ) {
+		if ( 'template-canvas.php' === basename( $template ) ) {
 
-			$new_template = locate_template( array( 'search.php' ) );
-		} else {
+			if ( is_singular() ) {
 
-			$new_template = locate_template( array( 'index.php' ) );
+				$new_template = locate_template( array( 'singular.php' ) );
+			} elseif ( is_search() ) {
+
+				$new_template = locate_template( array( 'search.php' ) );
+			} elseif ( is_category() ) {
+
+				$new_template = locate_template( array( 'category.php' ) );
+			} elseif ( is_tag() ) {
+
+				$new_template = locate_template( array( 'tag.php' ) );
+			} elseif ( is_author() ) {
+
+				$new_template = locate_template( array( 'author.php' ) );
+			} else {
+
+				$new_template = locate_template( array( 'index.php' ) );
+			}
+
+			if ( '' !== $new_template ) {
+
+				return $new_template;
+			} else {
+
+				return locate_template( array( 'index.php' ) );
+			}
 		}
 
-		if ( '' !== $new_template ) {
-
-			return $new_template;
-		} else {
-
-			return locate_template( array( 'index.php' ) );
-		}
+		return $template;
 	}
 
-	return $template;
 }
 
 /**
