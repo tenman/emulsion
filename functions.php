@@ -2506,7 +2506,7 @@ function emulsion_block_template_part( $part ) {
 
 		if ( 'header' == $template_part->area ) {
 
-			$classes = 'wp-block-template-part-' . sanitize_html_class( $template_part->slug ) . ' fse-header header-layer wp-block-template-part included-block-template-part';
+			$classes = 'wp-block-template-part-' . sanitize_html_class( $template_part->slug ) . ' fse-header header-layer wp-block-template-part included-block-template-part alignfull';
 
 			printf( '<%1$s class="%3$s">%2$s</%1$s>', esc_attr( $template_part->area ), do_blocks( $template_part->content ), $classes );
 
@@ -2514,7 +2514,7 @@ function emulsion_block_template_part( $part ) {
 		}
 		if ( 'footer' == $template_part->area ) {
 
-			$classes = 'wp-block-template-part-' . sanitize_html_class( $template_part->slug ) . ' fse-footer footer-layer wp-block-template-part included-block-template-part';
+			$classes = 'wp-block-template-part-' . sanitize_html_class( $template_part->slug ) . ' fse-footer footer-layer wp-block-template-part included-block-template-part alignfull';
 
 			printf( '<%1$s class="%3$s">%2$s</%1$s>', esc_attr( $template_part->area ), do_blocks( $template_part->content ), $classes );
 
@@ -2849,4 +2849,3 @@ if ( ! function_exists( 'emulsion_sanitize_css' ) ) {
 }
 
 do_action( 'emulsion_functions_after' );
-
