@@ -28,6 +28,10 @@ jQuery(function ($) {
                 $(this).removeClass('is-resized');
                 $(this).parent().addClass('is-resized');
             }
+            if ($(this).hasClass('size-medium')) {
+
+                $(this).parent().addClass('size-medium');
+            }
         });
     }
 });

@@ -639,7 +639,7 @@ function emulsion_customizer_script(){
 
 	if( 'fse' == current_theme_mode ){
 		var message = `<div id="fse-message-preview" style="overflow:hidden;width:100%;height:100vh;background:#000;color:#fff">
-					<h1 style="color:#fff;margin-top:25vh;line-height:1.5">The theme scheme setting is Full Site Editing Theme. The preview cannot be displayed with this setting.</h1>
+					<h1 style="color:#fff;margin:25vh auto .75rem;width:720px;line-height:1.5">The theme scheme setting is Full Site Editing Theme. The preview cannot be displayed with this setting.</h1>
 					<p style="margin:1rem auto;width:720px;max-width:100%;">Use the new editor (Dashboard / Apprearance / Dditor) to customize your site.</p>
 						</div>`;
 		$('#customize-preview').prepend( message );
@@ -653,7 +653,7 @@ function emulsion_customizer_script(){
 				if('fse' == newval ){
 
 				var message = `<div id="fse-message-preview" style="overflow:hidden;width:100%;height:100vh;background:#000;color:#fff">
-					<h1 style="color:#fff;margin-top:25vh">Full Site Editor has been Activated</h1>
+					<h1 style="color:#fff;margin:25vh auto .75rem;width:720px;">Full Site Editor has been Activated</h1>
 					<p style="margin:1rem auto;width:720px;max-width:100%;">Use the new editor (Dashboard / Apprearance / Editor) to customize your site.</p>
 						</div>`;
 
@@ -666,7 +666,7 @@ function emulsion_customizer_script(){
 			if( 'fse' == current_theme_mode ){
 
 				var message = `<div id="fse-message-preview" style="overflow:hidden;width:100%;height:100vh;background:#000;color:#fff">
-					<h1 style="color:#fff;margin-top:25vh;line-height:1.5">The theme mode has been changed to <span style="color:lime">` + newval + `</span>
+					<h1 style="color:#fff;margin:25vh auto .75rem;width:720px;line-height:1.5">The theme mode has been changed to <span style="color:lime">` + newval + `</span>
 						Please save. Reload the browser to see the preview.</h1>
 						</div>`;
 

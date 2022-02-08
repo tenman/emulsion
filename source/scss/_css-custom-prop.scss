@@ -98,7 +98,7 @@ body{
 }
 
 /**
- *
+ * Image sizes
  */
 
 @each $size in $image_sizes {
@@ -107,37 +107,68 @@ body{
     $width: nth($size, 2);
     $height: nth($size, 3);
 
-    @if( $width < var(--thm_main_width) / 2 - var(--thm_content_gap) * 3){
+    @if( $width < var(--thm_main_width) / 2 - var(--thm_content_gap, 24px) - 1rem){
         div.wp-block-image{
-            width:auto;
 
             &.alignright,
             &.alignleft{
-
                 &.size-#{$class}{
                     width:#{$width}px;
                     height:auto;
-
+                    &.keep-area{
+                        width: calc(50% - var(--thm_content_gap, 24px) - 1rem);
+                        max-width: calc(50% - var(--thm_content_gap, 24px) - 1rem);
+                        @media screen and (max-width: 720px) {
+                            width:100%;
+                            max-width:100%;
+                        }
+                        .size-#{$class}{
+                            margin:0 auto;
+                            img{
+                                display:block;
+                                margin:0 auto;
+                            }
+                        }
+                    }
                     .size-#{$class}{
+                        width:#{$width}px;
                         margin:0;
+                        img{
+                            width:#{$width}px;
+                            height:auto;
+
+                            @if $height != 0 {
+                                // height:#{$height}px;
+                            }
+                        }
+                    }
+                    &.is-style-shrink{
+                        width:auto;
+                        max-width: calc(var(--thm_content_width, 720px) / 2 - 1rem);
+                        @media screen and (max-width: 720px) {
+                            max-width:100%;
+                        }
+                        .size-#{$class}{
+                            width:auto;
+                            img{
+                                width:auto;
+                            }
+                        }
                     }
                     &.is-resized{
                         width:auto;
+                        @media screen and (max-width: 720px) {
+                            max-width:100%;
+                        }
+                        .size-#{$class}{
+                            width:auto;
+                            img{
+                                width:auto;
+                            }
+                        }
                     }
                     img{
                         object-fit:cover;
-                    }
-
-                }
-                .size-#{$class}{
-                    width:#{$width}px;
-                    img{
-                        width:#{$width}px;
-                        height:auto;
-
-                        @if $height != 0 {
-                            height:#{$height}px;
-                        }
                     }
                 }
             }
@@ -147,8 +178,8 @@ body{
 
             &.alignleft{
                 &.size-#{$class}{
-                    width:calc( var(--thm_content_width) / 2);
-                    margin-left: calc((var(--thm_main_width) - var(--thm_content_width)) / 2 + var(--thm_content_gap));
+                    width:calc( var(--thm_content_width, 720px) / 2);
+                    margin-left: calc((var(--thm_main_width, 1280px) - var(--thm_content_width, 720px)) / 2 - var(--thm_content_gap, 24px));
                     @media screen and (max-width: 720px) {
                         width:auto;
                         margin-right:auto;
@@ -165,7 +196,7 @@ body{
             &.alignright{
                 &.size-#{$class}{
                     width:calc( var(--thm_content_width) / 2);
-                    margin-right: calc((var(--thm_main_width) - var(--thm_content_width)) / 2 + var(--thm_content_gap));
+                    margin-right: calc((var(--thm_main_width, 1280px) - var(--thm_content_width, 720px)) / 2 - var(--thm_content_gap, 24px));
                     &.size-thumbnail{
                         width:150px;
                         padding:0;
@@ -181,6 +212,25 @@ body{
             }
         }
     }
+    .emulsion-has-sidebar.is-presentation-transitional,
+    .emulsion-has-sidebar.is-presentation-theme{
+        .wp-block-image{
+            &.alignright,
+            &.alignleft{
+                &.size-#{$class}{
+                    &.is-style-shrink{
+                        width:auto;
+                        max-width: calc(var(--thm_content_width, 720px) / 2 - var(--thm_content_gap, 24px) - 1.1rem);
+                        @media screen and (max-width: 720px) {
+                            max-width:100%;
+                        }
+
+                    }
+                }
+            }
+        }
+
+    }
     .emulsion-no-sidebar,
     .is-presentation-fse{
         div.wp-block-image{
@@ -188,8 +238,8 @@ body{
 
                 &.alignleft{
                     &.size-#{$class}{
-                        width:calc( var(--thm_content_width) / 2);
-                        margin-left: calc((100% - var(--thm_content_width)) / 2 + var(--thm_content_gap));
+                        width:calc( var(--thm_content_width, 720px) / 2 - var(--thm_content_gap, 24px) - 1rem);
+                        margin-left: calc((100% - var(--thm_content_width, 720px)) / 2 + var(--thm_content_gap, 24px));
                         @media screen and (max-width: 720px) {
                             width:auto;
                             margin-right:auto;
@@ -209,8 +259,8 @@ body{
                 }
                 &.alignright{
                     &.size-#{$class}{
-                        width:calc( var(--thm_content_width) / 2);
-                        margin-right: calc((100% - var(--thm_content_width)) / 2 + var(--thm_content_gap));
+                        width:calc( var(--thm_content_width, 720px) / 2 - var(--thm_content_gap, 24px) - 1rem);
+                        margin-right: calc((100% - var(--thm_content_width, 720px)) / 2 + var(--thm_content_gap, 24px));
                         @media screen and (max-width: 720px) {
                             width:auto;
                             margin-right:auto;

@@ -133,7 +133,7 @@ function emulsion_hooks_setup() {
 	}
 
 	if ( 'fse' == emulsion_get_theme_operation_mode() ) {
-		
+
 	} else {
 		// transitional or theme
 
@@ -287,7 +287,10 @@ if ( ! function_exists( 'emulsion_body_class' ) ) {
 			$classes[] = comments_open( $emulsion_post_id ) ? 'is-comments-open' : 'is-comments-close';
 		}
 
+		if( is_child_theme() ){
 
+			$classes[] = 'is-child-theme';
+		}
 
 		if ( get_theme_support( 'align-wide' ) ) {
 

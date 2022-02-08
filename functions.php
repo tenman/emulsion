@@ -144,6 +144,8 @@ if ( ! function_exists( 'emulsion_setup' ) ) {
 			remove_theme_support( 'align-wide' );
 		}
 
+
+
 		if ( 'fse' == emulsion_get_theme_operation_mode() && ! emulsion_do_fse() ) {
 
 			set_theme_mod( 'emulsion_editor_support', 'theme' );
@@ -394,6 +396,7 @@ if ( ! function_exists( 'emulsion_widgets_init' ) ) {
 			'after_sidebar'	 => '',
 				)
 		);
+
 	}
 
 }
@@ -2473,63 +2476,76 @@ if ( ! function_exists( 'emulsion_theme_get_font_sizes' ) ) {
 	}
 
 }
+if ( ! function_exists( 'emulsion_block_template_part' ) ) {
 
-function emulsion_block_template_part( $part ) {
+	function emulsion_block_template_part( $part ) {
 
-	if ( ! function_exists( 'gutenberg_get_block_template' ) && ! function_exists( 'get_block_template' ) ) {
+		if ( ! function_exists( 'gutenberg_get_block_template' ) && ! function_exists( 'get_block_template' ) ) {
 
-		printf( '<div class="error" style="%2$s">%1$s</div>', esc_html__( 'Required gutenberg plugin', 'emulsion' ), 'padding:1.5rem; text-align:center;border:1px dashed red;' );
+			printf( '<div class="error" style="%2$s">%1$s</div>', esc_html__( 'Required gutenberg plugin', 'emulsion' ), 'padding:1.5rem; text-align:center;border:1px dashed red;' );
 
-		return;
-	} else {
-
-		if ( function_exists( 'get_block_template' ) ) {
-
-			$template_part = get_block_template( get_stylesheet() . '//' . $part, 'wp_template_part' );
+			return;
 		} else {
 
-			$template_part = gutenberg_get_block_template( get_stylesheet() . '//' . $part, 'wp_template_part' );
-		}
+			if ( function_exists( 'get_block_template' ) ) {
 
-		if ( ! $template_part || empty( $template_part->content ) ) {
+				$template_part = get_block_template( get_stylesheet() . '//' . $part, 'wp_template_part' );
+			} else {
 
-			$class = 'not-found-wp-block-template-part-' . sanitize_html_class( $part );
-			$class .= is_user_logged_in() ? '': ' screen-reader-text';
+				$template_part = gutenberg_get_block_template( get_stylesheet() . '//' . $part, 'wp_template_part' );
+			}
 
-			printf( '<div class="%3$s" style="%2$s">%1$s</div>',
-					esc_html__( 'Can not find template', 'emulsion' ),
-					'padding:1.5rem; text-align:center;border:1px dashed red;',
-					$class );
+			if ( ! $template_part || empty( $template_part->content ) ) {
+
+				$class	 = 'not-found-wp-block-template-part-' . sanitize_html_class( $part );
+				$class	 .= is_user_logged_in() ? '' : ' screen-reader-text';
+
+				printf( '<div class="%3$s" style="%2$s">%1$s</div>',
+						esc_html__( 'Can not find template', 'emulsion' ),
+						'padding:1.5rem; text-align:center;border:1px dashed red;',
+						$class );
+				return;
+			}
+
+
+			if ( 'header' == $template_part->area ) {
+
+				$classes = 'wp-block-template-part-' . sanitize_html_class( $template_part->slug ) . ' fse-header header-layer wp-block-template-part included-block-template-part alignfull';
+
+				printf( '<%1$s class="%3$s">%2$s</%1$s>', esc_attr( $template_part->area ), do_blocks( $template_part->content ), $classes );
+
+				return;
+			}
+			if ( 'footer' == $template_part->area ) {
+
+				$classes = 'wp-block-template-part-' . sanitize_html_class( $template_part->slug ) . ' fse-footer footer-layer wp-block-template-part included-block-template-part alignfull';
+
+				printf( '<%1$s class="%3$s">%2$s</%1$s>', esc_attr( $template_part->area ), do_blocks( $template_part->content ), $classes );
+
+				return;
+			}
+
+		/*	if ( is_singular() ) {
+
+
+
+				$post_id = get_the_ID();
+
+				echo get_post( $post_id )->post_content;
+
+				return;
+			}*/
+
+
+			$classes = 'wp-block-template-part-' . sanitize_html_class( $template_part->slug ) . ' wp-block-template-part included-block-template';
+
+			printf( '<%1$s class="%3$s">%2$s</%1$s>', 'div', do_blocks( $template_part->content ), $classes );
+
 			return;
 		}
-
-
-		if ( 'header' == $template_part->area ) {
-
-			$classes = 'wp-block-template-part-' . sanitize_html_class( $template_part->slug ) . ' fse-header header-layer wp-block-template-part included-block-template-part alignfull';
-
-			printf( '<%1$s class="%3$s">%2$s</%1$s>', esc_attr( $template_part->area ), do_blocks( $template_part->content ), $classes );
-
-			return;
-		}
-		if ( 'footer' == $template_part->area ) {
-
-			$classes = 'wp-block-template-part-' . sanitize_html_class( $template_part->slug ) . ' fse-footer footer-layer wp-block-template-part included-block-template-part alignfull';
-
-			printf( '<%1$s class="%3$s">%2$s</%1$s>', esc_attr( $template_part->area ), do_blocks( $template_part->content ), $classes );
-
-			return;
-		}
-
-
-		$classes = 'wp-block-template-part-' . sanitize_html_class( $template_part->slug ) . ' wp-block-template-part included-block-template';
-
-		printf( '<%1$s class="%3$s">%2$s</%1$s>', 'div', do_blocks( $template_part->content ), $classes );
-
-		return;
 	}
-}
 
+}
 if ( ! function_exists( 'emulsion_woocommerce_dinamic_css' ) ) {
 
 	function emulsion_woocommerce_dinamic_css( $css ) {

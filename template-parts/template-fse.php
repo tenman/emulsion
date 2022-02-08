@@ -7,8 +7,8 @@
 	<body <?php body_class(); ?>>
 		<?php
 		wp_body_open();
-		is_user_logged_in() ? printf( '<p>%1$s</p>','load PHP template:template-fse.php' ):'';
 		emulsion_block_template_part( 'header' );
+		is_user_logged_in() ? printf( '<p style="background:#000;color:#fff">%1$s</p>', 'load PHP template:emulsion/template-parts/template-fse.php' ) : '';
 		emulsion_block_template_part( 'query-post' );
 		emulsion_block_template_part( 'footer' );
 		?>
