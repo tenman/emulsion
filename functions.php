@@ -628,6 +628,7 @@ function emulsion_register_scripts_and_styles() {
 	/**
 	 * Child Theme
 	 */
+
 	if ( is_child_theme() ) {
 
 		$emulsion_child_theme_slug = emulsion_slug();
@@ -643,21 +644,7 @@ function emulsion_register_scripts_and_styles() {
 
 		wp_add_inline_style( $emulsion_child_theme_slug, $inline_style );
 
-		/**
-		 * Child theme style
-		 */
-		if ( file_exists( get_stylesheet_directory() . '/js/' . $emulsion_child_theme_slug . '.js' ) ) {
 
-			/**
-			 * if child theme has parent name.js( js/child-theme-slug.js ) add the file of the child theme ( for add script )
-			 */
-			wp_register_script( $emulsion_child_theme_slug . '-js', get_stylesheet_directory_uri() . '/js/' . $emulsion_child_theme_slug . '.js', $jquery_dependency, $emulsion_current_data_version, true );
-
-			wp_enqueue_script( $emulsion_child_theme_slug . '-js' );
-
-			$inline_script = apply_filters( $emulsion_child_theme_slug . '_inline_script', "" );
-			wp_add_inline_script( $emulsion_child_theme_slug . '-js', $inline_script );
-		}
 	}
 
 	/**
@@ -709,13 +696,31 @@ function emulsion_register_scripts_and_styles() {
 	 */
 //////////////////////////////////////////////////////////////////////////
 
-	if ( 'fse' !== emulsion_get_theme_operation_mode() ) {
+	//if ( 'fse' !== emulsion_get_theme_operation_mode() ) {
 		/**
 		 * jQuery in Footer when user not logged in.
 		 */
 		wp_scripts()->add_data( 'jquery', 'group', 1 );
 		wp_scripts()->add_data( 'jquery-core', 'group', 1 );
 		wp_scripts()->add_data( 'jquery-migrate', 'group', 1 );
+	//}
+	if( is_child_theme() ) {
+
+		/**
+		 * Child theme script
+		 */
+		if ( file_exists( get_stylesheet_directory() . '/js/' . $emulsion_child_theme_slug . '.js' ) ) {
+
+			/**
+			 * if child theme has parent name.js( js/child-theme-slug.js ) add the file of the child theme ( for add script )
+			 */
+			wp_register_script( $emulsion_child_theme_slug . '-js', get_stylesheet_directory_uri() . '/js/' . $emulsion_child_theme_slug . '.js', $jquery_dependency, $emulsion_current_data_version, true );
+
+			wp_enqueue_script( $emulsion_child_theme_slug . '-js' );
+
+			$inline_script = apply_filters( $emulsion_child_theme_slug . '_inline_script', "" );
+			wp_add_inline_script( $emulsion_child_theme_slug . '-js', $inline_script );
+		}
 	}
 	/**
 	 * Lazyload
@@ -2476,6 +2481,7 @@ if ( ! function_exists( 'emulsion_theme_get_font_sizes' ) ) {
 	}
 
 }
+
 if ( ! function_exists( 'emulsion_block_template_part' ) ) {
 
 	function emulsion_block_template_part( $part ) {
@@ -2525,19 +2531,7 @@ if ( ! function_exists( 'emulsion_block_template_part' ) ) {
 				return;
 			}
 
-		/*	if ( is_singular() ) {
-
-
-
-				$post_id = get_the_ID();
-
-				echo get_post( $post_id )->post_content;
-
-				return;
-			}*/
-
-
-			$classes = 'wp-block-template-part-' . sanitize_html_class( $template_part->slug ) . ' wp-block-template-part included-block-template';
+			$classes = 'wp-block-template-part-' . sanitize_html_class( $template_part->slug ) . ' wp-block-template-part included-block-template alignfull';
 
 			printf( '<%1$s class="%3$s">%2$s</%1$s>', 'div', do_blocks( $template_part->content ), $classes );
 

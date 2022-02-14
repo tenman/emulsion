@@ -451,3 +451,22 @@ function emulsion_revert_widgets_area() {
 }
 
 //add_action( 'after_setup_theme', 'emulsion_revert_widgets_area' );
+
+add_action( 'enqueue_block_editor_assets', function () {
+
+	$post_type	 = filter_input( INPUT_GET, 'postType', FILTER_SANITIZE_SPECIAL_CHARS );
+	$post_id	 = filter_input( INPUT_GET, 'postId', FILTER_SANITIZE_SPECIAL_CHARS );
+	$page		 = filter_input( INPUT_GET, 'page', FILTER_SANITIZE_SPECIAL_CHARS );
+
+	If ( empty( $post_type ) && empty( $post_id ) && 'gutenberg-edit-site' == $page ) {
+		
+		echo '<div style="position:absolute;height: 20vh;max-width:100%; background: #eee;top: 0;right: 0;bottom: 0;left: 0;margin: auto;width: 720px;">'
+		. '<p style="padding:0 24px;">'
+		. esc_html__( 'It may take some time for the site editor to appear.', 'emulsion' )
+		. '</p>'
+		. '<p style="padding:0 24px;">'
+		. esc_html__( 'Exception: If you have added a PHP template to your theme, the site editor will not be displayed', 'emulsion' )
+		. '</p>'
+		. '</div>';
+	}
+} );

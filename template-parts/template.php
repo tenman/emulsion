@@ -8,4 +8,3 @@ emulsion_have_posts();
 emulsion_action( 'emulsion_article_wrapper_after' );
 emulsion_pagination();
 get_footer();
-

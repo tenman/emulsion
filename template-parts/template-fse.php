@@ -1,17 +1,31 @@
-<!DOCTYPE html>
-<html <?php language_attributes(); ?>>
-	<head>
-		<meta charset="<?php bloginfo( 'charset' ); ?>" />
-		<?php wp_head(); ?>
-	</head>
-	<body <?php body_class(); ?>>
+<?php get_header( 'fse' ); ?>
+<div class="wp-site-blocks">
+
+	<?php emulsion_block_template_part( 'header' ); ?>
+
+	<?php is_user_logged_in() ? printf( '<p style="background:#000;color:#fff">%1$s</p>', 'load PHP template:emulsion/template-parts/template-fse.php' ) : ''; ?>
+
+	<main class="wp-block-group alignfull">
 		<?php
-		wp_body_open();
-		emulsion_block_template_part( 'header' );
-		is_user_logged_in() ? printf( '<p style="background:#000;color:#fff">%1$s</p>', 'load PHP template:emulsion/template-parts/template-fse.php' ) : '';
-		emulsion_block_template_part( 'query-post' );
-		emulsion_block_template_part( 'footer' );
+		if ( is_attachment() ) {
+
+			emulsion_have_posts();
+		} elseif ( is_single() ) {
+
+			emulsion_block_template_part( 'post-content' );
+		} elseif ( is_page() ) {
+
+			emulsion_block_template_part( 'page-content' );
+		} else {
+
+			emulsion_block_template_part( 'query-post' );
+		}
 		?>
-	</body>
+	</main>
+
+	<?php emulsion_block_template_part( 'footer' ); ?>
+</div>
+<?php wp_footer(); ?>
+</body>
 </html>
 

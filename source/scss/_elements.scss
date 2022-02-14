@@ -27,6 +27,41 @@ main{
         }
     }
 }
+
+.counter.badge:not(#specificity){
+    min-width:1rem;
+    display:inline-block!important;
+    padding:0;
+    margin:0;
+    text-align:center;
+    @include font_size(6,no-margin);
+    & > *{
+        display:inline-block;
+        padding:0;
+        margin:0;
+    }
+    &:before{
+        position:absolute;
+        padding:3px 3px 3px;
+    }
+    &:empty:before,
+        &:empty{
+        display:none;
+    }
+}
+.emulsion-cat-count.badge{
+    display:inline-block;
+    text-align:center;
+}
+.emulsion-archive-count.badge{
+    display:inline-block;
+    text-align:center;
+}
+&.emulsion-comment-count.badge{
+    display:inline-block;
+    text-align:center;
+}
+
 .link-disabled,
 a[href^="mailto:"],
 a[href^="geo:"],

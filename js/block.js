@@ -357,7 +357,8 @@ function emulsionGetParameterByName(name, url = window.location.href) {
 
 document.addEventListener("DOMContentLoaded", function () {
     var body = document.body;
-    //5.9
+
+    //5.8
     if (body.classList.contains('site-editor-php') && body.classList.contains('is-presentation-theme') && !emulsionGetParameterByName('postType')) {
         window.wp.data.dispatch('core/notices').createNotice(
                 'warning',
@@ -374,7 +375,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
         )
     }
-    //for 5.8
+    //for 5.9
     if (body.classList.contains('appearance_page_gutenberg-edit-site') && body.classList.contains('is-presentation-theme') && !emulsionGetParameterByName('postType')) {
         window.wp.data.dispatch('core/notices').createNotice(
                 'warning',

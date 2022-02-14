@@ -1,37 +1,27 @@
-<?php
-get_header();
-emulsion_the_theme_supports( 'title_in_page_header' ) ? '' : emulsion_archive_title();
+<?php get_header(); ?>
 
-is_user_logged_in() ? printf( '<p style="background:#000;color:#fff">%1$s</p>', 'load PHP template:template-transitional.php' ) : '';
+<?php emulsion_the_theme_supports( 'title_in_page_header' ) ? '' : emulsion_archive_title(); ?>
 
-if ( is_attachment() ) {
+<?php is_user_logged_in() ? printf( '<p style="background:#000;color:#fff">%1$s</p>', 'load PHP template:template-transitional.php' ) : ''; ?>
 
-	emulsion_have_posts();
-}
+<div class="wp-site-blocks">
 
-if ( is_single() ) {
+	<?php
+	if ( is_attachment() ) {
 
-	emulsion_block_template_part( 'post-content' );
-} elseif ( is_page() ) {
+		emulsion_have_posts();
+	} elseif ( is_single() ) {
 
-	emulsion_block_template_part( 'page-content' );
+		emulsion_block_template_part( 'post-content' );
+	} elseif ( is_page() ) {
 
-} elseif ( is_archive() ) {
+		emulsion_block_template_part( 'page-content' );
+	} else {
 
-	emulsion_block_template_part( 'query-post' );
-} elseif ( is_search() ) {
+		emulsion_block_template_part( 'query-post' );
+	}
+	?>
 
-	emulsion_block_template_part( 'query-post' );
-} elseif ( is_home() ) {
+</div>
 
-	emulsion_block_template_part( 'query-post' );
-}elseif ( is_tag() ) {
-
-	emulsion_block_template_part( 'query-post' );
-} elseif ( is_front_page() ) {
-	// page id を指定する必要がある
-	echo '<p style="color:red;font-weight:bold">has todo page id を指定する必要がある</p>';
-	//emulsion_block_template_part( 'page-content' );
-}
-get_footer();
-
+<?php get_footer(); ?>
