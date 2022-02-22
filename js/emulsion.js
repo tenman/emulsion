@@ -447,6 +447,7 @@ jQuery(function ($) {
         var is_checked = this.checked ? 'is_checked' : 'no_checked';
         localStorage.setItem('toc-toggle', is_checked);
     });
+
 });
 jQuery(function ($) {
     /**
@@ -639,7 +640,29 @@ jQuery(function ($) {
         var result = (r * 0.299 + g * 0.587 + b * 0.114) > 186 ? '#333333' : '#ffffff';
         return result;
     }
+    /**
+     * Pending during implementation with PHP function
+     * emulsion_fse_background_color_class()
+     * @type String
+     */
+   /* $(".is-presentation-fse").each(function () {
+        var background_color = $(this).css('background-color');
+        var text_color = emulsion_text_color(background_color);
+        if (text_color == "#ffffff") {
+            var color_class = 'fse-dark';
+        } else {
+            var color_class = 'fse-light';
+        }
+        $(this).addClass(color_class);
+
+        if ('rgb(27, 38, 44)' == background_color || 'rgba(27, 38, 44, 1)' == background_color) {
+            $(this).addClass('fse-variation-midnight');
+        }
+    });*/
+
 });
+
+
 jQuery(function ($) {
     /**
      * Stop alignwide support if browser too old
@@ -1026,4 +1049,7 @@ jQuery(function ($) {
     $('.alignleft .size-mediuml,.alignright .size-medium').parent().addClass('size-medium');
     $('.alignleft .size-large,.alignright .size-large').parent().addClass('size-large');
      $('.alignleft .size-full,.alignright .size-full').parent().addClass('size-full');
+});
+jQuery(function ($) {
+    console.log(getComputedStyle(document.documentElement).getPropertyValue('--my-variable-name'));
 });

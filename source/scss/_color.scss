@@ -663,7 +663,7 @@ figure.wp-block-table{
         }
     }
 }
-.is-light{
+.is-light:not(.is-fse-dark){
     .grid{
         article{
             background:var(--thm_white_color, #ffffff);
@@ -671,7 +671,7 @@ figure.wp-block-table{
         }
     }
 }
-.is-dark{
+.is-dark:not(.is-fse-light){
     .grid{
         article{
             background:#000;
@@ -731,7 +731,7 @@ figure.wp-block-table{
         }
     }
 }
-.is-light{
+.is-light:not(.is-fse-dark){
 
     .stream{
         .stream-wrapper{
@@ -740,7 +740,7 @@ figure.wp-block-table{
     }
 
 }
-.is-dark{
+.is-dark:not(.is-fse-light){
     .stream{
         .stream-wrapper{
             background:#000;
@@ -779,7 +779,7 @@ table{
 .wp-block-table{
     table{
         border-spacing:0;
-        background: var(--thm_background_color);
+
 
         &:not(.has-background){
             color:inherit;
@@ -973,7 +973,7 @@ table{
  *
  * ========================================================================== */
 
-.is-dark{
+.is-dark:not(.is-fse-light){
     /**
      * Custom background is Dark
      * tooltip
@@ -1168,8 +1168,8 @@ body.metabox-reset-post-header{
  * Custom background is light or dark
  * metabox reset page presentation
  */
-body.is-dark,
-body.is-light{
+body.is-dark:not(.is-fse-light),
+body.is-light:not(.is-fse-dark){
     &.metabox-reset-page-presentation{
         &.custom-background main *{
             border-color:#999;
@@ -1252,7 +1252,7 @@ body[class]{
  * Plugin fallback
  * START
  * ========================================================================== */
-.is-dark{
+.is-dark:not(.is-fse-light){
     .entry-content .shortcode-wrapper,
     .entry-content > div[id]:not([class|="wp-block"]){
         padding:1rem;

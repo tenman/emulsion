@@ -13,7 +13,7 @@ if ( ! function_exists( 'emulsioncustomize_register' ) ) {
 		$emulsion_theme_mod_args = array(
 			'emulsion_editor_support'							 => array(
 				'section'			 => 'emulsion_editor',
-				'default'			 => 'theme',
+				'default'			 => 'transitional',
 				'label'				 => esc_html__( 'Theme Operation Mode Setting', 'emulsion' ),
 				'description'		 => esc_html__( 'This theme can be run as either the currently widely used theme ( php template ) or the latest Full site editiong theme ( html template ) by changing the settings.', 'emulsion' ) .
 				sprintf( '<p><a href="%1$s" target="blank" style="text-decoration:underline">%2$s</a></p>', 'https://www.tenman.info/wp3/emulsion/en/2021/10/28/emulsion-theme-editor-type/', esc_html__( 'More Details', 'emulsion' ) ),

@@ -49,10 +49,10 @@
     --thm_common_border_style:var(--thm_border_global_style, solid);
     --thm_common_border_width:var(--thm_border_global_width, 1px);
 }
-.is-dark{
+.is-dark:not(.is-fse-light){
     --thm_social_icon_bg_color:#000000;
 }
-.is-light{
+.is-light:not(.is-fse-dark){
     --thm_social_icon_bg_color:#ffffff;
 }
 
@@ -422,7 +422,7 @@ body{
             box-sizing:border-box;
         }
     }
-    .is-light.is-singular.emulsion-has-custom-background-image.has-background-img-text-white:not(.noscript){
+    .is-light:not(.is-fse-dark).is-singular.emulsion-has-custom-background-image.has-background-img-text-white:not(.noscript){
         /**
          * has background image
          */
@@ -831,9 +831,10 @@ body.emulsion-has-sidebar{
                         --thm_main_width: calc(100vw);
                         .wp-block-group__inner-container{
                             display:block;
-                            &:not(.centered):not(.vertically){
+                          /* transitional mode
+                          &:not(.centered):not(.vertically){
                                 height:100%;
-                            }
+                            }*/
                             [class|="wp-block"]{
                                 margin-right:auto;
                                 margin-left:auto;
@@ -851,9 +852,10 @@ body.emulsion-no-sidebar{
         .wp-block-group{
 
             &.grid{
-                &:not(.centered):not(.vertically){
+               /* transitional mode
+               &:not(.centered):not(.vertically){
                     height:100%;
-                }
+                }*/
                 .wp-block-group__inner-container{
 
                     @media screen and (max-width: 768px) {
@@ -869,8 +871,8 @@ body.emulsion-no-sidebar{
     }
 }
 
-body.emulsion-gb-phase-site .editor-styles-wrapper .block-editor-block-list__layout.is-root-container{
-
+//body.emulsion-gb-phase-site .editor-styles-wrapper .block-editor-block-list__layout.is-root-container{
+.is-root-container .block-editor-block-list__layout.is-root-container{
     .wp-block-group.grid{
         --thm_content_width:720px;
         .wp-block-group__inner-container{
@@ -907,6 +909,8 @@ body.emulsion-gb-phase-site .editor-styles-wrapper .block-editor-block-list__lay
                     display: block;
                     flex: 0 1 calc( 50% - 6px - var(--thm_box_gap, 3px) * 2 );
 
+
+
                     min-width:0;
                     max-width:100%;
                     margin:var(--thm_box_gap, 3px);
@@ -935,7 +939,7 @@ body.emulsion-gb-phase-site .editor-styles-wrapper .block-editor-block-list__lay
                         //flex: 0 1 24.99%;
                     }
                     &.size1of2 {
-                        flex: 0 1 calc( 50% - 6px - var(--thm_box_gap, 3px) * 2 );
+                        flex: 0 1 calc( 50% - var(--thm_box_gap, 3px) * 2 );
                         //flex: 0 1 50%;
                     }
                     &.size1of5 {
@@ -1096,7 +1100,7 @@ body .layout{
                     // flex: 0 1 24.99%;
                 }
                 &.size1of2 {
-                    flex: 0 1 calc( 50% - 6px - var(--thm_box_gap, 3px) * 2 );
+                    flex: 0 1 calc( 50% - var(--thm_box_gap, 3px) * 2 );
                     // flex: 0 1 50%;
                 }
                 &.size1of5 {
@@ -1228,7 +1232,7 @@ body .layout{
         width: calc( 24.99% - 5px - var(--thm_box_gap, 3px) * 2 );
     }
     .size1of2 {
-        width: calc( 50% - 5px - var(--thm_box_gap, 3px) * 2 );
+        width: calc( 50% - var(--thm_box_gap, 3px) * 2 );
     }
     .size1of5 {
         width: calc( 19.99% - 5px - var(--thm_box_gap, 3px) * 2 );
@@ -1401,21 +1405,3 @@ body .layout{
     }
 }
 
-
-[id="document"]:not(.emulsion-fse-stopped){
-    //CSS to not affect fse
-    .wp-block-group.grid{
-        .size1of3,
-        .size1of3,
-        .size1of4,
-        .size1of2,
-        .size1of5,
-        .size2of3,
-        .size2of5,
-        .size3of4,
-        .size3of5,
-        .size4of5 {
-            //  width: auto;
-        }
-    }
-}

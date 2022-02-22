@@ -11,7 +11,7 @@ a{
     border-bottom:1px solid currentColor;
     transition: width .5s;
 }
-body.is-dark .entry-title a:after {
+body.is-dark:not(.is-fse-light) .entry-title a:after {
     border-bottom:1px solid #ffffff;
 }
 .entry-title a:hover:after {
@@ -586,7 +586,7 @@ $indent-classes:('5rem','10rem','15rem','20rem','right-5rem','right-10rem','righ
  * Grid Article
  * =================================================================== */
 
-.is-light{
+.is-light:not(.is-fse-dark){
     .grid{
         article{
             transition:box-shadow .5s ease-in-out;
@@ -674,7 +674,7 @@ body.on-scroll{
     }
 }
 
-.is-dark{
+.is-dark:not(.is-fse-light){
     .grid{
         article{
             transition:all .5s ease-in-out;
@@ -1632,7 +1632,7 @@ ul.shrink{
     /**
      * Grid Article
      */
-    .is-light{
+    .is-light:not(.is-fse-dark){
 
         .wp-block-latest-posts{
             li{
@@ -1700,7 +1700,7 @@ ul.shrink{
     /**
      * Primary Menu
      */
-    .is-dark{
+    .is-dark:not(.is-fse-light){
         .wp-block-latest-posts.is-grid li{
             color:#fff;
             background:#000;
