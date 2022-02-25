@@ -145,6 +145,7 @@ a[href^="tel:"] {
     --thm_common_border:rgba(188,188,188,.5);
     --thm_common_border_style:var(--thm_border_global_style,solid);
     --thm_common_border_width:var(--thm_border_global_width,1px);
+
     color:#333333;
 
     a:any-link{
@@ -196,6 +197,7 @@ body.is-fse-light div.wp-block-file{
         color:#333333;
     }
 }
+
 td,
 .has-border,
 .has-border-color{
@@ -1082,6 +1084,9 @@ $fse_blocks: wp-block-site-title, wp-block-site-tagline, wp-block-post-title, wp
         a{
             color:var(--thm_primary_menu_link_color, #666666);
         }
+    }
+    .menu-main-container{
+        z-index:20;
     }
 
 }

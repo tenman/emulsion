@@ -144,15 +144,16 @@ if ( ! function_exists( 'emulsion_setup' ) ) {
 			remove_theme_support( 'align-wide' );
 		}
 
+		if( !empty( $wp_version ) && version_compare( $wp_version, '5.9', '<' ) ) {
 
+			if ( 'fse' == emulsion_get_theme_operation_mode() && ! emulsion_do_fse() ) {
 
-		if ( 'fse' == emulsion_get_theme_operation_mode() && ! emulsion_do_fse() ) {
+				set_theme_mod( 'emulsion_editor_support', 'theme' );
+			}
+			if ( 'transitional' !== emulsion_get_theme_operation_mode() && ! emulsion_do_fse() ) {
 
-			set_theme_mod( 'emulsion_editor_support', 'theme' );
-		}
-		if ( 'transitional' !== emulsion_get_theme_operation_mode() && ! emulsion_do_fse() ) {
-
-			set_theme_mod( 'emulsion_editor_support', 'transitional' );
+				set_theme_mod( 'emulsion_editor_support', 'transitional' );
+			}
 		}
 
 		/**
@@ -1390,7 +1391,7 @@ if ( ! function_exists( 'emulsion_block_editor_styles_and_scripts' ) ) {
     --thm_heading_font_weight: 700;
     --thm_hover_color: #333333;
     --thm_i18n_no_title: 無題;
-    --thm_main_width-with-sidebar: calc(100vw - var(--thm_sidebar_width) - 48px);
+    /*--thm_main_width-with-sidebar: calc(100vw - var(--thm_sidebar_width) - 48px);*/
     --thm_main_width: 1280px;
     --thm_meta_data_font_family: sans-serif;
     --thm_meta_data_font_size: 13px;
@@ -2860,16 +2861,15 @@ if ( ! function_exists( 'emulsion_fse_background_color_class' ) ) {
 
 		$style = wp_get_global_stylesheet( array( 'styles' ) );
 
-		if ( false !== preg_match( '$body(.*)?\{(.*)?(background-color:|background:)([^\;]*)\;$', $style, $regs ) ) {
+		if ( false !== preg_match( '$body(.*)?\{(.*)?(background-color:|background:)([^\;]*)\;$', $style, $regs ) && ! empty( $regs[4] ) ) {
 
-			$fse_class	 = ! empty( $regs[4] ) ? sanitize_html_class( 'is-fse-bg-' . $regs[4] ): '' ;
-
+			$fse_class	 = sanitize_html_class( 'is-fse-bg-' . $regs[4] );
 			$color		 = emulsion_accessible_color( trim( $regs[4] ) );
 
 			if ( '#ffffff' == $color ) {
 
 				$fse_class .= ' is-fse-dark';
-			} elseif ( ! empty( $color ) ) {
+			} elseif ( '#333333' == $color ) {
 
 				$fse_class .= ' is-fse-light';
 			}
@@ -2877,6 +2877,7 @@ if ( ! function_exists( 'emulsion_fse_background_color_class' ) ) {
 		}
 		return;
 	}
+
 }
 do_action( 'emulsion_functions_after' );
 

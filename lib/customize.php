@@ -433,6 +433,7 @@ CSS;
 CSS2;
 		}
 
+
 		if ( 'simple' == get_theme_mod( 'emulsion_header_layout', emulsion_theme_default_val( 'emulsion_header_layout' ) ) ) {
 
 			$css .= <<<CSS3
@@ -445,7 +446,7 @@ CSS3;
 		if ( 'transitional' == get_theme_mod( 'emulsion_editor_support' ) ) {
 
 			$css .= <<<CSS4
-
+		#customize-theme-controls #accordion-section-emulsion_section_advanced_excerpt,
 		#customize-control-emulsion_scheme #details-stream,
 		#customize-control-emulsion_scheme [for="emulsion_schemestream"],
 		#customize-control-emulsion_scheme #details-grid,

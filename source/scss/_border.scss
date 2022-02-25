@@ -314,6 +314,7 @@ td,
 .wp-block-archives select,
 .wp-block-latest-posts > li,
 .wp-block-rss.is-grid > li,
+
 .wp-block-categories > ul > li,
 .wp-block-categories-dropdown select,
 fieldset,
@@ -573,10 +574,14 @@ figure.wp-block-table{
 
 .sidebar-widget-area,
 .footer-widget-area{
-    &.border-default .widget > ul > li{
-        border-bottom-color:var(--thm_common_border, rgba(188,188,188,.5));
-        border-bottom-style:var(--thm_common_border_style, solid);
-        border-bottom-width:var(--thm_common_border_width, 1px);
+    &.border-default{
+        .widget .wp-widget-group__inner-blocks > ul > li,
+        .widget > ul > li{
+            border-bottom-color:var(--thm_common_border, rgba(188,188,188,.5));
+            border-bottom-style:var(--thm_common_border_style, solid);
+            border-bottom-width:var(--thm_common_border_width, 1px);
+        }
+
     }
 }
 
@@ -743,6 +748,7 @@ h6.has-background{
                     border-radius: 5px;
                 }
             }
+
             .widget.widget_archive ul li:not(:last-child),
                 .widget.widget_categories ul li:not(:last-child),
                 .widget_pages ul li:not(:last-child),

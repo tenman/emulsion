@@ -620,7 +620,7 @@ function emulsion_theme_variables( $variables ) {
     --thm_heading_font_family: $heading_font_family;
     --thm_heading_font_transform:$heading_font_transform;
     --thm_heading_font_weight: $heading_font_weight;
-    --thm_main_width-with-sidebar: calc(100vw - var(--thm_sidebar_width) - 48px);
+    /*--thm_main_width-with-sidebar: calc(100vw - var(--thm_sidebar_width) - 48px);*/
     --thm_main_width: $main_width;
     --thm_meta_data_font_family: $meta_data_font_family;
     --thm_meta_data_font_size: $meta_data_font_size;
