@@ -130,6 +130,30 @@ function emulsion_hooks_setup() {
 			}
 			return $content;
 		}, 10, 2 );
+
+		add_filter( 'render_block_core/template-part', function ( $content, $block ) {
+
+			if (  'footer' == $block['attrs']['slug'] ) {
+
+				$policy_page_link	 = '';
+				$policy_page_title	 = '';
+				$policy_page_url	 = '';
+				$policy_page_id		 = (int) get_option( 'wp_page_for_privacy_policy' );
+
+				if ( $policy_page_id && get_post_status( $policy_page_id ) === 'publish' ) {
+
+					$policy_page_title	 = wp_kses_post( get_the_title( $policy_page_id ) );
+					$policy_page_url	 = esc_url( get_permalink( $policy_page_id ) );
+					$policy_page_link = sprintf('<a href="%1$s" class="emulsion-privacy-policy">%2$s</a>', esc_url( $policy_page_url), $policy_page_title );
+				}
+
+				$html = '<footer class="alignfull footer-layer fse-footer banner wp-block-template-part-footer wp-block-template-part">
+				<p class="has-text-align-center">Copyright &copy; %1$s Site proudly powered by WordPress %2$s </p></footer>';
+
+				return sprintf( $html, date('Y'), $policy_page_link );
+			}
+			return $content;
+		}, 10, 2 );
 	}
 
 	if ( 'fse' == emulsion_get_theme_operation_mode() ) {
@@ -1243,7 +1267,7 @@ if ( ! function_exists( 'emulsion_read_more_link' ) ) {
 	 */
 	function emulsion_read_more_link() {
 
-		$post_id	 = get_the_ID();
+		$post_id	 = absint( get_the_ID() );
 		$title_text	 = the_title_attribute(
 				array( 'before' => esc_html__( 'link to ', 'emulsion' ),
 					'echo'	 => false, )
@@ -1252,7 +1276,10 @@ if ( ! function_exists( 'emulsion_read_more_link' ) ) {
 		if ( is_int( $post_id ) ) {
 
 			return sprintf(
-					'<p class="read-more"><a class="skin-button" href="%1$s" aria-label="%3$s">%2$s<span class="screen-reader-text read-more-context">%3$s</span></a></p>', get_permalink(), esc_html__( 'Read more', 'emulsion' ), $title_text
+					'<p class="read-more"><a class="skin-button" href="%1$s" aria-label="%3$s">%2$s<span class="screen-reader-text read-more-context">%3$s</span></a></p>',
+					esc_url( get_permalink() ),
+					esc_html__( 'Read more', 'emulsion' ),
+					$title_text
 			);
 		}
 	}
@@ -1294,6 +1321,9 @@ if ( ! function_exists( 'emulsion_block_editor_class' ) ) {
 		$block_editor_class_name .= ' ' . sanitize_html_class( 'is-presentation-' . get_theme_mod( 'emulsion_editor_support', 'theme' ) );
 
 		$block_editor_class_name .= ' emulsion';
+
+		// fse background class
+		$block_editor_class_name .= ' '. emulsion_fse_background_color_class();
 
 		if ( 'ffffff' !== get_background_color() ) {
 

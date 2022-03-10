@@ -338,7 +338,9 @@ body{
  * in the background image settings in the customizer settings.
  */
 #document{
+
     .is-singular.emulsion-has-custom-background-image.has-background-img-text-white:not(.noscript){
+
         header.header-layer ~ .layout-block .page-wrapper .post-navigation,
         header.header-layer ~ .page-wrapper .post-navigation{
             color:#eee;
@@ -356,20 +358,36 @@ body{
                 }
             }
         }
+        .emulsion-prepend-page-wrapper,
+        article{
+            color:#fff;
+            a{
+                color:#bbb;
+            }
+            footer{
+                color:var(--thm_general_text_color);
+                a{
+                    color:var(--thm_general_linkt_color);
+                }
+            }
+        }
+        .wp-site-blocks{
+            color:#eee;
+        }
         .wp-block-latest-comments article{
             background:transparent;
             .wp-block-latest-comments__comment-date{
                 background:transparent;
             }
         }
-        .comment-wrapper{
-            .comment-body{
-                text-shadow:none;
+        article footer{
+            text-shadow:none;
                 a{
-                    text-shadow:none;
+                    text-shadow:none !important;
                 }
-            }
         }
+
+
         .emulsion-current-color{
             text-shadow:none;
         }
@@ -398,7 +416,7 @@ body{
             .skin-button,
             pre,
             .has-background:not(.has-text-color){
-                color: var(--thm_black_color);
+                // color: var(--thm_black_color);
                 text-shadow:none;
                 a{
                     color:var(--thm_gray_color);
@@ -422,6 +440,7 @@ body{
             box-sizing:border-box;
         }
     }
+
     .is-light:not(.is-fse-dark).is-singular.emulsion-has-custom-background-image.has-background-img-text-white:not(.noscript){
         /**
          * has background image
@@ -475,6 +494,7 @@ body{
                     }
                 }
                 &.wp-block-table{
+
                     &.emulsion-current-color{
                         background:transparent;
                     }
@@ -505,7 +525,7 @@ body{
                     .skin-button,
                     pre,
                     .has-background:not(.has-text-color){
-                        color: var(--thm_black_color);
+                        // color: var(--thm_black_color);
                         text-shadow:none;
                         a{
                             color:var(--thm_gray_color);
@@ -531,8 +551,8 @@ body{
                 }
                 text-shadow: #000 1px 0 10px;
                 a{
-                    color:var(--thm_silver_color);
-                    text-shadow: #000 1px 0 10px;
+                    //color:var(--thm_silver_color);
+                    //text-shadow: #000 1px 0 10px;
                 }
                 .wp-block-navigation-item__content{
                     text-shadow:none;
@@ -552,10 +572,10 @@ body{
                 .skin-button,
                 pre,
                 .has-background:not(.has-text-color){
-                    color: var(--thm_black_color);
+                    //  color: var(--thm_black_color);
                     text-shadow:none;
                     a{
-                        color:var(--thm_silver_color);
+                       // color:var(--thm_silver_color);
                         text-shadow:none;
                     }
                 }
@@ -831,10 +851,10 @@ body.emulsion-has-sidebar{
                         --thm_main_width: calc(100vw);
                         .wp-block-group__inner-container{
                             display:block;
-                          /* transitional mode
-                          &:not(.centered):not(.vertically){
-                                height:100%;
-                            }*/
+                            /* transitional mode
+                            &:not(.centered):not(.vertically){
+                                  height:100%;
+                              }*/
                             [class|="wp-block"]{
                                 margin-right:auto;
                                 margin-left:auto;
@@ -852,10 +872,10 @@ body.emulsion-no-sidebar{
         .wp-block-group{
 
             &.grid{
-               /* transitional mode
-               &:not(.centered):not(.vertically){
-                    height:100%;
-                }*/
+                /* transitional mode
+                &:not(.centered):not(.vertically){
+                     height:100%;
+                 }*/
                 .wp-block-group__inner-container{
 
                     @media screen and (max-width: 768px) {

@@ -7,7 +7,7 @@
 
 //Prevent pollution: Global inline style body background color link color
 
-.is-presentation-transitional,
+.is-presentation-transitional:not([class*="is-fse-bg-var"]),
 .is-presentation-theme{
     font-family: var(--thm_common_font_family);
     font-size: var(--thm_common_font_size);
@@ -25,8 +25,8 @@
 }
 
 
-.has-custom-style,
-.custom-background{
+.has-custom-style:not([class*="is-fse-bg-var"]),
+.custom-background:not([class*="is-fse-bg-var"]){
     background:var(--thm_background_color);
 }
 
@@ -49,11 +49,13 @@ column-rule-color
      */
     &:not([class*="background-css-pattern"]) {
         &:not(.emulsion-has-custom-background-image){
+            &:not([class*="is-fse-bg-var"]){
             /**
              * For posts and pages, specify a background color
              * only if there is no background image
              */
-            background:var(--thm_background_color);
+                background:var(--thm_background_color);
+            }
         }
         &.error404.emulsion-has-custom-background-image,
         &.attachment.emulsion-has-custom-background-image,
@@ -156,7 +158,7 @@ column-rule-color
 /**
  * header
  * ========================================================================== */
-//body{
+
 /**
  * Is Paged
  */
@@ -330,9 +332,6 @@ body.paged{
             }
         }
     }
-
-
-
 }
 
 /**
@@ -409,7 +408,7 @@ body.drawer-is-active{
         }
     }
 }
-//}
+
 footer.banner{
     color:var(--thm_header_text_color);
     background:var( --thm_header_bg_color);
@@ -973,7 +972,7 @@ table{
  *
  * ========================================================================== */
 
-.is-dark:not(.is-fse-light){
+.is-dark:not(.is-fse-light):not([class*="is-fse-bg-var"]){
     /**
      * Custom background is Dark
      * tooltip
@@ -1012,8 +1011,7 @@ table{
 /**
  * Misc
  * ========================================================================== */
-//body{
-//list bullet style
+
 ul:not(.list-style-initial):not(.is-style-list-style-initial),
 ol:not(.list-style-initial):not(.is-style-list-style-initial){
     li:before{
@@ -1137,9 +1135,8 @@ input[type="checkbox"][data-skin="inset"]:checked + label span{
 }
 
 
-//}
 
-//body{
+
 /**
  * Header reset
  */
@@ -1177,7 +1174,7 @@ body.is-light:not(.is-fse-dark){
     }
 }
 
-//}
+
 
 body[class]{
     .icon-success,

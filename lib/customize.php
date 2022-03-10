@@ -444,9 +444,21 @@ CSS3;
 		}
 
 		if ( 'transitional' == get_theme_mod( 'emulsion_editor_support' ) ) {
-
+			//#customize-theme-controls #accordion-section-emulsion_section_advanced_excerpt,
 			$css .= <<<CSS4
-		#customize-theme-controls #accordion-section-emulsion_section_advanced_excerpt,
+		#accordion-section-emulsion_section_post,
+		#accordion-section-emulsion_section_layout_search_results,
+		#accordion-section-emulsion_section_layout_author_archives,
+		#accordion-section-emulsion_section_layout_tag_archives,
+		#accordion-section-emulsion_section_layout_category_archives,
+		#accordion-section-emulsion_section_layout_date_archives,
+		#accordion-section-emulsion_section_layout_posts_page,
+		#accordion-section-emulsion_section_layout_homepage,
+		#accordion-section-emulsion_section_border_stream,
+		#accordion-section-emulsion_section_border_grid,
+		#accordion-section-emulsion_section_border_global,
+		#customize-control-emulsion_background_css_pattern,
+
 		#customize-control-emulsion_scheme #details-stream,
 		#customize-control-emulsion_scheme [for="emulsion_schemestream"],
 		#customize-control-emulsion_scheme #details-grid,

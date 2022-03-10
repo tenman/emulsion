@@ -174,8 +174,8 @@ if ( ! function_exists( 'emulsion_setup' ) ) {
 		 */
 		if ( 'disable' == get_theme_mod( 'emulsion_gutenberg_render_layout_support_flag', 'disable' ) ) {
 
-			function_exists( 'gutenberg_render_layout_support_flag' ) ? remove_filter( 'render_block', 'gutenberg_render_layout_support_flag' ) : '';
-			function_exists( 'wp_render_layout_support_flag' ) ? remove_filter( 'render_block', 'wp_render_layout_support_flag' ) : '';
+			has_filter( 'render_block', 'gutenberg_render_layout_support_flag' ) ? remove_filter( 'render_block', 'gutenberg_render_layout_support_flag' ) : '';
+			has_filter( 'render_block', 'wp_render_layout_support_flag' ) ? remove_filter( 'render_block', 'wp_render_layout_support_flag' ) : '';
 
 			add_filter( 'render_block', 'emulsion_add_flex_container_classes', 10, 2 );
 			add_filter( 'render_block', 'emulsion_add_layout_classes', 10, 2 );
@@ -2503,27 +2503,32 @@ if ( ! function_exists( 'emulsion_block_template_part' ) ) {
 				return;
 			}
 
+			$theme_classes = array(
+				'wp-block-template-part-' . $template_part->slug,
+				'wp-block-template-part',
+				'included-block-template-part',
+				'alignfull',
+			);
+
+			$additional_classes	 = array();
+			$tag_name			 = 'div';
 
 			if ( 'header' == $template_part->area ) {
 
-				$classes = 'wp-block-template-part-' . sanitize_html_class( $template_part->slug ) . ' fse-header header-layer wp-block-template-part included-block-template-part alignfull';
-
-				printf( '<%1$s class="%3$s">%2$s</%1$s>', esc_attr( $template_part->area ), do_blocks( $template_part->content ), $classes );
-
-				return;
+				$additional_classes = array( 'fse-header', 'header-layer' );
+				$tag_name = 'header';
 			}
 			if ( 'footer' == $template_part->area ) {
 
-				$classes = 'wp-block-template-part-' . sanitize_html_class( $template_part->slug ) . ' fse-footer footer-layer wp-block-template-part included-block-template-part alignfull';
-
-				printf( '<%1$s class="%3$s">%2$s</%1$s>', esc_attr( $template_part->area ), do_blocks( $template_part->content ), $classes );
-
-				return;
+				$additional_classes = array( 'fse-footer', 'footer-layer' );
+				$tag_mame = 'footer';
 			}
 
-			$classes = 'wp-block-template-part-' . sanitize_html_class( $template_part->slug ) . ' wp-block-template-part included-block-template alignfull';
+			$theme_classes	 = array_merge( $theme_classes, $additional_classes );
+			$theme_classes	 = apply_filters( 'wp-block-template-part-' . $template_part->slug, $theme_classes );
+			$theme_classes	 = emulsion_class_name_sanitize( $theme_classes );
 
-			printf( '<%1$s class="%3$s">%2$s</%1$s>', 'div', do_blocks( $template_part->content ), $classes );
+			printf( '<%1$s class="%3$s">%2$s</%1$s>', $tag_name, do_blocks( $template_part->content ), $theme_classes );
 
 			return;
 		}
@@ -2692,8 +2697,8 @@ if ( ! function_exists( 'emulsion_add_layout_classes' ) ) {
 
 			$new_class = array(
 				isset( $used_layout["inherit"] ) && false === $used_layout["inherit"] ? 'is-layout-enabled' : '',
-				! empty( $used_layout["contentSize"] ) ? sanitize_html_class( 'is-content-size-' . $used_layout["contentSize"] ) : '',
-				! empty( $used_layout["wideSize"] ) ? sanitize_html_class( 'is-wide-size-' . $used_layout["wideSize"] ) : '',
+				! empty( $used_layout["contentSize"] ) ? 'has-custom-content-width': '',
+				! empty( $used_layout["wideSize"] ) ? 'has-custom-wide-width': '',
 			);
 
 			$block_content = emulsion_add_class( $block_content, $block_name, $new_class );
@@ -2818,9 +2823,13 @@ if ( ! function_exists( 'emulsion_modify_cjk_excerpt' ) ) {
 		$block_name	 = 'wp-block-' . substr( strrchr( $block['blockName'], "/" ), 1 );
 		$is_lang_cjk = emulsion_lang_cjk();
 
+
+
 		if ( 'wp-block-post-excerpt' == $block_name && $is_lang_cjk ) {
 
-			$new_excerpt = wp_html_excerpt( $block_content, 256, '...' );
+			$emulsion_cjk_excerpt_length = apply_filters('emulsion_cjk_excerpt_length', 256);
+			$emulsion_cjk_excerpt_more = apply_filters('emulsion_cjk_excerpt_more', '...');
+			$new_excerpt = wp_html_excerpt( $block_content, $emulsion_cjk_excerpt_length, $emulsion_cjk_excerpt_more );
 
 			return sprintf( '<div class="wp-block-post-excerpt"><p class="wp-block-post-excerpt__excerpt">%1$s</p></div>', $new_excerpt );
 		}
@@ -2830,6 +2839,7 @@ if ( ! function_exists( 'emulsion_modify_cjk_excerpt' ) ) {
 	}
 
 }
+
 
 if ( ! function_exists( 'emulsion_sanitize_css' ) ) {
 
@@ -2875,7 +2885,7 @@ if ( ! function_exists( 'emulsion_fse_background_color_class' ) ) {
 			}
 			return $fse_class;
 		}
-		return;
+		return 'is-fse-bg-default';
 	}
 
 }

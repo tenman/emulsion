@@ -616,6 +616,7 @@ button.wp-block-navigation-submenu__toggle{
             .emulsion-archive-count:empty{
                 height:.4rem;
                 transform: translate(0,.48rem);
+
             }
         }
     }
@@ -975,6 +976,47 @@ hr.wp-block-separator{
         &:before{
             visibility:visible;
             background:transparent;
+        }
+    }
+}
+hr{
+    &.wp-block-separator{
+        position:relative;
+        height:3rem;
+        clear:both;
+        border:none;
+        &:before{
+            position:absolute;
+            top:0;
+            right:0;
+            bottom:0;
+            left:0;
+            width:50%;
+            height:2px;
+            margin:auto;
+            color:inherit ! important;
+            content:'' ! important;
+            background:transparent!important;
+            border-bottom:1px solid;
+        }
+        &.is-style-dots{
+            height:3rem;
+            &:before{
+                width:fit-content;
+                height:3rem;
+                margin:1rem auto;
+                font-size:3rem;
+                color:inherit ! important;
+                content:'\2026' ! important;
+                background:transparent!important;
+                border:none;
+            }
+        }
+
+        &.is-style-wide{
+            &:before{
+                width:100%;
+            }
         }
     }
 }
