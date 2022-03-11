@@ -131,29 +131,9 @@ function emulsion_hooks_setup() {
 			return $content;
 		}, 10, 2 );
 
-		add_filter( 'render_block_core/template-part', function ( $content, $block ) {
+		add_filter( 'render_block_core/template-part', 'emulsion_fse_footer_content_filter', 10, 2 );
 
-			if (  'footer' == $block['attrs']['slug'] ) {
 
-				$policy_page_link	 = '';
-				$policy_page_title	 = '';
-				$policy_page_url	 = '';
-				$policy_page_id		 = (int) get_option( 'wp_page_for_privacy_policy' );
-
-				if ( $policy_page_id && get_post_status( $policy_page_id ) === 'publish' ) {
-
-					$policy_page_title	 = wp_kses_post( get_the_title( $policy_page_id ) );
-					$policy_page_url	 = esc_url( get_permalink( $policy_page_id ) );
-					$policy_page_link = sprintf('<a href="%1$s" class="emulsion-privacy-policy">%2$s</a>', esc_url( $policy_page_url), $policy_page_title );
-				}
-
-				$html = '<footer class="alignfull footer-layer fse-footer banner wp-block-template-part-footer wp-block-template-part">
-				<p class="has-text-align-center">Copyright &copy; %1$s Site proudly powered by WordPress %2$s </p></footer>';
-
-				return sprintf( $html, date('Y'), $policy_page_link );
-			}
-			return $content;
-		}, 10, 2 );
 	}
 
 	if ( 'fse' == emulsion_get_theme_operation_mode() ) {
@@ -197,6 +177,32 @@ function emulsion_hooks_setup() {
 	}
 
 	do_action( 'emulsion_hooks_setup_after' );
+}
+if ( ! function_exists( 'emulsion_fse_footer_content_filter' ) ) {
+
+	function emulsion_fse_footer_content_filter( $content, $block ) {
+
+		if ( 'footer' == $block['attrs']['slug'] ) {
+
+			$policy_page_link	 = '';
+			$policy_page_title	 = '';
+			$policy_page_url	 = '';
+			$policy_page_id		 = (int) get_option( 'wp_page_for_privacy_policy' );
+
+			if ( $policy_page_id && get_post_status( $policy_page_id ) === 'publish' ) {
+
+				$policy_page_title	 = wp_kses_post( get_the_title( $policy_page_id ) );
+				$policy_page_url	 = esc_url( get_permalink( $policy_page_id ) );
+				$policy_page_link	 = sprintf( '<a href="%1$s" class="emulsion-privacy-policy">%2$s</a>', esc_url( $policy_page_url ), $policy_page_title );
+			}
+
+			$html = str_replace( array( '%current_year%', '%privacy_policy%' ), array( date( 'Y' ), $policy_page_link ), $content );
+
+			return $html;
+		}
+		return $content;
+	}
+
 }
 
 if ( ! function_exists( 'emulsion_minimum_php_version_check' ) ) {
