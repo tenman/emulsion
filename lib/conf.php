@@ -630,12 +630,12 @@ function emulsion_theme_variables( $variables ) {
     --thm_sidebar_text_color: $sidebar_text_color;
     --thm_sidebar_width: $sidebar_width;
     --thm_social_icon_color:$general_link_color;
-	--thm_h6_font_size:calc(var(--thm_heading_font_base) * 0.6875px);
-	--thm_h5_font_size:calc(var(--thm_heading_font_base) * 0.8125px);
-	--thm_h4_font_size:calc(var(--thm_heading_font_base) * 1px);
-	--thm_h3_font_size:calc(var(--thm_heading_font_base) * 1.5px);
-	--thm_h2_font_size: calc(var(--thm_heading_font_base) * 2px);
-	--thm_h1_font_size: calc(var(--thm_heading_font_base) * 3px);
+	--thm_h6_font_size:calc(var(--thm_heading_font_base, 16) * 0.6875px);
+	--thm_h5_font_size:calc(var(--thm_heading_font_base, 16) * 0.8125px);
+	--thm_h4_font_size:calc(var(--thm_heading_font_base, 16) * 1px);
+	--thm_h3_font_size:calc(var(--thm_heading_font_base, 16) * 1.5px);
+	--thm_h2_font_size:calc(var(--thm_heading_font_base, 16) * 2px);
+	--thm_h1_font_size:calc(var(--thm_heading_font_base, 16) * 3px);
 	--thm_footer_widget_width:30%;
 	--thm_content_min_width:296px;
 

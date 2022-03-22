@@ -160,54 +160,13 @@ button.wp-block-navigation-submenu__toggle{
     @extend %alignwide;
     position:static;
 }
-/*
-.enable-alignfull{
-    &.emulsion-no-sidebar{
+.wp-block-image{
+    .aligncenter,
+    .alignleft,
+    .alignright{
 
-        //&.emulsion-gb-phase-site .is-style-alignfull,
-        .is-root-container .wp-block[data-align="full"]{
-            @extend %no-sidebar-alignfull;
-            position:static!important;
-            width:100% ! important;
-            margin-right:auto;
-            margin-left:auto;
-
-        }
-    }
-
-
-    &.emulsion-has-sidebar{
-
-        //&.emulsion-gb-phase-site .is-style-alignfull,
-        .is-root-container .wp-block[data-align="full"]{
-            @extend %has-sidebar-alignfull;
-            position:static!important;
-            left:0;
-            width:100% ! important;
-            margin-right:auto;
-            margin-left:auto;
-
-        }
-    }
-
-}*/
-/*
-.alignleft.fit-align{
-    width:auto;
-    min-width:25%;
-    &.wp-block-table{
-        width:auto;
-        min-width:25%;
     }
 }
-.alignright.fit-align{
-    width:auto;
-    min-width:25%;
-    &.wp-block-table{
-        width:auto;
-        min-width:25%;
-    }
-}*/
 
 .enable-alignfull{
     .wp-block-group{
@@ -1395,7 +1354,7 @@ ul.wp-block-rss{
                     li.current-page{
                         // must not display
 
-                       display:none!important;
+                        display:none!important;
                     }
                     &.is-grid{
 
@@ -2447,14 +2406,7 @@ div.wp-block-media-text > .block-editor-block-list__layout > .block-editor-block
  * Block image
  * ========================================================================== */
 
-figure.wp-block-image{
-    //default width of no set width, alignwide, alignfull style
-    width: var(--thm_content_width, 720px);
-    max-width:100%;
-    //OW
-    margin-right:auto;
-    margin-left:auto;
-}
+
 div.wp-block-image{
 
     &.alignright,
@@ -2560,16 +2512,29 @@ div.wp-block-image{
         }
     }
 }
-
 figure.wp-block-image{
+
+
+}
+div.wp-block-image.aligncenter,
+div.wp-block-image .aligncenter,
+div.wp-block-image.alignleft,
+div.wp-block-image .alignleft,
+div.wp-block-image.alignright,
+div.wp-block-image .alignright{
+    //OW
+    display:block;
+}
+figure.wp-block-image{
+
+    //default width of no set width, alignwide, alignfull style
+    display:block;
+    width: var(--thm_content_width, 720px);
+    max-width:100%;
     text-align:center;
-    &.alignleft,
-    &.alignright{
-        margin:var(--thm_content_gap, 24px) auto;
-
-
-    }
-
+        //OW
+    margin-right:auto;
+    margin-left:auto;
 
     &.is-resized{
         width:auto;

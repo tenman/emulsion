@@ -133,6 +133,11 @@ function emulsion_hooks_setup() {
 
 		add_filter( 'render_block_core/template-part', 'emulsion_fse_footer_content_filter', 10, 2 );
 
+		// core issue hotfix
+
+
+
+
 
 	}
 
@@ -178,6 +183,9 @@ function emulsion_hooks_setup() {
 
 	do_action( 'emulsion_hooks_setup_after' );
 }
+
+
+
 if ( ! function_exists( 'emulsion_fse_footer_content_filter' ) ) {
 
 	function emulsion_fse_footer_content_filter( $content, $block ) {

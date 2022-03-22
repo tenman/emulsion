@@ -71,7 +71,7 @@ if ( ! function_exists( 'emulsion_setup' ) ) {
 
 		add_theme_support( 'title-tag' );
 		add_theme_support( 'automatic-feed-links' );
-		add_theme_support( 'html5', array( 'comment-list', 'comment-form', 'search-form', 'gallery', 'caption', 'style', 'script' ) );
+		add_theme_support( 'html5', array( 'comment-list', 'comment-form', 'search-form', 'gallery', 'caption', 'style', 'script', 'navigation-widgets' ) );
 		add_theme_support( 'post-thumbnails' );
 		add_theme_support( 'post-formats', array( 'gallery' ) );
 		add_theme_support( 'customize-selective-refresh-widgets' );
@@ -2890,4 +2890,3 @@ if ( ! function_exists( 'emulsion_fse_background_color_class' ) ) {
 
 }
 do_action( 'emulsion_functions_after' );
-
