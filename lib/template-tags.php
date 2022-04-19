@@ -745,21 +745,6 @@ if ( ! function_exists( 'emulsion_archive_title' ) ) {
 	}
 }
 
-if ( ! function_exists( 'emulsion_customizer_have_posts_class_helper' ) ) {
-
-	/**
-	 * If the displayed page is grid layout or stream layout, grid or stream are return
-	 * @return type
-	 */
-
-	function emulsion_customizer_have_posts_class_helper() {
-
-		//Note is_front_page()) is false on customize preview
-
-		return apply_filters('emulsion_customizer_have_posts_class_helper', false );
-	}
-
-}
 
 if ( ! function_exists( 'emulsion_home_type' ) ) {
 	/**

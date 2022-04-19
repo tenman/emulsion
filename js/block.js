@@ -2,7 +2,18 @@
  * todo: Currently blockVariation titles cannot be internationalized
  *
  */
-
+//https://github.com/WordPress/gutenberg/issues/33374
+wp.blocks.registerBlockVariation(
+        'core/group',
+        {
+            isDefault: true,
+            attributes: {
+                layout: {
+                    inherit: true,
+                }
+            }
+        }
+);
 wp.blocks.registerBlockVariation(
         'core/list', {
             name: 'ol',
@@ -357,7 +368,7 @@ function emulsionGetParameterByName(name, url = window.location.href) {
 
 document.addEventListener("DOMContentLoaded", function () {
     var body = document.body;
-
+    // Todo: 5.9.3 not work this notices (customizer site editor link has postType)
     //5.8
     if (body.classList.contains('site-editor-php') && body.classList.contains('is-presentation-theme') && !emulsionGetParameterByName('postType')) {
         window.wp.data.dispatch('core/notices').createNotice(

@@ -59,7 +59,7 @@ jQuery(function ($) {
                 text_id = 'widget-opener-' + i;
             }
             $(this).siblings('.nav-menu-child-opener, .nav-menu-child-opener-label').remove(); //for browser back
-            $(this).parents('div').addClass('has-chckbox-control');
+            $(this).parents('nav').addClass('has-chckbox-control');
             $(this).after('<input id="' + text_id + '" type="checkbox" class="nav-menu-child-opener" /><label tabindex="0" class="nav-menu-child-opener-label" for="' + text_id + '"><svg class="description" width="1" height="1"><desc>has child menu</desc></svg></label>');
         });
     }

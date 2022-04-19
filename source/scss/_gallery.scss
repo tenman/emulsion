@@ -110,24 +110,24 @@
         }
     }
 }
-//body{
-    body .sidebar-widget-area,
-    body .footer-widget-area{
-        div.gallery[id]{
-            padding-right:0;
-            padding-left:0;
-            margin-right:auto;
-            margin-left:auto;
-            &.gallery-size-thumbnail{
-                figcaption{
-                    position:absolute;
-                    clip:rect(1px,1px,1px,1px);
-                    clip-path:polygon(0px 0px,0px 0px,0px 0px,0px 0px);
-                }
+
+body .sidebar-widget-area,
+body .footer-widget-area{
+    div.gallery[id]{
+        padding-right:0;
+        padding-left:0;
+        margin-right:auto;
+        margin-left:auto;
+        &.gallery-size-thumbnail{
+            figcaption{
+                position:absolute;
+                clip:rect(1px,1px,1px,1px);
+                clip-path:polygon(0px 0px,0px 0px,0px 0px,0px 0px);
             }
         }
     }
-//}
+}
+
 div.gallery-columns-1.gallery-size-thumbnail{
     box-sizing:border-box;
     width:calc(150px + var(--thm_content_gap, 24px) * 2 );

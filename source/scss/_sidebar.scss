@@ -400,9 +400,9 @@ body:not(.emulsion-has-sidebar) .sidebar-widget-area{
         max-width:100%;
         padding:1rem;
         color:var(--thm_black_color);
+        white-space: normal;
         content: attr( data-title );
         background:var(--thm_white_color, #ffffff);
-        white-space: normal;
 
     }
 
@@ -478,8 +478,8 @@ body:not(.emulsion-has-sidebar) .sidebar-widget-area{
             border-bottom:none;
             li{
                 box-sizing:border-box;
-                max-width:calc(100% - var(--thm_box_gap, 3px) * 2);
                 gap:var(--thm_box_gap, 3px);
+                max-width:calc(100% - var(--thm_box_gap, 3px) * 2);
                 margin:0;
             }
         }
@@ -1003,7 +1003,8 @@ body{
  * Widget Navigation Menu
  * ========================================================================== */
 .widget_nav_menu{
-    & > div{
+
+    & > nav{
         &.has-chckbox-control{
             .menu{
                 width:100%;

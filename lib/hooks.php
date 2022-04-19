@@ -186,32 +186,6 @@ function emulsion_hooks_setup() {
 
 
 
-if ( ! function_exists( 'emulsion_fse_footer_content_filter' ) ) {
-
-	function emulsion_fse_footer_content_filter( $content, $block ) {
-
-		if ( 'footer' == $block['attrs']['slug'] ) {
-
-			$policy_page_link	 = '';
-			$policy_page_title	 = '';
-			$policy_page_url	 = '';
-			$policy_page_id		 = (int) get_option( 'wp_page_for_privacy_policy' );
-
-			if ( $policy_page_id && get_post_status( $policy_page_id ) === 'publish' ) {
-
-				$policy_page_title	 = wp_kses_post( get_the_title( $policy_page_id ) );
-				$policy_page_url	 = esc_url( get_permalink( $policy_page_id ) );
-				$policy_page_link	 = sprintf( '<a href="%1$s" class="emulsion-privacy-policy">%2$s</a>', esc_url( $policy_page_url ), $policy_page_title );
-			}
-
-			$html = str_replace( array( '%current_year%', '%privacy_policy%' ), array( date( 'Y' ), $policy_page_link ), $content );
-
-			return $html;
-		}
-		return $content;
-	}
-
-}
 
 if ( ! function_exists( 'emulsion_minimum_php_version_check' ) ) {
 
@@ -237,6 +211,9 @@ if ( ! function_exists( 'emulsion_body_class' ) ) {
 	 */
 	function emulsion_body_class( $classes ) {
 		global $post, $template;
+		if ( 'fse' == emulsion_get_theme_operation_mode() ) {
+			return $classes;
+		}
 
 		if ( is_admin() && $_GET['legacy-widget-preview'] ) {
 			$classes[] = 'legacy-widget-preview';
@@ -508,34 +485,7 @@ if ( ! function_exists( 'emulsion_link_url_text_decode' ) ) {
 	}
 
 }
-if ( ! function_exists( 'emulsion_oembed_filter' ) ) {
 
-	function emulsion_oembed_filter( $html, $url, $attr, $post_ID ) {
-		global $is_IE, $post;
-		/**
-		 * Filtered by Oembed with TinyMCE
-		 */
-		if ( ! $is_IE ) {
-
-			$html = str_replace( 'frameborder="0"', '', $html );
-		}
-
-		$element					 = 'figure';
-		$not_exists_gutenberg_class	 = 'wp-block-embed__wrapper';
-		$repair_style				 = '';
-		$type						 = 'oembed-object';
-
-		if ( function_exists( 'has_blocks' ) && has_blocks( $post_ID ) || isset( $post ) && preg_match( '$wp-block-embed__wrapper$', $post->post_content ) ) {
-			// preg_match( '$wp-block-embed__wrapper$'... detect gutenberg post when gutenberg is not exists
-			$not_exists_gutenberg_class = '';
-
-			return $html;
-		}
-
-		return emulsion_oembed_object_wrapper( $html, $url, $type );
-	}
-
-}
 
 if ( ! function_exists( 'emulsion_shortcode_tag_filter' ) ) {
 
@@ -551,90 +501,7 @@ if ( ! function_exists( 'emulsion_shortcode_tag_filter' ) ) {
 
 }
 
-if ( ! function_exists( 'emulsion_oembed_object_wrapper' ) ) {
 
-	/**
-	 * Not Block editor embed media wrapper
-	 */
-	function emulsion_oembed_object_wrapper( $html, $url, $type = '' ) {
-
-		/**
-		 * Reason not to divert Gutenberg's class
-		 * Because the structure of html is different
-		 */
-		$element					 = 'div';
-		$not_exists_gutenberg_class	 = 'wp-block-embed__wrapper';
-		if ( empty( $type ) ) {
-
-			$not_exists_gutenberg_class	 .= ' ';
-			$not_exists_gutenberg_class	 .= sanitize_html_class( $type );
-		}
-		$repair_style = '';
-
-		/**
-		 * https://www.instagram.com/
-		 */
-		if ( preg_match( '!(instagram.com)!', $url ) ) {
-			return sprintf( '<div class="emulsion-instagram clearfix">%1$s</div>', $html );
-		}
-
-		/**
-		 * https://www.reverbnation.com/
-		 */
-		if ( preg_match( '!(reverbnation.com)!', $url ) ) {
-			return sprintf( '<%2$s class="emulsion-reverbnation clearfix"><div>%1$s</div></%2$s>', $html, $element );
-		}
-
-		/*
-		 * https://speakerd.s3.amazonaws.com/presentations/50021f75cf1db900020005e7/slide_0.jpg?1362165300
-		 */
-
-		if ( preg_match( '!(speakerdeck.com|speakerd)!', $url ) ) {
-			return sprintf( '<%2$s class="emulsion-ratio-075 emulsion-speakerdeck clearfix"><div>%1$s</div></%2$s>', $html, $element );
-		}
-
-		/*
-		 * https://www.slideshare.net/slideshow/embed_code/7306301
-		 */
-
-		if ( preg_match( '!(slideshare.net)!', $url ) ) {
-			return sprintf( '<%2$s class="emulsion-slideshare clearfix %3$s" %4$s><div>%1$s</div></%2$s>', $html, $element, $not_exists_gutenberg_class, $repair_style );
-		}
-
-		/*
-		 * https://www.mixcloud.com/
-		 */
-
-		if ( preg_match( '!(mixcloud.com)!', $url ) ) {
-			return sprintf( '<%2$s class="emulsion-mixcloud clearfix %3$s" %4$s><div>%1$s</div></%2$s>', $html, $element, $not_exists_gutenberg_class, $repair_style );
-		}
-
-		/**
-		 * https://www.reddit.com/
-		 */
-		if ( preg_match( '!(reddit.com)!', $url ) ) {
-			return sprintf( '<%2$s class="emulsion-reddit clearfix"><div>%1$s</div></%2$s>', $html, $element );
-		}
-
-		/**
-		 * https://www.screencast.com/
-		 * @since 1.480
-		 */
-		if ( preg_match( '!(screencast.com)!', $url ) ) {
-			return sprintf( '<%2$s class="emulsion-screencast clearfix"><div>%1$s</div></%2$s>', $html, $element );
-		}
-
-		/**
-		 * note: 4:3 ratio can use .emulsion-ratio-075
-		 */
-		if ( ! preg_match( '!(twitter.com|tumblr.com|speakerdeck)!', $url ) && ! preg_match( '!(wp-embedded-content)!', $html ) ) {
-			return sprintf( '<%2$s class="clearfix %3$s" %4$s>%1$s</%2$s>', $html, $element, $not_exists_gutenberg_class, $repair_style );
-		}
-
-		return $html;
-	}
-
-}
 
 
 if ( ! function_exists( 'emulsion_get_the_password_form' ) ) {
@@ -715,43 +582,9 @@ if ( ! function_exists( 'emulsion_lazyload' ) ) {
 	}
 
 }
-if ( ! function_exists( 'emulsion_instantclick' ) ) {
-
-	function emulsion_instantclick( $script ) {
-
-		$support = emulsion_the_theme_supports( 'instantclick' );
-
-		if ( $support && 'wp-login.php' !== $GLOBALS['pagenow'] && ! is_admin() ) {
-			$script = "InstantClick.init();";
-
-			return $script;
-		}
-
-		return $script;
-	}
-
-}
 
 
-if ( ! function_exists( 'emulsion_toc' ) ) {
 
-	function emulsion_toc( $script ) {
-		$support = emulsion_the_theme_supports( 'toc' );
-
-		if ( $support ) {
-			$script = "jQuery('.menu-placeholder .toc, .wp-site-blocks .toc').siblings('#toc-toggle, label').remove();\n"; // for browser back issue
-
-			$script .= "jQuery('.menu-placeholder .toc').toc({'scrollToOffset':84, 'container':'main','anchorName': function(i, heading, prefix) { return prefix+'-'+i;},}).before('<input type=\"checkbox\" id=\"toc-toggle\" name=\"toc-toggle\" data-skin=\"inset\" /><label for=\"toc-toggle\"  title=\"" . esc_attr__( 'TOC', 'emulsion' ) . "\"><span></span><i class=\"toc-text screen-reader-text\">TOC</i></label>');";
-
-			$script .= "jQuery('.wp-site-blocks .toc').toc({'scrollToOffset':5, 'container':'main','anchorName': function(i, heading, prefix) { return prefix+'-'+i;},})";
-
-			return $script;
-		}
-
-		return $script;
-	}
-
-}
 
 if ( ! function_exists( 'emulsion_oembed_default_width' ) ) {
 
@@ -779,40 +612,8 @@ if ( ! function_exists( 'emulsion_empty_the_title_fallback' ) ) {
 
 }
 
-if ( ! function_exists( 'emulsion_instantclick' ) ) {
 
-	function emulsion_instantclick( $script ) {
 
-		$support = emulsion_the_theme_supports( 'instantclick' );
-
-		if ( $support && 'wp-login.php' !== $GLOBALS['pagenow'] && ! is_admin() ) {
-			$script = "InstantClick.init();";
-
-			return $script;
-		}
-
-		return $script;
-	}
-
-}
-
-if ( ! function_exists( 'emulsion_toc' ) ) {
-
-	function emulsion_toc( $script ) {
-
-		$support = emulsion_the_theme_supports( 'toc' );
-
-		if ( $support ) {
-			$script	 = "jQuery('.toc').siblings('#toc-toggle, label').remove();\n"; // for browser back issue
-			$script	 .= "jQuery('.toc').toc({'scrollToOffset':84, 'container':'main','anchorName': function(i, heading, prefix) { return prefix+'-'+i;},}).before('<input type=\"checkbox\" id=\"toc-toggle\" name=\"toc-toggle\" data-skin=\"inset\" /><label for=\"toc-toggle\"  title=\"" . esc_html__( 'TOC', 'emulsion' ) . "\"><span></span><i class=\"toc-text screen-reader-text\">TOC</i></label>');";
-
-			return $script;
-		}
-
-		return $script;
-	}
-
-}
 
 
 if ( ! function_exists( 'emulsion_theme_image_dir' ) ) {
@@ -863,6 +664,9 @@ if ( ! function_exists( 'emulsion_make_css_variable' ) ) {
 if ( ! function_exists( 'emulsion_theme_styles' ) ) {
 
 	function emulsion_theme_styles( $css ) {
+		if ( 'fse' == emulsion_get_theme_operation_mode() ) {
+			return $css;
+		}
 
 		if ( emulsion_inline_style_load_controller( __FUNCTION__ ) ) {
 
@@ -1058,9 +862,10 @@ if ( ! function_exists( 'emulsion_force_excerpt' ) ) {
 
 		if ( emulsion_lang_cjk() ) {
 
-			$length = absint( emulsion_theme_default_val( 'emulsion_excerpt_length' ) );
+			$emulsion_cjk_excerpt_length = apply_filters('emulsion_cjk_excerpt_length', emulsion_theme_default_val( 'emulsion_excerpt_length' ) );
+			$emulsion_cjk_excerpt_more = apply_filters('emulsion_cjk_excerpt_more', '...');
 
-			return wp_html_excerpt( $excerpt, $length, '' );
+			return wp_html_excerpt( $excerpt, $emulsion_cjk_excerpt_length, $emulsion_cjk_excerpt_more );
 		}
 		return $excerpt;
 	}
@@ -1305,6 +1110,9 @@ if ( ! function_exists( 'emulsion_block_editor_class' ) ) {
 	function emulsion_block_editor_class( $classes ) {
 
 		global $wp_version;
+		if ( 'fse' == emulsion_get_theme_operation_mode() ) {
+			return $classes;
+		}
 
 		$block_editor_class_name = '';
 		if('fse' == emulsion_get_theme_operation_mode() ){
@@ -1383,10 +1191,94 @@ function emulsion_add_amp_css_variables( $css ) {
 	return $css;
 }
 
+
+
+
+if ( ! function_exists( 'emulsion_not_support_presentation_page_link' ) ) {
+
+	function emulsion_not_support_presentation_page_link() {
+		if ( 'fse' == emulsion_get_theme_operation_mode() ) {
+			return $css;
+		}
+		$post_id = absint( get_the_ID() );
+
+		if ( is_singular() && metadata_exists( 'post', $post_id, 'emulsion_post_theme_style_script' ) ) {
+			$data = <<<EOT
+
+(function () {
+	if(document.getElementsByClassName('emulsion-removed-presentation').length || document.getElementsByClassName('emulsion-not-support-presentation').length ){
+		var links = document.querySelector('.emulsion-removed-presentation a, .emulsion-not-support-presentation a');
+		links.setAttribute("data-no-instant", "data-no-instant");
+	}
+})();
+
+EOT;
+			wp_add_inline_script( 'wp-embed', $data );
+		}
+	}
+
+}
+
+if ( ! function_exists( 'emulsion_remove_custom_background_class' ) ) {
+
+	/**
+	 * If you reset the theme color in the Editor menu, the state will not come out of a custom-background
+	 */
+	function emulsion_remove_custom_background_class( $classes ) {
+		if ( 'fse' == emulsion_get_theme_operation_mode() ) {
+			return $css;
+		}
+		$post_id = get_the_ID();
+
+		if ( is_singular() && 'no_bg' == get_post_meta( $post_id, 'emulsion_post_theme_style_script', true ) ) {
+
+			foreach ( $classes as $key => $value ) {
+				if ( $value == 'custom-background' )
+					unset( $classes[$key] );
+			}
+			return $classes;
+		}
+
+		return $classes;
+	}
+
+}
+if ( ! function_exists( 'emulsion_remove_role_from_pagination' ) ) {
+
+	function emulsion_remove_role_from_pagination( $template ) {
+
+		return str_replace( 'role="navigation"', '', $template );
+	}
+
+}
+
+function emulsion_skip_loading_lazy_image( $value, $image, $context ) {
+	if ( 'fse' == emulsion_get_theme_operation_mode() ) {
+			return $css;
+		}
+	if ( 'the_content' === $context ) {
+
+		if ( false !== strpos( $image, 'custom-logo' ) ) {
+			return false;
+		}
+
+		if ( false !== strpos( $image, 'wp-post-image' ) ) {
+			return false;
+		}
+
+		if ( false !== strpos( $image, 'custom-header-image' ) ) {
+			return false;
+		}
+	}
+	return $value;
+}
+
 if ( ! function_exists( 'emulsion_add_third_party_block_css' ) ) {
 
 	function emulsion_add_third_party_block_css( $css ) {
-
+		if ( 'fse' == emulsion_get_theme_operation_mode() ) {
+			return $css;
+		}
 		$third_party_blocks = emulsion_get_third_party_block_classes();
 
 		if ( empty( $third_party_blocks ) ) {
@@ -1479,101 +1371,48 @@ NO_SIDEBAR_ALIGN_FULL;
 	}
 
 }
+if ( ! function_exists( 'emulsion_get_third_party_block_classes' ) ) {
 
-if ( ! function_exists( 'emulsion_theme_google_tracking_code' ) ) {
+	function emulsion_get_third_party_block_classes() {
+		global $post;
 
-	function emulsion_theme_google_tracking_code() {
 
-		$tag			 = sanitize_text_field( get_theme_mod( 'emulsion_google_analytics_tracking_code' ) );
-		$flag			 = get_theme_mod( 'emulsion_instantclick', emulsion_the_theme_supports( 'instantclick' ) ) ? 'enable' : 'disable';
-		$theme_mod_name	 = 'emulsion_google_analytics_' . $tag . $flag;
-
-		if ( $result = get_theme_mod( $theme_mod_name, false ) ) {
-
-			echo $result;
+		if ( empty( $post ) ) {
 			return;
 		}
-	}
 
-}
+		$blocks	 = parse_blocks( $post->post_content );
+		$result	 = array();
 
-if ( ! function_exists( 'emulsion_not_support_presentation_page_link' ) ) {
+		foreach ( $blocks as $block ) {
 
-	function emulsion_not_support_presentation_page_link() {
-
-		$post_id = absint( get_the_ID() );
-
-		if ( is_singular() && metadata_exists( 'post', $post_id, 'emulsion_post_theme_style_script' ) ) {
-			$data = <<<EOT
-
-(function () {
-	if(document.getElementsByClassName('emulsion-removed-presentation').length || document.getElementsByClassName('emulsion-not-support-presentation').length ){
-		var links = document.querySelector('.emulsion-removed-presentation a, .emulsion-not-support-presentation a');
-		links.setAttribute("data-no-instant", "data-no-instant");
-	}
-})();
-
-EOT;
-			wp_add_inline_script( 'wp-embed', $data );
-		}
-	}
-
-}
-
-if ( ! function_exists( 'emulsion_remove_custom_background_class' ) ) {
-
-	/**
-	 * If you reset the theme color in the Editor menu, the state will not come out of a custom-background
-	 */
-	function emulsion_remove_custom_background_class( $classes ) {
-
-		$post_id = get_the_ID();
-
-		if ( is_singular() && 'no_bg' == get_post_meta( $post_id, 'emulsion_post_theme_style_script', true ) ) {
-
-			foreach ( $classes as $key => $value ) {
-				if ( $value == 'custom-background' )
-					unset( $classes[$key] );
+			if ( ! isset( $block['blockName'] ) ) {
+				continue;
 			}
-			return $classes;
-		}
 
-		return $classes;
+			$block_id = $block['blockName'];
+
+			if ( false === strpos( $block_id, 'core/' ) ) {
+
+				$block_id = rtrim( $block_id, '*' );
+
+				$class_name = sprintf( 'wp-block-%1$s', str_replace( '/', '-', $block_id ) );
+
+				$result[] = sanitize_html_class( $class_name );
+			}
+		}
+		return $result;
 	}
 
 }
-if ( ! function_exists( 'emulsion_remove_role_from_pagination' ) ) {
 
-	function emulsion_remove_role_from_pagination( $template ) {
-
-		return str_replace( 'role="navigation"', '', $template );
-	}
-
-}
-
-function emulsion_skip_loading_lazy_image( $value, $image, $context ) {
-
-	if ( 'the_content' === $context ) {
-
-		if ( false !== strpos( $image, 'custom-logo' ) ) {
-			return false;
-		}
-
-		if ( false !== strpos( $image, 'wp-post-image' ) ) {
-			return false;
-		}
-
-		if ( false !== strpos( $image, 'custom-header-image' ) ) {
-			return false;
-		}
-	}
-	return $value;
-}
 
 if ( ! function_exists( 'emulsion_add_common_font_css' ) ) {
 
 	function emulsion_add_common_font_css( $css ) {
-
+		if ( 'fse' == emulsion_get_theme_operation_mode() ) {
+			return $css;
+		}
 
 		$pre_filter = apply_filters( 'emulsion_add_common_font_css_pre', false );
 
@@ -1635,7 +1474,9 @@ CSS;
 if ( ! function_exists( 'emulsion_heading_font_css' ) ) {
 
 	function emulsion_heading_font_css( $css ) {
-
+		if ( 'fse' == emulsion_get_theme_operation_mode() ) {
+			return $css;
+		}
 		$pre_filter = apply_filters( 'emulsion_heading_font_css_pre', false );
 
 		if ( false !== $pre_filter ) {
@@ -1909,6 +1750,9 @@ function emulsion_background_color_filter( $color ) {
 add_filter( 'theme_mod_emulsion_header_background_color', 'emulsion_header_background_color_filter' );
 
 function emulsion_header_background_color_filter( $color ) {
+	if ( 'fse' == emulsion_get_theme_operation_mode() ) {
+			return $color;
+	}
 
 	if ( ! emulsion_the_theme_supports( 'scheme' ) ) {
 
@@ -1929,6 +1773,10 @@ add_filter( 'theme_mod_emulsion_sidebar_background', 'emulsion_sidebar_backgroun
 
 function emulsion_sidebar_background_filter( $color ) {
 
+	if ( 'fse' == emulsion_get_theme_operation_mode() ) {
+			return $color;
+	}
+
 	if ( ! emulsion_the_theme_supports( 'scheme' ) ) {
 
 		return $color;
@@ -1947,6 +1795,10 @@ function emulsion_sidebar_background_filter( $color ) {
 add_filter( 'theme_mod_emulsion_relate_posts_bg', 'emulsion_relate_posts_bg_filter' );
 
 function emulsion_relate_posts_bg_filter( $color ) {
+
+	if ( 'fse' == emulsion_get_theme_operation_mode() ) {
+			return $color;
+	}
 
 	if ( function_exists( 'emulsion_the_theme_supports' ) && ! emulsion_the_theme_supports( 'scheme' ) ) {
 
@@ -1967,6 +1819,10 @@ add_filter( 'theme_mod_emulsion_comments_bg', 'emulsion_comments_bg_filter' );
 
 function emulsion_comments_bg_filter( $color ) {
 
+	if ( 'fse' == emulsion_get_theme_operation_mode() ) {
+			return $color;
+	}
+
 	if ( function_exists( 'emulsion_the_theme_supports' ) && ! emulsion_the_theme_supports( 'scheme' ) ) {
 
 		return $color;
@@ -1985,6 +1841,9 @@ function emulsion_comments_bg_filter( $color ) {
 add_filter( 'theme_mod_emulsion_border_global', 'emulsion_border_global_filter' );
 
 function emulsion_border_global_filter( $color ) {
+	if ( 'fse' == emulsion_get_theme_operation_mode() ) {
+			return $color;
+	}
 
 	if ( function_exists( 'emulsion_get_var' ) ) {
 
@@ -2008,6 +1867,9 @@ function emulsion_border_global_filter( $color ) {
 add_filter( 'theme_mod_emulsion_border_sidebar', 'emulsion_border_sidebar_filter' );
 
 function emulsion_border_sidebar_filter( $color ) {
+	if ( 'fse' == emulsion_get_theme_operation_mode() ) {
+			return $color;
+	}
 
 	if ( function_exists( 'emulsion_get_var' ) ) {
 
@@ -2032,6 +1894,10 @@ add_filter( 'theme_mod_emulsion_border_grid', 'emulsion_border_grid_filter' );
 
 function emulsion_border_grid_filter( $color ) {
 
+	if ( 'fse' == emulsion_get_theme_operation_mode() ) {
+			return $color;
+	}
+
 	if ( function_exists( 'emulsion_get_var' ) ) {
 
 		return $color;
@@ -2055,6 +1921,10 @@ add_filter( 'theme_mod_emulsion_border_stream', 'emulsion_border_stream_filter' 
 
 function emulsion_border_stream_filter( $color ) {
 
+	if ( 'fse' == emulsion_get_theme_operation_mode() ) {
+			return $color;
+	}
+
 	if ( function_exists( 'emulsion_get_var' ) ) {
 
 		return $color;
@@ -2077,6 +1947,10 @@ function emulsion_border_stream_filter( $color ) {
 add_filter( 'theme_mod_emulsion_primary_menu_background', 'emulsion_primary_menu_background_filter' );
 
 function emulsion_primary_menu_background_filter( $color ) {
+
+	if ( 'fse' == emulsion_get_theme_operation_mode() ) {
+			return $color;
+	}
 
 	if ( function_exists( 'emulsion_get_var' ) ) {
 

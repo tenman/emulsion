@@ -109,6 +109,7 @@
         margin-bottom: map-get($type-scale, $level) * .75;
     }
 }
+
 /**
  * Basic Block Elements
  * @extend %block;
@@ -421,6 +422,7 @@
     position:relative;
     width:100%;
     max-width:100%;
+    margin:0 auto;
 }
 /**
  * no sidebar alignfull
@@ -430,8 +432,8 @@
     position:relative;
     width:100vw;
     max-width:100%;
+    margin:0 auto;
     overflow:visible;
-
     @media screen and ( min-width : 1280px ) {
 
         // Limit width
@@ -462,7 +464,7 @@
         background-size:cover;
     }
     ul,ol{
-        li:not(.wp-block-gallery){
+        li:not(.wp-block-gallery):not([role="tab"]){
             @extend .remove-aligns;
             display: list-item;
             width:100%;
@@ -1003,4 +1005,6 @@
 
   @return $string;
 }
+
+
 

@@ -1,12 +1,5 @@
 <?php
 
-function emulsion_block_editor_assets() {
-	// 'wp-editor',Error occurred in block editor( 5.9-alpha-51653 )
-	wp_enqueue_script( 'emulsion-block', esc_url( get_template_directory_uri() . '/js/block.js' ), 	array( 'wp-blocks', 'wp-i18n', 'jquery' ) );
-}
-
-add_action( 'enqueue_block_editor_assets', 'emulsion_block_editor_assets' );
-
 /**
  * Experimental block effect
  */
@@ -30,9 +23,9 @@ if ( function_exists( 'register_block_style' ) ) {
 	register_block_style( 'core/categories', array( 'name' => 'list-style-inline', 'label' => esc_html__( 'Inline', 'emulsion' ), ) );
 
 	register_block_style( 'core/paragraph', array( 'name' => 'hanging-indent', 'label' => esc_html__( 'Hanging Indent', 'emulsion' ), ) );
-	register_block_style( 'core/paragraph', array( 'name' => 'indent-5rem', 'label' => esc_html__( 'Left Indent S', 'emulsion' ), ) );
-	register_block_style( 'core/paragraph', array( 'name' => 'indent-10rem', 'label' => esc_html__( 'Left Indent M', 'emulsion' ), ) );
-	register_block_style( 'core/paragraph', array( 'name' => 'indent-15rem', 'label' => esc_html__( 'Left Indent L', 'emulsion' ), ) );
+	register_block_style( 'core/paragraph', array( 'name' => 'indent-5rem', 'label' => esc_html__( 'Indent S', 'emulsion' ), ) );
+	register_block_style( 'core/paragraph', array( 'name' => 'indent-10rem', 'label' => esc_html__( 'Indent M', 'emulsion' ), ) );
+	register_block_style( 'core/paragraph', array( 'name' => 'indent-15rem', 'label' => esc_html__( 'Indent L', 'emulsion' ), ) );
 
 	register_block_style( 'core/group', array( 'name' => 'responsive', 'label' => esc_html__( 'Responsive', 'emulsion' ), ) );
 
@@ -82,6 +75,7 @@ function emulsion_block_pattern() {
 					)
 			);
 		}
+
 
 		register_block_pattern_category( 'emulsion', array( 'label' => esc_html_x( 'Emulsion', 'Emulsion Block pattern', 'emulsion' ) ) );
 

@@ -1,11 +1,12 @@
 <?php
+
 		$relate_posts_enable = emulsion_the_theme_supports( 'relate_posts' );
 
 		if( empty( $relate_posts_enable ) ) {
 
 			return;
 		}
-		
+
 		$algo = emulsion_related_posts_finder();
 
 		$html = '';
@@ -45,7 +46,7 @@
 					wp_reset_postdata();
 				}
 				$html = $result.'</ul><!-- /wp:list --></div><!-- /wp:group -->';
-		}
+		} 
 
 
 $html = str_replace( array( PHP_EOL, "\t" ), array( '', '' ), $html );
