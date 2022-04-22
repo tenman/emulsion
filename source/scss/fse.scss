@@ -1102,6 +1102,7 @@ div:empty{
             max-width:100%;
             display:block;
             border-top:1px solid #ccc;
+            margin:0 auto 1.5rem;
 
         }
     }
@@ -1114,6 +1115,7 @@ div:empty{
         min-height:var(--wp--custom--max-height--harf);
         .loop-item:after{
             border:none;
+            display:none;
         }
         li{
             border-top:1px solid #ccc;
@@ -1191,6 +1193,8 @@ div:empty{
      */
 
     .wp-block-term-description{
+        @extend %block;
+        @extend %structure_spacing;
         p{
             @extend %center-short-sentences;
             @extend %post_meta_font;

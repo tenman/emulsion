@@ -685,7 +685,7 @@ body:not(.emulsion-has-sidebar) .sidebar-widget-area{
                     text-transform: var(--thm_meta_data_font_transform);
                     list-style: none;
                     &  > a{
-                         box-sizing: content-box;
+                        box-sizing: content-box;
                         padding-top:calc( 1rem * var( --thm_content_line_height, 1.5 ) / 4 );
                         padding-right:calc( 1rem * var( --thm_content_line_height, 1.5 ) / 4 );
                         padding-bottom:calc( 1rem * var( --thm_content_line_height, 1.5 ) / 4 );
@@ -824,7 +824,7 @@ body{
                         text-transform: var(--thm_meta_data_font_transform);
                         list-style: none;
                         &  > a{
-                             box-sizing: content-box;
+                            box-sizing: content-box;
                             padding-top:calc( 1rem * var( --thm_content_line_height, 1.5 ) / 4 );
                             padding-right:calc( 1rem * var( --thm_content_line_height, 1.5 ) / 4 );
                             padding-bottom:calc( 1rem * var( --thm_content_line_height, 1.5 ) / 4 );
@@ -931,7 +931,7 @@ body{
             flex:0 0;
             flex-basis:var( --thm_sidebar_width, 400px );
             width:var( --thm_sidebar_width, 400px );
-            max-width:100%;
+            max-width:var( --thm_sidebar_width, 400px );
             text-align:right;
         }
         &.side-right{
@@ -1060,10 +1060,26 @@ body .header-layer{
     }
 }
 body.emulsion-has-sidebar{
+    .sidebar-widget-area{
+        @media screen and ( max-width : $content_width + $sidebar_width + 16px ) {
+            // for sidebar width support
+
+            position:relative;
+            z-index:1;
+            flex:0 0;
+            flex-basis:100%;
+            width:100%;
+            max-width:100%;
+
+        }
+    }
+
     .sidebar-widget-area-lists{
         padding-right:0;
         padding-left:0;
-
+        @media screen and ( max-width : $content_width + $sidebar_width + 16px ) {
+            max-width:100%;
+        }
         .widget_block{
             .wp-block-latest-posts{
                 padding-left:0;
@@ -1178,5 +1194,21 @@ body.is-dark{
                 }
             }
         }
+    }
+}
+@media screen and ( max-width : $content_width + $sidebar_width + 16px ) {
+    // for sidebar width support
+    body.emulsion-has-sidebar .sidebar-widget-area{
+        position:relative;
+        z-index:1;
+        flex:0 0;
+        flex-basis:100%;
+        width:100%;
+        max-width:100%;
+
+    }
+    ul.sidebar-widget-area-lists{
+        //width:100%;
+        max-width:100%;
     }
 }

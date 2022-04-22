@@ -395,6 +395,9 @@ if ( ! function_exists( 'emulsion_theme_customizer_style' ) ) {
     border-bottom: 1px solid #ddd;
     margin-top: 15px;
 }
+.customize-pane-parent li{
+	padding:0;
+}
 CSS;
 
 		if ( 'fse' == get_theme_mod( 'emulsion_editor_support' ) ) {

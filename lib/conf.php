@@ -28,6 +28,11 @@ if ( ! function_exists( 'emulsion_theme_default_val' ) ) {
 	function emulsion_theme_default_val( $name, $type = 'val' ) {
 		global $content_width;
 
+		if('fse' == emulsion_get_theme_operation_mode() ) {
+
+			return false;
+		}
+
 		/**
 		 * If you enable the plugin, it is calculated with dynamic values.
 		 * array( note=>*** )
@@ -388,7 +393,6 @@ function emulsion_wp_scss_set_variables_fallback( $variables ) {
 
 
 
-
 add_filter( 'theme_mod_emulsion__css_variables', 'emulsion_theme_variables' );
 
 function emulsion_theme_variables( $variables ) {
@@ -396,9 +400,14 @@ function emulsion_theme_variables( $variables ) {
 	 * Auxiliary for scheme settings to work plugin-independently
 	 */
 
-	if ( emulsion_theme_addons_exists() ) {
+	if ( emulsion_theme_addons_exists() || 'fse' == emulsion_get_theme_operation_mode() ) {
 
 		return $variables;
+	}
+
+	if( false == get_theme_mod('emulsion_scheme') || 'default' == get_theme_mod('emulsion_scheme') ) {
+
+		return '.emulsion-addons-inactive body{'. EMULSION_DEFAULT_VARIABLES. '}';
 	}
 
 

@@ -19,6 +19,11 @@ if ( ! function_exists( 'emulsion_the_theme_supports' ) ) {
 
 	function emulsion_the_theme_supports( $name ) {
 
+		if('fse' == emulsion_get_theme_operation_mode() ) {
+
+			return false;
+		}
+
 		$emulsion_default_supports = array(
 			'theme_documents'			 => array( 'default' => false, ), // required emulsion-addons plugin
 			'enqueue'					 => array( 'default' => true, ),
@@ -72,6 +77,93 @@ if ( ! function_exists( 'emulsion_the_theme_supports' ) ) {
 	}
 
 }
+
+/**
+ * EMULSION_DEFAULT_VARIABLES will reflect the changes if you don't use the plugin or theme schema.
+ * If the plugin is enabled, this constant will not work as it will work depending on the value of the customizer.
+ *
+ * It is set only to save the calculation time of the color scheme
+ */
+	$emulsion_default_variables = <<<DEFAULT_VARIABLES
+
+	/* emulsion_block_editor_styles_and_scripts */
+    --thm_background_image_dim: rgba( 0, 0, 0, 0.0);
+    --thm_border_global: #bcbcbc;
+    --thm_border_global_style: solid;
+    --thm_border_global_width: 1px;
+    --thm_border_grid: #bcbcbc;
+    --thm_border_grid_style: solid;
+    --thm_border_grid_width: 1px;
+    --thm_border_sidebar: #bcbcbc;
+    --thm_border_sidebar_style: solid;
+    --thm_border_sidebar_width: 1px;
+    --thm_border_stream: #bcbcbc;
+    --thm_border_stream_style: solid;
+    --thm_border_stream_width: 1px;
+    --thm_comments_bg: #eeeeee;
+    --thm_comments_color: #333333;
+    --thm_comments_link_color: #666666;
+    --thm_content_margin_top: 0px;
+    --thm_excerpt_linebreak: none;
+    --thm_favorite_color_palette: #1e73be;
+    --thm_general_link_color: #666666;
+    --thm_general_link_hover_color: #333333;
+    --thm_general_text_color: #333333;
+
+    --thm_header_hover_color: #333333;
+    --thm_header_image_dim: rgba(0,0,0,.5);
+    --thm_header_link_color: #666666;
+    --thm_header_media_max_height: 75vh;
+    --thm_heading_font_base: 16;
+    --thm_heading_font_scale: xxx;
+    --thm_post_display_author: inherit;
+    --thm_post_display_category: inherit;
+    --thm_post_display_date: inherit;
+    --thm_post_display_tag: inherit;
+    --thm_primary_menu_background: #ffffff;
+    --thm_primary_menu_color: #333333;
+    --thm_primary_menu_link_color: #666666;
+    --thm_relate_posts_bg: #eeeeee;
+    --thm_relate_posts_color: #333333;
+    --thm_relate_posts_link_color: #666666;
+    --thm_sidebar_bg_color: #ffffff;
+    --thm_sidebar_hover_color: #333333;
+    --thm_sidebar_link_color: #666666;
+    --thm_sidebar_text_color: #333333;
+    --thm_sub_background_color_darken: hsla(0deg,0%,75%,1);
+    --thm_sub_background_color_lighten: hsla(0deg,0%,100%,1);
+    --thm_align_offset: 200px;
+    --thm_background_color: #ffffff;
+    --thm_box_gap: 3px;
+    --thm_caption_height: 1.5em;
+    --thm_common_font_family: sans-serif;
+    --thm_common_font_size: 16px;
+    --thm_common_line_height: 1.15;
+    --thm_content_gap: 24px;
+    --thm_content_line_height: 1.5;
+    --thm_content_width: 720px;
+	--thm_wide_width: 920px;
+    --thm_default_header_height: 300px;
+    --thm_footer_widget_width: 30%;
+    --thm_header_bg_color: #eeeeee;
+    --thm_header_background_gradient_color: #eeeeee;
+    --thm_header_text_color: #333333;
+    --thm_heading_font_family: serif;
+    --thm_heading_font_transform: uppercase;
+    --thm_heading_font_weight: 700;
+    --thm_hover_color: #333333;
+    --thm_i18n_no_title: 無題;
+    /*--thm_main_width-with-sidebar: calc(100vw - var(--thm_sidebar_width) - 48px);*/
+    --thm_main_width: 1280px;
+    --thm_meta_data_font_family: sans-serif;
+    --thm_meta_data_font_size: 13px;
+    --thm_meta_data_font_transform: none;
+    --thm_sidebar_width: 400px;
+    --thm_social_icon_color: #666666;
+DEFAULT_VARIABLES;
+
+define('EMULSION_DEFAULT_VARIABLES', $emulsion_default_variables);
+
 if ( ! function_exists( 'emulsion_get_footer_cols_css' ) ) {
 
 	/**
