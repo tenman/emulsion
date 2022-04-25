@@ -75,9 +75,13 @@ function emulsion_hooks_setup() {
 		 */
 		add_action( 'wp_footer', 'emulsion_theme_google_tracking_code', 99 );
 
-		if ( function_exists( 'wp_scss_compile' ) ) {
-			add_filter( 'wp_scss_variables', 'emulsion_wp_scss_set_variables_fallback' );
+		if ( ! emulsion_theme_addons_exists() ) {
+			add_filter( 'wp_scss_needs_compiling', '__return_false' );
 		}
+		if ( function_exists( 'wp_scss_compile' ) ) {
+			//add_filter( 'wp_scss_variables', 'emulsion_wp_scss_set_variables_fallback' );
+		}
+
 	}
 	/**
 	 * PWA
@@ -690,18 +694,24 @@ if ( ! function_exists( 'emulsion_theme_styles' ) ) {
 .emulsion-addons-inactive{
 	--thm_content_gap:24px;
 	--thm_align_offset:200px;
+
 }
 
-.emulsion-addons-inactive .excerpt .article-wrapper{
-	border-bottom-color:var(--thm_common_border);
-	border-bottom-style:var(--thm_border_global_style);
-	border-bottom-width:var(--thm_border_global_width);
+.emulsion-addons-inactive .article-wrapper:after {
+	display:block;
+    width: 720px;
+    max-width: 100%;
+    margin: auto;
+    content: ' ';
+    border-bottom: 1px solid rgba(188, 188, 188, 0.5);
 }
 
 .emulsion-addons-inactive aside h1{
 	line-height:var(--thm_common_line_height, 1.15);
 }
+.emulsion-addons-inactive .footer-layer,
 .emulsion-addons-inactive .header-layer{
+	--thm_header_background_gradient_color:var(--thm_header_bg_color);
 	background-color:var(--thm_header_bg_color);
 	color:var(--thm_header_text_color);
 }

@@ -527,7 +527,7 @@ function emulsion_register_scripts_and_styles() {
 	 */
 	if ( 'transitional' == emulsion_get_theme_operation_mode() ) {
 		/**
-		 * FSE
+		 * FSE Transitional
 		 */
 		wp_register_style( 'emulsion-fse-transitional', get_template_directory_uri() . '/css/fse-transitional.css', array(), $emulsion_current_data_version, 'all' );
 		wp_enqueue_style( 'emulsion-fse-transitional' );
@@ -537,7 +537,7 @@ function emulsion_register_scripts_and_styles() {
 			'emulsion-responsive'	 => 'responsive.css',
 			'emulsion-comments'		 => 'comments.css',
 			'emulsion-archives'		 => 'archives.css',
-			'emulsion-block-presentation'	 => 'block-presentation.css',
+			//'emulsion-block-presentation'	 => 'block-presentation.css',
 		);
 		$emulsion_theme_styles = array_keys( array_diff( $emulsion_styles_list, $exclude_stylesheets ) );
 	}
@@ -1239,24 +1239,25 @@ if ( ! function_exists( 'emulsion_block_editor_styles_and_scripts' ) ) {
 	 */
 	function emulsion_block_editor_styles_and_scripts() {
 
-		if ( 'fse' == emulsion_get_theme_operation_mode() ) {
-			return;
-		}
+
 
 		$emulsion_current_data_version = WP_DEBUG ? time() : emulsion_version();
 
-		if ( is_user_logged_in() && current_user_can( 'edit_posts' ) ) {
-
+		if ( is_user_logged_in() && current_user_can( 'edit_posts' ) && 'fse' !== emulsion_get_theme_operation_mode() ) {
+			/*
 			wp_enqueue_style( 'emulsion-block-editor-styles', get_theme_file_uri( '/css/style-editor.css' ), array(), $emulsion_current_data_version, 'all' );
 
 			$add_css = '';
-			$get_css = file( get_theme_file_path( 'css/boxed.css' ) );
+				$get_css = file( get_theme_file_path( 'css/boxed.css' ) );
 			$add_css .= implode( '', $get_css );
 			$get_css = file( get_theme_file_path( 'css/misc.css' ) );
 			$add_css .= implode( '', $get_css );
 			$get_css = file( get_theme_file_path( 'css/block-presentation.css' ) );
 			$add_css .= implode( '', $get_css );
-
+			 *
+			 */
+			$add_css = '';
+			
 			if ( function_exists( 'emulsion__css_variables' ) ) {
 
 				//The style may not be reflected due to the cache. Always change style dynamically
@@ -1593,6 +1594,10 @@ if ( ! function_exists( 'emulsion_style_load_controller' ) ) {
 		if ( 'fse' == emulsion_get_theme_operation_mode() ) {
 			return;
 		}
+		if( 'disable' !== get_theme_mod('emulsion_instantclick') ) {
+
+			return;
+		}
 
 		$body_classes		 = get_body_class();
 		$theme_support		 = emulsion_the_theme_supports( 'instantclick' ) ? 'enable' : 'disable';
@@ -1848,6 +1853,10 @@ if ( ! function_exists( 'emulsion_has_color_settings' ) ) {
 		if ( 'fse' == emulsion_get_theme_operation_mode() ) {
 			return;
 		}
+		if( 'disable' !== get_theme_mod('emulsion_instantclick') ) {
+			return;
+		}
+
 
 		$field_names = array(
 			'emulsion_header_gradient',

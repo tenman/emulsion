@@ -1229,3 +1229,20 @@ if ( ! function_exists( 'emulsion_accesible_post_title_link_control' ) ) {
 }
 
 
+if ( ! function_exists( 'emulsion_fallback_block_class' ) ) {
+
+	function emulsion_fallback_block_class( $block_content, $block ) {
+
+		$block_name		 = 'wp-block-' . substr( strrchr( $block['blockName'], "/" ), 1 );
+		$target_block	 = array( 'wp-block-audio', 'wp-block-buttons', 'wp-block-columns', 'wp-block-file', 'wp-block-group', 'wp-block-post-excerpt', 'wp-block-table', 'wp-block-navigation' );
+
+		if ( in_array( $block_name, $target_block ) ) {
+
+			$new_class		 = array( 'wp-block' );
+			$block_content	 = emulsion_add_class( $block_content, $block_name, $new_class );
+		}
+
+		return $block_content;
+	}
+
+}

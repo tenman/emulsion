@@ -75,6 +75,15 @@ if ( ! function_exists( 'emulsion_setup' ) ) {
 		add_filter( 'render_block_core/site-title', 'emulsion_accesible_site_title_link_control', 10, 2 );
 
 		/**
+		 * Fresh installation date
+		 */
+		$fresh_installation = get_theme_mod( 'fresh_installation', false );
+
+		if ( false === $fresh_installation ) {
+
+			set_theme_mod( 'fresh_installation', time() );
+		}
+		/**
 		 * Plugin Settings relate
 		 */
 		add_action( 'wp_footer', 'emulsion_theme_google_tracking_code', 99 );
@@ -285,23 +294,6 @@ function custom_load_separate_theme_block_assets() {
 
 add_filter( 'render_block', 'emulsion_fallback_block_class', 10, 2 );
 
-if ( ! function_exists( 'emulsion_fallback_block_class' ) ) {
-
-	function emulsion_fallback_block_class( $block_content, $block ) {
-
-		$block_name		 = 'wp-block-' . substr( strrchr( $block['blockName'], "/" ), 1 );
-		$target_block	 = array( 'wp-block-audio', 'wp-block-buttons', 'wp-block-columns', 'wp-block-file', 'wp-block-group', 'wp-block-post-excerpt', 'wp-block-table', 'wp-block-navigation' );
-
-		if ( in_array( $block_name, $target_block ) ) {
-
-			$new_class		 = array( 'wp-block' );
-			$block_content	 = emulsion_add_class( $block_content, $block_name, $new_class );
-		}
-
-		return $block_content;
-	}
-
-}
 
 function emulsion_corrected_core_css_max_width() {
 
@@ -541,12 +533,42 @@ STYLE;
 	return $css;
 }
 
+function emulsion_add_classic_custom_field_css() {
 
-function new_srcset_max($max_width) {
-	if(! is_singular()){
-    return 800;
+	/**
+	 * Add Classic Custom Field CSS
+	 */
+
+	$css = <<<STYLE
+	#newmeta,
+	#newmeta thead,
+	#newmeta thead tr,
+	#newmeta thead th,
+	#newmeta tbody,
+	#newmeta tbody tr,
+	#newmeta tbody td,
+	.edit-post-meta-boxes-area.is-side  #list-table thead,
+	.edit-post-meta-boxes-area.is-side  #list-table thead th,
+	 .edit-post-meta-boxes-area.is-side  #list-table thead tr,
+	.edit-post-meta-boxes-area.is-side  #list-table tbody,
+	.edit-post-meta-boxes-area.is-side  #list-table tbody tr,
+	.edit-post-meta-boxes-area.is-side  #list-table tbody tr td{
+		display:block;
+	}
+	.edit-post-meta-boxes-area.is-side .inside #list-table tbody tr #newmetaleft,
+	.edit-post-meta-boxes-area.is-side .inside #list-table tbody tr td.left{
+		width:90%;
+		display:block;
+	}
+STYLE;
+	return $css;
+}
+
+function new_srcset_max( $max_width ) {
+	if ( ! is_singular() ) {
+		return 800;
 	}
 	return $max_width;
 }
 
-add_filter('max_srcset_image_width', 'new_srcset_max');
+add_filter( 'max_srcset_image_width', 'new_srcset_max' );

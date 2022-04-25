@@ -1,6 +1,6 @@
 <?php
 include_once( get_theme_file_path( 'lib/conf.php' ) );
-include_once( get_theme_file_path( 'lib/customize.php' ) );
+current_user_can( 'edit_posts' )  ? include_once( get_theme_file_path( 'lib/customize.php' ) ): '';
 include_once( get_theme_file_path( 'lib/functions-global.php' ) );
 include_once( get_theme_file_path( 'lib/blocks.php' ) );
 
@@ -21,6 +21,8 @@ STYLE;
 		return $css;
 	}
 
+
+
 	/**
 	 * editor extend CSS
 	 * @return type
@@ -33,7 +35,10 @@ STYLE;
 		$css .= emulsion_corrected_core_css_flex_gap_size_consistency();
 		$css .= emulsion_corrected_core_css_block_data_align();
 		$css .= emulsion_corrected_core_css_float_contentmargins();
+		$css .= emulsion_add_classic_custom_field_css();
+
 		$css .=<<<STYLE
+
 
 STYLE;
 		return $css;

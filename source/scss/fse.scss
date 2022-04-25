@@ -43,6 +43,7 @@
          * name: core/embed
          * name: core/image
          * name: core/post-featured-image
+         * name: core/post-excerpt
          * name: core/table
          * name: core/navigation
          * name: core/post-content
@@ -870,6 +871,15 @@ div:empty{
     }
 
     /**
+         * name: core/post-excerpt
+    */
+
+    .wp-block-post-excerpt__excerpt{
+        max-height: calc((var(--wp--custom--line-height--common) * var(--wp--preset--font-size--normal)) * 3 );
+        overflow: hidden;
+    }
+
+    /**
          * name: core/media-text
      */
 
@@ -1102,7 +1112,7 @@ div:empty{
             max-width:100%;
             display:block;
             border-top:1px solid #ccc;
-            margin:0 auto 1.5rem;
+            margin:1.5rem auto;
 
         }
     }
