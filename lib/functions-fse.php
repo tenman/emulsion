@@ -73,6 +73,7 @@ if ( ! function_exists( 'emulsion_setup' ) ) {
 		add_filter( 'render_block_core/template-part', 'emulsion_fse_footer_content_filter', 10, 2 );
 		add_filter( 'render_block_core/post-title', 'emulsion_accesible_post_title_link_control', 10, 2 );
 		add_filter( 'render_block_core/site-title', 'emulsion_accesible_site_title_link_control', 10, 2 );
+		add_filter( 'render_block', 'emulsion_relate_posts_when_addons_inactive', 10, 2 );
 
 		/**
 		 * Fresh installation date
@@ -224,7 +225,13 @@ function emulsion_register_scripts_and_styles() {
 }
 
 function emulsion_fse_body_class( $classes ) {
+
 	$classes[] = 'emulsion';
+
+	if ( ! is_page() || ! is_attachment() || ! is_single() || has_block( 'post-excerpt' ) ) {
+
+		$classes[] = 'summary';
+	}
 
 	if ( has_blocks() ) {
 
@@ -301,16 +308,38 @@ function emulsion_corrected_core_css_max_width() {
 	 * max-width: none
 	 * The max-width property can easily cause an overflow if width is set
 	 */
+	/**
+	 * Where it should be defined by width, it is defined by max-width, which causes wp-block-column overflow.
+	 *
+	 .editor-styles-wrapper .wp-container-9 > :where(:not(.alignleft):not(.alignright)) {
+		 max-width: 720px;
+	 }
+	 */
 	$css = <<<STYLE
 		div.editor-styles-wrapper .edit-post-visual-editor__post-title-wrapper > .alignfull,
 		div.editor-styles-wrapper .block-editor-block-list__layout.is-root-container > .alignfull{
+
 			/* max-width: none;
 			   Content overflows if width is set
+				fixed @since ver 13.1.0
 			*/
-		max-width:100%;
-	}
+			max-width:100%;
+		}
+		.editor-styles-wrapper .edit-post-visual-editor__post-title-wrapper > .alignfull,
+		.editor-styles-wrapper .block-editor-block-list__layout.is-root-container > .alignfull {
+			/*
+				max-width: none;
+				note: has max-width:none exists gutenberg_get_layout_style(), index.js
+			*/
+			max-width:100%;
+		}
+		div.editor-styles-wrapper [class*="wp-container-"] > :where(:not(.alignleft):not(.alignright)) {
+			max-width: 100%;
+		}
 STYLE;
 	return $css;
+
+
 }
 
 function emulsion_corrected_core_css_image_resizable_box__container_overflow() {
@@ -334,7 +363,7 @@ function emulsion_corrected_core_css_image_resizable_box__container_overflow() {
 	 *
 	 */
 	$css = <<<STYLE
-	.wp-block-image .components-resizable-box__container:not(#specificity){
+	.wp-block-image .components-resizable-box__container:not(#specificity):not(.has-show-handle){
 		/*
 		  If the image size is large, the resize box overflows and the resize handle cannot be operated.
 		*/
@@ -343,7 +372,14 @@ function emulsion_corrected_core_css_image_resizable_box__container_overflow() {
 		height:auto!important;
 
 	}
-
+	.wp-block-image .components-resizable-box__container:not(#specificity):not(.has-show-handle){
+			/*
+			If width is specified, the size of the resize box cannot be changed.
+			*/
+		max-width:100%!important;
+		height:auto!important;
+		overflow:auto;
+	}
 STYLE;
 	return $css;
 }
@@ -379,8 +415,7 @@ function emulsion_corrected_core_css_block_data_align() {
 
 	.wp-block[data-align="wide"] {
 		position: relative;
-		left: 0;
-		width: var(--thm_wide_width, 920px);
+		width: var(--wp--custom--width--wide, 920px);
 		max-width: 100%;
 		margin-right: auto;
 		margin-left: auto;
@@ -409,8 +444,8 @@ function emulsion_corrected_core_css_block_data_align() {
 		max-width: 100%;
    }
 	.wp-block[data-align="left"] [data-block].wp-block-button {
-		padding-left: 24px;
-		padding-right: 24px;
+		padding-left: var(--wp--custom--padding--content, .75rem);
+		padding-right: var(--wp--custom--padding--content, .75rem);
 		width: auto;
    }
 	.wp-block[data-align="left"] .is-style-shrink {
@@ -437,8 +472,8 @@ function emulsion_corrected_core_css_block_data_align() {
 		float: none;
    }
 	.wp-block[data-align="right"] [data-block].wp-block-button {
-		padding-left: 24px;
-		padding-right: 24px;
+		padding-left: var(--wp--custom--padding--content, .75rem);
+		padding-right: var(--wp--custom--padding--content, .75rem);
 		width: auto;
    }
 	.wp-block[data-align="right"] .is-style-shrink {
@@ -449,7 +484,7 @@ function emulsion_corrected_core_css_block_data_align() {
 		margin-left:0;
    }
 	.wp-block[data-align="full"]{
-		width: var(--thm_editor_main_width, 100%);
+		width: 100%;
 		max-width: 100%;
    }
 	.wp-block[data-align="full"] [data-block]{
@@ -466,8 +501,8 @@ function emulsion_corrected_core_css_block_data_align() {
 		float: none;
    }
 	.wp-block[data-align="right"] [data-block].wp-block-button {
-		padding-left: 24px;
-		padding-right: 24px;
+		padding-left: var(--wp--custom--padding--content, .75rem);
+		padding-right: var(--wp--custom--padding--content, .75rem);
 		width: auto;
    }
 	.wp-block[data-align="right"] .is-style-shrink {
@@ -478,7 +513,7 @@ function emulsion_corrected_core_css_block_data_align() {
 		margin-left:0;
    }
 	.wp-block[data-align="full"]{
-		width: var(--thm_editor_main_width, 100%);
+		width: 100%;
 		max-width: 100%;
    }
 	.wp-block[data-align="full"] [data-block]{
@@ -515,8 +550,8 @@ function emulsion_corrected_core_css_float_contentmargins() {
 				float: left;
 				width: var(--wp--custom--width--alignleft);
 				max-width: var(--wp--custom--width--alignleft);
-				padding: 0;
-				margin-inline: var(--wp--custom--padding--content, 0.75rem)  1rem;
+				max-width: var(--wp--custom--width--alignright);
+				margin:.75rem;
 				clear: left;
 			}
 			div.editor-styles-wrapper .edit-post-visual-editor__post-title-wrapper > .alignright,
@@ -525,13 +560,120 @@ function emulsion_corrected_core_css_float_contentmargins() {
 				float: right;
 				width: var(--wp--custom--width--alignright);
 				max-width: var(--wp--custom--width--alignright);
-				padding: 0;
-				margin-inline: 1rem var(--wp--custom--padding--content, 0.75rem);
+				margin:.75rem;
+
 				clear: right;
 			}
 STYLE;
 	return $css;
 }
+
+function emulsion_corrected_core_css_has_nested_images_gallery() {
+
+	/**
+	 * Excessive specificity makes styling in the block editor difficult.
+	 * not(#individual-image)
+	 * :not does not participate in specificity, but the ID in parentheses is included in the specificity calculation
+
+	 @media (min-width: 600px)
+	.wp-block-gallery.has-nested-images.columns-default figure.wp-block-image:not(#individual-image) {
+		margin-right: var(--gallery-block--gutter-size, 16px);
+		width: calc(33.33% - (var(--gallery-block--gutter-size, 16px) * 0.6666666667));
+	}
+	 */
+	$css = <<<STYLE
+	.has-nested-images:not(#specificity) {
+		width: var(--wp--custom--width--content);
+		max-width: 100%;
+		clear: both;
+		float: none;
+	}
+
+	.has-nested-images:not(#specificity).alignleft {
+		float: left;
+		clear: left;
+	}
+
+	.has-nested-images:not(#specificity).alignright {
+		float: right;
+		clear: right;
+	}
+
+	.has-nested-images:not(#specificity).alignwide {
+		width: var(--wp--custom--width--wide, 920px);
+	}
+
+	.has-nested-images:not(#specificity).alignfull {
+		width: var(--wp--custom--width--full, 100%);
+	}
+
+	.has-nested-images:not(#specificity).wp-block-gallery {
+		display: flex;
+		gap: var(--wp--custom--margin--gap, 3px);
+	}
+
+	.has-nested-images:not(#specificity).wp-block-gallery > figure.wp-block-image:not(.specificity){
+		margin: 0;
+		padding: 0;
+	}
+	.has-nested-images:not(#specificity).wp-block-gallery.columns-1 .wp-block-image {
+		width: 100%;
+	}
+	.has-nested-images:not(#specificity).wp-block-gallery.columns-2 .wp-block-image {
+		width: calc(100% / 2 - var(--wp--custom--margin--gap));
+	}
+	.has-nested-images:not(#specificity).wp-block-gallery.columns-default,
+	.has-nested-images:not(#specificity).wp-block-gallery.columns-3 .wp-block-image {
+		width: calc(100% / 3 - var(--wp--custom--margin--gap));
+	}
+	.has-nested-images:not(#specificity).wp-block-gallery.columns-4 .wp-block-image {
+		width: calc(100% / 4 - var(--wp--custom--margin--gap));
+	}
+	.has-nested-images:not(#specificity).wp-block-gallery.columns-5 .wp-block-image {
+		width: calc(100% / 5 - var(--wp--custom--margin--gap));
+	}
+	.has-nested-images:not(#specificity).wp-block-gallery.columns-6 .wp-block-image {
+		width: calc(100% / 6 - var(--wp--custom--margin--gap));
+	}
+	.has-nested-images:not(#specificity).wp-block-gallery.columns-7 .wp-block-image {
+		width: calc(100% / 7 - var(--wp--custom--margin--gap));
+	}
+	.has-nested-images:not(#specificity).wp-block-gallery.columns-8 .wp-block-image {
+		width: calc(100% / 8 - var(--wp--custom--margin--gap));
+	}
+STYLE;
+	return $css;
+}
+
+function emulsion_corrected_core_css_wp_block_data_align() {
+
+	/**
+	 * class="wp-block" data-align="[left, right, wide, full]"
+	 * The child elements of the above elements require a different style than the front end.
+	 * The alignleft, alignright, alignwide, and alignfull classes need to be overwritten.
+	 *
+	 */
+	$css = <<<STYLE
+
+	.wp-block[data-align] .aligncenter,
+	.wp-block[data-align] .alignleft,
+	.wp-block[data-align] .alignright,
+	.wp-block[data-align] .alignwide,
+	.wp-block[data-align] .alignfull{
+		width:auto;
+		max-width:100%;
+	}
+	.wp-block[data-align="left"] .components-resizable-box__container{
+		float:right;
+	}
+	.wp-block[data-align="right"] .components-resizable-box__container{
+		float:left;
+	}
+STYLE;
+	return $css;
+}
+
+
 
 function emulsion_add_classic_custom_field_css() {
 
@@ -564,11 +706,42 @@ STYLE;
 	return $css;
 }
 
-function new_srcset_max( $max_width ) {
-	if ( ! is_singular() ) {
-		return 800;
-	}
-	return $max_width;
+function emulsion_corrected_core_css_not_sure_universal_selector() {
+
+	/**
+	 * The person who wrote this code may like the haiku-like setting method,
+	 * but for theme developers and users, such tyles are less maintainable.
+	 *
+	 *	.editor-styles-wrapper .edit-post-visual-editor__post-title-wrapper > * + *,
+		.editor-styles-wrapper .block-editor-block-list__layout.is-root-container > * + * {
+			margin-block-start: var( --wp--style--block-gap );
+		}
+		.editor-styles-wrapper .edit-post-visual-editor__post-title-wrapper > *,
+		.editor-styles-wrapper .block-editor-block-list__layout.is-root-container > * {
+			margin-block-start: 0;
+			margin-block-end: 0;
+		}
+	 *
+	 *
+	 *
+	 */
+		$css = <<<STYLE
+		.editor-styles-wrapper .edit-post-visual-editor__post-title-wrapper > h1{
+				/* not exists * + * */
+				margin-top:4rem;
+				argin-block-start: var(--wp--custom--margin--block, 1.5rem);
+		}
+		.editor-styles-wrapper .block-editor-block-list__layout.is-root-container > *,
+		.editor-styles-wrapper .block-editor-block-list__layout.is-root-container > .wp-block{
+			margin: var(--wp--custom--margin--block, 1.5rem) auto;
+		}
+		.editor-styles-wrapper .block-editor-block-list__layout.is-root-container > .wp-block-buttons.alignleft,
+		.editor-styles-wrapper .block-editor-block-list__layout.is-root-container > .wp-block-buttons.alignright{
+				width:-moz-fit-content;
+				width:fit-content;
+		}
+STYLE;
+		return $css;
+
 }
 
-add_filter( 'max_srcset_image_width', 'new_srcset_max' );

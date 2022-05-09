@@ -26,7 +26,9 @@ jQuery(function ($) {
             }
             if ($(this).hasClass('is-resized')) {
                 $(this).removeClass('is-resized');
-                $(this).parent().addClass('is-resized');
+                var image_width = $(this).children().attr('width');
+                $(this).parent().addClass('is-resized').attr('style', "width:" + image_width + "px");
+
             }
             if ($(this).hasClass('size-medium')) {
 
@@ -1049,7 +1051,4 @@ jQuery(function ($) {
     $('.alignleft .size-mediuml,.alignright .size-medium').parent().addClass('size-medium');
     $('.alignleft .size-large,.alignright .size-large').parent().addClass('size-large');
      $('.alignleft .size-full,.alignright .size-full').parent().addClass('size-full');
-});
-jQuery(function ($) {
-    console.log(getComputedStyle(document.documentElement).getPropertyValue('--my-variable-name'));
 });

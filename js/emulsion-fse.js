@@ -19,7 +19,7 @@
     if (document.querySelector(".modal-open-link > .wp-block-button") !== null) {
 
         document.querySelector(".modal-open-link > .wp-block-button").onclick = function focus_modal_open_link() {
-            document.querySelector(".modal-open-link > .wp-block-button").focus();
+           document.querySelector(".modal-open-link > .wp-block-button").focus();
         }
     }
 

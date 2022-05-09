@@ -896,7 +896,7 @@ if ( ! function_exists( 'emulsion_block_editor_assets' ) ) {
 
 		wp_enqueue_script( 'emulsion-block', esc_url( get_template_directory_uri() . '/js/block.js' ), array( 'wp-blocks', 'wp-i18n', 'jquery' ) );
 
-		if ( 'fse' == emulsion_get_theme_operation_mode() ) {
+		if ( 'fse' == emulsion_get_theme_operation_mode() && current_user_can( 'edit_posts' ) ) {
 
 			wp_register_style( 'emulsion-fse', get_template_directory_uri() . '/css/fse.css', array(), time() , 'all' );
 			wp_enqueue_style( 'emulsion-fse' );
@@ -906,6 +906,7 @@ if ( ! function_exists( 'emulsion_block_editor_assets' ) ) {
 
 			wp_enqueue_script( 'emulsion-block-fse', esc_url( get_template_directory_uri() . '/js/block-fse.js' ), array( 'wp-blocks' ) );
 		}
+
 	}
 
 }
@@ -1204,8 +1205,8 @@ if ( ! function_exists( 'emulsion_accesible_site_title_link_control' ) ) {
 
 	function emulsion_accesible_site_title_link_control( $content, $block ) {
 
-		if ( ( is_home() && is_front_page() && ! is_paged() )         // default home
-               || ( ! is_home() && is_front_page() && ! is_paged() ) // Static Front Page
+		if ( ( is_home() && ! is_front_page() && ! is_paged() )         // default home
+               || ( ! is_home() && is_front_page() ) // Static Front Page
 			) {
 
 			return strip_tags( $content, '<h1><h2>' );
@@ -1246,3 +1247,40 @@ if ( ! function_exists( 'emulsion_fallback_block_class' ) ) {
 	}
 
 }
+
+
+if ( ! function_exists( 'emulsion_relate_posts_when_addons_inactive' ) ) {
+
+	function emulsion_relate_posts_when_addons_inactive( $content, $block ) {
+
+		$block_name = 'wp-block-' . substr( strrchr( $block['blockName'], "/" ), 1 );
+
+		if ( 'wp-block-shortcode' == $block_name && ! emulsion_theme_addons_exists() ) {
+
+			$content = str_replace( '[emulsion_relate_posts]', '', $content );
+		}
+
+		return $content;
+	}
+
+}
+
+
+function THEMENAME_content_image_sizes_attr($sizes, $size) {
+    $width = $size[0];
+
+	if( 'fse' !== emulsion_get_theme_operation_mode() ) {
+		if ($width > 1600) {
+			return '(max-width: 720px) 768px, 1600px';
+		} else {
+			return $sizes;
+		}
+	} else {
+		if ($width > 768 && ! is_singular() ) {
+			return '768px';
+		} else {
+			return $sizes;
+		}
+	}
+}
+add_filter('wp_calculate_image_sizes', 'THEMENAME_content_image_sizes_attr', 10 , 2);

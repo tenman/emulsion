@@ -127,14 +127,22 @@ wp-block-term-description, wp-block-post-navigation-link, wp-block-comments-quer
     }
 
 }
-
+figure.wp-block-gallery.has-nested-images{
+    display:flex;
+    .wp-block-image{
+        display:block;
+        padding:0;
+    }
+}
 figure.wp-block-gallery.has-nested-images.alignleft{
-//OW
+    //OW
     @extend %alignleft;
+    display:flex;
 }
 figure.wp-block-gallery.has-nested-images.alignright {
-//OW
+    //OW
     @extend %alignright;
+    display:flex;
 }
 
 
@@ -252,7 +260,7 @@ button.wp-block-navigation-submenu__toggle{
         @extend %die-aligns;
 
         ul,ol{
-           padding:0 0 0 min(15%, 1.5rem);
+            padding:0 0 0 min(15%, 1.5rem);
             ul:not(#specificity), ol:not(#specificity){
                 padding:0 0 0 min(15%, 1.5rem);
             }
@@ -261,8 +269,8 @@ button.wp-block-navigation-submenu__toggle{
         [class|="wp-block"],
         p{
             width:100%;
-            padding-right:0;
-            padding-left:0;
+            padding-right:calc(var(--thm_content_gap, 24px) / 2);
+            padding-left:calc(var(--thm_content_gap, 24px) / 2);
         }
     }
     .wp-block-gallery,
@@ -299,6 +307,10 @@ button.wp-block-navigation-submenu__toggle{
 
         @extend %block;
 
+        &.alignleft,
+        &.alignright{
+            width:auto;
+        }
         .wp-block-button:not(.badge):not(.has-custom-width){
             width:-moz-fit-content;
             width:fit-content;
@@ -1779,10 +1791,9 @@ div.wp-block-columns,
 
         .shortcode-wrapper{
             padding-right:0;
-
             padding-left:0;
         }
-        & > [class|="wp-block"]:not(.wp-block-image):not(.wp-block-post-featured-image){
+        & > [class|="wp-block"]:not(.wp-block-image):not(.wp-block-post-featured-image):not(.wp-block-gallery){
 
             width:calc( 100% - var(--thm_content_gap, 24px) * 2 );
         }
@@ -1792,8 +1803,8 @@ div.wp-block-columns,
         }
 
         [class|="wp-block"]{
-            margin-right:auto;
 
+            margin-right:auto;
             margin-left:auto;
 
             &.alignfull{
@@ -1802,7 +1813,6 @@ div.wp-block-columns,
                 padding-right:0;
                 padding-left:0;
                 margin-right:auto;
-
                 margin-left:auto;
             }
         }
@@ -2551,7 +2561,7 @@ figure.wp-block-image{
     display:block;
     width: var(--thm_content_width, 720px);
     max-width:100%;
-        //OW
+    //OW
     margin-right:auto;
     margin-left:auto;
     text-align:center;
@@ -3412,4 +3422,3 @@ body:not(.full_text) .wp-block-query{
 .wp-block-comments-query-loop:empty{
     display:none;
 }
-

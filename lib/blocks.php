@@ -76,7 +76,6 @@ function emulsion_block_pattern() {
 			);
 		}
 
-
 		register_block_pattern_category( 'emulsion', array( 'label' => esc_html_x( 'Emulsion', 'Emulsion Block pattern', 'emulsion' ) ) );
 
 		register_block_pattern_category( 'emulsion-query-template', array( 'label' => esc_html_x( 'Emulsion Query Template', 'Emulsion Block pattern', 'emulsion' ) ) );

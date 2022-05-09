@@ -1341,102 +1341,50 @@ ul.shrink{
         }
     }
 }
-.wp-block-image.is-style-shrink,
-.wp-block-image.shrink{
-    figure{
-        padding-top:0;
-        padding-bottom:0;
-        margin:0;
-        font-size:var(--thm_meta_data_font_size, 13px);
-    }
+
+.wp-block-image.is-style-shrink{
+
+
     &.alignleft{
-        box-sizing:border-box;
-        float:left;
-        width:calc(50% - 1rem);
-        padding-right:0;
-        margin-right:1rem;
-        clear:left;
-        &.is-resized{
-            width:calc(50% - 1rem);
-            figure{
-                width: -moz-fit-content;
-                width:fit-content;
-            }
+
+        width:calc( var(--thm_content_width, 720px ) / 2 - var(--thm_content_gap, 24px) - 1rem);
+        margin-left: calc((100% - var(--thm_content_width, 720px )) / 2 + var(--thm_content_gap, 24px));
+
+        &.size-thumbnail{
+            width:150px;
+            padding:0;
         }
         figure{
-            float:right;
-            width: calc(var(--thm_content_width, 720px) / 2 - var(--thm_content_gap, 24px) * 2);
-            max-width:100%;
-            margin-right:1rem;
-            margin-left:0;
-            clear:right;
-        }
-        @media screen and ( max-width : 640px ) {
-            // static break point
             width:100%;
-            max-width:100%;
-            padding-right:calc(var(--thm_content_gap, 24px) );
-            padding-left:calc(var(--thm_content_gap, 24px) );
-            margin-right:0;
-            margin-left:0;
-            figure{
-                float:none;
-                width:100%;
-                clear:left;
-            }
-            &.is-resized{
-                width:calc(100%);
-                figure{
-                    width: auto;
-                    width:auto;
-                }
-            }
         }
+        @media screen and (max-width: 720px) {
+            width:auto;
+            margin-right:auto;
+            margin-left:auto;
+        }
+
     }
-    &.alignright {
-        box-sizing:border-box;
-        float:right;
-        width:calc(50% - 1rem);
-        padding-left:0;
-        margin-left:1rem;
-        clear:right;
-        &.is-resized{
-            width:calc(50% - 1rem);
-            figure{
-                width: -moz-fit-content;
-                width:fit-content;
-            }
+
+    &.alignright{
+
+        width:calc( var(--thm_content_width, 720px ) / 2 - var(--thm_content_gap, 24px)  - 1rem);
+        margin-right: calc((100% - var(--thm_content_width, 720px )) / 2 + var(--thm_content_gap, 24px));
+
+        &.size-thumbnail{
+            width:150px;
+            padding:0;
         }
         figure{
-            width: calc(var(--thm_content_width, 720px) / 2 - var(--thm_content_gap, 24px) * 2);
-            max-width:100%;
-            margin-left:1rem;
-        }
-        @media screen and ( max-width : 640px ) {
-            // static break point
             width:100%;
-            max-width:100%;
-            padding-right:calc(var(--thm_content_gap, 24px) );
-            padding-left:calc(var(--thm_content_gap, 24px) );
-            margin-right:0;
-            margin-left:0;
-            figure{
-                float:none;
-                width:100%;
-                margin-left:0;
-                clear:left;
-            }
-            &.is-resized{
-                width:calc(100%);
-                figure{
-                    width: auto;
-                    width:auto;
-                }
-            }
         }
+        @media screen and (max-width: 720px) {
+            width:auto;
+            margin-right:auto;
+            margin-left:auto;
+        }
+
     }
 }
-
 /**
  * element wrapping Square Circle
  * Play effect
