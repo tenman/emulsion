@@ -505,7 +505,7 @@ article{
     position:relative;
 }
 iframe{
-   border:var(--wp--custom--border--common);
+    border:var(--wp--custom--border--common);
 }
 code{
     tab-size:2;
@@ -609,11 +609,22 @@ p:empty{
     a{
         color:var(--wp--custom--color--dark-link);
         text-decoration-color:var(--wp--custom--border--dark-common);
+
     }
     a:focus,
         a:hover{
         color:var(--wp--custom--color--dark-link-hover);
         text-decoration: none;
+    }
+    .wp-block-navigation__submenu-container a,
+    .rich-header a{
+        color:var(--wp--custom--color--link);
+        &:focus,
+            &:hover{
+            color:var(--wp--custom--color--link-hover);
+            text-decoration: none;
+
+        }
     }
     .wp-block-button__link{
         color:var(--wp--custom--color--dark-link);
@@ -680,6 +691,14 @@ p:empty{
 
         &:not(.has-text-color){
             color:var(--wp--preset--color--black);
+            a{
+                color:var(--wp--custom--color--link);
+                &:focus,
+                    &:hover{
+                    color:var(--wp--custom--color--link-hover);
+                    text-decoration: none;
+                }
+            }
         }
         h1,h2,h3,h4,h5,h6,p,table,ol,ul{
             color:inherit;
@@ -694,6 +713,14 @@ p:empty{
 .has-background.dark-block{
     &:not(.has-text-color){
         color:var(--wp--preset--color--white);
+        a{
+            color:var(--wp--preset--color--cyan-bluish-gray);
+            &:focus,
+                &:hover{
+                color:var(--wp--custom--color--link-hover);
+                text-decoration: none;
+            }
+        }
     }
     h1,h2,h3,h4,h5,h6,p,table,ol,ul{
         color:var(--wp--preset--color--white);
@@ -864,21 +891,22 @@ p:empty{
      * After the second page name, there seems to be a problem that the .sticky class is not added
      * It is not possible to determine if this behavior is intentional in the core
      */
+
     .wp-block-query{
-        & > .wp-block-post-template:not(.is-flex-container){
+        & > .wp-block-post-template{
             display: flex;
-            flex-direction: column;
-            padding-left:0;
             li{
+                z-index:0;
                 order:2;
                 &.sticky{
                     order:1;
                 }
             }
         }
+        & > .wp-block-post-template:not(.is-flex-container){
+            flex-direction: column;
+        }
     }
-
-
 
     /**
         * wp-block (front end Theme class)

@@ -1710,19 +1710,13 @@ ul,ol,table,p,form,h1,h2,h3,h4,h5,h6{
     }
 }
 main .wp-site-blocks{
-
-
     a:any-link{
         text-decoration:none;
     }
     p a:any-link{
         text-decoration: solid underline purple 1px;
     }
-    ul.wp-block-post-template{
-        width:100%;
-        padding:0;
-        margin:0;
-    }
+
     .wp-block-post-featured-image{
         width:100%;
         padding-right:0;
@@ -2334,15 +2328,51 @@ body .scroll-button-top:before {
  * After the second page name, there seems to be a problem that the .sticky class is not added
  * It is not possible to determine if this behavior is intentional in the core
  */
+
 .wp-block-query{
     & > .wp-block-post-template{
-        display: flex;
-        flex-direction: column;
-        li{
+         display: flex;
+         z-index:0;
+         li{
             order:2;
             &.sticky{
                 order:1;
             }
         }
     }
+    & > .wp-block-post-template:not(.is-flex-container){
+        width:100%;
+        flex-direction: column;
+    }
+}
+/**
+ * Date archives navigation
+ */
+.nav-links {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    width: var(--thm_content_width, 720px);
+    max-width: 100%;
+    padding: 0;
+    margin: 1.5em auto 0.75em;
+    gap: var(--thm_box_gap, 3px);
+    box-sizing:border-box;
+}
+.archive-year-links {
+    width: -moz-fit-content;
+    width: fit-content;
+}
+.nav-links > div{
+    text-align: center;
+}
+.archive-year-links > div {
+    flex-basis: 10%;
+    min-width: 5rem;
+}
+div.emulsion-monthly-archive-prev-next-navigation > div {
+    flex-grow: 1;
+    width: 40%;
+    min-width: 100px;
+    padding: 0.685rem;
 }

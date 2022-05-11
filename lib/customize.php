@@ -445,6 +445,7 @@ CSS2;
 		}
 CSS3;
 		}
+
 		if ( 'theme' == get_theme_mod( 'emulsion_editor_support' ) ) {
 
 			$css .= <<<CSS3
