@@ -13,15 +13,36 @@ do_action( 'emulsion_template_pre_' . basename( __FILE__, '.php' ) );
 
 get_header();
 
-emulsion_the_theme_supports( 'title_in_page_header' ) ? '' : emulsion_archive_title();
+if ( true === emulsion_is_custom_post_type() && 'fse' == emulsion_get_theme_operation_mode() ) {
+	/**
+	 * Template tags are not loaded for the Full Site Editing Theme setting.
+	 * But the plugin has a request for a php template. (Ex: bbpress) Fallback for this case.
+	 */
+	if ( have_posts() ) {
 
+		while ( have_posts() ) {
 
-emulsion_action( 'emulsion_article_wrapper_before' );
+			the_post();
 
-emulsion_have_posts();
+			the_title( '<h2>', '</h2>' );
 
-emulsion_action( 'emulsion_article_wrapper_after' );
+			print('<div style="width:var(--wp--custom--width--content);margin:var(--wp--custom--margin--block);padding:0 var(--wp--custom--padding--content)">' );
 
-emulsion_pagination();
+			the_content();
 
+			print('</div>' );
+		}
+	}
+} else {
+
+	emulsion_the_theme_supports( 'title_in_page_header' ) ? '' : emulsion_archive_title();
+
+	emulsion_action( 'emulsion_article_wrapper_before' );
+
+	emulsion_have_posts();
+
+	emulsion_action( 'emulsion_article_wrapper_after' );
+
+	emulsion_pagination();
+}
 get_footer();

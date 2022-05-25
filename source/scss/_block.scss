@@ -24,7 +24,7 @@ wp-block-columns, wp-block-separator, wp-block-spacer, wp-block-media-text, wp-b
 wp-block-calendar, wp-block-categories, wp-block-latest-comments, wp-block-latest-posts, wp-block-rss,
 wp-block-search, wp-block-social-links, wp-block-tag-cloud, wp-block-embed, wp-block-navigation, wp-block-group, wp-block-page-list,
 wp-block-post-comments, wp-block-site-logo, wp-block-site-tagline, wp-block-site-title, wp-block-query-title, wp-block-post-terms,
-wp-block-shortcode, wp-block-html, wp-block-page-list, wp-block-query, wp-block-post-title, wp-block-post-content, wp-block-post-date,
+wp-block-shortcode, wp-block-html, wp-block-query, wp-block-post-title, wp-block-post-content, wp-block-post-date,
 wp-block-post-excerpt, wp-block-post-featured-image, wp-block-loginout, wp-block-template-part, wp-block-post-author, wp-block-post-comment,
 wp-block-post-comments, wp-block-post-comments-count, wp-block-post-comments-count, wp-block-post-comments-form, wp-block-post-comments-link,
 wp-block-term-description, wp-block-post-navigation-link, wp-block-comments-query-loop;
@@ -514,8 +514,10 @@ button.wp-block-navigation-submenu__toggle{
 .emulsion-addons-inactive body,
 .emulsion.full_text{
     figure.wp-block-gallery{
-        gap:var(--thm_box_gap, 3px);
-        margin:var(--thm_box_gap, 3px) auto;
+        &:not(.alignleft):not(.alignright){
+            gap:var(--thm_box_gap, 3px);
+            margin:var(--thm_box_gap, 3px) auto;
+        }
         ul.blocks-gallery-grid{
             //old style
             width:100%;
@@ -1021,13 +1023,13 @@ hr{
 .wp-block-group{
     @extend %block;
     @include clearfix;
-    float:none;
+    //float:none;
     padding-right:0;
 
     padding-left:0;
     margin-top:0;
     margin-bottom:0;
-    clear:both;
+    //clear:both;
     &[class*="wp-container-"]{
         padding-right:0;
         //width:100%;
@@ -1107,6 +1109,13 @@ article *:first-child.wp-block-group{
 /**
  * Social link
  * ========================================================================== */
+.wp-block-social-links .wp-social-link button{
+    margin:0;
+    padding:0;
+    &:before{
+        display:none!important;
+    }
+}
 ul.wp-block-social-links{
     @extend %block;
     display:flex;
@@ -2037,6 +2046,7 @@ div.wp-block-columns,
 //need specificity
 body .wp-block-table{
     width:calc(var(--thm_content_width, 720px) - var(--thm_content_gap, 24px) * 2 );
+
     height:auto;
     overflow-x:auto;
     overflow-y:hidden;
@@ -2070,6 +2080,10 @@ body .wp-block-table{
     &::-webkit-scrollbar {
         width: 0;
         height:.5em;
+    }
+    &:not(.alignleft):not(.alignright){
+        float:none;
+        clear:both;
     }
     &.alignleft,
     &.alignright{

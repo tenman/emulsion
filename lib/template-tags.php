@@ -1307,10 +1307,11 @@ function emulsion_action( $hook_name ) {
 
 function emulsion_header_manager() {
 
+
+
 	if ( 'html' !== get_theme_mod( 'emulsion_header_template' ) ) {
 
 		$emulsion_header_type = is_page() ? 'page_header' : 'header';
-
 		emulsion_metabox_display_control( $emulsion_header_type ) ? get_template_part( 'template-parts/header', emulsion_header_layout() ) : '';
 	} else {
 
