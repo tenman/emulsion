@@ -97,15 +97,15 @@ body{
  * plugin filtered page
  * bbpress, the event calendar
  */
-.is-dark.is-presentation-transitional.no-block,
-.is-fse-dark.no-block{
+.is-dark.is-presentation-transitional.no-block.post-type-custom,
+.is-fse-dark.no-block.post-type-custom{
     & > *:not(header):not(footer),
-    main{
-    color:var(--wp--preset--color--black);
-    background:var(--wp--preset--color--white);
-    a{
+        main{
         color:var(--wp--preset--color--black);
-    }
+        background:var(--wp--preset--color--white);
+        a{
+            color:var(--wp--preset--color--black);
+        }
     }
 }
 .has-border-custom {
@@ -951,6 +951,13 @@ div[class|="wp-container"]{
 
 }
 .emulsion{
+    /* pending
+    &.post-type-custom{
+    .wp-block-template-part{
+            background:transparent;
+            color:currentColor;
+    }
+    }*/
     .has-post-thumbnail{
         .wp-block-template-part{
             &.post-header,
@@ -2438,6 +2445,34 @@ body .scroll-button-top:before {
         }
     }
 }
+/*
+.emulsion{
+    .wp-block-group.is-vertical,
+    .wp-block-column{
+        & > .wp-block-separator{
+            width:auto;
+            margin:auto;
+            &:before{
+               // position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left:30%;
+                width: 100px;
+                height: 2px;
+                margin: auto;
+                color: inherit;
+                content: '';
+                background: transparent;
+                border-bottom: 1px solid;
+            }
+            &.is-style-dots:before{
+                left:0;
+                border-bottom: none;
+            }
+        }
+    }
+}*/
 /**
  * Sticky Posts
  * After the second page name, there seems to be a problem that the .sticky class is not added
@@ -2537,26 +2572,12 @@ div.emulsion-monthly-archive-prev-next-navigation > div {
     }
 
 }
-.emulsion{
-    .is-flex-container.is-vertical{
-        padding:0;
-        display:block;
-        :not(.alignleft):not(.alignright){
-            clear:none;
-            width:auto;
-            //margin:1.5rem auto;
-        }
-        hr{
-            clear:none;
-            width:auto;
-            margin:1.5rem auto;
-            &:before{
-                right:auto;
-                left:auto;
-                width:40%;
-            }
-        }
-    }
+
+.emulsion .wp-block-group.is-vertical>.wp-block-embed .wp-block-embed__wrapper,
+.emulsion .wp-block-column>.wp-block-embed .wp-block-embed__wrapper {
+    display: flex;
+    flex-direction: column;
+    width: auto;
 }
 #emulsion{
     &.bbpress{
@@ -2565,5 +2586,94 @@ div.emulsion-monthly-archive-prev-next-navigation > div {
                 display:none;
             }
         }
+    }
+}
+.clear-float{
+    float:none;
+    clear:both!important;
+}
+.clear-left{
+    float:none;
+    clear:left!important;
+}
+.clear-right{
+    float:none;
+    clear:right!important;
+}
+.clear-none{
+    clear:none!important;
+    overflow:visible;
+}
+
+.wp-block-post-content{
+    .alignleft{
+        &.wp-block-archives,
+        &.wp-block-categories{
+            background:var(--thm_background_color);
+            color:var(--thm_general_text_color);
+            a{
+                color:var(--thm_general_link_color);
+                &:hover{
+                    color:var(--thm_general_link_hover);
+                }
+            }
+            margin-top:0;
+            margin-left:0;
+            margin-bottom:0;
+        }
+        & ~ .wp-block-group{
+            .wp-block-image,
+            .wp-block-separator,
+            .wp-block-embed__wrapper{
+                display:flex;
+                flex-direction:column;
+                width:auto;
+            }
+
+            .wp-block-table,
+            .wp-block-gallery,
+            .wp-block-separator{
+                clear:none!important;
+                width:auto;
+            }
+        }
+    }
+
+    .alignright{
+        &.wp-block-archives,
+        &.wp-block-categories{
+            background:var(--thm_background_color);
+            color:var(--thm_general_text_color);
+            a{
+                color:var(--thm_general_link_color);
+                &:hover{
+                    color:var(--thm_general_link_hover);
+                }
+            }
+            margin-top:0;
+            margin-right:0;
+            margin-bottom:0;
+        }
+        & ~ .wp-block-group{
+            .wp-block-image,
+            .wp-block-separator,
+            .wp-block-embed__wrapper{
+                display:flex;
+                flex-direction:column;
+                width:auto;
+            }
+
+            .wp-block-table,
+            .wp-block-gallery,
+            .wp-block-separator{
+                clear:none!important;
+                width:auto;
+            }
+        }
+    }
+}
+.has-background{
+    p{
+        color:var(--wp--preset--color--black);
     }
 }

@@ -657,7 +657,7 @@ add_action( 'customize_controls_enqueue_scripts', 'emulsion_customizer_script' )
 function emulsion_customizer_script() {
 
 	$current_theme_mode = get_theme_mod( 'emulsion_editor_support' );
-
+	
 	$script = <<<SCRIPT
 (function ( $ ) {
 	var current_theme_mode = '{$current_theme_mode}';

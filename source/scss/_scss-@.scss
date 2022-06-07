@@ -302,15 +302,21 @@
     box-sizing:border-box;
     float:left;
     width:calc( 50% - var(--thm_content_gap, 24px) - 1rem );
-    //width:-moz-fit-content;
-    //width:fit-content;
-    max-width:calc( 50% - var(--thm_content_gap, 24px) - 1rem );
+   // max-width:calc( 50% - var(--thm_content_gap, 24px) - 1rem );
+   max-width:100%;
     padding:0;
     margin-top:1.5rem;
     margin-right:1rem;
     margin-bottom:.75rem;
     margin-left:var(--thm_content_gap, 24px);
     clear:left;
+&.has-background{
+        @media screen and (max-width: 640px){
+            margin-top:0;
+            margin-bottom:0;
+        }
+    }
+
     &.wp-block-embed{
         width:calc( 50% - var(--thm_content_gap, 24px) - 1rem );
     }
@@ -357,6 +363,18 @@
             padding-left: clamp( 2rem, calc( 100vw / 36 ), calc(40px + var(--wp--custom--padding--content,.75rem)));
 
         }
+        @media (min-width: 640px) and (max-width: 1360px){
+            & ~ .is-vertical ol:not([class*="wp-block"]),
+                & ~ .is-vertical ul:not([class*="wp-block"]),
+                & ~ ol:not([class*="wp-block"]),
+                & ~ ul:not([class*="wp-block"]){
+                li{
+                    transform: translateX(1.75rem);
+                    margin-right:1.75rem;
+
+                }
+            }
+        }
     }
     & > figure{
         margin-top:0;
@@ -378,6 +396,7 @@
         margin-right:0;
         margin-left:0;
     }
+
 }
 /**
  * alignright
@@ -389,13 +408,20 @@
     width:calc( 50% - var(--thm_content_gap, 24px) - 1rem );
    // width:-moz-fit-content;
   //  width:fit-content;
-    max-width:calc( 50% - var(--thm_content_gap, 24px) - 1rem );
+    //max-width:calc( 50% - var(--thm_content_gap, 24px) - 1rem );
+    max-width:100%;
     padding:0;
     margin-top:1.5rem;
     margin-right:var(--thm_content_gap, 24px);
     margin-bottom:.75rem;
     margin-left:1rem;
     clear:right;
+    &.has-background{
+        @media screen and (max-width: 640px){
+            margin-top:0;
+            margin-bottom:0;
+        }
+    }
     &.wp-block-embed{
         width:calc( 50% - var(--thm_content_gap, 24px) - 1rem );
     }

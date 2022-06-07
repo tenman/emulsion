@@ -128,6 +128,10 @@ wp-block-term-description, wp-block-post-navigation-link, wp-block-comments-quer
 
 }
 figure.wp-block-gallery.has-nested-images{
+    &:not(.alignleft):not(.alignright){
+        clear:both;
+        float:none;
+    }
     display:flex;
     .wp-block-image{
         display:block;
@@ -563,6 +567,10 @@ button.wp-block-navigation-submenu__toggle{
      * ========================================================================== */
 
     & > ul.wp-block-archives{
+        &:not(.alignleft):not(.alignright){
+            clear:both;
+            float:none;
+        }
         position:relative;
         display:flex;
         height:100px;
@@ -761,6 +769,10 @@ button.wp-block-navigation-submenu__toggle{
     }
 }
 figure.wp-block-pullquote{
+    &:not(.alignleft):not(.alignright){
+        clear:both;
+        float:none;
+    }
     position:relative;
 
     display:flex;
@@ -1118,6 +1130,10 @@ article *:first-child.wp-block-group{
 }
 ul.wp-block-social-links{
     @extend %block;
+    &:not(.alignleft):not(.alignright){
+        clear:both;
+        float:none;
+    }
     display:flex;
     justify-content: flex-start;
     margin: 1.5rem auto .75rem;
@@ -1183,6 +1199,7 @@ ul.wp-block-social-links{
     }
 
     .wp-social-link{
+
         display:flex;
         flex-direction: column;
         align-items: center;
@@ -1288,6 +1305,10 @@ ul.wp-block-rss{
         }
     }
     &.is-grid{
+        &:not(.alignleft):not(.alignright){
+            clear:both;
+            float:none;
+        }
         box-sizing:border-box;
         display:flex;
         flex-wrap:wrap;
@@ -1773,6 +1794,10 @@ div.wp-block-columns,
 
     @extend %block;
     display:flex;
+    &:not(.alignleft):not(.alignright){
+        clear:both;
+        float:none;
+    }
     justify-content: flex-start;
     @media (min-width: 600px) and (max-width: 781px) {
         //OW
@@ -3309,6 +3334,10 @@ body:not(.full_text) .wp-block-query{
         &.is-flex-container{
             display:flex;
             flex-wrap:wrap;
+            &:not(.alignleft):not(.alignright){
+                clear:both;
+                float:none;
+            }
 
             padding-bottom:.75rem;
             .wp-block-post-excerpt__excerpt{
@@ -3435,4 +3464,7 @@ body:not(.full_text) .wp-block-query{
 }
 .wp-block-comments-query-loop:empty{
     display:none;
+}
+.gist{
+    max-width:100%;
 }

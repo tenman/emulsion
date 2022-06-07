@@ -46,7 +46,7 @@
 					wp_reset_postdata();
 				}
 				$html = $result.'</ul><!-- /wp:list --></div><!-- /wp:group -->';
-		} 
+		}
 
 
 $html = str_replace( array( PHP_EOL, "\t" ), array( '', '' ), $html );

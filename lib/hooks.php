@@ -388,6 +388,14 @@ if ( ! function_exists( 'emulsion_body_class' ) ) {
 
 		$classes[] = 'is-tpl-' . emulsion_get_template();
 
+		if( emulsion_is_custom_post_type() ) {
+
+			$classes[] = 'post-type-custom';
+		} else {
+
+			$classes[] = 'post-type-default';
+		}
+
 		return $classes;
 	}
 
