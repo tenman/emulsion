@@ -868,9 +868,22 @@ p{
         margin-bottom:.75rem;
     }
 }
-p:empty{
-    display:none;
+
+p[data-empty="true"]{
+    margin-top:0!important;
+
+    &:before{
+        content:'\21b5';
+        display:inline-block;
+
+    }
 }
+p:empty{
+    display:block;
+    height:.75rem;
+    margin:1.125rem auto;
+}
+
 p.has-drop-cap:not(:focus):first-letter {
     float: left;
     padding: .2rem .4rem 0 .3rem;

@@ -301,7 +301,7 @@ function custom_load_separate_theme_block_assets() {
 		'list', 'media-text', 'missing', 'more', 'navigation-area', 'navigation-link', 'navigation-submenu', 'navigation', 'next-page', 'page-list',
 		'paragraph', 'pattern', 'post-author-name', 'post-author', 'post-comment-author', 'post-comment-content', 'post-comment-date',
 		'post-comments-count', 'post-comments-form', 'post-comments-link', 'post-comments', 'post-content', 'post-date', 'post-excerpt',
-		'post-featured-image', 'post-navigation-link', 'post-template', 'post-term', 'post-title', 'preformatted', 'pullquote',
+		'post-featured-image', 'post-navigation-link', 'post-template', 'post-terms', 'post-title', 'preformatted', 'pullquote',
 		'query-pagination-next', 'query-pagination-numbers', 'query-pagination-previous', 'query-pagination', 'query-title', 'query',
 		'quote', 'rss', 'search', 'separator', 'shortcode', 'site-logo', 'site-tagline', 'site-title', 'social-link', 'social-links',
 		'spacer', 'table', 'tag-cloud', 'template-part', 'term-description', 'text-columns', 'verse', 'video','post-author-biography', 'avatar' );
@@ -363,6 +363,11 @@ function emulsion_corrected_core_css_max_width() {
 			margin-block-start:revert;
 			margin-block-end:revert;
 			margin:revert;
+
+		}
+		div.editor-styles-wrapper [class*="wp-container-"] > .alignleft,
+		div.editor-styles-wrapper [class*="wp-container-"] > .alignright {
+			margin:var(--wp--custom--padding--content)
 		}
 
 STYLE;

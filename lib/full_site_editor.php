@@ -50,13 +50,6 @@ if ( 'theme' == emulsion_get_theme_operation_mode() ) {
 	//remove_action( 'admin_notices', 'gutenberg_full_site_editing_notice' );
 }
 
-function emulsion_full_site_editing_notice() {
-	?>
-	<div class="notice notice-warning">
-		<p><?php esc_html_e( 'You\'re using an experimental Full Site Editing theme. The function is temporarily stopped, but please use it only for experiments.', 'emulsion' ); ?></p>
-	</div>
-	<?php
-}
 
 /**
  * Fiters
@@ -247,8 +240,7 @@ function emulsion_stop_fse() {
 		if ( has_filter( 'wp_enqueue_scripts', 'gutenberg_experimental_global_styles_enqueue_assets' ) ) {
 			$result .= remove_action( 'wp_enqueue_scripts', 'gutenberg_experimental_global_styles_enqueue_assets' ) ? '' : ' gutenberg_experimental_global_styles_enqueue_assets';
 		}
-		add_action( 'admin_notices', 'emulsion_full_site_editing_notice' );
-
+		
 		if ( empty( $result ) ) {
 
 			return true;

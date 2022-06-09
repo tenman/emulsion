@@ -2478,8 +2478,29 @@ div.wp-block-media-text > .block-editor-block-list__layout > .block-editor-block
  * Block image
  * ========================================================================== */
 
-
+figure.wp-block-image,
 div.wp-block-image{
+
+     &.is-style-circle-mask{
+            figcaption{
+                display:block;
+                position: absolute;
+                z-index: 10;
+                top: 40%;
+                left: 0;
+                right: 0;
+                visibility:hidden;
+                color:#fff;
+                background:rgba(0,0,0,.3);
+                padding:.75rem;
+            }
+            &:hover{
+                figcaption{
+                    visibility:visible;
+                }
+            }
+        }
+
 
     &.alignright,
     &.alignleft{
@@ -2503,8 +2524,15 @@ div.wp-block-image{
                 z-index:2;
             }
         }
-        &.is-style-circle-mask{
-            shape-outside: circle(50%);
+        &.is-style-circle-mask:not(.specificity){
+            width: calc(50% - var(--thm_content_gap, 24px) - 1rem);
+            shape-outside: circle();
+            text-align:center;
+            display:block;
+            margin-top:.75rem;
+            @media screen and ( max-width : 640px ) {
+                shape-outside: none;
+            }
             figcaption{
                 width:-moz-fit-content;
                 width:fit-content;
@@ -2525,6 +2553,7 @@ div.wp-block-image{
             }
         }
         &.is-resized{
+
             width:auto;
             //margin-top:0;
             margin-right:1rem;// core overwrite
@@ -2606,7 +2635,13 @@ figure.wp-block-image{
     text-align:center;
 
     &.is-resized{
-        width:auto;
+
+        &.alignleft{
+            text-align:right;
+        }
+        &.alignright{
+            text-align:left;
+        }
     }
     &.alignfull{
         margin-right:auto;

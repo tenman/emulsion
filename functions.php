@@ -52,6 +52,9 @@ STYLE;
 
 
 		$css .=<<<STYLE
+				ul.block-editor-block-list__block .block-list-appender{
+					width:24px;
+				}
 
 STYLE;
 		return $css;

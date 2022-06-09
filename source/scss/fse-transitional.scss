@@ -347,6 +347,9 @@ div[class|="wp-container"]{
         display:flex;
         flex-wrap:wrap;
         gap:var(--wp--custom--margin--gap, 3px);
+        &.is-vertical{
+            display:block;
+        }
 
         @for $i from 1 through 6 {
 
@@ -2620,23 +2623,28 @@ div.emulsion-monthly-archive-prev-next-navigation > div {
             margin-top:0;
             margin-left:0;
             margin-bottom:0;
-        }
-        & ~ .wp-block-group{
-            .wp-block-image,
-            .wp-block-separator,
-            .wp-block-embed__wrapper{
-                display:flex;
-                flex-direction:column;
-                width:auto;
+
+            & ~ .wp-block-group{
+
+                .wp-block-image:not([class*="align"]),
+                .wp-block-separator,
+                .wp-block-embed__wrapper{
+                    display:flex;
+                    flex-direction:column;
+                    width:auto;
+                }
+
+                .wp-block-table,
+                .wp-block-gallery,
+                .wp-block-separator{
+                    clear:none!important;
+                    width:auto;
+                }
             }
 
-            .wp-block-table,
-            .wp-block-gallery,
-            .wp-block-separator{
-                clear:none!important;
-                width:auto;
-            }
+
         }
+
     }
 
     .alignright{
@@ -2653,23 +2661,24 @@ div.emulsion-monthly-archive-prev-next-navigation > div {
             margin-top:0;
             margin-right:0;
             margin-bottom:0;
-        }
-        & ~ .wp-block-group{
-            .wp-block-image,
-            .wp-block-separator,
-            .wp-block-embed__wrapper{
-                display:flex;
-                flex-direction:column;
-                width:auto;
-            }
+            & ~ .wp-block-group{
+                .wp-block-image:not([class*="align"]),
+                .wp-block-separator,
+                .wp-block-embed__wrapper{
+                    display:flex;
+                    flex-direction:column;
+                    width:auto;
+                }
 
-            .wp-block-table,
-            .wp-block-gallery,
-            .wp-block-separator{
-                clear:none!important;
-                width:auto;
+                .wp-block-table,
+                .wp-block-gallery,
+                .wp-block-separator{
+                    clear:none!important;
+                    width:auto;
+                }
             }
         }
+
     }
 }
 .has-background{
