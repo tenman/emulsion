@@ -21,10 +21,4 @@ document.addEventListener('DOMContentLoaded', function (event) {
     wp.blocks.unregisterBlockStyle('core/list', 'list-style-initial');
     wp.blocks.unregisterBlockStyle('core/list', 'circle-mask');
 
-    /**
-     * Block Pattern
-     *
-     * @see lib/functions-fse emulsiong_remove_block_pattern()
-     */
-
 });

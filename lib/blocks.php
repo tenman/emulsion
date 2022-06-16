@@ -40,23 +40,42 @@ if ( function_exists( 'register_block_style' ) ) {
 
 	register_block_style( 'core/column', array( 'name' => 'main', 'label' => esc_html__( 'Main Column', 'emulsion' ), ) );
 	register_block_style( 'core/column', array( 'name' => 'sticky', 'label' => esc_html__( 'Sticky Column', 'emulsion' ), ) );
-// 'freeform',
+// 'freeform', 'shortcode', 'html',
 		$styles = array( 'archives', 'audio', 'blocks', 'buttons', 'calendar', 'categories', 'code', 'columns', 'comment-content', 'comment-date',
 		'comment-edit-link', 'comment-reply-link', 'comment-template', 'comments-author-avatar', 'comments-author-name', 'commentspagination-next',
 		'comments-pagination-next', 'comments-pagination-numbers', 'comments-pagination-previous', 'comments-pagination', 'comments-query-loop',
-		'cover', 'embed', 'file', 'gallery', 'group', 'heading', 'home-link', 'html', 'image', 'latest-comments', 'latest-posts',
+		'cover', 'embed', 'file', 'gallery', 'group', 'heading', 'home-link', 'image', 'latest-comments', 'latest-posts',
 		'list', 'media-text', 'missing', 'more', 'navigation-area', 'navigation-link', 'navigation-submenu', 'navigation', 'next-page', 'page-list',
 		'paragraph', 'pattern', 'post-author-name', 'post-author', 'post-comment-author', 'post-comment-content', 'post-comment-date',
 		'post-comments-count', 'post-comments-form', 'post-comments-link', 'post-comments', 'post-content', 'post-date', 'post-excerpt',
 		'post-featured-image', 'post-navigation-link', 'post-template', 'post-terms', 'post-title', 'preformatted', 'pullquote',
 		'query-pagination-next', 'query-pagination-numbers', 'query-pagination-previous', 'query-pagination', 'query-title', 'query',
-		'quote', 'rss', 'search', 'separator', 'shortcode', 'site-logo', 'site-tagline', 'site-title', 'social-link', 'social-links',
+		'quote', 'rss', 'search', 'separator', 'site-logo', 'site-tagline', 'site-title', 'social-link', 'social-links',
 		'spacer', 'table', 'tag-cloud', 'template-part', 'term-description', 'text-columns', 'verse', 'video','post-author-biography', 'avatar', 'table-of-contents' );
 
 		foreach( $styles as $style ) {
 
 			register_block_style( 'core/'.$style , array( 'name' => 'new-line', 'label' => esc_html__( 'New Line', 'emulsion' ), ) );
 		}
+
+
+	add_filter(
+			'block_editor_settings_all',
+			function ( $settings ) {
+				$post = get_post();
+
+				if( $post ){
+
+					$filename = sanitize_file_name( sprintf( 'block-template-default-%1$s',  $post->post_type. '.php' ) );
+					$template_path = get_template_directory() . '/block-patterns/' . $filename;
+				}
+
+				if ( is_readable( $template_path ) ) {
+
+					$settings['defaultBlockTemplate'] = include( $template_path );
+				}
+				return $settings;
+			} );
 
 }
 

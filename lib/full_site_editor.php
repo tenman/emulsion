@@ -240,7 +240,7 @@ function emulsion_stop_fse() {
 		if ( has_filter( 'wp_enqueue_scripts', 'gutenberg_experimental_global_styles_enqueue_assets' ) ) {
 			$result .= remove_action( 'wp_enqueue_scripts', 'gutenberg_experimental_global_styles_enqueue_assets' ) ? '' : ' gutenberg_experimental_global_styles_enqueue_assets';
 		}
-		
+
 		if ( empty( $result ) ) {
 
 			return true;

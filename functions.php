@@ -15,7 +15,7 @@ if('fse' == emulsion_get_theme_operation_mode() ) {
 	 */
 
 	function emulsion_fse_inline_style(){
-		$css = '';
+		$css = emulsion_custom_field_css();
 		//@since ver 13.1.0 , 13.2.2 Reappear
 		$css .= emulsion_corrected_core_css_has_nested_images_gallery();
 
@@ -49,12 +49,11 @@ STYLE;
 		$css .= emulsion_add_classic_custom_field_css();
 		$css .= emulsion_corrected_core_css_not_sure_universal_selector();
 		$css .= emulsion_add_narrow_align_css();
+		$css .= emulsion_add_misc_css();
 
 
 		$css .=<<<STYLE
-				ul.block-editor-block-list__block .block-list-appender{
-					width:24px;
-				}
+
 
 STYLE;
 		return $css;

@@ -19,7 +19,8 @@
     if (document.querySelector(".modal-open-link > .wp-block-button") !== null) {
 
         document.querySelector(".modal-open-link > .wp-block-button").onclick = function focus_modal_open_link() {
-           document.querySelector(".modal-open-link > .wp-block-button").focus();
+            document.querySelector(".modal-open-link > .wp-block-button").focus();
+            document.querySelector(".modal-open-link + .modal").classList.add('is-opened');
         }
     }
 
@@ -40,14 +41,43 @@
 
 
 }());
+
+(function () {
+    const tab_list = document.querySelectorAll('.list-style-tab > li');
+
+    tab_list.forEach(function (val, index) {
+        console.log(val);
+        val.setAttribute('tabindex', '0');
+        val.setAttribute('role', 'tab');
+        val.parentNode.setAttribute('tabindex', '0');
+        val.parentNode.setAttribute('role', 'tabgroup');
+        val.parentNode.classList.add('success-js');
+
+        val.addEventListener('focusin', (event) => {
+
+            var height = Math.round(event.target.clientHeight) + 36;
+
+            event.target.style.marginBottom = height + 'px';
+            event.target.setAttribute('aria-selected', 'true');
+            event.target.classList.add('active');
+
+        });
+        val.addEventListener('focusout', (event) => {
+            event.target.style.background = '';
+            event.target.classList.remove('active');
+        });
+    });
+
+
+}());
 window.addEventListener('DOMContentLoaded', function () {
 
     window.addEventListener('scroll', function () {
-         /*
-                elements.classList.add(‘className’)
-                elements.classList.remove(‘className’)
-                elements.classList.toggle(‘className’)
-                elements.classList.contains(‘className’)
+        /*
+         elements.classList.add(‘className’)
+         elements.classList.remove(‘className’)
+         elements.classList.toggle(‘className’)
+         elements.classList.contains(‘className’)
          */
         var scrolle_y = window.scrollY;
         var offset_primary_menu = document.querySelector('.fse-header').clientHeight;

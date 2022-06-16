@@ -2481,25 +2481,25 @@ div.wp-block-media-text > .block-editor-block-list__layout > .block-editor-block
 figure.wp-block-image,
 div.wp-block-image{
 
-     &.is-style-circle-mask{
+    &.is-style-circle-mask{
+        figcaption{
+            display:block;
+            position: absolute;
+            z-index: 10;
+            top: 40%;
+            left: 0;
+            right: 0;
+            visibility:hidden;
+            color:#fff;
+            background:rgba(0,0,0,.3);
+            padding:.75rem;
+        }
+        &:hover{
             figcaption{
-                display:block;
-                position: absolute;
-                z-index: 10;
-                top: 40%;
-                left: 0;
-                right: 0;
-                visibility:hidden;
-                color:#fff;
-                background:rgba(0,0,0,.3);
-                padding:.75rem;
-            }
-            &:hover{
-                figcaption{
-                    visibility:visible;
-                }
+                visibility:visible;
             }
         }
+    }
 
 
     &.alignright,
@@ -3502,4 +3502,67 @@ body:not(.full_text) .wp-block-query{
 }
 .gist{
     max-width:100%;
+}
+/**
+    * Clear Float
+ */
+.is-style-new-line,
+.clear-float{
+    float:none;
+    clear:both!important;
+    &.wp-block-post-date,
+    &.wp-block-post-author{
+        display: flow-root;
+    }
+
+}
+.clear-left{
+    float:none;
+    clear:left!important;
+}
+.clear-right{
+    float:none;
+    clear:right!important;
+}
+.clear-none{
+    clear:none!important;
+    overflow:visible;
+}
+.is-light,
+.is-fse-light,
+.is-fse-bg-default{
+    .wp-block-table-of-contents{
+        ol{
+            border:var(--wp--custom--border--common,1px solid #ccc);
+            background:var(--wp--custom--color--toc-bg);
+            ol{
+                border:none;
+            }
+            a{
+                color:var(--wp--custom--color--link);
+                &:hover{
+                    color:var(--wp--custom--color--link-hover);
+                }
+            }
+        }
+    }
+}
+.is-dark,
+.is-fse-dark{
+   .wp-block-table-of-contents{
+        ol{
+            background:var(--wp--custom--color--dark-toc-bg);
+            border:var(--wp--custom--border--dark-common,1px solid #ccc);
+            ol{
+                border:none;
+            }
+
+            a{
+                color:var(--wp--custom--color--dark-link);
+                &:hover{
+                    color:var(--wp--custom--color--dark-link-hover);
+                }
+            }
+        }
+    }
 }

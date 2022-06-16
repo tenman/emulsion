@@ -117,6 +117,7 @@ function emulsion_register_scripts_and_styles() {
 	wp_enqueue_style( 'emulsion-fse' );
 
 	$inline_style = emulsion_fse_inline_style();
+
 	wp_add_inline_style( 'emulsion-fse', $inline_style );
 
 	/**
@@ -288,6 +289,7 @@ function emulsion_fse_body_class( $classes ) {
 function emulsion_fse_admin_body_class( $classes ) {
 
 	$classes .= ' emulsion';
+	$classes .= ' '. emulsion_fse_background_color_class();
 
 	return $classes;
 }
@@ -739,11 +741,21 @@ function emulsion_add_classic_custom_field_css() {
 	.edit-post-meta-boxes-area.is-side  #list-table tbody tr,
 	.edit-post-meta-boxes-area.is-side  #list-table tbody tr td{
 		display:block;
+
 	}
+		.edit-post-meta-boxes-area.is-side .inside #newmeta thead th,
+	.edit-post-meta-boxes-area.is-side .inside #list-table thead th,
 	.edit-post-meta-boxes-area.is-side .inside #list-table tbody tr #newmetaleft,
 	.edit-post-meta-boxes-area.is-side .inside #list-table tbody tr td.left{
-		width:90%;
+		width:100%;
 		display:block;
+	}
+	#newmeta,
+	#postcustom .inside{
+		padding:0;
+	}
+	#postcustom .inside td{
+		padding:0;
 	}
 STYLE;
 	return $css;
@@ -836,6 +848,22 @@ STYLE;
 	return $css;
 }
 
+function emulsion_add_misc_css(){
+	/**
+	 * Add Custom field CSS
+	 */
+		$post_id = get_the_ID();
+	$css = get_post_meta($post_id,'css', true);
+
+	$css .= <<<STYLE
+		ul.block-editor-block-list__block .block-list-appender{
+					width:24px;
+		}
+STYLE;
+	return $css;
+}
+
+
 
 function emulsion_corrected_core_css_not_sure_universal_selector() {
 
@@ -875,6 +903,7 @@ STYLE;
 		return $css;
 
 }
+
 if ( ! function_exists( 'emulsion_toc_fse' ) ) {
 
 	function emulsion_toc_fse( $script ) {
@@ -886,17 +915,3 @@ if ( ! function_exists( 'emulsion_toc_fse' ) ) {
 
 }
 
-
-add_action( 'init', 'emulsiong_remove_block_pattern' );
-/**
- * @version 2.3.6 removed
- */
-function emulsiong_remove_block_pattern() {
-	$patterns = array(
-		'emulsion/block-pattern-list-tab',
-		'emulsion/block-pattern-modal'
-	);
-	foreach ( $patterns as $pattern ) {
-		unregister_block_pattern( $pattern );
-	}
-}

@@ -1996,51 +1996,6 @@ if ( ! function_exists( 'emulsion_woocommerce_dinamic_css' ) ) {
 
 }
 
-if ( ! function_exists( 'emulsion_custom_field_css' ) ) {
-
-	function emulsion_custom_field_css() {
-
-		$post_id			 = absint( get_the_ID() );
-		$meta_style			 = '';
-		$post_type			 = get_post_type();
-		$custom_css_class	 = 'has-custom-style';
-		$meta_field			 = 'css';
-
-		if ( metadata_exists( $post_type, $post_id, $meta_field ) ) {
-
-			$meta_style = get_metadata( $post_type, $post_id, $meta_field, true );
-
-			add_filter(
-					'body_class', function ( $class ) use ( $custom_css_class ) {
-						$class[] = $custom_css_class;
-						return $class;
-					} );
-
-			$meta_style_css = preg_replace_callback( '![^}]+{[^}]+}!siu', function ( $matches ) use ( $post_id ) {
-
-				$result = '';
-				foreach ( $matches as $match ) {
-
-					if ( is_singular() ) {
-
-						if ( false === strstr( $match, 'has-custom-style' ) ) {
-
-							$result .= sprintf( ' .postid-%1$d %2$s', $post_id, $match );
-						} else {
-
-							$result .= $match;
-						}
-					}
-				}
-
-				return $result;
-			}, $meta_style );
-
-			return emulsion_sanitize_css( $meta_style_css );
-		}
-	}
-
-}
 
 
 add_filter( 'render_block', 'emulsion_modified_main_element', 10, 2 );
@@ -2153,23 +2108,6 @@ if ( ! function_exists( 'emulsion_modify_cjk_excerpt' ) ) {
 
 }
 
-
-if ( ! function_exists( 'emulsion_sanitize_css' ) ) {
-
-	/**
-	 * CSS sanitize
-	 */
-	function emulsion_sanitize_css( $css ) {
-
-		/**
-		 *
-		 * Please add filter style sanitize code. if need
-		 *
-		 */
-		return wp_strip_all_tags( $css );
-	}
-
-}
 
 
 
