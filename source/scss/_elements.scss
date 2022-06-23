@@ -95,7 +95,9 @@ noscript,ol,output,p,pre,section,ul,video{
     max-width:100%;
 
 }
-
+ul,ol{
+  @extend %block;
+}
 
 /**
  * Default block width
@@ -2338,6 +2340,7 @@ body .fit{
                 text-align:center;
                 text-transform: uppercase;
 
+
                 vertical-align:middle;
                 background: var(--thm_header_bg_color);
             }
@@ -2769,4 +2772,8 @@ main{
             margin:0 auto;
         }
     }
+}
+.is-style-new-line{
+    float:none;
+    clear:both!important;
 }

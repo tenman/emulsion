@@ -41,7 +41,10 @@ function emulsion_hooks_setup() {
 	 */
 	if ( ! emulsion_theme_addons_exists() ) {
 
-		remove_shortcode( 'emulsion_relate_posts' );
+		/*
+		 * removed shortcode
+		 * @since 2.3.9
+		 * remove_shortcode( 'emulsion_relate_posts' );
 
 		add_filter( 'render_block_core/shortcode', function ( $content ) {
 
@@ -50,7 +53,7 @@ function emulsion_hooks_setup() {
 				return;
 			}
 			return $content;
-		} );
+		} );*/
 
 		/**
 		 * CJK language ( CJK unified ideographs ) issue instant fix
@@ -114,7 +117,7 @@ function emulsion_hooks_setup() {
 
 	if ( 'theme' !== emulsion_get_theme_operation_mode() ) {
 
-		add_filter( 'render_block_core/list', function ( $content ) {
+		/*add_filter( 'render_block_core/pattern', function ( $content ) {
 
 			// Change static contents to dinamic contents
 
@@ -122,10 +125,11 @@ function emulsion_hooks_setup() {
 
 				$template_path = get_template_directory() . '/block-patterns/block-pattern-relate-posts.php';
 
-				return include( $template_path );
+				return include( $template_path ).'test';
 			}
 			return $content;
-		} );
+		} );*/
+
 		add_filter( 'render_block_core/navigation', function ( $content, $block ) {
 
 			if ( 'transitional' == emulsion_get_theme_operation_mode() && 'fse-primary' == $block["attrs"]["className"] ) {
@@ -290,7 +294,9 @@ if ( ! function_exists( 'emulsion_body_class' ) ) {
 				$classes[] = 'emulsion-layout-no-title';
 			}
 		}
-
+		if('theme' == get_theme_mod( 'emulsion_editor_support' ) && emulsion_is_amp() ){
+			$classes[] = 'amp-give-up';
+		}
 		if ( is_singular() ) {
 
 			$classes[]	 = 'no_bg' === get_post_meta( $post_id, 'emulsion_page_theme_style_script', true ) ? 'metabox-reset-page-presentation' : '';

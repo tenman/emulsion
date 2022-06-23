@@ -7,6 +7,7 @@ if ( is_single() && false == emulsion_metabox_display_control( 'style' ) ) {
 
 return;
 }
+
 if ( ! emulsion_the_theme_supports( 'enqueue' ) ) {
 
 return;
@@ -19,7 +20,7 @@ return;
 			<div class="search-box"><?php get_search_form(); ?></div>
 <?php emulsion_action('emulsion_drawer_before'); ?>
 			<div class="search-info" aria-hidden="true"><?php
-			
+
 			if ( is_active_sidebar( 'sidebar-5' ) ) {
 
 			?><ul class="search-drawer-content"><?php

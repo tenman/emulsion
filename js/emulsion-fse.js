@@ -50,12 +50,12 @@
         val.setAttribute('tabindex', '0');
         val.setAttribute('role', 'tab');
         val.parentNode.setAttribute('tabindex', '0');
-        val.parentNode.setAttribute('role', 'tabgroup');
+        val.parentNode.setAttribute('role', 'tablist');
         val.parentNode.classList.add('success-js');
 
         val.addEventListener('focusin', (event) => {
 
-            var height = Math.round(event.target.clientHeight) + 36;
+            var height = Math.round(event.target.firstElementChild.clientHeight) + 36;
 
             event.target.style.marginBottom = height + 'px';
             event.target.setAttribute('aria-selected', 'true');
