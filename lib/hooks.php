@@ -522,48 +522,7 @@ if ( ! function_exists( 'emulsion_shortcode_tag_filter' ) ) {
 
 
 
-if ( ! function_exists( 'emulsion_get_the_password_form' ) ) {
 
-	/**
-	 * Password post form
-	 * @global type $post
-	 * @param type $post
-	 * @return type
-	 */
-	function emulsion_get_the_password_form( $output ) {
-		global $post;
-
-		if ( ! isset( $post ) ) {
-			return $output;
-		}
-
-		$form_html = '<div class="theme-message aligncenter"><form action="%1$s" class="post-password-form" method="post">
-	<p class="message" id="%7$s">%2$s</p>
-	<p class="fields">
-		<label for="%3$s" class="screen-reader-text">%4$s</label>
-		<input name="post_password" id="%3$s" type="password" size="20" placeholder="%5$s" aria-required="true" aria-label="%5$s" aria-describedby="%7$s" required />
-		<input type="submit" name="Submit" value="%6$s" />
-	</p>
-	</form></div>';
-
-		$post_id			 = absint( $post->ID );
-		$label				 = 'pwbox-' . ( empty( $post_id ) ? rand() : $post_id );
-		// @since 1.1.6 change from pwbox- to password-box-. Duplicate id attribute
-		$aria_describedby	 = 'password-box-' . ( empty( $post_id ) ? rand() : $post_id );
-		$label_text			 = __( 'Password:', 'emulsion' );
-		$url				 = esc_url( site_url( 'wp-login.php?action=postpass', 'login_post' ) );
-		$submit_text		 = esc_attr_x( 'Enter', 'post password form', 'emulsion' );
-		$message			 = esc_html__( 'This content is password protected.', 'emulsion' );
-		$message			 .= '<wbr />';
-		$message			 .= esc_html__( 'To view it please enter your password below:', 'emulsion' );
-		$placeholder		 = esc_html__( 'Password', 'emulsion' );
-
-		$form = sprintf( $form_html, $url, $message, $label, $label_text, $placeholder, $submit_text, $aria_describedby );
-
-		return $form;
-	}
-
-}
 
 if ( ! function_exists( 'emulsion_lazyload' ) ) {
 

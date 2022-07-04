@@ -76,6 +76,7 @@ if ( ! function_exists( 'emulsion_setup' ) ) {
 		add_filter( 'render_block', 'emulsion_relate_posts_when_addons_inactive', 10, 2 );
 
 		add_filter( 'get_the_author_description', 'emulsion_author_description', 20 );
+		add_filter( 'the_password_form', 'emulsion_get_the_password_form', 11 );
 
 
 
@@ -367,9 +368,9 @@ function emulsion_corrected_core_css_max_width() {
 			overflow:hidden;
 		}
 		div.editor-styles-wrapper [class*="wp-container-"] > * {
-			margin-block-start:revert;
-			margin-block-end:revert;
-			margin:revert;
+			margin-block-start:auto;
+			margin-block-end:auto;
+			margin:auto;
 
 		}
 		div.editor-styles-wrapper [class*="wp-container-"] > .alignleft,

@@ -6,9 +6,9 @@ $algo = emulsion_related_posts_finder();
 
 $html		 = sprintf( '<li>%1$s</li>', esc_html__( 'Not Found', 'emulsion' ) );
 $result_pre	 = sprintf( '<!-- wp:group {"className":"emulsion-block-pattern-relate-posts wrap-emulsion_relate_posts", "layout":{"inherit":true}} -->'
-		. '<div class="emulsion-block-pattern-relate-posts wp-block-group wrap-emulsion_relate_posts">'
-		. '<!-- wp:heading --><h2 class="relate-posts-title fit">%1$s</h2><!-- /wp:heading -->'
-		. '<!-- wp:list --><ul class="relate-posts fit">', esc_html__( 'Relate Posts', 'emulsion' ) );
+		. '<div class="emulsion-block-pattern-relate-posts wp-block-group wrap-emulsion_relate_posts" id="relate-posts">'
+		. '<!-- wp:heading --><h2 class="relate-posts-title">%1$s</h2><!-- /wp:heading -->'
+		. '<!-- wp:list --><ul class="relate-posts">', esc_html__( 'Relate Posts', 'emulsion' ) );
 
 $result_after = '</ul><!-- /wp:list --></div><!-- /wp:group -->';
 
