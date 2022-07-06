@@ -138,7 +138,7 @@ function emulsion_block_pattern() {
 					)
 			);
 		}
-		$template_path = get_template_directory() . '/block-patterns/block-pattern-test.php';
+		/*$template_path = get_template_directory() . '/block-patterns/block-pattern-test.php';
 
 		if ( is_readable( $template_path ) ) {
 
@@ -151,7 +151,7 @@ function emulsion_block_pattern() {
 				'keywords'		 => array( "emulsion", "test posts" ),
 					)
 			);
-		}
+		}*/
 
 
 
