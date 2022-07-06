@@ -117,18 +117,7 @@ function emulsion_hooks_setup() {
 
 	if ( 'theme' !== emulsion_get_theme_operation_mode() ) {
 
-		/*add_filter( 'render_block_core/pattern', function ( $content ) {
 
-			// Change static contents to dinamic contents
-
-			if ( strstr( $content, 'emulsion-block-pattern-relate-posts' ) ) {
-
-				$template_path = get_template_directory() . '/block-patterns/block-pattern-relate-posts.php';
-
-				return include( $template_path ).'test';
-			}
-			return $content;
-		} );*/
 
 		add_filter( 'render_block_core/navigation', function ( $content, $block ) {
 

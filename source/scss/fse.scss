@@ -48,6 +48,9 @@
         * Fix floating text background issue
         * emulsion-block-pattern-list-tab
         * AMP
+        * Password form
+        * Columns Class
+        * List Style Inline
     * Classes
          * Minimal kindness for posts written in old editors
          * Shortcoce Gallery
@@ -96,9 +99,11 @@
          * name: core/spacer
          * name: core/shortcode
          * name: core/video
+         * name: core/rss
          * name: core/table-of-contents
          * theme toc (table of contents)
          * name: core/next-page
+         * Site Editor
  */
 
 /**
@@ -1422,7 +1427,10 @@ p:empty{
 
 .wp-block-table-of-contents{
     @extend %content_spacing;
-
+    & > ol,
+    & > ul{
+        width:auto;
+    }
 }
 
 /**
@@ -1578,7 +1586,6 @@ p:empty{
     &[class*="post-template-wp-custom-template"] .wp-site-blocks > header + .wp-block-group header,
     .post-header{
         .wp-block.posted-on{
-            //padding:var(--wp--custom--padding--content);
             padding:0;
         }
     }
@@ -1682,7 +1689,13 @@ p:empty{
     /**
      * block-pattern-query-sticky.php
      */
-
+    .is-root-container{
+        .pattern-sticky-posts{
+            &:before{
+                content:'Sticky Posts';
+            }
+        }
+    }
     .pattern-sticky-posts{
         .post-header{
             min-height:0;
@@ -2936,14 +2949,12 @@ div.gallery{
 
 .emulsion .emulsion-block-pattern-relate-posts,
 .emulsion .wrap-emulsion_relate_posts{
-    padding-top:.1rem;
-    padding-bottom:.75rem;
+
     .relate-posts-title{
         padding-right:var(--wp--custom--padding--content);
         padding-left:var(--wp--custom--padding--content);
         margin-right:auto;
         margin-left:auto;
-
     }
     .relate-posts{
         padding-right:var(--wp--custom--padding--content);
@@ -3046,8 +3057,14 @@ div.gallery{
     }
 }
 .wp-block-post-content{
-    .emulsion-block-pattern-relate-posts{
+    .wrap-emulsion_relate_posts{
         background:transparent;
+        .relate-posts-title{
+            width:100%;
+        }
+        .relate-posts{
+            width:100%;
+        }
     }
 }
 
@@ -4182,8 +4199,8 @@ div.bbp-submit-wrapper{
 }
 
 /**
- * Block RSS
- * ========================================================================== */
+         * name: core/rss
+ */
 
 @for $i from 2 through 6 {
     ul.wp-block-rss.is-grid.columns-#{$i} li{
@@ -4242,7 +4259,7 @@ div.bbp-submit-wrapper{
     }
 }
 /**
- * Password form
+        * Password form
  */
 .emulsion{
     .theme-message{
@@ -4291,7 +4308,9 @@ div.bbp-submit-wrapper{
         }
     }
 }
-
+/**
+        * List Style Inline
+ */
 
 .is-style-list-style-inline{
     &.wp-block-latest-comments{
@@ -4309,6 +4328,9 @@ div.bbp-submit-wrapper{
 
     }
 }
+/**
+        * Columns Class
+ */
 .emulsion{
     @for $i from 1 through 5 {
         .columns-#{$i}{
@@ -4331,6 +4353,42 @@ div.bbp-submit-wrapper{
                     display:block;
                     width: 100%;
                 }
+            }
+        }
+    }
+}
+/**
+         * Site Editor
+ */
+body.editor-styles-wrapper{
+    .wp-block-query,
+    .pattern-sticky-posts{
+        .wp-block-query-pagination{
+            margin:1.5rem auto;
+        }
+    }
+    .posted-on{
+        & > div{
+            display: inline-flex;
+            vertical-align: bottom;
+            height:1.5rem;
+            .wp-block-post-author{
+                align-items: baseline;
+                justify-content: center;
+            }
+            .wp-block-post-author__content{
+                width:fit-content;
+
+                .wp-block-post-author__name{
+                    display:inline;
+                    margin: 0;
+                    vertical-align: bottom;
+                }
+            }
+            &.wp-block-template-part-taxsonomy{
+                display:block;
+                height:auto;
+                padding:0 .75rem;
             }
         }
     }

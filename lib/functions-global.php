@@ -261,10 +261,17 @@ if ( ! function_exists( 'emulsion_get_related_posts' ) ) {
 
 		$relate_posts_enable = emulsion_the_theme_supports( 'relate_posts' );
 
-		if ( empty( $relate_posts_enable ) && 'fse' !== emulsion_get_theme_operation_mode() ) {
+		if ( empty( $relate_posts_enable ) && 'theme' == emulsion_get_theme_operation_mode() ) {
 
 			return;
 		}
+		$html		 = sprintf( '<li>%1$s</li>', esc_html__( 'Not Found', 'emulsion' ) );
+		$result_pre	 = sprintf( '<!-- wp:group {"className":"emulsion-block-pattern-relate-posts wrap-emulsion_relate_posts", "layout":{"inherit":true}} -->'
+		. '<div class="emulsion-block-pattern-relate-posts wp-block-group wrap-emulsion_relate_posts" id="relate-posts">'
+		. '<!-- wp:heading --><h2 class="relate-posts-title">%1$s</h2><!-- /wp:heading -->'
+		. '<!-- wp:list --><ul class="relate-posts">', esc_html__( 'Relate Posts', 'emulsion' ) );
+
+		$result_after = '</ul><!-- /wp:list --></div><!-- /wp:group -->';
 
 		$algo = emulsion_related_posts_finder();
 
@@ -277,7 +284,7 @@ if ( ! function_exists( 'emulsion_get_related_posts' ) ) {
 
 			if ( ! empty( $relate_posts ) && is_single() && ! is_attachment() ) {
 
-				$result = sprintf( '<!-- wp:html --><h2 class="relate-posts-title fit">%1$s</h2><ul class="relate-posts fit">', esc_html__( 'Relate Posts', 'emulsion' ) );
+				$result = '';
 
 				foreach ( $relate_posts as $relate_post ) {
 
@@ -290,16 +297,20 @@ if ( ! function_exists( 'emulsion_get_related_posts' ) ) {
 						$result .= sprintf( '<li>%1$s', get_the_post_thumbnail( $post_id, 'thumbnail' ) );
 					} else {
 
-						/* translators: title icon question mark */
-						$icon_text = empty( $relate_post_title ) ? esc_html_x( '?', 'title icon question mark', 'emulsion' ) : mb_substr( sanitize_text_field( $relate_post_title ), 0, 1 );
+						$result .= '<li><span class="relate-post-no-icon"></span>';
 
-						$result .= '<li><div class="relate-post-no-icon">' . esc_html( $icon_text ) . '</div>';
 					}
 					$result .= sprintf( '<a href="%1$s">%2$s</a></li>', esc_url( $link_url ), wp_kses( $relate_post_title, array() ) );
+
 				}
 				wp_reset_postdata();
 			}
-			return $result . '</ul><!-- /wp:html -->';
+
+			$result	 = ! empty( $result ) ? $result : $html;
+			$html	 = $result_pre . $result . $result_after;
+			$html	 = str_replace( array( PHP_EOL, "\t" ), array( '', '' ), $html );
+
+			return $html;
 		}
 	}
 

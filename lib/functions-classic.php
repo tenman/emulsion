@@ -2176,7 +2176,7 @@ if ( ! function_exists( 'emulsion_amp_background_helper' ) ) {
 			[amp] .emulsion .layout li.has-post-thumbnail .post-header a,
 			[amp] .emulsion .layout li.has-post-thumbnail .post-header{
 				color:#fff;
-				
+
 			}
 STYLE;
 		return $css;

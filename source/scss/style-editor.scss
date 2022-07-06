@@ -3714,7 +3714,7 @@ div.components-notice{
                 }
             }
             [data-type="core/page-list"]{
-               // width:100%;
+                // width:100%;
                 padding:0;
                 .wp-block-page-list{
                     margin:0 auto;
@@ -3972,7 +3972,12 @@ body.editor-styles-wrapper{
             }
         }
     }
-
+    .wp-block-query,
+    .pattern-sticky-posts{
+        .wp-block-query-pagination{
+            margin:1.5rem auto;
+        }
+    }
 
     .wp-block-template-part{
         &.fse-header{
@@ -4000,14 +4005,16 @@ body.editor-styles-wrapper{
         .wp-block-post-template{
             margin-top:2rem;
         }
+
         article.loop-item{
             width:100%;
             padding:0;
             margin:0 auto;
             header{
                 position:absolute;
-                top:10vh;
+                top:10%;
                 z-index:10;
+                margin:0 auto !important;
 
                 .taxsonomy,
                 .wp-block-post-comments-link,
@@ -4027,8 +4034,8 @@ body.editor-styles-wrapper{
             header + figure{
                 //[data-type="core/post-featured-image"]{
                 width:100%;
-                min-height:var(--wp--custom--min-height--harf,50vh);
-                max-height:var(--wp--custom--min-height--harf,50vh);
+                min-height:var(--wp--custom--min-height--3-quarters,75vh);
+                max-height:var(--wp--custom--min-height--3-quarters,75vh);
                 padding:0;
                 margin:0 auto;
                 overflow:hidden;
@@ -4042,13 +4049,15 @@ body.editor-styles-wrapper{
             }
             header + div{
                 margin:0 auto;
+                background:#999;
+                min-height:var(--wp--custom--min-height--harf,50vh);
                 div{
                     width:100%;
                     min-height:var(--wp--custom--min-height--harf,50vh);
                     padding:0;
                     margin:0 auto;
                     overflow:hidden;
-                    background:rgba(0,0,0,.3);
+                    //background:rgba(0,0,0,.3);
                     z-index:-1
                         &.post-featured-image_placeholder{
                         align-items:start;
