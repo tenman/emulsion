@@ -856,14 +856,22 @@ if ( ! function_exists( 'emulsion_add_link_color_class' ) ) {
 			return $block_content;
 		}
 
-		if ( false !== strpos( $link_color, 'var:preset|color|' ) ) {
+		if ( false !== strpos( $link_color, 'var:preset|color|' )  ) {
 
 			$index_to_splice = strrpos( $link_color, '|' ) + 1;
 			$link_color_name = substr( $link_color, $index_to_splice );
 
 			$target_class	 = 'has-link-color';
 			$new_class		 = sanitize_html_class( 'has-' . $link_color_name . '-link-color' );
-			$block_content	 = emulsion_add_class( $block_content, $target_class, $new_class );
+
+			if( false !== strpos( $block_content, '-link-color' ) ) {
+
+				$block_content = preg_replace('!has-link-color!','has-link-color '. $new_class, $block_content, 1);
+
+			}else{
+
+				$block_content	 = emulsion_add_class( $block_content, $target_class, $new_class );
+			}
 		}
 
 		if ( maybe_hash_hex_color( $link_color ) && false === strpos( $link_color, 'var:preset|color|' ) ) {
@@ -913,6 +921,15 @@ if ( ! function_exists( 'emulsion_block_editor_assets' ) ) {
 			wp_add_inline_style( 'emulsion-fse', $inline_style );
 
 			wp_enqueue_script( 'emulsion-block-fse', esc_url( get_template_directory_uri() . '/js/block-fse.js' ), array( 'wp-blocks' ) );
+		}
+		if ( 'transitional' == emulsion_get_theme_operation_mode() && current_user_can( 'edit_posts' ) ) {
+
+			wp_register_style( 'emulsion-fse-transitional', get_template_directory_uri() . '/css/fse-transitional.css', array(), time(), 'all' );
+			wp_enqueue_style( 'emulsion-fse-transitional' );
+
+			$inline_style = emulsion_fse_transitional_editor_inline_style();
+			wp_add_inline_style( 'emulsion-fse-transitional', $inline_style );
+
 		}
 	}
 

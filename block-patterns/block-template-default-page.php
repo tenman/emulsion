@@ -24,9 +24,7 @@ $html = <<<HTML
 <!-- wp:group {"className":"post-footer wp-block-template-part-post-footer wp-block-template-part","layout":{"inherit":true}} -->
 <div class="wp-block-group post-footer wp-block-template-part-post-footer wp-block-template-part"><!-- wp:post-comments {"className":"comment-wrapper"} /-->
 
-<!-- wp:shortcode -->
-[emulsion_relate_posts]
-<!-- /wp:shortcode --></div>
+</div>
 <!-- /wp:group --></article>
 <!-- /wp:group --></main>
 <!-- /wp:group -->

@@ -312,7 +312,7 @@ function custom_load_separate_theme_block_assets() {
 		'post-featured-image', 'post-navigation-link', 'post-template', 'post-terms', 'post-title', 'preformatted', 'pullquote',
 		'query-pagination-next', 'query-pagination-numbers', 'query-pagination-previous', 'query-pagination', 'query-title', 'query',
 		'quote', 'rss', 'search', 'separator', 'shortcode', 'site-logo', 'site-tagline', 'site-title', 'social-link', 'social-links',
-		'spacer', 'table', 'tag-cloud', 'template-part', 'term-description', 'text-columns', 'verse', 'video','post-author-biography', 'avatar' );
+		'spacer', 'table', 'tag-cloud', 'template-part', 'term-description', 'text-columns', 'verse', 'video','post-author-biography', 'avatar', 'loginout' );
 
 	foreach ( $styles as $block ) {
 		wp_enqueue_block_style(
@@ -864,6 +864,12 @@ function emulsion_add_misc_css(){
 	$css .= <<<STYLE
 		ul.block-editor-block-list__block .block-list-appender{
 					width:24px;
+		}
+		.block-editor-block-breadcrumb{
+			width:auto;
+		}
+		.editor-styles-wrapper .block-editor-block-list__layout.is-root-container > .fse-header{
+			margin:0 auto;
 		}
 STYLE;
 	return $css;

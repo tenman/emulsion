@@ -62,8 +62,50 @@ STYLE;
 
 } else {
 
+	function emulsion_fse_transitional_editor_inline_style(){
+
+		$css = '';
+		if( 'html' !== get_theme_mod('emulsion_header_template') ) {
+			// html means use block template header
+			$css .= '
+				.edit-site-header__actions .interface-pinned-items [aria-label="Navigation"],
+				.block-editor-list-view-tree [aria-label="Navigation link"],
+				.block-editor-list-view-tree [aria-label="Header link"] ~ .block-editor-list-view-block__menu-cell,
+				.is-root-container > nav.fse-primary,
+				.edit-site-template-card__template-areas .edit-site-template-card__template-areas-list li:first-child,
+				.block-editor-list-view-tree [aria-label="Header link"],
+				.is-root-container > .fse-header{
+					display:none;
+				}
+				.components-resizable-box__container .edit-site-visual-editor__editor-canvas{
+					margin:0 auto;
+				}';
+		}
+		if( 'html' !== get_theme_mod('emulsion_footer_template') ) {
+			// html means use block template header
+			$css .= '
+				.block-editor-list-view-tree [aria-label="Navigation link"] ~ .block-editor-list-view-block__menu-cell,
+				.edit-site-template-card__template-areas .edit-site-template-card__template-areas-list li:last-child,
+				.block-editor-list-view-tree [aria-label="Header link"],
+				.is-root-container > .fse-footer{
+				display:none;
+			}';
+		}
+		$css .=<<<STYLE
+				.edit-site-template-card__template-areas:after{
+					content:'Please customize the header and footer with the customizer.';
+					display:block;
+					padding:.75rem;
+					border:1px solid #ccc;
+				}
+STYLE;
+		return $css;
+	}
+
 	require_once( get_theme_file_path( 'lib/functions-classic.php' ) );
 }
 
 add_action( 'enqueue_block_editor_assets', 'emulsion_block_editor_assets' );
+
+
 

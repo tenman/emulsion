@@ -4,7 +4,7 @@ if ( empty( get_option( 'sticky_posts' ) ) ) {
 	return '';
 }
 if ( is_paged() ) {
-	return;
+	return '';
 }
 
 $html = <<<HTML

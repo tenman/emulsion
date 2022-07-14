@@ -321,9 +321,9 @@
         width:calc( 50% - var(--thm_content_gap, 24px) - 1rem );
     }
     &.wp-block-social-links{
+        flex-direction: column;
         width:fit-content;
         margin-top:1.5rem;
-        flex-direction: column;
         @media screen and (max-width: 640px) {
             width:100px;
         }
@@ -369,8 +369,8 @@
                 & ~ ol:not([class*="wp-block"]),
                 & ~ ul:not([class*="wp-block"]){
                 li{
-                    transform: translateX(1.75rem);
                     margin-right:1.75rem;
+                    transform: translateX(1.75rem);
 
                 }
             }
