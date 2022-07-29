@@ -804,17 +804,14 @@ if ( ! function_exists( 'emulsion_add_layout_classes' ) ) {
 			return $block_content;
 		}
 
-		$block_name = 'wp-block-' . substr( strrchr( $block['blockName'], "/" ), 1 );
+		$block_name			 = 'wp-block-' . substr( strrchr( $block['blockName'], "/" ), 1 );
+		$used_layout		 = isset( $block['attrs']['layout'] ) ? $block['attrs']['layout'] : '';
 
-		$used_layout = isset( $block['attrs']['layout'] ) ? $block['attrs']['layout'] : '';
-
-		$tree				 = WP_Theme_JSON_Resolver_Gutenberg::get_merged_data( array(), 'theme' );
-		$theme_settings		 = $tree->get_settings();
-		$default_layout		 = _wp_array_get( $theme_settings, array( 'layout' ) );
+		$default_layout		 = wp_get_global_settings( array( 'layout' ) );
 		$default_contentSize = sanitize_text_field( $default_layout['contentSize'] );
 		$default_wideSize	 = sanitize_text_field( $default_layout['wideSize'] );
 
-		if( '100%' == $used_layout["contentSize"] ) {
+		if( ! empty( $used_layout["contentSize"] ) && '100%' == $used_layout["contentSize"] ) {
 
 			$new_class = array('has-fluid-children');
 
@@ -902,7 +899,7 @@ if ( ! function_exists( 'emulsion_add_custom_gap' ) ) {
 			$row_gap = ! empty( $block_gap['top'] ) ? esc_attr( $block_gap['top'] ) : '';
 		}
 
-		if ( ! empty( $block_gap ) && ! in_array( block_name, $exception_block ) ) {
+		if ( ! empty( $block_gap ) && ! in_array( $block_name, $exception_block ) ) {
 
 			preg_match( '$(<[^>]+>)$', $block_content, $target );
 

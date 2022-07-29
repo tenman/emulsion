@@ -146,7 +146,7 @@ stream.png
 
 ## Changelog
 ###  july 29 2022
-		* 2.4.4
+		* 2.4.5
         * https://github.com/tenman/emulsion/releases
 ###  july 14 2022
 		* 2.4.3

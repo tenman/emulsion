@@ -2542,9 +2542,25 @@ body .scroll-button-top:before {
 }
 // Todo
 .emulsion{
+    main{
+        &.wp-block-group {
+           & > .wp-block-query{
+                ul{
+                    width:100%;
+                    li{
+                        width:100%;
+                    }
+                }
+            }
+        }
+    }
+}
+.emulsion{
+
     .main-query,
     .pattern-sticky-posts{
         ul{
+
             width:100%;
             .sticky{
                 &.has-post-thumbnail{
