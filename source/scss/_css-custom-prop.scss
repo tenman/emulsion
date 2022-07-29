@@ -195,7 +195,7 @@ body{
             }
             &.alignright{
                 &.size-#{$class}{
-                    width:calc( var(--thm_content_width) / 2);
+                    width:calc( var(--thm_content_width, 720px) / 2);
                     margin-right: calc((var(--thm_main_width, 1280px) - var(--thm_content_width, 720px)) / 2 - var(--thm_content_gap, 24px));
                     &.size-thumbnail{
                         width:150px;
@@ -1438,8 +1438,8 @@ body .layout{
         margin:0 auto;
         border:none;
         border-bottom-color:var(--thm_common_border, rgba(188,188,188,.5));
-        border-bottom-style:var(--thm_common_border_style);
-        border-bottom-width:var(--thm_common_border_width);
+        border-bottom-style:var(--thm_common_border_style, solid);
+        border-bottom-width:var(--thm_common_border_width, 1px);
 
     }
     .emulsion-panel-content{
@@ -1470,15 +1470,15 @@ body .layout{
                 position:relative;
                 visibility:visible;
                 border-color:var(--thm_common_border, rgba(188,188,188,.5));
-                border-style:var(--thm_common_border_style);
-                border-width:var(--thm_common_border_width);
+                border-style:var(--thm_common_border_style, solid);
+                border-width:var(--thm_common_border_width, 1px);
             }
             .dropdown-on-hover-title{
                 margin-top:0;
                 margin-bottom:0;
                 border-color:var(--thm_common_border, rgba(188,188,188,.5));
-                border-style:var(--thm_common_border_style);
-                border-width:var(--thm_common_border_width);
+                border-style:var(--thm_common_border_style, solid);
+                border-width:var(--thm_common_border_width, 1px);
                 border-bottom:none;
             }
         }
@@ -1555,14 +1555,14 @@ body .layout{
                 position:relative;
                 visibility:visible;
                 border-color:var(--thm_common_border, rgba(188,188,188,.5));
-                border-style:var(--thm_common_border_style);
-                border-width:var(--thm_common_border_width);
+                border-style:var(--thm_common_border_style, solid);
+                border-width:var(--thm_common_border_width, 1px);
             }
             .dropdown-on-click-title{
 
                 border-color:var(--thm_common_border, rgba(188,188,188,.5));
-                border-style:var(--thm_common_border_style);
-                border-width:var(--thm_common_border_width);
+                border-style:var(--thm_common_border_style, solid);
+                border-width:var(--thm_common_border_width, 1px);
                 border-bottom:none;
 
             }

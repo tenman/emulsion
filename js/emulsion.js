@@ -8,6 +8,7 @@ jQuery(function ($) {
     /**
      * wp-block unwrap
      */
+
     if ($('.wp-block-image').length) {
         $('.wp-block-image figure').each(function () {
             if ($(this).hasClass('alignleft')) {
@@ -954,7 +955,6 @@ jQuery(function ($) {
             var column_width = $(this).width();
             column_width = parseInt(column_width);
 
-
             if (580 > column_width) {
                 $(this).children().removeClass('alignleft alignright alignfull alignwide');
             }
@@ -1050,5 +1050,5 @@ jQuery(function ($) {
     $('.alignleft .size-thumbnail,.alignright .size-thumbnail').parent().addClass('size-thumbnail');
     $('.alignleft .size-mediuml,.alignright .size-medium').parent().addClass('size-medium');
     $('.alignleft .size-large,.alignright .size-large').parent().addClass('size-large');
-     $('.alignleft .size-full,.alignright .size-full').parent().addClass('size-full');
+    $('.alignleft .size-full,.alignright .size-full').parent().addClass('size-full');
 });

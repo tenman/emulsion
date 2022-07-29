@@ -63,7 +63,8 @@ STYLE;
 } else {
 
 	function emulsion_fse_transitional_editor_inline_style(){
-
+		$message = esc_html__('Please customize the header and footer with the customizer.', 'emulsion');
+		$message_2 = esc_html__( 'If you set the content to 100%, all child elements can be displayed in a fluid layout( only front end )', 'emulsion' );
 		$css = '';
 		if( 'html' !== get_theme_mod('emulsion_header_template') ) {
 			// html means use block template header
@@ -93,10 +94,18 @@ STYLE;
 		}
 		$css .=<<<STYLE
 				.edit-site-template-card__template-areas:after{
-					content:'Please customize the header and footer with the customizer.';
+					content:'{$message}';
 					display:block;
 					padding:.75rem;
 					border:1px solid #ccc;
+				}
+				.block-editor-hooks__layout-controls-helptext:after{
+					content:'{$message_2}';
+					display:block;
+					border-left:2px solid green;
+					padding-left:1rem;
+					margin-top:1rem;
+
 				}
 STYLE;
 		return $css;
@@ -106,6 +115,3 @@ STYLE;
 }
 
 add_action( 'enqueue_block_editor_assets', 'emulsion_block_editor_assets' );
-
-
-

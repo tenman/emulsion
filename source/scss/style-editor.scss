@@ -3912,14 +3912,14 @@ body.editor-styles-wrapper{
         .is-flex-container{
             display:flex;
             flex-wrap:wrap;
-            gap:var(--wp--custom--margin--gap, 3px);
+            gap:var(--wp--style--block-gap, 3px);
 
             @for $i from 1 through 6 {
 
                 &.columns-#{$i} > li{
                     flex:1 1 auto;
                     //OW
-                    //width: calc(100% / #{$i} - var(--wp--custom--margin--gap, 3px) * 2 );
+                    //width: calc(100% / #{$i} - var(--wp--style--block-gap, 3px) * 2 );
                     flex-basis:calc(var(--thm_editor_main_width, 100%) / #{$i + 1});
                     margin:0;
                     border:var(--wp--custom--border--common, 1px solid rgba(188,188,188,.5));
@@ -4063,7 +4063,7 @@ body.editor-styles-wrapper{
                 width:100%;
             }
             &.alignwide{
-                width:calc(var(--thm_content_width) + 200px);
+                width:calc(var(--thm_content_width, 720px) + 200px);
             }
 
             &[data-type="core/column"]{
@@ -4105,7 +4105,7 @@ body.editor-styles-wrapper{
 @media (min-width: 600px){
 
     .wp-block-post-template.is-flex-container{
-        gap:var(--wp--custom--margin--gap, 3px);
+        gap:var(--wp--style--block-gap, 3px);
     }
     //OW
     .wp-block-post-template.is-flex-container li, .wp-block-query-loop.is-flex-container li {

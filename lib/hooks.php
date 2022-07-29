@@ -744,7 +744,7 @@ if ( ! function_exists( 'emulsion_theme_styles' ) ) {
 .emulsion-addons-inactive main > .excerpt .entry-content .content-excerpt p{
 	width:-moz-fit-content;
 	width:fit-content;
-	max-width:var(--thm_content_width);
+	max-width:var(--thm_content_width, 720px);
 	margin-left:auto;
 	margin-right:auto;
 	padding-left:var(--thm_content_gap, 24px);
@@ -757,8 +757,8 @@ if ( ! function_exists( 'emulsion_theme_styles' ) ) {
 	width:100%;
 }
 .emulsion-addons-inactive .wp-block-rss__item{
-	padding-left: var(--thm_content_gap);
-    padding-right: var(--thm_content_gap);
+	padding-left: var(--thm_content_gap, 24px);
+    padding-right: var(--thm_content_gap, 24px);
 }
 .emulsion-addons-inactive .page-wrapper article header .entry-meta .cat-item a:hover {
    color: var(--thm_general_link_hover_color);
@@ -1272,10 +1272,10 @@ DEFAULT_STYLE;
     box-sizing:border-box;
     clear:left;
     float:left;
-	width:calc( 50% - var(--thm_content_gap) - var(--thm_common_font_size) );
-    max-width:calc( 50% - var(--thm_content_gap) - var(--thm_common_font_size) );
+	width:calc( 50% - var(--thm_content_gap, 24px) - var(--thm_common_font_size) );
+    max-width:calc( 50% - var(--thm_content_gap, 24px) - var(--thm_common_font_size) );
     margin-right:var(--thm_common_font_size);
-    margin-left:var(--thm_content_gap);
+    margin-left:var(--thm_content_gap, 24px);
     margin-top:1.5rem;
     margin-bottom:.75rem;
 ALIGN_LEFT;
@@ -1283,9 +1283,9 @@ ALIGN_LEFT;
     box-sizing:border-box;
     clear:right;
     float:right;
-	width:calc( 50% - var(--thm_content_gap) - var(--thm_common_font_size) );
-    max-width:calc( 50% - var(--thm_content_gap) - var(--thm_common_font_size) );
-    margin-left:var(--thm_content_gap);
+	width:calc( 50% - var(--thm_content_gap, 24px) - var(--thm_common_font_size) );
+    max-width:calc( 50% - var(--thm_content_gap, 24px) - var(--thm_common_font_size) );
+    margin-left:var(--thm_content_gap, 24px);
     margin-right:var(--thm_common_font_size);
     margin-top:1.5rem;
     margin-bottom:.75rem;
@@ -1298,12 +1298,12 @@ FLOAT_CHILD;
     box-sizing:border-box;
     clear:both;
     float:none;
-    width:calc( var(--thm_content_width) - var(--thm_align_offset) );
+    width:calc( var(--thm_content_width, 720px) - var(--thm_align_offset) );
     max-width:100%;
     margin:1.5rem auto .75rem;
 ALIGN_CENTER;
 		$alignwide				 = <<<ALIGN_WIDE
-    width:calc( var(--thm_content_width) + var(--thm_align_offset) );
+    width:calc( var(--thm_content_width, 720px) + var(--thm_align_offset) );
     position: relative;
     left:0;
     margin-left:auto;

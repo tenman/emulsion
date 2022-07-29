@@ -800,13 +800,51 @@ if ( ! function_exists( 'emulsion_add_layout_classes' ) ) {
 
 	function emulsion_add_layout_classes( $block_content, $block ) {
 
+		if( ! is_singular() ){
+			return $block_content;
+		}
+
 		$block_name = 'wp-block-' . substr( strrchr( $block['blockName'], "/" ), 1 );
 
 		$used_layout = isset( $block['attrs']['layout'] ) ? $block['attrs']['layout'] : '';
 
+		$tree				 = WP_Theme_JSON_Resolver_Gutenberg::get_merged_data( array(), 'theme' );
+		$theme_settings		 = $tree->get_settings();
+		$default_layout		 = _wp_array_get( $theme_settings, array( 'layout' ) );
+		$default_contentSize = sanitize_text_field( $default_layout['contentSize'] );
+		$default_wideSize	 = sanitize_text_field( $default_layout['wideSize'] );
+
+		if( '100%' == $used_layout["contentSize"] ) {
+
+			$new_class = array('has-fluid-children');
+
+			if( ! empty( $used_layout["wideSize"] ) ) {
+				preg_match( '$(<[^>]+>)$', $block_content, $target );
+				$css_variables	 = ' --thm_wide_width:' . sanitize_text_field( $used_layout["wideSize"] ) . ';';
+				$css_variables	 .= ' --wp--custom--width--wide:' . sanitize_text_field( $used_layout["wideSize"] );
+
+				if ( false !== strpos( $target[0], 'style="' ) ) {
+
+					$new_element = str_replace( ' style="', ' style="' . $css_variables . '; ', $target[0] );
+				} else {
+
+					$new_element = str_replace( '>', ' style="' . $css_variables . ';">', $target[0] );
+				}
+				$block_content = str_replace( $target[0], $new_element, $block_content );
+
+				$new_class = array('has-fluid-children', 'has-custom-wide-width');
+			}
+
+			$block_content = emulsion_add_class( $block_content, $block_name, $new_class );
+
+
+			return $block_content;
+		}
+
 		if ( isset( $used_layout ) && ( ! empty( $used_layout["contentSize"] ) || ! empty( $used_layout["wideSize"] ) ) ) {
 
-			$used_layout["wideSize"] = empty( $used_layout["wideSize"] ) ? $used_layout["contentSize"] : $used_layout["wideSize"];
+			$used_layout["wideSize"] = empty( $used_layout["wideSize"] ) ? $default_wideSize : $used_layout["wideSize"];
+			$used_layout["contentSize"] = empty( $used_layout["contentSize"] ) ? $default_contentSize : $used_layout["contentSize"];
 
 			preg_match( '$(<[^>]+>)$', $block_content, $target );
 
@@ -815,10 +853,10 @@ if ( ! function_exists( 'emulsion_add_layout_classes' ) ) {
 
 			if ( false !== strpos( $target[0], 'style="' ) ) {
 
-				$new_element = str_replace( ' style="', ' style="width:100%; ' . $css_variables . '; ', $target[0] );
+				$new_element = str_replace( ' style="', ' style="' . $css_variables . '; ', $target[0] );
 			} else {
 
-				$new_element = str_replace( '>', ' style="width:100%; ' . $css_variables . ';">', $target[0] );
+				$new_element = str_replace( '>', ' style="' . $css_variables . ';">', $target[0] );
 			}
 
 			$block_content = str_replace( $target[0], $new_element, $block_content );
@@ -838,10 +876,81 @@ if ( ! function_exists( 'emulsion_add_layout_classes' ) ) {
 
 }
 
+if ( ! function_exists( 'emulsion_add_custom_gap' ) ) {
+
+	function emulsion_add_custom_gap( $block_content, $block ) {
+		if( ! is_singular() ){
+			return $block_content;
+		}
+		$block_name			 = 'wp-block-' . substr( strrchr( $block['blockName'], "/" ), 1 );
+		$block_gap			 = isset( $block['attrs']['style']['spacing']['blockGap'] ) ? $block['attrs']['style']['spacing']['blockGap'] : '';
+		$css_propaty_name	 = 'gap';
+		$new_class			 = array( 'has-custom-gap' );
+		$exception_block	 = array( 'wp-block-column' );
+		$row_gap			 = '';
+		$column_gap			 = '';
+		$css_variable_name   = '--wp--style--block-gap';
+
+		$flag = 'string';
+
+		if ( is_array( $block_gap ) ) {
+
+			$flag = 'array';
+
+			$column_gap = ! empty( $block_gap['left'] ) ? esc_attr( $block_gap['left'] ) : '';
+
+			$row_gap = ! empty( $block_gap['top'] ) ? esc_attr( $block_gap['top'] ) : '';
+		}
+
+		if ( ! empty( $block_gap ) && ! in_array( block_name, $exception_block ) ) {
+
+			preg_match( '$(<[^>]+>)$', $block_content, $target );
+
+			if ( false !== strpos( $target[0], 'style="' ) ) {
+
+				if ( 'string' == $flag ) {
+
+					$new_element = str_replace( ' style="',
+							' style="'. $css_variable_name. ':'. $block_gap.';'. $css_propaty_name . ':' . esc_attr( $block_gap ) . ';',
+							$target[0] );
+				}
+				if ( 'array' == $flag ) {
+
+					$new_element = str_replace( ' style="',
+							' style="'. $css_variable_name. ':'. $row_gap.';' . $css_propaty_name . ':' . $row_gap . ' ' . $column_gap . ';',
+							$target[0] );
+				}
+			} else {
+
+				if ( 'string' == $flag ) {
+
+					$new_element = str_replace( '>',
+							' style="'. $css_variable_name. ':'. $block_gap.';' . $css_propaty_name . ':' . $block_gap . ';">',
+							$target[0] );
+				}
+				if ( 'array' == $flag ) {
+
+					$new_element = str_replace( '>',
+							' style="'. $css_variable_name. ':'. $row_gap.';' . $css_propaty_name . ':' . $row_gap . ' ' . $column_gap . ';">',
+							$target[0] );
+				}
+			}
+
+			$block_content = str_replace( $target[0], $new_element, $block_content );
+
+			$block_content = emulsion_add_class( $block_content, $block_name, $new_class );
+		}
+
+		return $block_content;
+	}
+}
+
+
 
 if ( ! function_exists( 'emulsion_add_link_color_class' ) ) {
 
 	function emulsion_add_link_color_class( $block_content, $block ) {
+
 
 		$block_name = 'wp-block-' . substr( strrchr( $block['blockName'], "/" ), 1 );
 
@@ -849,6 +958,7 @@ if ( ! function_exists( 'emulsion_add_link_color_class' ) ) {
 
 		if ( ! empty( $block['attrs'] ) ) {
 			$link_color = _wp_array_get( $block['attrs'], array( 'style', 'elements', 'link', 'color', 'text' ), null );
+
 		}
 
 
@@ -870,13 +980,14 @@ if ( ! function_exists( 'emulsion_add_link_color_class' ) ) {
 
 			}else{
 
-				$block_content	 = emulsion_add_class( $block_content, $target_class, $new_class );
+				$block_content	 = emulsion_add_class( $block_content, $block_name, $new_class );
 			}
 		}
 
 		if ( maybe_hash_hex_color( $link_color ) && false === strpos( $link_color, 'var:preset|color|' ) ) {
 
 			$target_block	 = $block['innerHTML'];
+
 			$new_block		 = str_replace( '<a ', '<a style="color:' . $link_color . ';" ', $target_block );
 			$block_content	 = str_replace( $target_block, $new_block, $block_content );
 		}

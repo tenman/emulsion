@@ -41,6 +41,8 @@ if ( ! function_exists( 'emulsion_setup' ) ) {
 
 			add_filter( 'render_block', 'emulsion_add_flex_container_classes', 10, 2 );
 			add_filter( 'render_block', 'emulsion_add_layout_classes', 10, 2 );
+			add_filter( 'render_block', 'emulsion_add_custom_gap', 10, 2 );
+
 		}
 
 		/**
@@ -437,7 +439,7 @@ function emulsion_corrected_core_css_flex_gap_size_consistency() {
 
 	.wp-block-post-template.is-flex-container,
 	.wp-block-query-loop.is-flex-container{
-		gap:var(--wp--custom--margin--gap);
+		gap:var(--wp--style--block-gap, 3px);
 	}
 	.wp-block-post-template.is-flex-container.is-flex-container[class*="columns-"] > li,
 	.wp-block-query-loop.is-flex-container.is-flex-container[class*="columns-"] > li{
@@ -661,7 +663,7 @@ function emulsion_corrected_core_css_has_nested_images_gallery() {
 
 	.has-nested-images:not(#specificity).wp-block-gallery {
 		display: flex;
-		gap: var(--wp--custom--margin--gap, 3px);
+		gap: var(--wp--style--block-gap, 3px);
 	}
 
 	.has-nested-images:not(#specificity).wp-block-gallery > figure.wp-block-image:not(.specificity){
@@ -672,26 +674,26 @@ function emulsion_corrected_core_css_has_nested_images_gallery() {
 		width: 100%;
 	}
 	.has-nested-images:not(#specificity).wp-block-gallery.columns-2 .wp-block-image {
-		width: calc(100% / 2 - var(--wp--custom--margin--gap));
+		width: calc(100% / 2 - var(--wp--style--block-gap, 3px));
 	}
 	.has-nested-images:not(#specificity).wp-block-gallery.columns-default .wp-block-image,
 	.has-nested-images:not(#specificity).wp-block-gallery.columns-3 .wp-block-image {
-		width: calc(100% / 3 - var(--wp--custom--margin--gap));
+		width: calc(100% / 3 - var(--wp--style--block-gap, 3px));
 	}
 	.has-nested-images:not(#specificity).wp-block-gallery.columns-4 .wp-block-image {
-		width: calc(100% / 4 - var(--wp--custom--margin--gap));
+		width: calc(100% / 4 - var(--wp--style--block-gap, 3px));
 	}
 	.has-nested-images:not(#specificity).wp-block-gallery.columns-5 .wp-block-image {
-		width: calc(100% / 5 - var(--wp--custom--margin--gap));
+		width: calc(100% / 5 - var(--wp--style--block-gap, 3px));
 	}
 	.has-nested-images:not(#specificity).wp-block-gallery.columns-6 .wp-block-image {
-		width: calc(100% / 6 - var(--wp--custom--margin--gap));
+		width: calc(100% / 6 - var(--wp--style--block-gap, 3px));
 	}
 	.has-nested-images:not(#specificity).wp-block-gallery.columns-7 .wp-block-image {
-		width: calc(100% / 7 - var(--wp--custom--margin--gap));
+		width: calc(100% / 7 - var(--wp--style--block-gap, 3px));
 	}
 	.has-nested-images:not(#specificity).wp-block-gallery.columns-8 .wp-block-image {
-		width: calc(100% / 8 - var(--wp--custom--margin--gap));
+		width: calc(100% / 8 - var(--wp--style--block-gap, 3px));
 	}
 STYLE;
 	return $css;
@@ -854,12 +856,14 @@ STYLE;
 	return $css;
 }
 
-function emulsion_add_misc_css(){
+function emulsion_add_misc_css() {
 	/**
 	 * Add Custom field CSS
 	 */
-		$post_id = get_the_ID();
-	$css = get_post_meta($post_id,'css', true);
+	$post_id = get_the_ID();
+	$css	 = get_post_meta( $post_id, 'css', true );
+
+	$message = esc_html__( 'If you set the content to 100%, all child elements can be displayed in a fluid layout( only front end )', 'emulsion' );
 
 	$css .= <<<STYLE
 		ul.block-editor-block-list__block .block-list-appender{
@@ -871,11 +875,17 @@ function emulsion_add_misc_css(){
 		.editor-styles-wrapper .block-editor-block-list__layout.is-root-container > .fse-header{
 			margin:0 auto;
 		}
+		.block-editor-hooks__layout-controls-helptext:after{
+			content:'{$message}';
+			display:block;
+			border-left:2px solid green;
+			padding-left:1rem;
+			margin-top:1rem;
+
+		}
 STYLE;
 	return $css;
 }
-
-
 
 function emulsion_corrected_core_css_not_sure_universal_selector() {
 

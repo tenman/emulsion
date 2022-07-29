@@ -92,5 +92,3 @@ window.addEventListener('DOMContentLoaded', function () {
 
     });
 });
-
-

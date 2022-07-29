@@ -138,6 +138,7 @@ if ( ! function_exists( 'emulsion_setup' ) ) {
 
 			add_filter( 'render_block', 'emulsion_add_flex_container_classes', 10, 2 );
 			add_filter( 'render_block', 'emulsion_add_layout_classes', 10, 2 );
+			add_filter( 'render_block', 'emulsion_add_custom_gap',10,2);
 		}
 		/**
 		 * class="wp-elements-xxxxxxxx" and inline style remove

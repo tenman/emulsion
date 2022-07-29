@@ -133,6 +133,7 @@ figure.wp-block-gallery.has-nested-images{
         clear:both;
     }
     display:flex;
+    gap:var(--wp--style--block-gap);
     .wp-block-image{
         display:block;
         padding:0;
@@ -870,6 +871,20 @@ figure.wp-block-pullquote{
         p{
 
             @include font_size(3);
+        }
+    }
+    &.aligncenter,
+    &.alignleft,
+    &.alignright{
+        @media screen and ( max-width : 640px ) {
+            clear:both;
+            float:none;
+            display:block;
+            width: calc( 100% - var(--thm_content_gap, 24px) * 2 - 2px);
+            max-width:100%;
+            margin:1.5rem auto .75rem;
+
+
         }
     }
     blockquote{
@@ -2134,6 +2149,7 @@ body .wp-block-table{
         max-width:calc(50% - 1.5em );
         padding-right:0;
         padding-left:0;
+
     }
     &.alignleft{
         margin:0 1em .75em .5em;
@@ -2152,6 +2168,21 @@ body .wp-block-table{
         margin:0 .5em .75em 1em;
         clear:right;
     }
+    &.aligncenter,
+    &.alignleft,
+    &.alignright{
+        @media screen and ( max-width : 640px ) {
+            clear:both;
+            float:none;
+            display:block;
+            width: calc( 100% - var(--thm_content_gap, 24px) * 2 - 2px);
+            max-width:100%;
+            margin:1.5rem auto .75rem;
+
+
+        }
+    }
+
     table{
         display:table;
         margin-bottom:0;/* gutenberg table is block over written */
@@ -3604,7 +3635,7 @@ body:not(.full_text) .wp-block-query{
 
     .wp-block-query-pagination-numbers{
         display:flex;
-        gap:var(--wp--custom--margin--gap, 3px);
+        gap:var(--wp--style--block-gap, 3px);
 
         .current{
             padding:var(--wp--custom--padding--content,.75rem);

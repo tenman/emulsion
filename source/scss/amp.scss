@@ -638,7 +638,7 @@
         bottom:0;
         left:0;
         z-index: 10;
-        width:calc(100% - var(--thm_content_gap) * 2);
+        width:calc(100% - var(--thm_content_gap, 24px) * 2);
         height:fit-content;
         margin:auto;
         color: #fff;
@@ -877,8 +877,8 @@ label[for="comment"],
     text-align:center;
     background: var(--thm_header_bg_color);
     border-color:var(--thm_common_border, rgba(188,188,188,.5));
-    border-style:var(--thm_common_border_style);
-    border-width:var(--thm_common_border_width);// edge//edge
+    border-style:var(--thm_common_border_style, solid);
+    border-width:var(--thm_common_border_width, 1px);// edge//edge
 }
 @media screen and ( max-width : 419px ) {
     // static break point
@@ -1331,8 +1331,8 @@ input,
 table th,
 table td{
     border-color:var(--thm_common_border, rgba(188,188,188,.5));
-    border-style:var(--thm_common_border_style);
-    border-width:var(--thm_common_border_width);
+    border-style:var(--thm_common_border_style, solid);
+    border-width:var(--thm_common_border_width, 1px);
 }
 /* footer */
 .footer-layer{

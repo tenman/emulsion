@@ -12,14 +12,14 @@
         }
     },
     "settings": {
+        "appearanceTools": true,
         "layout": {
             "contentSize": "720px",
             "wideSize": "920px",
             "units": ["px", "em", "rem", "%", "vw"]
         },
         "typography": {
-            "customFontSize": true,
-            "customLineHeight": true,
+            "lineHeight": true,
             "fontSizes": [
                 {
                     "slug": "extra-small",
@@ -78,15 +78,15 @@
         },
         "spacing": {
             "blockGap": true,
-            "customPadding": true,
-            "customMargin": true,
+            "padding": true,
+            "margin": true,
             "units": ["px", "em", "rem", "%", "vh", "vw"]
         },
         "border": {
-            "customColor": true,
-            "customRadius": true,
-            "customStyle": true,
-            "customWidth": true
+            "color": true,
+            "radius": true,
+            "style": true,
+            "width": true
         },
         "blocks": {
             "core/paragraph": {
@@ -281,42 +281,42 @@
         {
             "name": "header",
             "area": "header",
-            "description": "Site Title + Archive Title"
+            "title": "Site Title + Archive Title"
         },
         {
             "name": "header-singular",
             "area": "header",
-            "description": "Site Title"
+            "title": "Site Title"
         },
         {
             "name": "post-header",
             "area": "header",
-            "description": "Post Title + Metadata"
+            "title": "Post Title + Metadata"
         },
         {
             "name": "page-header",
             "area": "header",
-            "description": "Page Title"
+            "title": "Page Title"
         },
         {
             "name": "header-rich",
             "area": "header",
-            "description": "Site Title + Header Image"
+            "title": "Site Title + Header Image"
         },
         {
             "name": "footer",
             "area": "footer",
-            "description": "Footer"
+            "title": "Footer"
         },
         {
             "name": "post-footer",
             "area": "footer",
-            "description": "Post Footer"
+            "title": "Post Footer"
         },
         {
             "name": "page-footer",
             "area": "footer",
-            "description": "Page Footer"
+            "title": "Page Footer"
         }
     ],
     "styles": {
@@ -324,6 +324,9 @@
             "fontSize": "var(--wp--preset--font-size--normal)",
             "lineHeight": "var(--wp--custom--line-height--common)",
             "fontFamily": "var(--wp--preset--font-family--helvetica-arial)"
+        },
+        "spacing": {
+            "blockGap": "3px"
         },
         "elements": {
             "link": {
