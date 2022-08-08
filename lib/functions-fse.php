@@ -123,9 +123,6 @@ function emulsion_register_scripts_and_styles() {
 
 	wp_add_inline_style( 'emulsion-fse', $inline_style );
 
-
-
-
 	/**
 	 * Child Theme
 	 */
@@ -182,7 +179,7 @@ function emulsion_register_scripts_and_styles() {
 	 * Instantclick
 	 */
 	//$support = emulsion_the_theme_supports( 'instantclick' ) ? 'enable' : 'disable';
-	$support = 'enable' == get_theme_mod( 'emulsion_instantclick' ) ? true : false;
+	$support = 'disable' == get_theme_mod( 'emulsion_instantclick' ) ? false : true;
 
 	if ( $support && 'wp-login.php' !== $GLOBALS['pagenow'] && ! is_user_logged_in() && ! emulsion_is_amp() ) {
 

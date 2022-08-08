@@ -43,7 +43,7 @@
 		}
 	}
 
-	if( 'html' !== get_theme_mod('emulsion_footer_template') ) {
+	if( 'html' !== get_theme_mod('emulsion_footer_template', emulsion_theme_default_val( 'emulsion_footer_template', 'default') ) ) {
 
 	?><footer class="banner" id="footer"><?php emulsion_footer_text(); ?></footer><?php
 	} else {

@@ -320,10 +320,18 @@ if ( ! function_exists( 'emulsion_is_amp' ) ) {
 
 	function emulsion_is_amp() {
 
+		$amp_options = get_option( 'amp-options' );
+
+		if( 'standard' == $amp_options["theme_support"] && defined('AMP__FILE__') ) {
+			return true;
+		}
+
 		if ( function_exists( 'is_amp_endpoint' ) ) {
 
 			return is_amp_endpoint();
 		}
+
+
 
 		return false;
 	}
@@ -796,6 +804,8 @@ if ( ! function_exists( 'emulsion_add_flex_container_classes' ) ) {
 	}
 
 }
+
+
 if ( ! function_exists( 'emulsion_add_layout_classes' ) ) {
 
 	function emulsion_add_layout_classes( $block_content, $block ) {
@@ -1478,22 +1488,39 @@ if ( ! function_exists( 'emulsion_block_template_part' ) ) {
 
 			if ( 'header' == $template_part->area ) {
 
-				$additional_classes	 = array( 'fse-header', 'header-layer' );
+				$additional_classes	 = array( 'fse-header', 'header-layer', 'html-header' );
+				"#eeeeee" !== get_theme_mod('emulsion_header_background_color') ? $additional_classes[] = 'has-customizer-bg': '';
 				$tag_name			 = 'header';
-				if ( 'transitional' == emulsion_get_theme_operation_mode() && 'default' == get_theme_mod( 'emulsion_header_template' ) ) {
+				if ( 'transitional' == emulsion_get_theme_operation_mode() && 'default' == get_theme_mod( 'emulsion_header_template',  emulsion_theme_default_val( 'emulsion_header_template','default' ) ) ) {
 					return;
 				}
+
 			}
 
 
 			if ( 'footer' == $template_part->area ) {
 
-				$additional_classes	 = array( 'fse-footer', 'footer-layer' );
+				$additional_classes	 = array( 'fse-footer', 'footer-layer', 'html-footer' );
+				"#eeeeee" !== get_theme_mod('emulsion_header_background_color') ? $additional_classes[] = 'has-customizer-bg': '';
 				$tag_mame			 = 'footer';
 
-				if ( 'transitional' == emulsion_get_theme_operation_mode() && 'default' == get_theme_mod( 'emulsion_footer_template' ) ) {
+				if ( 'transitional' == emulsion_get_theme_operation_mode() && 'default' == get_theme_mod( 'emulsion_footer_template', emulsion_theme_default_val( 'emulsion_footer_template', 'default') ) ) {
 					return;
 				}
+
+				$policy_page_link	 = '';
+				$policy_page_title	 = '';
+				$policy_page_url	 = '';
+				$policy_page_id		 = (int) get_option( 'wp_page_for_privacy_policy' );
+
+				if ( $policy_page_id && get_post_status( $policy_page_id ) === 'publish' ) {
+
+					$policy_page_title	 = wp_kses_post( get_the_title( $policy_page_id ) );
+					$policy_page_url	 = esc_url( get_permalink( $policy_page_id ) );
+					$policy_page_link	 = sprintf( '<a href="%1$s" class="emulsion-privacy-policy">%2$s</a>', esc_url( $policy_page_url ), $policy_page_title );
+				}
+
+				$template_part->content = str_replace( array( '%current_year%', '%privacy_policy%' ), array( date( 'Y' ), $policy_page_link ), $template_part->content );
 			}
 
 			$theme_classes	 = array_merge( $theme_classes, $additional_classes );

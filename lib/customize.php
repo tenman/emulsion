@@ -338,6 +338,10 @@ if ( ! function_exists( 'emulsion_theme_customizer_style' ) ) {
 	function emulsion_theme_customizer_style() {
 
 		$css = <<< CSS
+.customize-control-notifications-container > ul,
+#customize-notifications-area > ul{
+	padding:.5rem;
+}
 .customize-control-emulsionImageRadio input {
 	visibility:hidden;
 }
@@ -629,7 +633,7 @@ function emulsion_should_load_separate_core_block_assets_validate( $input ) {
 function emulsion_header_template_validate( $input ) {
 
 	$values			 = array( 'html', 'default' );
-	$default_value	 = 'default';
+	$default_value	 = 'html';
 
 	if ( in_array( $input, $values ) ) {
 
@@ -642,7 +646,7 @@ function emulsion_header_template_validate( $input ) {
 function emulsion_footer_template_validate( $input ) {
 
 	$values			 = array( 'html', 'default' );
-	$default_value	 = 'default';
+	$default_value	 = 'html';
 
 	if ( in_array( $input, $values ) ) {
 
@@ -657,7 +661,7 @@ add_action( 'customize_controls_enqueue_scripts', 'emulsion_customizer_script' )
 function emulsion_customizer_script() {
 
 	$current_theme_mode = get_theme_mod( 'emulsion_editor_support' );
-	
+
 	$script = <<<SCRIPT
 (function ( $ ) {
 	var current_theme_mode = '{$current_theme_mode}';

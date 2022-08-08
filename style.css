@@ -5,7 +5,7 @@ Theme URI: https://www.tenman.info/wp3/emulsion
 Description: By switching Customize / Theme Operation Mode. A universal theme that allows you to use the latest Setting Full Site Editing (Editor), Block Editor, Block Template.You can also view the traditional sidebar by selecting FSE Transitional Theme.You will be free to go back and forth between the future of WordPress and the present.
 Author: Tenman
 Author URI: https://www.tenman.info/wp3/
-Version: 2.4.5
+Version: 2.4.6
 Tags: full-site-editing, one-column, two-columns, grid-layout,left-sidebar, right-sidebar,custom-background, custom-colors, custom-header,custom-logo, custom-menu, editor-style, featured-image-header, featured-images, flexible-header, footer-widgets, full-width-template, post-formats, sticky-post, theme-options, threaded-comments, translation-ready, block-patterns, block-styles, wide-blocks
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -619,14 +619,13 @@ html .has-pale-ocean-gradient-background{
 
 #wpwrap [data-type="core/html"] .wp-block-html .block-editor-plain-text.is-style-dark,
 .wp-block-preformatted.is-style-dark,
-pre code.is-style-dark {
+pre.wp-block-code.is-style-dark{
     color: var(--thm_is_style_dark_color, #a9b7c6);
     background: var(--thm_is_style_dark_bg, #282b2e);
 }
 
 #wpwrap [data-type="core/html"] .wp-block-html .block-editor-plain-text.is-style-dark code,
 .wp-block-preformatted.is-style-dark code,
-pre code.is-style-dark code,
 #wpwrap [data-type="core/html"] .wp-block-html .block-editor-plain-text.is-style-dark .block-editor-plain-text,
 .wp-block-preformatted.is-style-dark .block-editor-plain-text,
 pre code.is-style-dark .block-editor-plain-text {
@@ -634,24 +633,20 @@ pre code.is-style-dark .block-editor-plain-text {
     background: var(--thm_is_style_dark_bg, #282b2e);
 }
 
-pre.wp-block-code:not(.has-text-color):not(.has-background) code {
+pre.wp-block-code {
     color: var(--thm_code_color, #555555);
     background: var(--thm_code_bg, #f8f8ff);
 }
-pre.wp-block-codehas-text-color.has-background code {
+pre.wp-block-code.has-text-color.has-background code {
     color: inherit;
     background: inherit;
 }
-pre.wp-block-code.is-style-dark code {
+pre.wp-block-code.is-style-dark {
     color: var(--thm_is_style_dark_color, #a9b7c6);
     background: var(--thm_is_style_dark_bg, #282b2e);
 }
 
-pre.wp-block-code.is-style-dark code code,
-pre.wp-block-code.is-style-dark code .block-editor-plain-text {
-    color: var(--thm_is_style_dark_color, #a9b7c6);
-    background: var(--thm_is_style_dark_bg, #282b2e);
-}
+
 
 p > code {
     padding-right: 0.25rem;

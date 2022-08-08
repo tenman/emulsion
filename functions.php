@@ -62,11 +62,13 @@ STYLE;
 
 } else {
 
-	function emulsion_fse_transitional_editor_inline_style(){
-		$message = esc_html__('Please customize the header and footer with the customizer.', 'emulsion');
-		$message_2 = esc_html__( 'If you set the content to 100%, all child elements can be displayed in a fluid layout( only front end )', 'emulsion' );
-		$css = '';
-		if( 'html' !== get_theme_mod('emulsion_header_template') ) {
+	function emulsion_fse_transitional_editor_inline_style() {
+
+		$message	 = esc_html__( 'Please customize the header and footer with the customizer.primary menu. Set the primary menu with the Classic Menu (wp-nav-menu).', 'emulsion' );
+		$message  .= esc_html__( 'If you want to use the block menu, change Customize / Theme Scheme / Header Template to HTML', 'emulsion' );
+		$message_2	 = esc_html__( 'If you set the content to 100%, all child elements can be displayed in a fluid layout( only front end )', 'emulsion' );
+		$css		 = '';
+		if ( 'html' !== get_theme_mod( 'emulsion_header_template', 'html' ) ) {
 			// html means use block template header
 			$css .= '
 				.edit-site-header__actions .interface-pinned-items [aria-label="Navigation"],
@@ -81,8 +83,14 @@ STYLE;
 				.components-resizable-box__container .edit-site-visual-editor__editor-canvas{
 					margin:0 auto;
 				}';
+			$css .= ".edit-site-template-card__template-areas:after{
+					content:'{$message}';
+					display:block;
+					padding:.75rem;
+					border:1px solid #ccc;
+				}";
 		}
-		if( 'html' !== get_theme_mod('emulsion_footer_template') ) {
+		if ( 'html' !== get_theme_mod( 'emulsion_footer_template', emulsion_theme_default_val( 'emulsion_footer_template', 'default') ) ) {
 			// html means use block template header
 			$css .= '
 				.block-editor-list-view-tree [aria-label="Navigation link"] ~ .block-editor-list-view-block__menu-cell,
@@ -92,13 +100,7 @@ STYLE;
 				display:none;
 			}';
 		}
-		$css .=<<<STYLE
-				.edit-site-template-card__template-areas:after{
-					content:'{$message}';
-					display:block;
-					padding:.75rem;
-					border:1px solid #ccc;
-				}
+		$css .= <<<STYLE
 				.block-editor-hooks__layout-controls-helptext:after{
 					content:'{$message_2}';
 					display:block;

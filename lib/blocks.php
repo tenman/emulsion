@@ -6,7 +6,7 @@
 if ( function_exists( 'register_block_style' ) ) {
 
 	register_block_style( 'core/code', array( 'name' => 'dark', 'label' => esc_html__( 'Dark', 'emulsion' ), ) );
-
+	
 	register_block_style( 'core/tag-cloud', array( 'name'			 => 'flat', 'label'			 => esc_html__( 'Flat', 'emulsion' ),
 		'inline_style'	 => '#document .is-style-flat a,#wpbody .is-style-flat a{ '
 		. 'font-size:1rem ! important; display:inline-block;padding:.6rem; }', ) );

@@ -309,6 +309,7 @@ div.editor-styles-wrapper .block-editor-block-list__layout.is-root-container > .
     .edit-post-meta-boxes-area{
         .postbox{
             & >.inside{
+                padding:0;
                 .dashicons-lightbulb{
                     &:before{
                         color:#f39c12;
@@ -718,8 +719,8 @@ body .edit-post-editor .interface-interface-skeleton__content{
     [data-type="core/html"] .wp-block-html .block-editor-plain-text,
     .wp-block-preformatted,
     pre code {
-        color: var(--thm_code_color, #555555);
-        background: var(--thm_code_bg, #f8f8ff);
+        // color: var(--thm_code_color, #555555);
+        //background: var(--thm_code_bg, #f8f8ff);
     }
 
     [data-type="core/html"] .wp-block-html .block-editor-plain-text.is-style-dark,
@@ -740,8 +741,8 @@ body .edit-post-editor .interface-interface-skeleton__content{
     }
 
     pre.wp-block-code code {
-        color: var(--thm_code_color, #555555);
-        background: var(--thm_code_bg, #f8f8ff);
+        // color: var(--thm_code_color, #555555);
+        // background: var(--thm_code_bg, #f8f8ff);
     }
 
     pre.wp-block-code.is-style-dark code {
@@ -4014,7 +4015,7 @@ body.editor-styles-wrapper{
                     padding:0;
                     margin:0 auto;
                     overflow:hidden;
-                        &.post-featured-image_placeholder{
+                    &.post-featured-image_placeholder{
                         align-items:start;
                     }
                 }
