@@ -1108,10 +1108,12 @@ if ( ! function_exists( 'emulsion_fse_background_color_class' ) ) {
 
 		$style = wp_get_global_stylesheet( array( 'styles' ) );
 
-		if ( false !== preg_match( '$body(.*)?\{(.*)?(background-color:|background:)([^\;]*)\;$', $style, $regs ) && ! empty( $regs[4] ) ) {
+		if ( false !== preg_match( '$body(\s*)?\{([^\}]*)?(background-color:|background:)([^\;]*)\;$', $style, $regs ) && ! empty( $regs[4] ) ) {
 
 			$fse_class	 = sanitize_html_class( 'is-fse-bg-' . $regs[4] );
 			$color		 = emulsion_accessible_color( trim( $regs[4] ) );
+
+
 
 			if ( '#ffffff' == $color ) {
 
@@ -1366,7 +1368,7 @@ if ( ! function_exists( 'emulsion_fallback_block_class' ) ) {
 	function emulsion_fallback_block_class( $block_content, $block ) {
 
 		$block_name		 = 'wp-block-' . substr( strrchr( $block['blockName'], "/" ), 1 );
-		$target_block	 = array( 'wp-block-audio', 'wp-block-buttons', 'wp-block-columns', 'wp-block-file', 'wp-block-group', 'wp-block-post-excerpt', 'wp-block-table', 'wp-block-navigation', 'wp-block-cover' );
+		$target_block	 = array( 'wp-block-post-template', 'wp-block-audio', 'wp-block-buttons', 'wp-block-columns', 'wp-block-file', 'wp-block-group', 'wp-block-post-excerpt', 'wp-block-table', 'wp-block-navigation', 'wp-block-cover' );
 
 		if ( in_array( $block_name, $target_block ) ) {
 
@@ -1631,6 +1633,10 @@ if ( ! function_exists( 'emulsion_custom_field_css' ) ) {
 		$post_type			 = get_post_type();
 		$custom_css_class	 = 'has-custom-style';
 		$meta_field			 = 'css';
+
+		if( ! is_singular() ) {
+			return;
+		}
 
 		if ( metadata_exists( $post_type, $post_id, $meta_field ) ) {
 

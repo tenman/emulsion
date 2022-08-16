@@ -480,7 +480,7 @@ body:not(.emulsion-has-sidebar) .sidebar-widget-area{
                 box-sizing:border-box;
                 gap:var(--thm_box_gap, 3px);
                 max-width:calc(100% - var(--thm_box_gap, 3px) * 2);
-                margin:0;
+                margin:auto;
             }
         }
 
@@ -524,7 +524,7 @@ body:not(.emulsion-has-sidebar) .sidebar-widget-area{
                 }
             }
 
-            // @include font_size(5);
+            @include font_size(5);
             margin-top:0;
             margin-bottom:0;
 
@@ -707,7 +707,7 @@ body:not(.emulsion-has-sidebar) .sidebar-widget-area{
         }
     }
     .widget_calendar{
-        @include font_size(5);
+       @include font_size(5);
         width:100%;
         .calendar_wrap{
             width:calc( 100% - var(--thm_content_gap, 24px) * 2 );
@@ -773,7 +773,7 @@ body{
                         margin-bottom:0;
                         overflow-x:hidden;
                         overflow-y:scroll;
-                        @include font_size(5);
+                     //   @include font_size(5);
                         &::-webkit-scrollbar {
                             width: .5rem;
                             height:100px;
@@ -846,7 +846,7 @@ body{
             }
         }
         .widget_calendar{
-            @include font_size(5);
+          @include font_size(5);
             width:100%;
 
             .calendar_wrap{
@@ -1106,6 +1106,11 @@ body.emulsion-has-sidebar{
                     }
                 }
                 li{
+                    &.wp-block-pages-list__item{
+                        display:block;
+                        margin:auto;
+
+                    }
                     //now dummy css
                     &.has-child{
                         .submenu-container{
@@ -1113,6 +1118,7 @@ body.emulsion-has-sidebar{
                             visibility:hidden;
                             transition:visibility 1s;
                         }
+
                         .wp-block-pages-list__item__link{
                             display:inline-block;
                         }

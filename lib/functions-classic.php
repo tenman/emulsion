@@ -768,6 +768,14 @@ function emulsion_register_scripts_and_styles() {
 			wp_add_inline_script( $emulsion_child_theme_slug . '-js', $inline_script );
 		}
 	}
+
+	/*if ( ! emulsion_is_amp() &&
+			'transitional' == emulsion_get_theme_operation_mode() &&
+			'html' == get_theme_mod( 'emulsion_header_template',  emulsion_theme_default_val( 'emulsion_header_template','default' ) ) ) {
+		//pending
+		//wp_register_script( 'emulsion-fse', get_theme_file_uri( 'js/emulsion-fse.js' ), array(), $emulsion_current_data_version, true );
+		//wp_enqueue_script( 'emulsion-fse' );
+	}*/
 	/**
 	 * Lazyload
 	 */
@@ -987,6 +995,7 @@ if ( ! function_exists( 'emulsion_the_header_layer_class' ) ) {
 		if( 'html' == get_theme_mod( 'emulsion_header_template',  emulsion_theme_default_val( 'emulsion_header_template','default' ) ) ){
 			 return;
 		}
+
 		$post_id = get_the_ID();
 
 		$header_text_color	 = ! empty( get_header_textcolor() ) ? sprintf( '#%1$s', get_header_textcolor() ) : '';
@@ -997,6 +1006,9 @@ if ( ! function_exists( 'emulsion_the_header_layer_class' ) ) {
 			$class_name = ' has-header-text-color';
 		}
 
+		if ( 'transitional' == emulsion_get_theme_operation_mode() && false !== get_theme_mod('emulsion_header_background_color', false ) ) {
+			$class_name = ' has-customizer-bg';
+		}
 		/**
 		 * Whether the header has images or video, its state is represented by class.
 		 * classes : header-video-active, header-image-active, no-header-media password-required
@@ -2037,7 +2049,7 @@ function emulsion_get_starter_content() {
 		'posts'		 => array(
 			'front' => array(
 				'post_type'		 => 'page',
-				'post_title'	 => esc_html_x( 'emulsion home demo', 'Theme starter content', 'emulsion' ),
+				'post_title'	 => esc_html_x( 'emulsion front page demo', 'Theme starter content', 'emulsion' ),
 				'post_content'	 => include( $template_path ),
 			),
 			'about',
@@ -2060,7 +2072,12 @@ function emulsion_get_starter_content() {
 				),
 			),
 		),
-			//'theme_mods' => array(),
+		'theme_mods' => array(
+			'emulsion_header_template' => 'html',
+			'emulsion_footer_template' => 'html',
+			'emulsion_scheme' => 'midnight'
+			),
+		'widgets' => array(),
 	);
 	return apply_filters( 'emulsion_starter_content', $starter_content );
 }

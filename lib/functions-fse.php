@@ -522,7 +522,7 @@ function emulsion_corrected_core_css_block_data_align() {
 		height: auto;
 		overflow: hidden;
    }
-	..wp-block[data-align="right"] [data-block] .wp-block-gallery.alignright,
+	.wp-block[data-align="right"] [data-block] .wp-block-gallery.alignright,
 	.wp-block[data-align="right"] [data-block] .alignleft,
 	.wp-block[data-align="right"] [data-block] .alignright {
 		width: 100%;

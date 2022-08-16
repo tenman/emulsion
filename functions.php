@@ -4,6 +4,8 @@ current_user_can( 'edit_posts' )  ? include_once( get_theme_file_path( 'lib/cust
 include_once( get_theme_file_path( 'lib/functions-global.php' ) );
 include_once( get_theme_file_path( 'lib/blocks.php' ) );
 
+//update_option('fresh_site',1);
+
 if('fse' == emulsion_get_theme_operation_mode() ) {
 
 	require_once( get_theme_file_path( 'lib/functions-fse.php' ) );
@@ -117,3 +119,4 @@ STYLE;
 }
 
 add_action( 'enqueue_block_editor_assets', 'emulsion_block_editor_assets' );
+

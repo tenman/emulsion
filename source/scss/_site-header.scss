@@ -332,7 +332,7 @@
                 margin:0;
             }
             .site-description{
-                @include font_size(5,no-margin);
+               @include font_size(5,no-margin);
                 width:auto;
                 max-width:100%;
                 margin-top:0;
@@ -537,12 +537,12 @@
 
             .entry-meta{
                 @extend %block;
-                @include font_size(5);
+              @include font_size(5);
             }
 
             .posted-on{
                 @extend %block;
-                @include font_size(5);
+               @include font_size(5);
                 z-index:7;
                 width: -moz-fit-content;
                 width:fit-content;
@@ -827,7 +827,7 @@ body .toc > ul{
 }
 
 body .template-part-header{
-
+    z-index:14;
     .header-layer-site-title-navigation{
         z-index:9999;
 
@@ -1492,6 +1492,10 @@ input[type="checkbox"][data-skin] + label[for="primary-menu-controll"],
     margin:0 1em 45px;
     clear:both;
     vertical-align:middle;
+    @media screen and ( min-width : 768px) {
+        display:none!important;
+
+    }
 }
 
 .emulsion-no-sidebar input[type="checkbox"][data-skin] + label[for="primary-menu-controll"]{

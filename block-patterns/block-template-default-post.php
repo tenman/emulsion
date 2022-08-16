@@ -2,11 +2,20 @@
 
 $html = <<<HTML
 <!-- wp:group {"tagName":"header","className":"alignfull fse-header header-layer wp-block-template-part-header-singular wp-block-template-part","layout":{"inherit":true}} -->
-<header class="wp-block-group alignfull fse-header header-layer wp-block-template-part-header-singular wp-block-template-part"><!-- wp:group {"className":"header-text fse-header-content","layout":{"inherit":true}} -->
-<div class="wp-block-group header-text fse-header-content"><!-- wp:site-title {"className":"alignleft"} /-->
+<header class="wp-block-group alignfull fse-header header-layer wp-block-template-part-header-singular wp-block-template-part">
+<!-- wp:group {"className":"fse-header-content","layout":{"inherit":true}} -->
 
-<!-- wp:site-tagline {"className":"alignleft"} /--></div>
-<!-- /wp:group --></header>
+<div class="wp-block-group fse-header-content">
+<!-- wp:site-logo {"width":48} /-->
+	<!-- wp:group {"className":"fse-header-text","layout":{"inherit":false}} -->
+    <div class="wp-block-group fse-header-text">
+		<!-- wp:site-title {"className":"alignleft"} /-->
+		<!-- wp:site-tagline {"className":"alignleft"} /-->
+		    </div>
+    <!-- /wp:group -->
+</div>
+<!-- /wp:group -->
+</header>
 <!-- /wp:group -->
 
 <!-- wp:navigation {"__unstableLocation":"primary","align":"full","className":"fse-primary","layout":{"type":"flex","justifyContent":"center","orientation":"horizontal"}} /-->
