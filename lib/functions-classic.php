@@ -583,7 +583,7 @@ function emulsion_register_scripts_and_styles() {
 				'emulsion-responsive'	 => 'responsive.css',
 				'emulsion-comments'		 => 'comments.css',
 				'emulsion-archives'		 => 'archives.css',
-					//'emulsion-block-presentation'	 => 'block-presentation.css',
+				'emulsion-block-presentation'	 => 'block-presentation.css',
 			);
 		}
 		if ( 'html' == get_theme_mod( 'emulsion_header_template',  emulsion_theme_default_val( 'emulsion_header_template','default' ) ) ) {
@@ -597,7 +597,7 @@ function emulsion_register_scripts_and_styles() {
 				//'emulsion-columns'				 => 'columns.css',
 				//'emulsion-accessibility'		 => 'accessibility.css',
 				//'emulsion-custom-color'			 => 'custom-color.css',
-				//'emulsion-gallery'				 => 'gallery.css',
+				'emulsion-gallery'				 => 'gallery.css',
 				'emulsion-comments'				 => 'comments.css',
 				'emulsion-primary-menu'			 => 'primary-menu.css',
 				'emulsion-misc'					 => 'misc.css',

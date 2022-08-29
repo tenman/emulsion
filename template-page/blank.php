@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Template Name: Blank Template
  * Template Post Type: post, page

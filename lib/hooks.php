@@ -208,6 +208,7 @@ if ( ! function_exists( 'emulsion_body_class' ) ) {
 	 */
 	function emulsion_body_class( $classes ) {
 		global $post, $template;
+
 		if ( 'fse' == emulsion_get_theme_operation_mode() ) {
 			return $classes;
 		}
@@ -345,10 +346,11 @@ if ( ! function_exists( 'emulsion_body_class' ) ) {
 			}
 		}
 
-		if ( has_blocks() ) {
+		if ( has_blocks() && is_singular() ) {
 
 			$classes[] = 'has-block';
-		} else {
+		}
+		if ( ! has_blocks() && is_singular() ) {
 
 			$classes[] = 'no-block';
 		}
@@ -357,25 +359,64 @@ if ( ! function_exists( 'emulsion_body_class' ) ) {
 
 			$classes[] = 'emulsion-fse-active';
 
-			// A compromised setting as I can't find an easy way to determine if the template is excerpt or post content
-			$classes[] = 'full_text';
+			if ( ! is_page() || ! is_attachment() || ! is_single() || has_block( 'post-excerpt' ) ) {
+
+				$classes[] = 'summary';//for transitional theme
+				$classes[] = 'excerpt';// for classic theme
+			} else {
+				$classes[] = 'full_text';
+			}
 		}
 		/**
 		 * Font family class
 		 */
-		$heading_font_family = get_theme_mod( 'emulsion_heading_font_family', emulsion_theme_default_val( 'emulsion_heading_font_family' ) );
+		if ( 'theme' == emulsion_get_theme_operation_mode() ) {
 
-		$classes[] = sanitize_html_class( 'font-heading-' . $heading_font_family );
+			$heading_font_family = get_theme_mod( 'emulsion_heading_font_family', emulsion_theme_default_val( 'emulsion_heading_font_family' ) );
 
-		if ( function_exists( 'emulsion_get_css_variables_values' ) ) {
+			$classes[] = sanitize_html_class( 'font-heading-' . $heading_font_family );
 
-			$common_font_family = emulsion_get_css_variables_values( 'common_font_family' );
-		} else {
+			if ( function_exists( 'emulsion_get_css_variables_values' ) ) {
 
-			$common_font_family = emulsion_theme_default_val( 'emulsion_common_font_family' );
+				$common_font_family = emulsion_get_css_variables_values( 'common_font_family' );
+			} else {
+
+				$common_font_family = emulsion_theme_default_val( 'emulsion_common_font_family' );
+			}
+
+			$classes[] = sanitize_html_class( 'font-common-' . $common_font_family );
 		}
 
-		$classes[] = sanitize_html_class( 'font-common-' . $common_font_family );
+		$emulsion_scheme = get_theme_mod( 'emulsion_scheme' );
+
+		if ( 'transitional' == emulsion_get_theme_operation_mode() && 'default' == $emulsion_scheme ) {
+
+			if( ! empty( get_theme_mod( 'emulsion_heading_font_family') ) ||
+				! empty( get_theme_mod( 'heading_font_weight') ) ||
+				! empty( get_theme_mod( 'heading_font_scale') ) ){
+
+				$classes[] = 'has-customizer-heading-style';
+
+			}
+
+			if( ! empty( get_theme_mod( 'common_font_family') ) ||
+				! empty( get_theme_mod( 'common_font_size') ) ){
+
+				$classes[] = 'has-customizer-common-font-style';
+
+			}
+
+			if( ! empty( get_theme_mod( 'widget_meta_font_transform') ) ||
+				! empty( get_theme_mod( 'widget_meta_font_family') ) ||
+				! empty( get_theme_mod( 'widget_meta_font_size') ) ){
+
+				$classes[] = 'has-customizer-meta-style';
+
+			}
+
+
+
+		}
 
 
 

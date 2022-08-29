@@ -1657,7 +1657,7 @@ if ( ! function_exists( 'emulsion_custom_field_css' ) ) {
 
 						if ( false === strstr( $match, 'has-custom-style' ) ) {
 
-							$result .= sprintf( ' .postid-%1$d %2$s', $post_id, $match );
+							$result .= sprintf( ' .has-custom-style.postid-%1$d %2$s', $post_id, $match );
 						} else {
 
 							$result .= $match;
