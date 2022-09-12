@@ -422,9 +422,12 @@ function emulsion_register_scripts_and_styles() {
 		'emulsion-misc'					 => 'misc.css',
 		'emulsion-boxed'				 => 'boxed.css',
 		'emulsion-responsive'			 => 'responsive.css',
+		'emulsion-patterns'				=> 'patterns.css',
 			//'emulsion-fse'					 => 'fse.css',
 			//'amp-reader'					 => 'amp.css',
 	);
+
+
 
 	if ( 'html' == get_theme_mod( 'emulsion_header_template',emulsion_theme_default_val( 'emulsion_header_template', 'default') ) && get_theme_mod( 'emulsion_footer_template',emulsion_theme_default_val( 'emulsion_footer_template', 'default') ) ) {
 

@@ -103,6 +103,11 @@ $html = <<<HTML
 <!-- /wp:query-pagination --></div>
 <!-- /wp:query -->
 
+<!-- wp:group {"layout":{"inherit":true,"type":"constrained"},"align":"full","className":"emulsion-call-to-action", style":{"spacing":{"padding":{"top":"var:preset|spacing|60","right":"var:preset|spacing|60","bottom":"var:preset|spacing|60","left":"var:preset|spacing|60"}},"color":{"background":"#eee8e8"}}} -->
+<div class="wp-block-group alignfull has-background emulsion-call-to-action" style="background-color:#eee8e8;padding-top:var(--wp--preset--spacing--60);padding-right:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--60);padding-left:var(--wp--preset--spacing--60)"><!-- wp:heading {"textAlign":"center"} -->
+<h2 class="has-text-align-center">call to Action</h2>
+<!-- /wp:heading -->
+
 <!-- wp:media-text {"align":"full","mediaLink":"https://www.tenman.info/wp-37/wp-content/themes/emulsion/images/demo.jpg","mediaType":"image","backgroundColor":"luminous-vivid-amber"} -->
 <div class="wp-block-media-text alignfull is-stacked-on-mobile has-luminous-vivid-amber-background-color has-background"><figure class="wp-block-media-text__media"><img src="https://www.tenman.info/wp-37/wp-content/themes/emulsion/images/demo.jpg" alt="alt"/></figure><div class="wp-block-media-text__content"><!-- wp:heading {"level":3,"placeholder":"Title","align":"center"} -->
 <h3>Block pattern support</h3>
@@ -129,6 +134,112 @@ $html = <<<HTML
 
 <!-- wp:latest-posts {"displayPostContent":true,"displayAuthor":true,"displayPostDate":true,"postLayout":"grid","displayFeaturedImage":true,"featuredImageSizeSlug":"medium","align":"wide"} /-->
 
+<!-- wp:group {"layout":{"contentSize":"1170px","type":"constrained"},"align":"full","className":"our-team-team-member-our-client-section-desing-with-image-social-media", "style":{"spacing":{"padding":{"top":"70px","right":"30px","bottom":"40px","left":"30px"}},"color":{"background":"#09005c"}}} -->
+<div class="wp-block-group alignfull has-background our-team-team-member-our-client-section-desing-with-image-social-media" style="background-color:#09005c;padding-top:70px;padding-right:30px;padding-bottom:40px;padding-left:30px"><!-- wp:columns -->
+<div class="wp-block-columns"><!-- wp:column -->
+<div class="wp-block-column"><!-- wp:heading {"textAlign":"center","style":{"typography":{"textTransform":"uppercase","fontStyle":"normal","fontWeight":"700","lineHeight":"1"}},"textColor":"white"} -->
+<h2 class="has-text-align-center has-white-color has-text-color" style="font-style:normal;font-weight:700;line-height:1;text-transform:uppercase">Meet Our Team</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"align":"center","style":{"typography":{"fontSize":"16px"}},"textColor":"white"} -->
+<p class="has-text-align-center has-white-color has-text-color" style="font-size:16px">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor <br>exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:column --></div>
+<!-- /wp:columns -->
+
+<!-- wp:columns {"align":"wide","style":{"spacing":{"padding":{"top":"15px"}}}} -->
+<div class="wp-block-columns alignwide" style="padding-top:15px"><!-- wp:column -->
+<div class="wp-block-column"><!-- wp:group {"style":{"border":{"radius":"15px"},"spacing":{"padding":{"top":"30px","right":"30px","bottom":"35px","left":"30px"}}},"backgroundColor":"white"} -->
+<div class="wp-block-group has-white-background-color has-background" style="border-radius:15px;padding-top:30px;padding-right:30px;padding-bottom:35px;padding-left:30px"><!-- wp:image {"sizeSlug":"full","linkDestination":"none","style":{"border":{"radius":"30px"}}} -->
+<figure class="wp-block-image size-full has-custom-border"><img src="https://pd.w.org/2021/12/67761b1e1e369a0c5.15366783.jpeg" alt="" style="border-radius:30px"/></figure>
+<!-- /wp:image -->
+
+<!-- wp:heading {"textAlign":"center","level":4,"style":{"typography":{"textTransform":"capitalize","fontSize":"26px","fontStyle":"normal","fontWeight":"600"}}} -->
+<h4 class="has-text-align-center" style="font-size:26px;font-style:normal;font-weight:600;text-transform:capitalize">Devid Warner</h4>
+<!-- /wp:heading -->
+
+<!-- wp:heading {"textAlign":"center","level":6,"style":{"typography":{"fontSize":"16px","fontStyle":"normal","fontWeight":"400","lineHeight":".1"},"color":{"text":"#bbbbbb"}}} -->
+<h6 class="has-text-align-center has-text-color" style="color:#bbbbbb;font-size:16px;font-style:normal;font-weight:400;line-height:.1">Founder of Company</h6>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"align":"center","style":{"typography":{"fontSize":"16px"},"color":{"text":"#666666"}}} -->
+<p class="has-text-align-center has-text-color" style="color:#666666;font-size:16px">Lorem ipsum dolor sit amet, <br>consectetur adipiscing elit, <br>sed do eiusmod </p>
+<!-- /wp:paragraph -->
+
+<!-- wp:social-links {"style":{"spacing":{"blockGap":{"top":"10px","left":"10px"}}},"className":"is-style-logos-only","layout":{"type":"flex","justifyContent":"center","flexWrap":"wrap"}} -->
+<ul class="wp-block-social-links is-style-logos-only"><!-- wp:social-link {"url":"#","service":"facebook"} /-->
+
+<!-- wp:social-link {"url":"#","service":"twitter"} /-->
+
+<!-- wp:social-link {"url":"#","service":"instagram"} /-->
+
+<!-- wp:social-link {"url":"#","service":"linkedin"} /--></ul>
+<!-- /wp:social-links --></div>
+<!-- /wp:group --></div>
+<!-- /wp:column -->
+
+<!-- wp:column -->
+<div class="wp-block-column"><!-- wp:group {"style":{"border":{"radius":"15px"},"spacing":{"padding":{"top":"30px","right":"30px","bottom":"35px","left":"30px"}}},"backgroundColor":"white"} -->
+<div class="wp-block-group has-white-background-color has-background" style="border-radius:15px;padding-top:30px;padding-right:30px;padding-bottom:35px;padding-left:30px"><!-- wp:image {"sizeSlug":"full","linkDestination":"none","style":{"border":{"radius":"30px"}},"className":"is-style-default"} -->
+<figure class="wp-block-image size-full has-custom-border is-style-default"><img src="https://img.rawpixel.com/s3fs-private/rawpixel_images/website_content/a005-scottw-610.jpg?w=1200&amp;h=1200&amp;fit=clip&amp;crop=default&amp;dpr=1&amp;q=75&amp;vib=3&amp;con=3&amp;usm=15&amp;cs=srgb&amp;bg=F4F4F3&amp;ixlib=js-2.2.1&amp;s=30cfcba5e1e5e25a1cd2852b5c446ea1" alt="" style="border-radius:30px"/></figure>
+<!-- /wp:image -->
+
+<!-- wp:heading {"textAlign":"center","level":4,"style":{"typography":{"textTransform":"capitalize","fontSize":"26px","fontStyle":"normal","fontWeight":"600"}}} -->
+<h4 class="has-text-align-center" style="font-size:26px;font-style:normal;font-weight:600;text-transform:capitalize">Nike Sily</h4>
+<!-- /wp:heading -->
+
+<!-- wp:heading {"textAlign":"center","level":6,"style":{"typography":{"fontSize":"16px","fontStyle":"normal","fontWeight":"400","lineHeight":".1"},"color":{"text":"#bbbbbb"}}} -->
+<h6 class="has-text-align-center has-text-color" style="color:#bbbbbb;font-size:16px;font-style:normal;font-weight:400;line-height:.1">Manager of Company</h6>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"align":"center","style":{"typography":{"fontSize":"16px"},"color":{"text":"#666666"}}} -->
+<p class="has-text-align-center has-text-color" style="color:#666666;font-size:16px">Lorem ipsum dolor sit amet, <br>consectetur adipiscing elit, <br>sed do eiusmod </p>
+<!-- /wp:paragraph -->
+
+<!-- wp:social-links {"style":{"spacing":{"blockGap":{"top":"10px","left":"10px"}}},"className":"is-style-logos-only","layout":{"type":"flex","justifyContent":"center","flexWrap":"wrap"}} -->
+<ul class="wp-block-social-links is-style-logos-only"><!-- wp:social-link {"url":"#","service":"facebook"} /-->
+
+<!-- wp:social-link {"url":"#","service":"twitter"} /-->
+
+<!-- wp:social-link {"url":"#","service":"instagram"} /-->
+
+<!-- wp:social-link {"url":"#","service":"linkedin"} /--></ul>
+<!-- /wp:social-links --></div>
+<!-- /wp:group --></div>
+<!-- /wp:column -->
+
+<!-- wp:column -->
+<div class="wp-block-column"><!-- wp:group {"style":{"border":{"radius":"15px"},"spacing":{"padding":{"top":"30px","right":"30px","bottom":"35px","left":"30px"}}},"backgroundColor":"white"} -->
+<div class="wp-block-group has-white-background-color has-background" style="border-radius:15px;padding-top:30px;padding-right:30px;padding-bottom:35px;padding-left:30px"><!-- wp:image {"sizeSlug":"full","linkDestination":"none","style":{"border":{"radius":"30px"}},"className":"is-style-default"} -->
+<figure class="wp-block-image size-full has-custom-border is-style-default"><img src="https://img.rawpixel.com/s3fs-private/rawpixel_images/website_content/a010-markusspiske-oct18-069.jpg?w=1200&amp;h=1200&amp;fit=clip&amp;crop=default&amp;dpr=1&amp;q=75&amp;vib=3&amp;con=3&amp;usm=15&amp;cs=srgb&amp;bg=F4F4F3&amp;ixlib=js-2.2.1&amp;s=9985cccf4148ba19d4707142ac5798e2" alt="" style="border-radius:30px"/></figure>
+<!-- /wp:image -->
+
+<!-- wp:heading {"textAlign":"center","level":4,"style":{"typography":{"textTransform":"capitalize","fontSize":"26px","fontStyle":"normal","fontWeight":"600"}}} -->
+<h4 class="has-text-align-center" style="font-size:26px;font-style:normal;font-weight:600;text-transform:capitalize">John Duo</h4>
+<!-- /wp:heading -->
+
+<!-- wp:heading {"textAlign":"center","level":6,"style":{"typography":{"fontSize":"16px","fontStyle":"normal","fontWeight":"400","lineHeight":".1"},"color":{"text":"#bbbbbb"}}} -->
+<h6 class="has-text-align-center has-text-color" style="color:#bbbbbb;font-size:16px;font-style:normal;font-weight:400;line-height:.1">Designer of Company</h6>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"align":"center","style":{"typography":{"fontSize":"16px"},"color":{"text":"#666666"}}} -->
+<p class="has-text-align-center has-text-color" style="color:#666666;font-size:16px">Lorem ipsum dolor sit amet, <br>consectetur adipiscing elit, <br>sed do eiusmod </p>
+<!-- /wp:paragraph -->
+
+<!-- wp:social-links {"style":{"spacing":{"blockGap":{"top":"10px","left":"10px"}}},"className":"is-style-logos-only","layout":{"type":"flex","justifyContent":"center","flexWrap":"wrap"}} -->
+<ul class="wp-block-social-links is-style-logos-only"><!-- wp:social-link {"url":"#","service":"facebook"} /-->
+
+<!-- wp:social-link {"url":"#","service":"twitter"} /-->
+
+<!-- wp:social-link {"url":"#","service":"instagram"} /-->
+
+<!-- wp:social-link {"url":"#","service":"linkedin"} /--></ul>
+<!-- /wp:social-links --></div>
+<!-- /wp:group --></div>
+<!-- /wp:column --></div>
+<!-- /wp:columns --></div>
+<!-- /wp:group -->
+
 <!-- wp:heading {"level":3} -->
 <h3>Various layout functions</h3>
 <!-- /wp:heading -->
@@ -141,7 +252,9 @@ $html = <<<HTML
 <!-- wp:paragraph -->
 <p>{$emulsion_lorem_text}</p>
 <!-- /wp:paragraph -->
-
+<!-- wp:paragraph -->
+<p>{$emulsion_lorem_text}</p>
+<!-- /wp:paragraph -->
 <!-- wp:table {"backgroundColor":"pale-cyan-blue","className":"is-style-stripes"} -->
 <figure class="wp-block-table is-style-stripes"><table class="has-pale-cyan-blue-background-color has-background"><thead><tr><th>Coffee</th><th>Taste</th></tr></thead><tbody><tr><td>Kilimanjaro</td><td>strong acidity</td></tr><tr><td>Guatemalan</td><td>acidity</td></tr><tr><td>mocha</td><td>unique strong acidity</td></tr></tbody><tfoot><tr><td>---</td><td>---</td></tr></tfoot></table><figcaption class="wp-element-caption">table</figcaption></figure>
 <!-- /wp:table -->
@@ -208,6 +321,8 @@ $html = <<<HTML
 
 <!-- wp:social-link {"url":"#","service":"wordpress"} /--></ul>
 <!-- /wp:social-links -->
+
+<!-- wp:post-comments {"className":"comment-wrapper"} /-->
 HTML;
 
 $html = str_replace( array( PHP_EOL, "\t" ), array( '', '' ), $html );

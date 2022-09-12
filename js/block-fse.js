@@ -21,4 +21,10 @@ document.addEventListener('DOMContentLoaded', function (event) {
     wp.blocks.unregisterBlockStyle('core/list', 'list-style-initial');
     wp.blocks.unregisterBlockStyle('core/list', 'circle-mask');
 
+    wp.blocks.registerBlockStyle('core/image', {
+        name: 'fit-wide',
+        label: 'Align Offset Wide',
+        isDefault: false
+    });
+
 });

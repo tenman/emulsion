@@ -38,10 +38,6 @@ HTML;
 
 $html = str_replace( array( PHP_EOL, "\t" ), array( '', '' ), $html );
 
-if ( ( is_home() == true && is_front_page() == true ) || // default
-		( is_home() == false && is_front_page() == true )   // static front page
- ) {
-	//return $html;
-}
+
 return $html;
 

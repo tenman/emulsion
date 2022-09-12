@@ -6,7 +6,7 @@
 if ( function_exists( 'register_block_style' ) ) {
 
 	register_block_style( 'core/code', array( 'name' => 'dark', 'label' => esc_html__( 'Dark', 'emulsion' ), ) );
-	
+
 	register_block_style( 'core/tag-cloud', array( 'name'			 => 'flat', 'label'			 => esc_html__( 'Flat', 'emulsion' ),
 		'inline_style'	 => '#document .is-style-flat a,#wpbody .is-style-flat a{ '
 		. 'font-size:1rem ! important; display:inline-block;padding:.6rem; }', ) );
@@ -90,7 +90,7 @@ function emulsion_block_pattern() {
 					'emulsion/block-pattern-list-tab', array(
 				'title'			 => esc_html__( 'Presentation TAB', 'emulsion' ),
 				'content'		 => include( $template_path ),
-				'categories'	 => array( 'emulsion' ),
+				'categories'	 => array( 'contents', 'emulsion' ),
 				'description'	 => esc_html_x( 'Tabs on the front end', 'Block pattern description', 'emulsion' ),
 				'keywords'		 => array( "emulsion", "tab" ),
 					)
@@ -102,9 +102,9 @@ function emulsion_block_pattern() {
 
 			register_block_pattern(
 					'emulsion/block-pattern-modal', array(
-				'title'			 => esc_html__( 'Presentation Modal Box', 'emulsion' ),
+				'title'			 => esc_html_x( 'Presentation Modal Box','Block pattern title', 'emulsion' ),
 				'content'		 => include( $template_path ),
-				'categories'	 => array( 'emulsion' ),
+				'categories'	 => array( 'contents', 'emulsion' ),
 				'description'	 => esc_html_x( 'Modal Box on the front end', 'Block pattern description', 'emulsion' ),
 				'keywords'		 => array( "emulsion", "modalbox", "modal" ),
 					)
@@ -117,9 +117,9 @@ function emulsion_block_pattern() {
 
 			register_block_pattern(
 					'emulsion/block-pattern-relate-posts', array(
-				'title'			 => esc_html__( 'Relate posts', 'emulsion' ),
+				'title'			 => esc_html_x( 'Relate posts','Block pattern title', 'emulsion' ),
 				'content'		 => include( $template_path ),
-				'categories'	 => array( 'emulsion' ),
+				'categories'	 => array( 'lists-by-article-relevant', 'emulsion' ),
 				'description'	 => esc_html_x( 'Relate posts the front end', 'Block pattern description', 'emulsion' ),
 				'keywords'		 => array( "emulsion", "relate posts" ),
 					)
@@ -133,19 +133,55 @@ function emulsion_block_pattern() {
 					'emulsion/block-pattern-query-sticky', array(
 				'title'			 => esc_html__( 'Sticky posts', 'emulsion' ),
 				'content'		 => include( $template_path ),
-				'categories'	 => array( 'emulsion' ),
+				'categories'	 => array( 'lists-by-article-relevant', 'emulsion' ),
 				'description'	 => esc_html_x( 'Sticky posts query', 'Block pattern description', 'emulsion' ),
 				'keywords'		 => array( "emulsion", "sticky posts" ),
 					)
 			);
 		}
 
+		if ( 'enable' !== get_theme_mod( 'emulsion_core_block_patterns_support' ) ) {
 
+			add_action( 'init', 'remove_default_block_pattern_category' );
 
+			function remove_default_block_pattern_category() {
+				$categories = [
+					'buttons',
+					'columns',
+					'gallery',
+					'header',
+					'text',
+				];
+				foreach ( $categories as $category ) {
+					unregister_block_pattern_category( $category );
+				}
+			}
 
-		register_block_pattern_category( 'emulsion', array( 'label' => esc_html_x( 'Emulsion', 'Emulsion Block pattern', 'emulsion' ) ) );
+			add_action( 'init', 'my_plugin_register_my_pattern_categories' );
 
-		register_block_pattern_category( 'emulsion-query-template', array( 'label' => esc_html_x( 'Emulsion Query Template', 'Emulsion Block pattern', 'emulsion' ) ) );
+			function my_plugin_register_my_pattern_categories() {
+				$categories = [
+					'recently-added'			 => esc_html_x( 'Recentry Added', 'Emulsion Block pattern', 'emulsion' ),
+					'lists-by-article-relevant'	 => esc_html_x( 'Lists by article relevant(Query)', 'Emulsion Block pattern', 'emulsion' ),
+					'pattern-header'			 => esc_html_x( 'Header', 'Emulsion Block pattern', 'emulsion' ),
+					'contents'					 => esc_html_x( 'Contents', 'Emulsion Block pattern', 'emulsion' ),
+					'pattern-footer'			 => esc_html_x( 'Footer', 'Emulsion Block pattern', 'emulsion' ),
+					'emulsion'					 => esc_html_x( 'Theme All Patterns', 'Emulsion Block pattern', 'emulsion' )
+				];
+
+				foreach ( $categories as $category_slug => $category_text ) {
+					register_block_pattern_category(
+							$category_slug, array( 'label' => $category_text )
+					);
+				}
+			}
+
+		} else {
+
+			register_block_pattern_category( 'emulsion', array( 'label' => esc_html_x( 'Emulsion', 'Emulsion Block pattern', 'emulsion' ) ) );
+		}
+
+		//	register_block_pattern_category( 'emulsion-query-template', array( 'label' => esc_html_x( 'Emulsion Query Template', 'Emulsion Block pattern', 'emulsion' ) ) );
 	}
 }
 

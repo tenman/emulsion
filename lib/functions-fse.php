@@ -119,6 +119,9 @@ function emulsion_register_scripts_and_styles() {
 	wp_register_style( 'emulsion-fse', get_template_directory_uri() . '/css/fse.css', array(), $emulsion_current_data_version, 'all' );
 	wp_enqueue_style( 'emulsion-fse' );
 
+	wp_register_style( 'emulsion-patterns', get_template_directory_uri() . '/css/patterns.css', array(), $emulsion_current_data_version, 'all' );
+	wp_enqueue_style( 'emulsion-patterns' );
+
 	$inline_style = emulsion_fse_inline_style();
 
 	wp_add_inline_style( 'emulsion-fse', $inline_style );
@@ -134,6 +137,9 @@ function emulsion_register_scripts_and_styles() {
 		 * Child theme style
 		 */
 		wp_register_style( $emulsion_child_theme_slug, get_stylesheet_directory_uri() . '/style.css', array(), $emulsion_current_data_version, 'all' );
+		wp_enqueue_style( $emulsion_child_theme_slug );
+
+		wp_register_style( $emulsion_child_theme_slug, get_template_directory_uri() . '/css/patterns.css', array(), $emulsion_current_data_version, 'all' );
 		wp_enqueue_style( $emulsion_child_theme_slug );
 
 		$inline_style	 = apply_filters( $emulsion_child_theme_slug . '_inline_style', "/* emulsion " . $emulsion_current_data_version . "*/" );
@@ -249,13 +255,23 @@ function emulsion_fse_body_class( $classes ) {
 
 		$classes[] = 'summary';
 	}
+	$post_id = get_the_ID();
 
-	if ( has_blocks() ) {
+	if ( has_blocks() && is_singular() ) {
 
 		$classes[] = 'has-block';
-	} else {
+	}
+	if( ! has_blocks() && ! empty( get_post( $post_id )->post_content ) && is_singular() ) {
+
+		//The front page,blog page usually have no content, so no-block breaks the layout then
 
 		$classes[] = 'no-block';
+	}
+
+	$post_content = get_post( $post_id )->post_content;
+	// Now Test
+	if( false !== strstr( $post_content, 'shape-recipe') ) {
+		$classes[] = 'has-content-pattern-shape-recipe';
 	}
 
 	if( emulsion_is_custom_post_type() ) {
@@ -878,6 +894,9 @@ function emulsion_add_misc_css() {
 			padding-left:1rem;
 			margin-top:1rem;
 
+		}
+		.editor-styles-wrapper *{
+			max-width:100%!important;
 		}
 STYLE;
 	return $css;

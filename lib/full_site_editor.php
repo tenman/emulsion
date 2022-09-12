@@ -428,6 +428,12 @@ function emulsion_custom_css_support() {
 	}
 }
 
+add_action( 'init', function() {
+  'enable' !== get_theme_mod( 'emulsion_core_block_patterns_support' )
+	? remove_theme_support( 'core-block-patterns' )
+	: add_theme_support( 'core-block-patterns' );
+}, 9 );
+
 // Experimental purpose
 
 /**

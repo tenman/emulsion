@@ -350,7 +350,10 @@ if ( ! function_exists( 'emulsion_body_class' ) ) {
 
 			$classes[] = 'has-block';
 		}
-		if ( ! has_blocks() && is_singular() ) {
+
+		if( ! has_blocks() && ! empty( get_post( $post_id )->post_content ) && is_singular() ) {
+
+			//The front page,blog page usually have no content, so no-block breaks the layout then
 
 			$classes[] = 'no-block';
 		}

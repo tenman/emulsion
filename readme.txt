@@ -64,6 +64,11 @@ default.png
 grid.png
 midnight.png
 stream.png
+human.png
+metal.png
+demo.png
+dummy.png
+border-image.png
 
 * Above images License
 	* Copyright: Copyright (c) 2010-2017, Tenman
@@ -145,6 +150,9 @@ stream.png
         * Source: https://github.com/LeaVerou/css3patterns
 
 ## Changelog
+###  september 12 2022
+		* 2.4.9
+        * https://github.com/tenman/emulsion/releases
 ###  august 29 2022
 		* 2.4.8
         * https://github.com/tenman/emulsion/releases

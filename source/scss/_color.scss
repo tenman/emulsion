@@ -42,7 +42,16 @@
     background-color:var(--thm_background_color);
 
 }
-
+.scheme-midnight{
+    
+    //https://wordpress.org/themes/emulsion/ theme preview issues
+    *{
+        color:#fff;
+    }
+    a{
+        color:#ccc
+    }
+}
 
 .has-custom-style:not([class*="is-fse-bg-var"]):not(.is-fse-dark):not(.is-fse-light),
 .custom-background:not([class*="is-fse-bg-var"]):not(.is-fse-dark):not(.is-fse-light){
@@ -440,7 +449,10 @@ footer.banner{
         }
     }
 }
+
 body.scheme-midnight{
+
+
     .header-layer{
         &.cta-layer-active{
             &.header-is-default-color{

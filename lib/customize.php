@@ -72,7 +72,7 @@ if ( ! function_exists( 'emulsioncustomize_register' ) ) {
 				'section'			 => 'emulsion_editor',
 				'default'			 => 'disable',
 				'label'				 => esc_html__( 'Renders the layout config to the block wrapper', 'emulsion' ),
-				'description'		 => esc_html__( 'The hard-coded inline styles affect the display of the theme. use Class wp-container-XXXXXXXXXXXX', 'emulsion' ),
+				'description'		 => esc_html__( 'The hard-coded inline styles affect the display of the theme. use Class wp-container-[number]', 'emulsion' ),
 				'sanitize_callback'	 => 'emulsion_gutenberg_render_layout_support_flag_validate',
 				'type'				 => 'radio',
 				'choices'			 => array(
@@ -98,6 +98,18 @@ if ( ! function_exists( 'emulsioncustomize_register' ) ) {
 				'label'				 => esc_html__( 'Site Editor with Custom CSS.', 'emulsion' ),
 				'description'		 => esc_html__( 'If enabled, include one of the body classes (is-presentation-fse, is-presentation-transitional, is-presentation-theme) in the CSS ruleset.', 'emulsion' ),
 				'sanitize_callback'	 => 'emulsion_custom_css_support_validate',
+				'type'				 => 'radio',
+				'choices'			 => array(
+					'disable'	 => esc_html__( 'Disabled', 'emulsion' ),
+					'enable'	 => esc_html__( 'Enabled', 'emulsion' ),
+				),
+			),
+			'emulsion_core_block_patterns_support'						 => array(
+				'section'			 => 'emulsion_editor',
+				'default'			 => 'disable',
+				'label'				 => esc_html__( 'Core Block Patterns.', 'emulsion' ),
+				'description'		 => esc_html__( 'If enabled,Show the core block pattern. However, the specified external pattern is no longer available in theme.json.', 'emulsion' ),
+				'sanitize_callback'	 => 'emulsion_core_block_patterns_support_validate',
 				'type'				 => 'radio',
 				'choices'			 => array(
 					'disable'	 => esc_html__( 'Disabled', 'emulsion' ),
@@ -233,8 +245,20 @@ if ( ! function_exists( 'emulsioncustomize_register' ) ) {
 			'type'			 => $emulsion_theme_mod_args['emulsion_custom_css_support']['type'],
 			'choices'		 => $emulsion_theme_mod_args['emulsion_custom_css_support']['choices'],
 		) );
+		/////////////////////////////////
+		$wp_customize->add_setting( 'emulsion_core_block_patterns_support', array(
+			'default'			 => $emulsion_theme_mod_args['emulsion_core_block_patterns_support']['default'],
+			'sanitize_callback'	 => $emulsion_theme_mod_args['emulsion_core_block_patterns_support']['sanitize_callback'],
+		) );
 
-
+		$wp_customize->add_control( 'emulsion_core_block_patterns_support', array(
+			'settings'		 => 'emulsion_core_block_patterns_support',
+			'section'		 => $emulsion_theme_mod_args['emulsion_core_block_patterns_support']['section'],
+			'label'			 => $emulsion_theme_mod_args['emulsion_core_block_patterns_support']['label'],
+			'description'	 => $emulsion_theme_mod_args['emulsion_core_block_patterns_support']['description'],
+			'type'			 => $emulsion_theme_mod_args['emulsion_core_block_patterns_support']['type'],
+			'choices'		 => $emulsion_theme_mod_args['emulsion_core_block_patterns_support']['choices'],
+		) );
 	}
 
 }
@@ -619,6 +643,17 @@ function emulsion_custom_css_support_validate( $input ) {
 	return $default_value;
 }
 
+function emulsion_core_block_patterns_support_validate( $input ) {
+
+	$values			 = array( 'enable', 'disable' );
+	$default_value	 = 'disable';
+
+	if ( in_array( $input, $values ) ) {
+
+		return $input;
+	}
+	return $default_value;
+}
 function emulsion_should_load_separate_core_block_assets_validate( $input ) {
 	$values			 = array( 'enable', 'disable' );
 	$default_value	 = 'disable';
