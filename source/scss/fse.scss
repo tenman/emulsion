@@ -1606,7 +1606,7 @@ luminous-vivid-amber #fcb900, light-green-cyan #7bdcb5, vivid-green-cyan #00d084
             }
             &:after{
                 position:absolute;
-                top:calc(3rem + 0.75rem);
+                top:calc(clamp(var(--wp--preset--font-size--normal), calc( 100vw / 72 * 1.5), var(--wp--preset--font-size--medium)) * 3 + .75rem);
                 right:0;
                 left:0;
                 box-sizing:inherit;
@@ -1635,7 +1635,7 @@ luminous-vivid-amber #fcb900, light-green-cyan #7bdcb5, vivid-green-cyan #00d084
             }
             &:focus{
                 ul{
-                    top:40px;
+                    top:calc(clamp(var(--wp--preset--font-size--normal), calc( 100vw / 72 * 1.5), var(--wp--preset--font-size--medium)) * 3);
                     visibility:visible;
                     @extend %clearfix;
                 }

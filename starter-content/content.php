@@ -103,10 +103,22 @@ $html = <<<HTML
 <!-- /wp:query-pagination --></div>
 <!-- /wp:query -->
 
-<!-- wp:group {"layout":{"inherit":true,"type":"constrained"},"align":"full","className":"emulsion-call-to-action", style":{"spacing":{"padding":{"top":"var:preset|spacing|60","right":"var:preset|spacing|60","bottom":"var:preset|spacing|60","left":"var:preset|spacing|60"}},"color":{"background":"#eee8e8"}}} -->
-<div class="wp-block-group alignfull has-background emulsion-call-to-action" style="background-color:#eee8e8;padding-top:var(--wp--preset--spacing--60);padding-right:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--60);padding-left:var(--wp--preset--spacing--60)"><!-- wp:heading {"textAlign":"center"} -->
-<h2 class="has-text-align-center">call to Action</h2>
+<!-- wp:group {"layout":{"inherit":true,"type":"constrained"},"align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|60","right":"var:preset|spacing|60","bottom":"var:preset|spacing|60","left":"var:preset|spacing|60"}},"color":{"background":"#eee8e8"}},"textColor":"black","className":"is-style-call-to-action"} -->
+<div class="wp-block-group alignfull is-style-call-to-action has-black-color has-text-color has-background" style="background-color:#eee8e8;padding-top:var(--wp--preset--spacing--60);padding-right:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--60);padding-left:var(--wp--preset--spacing--60)"><!-- wp:heading {"textAlign":"center","textColor":"black"} -->
+<h2 class="has-text-align-center has-black-color has-text-color">call to Action</h2>
 <!-- /wp:heading -->
+
+<!-- wp:paragraph {"textColor":"emulsion-black"} -->
+<p class="has-emulsion-black-color has-text-color">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.&nbsp;</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
+<div class="wp-block-buttons"><!-- wp:button {"backgroundColor":"vivid-red","textColor":"white","style":{"spacing":{"padding":{"top":"var:preset|spacing|40","right":"var:preset|spacing|40","bottom":"var:preset|spacing|40","left":"var:preset|spacing|40"}}}} -->
+<div class="wp-block-button"><a class="wp-block-button__link has-white-color has-vivid-red-background-color has-text-color has-background wp-element-button" style="padding-top:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--40)">CTA Button</a></div>
+<!-- /wp:button --></div>
+<!-- /wp:buttons --></div>
+<!-- /wp:group -->
+
 
 <!-- wp:media-text {"align":"full","mediaLink":"https://www.tenman.info/wp-37/wp-content/themes/emulsion/images/demo.jpg","mediaType":"image","backgroundColor":"luminous-vivid-amber"} -->
 <div class="wp-block-media-text alignfull is-stacked-on-mobile has-luminous-vivid-amber-background-color has-background"><figure class="wp-block-media-text__media"><img src="https://www.tenman.info/wp-37/wp-content/themes/emulsion/images/demo.jpg" alt="alt"/></figure><div class="wp-block-media-text__content"><!-- wp:heading {"level":3,"placeholder":"Title","align":"center"} -->
@@ -255,8 +267,9 @@ $html = <<<HTML
 <!-- wp:paragraph -->
 <p>{$emulsion_lorem_text}</p>
 <!-- /wp:paragraph -->
-<!-- wp:table {"backgroundColor":"pale-cyan-blue","className":"is-style-stripes"} -->
-<figure class="wp-block-table is-style-stripes"><table class="has-pale-cyan-blue-background-color has-background"><thead><tr><th>Coffee</th><th>Taste</th></tr></thead><tbody><tr><td>Kilimanjaro</td><td>strong acidity</td></tr><tr><td>Guatemalan</td><td>acidity</td></tr><tr><td>mocha</td><td>unique strong acidity</td></tr></tbody><tfoot><tr><td>---</td><td>---</td></tr></tfoot></table><figcaption class="wp-element-caption">table</figcaption></figure>
+
+<!-- wp:table {"backgroundColor":"pale-cyan-blue","textColor":"black","className":"is-style-stripes"} -->
+<figure class="wp-block-table is-style-stripes"><table class="has-black-color has-pale-cyan-blue-background-color has-text-color has-background"><thead><tr><th>Coffee</th><th>Taste</th></tr></thead><tbody><tr><td>Kilimanjaro</td><td>strong acidity</td></tr><tr><td>Guatemalan</td><td>acidity</td></tr><tr><td>mocha</td><td>unique strong acidity</td></tr></tbody><tfoot><tr><td>---</td><td>---</td></tr></tfoot></table><figcaption class="wp-element-caption">table</figcaption></figure>
 <!-- /wp:table -->
 
 <!-- wp:paragraph -->
@@ -304,7 +317,7 @@ $html = <<<HTML
 <!-- /wp:image -->
 
 <!-- wp:image {"id":99999,"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="wp-block-image size-large"><img src={$emulsion_image_uri}" alt="" class="wp-image-99999"/></figure>
+<figure class="wp-block-image size-large"><img src="{$emulsion_image_uri}" alt="" class="wp-image-99999"/></figure>
 <!-- /wp:image --></figure>
 <!-- /wp:gallery --></div>
 <!-- /wp:group -->
