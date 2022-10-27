@@ -71,8 +71,8 @@ if ( ! function_exists( 'emulsioncustomize_register' ) ) {
 			'emulsion_gutenberg_render_layout_support_flag'		 => array(
 				'section'			 => 'emulsion_editor',
 				'default'			 => 'disable',
-				'label'				 => esc_html__( 'Renders the layout config to the block wrapper', 'emulsion' ),
-				'description'		 => esc_html__( 'The hard-coded inline styles affect the display of the theme. use Class wp-container-[number]', 'emulsion' ),
+				'label'				 => esc_html__( 'Use the gutenberg layout feature with is-layout-flow is-layout-constrained', 'emulsion' ),
+				'description'		 => esc_html__( 'The hard-coded inline styles affect the display of the theme.', 'emulsion' ),
 				'sanitize_callback'	 => 'emulsion_gutenberg_render_layout_support_flag_validate',
 				'type'				 => 'radio',
 				'choices'			 => array(
@@ -140,11 +140,13 @@ if ( ! function_exists( 'emulsioncustomize_register' ) ) {
 						'label'		 => $emulsion_theme_mod_args['emulsion_scheme']['label'],
 							)
 			) );
+
+
 		}
 
 		$wp_customize->add_section( 'emulsion_editor', array(
 			'title'			 => esc_html__( 'Theme Scheme', 'emulsion' ),
-			'description'	 => $emulsion_theme_mod_args['emulsion_scheme']['description'],
+			//'description'	 => $emulsion_theme_mod_args['emulsion_scheme']['description'],
 			'priority'		 => 20
 		) );
 

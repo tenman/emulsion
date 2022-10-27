@@ -42,7 +42,6 @@ if ( ! function_exists( 'emulsion_setup' ) ) {
 			add_filter( 'render_block', 'emulsion_add_flex_container_classes', 10, 2 );
 			add_filter( 'render_block', 'emulsion_add_layout_classes', 10, 2 );
 			add_filter( 'render_block', 'emulsion_add_custom_gap', 10, 2 );
-
 		}
 
 		/**
@@ -80,7 +79,10 @@ if ( ! function_exists( 'emulsion_setup' ) ) {
 		add_filter( 'get_the_author_description', 'emulsion_author_description', 20 );
 		add_filter( 'the_password_form', 'emulsion_get_the_password_form', 11 );
 
+		if( 'enable' == get_theme_mod( 'emulsion_gutenberg_render_layout_support_flag') ){
 
+			add_theme_support( 'wp-block-styles' );
+		}
 
 		/**
 		 * Fresh installation date
@@ -116,8 +118,15 @@ function emulsion_register_scripts_and_styles() {
 
 	$emulsion_current_data_version = is_user_logged_in() ? time() : null;
 
-	wp_register_style( 'emulsion-fse', get_template_directory_uri() . '/css/fse.css', array(), $emulsion_current_data_version, 'all' );
-	wp_enqueue_style( 'emulsion-fse' );
+	if( 'enable' !== get_theme_mod( 'emulsion_gutenberg_render_layout_support_flag') ){
+
+		wp_register_style( 'emulsion-fse', get_template_directory_uri() . '/css/fse.css', array(), $emulsion_current_data_version, 'all' );
+		wp_enqueue_style( 'emulsion-fse' );
+	}else{
+
+		wp_register_style( 'emulsion-fse-layout-on', get_template_directory_uri() . '/css/fse-layout-on.css', array(), $emulsion_current_data_version, 'all' );
+		wp_enqueue_style( 'emulsion-fse-layout-on' );
+	}
 
 	wp_register_style( 'emulsion-patterns', get_template_directory_uri() . '/css/patterns.css', array(), $emulsion_current_data_version, 'all' );
 	wp_enqueue_style( 'emulsion-patterns' );
@@ -251,30 +260,35 @@ function emulsion_fse_body_class( $classes ) {
 
 	$classes[] = 'is-presentation-fse';
 
-	if ( ! is_page() || ! is_attachment() || ! is_single() || has_block( 'post-excerpt' ) ) {
+
+	if ( ! is_page() && ! is_attachment() && ! is_single()  ) {
 
 		$classes[] = 'summary';
 	}
+
 	$post_id = get_the_ID();
 
-	if ( has_blocks() && is_singular() ) {
+	if ( is_singular() ) {
 
-		$classes[] = 'has-block';
+		if ( has_blocks() ) {
+
+			$classes[] = 'has-block';
+		}
+		if ( ! has_blocks() && ! empty( get_post( $post_id )->post_content ) ) {
+
+			//The front page,blog page usually have no content, so no-block breaks the layout then
+
+			$classes[] = 'no-block';
+		}
+
+		$post_content = get_post( $post_id )->post_content;
+		// Now Test
+		if ( false !== strstr( $post_content, 'shape-recipe' ) ) {
+			$classes[] = 'has-content-pattern-shape-recipe';
+		}
 	}
-	if( ! has_blocks() && ! empty( get_post( $post_id )->post_content ) && is_singular() ) {
 
-		//The front page,blog page usually have no content, so no-block breaks the layout then
-
-		$classes[] = 'no-block';
-	}
-
-	$post_content = get_post( $post_id )->post_content;
-	// Now Test
-	if( false !== strstr( $post_content, 'shape-recipe') ) {
-		$classes[] = 'has-content-pattern-shape-recipe';
-	}
-
-	if( emulsion_is_custom_post_type() ) {
+	if ( emulsion_is_custom_post_type() ) {
 
 		$classes[] = 'post-type-custom';
 	} else {
@@ -310,7 +324,7 @@ function emulsion_fse_body_class( $classes ) {
 function emulsion_fse_admin_body_class( $classes ) {
 
 	$classes .= ' emulsion';
-	$classes .= ' '. emulsion_fse_background_color_class();
+	$classes .= ' ' . emulsion_fse_background_color_class();
 
 	return $classes;
 }
@@ -327,7 +341,7 @@ function custom_load_separate_theme_block_assets() {
 		'post-featured-image', 'post-navigation-link', 'post-template', 'post-terms', 'post-title', 'preformatted', 'pullquote',
 		'query-pagination-next', 'query-pagination-numbers', 'query-pagination-previous', 'query-pagination', 'query-title', 'query',
 		'quote', 'rss', 'search', 'separator', 'shortcode', 'site-logo', 'site-tagline', 'site-title', 'social-link', 'social-links',
-		'spacer', 'table', 'tag-cloud', 'template-part', 'term-description', 'text-columns', 'verse', 'video','post-author-biography', 'avatar', 'loginout' );
+		'spacer', 'table', 'tag-cloud', 'template-part', 'term-description', 'text-columns', 'verse', 'video', 'post-author-biography', 'avatar', 'loginout' );
 
 	foreach ( $styles as $block ) {
 		wp_enqueue_block_style(
@@ -346,7 +360,6 @@ function custom_load_separate_theme_block_assets() {
 
 add_filter( 'render_block', 'emulsion_fallback_block_class', 10, 2 );
 
-
 function emulsion_corrected_core_css_max_width() {
 
 	/**
@@ -356,9 +369,9 @@ function emulsion_corrected_core_css_max_width() {
 	/**
 	 * Where it should be defined by width, it is defined by max-width, which causes wp-block-column overflow.
 	 *
-	 .editor-styles-wrapper .wp-container-9 > :where(:not(.alignleft):not(.alignright)) {
-		 max-width: 720px;
-	 }
+	  .editor-styles-wrapper .wp-container-9 > :where(:not(.alignleft):not(.alignright)) {
+	  max-width: 720px;
+	  }
 	 */
 	$css = <<<STYLE
 		div.editor-styles-wrapper .edit-post-visual-editor__post-title-wrapper > .alignfull,
@@ -395,8 +408,6 @@ function emulsion_corrected_core_css_max_width() {
 
 STYLE;
 	return $css;
-
-
 }
 
 function emulsion_corrected_core_css_image_resizable_box__container_overflow() {
@@ -648,11 +659,11 @@ function emulsion_corrected_core_css_has_nested_images_gallery() {
 	 * not(#individual-image)
 	 * :not does not participate in specificity, but the ID in parentheses is included in the specificity calculation
 
-	 @media (min-width: 600px)
-	.wp-block-gallery.has-nested-images.columns-default figure.wp-block-image:not(#individual-image) {
-		margin-right: var(--gallery-block--gutter-size, 16px);
-		width: calc(33.33% - (var(--gallery-block--gutter-size, 16px) * 0.6666666667));
-	}
+	  @media (min-width: 600px)
+	  .wp-block-gallery.has-nested-images.columns-default figure.wp-block-image:not(#individual-image) {
+	  margin-right: var(--gallery-block--gutter-size, 16px);
+	  width: calc(33.33% - (var(--gallery-block--gutter-size, 16px) * 0.6666666667));
+	  }
 	 */
 	$css = <<<STYLE
 
@@ -739,13 +750,11 @@ STYLE;
 	return $css;
 }
 
-
 function emulsion_add_classic_custom_field_css() {
 
 	/**
 	 * Add Classic Custom Field CSS
 	 */
-
 	$css = <<<STYLE
 	#newmeta,
 	#newmeta thead,
@@ -786,7 +795,6 @@ function emulsion_add_narrow_align_css() {
 	/**
 	 * narrow alignleft alignright
 	 */
-
 	$css = <<<STYLE
 
 div.editor-styles-wrapper .block-editor-block-list__layout.is-root-container .wp-block-categories.alignleft, div.editor-styles-wrapper .block-editor-block-list__layout.is-root-container .wp-block-archives.alignleft,
@@ -908,20 +916,20 @@ function emulsion_corrected_core_css_not_sure_universal_selector() {
 	 * The person who wrote this code may like the haiku-like setting method,
 	 * but for theme developers and users, such tyles are less maintainable.
 	 *
-	 *	.editor-styles-wrapper .edit-post-visual-editor__post-title-wrapper > * + *,
-		.editor-styles-wrapper .block-editor-block-list__layout.is-root-container > * + * {
-			margin-block-start: var( --wp--style--block-gap );
-		}
-		.editor-styles-wrapper .edit-post-visual-editor__post-title-wrapper > *,
-		.editor-styles-wrapper .block-editor-block-list__layout.is-root-container > * {
-			margin-block-start: 0;
-			margin-block-end: 0;
-		}
+	 * 	.editor-styles-wrapper .edit-post-visual-editor__post-title-wrapper > * + *,
+	  .editor-styles-wrapper .block-editor-block-list__layout.is-root-container > * + * {
+	  margin-block-start: var( --wp--style--block-gap );
+	  }
+	  .editor-styles-wrapper .edit-post-visual-editor__post-title-wrapper > *,
+	  .editor-styles-wrapper .block-editor-block-list__layout.is-root-container > * {
+	  margin-block-start: 0;
+	  margin-block-end: 0;
+	  }
 	 *
 	 *
 	 *
 	 */
-		$css = <<<STYLE
+	$css = <<<STYLE
 		.editor-styles-wrapper .edit-post-visual-editor__post-title-wrapper > h1{
 				/* not exists * + * */
 				margin-top:4rem;
@@ -937,17 +945,15 @@ function emulsion_corrected_core_css_not_sure_universal_selector() {
 				width:fit-content;
 		}
 STYLE;
-		return $css;
-
+	return $css;
 }
 
 if ( ! function_exists( 'emulsion_toc_fse' ) ) {
 
 	function emulsion_toc_fse( $script ) {
 
-			$script	 = "jQuery('.toc').toc({'scrollToOffset':16, 'container':'.entry-content','anchorName': function(i, heading, prefix) { return prefix+'-'+i;},})";
-			return $script;
-
+		$script = "jQuery('.toc').toc({'scrollToOffset':16, 'container':'.entry-content','anchorName': function(i, heading, prefix) { return prefix+'-'+i;},})";
+		return $script;
 	}
 
 }

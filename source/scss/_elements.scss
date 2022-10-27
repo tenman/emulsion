@@ -954,10 +954,18 @@ ul:not([class|="wp-block"]):not([class*="wp-block-"]){
     &.alignleft{
         margin-right: 1rem;
         margin-left: var(--thm_content_gap, 24px);
+        @media screen and ( max-width : 640px ) {
+            margin-left:auto;
+            margin-right:auto;
+        }
     }
     &.alignright{
         margin-right: var(--thm_content_gap, 24px);
         margin-left: 1rem;
+        @media screen and ( max-width : 640px ) {
+            margin-left:auto;
+            margin-right:auto;
+        }
     }
     &.has-background{
         padding:.75rem var(--thm_content_gap, 24px) .75rem 40px;
@@ -2306,7 +2314,7 @@ body .fit{
         margin-right:auto;
         margin-left:auto;
         li{
-           
+
             margin-bottom:6px;
             vertical-align:middle;
             list-style:none;
@@ -2712,7 +2720,7 @@ body .fit{
         // position:relative;
         -webkit-box-sizing:border-box;
         box-sizing:border-box;
-        padding:.75em var( --thm_content_gap, 24px );
+        padding:.75em;
 
         &.wp-block-media-text{
             padding-top:0;

@@ -263,7 +263,7 @@ if ( ! function_exists( 'emulsion_get_related_posts' ) ) {
 
 		if ( empty( $relate_posts_enable ) && 'theme' == emulsion_get_theme_operation_mode() ) {
 
-			return;
+			return '';
 		}
 		$html		 = sprintf( '<li>%1$s</li>', esc_html__( 'Not Found', 'emulsion' ) );
 		$result_pre	 = sprintf( '<!-- wp:group {"className":"emulsion-block-pattern-relate-posts wrap-emulsion_relate_posts", "layout":{"inherit":true}} -->'
@@ -821,7 +821,7 @@ if ( ! function_exists( 'emulsion_add_layout_classes' ) ) {
 
 		if ( ! empty( $used_layout["contentSize"] ) && '100%' == $used_layout["contentSize"] ) {
 
-			$new_class = array( 'has-fluid-children' );
+			$new_class = array( 'is-layout-flow' );
 
 			if ( ! empty( $used_layout["wideSize"] ) ) {
 				preg_match( '$(<[^>]+>)$', $block_content, $target );
@@ -837,7 +837,7 @@ if ( ! function_exists( 'emulsion_add_layout_classes' ) ) {
 				}
 				$block_content = str_replace( $target[0], $new_element, $block_content );
 
-				$new_class = array( 'has-fluid-children', 'has-custom-wide-width' );
+				$new_class = array( 'is-layout-flow', 'has-custom-wide-width' );
 			}
 
 			$block_content = emulsion_add_class( $block_content, $block_name, $new_class );
@@ -866,7 +866,7 @@ if ( ! function_exists( 'emulsion_add_layout_classes' ) ) {
 			$block_content = str_replace( $target[0], $new_element, $block_content );
 
 			$new_class = array(
-				isset( $used_layout["inherit"] ) && false === $used_layout["inherit"] ? 'is-layout-enabled' : '',
+				isset( $used_layout["inherit"] ) && false === $used_layout["inherit"] ? 'is-layout-constrained' : '',
 				! empty( $used_layout["contentSize"] ) ? 'has-custom-content-width' : '',
 				! empty( $used_layout["wideSize"] ) ? 'has-custom-wide-width' : '',
 			);
@@ -1024,6 +1024,8 @@ if ( ! function_exists( 'emulsion_block_editor_assets' ) ) {
 
 	function emulsion_block_editor_assets() {
 
+		$emulsion_current_data_version = is_user_logged_in() ? emulsion_version() : null;
+
 		wp_enqueue_script( 'emulsion-block', esc_url( get_template_directory_uri() . '/js/block.js' ), array( 'wp-blocks', 'wp-i18n', 'jquery' ) );
 
 		wp_register_style( 'emulsion-patterns', get_template_directory_uri() . '/css/patterns.css', array(), $emulsion_current_data_version, 'all' );
@@ -1103,12 +1105,24 @@ if ( ! function_exists( 'emulsion_fse_background_color_class' ) ) {
 		if ( 'theme' == emulsion_get_theme_operation_mode() ) {
 			return;
 		}
+		/**
+		 * fse color scheme test
+		 */
+		$global_settings = wp_get_global_settings();
+
+		if ( is_array( $global_settings ) ) {
+
+			$color_scheme = ! empty( $global_settings['custom']['color']['scheme'] ) ? $global_settings['custom']['color']['scheme'] : 'unknown';
+
+			$fse_class = sanitize_html_class( 'fse-scheme-' . $color_scheme );
+		}
+
 
 		$style = wp_get_global_stylesheet( array( 'styles' ) );
 
 		if ( false !== preg_match( '$body(\s*)?\{([^\}]*)?(background-color:|background:)([^\;]*)\;$', $style, $regs ) && ! empty( $regs[4] ) ) {
 
-			$fse_class	 = sanitize_html_class( 'is-fse-bg-' . $regs[4] );
+			$fse_class	 .= ' '. sanitize_html_class( 'is-fse-bg-' . $regs[4] );
 			$color		 = emulsion_accessible_color( trim( $regs[4] ) );
 
 			if ( '#ffffff' == $color ) {
@@ -1498,7 +1512,7 @@ if ( ! function_exists( 'emulsion_block_template_part' ) ) {
 
 				$additional_classes		 = array( 'fse-footer', 'footer-layer', 'html-footer' );
 				"#eeeeee" !== get_theme_mod( 'emulsion_header_background_color' ) ? $additional_classes[]	 = 'has-customizer-bg' : '';
-				$tag_mame				 = 'footer';
+				$tag_name				 = 'footer';
 
 				if ( 'transitional' == emulsion_get_theme_operation_mode() && 'default' == get_theme_mod( 'emulsion_footer_template', emulsion_theme_default_val( 'emulsion_footer_template', 'default' ) ) ) {
 					return;
@@ -1647,7 +1661,14 @@ if ( ! function_exists( 'emulsion_custom_field_css' ) ) {
 				$result = '';
 				foreach ( $matches as $match ) {
 
-					if ( is_singular() ) {
+					if ( strstr( $match, '@' ) && is_singular() ) {
+
+						if ( preg_match( '|(@[^\{]+{)([^\}]*\})|', $match, $args ) ) {
+							$result .= $args[1];
+
+							$result .= sprintf( ' .has-custom-style.postid-%1$d %2$s', $post_id, $args[2] );
+						}
+					} elseif ( is_singular() ) {
 
 						if ( false === strstr( $match, 'has-custom-style' ) ) {
 

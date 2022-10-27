@@ -42,13 +42,6 @@ function emulsion_theme_admin_notice() {
 		);
 	}
 
-	if ( version_compare( PHP_VERSION, '8.0.0' ) >= 0 ) {
-
-		$php8_notice = esc_url( esc_html_x( 'https://make.wordpress.org/core/2020/11/23/wordpress-and-php-8-0/', 'linked url', 'emulsion' ) );
-
-		printf( '<div class="notice notice-error is-dismissible emulsion-addon-error"><p><strong>%1$s</strong>  <a href="%2$s">%3$s</a></p></div>', esc_html__( 'emulsion theme notice: May not fully support PHP8 ', 'emulsion' ), $php8_notice, esc_html__( 'WordPress and PHP 8.0', 'emulsion' )
-		);
-	}
 }
 
 
@@ -177,9 +170,6 @@ if ( ! function_exists( 'emulsion_setup' ) ) {
 		add_editor_style( 'css/tinymce-style.css' );
 		add_editor_style( add_query_arg( 'action', 'emulsion_tiny_mce_css_variables', admin_url( 'admin-ajax.php' ) ) );
 
-
-
-
 		/**
 		 * Nav menu
 		 */
@@ -223,6 +213,9 @@ if ( ! function_exists( 'emulsion_setup' ) ) {
 		 */
 		if ( 'theme' == emulsion_get_theme_operation_mode() ) {
 			remove_theme_support( 'block-templates' );
+
+			add_filter( 'should_load_remote_block_patterns', '__return_false' );
+
 		} else {
 			add_theme_support( 'block-templates' );
 		}
@@ -279,6 +272,7 @@ if ( ! function_exists( 'emulsion_setup' ) ) {
 	}
 
 }
+
 
 /**
  * Widget
@@ -2295,3 +2289,4 @@ STYLE;
 
 
 do_action( 'emulsion_functions_after' );
+

@@ -726,11 +726,11 @@ if ( ! function_exists( 'emulsion_archive_title' ) ) {
 			if ( is_year() ) {
 
 				the_archive_title( '<h2 class="archive-title year">', '</h2>' );
-				emulsion_archive_year_navigation();
+
 			} elseif ( is_month() ) {
 
 				the_archive_title( '<h2 class="archive-title month">', '</h2>' );
-				emulsion_monthly_archive_prev_next_navigation( true,  false );
+
 
 			} else {
 

@@ -11,8 +11,8 @@ $html = <<<HTML
 </div>
 <!-- /wp:buttons -->
 
-<!-- wp:group {"className":"emulsion-modal solid-border modal","layout":{"inherit":true}} -->
-<div id="modal-group-1" class="wp-block-group emulsion-modal solid-border modal">
+<!-- wp:group {"className":"emulsion-modal solid-border modal","layout":{"type":"constrained"}} -->
+<div id="modal-group-1" class="wp-block-group emulsion-modal solid-border modal is-layout-constrained">
 	<div class="wp-block-group__inner-container">
 
 		<!-- wp:paragraph {"textAlign":"right","placeholder":"Panel Title","className":"emulsion-modal-title alignfull emulsion-dependency"} -->
@@ -21,8 +21,8 @@ $html = <<<HTML
 		</p>
 		<!-- /wp:paragraph -->
 
-		<!-- wp:group {"className":"emulsion-modal-content", "layout":{"inherit":true}} -->
-		<div class="wp-block-group emulsion-modal-content">
+		<!-- wp:group {"className":"emulsion-modal-content", "layout":{"type":"constrained"}} -->
+		<div class="wp-block-group emulsion-modal-content is-layout-constrained">
 			<div class="wp-block-group__inner-container">
 
 					<!-- wp:paragraph {"placeholder":"content"} -->

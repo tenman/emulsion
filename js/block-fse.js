@@ -26,5 +26,20 @@ document.addEventListener('DOMContentLoaded', function (event) {
         label: 'Align Offset Wide',
         isDefault: false
     });
+    wp.blocks.registerBlockStyle('core/gallery', {
+        name: 'fit-wide',
+        label: 'Align Offset Wide',
+        isDefault: false
+    });
+    wp.blocks.registerBlockStyle('core/gallery', {
+        name: 'shrink',
+        label: 'Align Offset Zero',
+        isDefault: false
+    });
+    wp.blocks.registerBlockStyle('core/group', {
+        name: 'layout-flow',
+        label: 'Flow Layout',
+        isDefault: false
+    });
 
 });

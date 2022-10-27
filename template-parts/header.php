@@ -38,5 +38,4 @@ $emulsion_current_post_type		 = trim( get_post_type() );
 	<?php emulsion_the_theme_supports( 'title_in_page_header' ) ? emulsion_page_header_title() : ''; ?>
 	<?php emulsion_action('emulsion_append_header_layer');?>
 
-	<?php //emulsion_action('emulsion_append_header_layer'); ?>
 </header>

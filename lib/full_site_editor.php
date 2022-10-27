@@ -54,8 +54,11 @@ if ( 'theme' == emulsion_get_theme_operation_mode() ) {
 /**
  * Fiters
  */
-has_action( 'wp_footer', 'the_block_template_skip_link' ) ? remove_action( 'wp_footer', 'the_block_template_skip_link' ) : '';
-has_action( 'wp_footer', 'gutenberg_the_skip_link' ) && 'transitional' == get_theme_mod( 'emulsion_editor_support' ) ? remove_action( 'wp_footer', 'gutenberg_the_skip_link' ) : '';
+if( 'fse' !== get_theme_mod( 'emulsion_editor_support' ) ) {
+	has_action( 'wp_footer', 'the_block_template_skip_link' ) ? remove_action( 'wp_footer', 'the_block_template_skip_link' ) : '';
+	has_action( 'wp_footer', 'gutenberg_the_skip_link' ) && 'transitional' == get_theme_mod( 'emulsion_editor_support' ) ? remove_action( 'wp_footer', 'gutenberg_the_skip_link' ) : '';
+}
+
 has_action( 'admin_bar_menu', 'gutenberg_adminbar_items' ) ? remove_action( 'admin_bar_menu', 'gutenberg_adminbar_items', 50 ) : '';
 has_action( 'admin_bar_menu', 'modify_admin_bar', 40 ) ? add_action( 'admin_bar_menu', 'modify_admin_bar', 40 ) : '';
 

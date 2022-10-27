@@ -14,6 +14,13 @@ if ( function_exists( 'register_block_style' ) ) {
 	register_block_style( 'core/image', array( 'name' => 'circle-mask', 'label' => esc_html__( 'Circle Mask', 'emulsion' ), ) );
 	register_block_style( 'core/image', array( 'name' => 'shrink', 'label' => esc_html__( 'Align Offset Zero', 'emulsion' ), ) );
 
+	if ( 'theme' !== emulsion_get_theme_operation_mode() ) {
+
+		register_block_style( 'core/image', array( 'name' => 'fit-wide', 'label' => esc_html__( 'Align Offset Wide', 'emulsion' ), ) );
+		register_block_style( 'core/gallery', array( 'name' => 'fit-wide', 'label' => esc_html__( 'Align Offset Wide', 'emulsion' ), ) );
+		register_block_style( 'core/gallery', array( 'name' => 'shrink', 'label' => esc_html__( 'Align Offset Zero', 'emulsion' ), ) );
+	}
+
 	register_block_style( 'core/list', array( 'name' => 'list-style-none', 'label' => esc_html__( 'No Bullet', 'emulsion' ), ) );
 	register_block_style( 'core/list', array( 'name' => 'list-style-inline', 'label' => esc_html__( 'Inline List', 'emulsion' ), ) );
 	register_block_style( 'core/list', array( 'name' => 'list-style-initial', 'label' => esc_html__( 'Remove Theme Bullet', 'emulsion' ), ) );
@@ -36,8 +43,18 @@ if ( function_exists( 'register_block_style' ) ) {
 	}
 
 	register_block_style( 'core/buttons', array( 'name' => 'has-shadow', 'label' => esc_html__( 'Add Shadow', 'emulsion' ), ) );
+	//@since 2.5.1 repeal Because it is now possible to adjust the font size in each block
+	//register_block_style( 'core/column', array( 'name' => 'main', 'label' => esc_html__( 'Main Column', 'emulsion' ), ) );
 
-	register_block_style( 'core/column', array( 'name' => 'main', 'label' => esc_html__( 'Main Column', 'emulsion' ), ) );
+
+
+	if ( 'theme' !== emulsion_get_theme_operation_mode() && 'enable' !== get_theme_mod( 'emulsion_gutenberg_render_layout_support_flag' ) ) {
+		register_block_style( 'core/column', array( 'name' => 'layout-flow', 'label' => esc_html__( 'Flow Layout', 'emulsion' ), ) );
+		register_block_style( 'core/group', array( 'name' => 'layout-flow', 'label' => esc_html__( 'Flow Layout', 'emulsion' ), ) );
+	}
+
+
+
 	register_block_style( 'core/column', array( 'name' => 'sticky', 'label' => esc_html__( 'Sticky Column', 'emulsion' ), ) );
 // 'freeform', 'shortcode', 'html',
 	$styles = array( 'archives', 'audio', 'blocks', 'buttons', 'calendar', 'categories', 'code', 'columns', 'comment-content', 'comment-date',
@@ -61,7 +78,14 @@ if ( function_exists( 'register_block_style' ) ) {
 	add_filter(
 			'block_editor_settings_all',
 			function ( $settings ) {
-				$post = get_post();
+
+				if ( is_customize_preview() ) {
+
+					return $settings;
+				}
+				$post_id = get_the_ID();
+				$post = get_post( $post_id );
+				$template_path = '';
 
 				if ( $post ) {
 
@@ -102,7 +126,7 @@ function emulsion_block_pattern() {
 
 			register_block_pattern(
 					'emulsion/block-pattern-modal', array(
-				'title'			 => esc_html_x( 'Presentation Modal Box','Block pattern title', 'emulsion' ),
+				'title'			 => esc_html_x( 'Presentation Modal Box', 'Block pattern title', 'emulsion' ),
 				'content'		 => include( $template_path ),
 				'categories'	 => array( 'contents', 'emulsion' ),
 				'description'	 => esc_html_x( 'Modal Box on the front end', 'Block pattern description', 'emulsion' ),
@@ -117,7 +141,7 @@ function emulsion_block_pattern() {
 
 			register_block_pattern(
 					'emulsion/block-pattern-relate-posts', array(
-				'title'			 => esc_html_x( 'Relate posts','Block pattern title', 'emulsion' ),
+				'title'			 => esc_html_x( 'Relate posts', 'Block pattern title', 'emulsion' ),
 				'content'		 => include( $template_path ),
 				'categories'	 => array( 'lists-by-article-relevant', 'emulsion' ),
 				'description'	 => esc_html_x( 'Relate posts the front end', 'Block pattern description', 'emulsion' ),

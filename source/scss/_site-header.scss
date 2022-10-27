@@ -3,8 +3,8 @@
     .site-title-text,
     .site-description{
 
-     //   position: absolute;
-      //  clip: rect(1px, 1px, 1px, 1px);
+        //   position: absolute;
+        //  clip: rect(1px, 1px, 1px, 1px);
 
     }
 }
@@ -332,7 +332,7 @@
                 margin:0;
             }
             .site-description{
-               @include font_size(5,no-margin);
+                @include font_size(5,no-margin);
                 width:auto;
                 max-width:100%;
                 margin-top:0;
@@ -537,12 +537,12 @@
 
             .entry-meta{
                 @extend %block;
-              @include font_size(5);
+                @include font_size(5);
             }
 
             .posted-on{
                 @extend %block;
-               @include font_size(5);
+                @include font_size(5);
                 z-index:7;
                 width: -moz-fit-content;
                 width:fit-content;
@@ -1438,7 +1438,7 @@ body.page{
 .emulsion-layout-no-title{
     .header-layer{
         .entry-text{
-        display:none;
+            display:none;
         }
     }
 }
@@ -1693,4 +1693,23 @@ html[style^="overflow"] .template-part-header-custom ~ .primary-menu-wrapper inp
     *{
         display:none;
     }
+}
+.emulsion .rich-header .wp-block-site-title {
+    font-size: 48px;
+    font-family: var(--wp--preset--font-family--hoefler-times-new-roman);
+    width: calc(var(--wp--custom--width--content, 720px ) - var(--wp--custom--padding--content, .75rem) * 2);
+    max-width: calc(100% - var(--wp--custom--padding--content, .75rem) * 2);
+    font-weight: var(--wp--custom--font-weight--heading);
+    line-height: var(--wp--custom--line-height--heading,1.15);
+    margin: var(--wp--custom--margin--block, 1.5rem auto);
+    padding: 0 var(--wp--custom--padding--content);
+    text-transform: var(--wp--custom--text-transform--heading);
+    box-sizing: border-box;
+    padding-right: var(--wp--custom--padding--content, 0.75rem);
+    padding-left: var(--wp--custom--padding--content, 0.75rem);
+    margin: 1.5rem auto;
+}
+.emulsion.is-fse-light a, .emulsion.is-fse-bg-default a {
+    color: var(--wp--custom--color--link);
+    text-decoration-color: var(--wp--custom--border--common, 1px solid #ccc);
 }

@@ -25,17 +25,20 @@ function emulsion_hooks_setup() {
 	/**
 	 * Block editor notation
 	 */
+
 	if ( function_exists( 'do_blocks' ) ) {
 
-		add_action( 'theme_mod_emulsion_header_html', 'do_blocks' );
-		add_action( 'theme_mod_emulsion_footer_credit', 'do_blocks' );
+		! empty(get_theme_mod('emulsion_header_html') ) ? add_action( 'theme_mod_emulsion_header_html', 'do_blocks' ): '';
+		! empty(get_theme_mod('emulsion_footer_credit') ) ? add_action( 'theme_mod_emulsion_footer_credit', 'do_blocks' ): '';
 	}
+
 	add_action( 'wp', static function () {
 
 		if ( false === emulsion_is_amp() ) {
 			add_filter( 'emulsion_inline_script', 'emulsion_get_rest' );
 		}
 	} );
+
 	/**
 	 * Scripts
 	 */
@@ -70,8 +73,6 @@ function emulsion_hooks_setup() {
 		add_filter( 'emulsion_the_post_title', 'ent2ncr' );
 		add_filter( 'emulsion_the_post_meta_on', 'ent2ncr' );
 		add_filter( 'emulsion_the_post_meta_in', 'ent2ncr' );
-		add_filter( 'emulsion_archive_year_navigation', 'ent2ncr' );
-		add_filter( 'emulsion_monthly_archive_prev_next_navigation', 'ent2ncr' );
 		add_filter( 'emulsion_footer_text', 'ent2ncr' );
 		/**
 		 * Plugin Settings relate
@@ -117,8 +118,6 @@ function emulsion_hooks_setup() {
 
 	if ( 'theme' !== emulsion_get_theme_operation_mode() ) {
 
-
-
 		add_filter( 'render_block_core/navigation', function ( $content, $block ) {
 
 			if ( 'transitional' == emulsion_get_theme_operation_mode() && 'fse-primary' == $block["attrs"]["className"] ) {
@@ -131,11 +130,6 @@ function emulsion_hooks_setup() {
 		add_filter( 'render_block_core/template-part', 'emulsion_fse_footer_content_filter', 10, 2 );
 
 		// core issue hotfix
-
-
-
-
-
 	}
 
 	if ( 'fse' == emulsion_get_theme_operation_mode() ) {
@@ -177,6 +171,7 @@ function emulsion_hooks_setup() {
 			add_filter( 'amp_post_template_metadata', 'emulsion_amp_description', 10, 2 );
 		}
 	}
+
 
 	do_action( 'emulsion_hooks_setup_after' );
 }
@@ -309,6 +304,14 @@ if ( ! function_exists( 'emulsion_body_class' ) ) {
 			$classes[] = 'is-child-theme';
 		}
 
+		if( 'enable' !== get_theme_mod('emulsion_gutenberg_render_layout_support_flag') ) {
+
+			$classes[] = 'is-emulsion-layout';
+		} else {
+
+			$classes[] = 'is-gutenberg-layout';
+		}
+
 		if ( get_theme_support( 'align-wide' ) ) {
 
 			$classes[] = 'enable-alignfull';
@@ -362,7 +365,7 @@ if ( ! function_exists( 'emulsion_body_class' ) ) {
 
 			$classes[] = 'emulsion-fse-active';
 
-			if ( ! is_page() || ! is_attachment() || ! is_single() || has_block( 'post-excerpt' ) ) {
+			if ( ! is_page() && ! is_attachment() && ! is_single()  ) {
 
 				$classes[] = 'summary';//for transitional theme
 				$classes[] = 'excerpt';// for classic theme
