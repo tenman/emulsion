@@ -1105,38 +1105,62 @@ if ( ! function_exists( 'emulsion_fse_background_color_class' ) ) {
 		if ( 'theme' == emulsion_get_theme_operation_mode() ) {
 			return;
 		}
-		/**
-		 * fse color scheme test
-		 */
-		$global_settings = wp_get_global_settings();
 
-		if ( is_array( $global_settings ) ) {
+		$transient_name = 'emulsion_fse_background_color_class';
 
-			$color_scheme = ! empty( $global_settings['custom']['color']['scheme'] ) ? $global_settings['custom']['color']['scheme'] : 'unknown';
+		if ( current_user_can( 'edit_theme_options' ) ) {
 
-			$fse_class = sanitize_html_class( 'fse-scheme-' . $color_scheme );
-		}
+			/**
+			 * fse color scheme test
+			 */
 
+			$global_settings = wp_get_global_settings( array( 'custom' ) );
+			$fse_class		 = '';
 
-		$style = wp_get_global_stylesheet( array( 'styles' ) );
+			if ( is_array( $global_settings ) ) {
 
-		if ( false !== preg_match( '$body(\s*)?\{([^\}]*)?(background-color:|background:)([^\;]*)\;$', $style, $regs ) && ! empty( $regs[4] ) ) {
+				$color_scheme = ! empty( $global_settings['color']['scheme'] ) ? $global_settings['color']['scheme'] : 'unknown';
 
-			$fse_class	 .= ' '. sanitize_html_class( 'is-fse-bg-' . $regs[4] );
-			$color		 = emulsion_accessible_color( trim( $regs[4] ) );
-
-			if ( '#ffffff' == $color ) {
-
-				$fse_class .= ' is-fse-dark';
-			} elseif ( '#333333' == $color ) {
-
-				$fse_class .= ' is-fse-light';
+				$fse_class .= sanitize_html_class( 'fse-scheme-' . $color_scheme );
 			}
-			return $fse_class;
-		}
-		return 'is-fse-bg-default';
-	}
 
+			$style = wp_get_global_stylesheet( array( 'styles' ) );
+
+			if ( false !== preg_match( '$body(\s*)?\{([^\}]*)?(background-color:|background:)([^\;]*)\;$', $style, $regs ) && ! empty( $regs[4] ) ) {
+
+				$fse_class	 .= ' ' . sanitize_html_class( 'is-fse-bg-' . $regs[4] );
+				$color		 = emulsion_accessible_color( trim( $regs[4] ) );
+
+				if ( '#ffffff' == $color ) {
+
+					$fse_class .= ' is-fse-dark';
+				} elseif ( '#333333' == $color ) {
+
+					$fse_class .= ' is-fse-light';
+				}
+
+			}
+
+			if( empty( $fse_class) ){
+
+				$fse_class = 'fse-scheme-default';
+			}
+
+			set_transient( $transient_name, $fse_class, 0 );
+
+			return $fse_class;
+
+		} else {
+
+			if( false !== get_transient( $transient_name ) ) {
+
+				return get_transient( $transient_name );
+			} else {
+
+				return 'fse-scheme-default';
+			}
+		}
+	}
 }
 
 if ( ! function_exists( 'emulsion_accessible_color' ) ) {

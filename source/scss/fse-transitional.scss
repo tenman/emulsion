@@ -1144,7 +1144,7 @@ div[class|="wp-container"]{
 }
 .emulsion{
     &.is-fse-light,
-    &.is-fse-bg-default{
+    &.fse-scheme-default{
         color:var(--wp--preset--color--black);
         a{
             color:var(--wp--custom--color--link);
@@ -1551,7 +1551,7 @@ div[class|="wp-container"]{
             * Fix floating text background issue
      */
 
-    &.is-fse-bg-default{
+    &.fse-scheme-default{
         .alignleft,
         .alignright{
             &.wp-block-archives,
@@ -2252,7 +2252,7 @@ div[class|="wp-container"]{
 
     }
     &.is-fse-light,
-    &.is-fse-bg-default{
+    &.fse-scheme-default{
         .has-link-color {
             a[style]:hover:not(#specificity){
                 color: var(--wp--custom--color--link-hover) !important;
@@ -2924,7 +2924,7 @@ button.wp-block-navigation-submenu__toggle{
         }
     }
     &.is-fse-light,
-    &.is-fse-bg-default{
+    &.fse-scheme-default{
         main{
             .wp-block-button__link{
                 background:var(--wp--custom--color--button-bg);
@@ -3396,6 +3396,7 @@ main .wp-site-blocks{
 
     .wp-block-group{
         &.emulsion-panel{
+            padding:0;
             .emulsion-panel-title{
                 margin-top:0;
                 margin-bottom:0;
@@ -3719,7 +3720,7 @@ body .scroll-button-top:before {
     main{
         &.wp-block-group {
             & > .wp-block-query{
-               & > ul.wp-block-post-template{
+                & > ul.wp-block-post-template{
                     width:100%;
                     padding:0;
                     li{
@@ -5792,16 +5793,39 @@ ul.wp-block-social-links{
 /**
  * Experimental setting
  */
-.fse-scheme-daybreak{
+.emulsion.fse-scheme-daybreak{
     //custom values in daybreak.json are not overridden
+    --thm_header_background_gradient_color:linear-gradient(90deg, #82ccdd, #f8c291);
     --thm_header_bg_color:linear-gradient(90deg, #82ccdd, #f8c291);
     --thm_header_text_color:#333;
     --thm_header_link_color:#333;
+    .header-layer{
+        color: var(--thm_header_text_color);
+        background: var(--thm_header_bg_color);
+    }
     .footer-widget-area, .sidebar-widget-area {
         color: #333;
         background: #faf7e5;
     }
+    nav.fse-primary{
+        background:#fff;
+        color:#000;
+    }
+
 }
+.emulsion.fse-scheme-default{
+    nav.fse-primary{
+        background:#fff;
+        color:#000;
+    }
+}
+.emulsion.fse-scheme-midnight{
+    nav.fse-primary{
+        background:#000;
+        color:#fff;
+    }
+}
+
 /**
  * Preset Margins
  */

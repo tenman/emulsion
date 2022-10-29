@@ -1231,7 +1231,7 @@ p:empty{
  */
 
 .is-fse-light,
-.is-fse-bg-default{
+.fse-scheme-default{
     color:var(--wp--preset--color--black);
 
     a{
@@ -1602,7 +1602,7 @@ luminous-vivid-amber #fcb900, light-green-cyan #7bdcb5, vivid-green-cyan #00d084
         * Fix floating text background issue
  */
 
-.is-fse-bg-default{
+.fse-scheme-default{
     .alignleft,
     .alignright{
         &.wp-block-archives,
@@ -2185,7 +2185,7 @@ luminous-vivid-amber #fcb900, light-green-cyan #7bdcb5, vivid-green-cyan #00d084
 
         @extend %block;
         @extend %content_spacing;
-
+        padding:0;
 
         & > .wp-block:where(div,aside,section,main,header,footer,article){
             padding:0;
@@ -2584,7 +2584,7 @@ luminous-vivid-amber #fcb900, light-green-cyan #7bdcb5, vivid-green-cyan #00d084
     &.single{
 
         &.is-fse-light,
-        &.is-fse-bg-default{
+        &.fse-scheme-default{
             .wp-block-post-featured-image{
                 background:var(--wp--custom--color--featured-image-bg);
 
@@ -3911,6 +3911,7 @@ div.gallery{
  */
 
 .wp-block-group.emulsion-panel{
+
     position:relative;
     width:calc(var(--thm_content_width, 720px) - var(--wp--custom--padding--content, .75rem) * 2);
     overflow:hidden;
@@ -3924,6 +3925,9 @@ div.gallery{
     .emulsion-panel-content{
         @extend %structure_spacing;
 
+    }
+    &.has-background{
+        padding:0;
     }
 }
 
@@ -5717,18 +5721,25 @@ ol.wp-block-latest-comments{
                 }
             }
             .sticky{
+                &:where(nav).fse-primary{
+                // .wp-block-navigation__responsive-container-content{
+                position: fixed;
+                top:0;
+                right: 0;
+                left: 0;
+                z-index: 1000;
+                margin-top: 0;
+                margin-bottom: 0;
+                //  }
+                }
 
-                .wp-block-navigation__responsive-container-content{
-                    position: fixed;
-                    top:0;
-                    right: 0;
-                    left: 0;
-                    z-index: 1000;
-                    margin-top: 0;
-                    margin-bottom: 0;
+            }
+            &.logged-in{
+                .sticky{
+                    top:32px;
                 }
             }
-            &.is-fse-bg-default{
+            &.fse-scheme-default{
                 .fse-primary{
 
                     .wp-block-navigation__responsive-container-content{
@@ -5940,10 +5951,31 @@ ol.wp-block-latest-comments{
 /**
  * Experimental setting
  */
-.fse-scheme-daybreak{
+
+.emulsion.fse-scheme-daybreak{
     //custom values in daybreak.json are not overridden
     --wp--custom--color--banner-bg:linear-gradient(90deg, #82ccdd, #f8c291);
 
+    .wp-block-navigation:not(.has-background),
+        .wp-block-navigation:not(.has-background) .wp-block-navigation__submenu-container {
+        background-color: #fff;
+        color: #000;
+    }
+
+}
+.emulsion.fse-scheme-default{
+    .wp-block-navigation:not(.has-background),
+        .wp-block-navigation:not(.has-background) .wp-block-navigation__submenu-container {
+        background-color: #fff;
+        color: #000;
+    }
+}
+.emulsion.fse-scheme-midnight{
+    .wp-block-navigation:not(.has-background),
+        .wp-block-navigation:not(.has-background) .wp-block-navigation__submenu-container {
+        background-color: #000;
+        color: #fff;
+    }
 }
 /**
  * Preset Margins
