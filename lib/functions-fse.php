@@ -111,9 +111,10 @@ function emulsion_author_description( $text ) {
 /**
  * Style and Scripts
  */
-add_action( 'wp_enqueue_scripts', 'emulsion_register_scripts_and_styles' );
 
-function emulsion_register_scripts_and_styles() {
+add_action( 'wp_enqueue_scripts', 'emulsion_register_scripts_and_styles_fse' );
+
+function emulsion_register_scripts_and_styles_fse() {
 	global $wp_scripts, $wp_version;
 
 	$emulsion_current_data_version = is_user_logged_in() ? time() : null;
@@ -163,7 +164,7 @@ function emulsion_register_scripts_and_styles() {
 	 * Table of contents
 	 */
 	//////////////////////////////////////////////////////////////////////////
-
+	$jquery_dependency	 = array( 'jquery' );
 	/**
 	 * jQuery in Footer when user not logged in.
 	 */

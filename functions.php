@@ -9,8 +9,8 @@ include_once( get_theme_file_path( 'lib/blocks.php' ) );
 
 if ( 'fse' == emulsion_get_theme_operation_mode() ) {
 
-	require_once( get_theme_file_path( 'lib/functions-fse.php' ) );
-	require_once( get_template_directory() . '/lib/full_site_editor.php' );
+include_once( get_theme_file_path( 'lib/functions-fse.php' ) );
+ include_once( get_template_directory() . '/lib/full_site_editor.php' );
 
 	/**
 	 * front emd extend CSS
@@ -56,6 +56,8 @@ STYLE;
 STYLE;
 		return $css;
 	}
+
+
 
 } else {
 
