@@ -127,6 +127,14 @@ wp-block-term-description, wp-block-post-navigation-link, wp-block-comments-quer
     }
 
 }
+.enable-alignfull{
+    .wp-block-query{
+        padding:0;
+        .is-flex-container{
+            width:100%;
+        }
+    }
+}
 figure.wp-block-gallery.has-nested-images{
     &:not(.alignleft):not(.alignright){
         float:none;
@@ -3856,5 +3864,15 @@ body:not(.full_text) .wp-block-query{
                 }
             }
         }
+    }
+}
+.wp-block-group{
+    &.is-flex-container{
+        gap:var(--wp--style--block-gap);
+        & > *:not(#specificity){
+            margin:0;
+            width:auto;
+        }
+
     }
 }

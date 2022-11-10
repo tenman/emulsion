@@ -1,3 +1,23 @@
+/**
+ * Center content
+        * @extend %centered_spacing;
+ */
+
+%centered_spacing{
+    -webkit-box-sizing:border-box;
+    box-sizing:border-box;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction:column;
+    flex-direction:column;
+    align-items: center;
+    justify-content: center;
+    -webkit-box-pack: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -ms-flex-pack: center;
+}
 body{
     box-sizing:border-box;
     padding:0;
@@ -454,18 +474,15 @@ body.emulsion .wp-site-blocks .is-style-new-line{
  */
 
 
-body.emulsion .wp-site-blocks{
-    .is-style-new-line{
+.emulsion .wp-site-blocks{
+    .is-style-new-line:not(.specificity) {
         position:static;
-            & ~ :where(h1,h2,h3,h4,h5,h6,p) {
+        & ~ :where(h1,h2,h3,h4,h5,h6,p){
             position: static;
-
         }
 
         & ~ :where(ul,ol){
             position:static;
-            width:var(--wp--style--global--content-size, 720px );
-
         }
     }
 
@@ -1138,7 +1155,9 @@ figcaption{
 .wp-site-blocks > footer,
 .fse-header,
 .fse-footer{
+    @extend %centered_spacing;
     background:var(--wp--custom--color--banner-bg);
+    min-height: var(--wp--custom--min-height--eighth, 12.5vh);
 }
 .is-fse-bg-f8f8ff{
     //custom values in daybreak.json are not overridden

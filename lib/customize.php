@@ -508,8 +508,25 @@ CSS3;
 			display:none !important;
 
 		}
-
 CSS4;
+
+		}
+
+		if ( 'default' !== get_theme_mod( 'emulsion_header_template' ) ) {
+			$css .= <<<CSS5
+			#accordion-panel-nav_menus,
+			#accordion-panel-emulsion_theme_settings_layout_panel,
+			#accordion-section-background_image,
+			#accordion-section-header_image,
+			#accordion-panel-emulsion_theme_settings_post_panel,
+			#accordion-panel-emulsion_theme_settings_fonts_panel,
+			#accordion-panel-emulsion_theme_settings_border_panel,
+			#accordion-section-colors{
+				display:none !important;
+			}
+
+CSS5;
+
 		}
 
 
@@ -710,7 +727,7 @@ function emulsion_header_template_validate( $input ) {
 
 function emulsion_footer_template_validate( $input ) {
 	global $emulsion_theme_mod_args;
-	
+
 	$values			 = array( 'html', 'default' );
 	$default_value	 = in_array( $emulsion_theme_mod_args['emulsion_footer_template']['default'], $values )
 			? $emulsion_theme_mod_args['emulsion_footer_template']['default']

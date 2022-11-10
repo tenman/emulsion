@@ -1101,3 +1101,36 @@ a.skin-button,
         border-color: var(--wp--preset--color--black);
     }
 }
+
+.emulsion{
+    .sidebar-widget-area{
+        .widget{
+            padding:0;
+            ul{
+                border:none;
+                padding-right: var(--wp--custom--padding--content, .75rem);
+                padding-left: var(--wp--custom--padding--content, .75rem);
+                box-sizing:border-box;
+                li{
+                    width:calc( 100% - var(--wp--custom--padding--content, .75rem) * 2);
+                    border-bottom:var(--wp--custom--border--common, 1px solid rgba(188,188,188,.5));
+
+                    .counter:empty{
+                        display:none!important;
+                    }
+                }
+            }
+
+        }
+        &.has-border-custom{
+
+            ul{
+                li{
+                    border-bottom-color: var(--thm_border_sidebar, rgba(188, 188, 188, 0.5));
+                    border-bottom-style: var(--thm_border_sidebar_style);
+                    border-bottom-width: var(--thm_border_sidebar_width);
+                }
+            }
+        }
+    }
+}

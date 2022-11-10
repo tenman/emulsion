@@ -21,6 +21,7 @@
                 "relate-posts-bg": "rgba(0,0,0,.1)",
                 "featured-image-bg": "rgba(0,0,0,.05)",
                 "code-tag-bg": "#f8f8ff",
+                "code-tag-text": "#000000",
                 "toc-bg": "#f8f8ff",
                 "banner-bg": "rgba(0,0,0,.1)",
                 "stripe": "rgba(0,0,0,.1)",
@@ -36,8 +37,8 @@
                 "dark-stripe": "rgba(255,255,255,.1)",
                 "unknown-bg": "#f8f8ff",
                 "dark-toc-bg": "#364549",
-                "dark-button-bg": "buttonface",
-                "dark-button-text": "#000"
+                "dark-button-bg": "#000000",
+                "dark-button-text": "#cccccc"
             },
             "border": {
                 "common": "1px solid #ccc",
@@ -486,6 +487,10 @@
         }
     ],
     "styles": {
+         "color": {
+            "background": "#ffffff",
+            "text": "#000000"
+        },
         "typography": {
             "fontSize": "var(--wp--preset--font-size--normal)",
             "lineHeight": "var(--wp--custom--line-height--common)",
@@ -670,6 +675,28 @@
                 "spacing": {
                     "margin": "var(--wp--custom--margin--block, 1.5rem auto)",
                     "padding": "0 var(--wp--custom--padding--content)"
+                }
+            },
+            "core/quote": {
+                "border": {
+                    "left": {
+                        "width": "1px",
+                        "style": "solid",
+                        "color": "#000"
+                    }
+                },
+                "elements": {
+                    "cite": {
+                        "typography": {
+                            "fontSize": "var(--wp--preset--font-size--small)",
+                            "fontStyle": "normal"
+                        }
+                    }
+                },
+                "spacing": {
+                    "padding": {
+                        "left": "40px"
+                    }
                 }
             }
         }

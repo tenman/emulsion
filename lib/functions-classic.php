@@ -43,7 +43,25 @@ function emulsion_theme_admin_notice() {
 	}
 
 }
+add_action( 'admin_notices', 'emulsion_theme_admin_theme_scheme' );
 
+function emulsion_theme_admin_theme_scheme() {
+
+	if ( 'theme' == get_theme_mod( 'emulsion_editor_support') && 'html' == get_theme_mod( 'emulsion_header_template', 'html' ) ) {
+		$query = array();
+
+		$query['autofocus[section]'] = 'emulsion_editor';
+
+		$section_link = esc_url( add_query_arg($query, admin_url('customize.php')));
+
+		printf( '<div class="notice notice-error is-dismissible emulsion-addon-error"><p><strong>%1$s</strong>  <a href="%2$s">%3$s</a></p></div>',
+				esc_html__( 'The current Theme Operation Mode is set to Classic Theme. In this mode, it is recommended that the header and footer template set value of Depends on editor settings', 'emulsion' ),
+				$section_link,
+				esc_html__( 'go to Customizer', 'emulsion' )
+		);
+	}
+
+}
 
 
 /**
