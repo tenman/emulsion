@@ -2,7 +2,7 @@
 
 $html = <<<HTML
 
-<!-- wp:template-part {"slug":"header","tagName":"header", "align":"full", "className":"fse-header header-layer default-tpl-header alignfull","gradient":"blush-light-purple"} /-->
+<!-- wp:template-part {"slug":"header","tagName":"header", "align":"full", "className":"fse-header header-layer default-tpl-header alignfull"} /-->
 
 <!-- wp:group {"align":"full","tagName":"main"} -->
 <main class="wp-block-group alignfull">
@@ -33,7 +33,7 @@ $html = <<<HTML
 	<!-- wp:post-navigation-link /-->
 	</nav>
 <!-- /wp:group -->
-<!-- wp:template-part {"slug":"footer", "tagName":"footer", "align":"full", "className":"footer-layer fse-footer banner default-tpl-footer alignfull","gradient":"blush-light-purple"} /-->
+<!-- wp:template-part {"slug":"footer", "tagName":"footer", "align":"full", "className":"footer-layer fse-footer banner default-tpl-footer alignfull"} /-->
 HTML;
 
 $html = str_replace( array(PHP_EOL,"\t"), array('',''), $html );

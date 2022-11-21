@@ -43,7 +43,7 @@
 
 }
 .scheme-midnight{
-    
+
     //https://wordpress.org/themes/emulsion/ theme preview issues
     *{
         color:#fff;
@@ -54,8 +54,8 @@
 }
 
 .has-custom-style:not([class*="is-fse-bg-var"]):not(.is-fse-dark):not(.is-fse-light),
-.custom-background:not([class*="is-fse-bg-var"]):not(.is-fse-dark):not(.is-fse-light){
-    background:var(--thm_background_color);
+.custom-background:not([class*="is-fse-bg-var"]):not(.is-fse-dark):not(.is-fse-light):not(.emulsion-has-custom-background-image){
+    background-color:var(--thm_background_color);
 }
 
 /*
@@ -215,7 +215,19 @@ body.paged{
     }
 }
 .is-presentation-theme{
-    .header-layer{
+    .footer-layer:not(.html-header){
+        color:var(--thm_header_text_color);
+        background:var( --thm_header_bg_color);
+        @include bg-gradient;
+
+        a:any-link{
+            color:var(--thm_header_link_color);
+            &:hover{
+                color:var(--thm_header_hover_color);
+            }
+        }
+    }
+    .header-layer:not(.html-header){
         color:var(--thm_header_text_color);
         background:var( --thm_header_bg_color);
         @include bg-gradient;
@@ -437,7 +449,7 @@ body.drawer-is-active{
     }
 }
 
-footer.banner{
+footer.banner:not(.html-footer){
     color:var(--thm_header_text_color);
     background:var( --thm_header_bg_color);
     @include bg-gradient;
@@ -544,7 +556,7 @@ body.scheme-midnight{
             color:var(--thm_primary_menu_link_color);
         }
         ul{
-          @include font_size(5);
+            @include font_size(5);
             li{
                 &.toc-active{
                     color:red;

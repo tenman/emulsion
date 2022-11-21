@@ -1,4 +1,4 @@
-<div class="footer-layer"><?php
+<?php
 	if ( is_page() && emulsion_the_theme_supports( 'footer_page' ) ) {
 
 		$emulsion_metabox_menu_control	 = get_theme_mod( 'emulsion_condition_display_page_sidebar', emulsion_theme_default_val( 'emulsion_condition_display_page_sidebar' ) );
@@ -51,4 +51,3 @@
 		 emulsion_block_template_part( 'footer' );
 	}
 	?>
-</div>

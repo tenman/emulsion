@@ -253,6 +253,11 @@ function emulsion_register_scripts_and_styles_fse() {
 		}
 		wp_enqueue_script( 'emulsion' );
 	}
+	$emulsion_dark_mode_support_val = 'enable' == get_theme_mod('emulsion_dark_mode_support') ? true: false;
+	wp_localize_script( 'emulsion', 'emulsion_script_vars', array(
+				'emulsion_dark_mode_support' => $emulsion_dark_mode_support_val
+	));
+
 }
 
 function emulsion_fse_body_class( $classes ) {

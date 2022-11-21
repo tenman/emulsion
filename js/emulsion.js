@@ -648,20 +648,20 @@ jQuery(function ($) {
      * emulsion_fse_background_color_class()
      * @type String
      */
-   /* $(".is-presentation-fse").each(function () {
-        var background_color = $(this).css('background-color');
-        var text_color = emulsion_text_color(background_color);
-        if (text_color == "#ffffff") {
-            var color_class = 'fse-dark';
-        } else {
-            var color_class = 'fse-light';
-        }
-        $(this).addClass(color_class);
+    /* $(".is-presentation-fse").each(function () {
+     var background_color = $(this).css('background-color');
+     var text_color = emulsion_text_color(background_color);
+     if (text_color == "#ffffff") {
+     var color_class = 'fse-dark';
+     } else {
+     var color_class = 'fse-light';
+     }
+     $(this).addClass(color_class);
 
-        if ('rgb(27, 38, 44)' == background_color || 'rgba(27, 38, 44, 1)' == background_color) {
-            $(this).addClass('fse-variation-midnight');
-        }
-    });*/
+     if ('rgb(27, 38, 44)' == background_color || 'rgba(27, 38, 44, 1)' == background_color) {
+     $(this).addClass('fse-variation-midnight');
+     }
+     });*/
 
 });
 
@@ -842,24 +842,25 @@ jQuery(function ($) {
         const is_dark = window.matchMedia('(prefers-color-scheme: dark)');
 
         if (is_dark.matches) {
-            if ($('body').hasClass('is-light')) {
 
+            if ($('body').hasClass('is-light')) {
+                $('body').removeClass('fse-scheme-default fse-scheme-daybreak is-fse-light');
                 $('body').removeClass('is-light').addClass('is-dark prefers-color-scheme-dark');
                 return;
             } else {
                 $('body').removeClass('is-dark prefers-color-scheme-dark').addClass('is-light');
             }
-        } else {
-
-            const is_light = window.matchMedia('(prefers-color-scheme: light)');
-
-            if (is_light.matches && $('body').hasClass('is-dark')) {
-
-                $('body').removeClass('is-dark').addClass('is-light prefers-color-scheme-light');
-            } else {
-                $('body').removeClass('is-light prefers-color-scheme-light').addClass('is-dark');
-            }
         }
+/*
+        const is_light = window.matchMedia('(prefers-color-scheme: light)');
+
+        if (is_light.matches) {
+
+            $('body').removeClass('is-dark').addClass('is-light prefers-color-scheme-light');
+        } else {
+            $('body').removeClass('is-light prefers-color-scheme-light').addClass('is-dark');
+        }*/
+
     }
 });
 jQuery(function ($) {

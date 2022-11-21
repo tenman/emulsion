@@ -120,7 +120,7 @@ function emulsion_hooks_setup() {
 
 		add_filter( 'render_block_core/navigation', function ( $content, $block ) {
 
-			if ( 'transitional' == emulsion_get_theme_operation_mode() && 'fse-primary' == $block["attrs"]["className"] ) {
+			if ( 'transitional' == emulsion_get_theme_operation_mode() && isset( block["attrs"]["className"] ) && 'fse-primary' == $block["attrs"]["className"] ) {
 
 				return;
 			}

@@ -116,4 +116,3 @@ STYLE;
 }
 
 add_action( 'enqueue_block_editor_assets', 'emulsion_block_editor_assets' );
-

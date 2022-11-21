@@ -9,8 +9,8 @@
 define( 'EMULSION_MIN_PHP_VERSION', '5.6' );
 
 if ( ! defined( 'EMULSION_DARK_MODE_SUPPORT' ) ) {
-
-	define( 'EMULSION_DARK_MODE_SUPPORT', false );
+	$emulsion_dark_mode_support_val = 'enable' == get_theme_mod('emulsion_dark_mode_support') ? true: false;
+	define( 'EMULSION_DARK_MODE_SUPPORT', $emulsion_dark_mode_support_val );
 }
 
 /**

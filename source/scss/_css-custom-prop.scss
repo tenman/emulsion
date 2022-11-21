@@ -306,9 +306,55 @@ body{
         --thm_sidebar_bg_color:#000;
         --thm_sidebar_text_color:#eee;
         --thm_sidebar_link_color:#bbb;
-        background:var(--thm_background_color);
+        background:var(--wp--custom--color--dark-mode-bg, #1b262c);
+
+        --wp--custom--color--link:#fff;
+        --wp--custom--color--button-bg:#333;
+        --wp--custom--color--button-text:#fff;
+        &:where(body){
+
+            color:#fff;
+
+            &.is-presentation-theme .footer-layer:not(.html-header),
+                .relate-content-wrapper:not(#specificity),
+                .comment-wrapper:not(#specificity),
+                article.post  *:not(#specificity):not(.show-post-image){
+                color:currentColor!important;
+                background:transparent!important;
+                background-color:transparent!important;
+                &[style*="background"] *,
+                &[style*="background"]{
+                    background:transparent!important;
+
+                }
+                a{
+                    color:#fff;
+                }
+            }
+            .has-background{
+                color:revert;
+                background-color:revert;
+            }
+            [style*="background"]{
+                color:revert;
+                background-color:revert;
+                & > *{
+                    color:revert;
+                }
+            }
+            article{
+                a{
+                    color:#fff;
+                }
+            }
+            .wp-block-button__link,
+            .wp-block-code{
+                border:1px solid;
+            }
+        }
     }
 }
+/*
 @media (prefers-color-scheme: light) {
     // example
     .prefers-color-scheme-light{
@@ -327,7 +373,7 @@ body{
         --thm_social_icon_color:#666;
         background:var(--thm_background_color);
     }
-}
+}*/
 /**
  * Exception setting when background image is specified
  *
@@ -1513,21 +1559,21 @@ body .layout{
             max-width: calc( 24.99% - 1rem - var(--thm_content_gap, 24px) - var(--thm_box_gap, 3px) * 2 );
             margin-left:var(--thm_content_gap, 24px);
             @media screen and ( max-width : 640px ) {
-                 max-width:calc( 100% - var(--thm_content_gap, 24px));
+                max-width:calc( 100% - var(--thm_content_gap, 24px));
             }
         }
         &.size1of5{
             max-width: calc( 19.99% - 1rem - var(--thm_content_gap, 24px) - var(--thm_box_gap, 3px) * 2 );
             margin-left:var(--thm_content_gap, 24px);
             @media screen and ( max-width : 640px ) {
-                 max-width:calc( 100% - var(--thm_content_gap, 24px));
+                max-width:calc( 100% - var(--thm_content_gap, 24px));
             }
         }
         &.size2of5{
             max-width: calc( 40% - 1rem - var(--thm_content_gap, 24px) - var(--thm_box_gap, 3px) * 2 );
             margin-left:var(--thm_content_gap, 24px);
             @media screen and ( max-width : 640px ) {
-               max-width:calc( 100% - var(--thm_content_gap, 24px));
+                max-width:calc( 100% - var(--thm_content_gap, 24px));
             }
         }
     }
@@ -1535,29 +1581,29 @@ body .layout{
         &.size1of3{
             max-width: calc( 33.33333% - 1rem - var(--thm_content_gap, 24px) - var(--thm_box_gap, 3px) * 2);
             margin-right:var(--thm_content_gap, 24px);
-             @media screen and ( max-width : 640px ) {
-               max-width:calc( 100% - var(--thm_content_gap, 24px));
+            @media screen and ( max-width : 640px ) {
+                max-width:calc( 100% - var(--thm_content_gap, 24px));
             }
         }
         &.size1of4{
             max-width: calc( 24.99% - 1rem - var(--thm_content_gap, 24px) - var(--thm_box_gap, 3px) * 2 );
             margin-right:var(--thm_content_gap, 24px);
-             @media screen and ( max-width : 640px ) {
-               max-width:calc( 100% - var(--thm_content_gap, 24px));
+            @media screen and ( max-width : 640px ) {
+                max-width:calc( 100% - var(--thm_content_gap, 24px));
             }
         }
         &.size1of5{
             max-width: calc( 19.99% - 1rem - var(--thm_content_gap, 24px) - var(--thm_box_gap, 3px) * 2 );
             margin-right:var(--thm_content_gap, 24px);
-             @media screen and ( max-width : 640px ) {
-               max-width:calc( 100% - var(--thm_content_gap, 24px));
+            @media screen and ( max-width : 640px ) {
+                max-width:calc( 100% - var(--thm_content_gap, 24px));
             }
         }
         &.size2of5{
             max-width: calc( 40% - 1rem - var(--thm_content_gap, 24px) - var(--thm_box_gap, 3px) * 2 );
             margin-right:var(--thm_content_gap, 24px);
-             @media screen and ( max-width : 640px ) {
-               max-width:calc( 100% - var(--thm_content_gap, 24px));
+            @media screen and ( max-width : 640px ) {
+                max-width:calc( 100% - var(--thm_content_gap, 24px));
             }
         }
     }

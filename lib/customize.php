@@ -112,6 +112,18 @@ $emulsion_theme_mod_args = array(
 			'enable'	 => esc_html__( 'Enabled', 'emulsion' ),
 		),
 	),
+	'emulsion_dark_mode_support'				 => array(
+		'section'			 => 'emulsion_editor',
+		'default'			 => 'disable',
+		'label'				 => esc_html__( 'Dark Mode.', 'emulsion' ),
+		'description'		 => esc_html__( 'Reflect your PC dark mode settings', 'emulsion' ),
+		'sanitize_callback'	 => 'emulsion_dark_mode_support_validate',
+		'type'				 => 'radio',
+		'choices'			 => array(
+			'disable'	 => esc_html__( 'Disabled', 'emulsion' ),
+			'enable'	 => esc_html__( 'Enabled', 'emulsion' ),
+		),
+	),
 );
 
 if ( ! function_exists( 'emulsion_customize_register' ) ) {
@@ -259,6 +271,19 @@ if ( ! function_exists( 'emulsion_customize_register' ) ) {
 			'description'	 => $emulsion_theme_mod_args['emulsion_core_block_patterns_support']['description'],
 			'type'			 => $emulsion_theme_mod_args['emulsion_core_block_patterns_support']['type'],
 			'choices'		 => $emulsion_theme_mod_args['emulsion_core_block_patterns_support']['choices'],
+		) );
+		$wp_customize->add_setting( 'emulsion_dark_mode_support', array(
+			'default'			 => $emulsion_theme_mod_args['emulsion_dark_mode_support']['default'],
+			'sanitize_callback'	 => $emulsion_theme_mod_args['emulsion_dark_mode_support']['sanitize_callback'],
+		) );
+
+		$wp_customize->add_control( 'emulsion_dark_mode_support', array(
+			'settings'		 => 'emulsion_dark_mode_support',
+			'section'		 => $emulsion_theme_mod_args['emulsion_dark_mode_support']['section'],
+			'label'			 => $emulsion_theme_mod_args['emulsion_dark_mode_support']['label'],
+			'description'	 => $emulsion_theme_mod_args['emulsion_dark_mode_support']['description'],
+			'type'			 => $emulsion_theme_mod_args['emulsion_dark_mode_support']['type'],
+			'choices'		 => $emulsion_theme_mod_args['emulsion_dark_mode_support']['choices'],
 		) );
 	}
 
@@ -592,7 +617,7 @@ SCRIPT;
  * Customizer validate
  */
 function emulsion_scheme_validate( $input ) {
-
+	global $emulsion_theme_mod_args;
 	$default_value	 = in_array( $emulsion_theme_mod_args['emulsion_scheme']['default'], $values )
 			? $emulsion_theme_mod_args['emulsion_scheme']['default']
 			: 'default';
@@ -687,6 +712,22 @@ function emulsion_core_block_patterns_support_validate( $input ) {
 	$default_value	 = in_array( $emulsion_theme_mod_args['emulsion_core_block_patterns_support']['default'], $values )
 			? $emulsion_theme_mod_args['emulsion_core_block_patterns_support']['default']
 			: 'disable';
+
+	if ( in_array( $input, $values ) ) {
+
+		return $input;
+	}
+	return $default_value;
+}
+
+function emulsion_dark_mode_support_validate( $input ) {
+	global $emulsion_theme_mod_args;
+
+	$values			 = array( 'enable', 'disable' );
+	$default_value	 = in_array( $emulsion_theme_mod_args['emulsion_dark_mode_support']['default'], $values )
+			? $emulsion_theme_mod_args['emulsion_dark_mode_support']['default']
+			: 'disable';
+
 
 	if ( in_array( $input, $values ) ) {
 
