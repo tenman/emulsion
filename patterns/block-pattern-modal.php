@@ -1,0 +1,54 @@
+<?php
+/**
+ * Title: Presentation Modal Box
+ * Slug: emulsion/block-pattern-modal
+ * Categories: contents, emulsion
+ * Viewport Width: 1280
+ * Inserter: yes
+ * Keywords: shape
+ * Description: Modal Box on the front end
+ */
+
+$html = <<<HTML
+<!-- wp:buttons -->
+<div class="wp-block-buttons modal-open-link emulsion-dependency">
+	<!-- wp:button -->
+	<div class="wp-block-button">
+		<a class="wp-block-button__link" href="./#modal-group-1">modal link text</a>
+	</div>
+	<!-- /wp:button -->
+</div>
+<!-- /wp:buttons -->
+
+<!-- wp:group {"className":"emulsion-modal solid-border modal","layout":{"type":"constrained"}} -->
+<div id="modal-group-1" class="wp-block-group emulsion-modal solid-border modal is-layout-constrained">
+	<div class="wp-block-group__inner-container">
+
+		<!-- wp:paragraph {"textAlign":"right","placeholder":"Panel Title","className":"emulsion-modal-title alignfull emulsion-dependency"} -->
+		<p class="has-text-align-right emulsion-modal-title emulsion-dependency">
+			<a href="./" class="modal-close-link">X</a>
+		</p>
+		<!-- /wp:paragraph -->
+
+		<!-- wp:group {"className":"emulsion-modal-content", "layout":{"type":"constrained"}} -->
+		<div class="wp-block-group emulsion-modal-content is-layout-constrained">
+			<div class="wp-block-group__inner-container">
+
+					<!-- wp:paragraph {"placeholder":"content"} -->
+					<p>content</p>
+					<!-- /wp:paragraph -->
+
+			</div>
+		</div>
+		<!-- /wp:group -->
+
+	</div>
+</div>
+<!-- /wp:group -->
+HTML;
+
+$html = str_replace( array(PHP_EOL,"\t"), array('',''), $html );
+
+echo $html;
+
+
