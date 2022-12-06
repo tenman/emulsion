@@ -98,10 +98,14 @@ window.addEventListener('DOMContentLoaded', function () {
 
         const is_dark = window.matchMedia('(prefers-color-scheme: dark)');
 
+
         if (is_dark.matches && emulsion_script_vars.emulsion_dark_mode_support) {
             var body_element = document.getElementsByTagName('body');
             body_element[0].classList.remove('is-fse-light', 'is-fse-dark','fse-scheme-default');
             body_element[0].classList.add('is-fse-dark', 'prefers-color-scheme-dark');
+        }
+        if( emulsion_script_vars.emulsion_body_id ){
+            document.body.id = emulsion_script_vars.emulsion_body_id;
         }
 
     });

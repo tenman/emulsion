@@ -254,8 +254,10 @@ function emulsion_register_scripts_and_styles_fse() {
 		wp_enqueue_script( 'emulsion' );
 	}
 	$emulsion_dark_mode_support_val = 'enable' == get_theme_mod('emulsion_dark_mode_support') ? true: false;
+
 	wp_localize_script( 'emulsion', 'emulsion_script_vars', array(
-				'emulsion_dark_mode_support' => $emulsion_dark_mode_support_val
+		'emulsion_dark_mode_support' => $emulsion_dark_mode_support_val,
+		'emulsion_body_id' => emulsion_slug(),
 	));
 
 }
@@ -467,12 +469,12 @@ function emulsion_corrected_core_css_flex_gap_size_consistency() {
 	 */
 	$css = <<<STYLE
 
-	.wp-block-post-template.is-flex-container,
-	.wp-block-query-loop.is-flex-container{
+	.wp-block-post-template.is-layout-flex,
+	.wp-block-query-loop.is-layout-flex{
 		gap:var(--wp--style--block-gap, 3px);
 	}
-	.wp-block-post-template.is-flex-container.is-flex-container[class*="columns-"] > li,
-	.wp-block-query-loop.is-flex-container.is-flex-container[class*="columns-"] > li{
+	.wp-block-post-template.is-layout-flex.is-layout-flex[class*="columns-"] > li,
+	.wp-block-query-loop.is-layout-flex.is-layout-flex[class*="columns-"] > li{
 		/*Simple fix for columns not aligning as expected*/
 		box-sizing:border-box;
 	}

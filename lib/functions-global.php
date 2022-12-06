@@ -789,9 +789,11 @@ if ( ! function_exists( 'emulsion_add_flex_container_classes' ) ) {
 		$used_layout = isset( $block['attrs']['layout'] ) ? $block['attrs']['layout'] : '';
 
 		if ( isset( $used_layout['type'] ) && 'flex' == $used_layout['type'] ) {
+
 			// flex
 			$new_class = array(
-				'is-flex-container',
+				//'is-flex-container',
+				'is-layout-flex',
 				! empty( $used_layout['justifyContent'] ) ? sanitize_html_class( 'items-justified-' . $used_layout['justifyContent'] ) : '',
 				! empty( $used_layout['orientation'] ) ? sanitize_html_class( 'is-' . $used_layout['orientation'] ) : ''
 			);
@@ -1059,6 +1061,10 @@ if ( ! function_exists( 'emulsion_fse_footer_content_filter' ) ) {
 
 		if ( 'footer' == $block['attrs']['slug'] ) {
 
+			if('transitional' == emulsion_get_theme_operation_mode()) {
+				return str_replace('<footer','<footer style="display:none"',$content);
+			}
+			/*
 			$policy_page_link	 = '';
 			$policy_page_title	 = '';
 			$policy_page_url	 = '';
@@ -1070,15 +1076,30 @@ if ( ! function_exists( 'emulsion_fse_footer_content_filter' ) ) {
 				$policy_page_url	 = esc_url( get_permalink( $policy_page_id ) );
 				$policy_page_link	 = sprintf( '<a href="%1$s" class="emulsion-privacy-policy">%2$s</a>', esc_url( $policy_page_url ), $policy_page_title );
 			}
-
 			$html = str_replace( array( '%current_year%', '%privacy_policy%' ), array( date( 'Y' ), $policy_page_link ), $content );
 
-			return $html;
+			return $html;*/
 		}
 		return $content;
 	}
 
 }
+
+if ( ! function_exists( 'emulsion_fse_header_content_filter' ) ) {
+
+	function emulsion_fse_header_content_filter( $content, $block ) {
+
+		if ( 'header' == $block['attrs']['slug'] && 'transitional' == emulsion_get_theme_operation_mode() ) {
+
+			return str_replace('<header','<header style="display:none"',$content);
+		}
+		return $content;
+	}
+
+}
+
+
+
 if ( ! function_exists( 'emulsion_instantclick' ) ) {
 
 	function emulsion_instantclick( $script ) {
@@ -1528,7 +1549,7 @@ if ( ! function_exists( 'emulsion_block_template_part' ) ) {
 				$additional_classes[]	 = 'header-rich' !== $part ? 'banner' : '';
 				"#eeeeee" !== get_theme_mod( 'emulsion_header_background_color' ) ? $additional_classes[]	 = 'has-customizer-bg' : '';
 				$tag_name				 = 'header';
-				
+
 				if ( 'transitional' == emulsion_get_theme_operation_mode() && 'default' == get_theme_mod( 'emulsion_header_template', emulsion_theme_default_val( 'emulsion_header_template', 'default' ) ) ) {
 					return;
 				}
@@ -1669,7 +1690,7 @@ if ( ! function_exists( 'emulsion_custom_field_css' ) ) {
 		$meta_field			 = 'css';
 
 		if ( ! is_singular() ) {
-			return;
+			//return;
 		}
 
 		if ( metadata_exists( $post_type, $post_id, $meta_field ) ) {
@@ -1683,7 +1704,7 @@ if ( ! function_exists( 'emulsion_custom_field_css' ) ) {
 					} );
 
 			$meta_style_css = preg_replace_callback( '![^}]+{[^}]+}!siu', function ( $matches ) use ( $post_id ) {
-
+			$class_prefix = is_page() ? 'page-id':'postid';
 				$result = '';
 				foreach ( $matches as $match ) {
 
@@ -1692,13 +1713,15 @@ if ( ! function_exists( 'emulsion_custom_field_css' ) ) {
 						if ( preg_match( '|(@[^\{]+{)([^\}]*\})|', $match, $args ) ) {
 							$result .= $args[1];
 
-							$result .= sprintf( ' .has-custom-style.postid-%1$d %2$s', $post_id, $args[2] );
+							//$result .= sprintf( ' .has-custom-style.postid-%1$d %2$s', $post_id, $args[2] );
+							$result .= sprintf( ' .has-custom-style.%3$s-%1$d %2$s', $post_id, $args[2],$class_prefix );
 						}
 					} elseif ( is_singular() ) {
 
 						if ( false === strstr( $match, 'has-custom-style' ) ) {
 
-							$result .= sprintf( ' .has-custom-style.postid-%1$d %2$s', $post_id, $match );
+						//	$result .= sprintf( ' .has-custom-style.postid-%1$d %2$s', $post_id, $match );
+							$result .= sprintf( ' .has-custom-style.%3$s-%1$d %2$s', $post_id, $match, $class_prefix );
 						} else {
 
 							$result .= $match;
@@ -1774,4 +1797,19 @@ if ( ! function_exists( 'emulsion_get_the_password_form' ) ) {
 		return $form;
 	}
 
+}
+
+function emulsion_slug( $echo = false ) {
+
+	$emulsion_current_data		 = wp_get_theme();
+	$emulsion_current_theme_name = $emulsion_current_data->get( 'Name' );
+	$emulsion_current_theme_slug = sanitize_title_with_dashes( $emulsion_current_theme_name );
+
+	if ( $echo == true ) {
+
+		echo $emulsion_current_theme_slug;
+	} else {
+
+		return $emulsion_current_theme_slug;
+	}
 }

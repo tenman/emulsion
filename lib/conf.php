@@ -232,20 +232,6 @@ if ( ! function_exists( 'emulsion_theme_default_val' ) ) {
 
 }
 
-function emulsion_slug( $echo = false ) {
-
-	$emulsion_current_data		 = wp_get_theme();
-	$emulsion_current_theme_name = $emulsion_current_data->get( 'Name' );
-	$emulsion_current_theme_slug = sanitize_title_with_dashes( $emulsion_current_theme_name );
-
-	if ( $echo == true ) {
-
-		echo $emulsion_current_theme_slug;
-	} else {
-
-		return $emulsion_current_theme_slug;
-	}
-}
 
 function emulsion_theme_default_values( $name, $fallback ) {
 

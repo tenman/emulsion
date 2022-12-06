@@ -14,6 +14,7 @@ do_action( 'emulsion_template_pre_' . basename( __FILE__, '.php' ) );
 get_header();
 
 if ( true === emulsion_is_custom_post_type() && 'fse' == emulsion_get_theme_operation_mode() ) {
+
 	/**
 	 * Template tags are not loaded for the Full Site Editing Theme setting.
 	 * But the plugin has a request for a php template. (Ex: bbpress) Fallback for this case.

@@ -1022,8 +1022,8 @@ body.emulsion .wp-site-blocks .is-style-new-line{
 
 .emulsion:not(#specificity){
     .is-layout-flow:not(.is-root-container),
-        .is-style-layout-flow:not(.is-flex-container),
-        .is-style-fluid-children:not(.is-flex-container),
+        .is-style-layout-flow:not(.is-layout-flex),
+        .is-style-fluid-children:not(.is-layout-flex),
         .has-fluid-children{
 
         & > *{
@@ -1039,7 +1039,7 @@ body.emulsion .wp-site-blocks .is-style-new-line{
             overflow:hidden;
 
         }
-        //.is-flex-container,
+        //.is-layout-flex,
         .wp-block-rss.is-grid,
         .wp-block-latest-posts  *{
             --thm_wide_width:100%;
@@ -1061,7 +1061,7 @@ body.emulsion .wp-site-blocks .is-style-new-line{
                 padding-left:40px;
             }
             &.is-grid,
-            &.is-flex-container{
+            &.is-layout-flex{
                 padding-left:0;
             }
             &.wp-block-gallery{

@@ -126,7 +126,7 @@ function emulsion_hooks_setup() {
 			}
 			return $content;
 		}, 10, 2 );
-
+		add_filter( 'render_block_core/template-part', 'emulsion_fse_header_content_filter', 10, 2 );
 		add_filter( 'render_block_core/template-part', 'emulsion_fse_footer_content_filter', 10, 2 );
 
 		// core issue hotfix

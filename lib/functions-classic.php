@@ -182,6 +182,8 @@ if ( ! function_exists( 'emulsion_setup' ) ) {
 			add_theme_support( 'experimental-link-color' );
 		}
 
+		add_theme_support( 'block-template-parts' );
+
 		add_action( 'enqueue_block_editor_assets', 'emulsion_block_editor_styles_and_scripts' ); //back end
 		add_editor_style( 'css/tinymce-style.css' );
 		add_editor_style( add_query_arg( 'action', 'emulsion_tiny_mce_css_variables', admin_url( 'admin-ajax.php' ) ) );
@@ -2078,7 +2080,7 @@ function emulsion_get_starter_content() {
 		'theme_mods' => array(
 			'emulsion_header_template'	 => 'html',
 			'emulsion_footer_template'	 => 'html',
-			'emulsion_scheme'			 => 'midnight'
+			'emulsion_scheme'			 => 'default'
 		),
 		'widgets'	 => array(),
 	);

@@ -83,14 +83,14 @@ if ( function_exists( 'register_block_style' ) ) {
 
 					return $settings;
 				}
-				$post_id = get_the_ID();
-				$post = get_post( $post_id );
-				$template_path = '';
+				$post_id		 = get_the_ID();
+				$current_post	 = get_post( $post_id );
+				$template_path	 = '';
 
-				if ( $post ) {
+				if ( $current_post ) {
 
-					$filename		 = sanitize_file_name( sprintf( 'block-template-default-%1$s', $post->post_type . '.php' ) );
-					$template_path	 = get_template_directory() . '/block-patterns/' . $filename;
+					$filename		 = sanitize_file_name( sprintf( 'block-template-default-%1$s', $current_post->post_type . '.php' ) );
+					$template_path	 = get_template_directory() . '/default-templates/' . $filename;
 				}
 
 				if ( is_readable( $template_path ) ) {
@@ -102,13 +102,14 @@ if ( function_exists( 'register_block_style' ) ) {
 }
 
 //add_filter( 'should_load_remote_block_patterns', '__return_false' );
+
 function emulsion_block_pattern() {
 
 	if ( function_exists( 'register_block_pattern' ) ) {
 
 		$template_path = get_template_directory() . '/block-patterns/block-pattern-list-tab.php';
 
-		if ( is_readable( $template_path ) ) {
+		/*if ( is_readable( $template_path ) ) {
 
 			register_block_pattern(
 					'emulsion/block-pattern-list-tab', array(
@@ -119,10 +120,11 @@ function emulsion_block_pattern() {
 				'keywords'		 => array( "emulsion", "tab" ),
 					)
 			);
-		}
+		}*/
+
 		$template_path = get_template_directory() . '/block-patterns/block-pattern-modal.php';
 
-		if ( is_readable( $template_path ) ) {
+		/*if ( is_readable( $template_path ) ) {
 
 			register_block_pattern(
 					'emulsion/block-pattern-modal', array(
@@ -133,11 +135,11 @@ function emulsion_block_pattern() {
 				'keywords'		 => array( "emulsion", "modalbox", "modal" ),
 					)
 			);
-		}
+		}*/
 
 		$template_path = get_template_directory() . '/block-patterns/block-pattern-relate-posts.php';
 
-		if ( is_readable( $template_path ) ) {
+		/*if ( is_readable( $template_path ) ) {
 
 			register_block_pattern(
 					'emulsion/block-pattern-relate-posts', array(
@@ -148,10 +150,10 @@ function emulsion_block_pattern() {
 				'keywords'		 => array( "emulsion", "relate posts" ),
 					)
 			);
-		}
+		}*/
 		$template_path = get_template_directory() . '/block-patterns/block-pattern-query-sticky.php';
 
-		if ( is_readable( $template_path ) ) {
+		/*if ( is_readable( $template_path ) ) {
 
 			register_block_pattern(
 					'emulsion/block-pattern-query-sticky', array(
@@ -162,7 +164,7 @@ function emulsion_block_pattern() {
 				'keywords'		 => array( "emulsion", "sticky posts" ),
 					)
 			);
-		}
+		}*/
 
 		if ( 'enable' !== get_theme_mod( 'emulsion_core_block_patterns_support' ) ) {
 
