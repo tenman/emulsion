@@ -151,7 +151,7 @@ border-image.png
 
 ## Changelog
 ###  december 26 2022
-		* 2.5.7
+		* 2.5.8
         * https://github.com/tenman/emulsion/releases
 ###  december 6 2022
 		* 2.5.6
