@@ -2,14 +2,14 @@
 
 $html = <<<HTML
 <!-- wp:group {"tagName":"header","className":"alignfull fse-header header-layer wp-block-template-part-header-singular wp-block-template-part","layout":{"type":"constrained"}} -->
-<header class="wp-block-group alignfull fse-header header-layer wp-block-template-part-header-singular wp-block-template-part is-layout-constrained">
+<header class="wp-block-group alignfull fse-header header-layer wp-block-template-part-header-singular wp-block-template-part">
 	<!-- wp:group {"className":"fse-header-content","layout":{"type":"constrained"}} -->
-<div class="wp-block-group fse-header-content is-layout-constrained">
+<div class="wp-block-group fse-header-content">
 	<!-- wp:site-logo {"width":48} /-->
 	<!-- wp:group {"className":"fse-header-text","layout":{"inherit":false}} -->
 	<div class="wp-block-group fse-header-text">
-	<!-- wp:site-title {"className":"alignleft"} /-->
-	<!-- wp:site-tagline {"className":"alignleft"} /-->
+	<!-- wp:site-title /-->
+	<!-- wp:site-tagline  /-->
 		    </div>
     <!-- /wp:group -->
 </div>
@@ -17,19 +17,23 @@ $html = <<<HTML
 <!-- /wp:group -->
 
 <!-- wp:group {"tagName":"main","align":"full","layout":{"type":"constrained"}} -->
-<main class="wp-block-group alignfull is-layout-constrained"><!-- wp:group {"tagName":"article","align":"full","className":"post","layout":{"type":"constrained"}} -->
-<article class="wp-block-group alignfull post is-layout-constrained"><!-- wp:post-featured-image /-->
+<main class="wp-block-group alignfull"><!-- wp:group {"tagName":"article","align":"full","className":"post","layout":{"type":"constrained"}} -->
+<article class="wp-block-group alignfull post"><!-- wp:post-featured-image /-->
 
-<!-- wp:group {"tagName":"header","align":"full", className":"post-header wp-block-template-post-header wp-block-template-part","layout":{"type":"constrained"}} -->
-<header class="wp-block-group post-header wp-block-template-post-header wp-block-template-part alignfull is-layout-constrained"><!-- wp:group {"className":"post-header-content","layout":{"type":"constrained"}} -->
-<div class="wp-block-group post-header-content is-layout-constrained"><!-- wp:post-title {"isLink":true} /--></div>
-<!-- /wp:group --></header>
+<!-- wp:group {"tagName":"header","align":"full", "className":"post-header wp-block-template-post-header wp-block-template-part", "layout":{"type":"constrained"}} -->
+<header class="wp-block-group post-header wp-block-template-post-header wp-block-template-part alignfull">
+	<!-- wp:group {"className":"post-header-content","layout":{"type":"constrained"}} -->
+	<div class="wp-block-group post-header-content">
+	<!-- wp:post-title {"isLink":true} /-->
+	</div>
+<!-- /wp:group -->
+</header>
 <!-- /wp:group -->
 
-<!-- wp:post-content {"layout":{"type":"constrained"}} /-->
+<!-- wp:post-content { "align":"full", "layout":{"type":"constrained"}} /-->
 
 <!-- wp:group {"align":"full", className":"post-footer wp-block-template-part-post-footer wp-block-template-part","layout":{"type":"constrained"}} -->
-<div class="wp-block-group post-footer wp-block-template-part-post-footer wp-block-template-part alignfull is-layout-constrained">
+<div class="wp-block-group post-footer wp-block-template-part-post-footer wp-block-template-part alignfull">
 
 <!-- wp:comments-query-loop {"className":"comment-wrapper"} -->
 <div class="wp-block-comments-query-loop comment-wrapper">

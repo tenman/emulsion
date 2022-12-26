@@ -5,7 +5,7 @@ Theme URI: https://www.tenman.info/wp3/emulsion
 Description: By switching Customize / Theme Operation Mode. A universal theme that allows you to use the latest Setting Full Site Editing (Editor), Block Editor, Block Template.You can also view the traditional sidebar by selecting FSE Transitional Theme.You will be free to go back and forth between the future of WordPress and the present.
 Author: Tenman
 Author URI: https://www.tenman.info/wp3/
-Version: 2.5.6
+Version: 2.5.7
 Tags: full-site-editing, one-column, two-columns, grid-layout,left-sidebar, right-sidebar,custom-background, custom-colors, custom-header,custom-logo, custom-menu, editor-style, featured-image-header, featured-images, flexible-header, footer-widgets, full-width-template, post-formats, sticky-post, theme-options, threaded-comments, translation-ready, block-patterns, block-styles, wide-blocks
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -566,7 +566,12 @@ body .grid .article-wrapper article header.show-post-image a {
 
 body .relate-content-wrapper {
     background: var(--thm_relate_posts_bg, #eeeeee);
+
 }
+.relate-posts-title,
+.relate-content-wrapper a{
+        color:var(--thm_black_color);
+    }
 body .toc, body .primary-menu-wrapper {
     background: var(--thm_white_color, #ffffff);
 }
@@ -590,7 +595,7 @@ body .current-page {
     background: rgba(188, 188, 188, 0.2);
 }
 body .pagination .current, body .pagination .prev, body .pagination .next {
-    color: var(--thm_general_text_color);
+
     background: rgba(188, 188, 188, 0.2);
 }
 

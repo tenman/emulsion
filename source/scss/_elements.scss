@@ -138,6 +138,7 @@ wp-block-search, wp-block-social-links, wp-block-tag-cloud, wp-block-embed, wp-b
 .wp-block-spacer{
     width:calc(var(--thm_content_width, 720px) - var(--thm_content_gap, 24px) * 2 );
 }
+.wp-block-template-part,
 .wp-block-pullquote,
 .wp-block-quote{
     @extend %block;
@@ -181,7 +182,7 @@ wp-block-search, wp-block-social-links, wp-block-tag-cloud, wp-block-embed, wp-b
     }
 }
 //exception
-
+#document body .wp-block-image,
 #document body .wp-block-table,
 #document body .wp-block-media-text,
 #document body .wp-block-columns{

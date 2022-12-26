@@ -11,9 +11,9 @@
 
 ?>
 <!-- wp:group {"tagName":"main","align":"full","className":"alignfull fse-main-category","layout":{"type":"constrained"}} -->
-<main class="wp-block-group alignfull is-layout-constrained">
+<main class="wp-block-group alignfull">
 	<!-- wp:group {"tagName":"article", "className":"file-not-found","layout":{"type":"constrained"}} -->
-	<article class="wp-block-group ile-not-found is-layout-constrained">
+	<article class="wp-block-group ile-not-found">
 		<!-- wp:spacer {"height":"10vh"} -->
 		<div style="height:10vh" aria-hidden="true" class="wp-block-spacer"></div>
 		<!-- /wp:spacer -->

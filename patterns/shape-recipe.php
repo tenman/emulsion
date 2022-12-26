@@ -11,7 +11,7 @@
 $image_uri = esc_url( get_stylesheet_directory_uri(). '/images/dummy.png' );
 ?>
 <!-- wp:group {"layout":{"type":"constrained"},"align":"full","style":{"color":{"background":"#f8f8ff"},"spacing":{"padding":{"top":"var:preset|spacing|50","bottom":"var:preset|spacing|50"}}},"className":"shape-recipe"} -->
-<div class="wp-block-group alignfull shape-recipe has-background is-layout-constrained" style="background-color:#f8f8ff;padding-top:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--50)"><!-- wp:image {"align":"wide","id":94477,"sizeSlug":"full","linkDestination":"none"} -->
+<div class="wp-block-group alignfull shape-recipe has-background" style="background-color:#f8f8ff;padding-top:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--50)"><!-- wp:image {"align":"wide","id":94477,"sizeSlug":"full","linkDestination":"none"} -->
 <figure class="wp-block-image alignwide size-full"><img src="<?php echo $image_uri; ?>" alt="" class="wp-image-94477"/></figure>
 <!-- /wp:image -->
 

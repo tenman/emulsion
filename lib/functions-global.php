@@ -784,22 +784,62 @@ if ( ! function_exists( 'emulsion_add_flex_container_classes' ) ) {
 
 	function emulsion_add_flex_container_classes( $block_content, $block ) {
 
-		$block_name = 'wp-block-' . substr( strrchr( $block['blockName'], "/" ), 1 );
+		$block_name		 = 'wp-block-' . substr( strrchr( $block['blockName'], "/" ), 1 );
+		// pending: , 'wp-block-query'
+		$target_blocks	 = array( 'wp-block-gallery', 'wp-block-columns', 'wp-block-group', 'wp-block-post-content','wp-block-query-pagination', 'wp-block-buttons' );
+
+		$default_layout = wp_get_global_settings( array( 'layout' ) );
+
+		if ( ! in_array( $block_name, $target_blocks, true ) ) {
+
+			return $block_content;
+		}
+
+		if ( 'wp-block-gallery' == $block_name || 'wp-block-columns' == $block_name ) {
+
+			$block['attrs']['layout']['type'] = 'flex';
+		}
 
 		$used_layout = isset( $block['attrs']['layout'] ) ? $block['attrs']['layout'] : '';
 
-		if ( isset( $used_layout['type'] ) && 'flex' == $used_layout['type'] ) {
+		if ( ! empty( $used_layout['type'] ) ) {
 
-			// flex
-			$new_class = array(
-				//'is-flex-container',
-				'is-layout-flex',
-				! empty( $used_layout['justifyContent'] ) ? sanitize_html_class( 'items-justified-' . $used_layout['justifyContent'] ) : '',
-				! empty( $used_layout['orientation'] ) ? sanitize_html_class( 'is-' . $used_layout['orientation'] ) : ''
-			);
+			$new_class = sanitize_html_class( $default_layout["definitions"][$used_layout['type']]["className"] );
 
-			$block_content = emulsion_add_class( $block_content, $block_name, $new_class );
+			if ( 'flex' !== $used_layout['type'] && false === strstr( $block_content, $new_class ) ) {
+
+				$block_content = emulsion_add_class( $block_content, $block_name, $new_class );
+			}
+			if ( 'flex' == $used_layout['type'] && false === strstr( $block_content, $new_class ) ) {
+
+				$new_class = array(
+					//'is-flex-container',
+					$new_class,
+					! empty( $used_layout['justifyContent'] ) ? sanitize_html_class( 'items-justified-' . $used_layout['justifyContent'] ) : '',
+					! empty( $used_layout['orientation'] ) ? sanitize_html_class( 'is-' . $used_layout['orientation'] ) : ''
+				);
+
+				$block_content = emulsion_add_class( $block_content, $block_name, $new_class );
+			}
 		}
+		if ( ! empty( $block['attrs']['layout'] ) ) {
+
+				$layout_type = ! empty( $block['attrs']['layout']['type'] ) ? sanitize_html_class( 'is-layout-' . $block['attrs']['layout']['type'] ): 'is-layout-undefined';
+
+				$new_class		 = array(
+					$layout_type,
+					! empty( $block['attrs']['layout']['justifyContent'] ) ? sanitize_html_class( 'is-content-justification-' . $block['attrs']['layout']['justifyContent'] ) : '',
+					! empty( $used_layout['orientation'] ) ? sanitize_html_class( 'is-' . $used_layout['orientation'] ) : '',
+					//! empty( 'wrap' == $block['attrs']['layout']['flexWrap'] ) ? 'wrap' : '',
+				);
+
+				$block_content	 = str_replace( $new_class, '', $block_content );
+
+				$block_content	 = str_replace("wp-block-post-content","wp-block-post-content ". $layout_type, $block_content );
+
+				$block_content	 = emulsion_add_class( $block_content, $block_name, $new_class );
+		}
+
 		return $block_content;
 	}
 
@@ -868,7 +908,7 @@ if ( ! function_exists( 'emulsion_add_layout_classes' ) ) {
 			$block_content = str_replace( $target[0], $new_element, $block_content );
 
 			$new_class = array(
-				isset( $used_layout["inherit"] ) && false === $used_layout["inherit"] ? 'is-layout-constrained' : '',
+					//isset( $used_layout["inherit"] ) && false === $used_layout["inherit"] ? 'is-layout-flow' : '',
 				! empty( $used_layout["contentSize"] ) ? 'has-custom-content-width' : '',
 				! empty( $used_layout["wideSize"] ) ? 'has-custom-wide-width' : '',
 			);
@@ -1061,24 +1101,24 @@ if ( ! function_exists( 'emulsion_fse_footer_content_filter' ) ) {
 
 		if ( 'footer' == $block['attrs']['slug'] ) {
 
-			if('transitional' == emulsion_get_theme_operation_mode()) {
-				return str_replace('<footer','<footer style="display:none"',$content);
+			if ( 'transitional' == emulsion_get_theme_operation_mode() ) {
+				return str_replace( '<footer', '<footer style="display:none"', $content );
 			}
 			/*
-			$policy_page_link	 = '';
-			$policy_page_title	 = '';
-			$policy_page_url	 = '';
-			$policy_page_id		 = (int) get_option( 'wp_page_for_privacy_policy' );
+			  $policy_page_link	 = '';
+			  $policy_page_title	 = '';
+			  $policy_page_url	 = '';
+			  $policy_page_id		 = (int) get_option( 'wp_page_for_privacy_policy' );
 
-			if ( $policy_page_id && get_post_status( $policy_page_id ) === 'publish' ) {
+			  if ( $policy_page_id && get_post_status( $policy_page_id ) === 'publish' ) {
 
-				$policy_page_title	 = wp_kses_post( get_the_title( $policy_page_id ) );
-				$policy_page_url	 = esc_url( get_permalink( $policy_page_id ) );
-				$policy_page_link	 = sprintf( '<a href="%1$s" class="emulsion-privacy-policy">%2$s</a>', esc_url( $policy_page_url ), $policy_page_title );
-			}
-			$html = str_replace( array( '%current_year%', '%privacy_policy%' ), array( date( 'Y' ), $policy_page_link ), $content );
+			  $policy_page_title	 = wp_kses_post( get_the_title( $policy_page_id ) );
+			  $policy_page_url	 = esc_url( get_permalink( $policy_page_id ) );
+			  $policy_page_link	 = sprintf( '<a href="%1$s" class="emulsion-privacy-policy">%2$s</a>', esc_url( $policy_page_url ), $policy_page_title );
+			  }
+			  $html = str_replace( array( '%current_year%', '%privacy_policy%' ), array( date( 'Y' ), $policy_page_link ), $content );
 
-			return $html;*/
+			  return $html; */
 		}
 		return $content;
 	}
@@ -1091,7 +1131,7 @@ if ( ! function_exists( 'emulsion_fse_header_content_filter' ) ) {
 
 		if ( 'header' == $block['attrs']['slug'] && 'transitional' == emulsion_get_theme_operation_mode() ) {
 
-			return str_replace('<header','<header style="display:none"',$content);
+			return str_replace( '<header', '<header style="display:none"', $content );
 		}
 		return $content;
 	}
@@ -1134,7 +1174,6 @@ if ( ! function_exists( 'emulsion_fse_background_color_class' ) ) {
 			/**
 			 * fse color scheme test
 			 */
-
 			$global_settings = wp_get_global_settings( array( 'custom' ) );
 			$fse_class		 = '';
 
@@ -1159,10 +1198,9 @@ if ( ! function_exists( 'emulsion_fse_background_color_class' ) ) {
 
 					$fse_class .= ' is-fse-light';
 				}
-
 			}
 
-			if( empty( $fse_class) ){
+			if ( empty( $fse_class ) ) {
 
 				$fse_class = 'fse-scheme-default';
 			}
@@ -1170,10 +1208,9 @@ if ( ! function_exists( 'emulsion_fse_background_color_class' ) ) {
 			set_transient( $transient_name, $fse_class, 0 );
 
 			return $fse_class;
-
 		} else {
 
-			if( false !== get_transient( $transient_name ) ) {
+			if ( false !== get_transient( $transient_name ) ) {
 
 				return get_transient( $transient_name );
 			} else {
@@ -1182,6 +1219,7 @@ if ( ! function_exists( 'emulsion_fse_background_color_class' ) ) {
 			}
 		}
 	}
+
 }
 
 if ( ! function_exists( 'emulsion_accessible_color' ) ) {
@@ -1423,11 +1461,12 @@ if ( ! function_exists( 'emulsion_fallback_block_class' ) ) {
 	function emulsion_fallback_block_class( $block_content, $block ) {
 
 		$block_name		 = 'wp-block-' . substr( strrchr( $block['blockName'], "/" ), 1 );
-		$target_block	 = array( 'wp-block-post-template', 'wp-block-audio', 'wp-block-buttons', 'wp-block-columns', 'wp-block-file', 'wp-block-group', 'wp-block-post-excerpt', 'wp-block-table', 'wp-block-navigation', 'wp-block-cover' );
+		$target_block	 = array( 'wp-block-post-template', 'wp-block-audio', 'wp-block-buttons', 'wp-block-columns', 'wp-block-file', 'wp-block-group', 'wp-block-post-excerpt', 'wp-block-table', 'wp-block-navigation', 'wp-block-cover','wp-block-paragraph' );
 
 		if ( in_array( $block_name, $target_block ) ) {
 
 			$new_class		 = array( 'wp-block' );
+			$block_content	 = str_replace( array( 'wp-block ' ), array( '' ), $block_content );
 			$block_content	 = emulsion_add_class( $block_content, $block_name, $new_class );
 		}
 
@@ -1704,8 +1743,8 @@ if ( ! function_exists( 'emulsion_custom_field_css' ) ) {
 					} );
 
 			$meta_style_css = preg_replace_callback( '![^}]+{[^}]+}!siu', function ( $matches ) use ( $post_id ) {
-			$class_prefix = is_page() ? 'page-id':'postid';
-				$result = '';
+				$class_prefix	 = is_page() ? 'page-id' : 'postid';
+				$result			 = '';
 				foreach ( $matches as $match ) {
 
 					if ( strstr( $match, '@' ) && is_singular() ) {
@@ -1714,13 +1753,13 @@ if ( ! function_exists( 'emulsion_custom_field_css' ) ) {
 							$result .= $args[1];
 
 							//$result .= sprintf( ' .has-custom-style.postid-%1$d %2$s', $post_id, $args[2] );
-							$result .= sprintf( ' .has-custom-style.%3$s-%1$d %2$s', $post_id, $args[2],$class_prefix );
+							$result .= sprintf( ' .has-custom-style.%3$s-%1$d %2$s', $post_id, $args[2], $class_prefix );
 						}
 					} elseif ( is_singular() ) {
 
 						if ( false === strstr( $match, 'has-custom-style' ) ) {
 
-						//	$result .= sprintf( ' .has-custom-style.postid-%1$d %2$s', $post_id, $match );
+							//	$result .= sprintf( ' .has-custom-style.postid-%1$d %2$s', $post_id, $match );
 							$result .= sprintf( ' .has-custom-style.%3$s-%1$d %2$s', $post_id, $match, $class_prefix );
 						} else {
 

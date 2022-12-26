@@ -11,7 +11,7 @@
 $image_uri = esc_url( get_stylesheet_directory_uri(). '/images/human.png' );
 ?>
 <!-- wp:group {"layout":{"type":"constrained"},"align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|50","bottom":"0"}},"color":{"background":"#e5f7b3"}},"className":"shape-speech-bubble"} -->
-<div class="wp-block-group alignfull shape-speech-bubble has-background is-layout-constrained" style="background-color:#e5f7b3;padding-top:var(--wp--preset--spacing--50);padding-bottom:0"><!-- wp:columns {"verticalAlignment":null} -->
+<div class="wp-block-group alignfull shape-speech-bubble has-background" style="background-color:#e5f7b3;padding-top:var(--wp--preset--spacing--50);padding-bottom:0"><!-- wp:columns {"verticalAlignment":null} -->
 <div class="wp-block-columns"><!-- wp:column {"verticalAlignment":"center","width":"30%"} -->
 <div class="wp-block-column is-vertically-aligned-center" style="flex-basis:30%"><!-- wp:image {"align":"center","id":94439,"width":150,"height":150,"sizeSlug":"thumbnail","linkDestination":"none","className":"is-style-rounded"} -->
 <figure class="wp-block-image aligncenter size-thumbnail is-resized is-style-rounded"><img src="<?php echo $image_uri; ?>" alt="" class="wp-image-94439" width="150" height="150"/><figcaption class="wp-element-caption">tom</figcaption></figure>

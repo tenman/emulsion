@@ -48,7 +48,7 @@ if ( function_exists( 'register_block_style' ) ) {
 
 
 
-	if ( 'theme' !== emulsion_get_theme_operation_mode() && 'enable' !== get_theme_mod( 'emulsion_gutenberg_render_layout_support_flag' ) ) {
+	if ( 'theme' !== emulsion_get_theme_operation_mode() && 'enable' !== get_theme_mod( 'emulsion_gutenberg_render_layout_support_flag','disable' ) ) {
 		register_block_style( 'core/column', array( 'name' => 'layout-flow', 'label' => esc_html__( 'Flow Layout', 'emulsion' ), ) );
 		register_block_style( 'core/group', array( 'name' => 'layout-flow', 'label' => esc_html__( 'Flow Layout', 'emulsion' ), ) );
 	}
