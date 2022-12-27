@@ -15,9 +15,17 @@ if( 'theme' !== emulsion_get_theme_operation_mode() ) {
 
 			emulsion_block_template_part( 'header' );
 
+			echo do_blocks('<!-- wp:pattern {"slug":"emulsion/primary-menu"} /-->');
+
 		echo '<main class="alignfull is-layout-constrained">';
 
 			emulsion_block_template_part( 'post-content' );
+
+		echo do_blocks('<!-- wp:group {"tagName":"nav","className":"wp-block-post-navigation","layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"center"}} -->'
+				.'<nav class="wp-block-group wp-block-post-navigation"><!-- wp:post-navigation-link {"type":"previous"} /-->'
+				.'<!-- wp:post-navigation-link /-->'
+				.'</nav>'
+				.'<!-- /wp:group -->');
 
 		print('</main>' );
 

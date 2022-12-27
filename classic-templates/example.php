@@ -1,32 +1,36 @@
 <?php
-
 /**
  * Template Name: Example
  * Template Post Type: post, page
  *
  * This template can only be used when the emulsion-addons plugin is active
+ *
+ * Example of displaying using the emulsion function, unlike the template example
  */
 
 get_header( emulsion_get_theme_operation_mode() );
 
 if( 'theme' !== emulsion_get_theme_operation_mode() ) {
+
 	echo '<div class="wp-site-blocks">';
 
-		echo preg_replace('!</[^>]+>!', '', do_blocks('<!-- wp:template-part {"slug":"header-singular","tagName":"header", "align":"full", "className":"fse-header header-layer banner wp-block-template-part-header-singular"} /-->'));
-			block_template_part( 'header' );
-		echo '</header>';
+			emulsion_block_template_part( 'header' );
+
+			echo do_blocks('<!-- wp:pattern {"slug":"emulsion/primary-menu"} /-->');
 
 		echo '<main class="alignfull is-layout-constrained">';
 
-		echo preg_replace('!</[^>]+>!', '', do_blocks( '<!-- wp:template-part {"slug":"post-content","tagName":"div", "align":"full", "className":"article-wrapper"} /-->'));
-			block_template_part( 'post-content' );
-		echo '</div>';
+			emulsion_block_template_part( 'post-content' );
 
-		print('</main>' );
+		echo do_blocks('<!-- wp:group {"tagName":"nav","className":"wp-block-post-navigation","layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"center"}} -->'
+				.'<nav class="wp-block-group wp-block-post-navigation"><!-- wp:post-navigation-link {"type":"previous"} /-->'
+				.'<!-- wp:post-navigation-link /-->'
+				.'</nav>'
+				.'<!-- /wp:group -->');
 
-		echo preg_replace('!</[^>]+>!', '', do_blocks( '<!-- wp:template-part {"slug":"footer", "tagName":"footer", "align":"full", "className":"footer-layer fse-footer banner wp-block-template-part-footer"} /-->'));
-			block_template_part( 'footer' );
-		echo '</footer>';
+		echo '</main>';
+
+			emulsion_block_template_part( 'footer' );
 
 	echo '</div>';
 } else {
@@ -44,6 +48,3 @@ if( 'theme' !== emulsion_get_theme_operation_mode() ) {
 
 	get_footer();
 }
-
-
-
