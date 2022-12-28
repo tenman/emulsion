@@ -2014,7 +2014,7 @@ nav.has-black-background-color:not(#specificity){
         width:var(--wp--custom--width--content, 720px);
 
         padding:0;
-        margin:0 auto;
+        margin:0 auto .75rem;
     }
     .is-layout-flex{
         .wp-block-post-excerpt{
@@ -3813,7 +3813,7 @@ body .scroll-button-top:before {
     main{
         &.wp-block-group {
             & > .wp-block-query{
-                & > ul.wp-block-post-template{
+                & > ul.wp-block-post-template:not(.is-flex-container){
                     width:100%;
                     padding:0;
                     li{
@@ -4103,7 +4103,7 @@ body .scroll-button-top:before {
             }
 
         }
-        & > .wp-block-post-template:not(.is-layout-flex){
+        & > .wp-block-post-template:not(.is-layout-flex):not(.is-flex-container){
             flex-direction: column;
             //width:100%;
         }
