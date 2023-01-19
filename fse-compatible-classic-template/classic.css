@@ -1,0 +1,99 @@
+.is-layout-flex.header-2col-wrapper,
+.is-layout-flex.has-sidebar-widget-area{
+    display:flex;
+    flex-wrap:nowrap!important;
+    padding:0;
+    gap:0;
+}
+
+.has-sidebar-widget-area{
+    margin:auto;
+}
+.emulsion .wp-block-template-part-header-2col .header-text{
+    display:flex;
+    flex-wrap:nowrap;
+    align-content: flex-start;
+    justify-content: flex-start;
+}
+.emulsion .has-sidebar-widget-area main,
+.emulsion .wp-block-template-part-header-2col .header-content,
+.emulsion .template-2col-has-widget-area-php main{
+    width:calc(100% - min( 30vw, var(--wp--custom--width--sidebar)));
+    max-width:100%;
+    overflow:hidden;
+}
+.emulsion .has-sidebar-widget-area .post-sidebar,
+.wp-block-template-part-header-2col .header-sidebar,
+.template-2col-has-widget-area-php .sidebar-widget-area{
+    width:min( 30vw, var(--wp--custom--width--sidebar));
+    max-width:100%;
+
+}
+
+.wp-block-template-part-header-2col .wp-block-site-title,
+.wp-block-template-part-header-2col .wp-block-site-logo{
+    width:fit-content;
+    display:inline-block;
+    margin:1.5rem 0;
+}
+.header-sidebar .wp-block-search{
+    padding:.75rem .75rem;
+}
+
+@media (max-width: 768px){
+
+    .wp-block-template-part-header-2col .is-layout-flex.header-2col-wrapper,
+    .is-layout-flex.header-2col-wrapper,
+    .is-layout-flex.has-sidebar-widget-area{
+        display:block;
+
+    }
+    .emulsion .wp-block-template-part-header-2col .header-content,
+    .emulsion .wp-block-template-part-header-2col .header-sidebar,
+    .emulsion.template-2col-has-widget-area-php main,
+    .emulsion.template-2col-has-widget-area-php .sidebar-widget-area{
+        width:var(--wp--custom--width--content);
+        margin:auto;
+    }
+    .wp-block-template-part-header-2col .header-text,
+    .header-sidebar .wp-block-search{
+        margin:auto;
+        padding:0 .75rem;
+    }
+    .header-sidebar .wp-block-search{
+        margin-bottom:.75rem;
+    }
+}
+
+.post-sidebar > ul{
+    padding:0;
+}
+.wp-block-template-part-header-2col{
+    border-bottom:1px solid #ccc;
+}
+.wp-block-template-part-footer{
+    border-top:1px solid #ccc;
+}
+.sidebar-widget-area-lists ul{
+    padding:0;
+}
+.sidebar-widget-area-lists{
+    padding:0;
+    border-left:1px solid #ccc;
+}
+.sidebar-widget-area-lists li{
+    list-style:none;
+    padding:var(--wp--preset--spacing--40);
+}
+.sidebar-widget-area-lists a{
+    text-decoration:none;
+}
+pre.wp-block-code{
+    overflow-x:auto;
+    overflow-y:hidden;
+}
+pre.wp-block-code.has-background code{
+    background:transparent;
+    color:inherit;
+    tab-size:4;
+}
