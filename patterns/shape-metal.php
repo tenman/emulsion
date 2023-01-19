@@ -11,7 +11,7 @@
 //esc_html_x( 'Shape Metal','Block pattern title', 'emulsion' )
 //esc_html_x( 'Show blocks as metal shapes','Block pattern description', 'emulsion' )
 ?>
-<!-- wp:group {"layout":{"inherit":true,"type":"constrained"},"align":"wide","className":"is-style-metal-shape is-style-metal-text-shadow"} -->
+<!-- wp:group {"layout":{"type":"constrained","type":"constrained"},"align":"wide","className":"is-style-metal-shape is-style-metal-text-shadow"} -->
 <div class="wp-block-group alignwide is-style-metal-shape is-style-metal-text-shadow"><!-- wp:heading -->
 <h2>metal</h2>
 <!-- /wp:heading -->

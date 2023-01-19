@@ -892,41 +892,41 @@ iframe{
     margin:0 auto;
 }
 
-    .wp-block-image{
-        padding:0;
-        margin:1.5rem auto;
-        &.is-style-circle-mask{
+.wp-block-image{
+    padding:0;
+    margin:1.5rem auto;
+    &.is-style-circle-mask{
 
+        figcaption{
+            position: absolute;
+            top: 40%;
+            right: 0;
+            left: 0;
+            z-index: 10;
+            display:block;
+            width:-moz-fit-content;
+            width:fit-content;
+            padding:var( --wp--custom--padding--content, .75rem );
+            color:#fff;
+            visibility:hidden;
+            background:rgba(0,0,0,.3);
+        }
+        &:hover{
             figcaption{
-                position: absolute;
-                top: 40%;
-                right: 0;
-                left: 0;
-                z-index: 10;
-                display:block;
-                width:-moz-fit-content;
-                width:fit-content;
-                padding:var( --wp--custom--padding--content, .75rem );
-                color:#fff;
-                visibility:hidden;
-                background:rgba(0,0,0,.3);
+                visibility:visible;
             }
-            &:hover{
-                figcaption{
-                    visibility:visible;
-                }
-            }
-            &.alignright,
-            &.alignleft{
+        }
+        &.alignright,
+        &.alignleft{
 
-                text-align:center;
-                shape-outside: circle();
-                @media screen and ( max-width : 640px ) {
-                    shape-outside: none;
-                }
+            text-align:center;
+            shape-outside: circle();
+            @media screen and ( max-width : 640px ) {
+                shape-outside: none;
             }
         }
     }
+}
 
 .wp-block-social-links,
 .search-results .wp-block-post-date time,canvas,dd,dl,dt,fieldset,
@@ -2272,14 +2272,14 @@ nav.has-black-background-color:not(#specificity){
         .fse-header{
             min-height:0;
             .wp-block-cover{
-                display:none;
+                //display:none;
             }
         }
         .loop-item{
             width:100%;
         }
         .footer-layer{
-            display:none;
+            //display:none;
         }
     }
     nav.fse-primary{
@@ -4625,57 +4625,37 @@ div.emulsion-monthly-archive-prev-next-navigation > div {
     }
 }
 
-//.is-presentation-theme,
-//.is-presentation-transitional{
 .emulsion{
     .post-header-content .wp-block-post-title{
         width:-moz-fit-content;
         width:fit-content;
     }
-    &.archive{
-        .wp-site-blocks > header{
-            display:none;
-        }
-    }
 
-    .wp-site-blocks{
-
-        .wp-block-query > ul:not(.is-layout-flex) li:after{
-            //display:none!important;
-        }
-
-    }
 
     .main-query{
 
         ul.is-layout-flex{
             margin-top:3rem;
         }
-        article.loop-item{
 
-
-            &:after{
-                //display:none!important;
-            }
-        }
     }
 
 }
 .emulsion{
-    // &.is-presentation-theme,
-    //&.is-presentation-transitional{
     .header-layer{
-        &.included-block-template-part{
-            .fse-header-content{
-                display:flex;
-                width:100%;
-                .wp-block-site-logo{
-                    vertical-align:middle;
-                }
+        .fse-header-content{
+            display:flex;
+            flex-wrap: nowrap;
+            .wp-block-site-logo{
+                vertical-align:middle;
             }
         }
+        .fse-header-text{
+            display:flex;
+            flex-direction:column;
+        }
     }
-    // }
+
 }
 
 
@@ -4840,7 +4820,7 @@ pre.wp-block-code.has-background code{
 .search-results{
     .wp-site-blocks{
         .fse-header{
-            display:none;
+          //  display:none;
         }
     }
 }
@@ -6433,5 +6413,8 @@ $spacings: 40,50,60,70;
     }
 }
 .html-header  .wp-block-site-logo{
-	margin:0;
+    margin:0;
+}
+.logged-in .debug{
+    border:1px solid red ! important;
 }

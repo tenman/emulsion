@@ -127,15 +127,15 @@ body{
 /**
  * text elements
  */
-
+.align,
 .aligndefault{
     width: var(--wp--style--global--content-size);
-    padding:0 var(--wp--custom--padding--content);
+    padding:0;
     margin:var(--wp--custom--margin--block);
 }
 .is-flex-container,
 .is-layout-flex{
-    .aligndefault, nav,h1,h2,h3,h4,h5,h6,p,textarea{
+    .align, .aligndefault, nav,h1,h2,h3,h4,h5,h6,p,textarea{
         width: auto;
         font-family:var(--wp--preset--font-family--system-font);
         font-size:revert;
@@ -382,7 +382,9 @@ img{
 .wp-block-post-author__avatar{
     margin-right:0;
 }
-
+.comment-wrapper > .wp-block-group{
+    margin:0 auto;
+}
 /**
  * Button face links
  */
@@ -1743,4 +1745,7 @@ ol .is-style-list-style-inline:not(.specificity){
             margin-bottom:0;
         }
     }
+}
+.logged-in .debug{
+    border:1px solid red ! important;
 }

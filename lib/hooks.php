@@ -126,8 +126,7 @@ function emulsion_hooks_setup() {
 			}
 			return $content;
 		}, 10, 2 );
-		add_filter( 'render_block_core/template-part', 'emulsion_fse_header_content_filter', 10, 2 );
-		add_filter( 'render_block_core/template-part', 'emulsion_fse_footer_content_filter', 10, 2 );
+
 
 		// core issue hotfix
 	}
@@ -448,27 +447,9 @@ if ( ! function_exists( 'emulsion_body_class' ) ) {
 /**
  * Viewport
  */
-if ( ! function_exists( 'emulsion_meta_elements' ) ) {
 
-	function emulsion_meta_elements() {
-		if ( emulsion_the_theme_supports( 'viewport' ) ) {
-			?><meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1" id="emulsion-viewport" />
-			<meta name="apple-mobile-web-app-capable" content="yes" />
-			<meta name="apple-mobile-web-app-status-bar-style" content="default" /><?php
-		}
-	}
 
-}
 
-if ( ! function_exists( 'emulsion_pingback_header' ) ) {
-
-	function emulsion_pingback_header() {
-		if ( is_singular() && pings_open( get_queried_object() ) ) {
-			printf( '<link rel="pingback" href="%1$s">' . "\n", esc_url( get_bloginfo( 'pingback_url' ) ) );
-		}
-	}
-
-}
 
 if ( ! function_exists( 'emulsion_skip_link' ) ) {
 

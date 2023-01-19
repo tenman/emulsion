@@ -3,10 +3,10 @@
 $html = <<<HTML
 <!-- wp:group {"tagName":"header","className":"alignfull fse-header header-layer wp-block-template-part-header-singular wp-block-template-part","layout":{"type":"constrained"}} -->
 <header class="wp-block-group alignfull fse-header header-layer wp-block-template-part-header-singular wp-block-template-part">
-	<!-- wp:group {"className":"fse-header-content","layout":{"type":"constrained"}} -->
+	<!-- wp:group {"className":"fse-header-content","layout":{"type":"flex"}} -->
 <div class="wp-block-group fse-header-content">
 	<!-- wp:site-logo {"width":48} /-->
-	<!-- wp:group {"className":"fse-header-text","layout":{"inherit":false}} -->
+	<!-- wp:group {"className":"fse-header-text","layout":{"type":"flex"}} -->
 	<div class="wp-block-group fse-header-text">
 	<!-- wp:site-title /-->
 	<!-- wp:site-tagline  /-->

@@ -13,7 +13,7 @@ $current_year		 = date( 'Y' );
 $privacy_policy_url	 = esc_url( get_privacy_policy_url() );
 $privacy_policy_text = esc_html__( 'Privacy policy', 'emulsion' );
 ?>
-<!-- wp:group {"tagName":"div","layout":{"inherit":false},"align":"full","className":"emulsion-columns-footer"} -->
+<!-- wp:group {"tagName":"div","layout":{"type":"default"},"align":"full","className":"emulsion-columns-footer"} -->
 <div class="wp-block-group alignfull emulsion-columns-footer"><!-- wp:columns {"style":{"spacing":{"padding":{"top":"var:preset|spacing|50","right":"0","bottom":"var:preset|spacing|50","left":"0"}}},"className":"alignwide"} -->
 <div class="wp-block-columns alignwide" style="padding-top:var(--wp--preset--spacing--50);padding-right:0;padding-bottom:var(--wp--preset--spacing--50);padding-left:0"><!-- wp:column -->
 <div class="wp-block-column"><!-- wp:site-title {"level":4,"style":{"typography":{"fontSize":"30px"}}} /-->

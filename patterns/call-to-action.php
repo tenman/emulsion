@@ -10,7 +10,7 @@
 //esc_html_x( 'Call to action','Block pattern title', 'emulsion' )
 //esc_html_x( 'Call to action block','Block pattern description', 'emulsion' )
 ?>
-<!-- wp:group {"layout":{"inherit":true,"type":"constrained"},"align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|60","right":"var:preset|spacing|60","bottom":"var:preset|spacing|60","left":"var:preset|spacing|60"}},"color":{"background":"#eee8e8"}},"textColor":"black","className":"is-style-call-to-action"} -->
+<!-- wp:group {"layout":{"type":"constrained","type":"constrained"},"align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|60","right":"var:preset|spacing|60","bottom":"var:preset|spacing|60","left":"var:preset|spacing|60"}},"color":{"background":"#eee8e8"}},"textColor":"black","className":"is-style-call-to-action"} -->
 <div class="wp-block-group alignfull is-style-call-to-action has-black-color has-text-color has-background" style="background-color:#eee8e8;padding-top:var(--wp--preset--spacing--60);padding-right:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--60);padding-left:var(--wp--preset--spacing--60)"><!-- wp:heading {"textAlign":"center","textColor":"black"} -->
 <h2 class="has-text-align-center has-black-color has-text-color">call to Action</h2>
 <!-- /wp:heading -->

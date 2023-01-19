@@ -29,7 +29,6 @@ if ( ! function_exists( 'emulsion_pagination' ) ) {
 		$supports = emulsion_theme_default_val('emulsion_single_post_navigation');
 
 		if( false === $post_id ) {
-
 			__return_empty_string();
 		}
 

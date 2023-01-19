@@ -1,4 +1,5 @@
 <?php
+
 /**
  *
  * Switch PHP template mode FSE HTML template mode, and Transitional mode
@@ -54,7 +55,7 @@ if ( 'theme' == emulsion_get_theme_operation_mode() ) {
 /**
  * Fiters
  */
-if( 'fse' !== get_theme_mod( 'emulsion_editor_support' ) ) {
+if ( 'fse' !== get_theme_mod( 'emulsion_editor_support' ) ) {
 	has_action( 'wp_footer', 'the_block_template_skip_link' ) ? remove_action( 'wp_footer', 'the_block_template_skip_link' ) : '';
 	has_action( 'wp_footer', 'gutenberg_the_skip_link' ) && 'transitional' == get_theme_mod( 'emulsion_editor_support' ) ? remove_action( 'wp_footer', 'gutenberg_the_skip_link' ) : '';
 }
@@ -132,11 +133,9 @@ if ( emulsion_do_fse() ) {
 }
 
 // current: emulsion_the_theme_supports('full_site_editor') allways true
-
  ! emulsion_the_theme_supports( 'full_site_editor' ) ? emulsion_stop_fse() : '';
 
 'theme' == emulsion_get_theme_operation_mode() ? emulsion_stop_fse() : '';
-
 
 function emulsion_html_template_names_callback( $template ) {
 
@@ -159,8 +158,6 @@ function emulsion_fse_exclude_body_class( $classes ) {
 
 	return $result;
 }
-
-
 
 /**
  * Stop Site editor
@@ -263,40 +260,109 @@ function emulsion_stop_fse() {
 if ( ! function_exists( 'emulsion_custom_template_include' ) ) {
 
 	function emulsion_custom_template_include( $template ) {
-
+		/**
+		 * front-page.php and home.php cannot be created.
+		 * If necessary, set the page from the customizer's front page settings and apply the template to that page.
+		 *
+		 */
 		$new_template = '';
 
 		if ( 'template-canvas.php' === basename( $template ) ) {
 
-			if ( is_singular() ) {
+			if ( is_single() ) {
 
-				$new_template = locate_template( array( 'singular.php' ) );
-			} elseif ( is_search() ) {
+				$new_template = emulsion_get_single_template();
+			}
+			if ( is_page() ) {
 
-				$new_template = locate_template( array( 'search.php' ) );
-			} elseif ( is_category() ) {
+				$new_template = emulsion_get_page_template();
+			}
 
-				$new_template = locate_template( array( 'category.php' ) );
-			} elseif ( is_tag() ) {
+			if ( is_singular() && empty( $new_template ) ) {
 
-				$new_template = locate_template( array( 'tag.php' ) );
-			} elseif ( is_author() ) {
+				$new_template = locate_template( array( 'fse-compatible-classic-template/singular.php' ) );
+			}
 
-				$new_template = locate_template( array( 'author.php' ) );
-			} else {
+			if ( is_privacy_policy() ) {
 
-				$new_template = locate_template( array( 'index.php' ) );
+				$new_template = locate_template( array( 'fse-compatible-classic-template/privacy-policy.php' ) );
+			}
+			if ( is_search() ) {
+
+				$new_template = emulsion_get_search_template();
+			}
+
+			if ( is_post_type_archive() ) {
+
+				$new_template = emulsion_get_post_type_archive_template();
+
+				if ( empty( $new_template ) ) {
+					$new_template = emulsion_get_archive_template();
+				}
+			}
+			if ( is_tax() ) {
+
+				$new_template = emulsion_get_taxonomy_template();
+				if ( empty( $new_template ) ) {
+
+					$new_template = emulsion_get_archive_template();
+				}
+			}
+			if ( is_embed() ) {
+
+				$new_template = locate_template( array( emulsion_get_embed_template() ) );
+			}
+			if ( is_attachment() ) {
+
+				$new_template = locate_template( array( emulsion_get_attachment_template() ) );
+			}
+			if ( is_category() ) {
+
+				$new_template = emulsion_get_category_template();
+
+				if ( empty( $new_template ) ) {
+
+					$new_template = emulsion_get_archive_template();
+				}
+
+			}
+
+			if ( is_tag() ) {
+
+				$new_template = emulsion_get_tag_template();
+
+				if ( empty( $new_template ) ) {
+
+					$new_template = emulsion_get_archive_template();
+				}
+
+			}
+			if ( is_author() ) {
+
+				$new_template = emulsion_get_author_template();
+				if ( empty( $new_template ) ) {
+
+					$new_template = emulsion_get_archive_template();
+				}
+
+			}
+			if ( is_404() ) {
+
+				$new_template = locate_template( array( 'fse-compatible-classic-template/404.php' ) );
+
+			}
+			if ( is_date() ) {
+				$new_template = locate_template( array( 'fse-compatible-classic-template/date.php' ) );
+				if ( empty( $new_template ) ) {
+				$new_template = emulsion_get_archive_template();
+				}
+								var_dump( $new_template );
 			}
 
 			if ( '' !== $new_template ) {
-
 				return $new_template;
-			} else {
-
-				return locate_template( array( 'index.php' ) );
 			}
 		}
-
 		return $template;
 	}
 
@@ -431,10 +497,8 @@ function emulsion_custom_css_support() {
 	}
 }
 
-add_action( 'init', function() {
-  'enable' !== get_theme_mod( 'emulsion_core_block_patterns_support' )
-	? remove_theme_support( 'core-block-patterns' )
-	: add_theme_support( 'core-block-patterns' );
+add_action( 'init', function () {
+	'enable' !== get_theme_mod( 'emulsion_core_block_patterns_support' ) ? remove_theme_support( 'core-block-patterns' ) : add_theme_support( 'core-block-patterns' );
 }, 9 );
 
 // Experimental purpose
@@ -471,3 +535,247 @@ add_action( 'enqueue_block_editor_assets', function () {
 		. '</div>';
 	}
 } );
+
+if ( ! function_exists( 'emulsion_get_category_template' ) ) {
+
+	function emulsion_get_category_template() {
+		$category = get_queried_object();
+
+		$templates = array();
+
+		if ( ! empty( $category->slug ) ) {
+
+			$slug_decoded = urldecode( $category->slug );
+			if ( $slug_decoded !== $category->slug ) {
+				$templates[] = "fse-compatible-classic-template/category-{$slug_decoded}.php";
+			}
+
+			$templates[] = "fse-compatible-classic-template/category-{$category->slug}.php";
+			$templates[] = "fse-compatible-classic-template/category-{$category->term_id}.php";
+		}
+		$templates[] = 'fse-compatible-classic-template/category.php';
+
+		return get_query_template( 'category', $templates );
+	}
+
+}
+if ( ! function_exists( 'emulsion_get_tag_template' ) ) {
+
+	function emulsion_get_tag_template() {
+		$tag = get_queried_object();
+
+		$templates = array();
+
+		if ( ! empty( $tag->slug ) ) {
+
+			$slug_decoded = urldecode( $tag->slug );
+			if ( $slug_decoded !== $tag->slug ) {
+				$templates[] = "fse-compatible-classic-template/tag-{$slug_decoded}.php";
+			}
+
+			$templates[] = "fse-compatible-classic-template/tag-{$tag->slug}.php";
+			$templates[] = "fse-compatible-classic-template/tag-{$tag->term_id}.php";
+		}
+		$templates[] = 'fse-compatible-classic-template/tag.php';
+
+		return get_query_template( 'tag', $templates );
+	}
+
+}
+if ( ! function_exists( 'emulsion_get_author_template' ) ) {
+
+	function emulsion_get_author_template() {
+
+		$author = get_queried_object();
+
+		$templates = array();
+
+		if ( $author instanceof WP_User ) {
+			$templates[] = "fse-compatible-classic-template/author-{$author->user_nicename}.php";
+			$templates[] = "fse-compatible-classic-template/author-{$author->ID}.php";
+		}
+		$templates[] = 'fse-compatible-classic-template/author.php';
+
+		return get_query_template( 'author', $templates );
+	}
+
+}
+
+function emulsion_get_search_template() {
+	$templates = array( 'fse-compatible-classic-template/search.php' );
+	return get_query_template( 'search', $templates );
+}
+
+function emulsion_get_single_template() {
+
+	$object = get_queried_object();
+
+	$templates = array();
+
+	if ( ! empty( $object->post_type ) ) {
+		$template = get_page_template_slug( $object );
+		if ( $template && 0 === validate_file( $template ) ) {
+			$templates[] = "fse-compatible-classic-template/{$template}";
+		}
+
+		$name_decoded = urldecode( $object->post_name );
+		if ( $name_decoded !== $object->post_name ) {
+			$templates[] = "fse-compatible-classic-template/single-{$object->post_type}-{$name_decoded}.php";
+		}
+
+		$templates[] = "fse-compatible-classic-template/single-{$object->post_type}-{$object->post_name}.php";
+		$templates[] = "fse-compatible-classic-template/single-{$object->post_type}.php";
+	}
+
+	$templates[] = 'fse-compatible-classic-template/single.php';
+
+	return get_query_template( 'single', $templates );
+}
+
+function emulsion_get_page_template() {
+	$id			 = get_queried_object_id();
+	$template	 = get_page_template_slug();
+	$pagename	 = get_query_var( 'pagename' );
+
+	if ( ! $pagename && $id ) {
+		// If a static page is set as the front page, $pagename will not be set.
+		// Retrieve it from the queried object.
+		$post = get_queried_object();
+		if ( $post ) {
+			$pagename = $post->post_name;
+		}
+	}
+
+	$templates = array();
+	if ( $template && 0 === validate_file( $template ) ) {
+		$templates[] = $template;
+	}
+	if ( $pagename ) {
+		$pagename_decoded = urldecode( $pagename );
+		if ( $pagename_decoded !== $pagename ) {
+			$templates[] = "fse-compatible-classic-template/page-{$pagename_decoded}.php";
+		}
+		$templates[] = "fse-compatible-classic-template/page-{$pagename}.php";
+	}
+	if ( $id ) {
+		$templates[] = "fse-compatible-classic-template/page-{$id}.php";
+	}
+	$templates[] = 'fse-compatible-classic-template/page.php';
+
+	return get_query_template( 'page', $templates );
+}
+
+function emulsion_get_home_template() {
+	$templates = array( 'fse-compatible-classic-template/home.php' );
+
+	return get_query_template( 'home', $templates );
+}
+
+function emulsion_get_front_page_template() {
+
+	$templates = array( 'fse-compatible-classic-template/front-page.php' );
+
+	return get_query_template( 'frontpage', $templates );
+}
+
+function emulsion_get_privacy_policy_template() {
+
+	$templates = array( 'fse-compatible-classic-template/privacy-policy.php' );
+
+	return get_query_template( 'privacypolicy', $templates );
+}
+
+function emulsion_get_404_template() {
+	$templates = array( 'fse-compatible-classic-template/404.php' );
+	return get_query_template( '404', $template );
+}
+
+function emulsion_get_archive_template() {
+	$post_types = array_filter( (array) get_query_var( 'post_type' ) );
+
+	$templates = array();
+
+	if ( count( $post_types ) == 1 ) {
+		$post_type	 = reset( $post_types );
+		$templates[] = "fse-compatible-classic-template/archive-{$post_type}.php";
+	}
+	$templates[] = 'fse-compatible-classic-template/archive.php';
+
+	return get_query_template( 'archive', $templates );
+}
+
+function emulsion_get_post_type_archive_template() {
+	$post_type = get_query_var( 'post_type' );
+	if ( is_array( $post_type ) ) {
+		$post_type = reset( $post_type );
+	}
+
+	$obj = get_post_type_object( $post_type );
+	if ( ! ( $obj instanceof WP_Post_Type ) || ! $obj->has_archive ) {
+		return '';
+	}
+
+	return emulsion_get_archive_template();
+}
+
+function emulsion_get_taxonomy_template() {
+	$term = get_queried_object();
+
+	$templates = array();
+
+	if ( ! empty( $term->slug ) ) {
+		$taxonomy = $term->taxonomy;
+
+		$slug_decoded = urldecode( $term->slug );
+		if ( $slug_decoded !== $term->slug ) {
+			$templates[] = "fse-compatible-classic-template/taxonomy-$taxonomy-{$slug_decoded}.php";
+		}
+
+		$templates[] = "fse-compatible-classic-template/taxonomy-$taxonomy-{$term->slug}.php";
+		$templates[] = "fse-compatible-classic-template/taxonomy-$taxonomy.php";
+	}
+	$templates[] = 'fse-compatible-classic-template/taxonomy.php';
+
+	return get_query_template( 'taxonomy', $templates );
+}
+
+function emulsion_get_embed_template() {
+	$object = get_queried_object();
+
+	$templates = array();
+
+	if ( ! empty( $object->post_type ) ) {
+		$post_format = get_post_format( $object );
+		if ( $post_format ) {
+			$templates[] = "fse-compatible-classic-template/embed-{$object->post_type}-{$post_format}.php";
+		}
+		$templates[] = "fse-compatible-classic-template/embed-{$object->post_type}.php";
+	}
+
+	$templates[] = 'fse-compatible-classic-template/embed.php';
+
+	return get_query_template( 'embed', $templates );
+}
+
+function emulsion_get_attachment_template() {
+	$attachment = get_queried_object();
+
+	$templates = array();
+
+	if ( $attachment ) {
+		if ( false !== strpos( $attachment->post_mime_type, '/' ) ) {
+			list( $type, $subtype ) = explode( '/', $attachment->post_mime_type );
+		} else {
+			list( $type, $subtype ) = array( $attachment->post_mime_type, '' );
+		}
+
+		if ( ! empty( $subtype ) ) {
+			$templates[] = "fse-compatible-classic-template/{$type}-{$subtype}.php";
+			$templates[] = "fse-compatible-classic-template/{$subtype}.php";
+		}
+		$templates[] = "fse-compatible-classic-template/{$type}.php";
+	}
+	$templates[] = 'fse-compatible-classic-template/attachment.php';
+
+	return get_query_template( 'attachment', $templates );
+}
