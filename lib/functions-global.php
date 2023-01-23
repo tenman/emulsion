@@ -1,5 +1,4 @@
 <?php
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -786,7 +785,7 @@ if ( ! function_exists( 'emulsion_add_flex_container_classes' ) ) {
 
 		$block_name		 = 'wp-block-' . substr( strrchr( $block['blockName'], "/" ), 1 );
 		// pending: , 'wp-block-query'
-		$target_blocks	 = array( 'wp-block-gallery', 'wp-block-columns', 'wp-block-group', 'wp-block-post-content','wp-block-query-pagination', 'wp-block-buttons' );
+		$target_blocks	 = array( 'wp-block-gallery', 'wp-block-columns', 'wp-block-group', 'wp-block-post-content', 'wp-block-query-pagination', 'wp-block-buttons' );
 
 		$default_layout = wp_get_global_settings( array( 'layout' ) );
 
@@ -824,20 +823,20 @@ if ( ! function_exists( 'emulsion_add_flex_container_classes' ) ) {
 		}
 		if ( ! empty( $block['attrs']['layout'] ) ) {
 
-				$layout_type = ! empty( $block['attrs']['layout']['type'] ) ? sanitize_html_class( 'is-layout-' . $block['attrs']['layout']['type'] ): 'is-layout-undefined';
+			$layout_type = ! empty( $block['attrs']['layout']['type'] ) ? sanitize_html_class( 'is-layout-' . $block['attrs']['layout']['type'] ) : 'is-layout-undefined';
 
-				$new_class		 = array(
-					$layout_type,
-					! empty( $block['attrs']['layout']['justifyContent'] ) ? sanitize_html_class( 'is-content-justification-' . $block['attrs']['layout']['justifyContent'] ) : '',
-					! empty( $used_layout['orientation'] ) ? sanitize_html_class( 'is-' . $used_layout['orientation'] ) : '',
+			$new_class = array(
+				$layout_type,
+				! empty( $block['attrs']['layout']['justifyContent'] ) ? sanitize_html_class( 'is-content-justification-' . $block['attrs']['layout']['justifyContent'] ) : '',
+				! empty( $used_layout['orientation'] ) ? sanitize_html_class( 'is-' . $used_layout['orientation'] ) : '',
 					//! empty( 'wrap' == $block['attrs']['layout']['flexWrap'] ) ? 'wrap' : '',
-				);
+			);
 
-				$block_content	 = str_replace( $new_class, '', $block_content );
+			$block_content = str_replace( $new_class, '', $block_content );
 
-				$block_content	 = str_replace("wp-block-post-content","wp-block-post-content ". $layout_type, $block_content );
+			$block_content = str_replace( "wp-block-post-content", "wp-block-post-content " . $layout_type, $block_content );
 
-				$block_content	 = emulsion_add_class( $block_content, $block_name, $new_class );
+			$block_content = emulsion_add_class( $block_content, $block_name, $new_class );
 		}
 
 		return $block_content;
@@ -1076,9 +1075,11 @@ if ( ! function_exists( 'emulsion_block_editor_assets' ) ) {
 
 			wp_register_style( 'emulsion-fse', get_template_directory_uri() . '/css/fse.css', array(), time(), 'all' );
 			wp_enqueue_style( 'emulsion-fse' );
-
-			//$inline_style = emulsion_fse_editor_inline_style();
-			wp_add_inline_style( 'emulsion-fse', $inline_style );
+			
+			if ( function_exists( 'emulsion_fse_editor_inline_style' ) ) {
+				$inline_style = emulsion_fse_editor_inline_style();
+				wp_add_inline_style( 'emulsion-fse', $inline_style );
+			}
 
 			wp_enqueue_script( 'emulsion-block-fse', esc_url( get_template_directory_uri() . '/js/block-fse.js' ), array( 'wp-blocks' ) );
 		}
@@ -1415,7 +1416,7 @@ if ( ! function_exists( 'emulsion_fallback_block_class' ) ) {
 	function emulsion_fallback_block_class( $block_content, $block ) {
 
 		$block_name		 = 'wp-block-' . substr( strrchr( $block['blockName'], "/" ), 1 );
-		$target_block	 = array( 'wp-block-post-template', 'wp-block-audio', 'wp-block-buttons', 'wp-block-columns', 'wp-block-file', 'wp-block-group', 'wp-block-post-excerpt', 'wp-block-table', 'wp-block-navigation', 'wp-block-cover','wp-block-paragraph' );
+		$target_block	 = array( 'wp-block-post-template', 'wp-block-audio', 'wp-block-buttons', 'wp-block-columns', 'wp-block-file', 'wp-block-group', 'wp-block-post-excerpt', 'wp-block-table', 'wp-block-navigation', 'wp-block-cover', 'wp-block-paragraph' );
 
 		if ( in_array( $block_name, $target_block ) ) {
 
@@ -1497,7 +1498,7 @@ function emulsion_is_custom_post_type() {
 
 if ( ! function_exists( 'emulsion_block_template_part' ) ) {
 
-	function emulsion_block_template_part( $part , $args = array() ) {
+	function emulsion_block_template_part( $part, $args = array() ) {
 
 		if ( ! function_exists( 'gutenberg_get_block_template' ) && ! function_exists( 'get_block_template' ) ) {
 
@@ -1530,8 +1531,8 @@ if ( ! function_exists( 'emulsion_block_template_part' ) ) {
 				'wp-block-template-part-' . $template_part->slug,
 				'wp-block-template-part',
 				'included-block-template-part',
-				! empty( $args['align']) ? 'align'. minified_class_name_sanitize( $args['align'] ): 'alignfull',
-				! empty( $args['className']) ? minified_class_name_sanitize( $args['className'] ): '',
+				! empty( $args['align'] ) ? 'align' . minified_class_name_sanitize( $args['align'] ) : 'alignfull',
+				! empty( $args['className'] ) ? minified_class_name_sanitize( $args['className'] ) : '',
 			);
 
 			$additional_classes	 = array();
