@@ -7,7 +7,13 @@ if ( ! function_exists( 'emulsion_fse_compatible_classic_template_setup' ) ) {
 	function emulsion_fse_compatible_classic_template_setup() {
 
 		add_action( 'wp_head', 'emulsion_meta_elements' );
+
 		add_theme_support( 'widgets' );
+
+		if ( 'fse' !== emulsion_get_theme_operation_mode() ) {
+
+			set_theme_mod( 'emulsion_editor_support', 'fse' );
+		}
 	}
 
 }
@@ -25,12 +31,24 @@ if ( ! function_exists( 'emulsion_classic' ) ) {
 				wp_get_theme()->get( 'Version' )
 		);
 		wp_enqueue_style( 'emulsion-classic' );
+
+		if ( is_child_theme() ) {
+
+			$emulsion_child_theme_slug	 = emulsion_slug() . '-classic';
+			$child_classic_url			 = get_stylesheet_directory_uri() . '/fse-compatible-classic-template/classic.css';
+			$child_classic_path			 = get_stylesheet_directory() . '/fse-compatible-classic-template/classic.css';
+
+			if ( is_readable( $child_classic_path ) ) {
+				wp_register_style(
+						$emulsion_child_theme_slug,
+						$child_classic_url,
+						array( 'emulsion-classic' ),
+						wp_get_theme()->get( 'Version' )
+				);
+				wp_enqueue_style( $emulsion_child_theme_slug );
+			}
+		}
 	}
-
-}
-add_action( 'widgets_init', 'emulsion_unresister_gutenberg_sidebars' );
-
-function emulsion_unresister_gutenberg_sidebars() {
 
 }
 
@@ -101,11 +119,24 @@ if ( ! function_exists( 'emulsion_compatible_classic_template_include' ) ) {
 
 	function emulsion_compatible_classic_template_include( $template ) {
 
-
 		$post_id			 = get_the_ID();
 		$page_template_slug	 = get_page_template_slug( $post_id );
 
 		$classic_template = emulsion_custom_template_include( $template );
+
+		if ( is_child_theme() ) {
+
+			$emulsion_child_theme_slug	 = emulsion_slug();
+			$rename_before				 = DIRECTORY_SEPARATOR . 'emulsion' . DIRECTORY_SEPARATOR;
+			$rename_after				 = DIRECTORY_SEPARATOR . $emulsion_child_theme_slug . DIRECTORY_SEPARATOR;
+
+			$child_template = str_replace( $rename_before, $rename_after, $classic_template );
+
+			if ( is_readable( $child_template ) ) {
+
+				$classic_template = $child_template;
+			}
+		}
 
 		if ( is_readable( $classic_template ) && 'template-canvas.php' !== basename( $classic_template ) ) {
 
@@ -121,6 +152,3 @@ if ( ! function_exists( 'emulsion_compatible_classic_template_include' ) ) {
 	}
 
 }
-
-
-
