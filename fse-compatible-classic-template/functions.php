@@ -6,7 +6,16 @@ if ( ! function_exists( 'emulsion_fse_compatible_classic_template_setup' ) ) {
 
 	function emulsion_fse_compatible_classic_template_setup() {
 
+		load_theme_textdomain( 'emulsion', get_template_directory() . '/languages' );
+		add_theme_support( 'title-tag' );
+		add_theme_support( 'automatic-feed-links' );
+		add_theme_support( 'html5', array( 'comment-list', 'comment-form', 'search-form', 'gallery', 'caption', 'style', 'script', 'navigation-widgets' ) );
+		add_theme_support( 'post-thumbnails' );
+		add_theme_support( 'post-formats', array( 'gallery' ) );
+
 		add_action( 'wp_head', 'emulsion_meta_elements' );
+
+		function_exists( 'emulsion_theme_google_tracking_code' ) ? add_action( 'wp_footer', 'emulsion_theme_google_tracking_code' ) : '';
 
 		add_theme_support( 'widgets' );
 
@@ -24,10 +33,13 @@ if ( ! function_exists( 'emulsion_classic' ) ) {
 
 	function emulsion_classic() {
 
+
+		$dependency_style = 'disable' == get_theme_mod( 'emulsion_gutenberg_render_layout_support_flag', 'disable' ) ? array( 'emulsion-fse' ) : array( 'emulsion-fse-layout-on' );
+
 		wp_register_style(
 				'emulsion-classic',
 				get_template_directory_uri() . '/fse-compatible-classic-template/classic.css',
-				array( 'emulsion-fse' ),
+				$dependency_style,
 				wp_get_theme()->get( 'Version' )
 		);
 		wp_enqueue_style( 'emulsion-classic' );
@@ -148,6 +160,7 @@ if ( ! function_exists( 'emulsion_compatible_classic_template_include' ) ) {
 
 			return $classic_template;
 		}
+
 		return $template;
 	}
 

@@ -134,7 +134,7 @@ SYMBOLS;
 
 		$emulsion_svg_symbols = apply_filters( 'emulsion_icon_svg_symbols', $emulsion_svg_symbols );
 
-		if( current_user_can( 'edit_theme_options' ) ) {
+		if( current_user_can( 'edit_theme_options' ) && function_exists(' emulsion_get_svg_ids') ) {
 
 			// save allowed svg id @type json
 

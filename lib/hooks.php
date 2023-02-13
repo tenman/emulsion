@@ -120,7 +120,7 @@ function emulsion_hooks_setup() {
 
 		add_filter( 'render_block_core/navigation', function ( $content, $block ) {
 
-			if ( 'transitional' == emulsion_get_theme_operation_mode() && isset( block["attrs"]["className"] ) && 'fse-primary' == $block["attrs"]["className"] ) {
+			if ( 'transitional' == emulsion_get_theme_operation_mode() && isset( $block["attrs"]["className"] ) && 'fse-primary' == $block["attrs"]["className"] ) {
 
 				return;
 			}
@@ -154,7 +154,6 @@ function emulsion_hooks_setup() {
 		add_filter( 'oembed_default_width', 'emulsion_oembed_default_width', 99 );
 		'theme' == get_theme_mod( 'emulsion_editor_support', 'theme' ) ? add_filter( 'excerpt_length', 'emulsion_excerpt_length_with_lang', 99 ) : '';
 
-		add_filter( 'theme_templates', 'emulsion_theme_templates' );
 		add_filter( 'the_excerpt', 'emulsion_excerpt_remove_p' );
 		add_filter( 'gettext_with_context_default', 'emulsion_change_translate', 99, 4 );
 		add_filter( 'the_content_more_link', 'emulsion_read_more_link' );
@@ -430,6 +429,7 @@ if ( ! function_exists( 'emulsion_body_class' ) ) {
 		// current template
 
 		$classes[] = 'is-tpl-' . emulsion_get_template();
+
 
 		if( emulsion_is_custom_post_type() ) {
 
@@ -1028,24 +1028,7 @@ CSS;
 	}
 
 }
-if ( ! function_exists( 'emulsion_theme_templates' ) ) {
 
-	/**
-	 * Remove templates that are only valid when using plugins
-	 * @param type $post_templates
-	 * @return array
-	 */
-	function emulsion_theme_templates( $post_templates ) {
-
-		if ( false === emulsion_theme_addons_exists() ) {
-
-			unset( $post_templates['template-page/blank.php'] );
-			unset( $post_templates['template-page/gallery.php'] );
-		}
-		return $post_templates;
-	}
-
-}
 
 if ( ! function_exists( 'emulsion_amp_description' ) ) {
 

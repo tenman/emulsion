@@ -276,6 +276,7 @@ if ( ! function_exists( 'emulsion_custom_template_include' ) ) {
 			if ( is_page() ) {
 
 				$new_template = emulsion_get_page_template();
+
 			}
 
 			if ( is_singular() && empty( $new_template ) ) {

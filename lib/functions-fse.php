@@ -316,6 +316,7 @@ function emulsion_fse_body_class( $classes ) {
 
 	$classes[] = 'is-tpl-' . emulsion_get_template();
 
+
 	// fse background class
 	$classes[] = emulsion_fse_background_color_class();
 
