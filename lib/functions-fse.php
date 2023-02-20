@@ -71,7 +71,6 @@ if ( ! function_exists( 'emulsion_setup' ) ) {
 		add_filter( 'body_class', 'emulsion_fse_body_class' );
 		add_filter( 'admin_body_class', 'emulsion_fse_admin_body_class' );
 
-
 		add_filter( 'render_block_core/post-title', 'emulsion_accesible_post_title_link_control', 10, 2 );
 		add_filter( 'render_block_core/site-title', 'emulsion_accesible_site_title_link_control', 10, 2 );
 		add_filter( 'render_block', 'emulsion_relate_posts_when_addons_inactive', 10, 2 );
@@ -79,7 +78,7 @@ if ( ! function_exists( 'emulsion_setup' ) ) {
 		add_filter( 'get_the_author_description', 'emulsion_author_description', 20 );
 		add_filter( 'the_password_form', 'emulsion_get_the_password_form', 11 );
 
-		if( 'enable' == get_theme_mod( 'emulsion_gutenberg_render_layout_support_flag') ){
+		if ( 'enable' == get_theme_mod( 'emulsion_gutenberg_render_layout_support_flag' ) ) {
 
 			add_theme_support( 'wp-block-styles' );
 		}
@@ -101,10 +100,9 @@ if ( ! function_exists( 'emulsion_setup' ) ) {
 		/**
 		 *
 		 */
-
 		register_nav_menus( array(
-				'primary'	 => esc_html__( 'Primary Menu', 'emulsion' )
-					)
+			'primary' => esc_html__( 'Primary Menu', 'emulsion' )
+				)
 		);
 
 		do_action( 'emulsion_setup_after' );
@@ -120,7 +118,6 @@ function emulsion_author_description( $text ) {
 /**
  * Style and Scripts
  */
-
 add_action( 'wp_enqueue_scripts', 'emulsion_register_scripts_and_styles_fse' );
 
 function emulsion_register_scripts_and_styles_fse() {
@@ -128,12 +125,11 @@ function emulsion_register_scripts_and_styles_fse() {
 
 	$emulsion_current_data_version = is_user_logged_in() ? time() : null;
 
-
-	if( 'enable' !== get_theme_mod( 'emulsion_gutenberg_render_layout_support_flag', emulsion_theme_default_val( 'emulsion_gutenberg_render_layout_support_flag' ) ) ){
+	if ( 'enable' !== get_theme_mod( 'emulsion_gutenberg_render_layout_support_flag', emulsion_theme_default_val( 'emulsion_gutenberg_render_layout_support_flag' ) ) ) {
 
 		wp_register_style( 'emulsion-fse', get_template_directory_uri() . '/css/fse.css', array(), $emulsion_current_data_version, 'all' );
 		wp_enqueue_style( 'emulsion-fse' );
-	}else{
+	} else {
 
 		wp_register_style( 'emulsion-fse-layout-on', get_template_directory_uri() . '/css/fse-layout-on.css', array(), $emulsion_current_data_version, 'all' );
 		wp_enqueue_style( 'emulsion-fse-layout-on' );
@@ -174,7 +170,7 @@ function emulsion_register_scripts_and_styles_fse() {
 	 * Table of contents
 	 */
 	//////////////////////////////////////////////////////////////////////////
-	$jquery_dependency	 = array( 'jquery' );
+	$jquery_dependency = array( 'jquery' );
 	/**
 	 * jQuery in Footer when user not logged in.
 	 */
@@ -263,13 +259,12 @@ function emulsion_register_scripts_and_styles_fse() {
 		}
 		wp_enqueue_script( 'emulsion' );
 	}
-	$emulsion_dark_mode_support_val = 'enable' == get_theme_mod('emulsion_dark_mode_support') ? true: false;
+	$emulsion_dark_mode_support_val = 'enable' == get_theme_mod( 'emulsion_dark_mode_support' ) ? true : false;
 
 	wp_localize_script( 'emulsion', 'emulsion_script_vars', array(
 		'emulsion_dark_mode_support' => $emulsion_dark_mode_support_val,
-		'emulsion_body_id' => emulsion_slug(),
-	));
-
+		'emulsion_body_id'			 => emulsion_slug(),
+	) );
 }
 
 function emulsion_fse_body_class( $classes ) {
@@ -278,8 +273,7 @@ function emulsion_fse_body_class( $classes ) {
 
 	$classes[] = 'is-presentation-fse';
 
-
-	if ( ! is_page() && ! is_attachment() && ! is_single()  ) {
+	if ( ! is_page() && ! is_attachment() && ! is_single() ) {
 
 		$classes[] = 'summary';
 	}
@@ -315,7 +309,6 @@ function emulsion_fse_body_class( $classes ) {
 	}
 
 	$classes[] = 'is-tpl-' . emulsion_get_template();
-
 
 	// fse background class
 	$classes[] = emulsion_fse_background_color_class();
@@ -448,7 +441,6 @@ function emulsion_corrected_core_css_has_nested_images_gallery() {
 STYLE;
 	return $css;
 }
-
 
 function emulsion_add_classic_custom_field_css() {
 
@@ -607,10 +599,30 @@ function emulsion_add_misc_css() {
 		.editor-styles-wrapper *{
 			max-width:100%!important;
 		}
+
 STYLE;
 	return $css;
 }
 
+if ( ! function_exists( 'emulsion_editor_color_scheme_correction' ) ) {
+
+	function emulsion_editor_color_scheme_correction() {
+
+		$css = <<<STYLE
+		body.editor-styles-wrapper{
+			background: var(--wp--preset--color--base);
+            color: var(--wp--preset--color--contrast);
+		}
+		body.editor-styles-wrapper a{
+			color: var(--wp--preset--color--primary);
+		}
+
+STYLE;
+
+		return $css;
+	}
+
+}
 
 if ( ! function_exists( 'emulsion_toc_fse' ) ) {
 

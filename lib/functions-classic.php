@@ -173,8 +173,8 @@ if ( ! function_exists( 'emulsion_setup' ) ) {
 
 		if ( emulsion_the_theme_supports( 'block_experimentals' ) && emulsion_is_plugin_active( 'gutenberg/gutenberg.php' ) ) {
 
-			add_theme_support( 'custom-spacing' );
-			add_theme_support( 'experimental-link-color' );
+			//add_theme_support( 'custom-spacing' );
+			//add_theme_support( 'experimental-link-color' );
 		}
 
 		add_theme_support( 'block-template-parts' );

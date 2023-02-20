@@ -36,6 +36,7 @@ STYLE;
 		$css .= emulsion_add_classic_custom_field_css();
 		$css .= emulsion_add_narrow_align_css();
 		$css .= emulsion_add_misc_css();
+		$css .= emulsion_editor_color_scheme_correction();
 
 		$css .= <<<STYLE
 

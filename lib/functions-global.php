@@ -1112,6 +1112,18 @@ if ( ! function_exists( 'emulsion_instantclick' ) ) {
 
 }
 
+function emulsion_get_css_variables_value( $variable ) {
+
+	$preset_values	 = wp_get_global_stylesheet( array( 'variables' ) );
+	$preset_val		 = preg_match( '$' . $variable . ':([^\;]*)\;$', $preset_values, $preset_regs );
+	if ( $preset_val ) {
+
+		return trim( $preset_regs[1] );
+	} else {
+
+		return false;
+	}
+}
 
 if ( ! function_exists( 'emulsion_fse_background_color_class' ) ) {
 
@@ -1131,41 +1143,53 @@ if ( ! function_exists( 'emulsion_fse_background_color_class' ) ) {
 			 */
 			$global_settings = wp_get_global_settings( array( 'custom' ) );
 			$fse_class		 = '';
-
-			if ( is_array( $global_settings ) ) {
-
-				$color_scheme = ! empty( $global_settings['color']['scheme'] ) ? $global_settings['color']['scheme'] : 'unknown';
-
-				$fse_class .= sanitize_html_class( 'fse-scheme-' . $color_scheme );
-			}
-
-			$style = wp_get_global_stylesheet( array( 'styles' ) );
+			$replace_class	 = '';
+			$style			 = wp_get_global_stylesheet( array( 'styles' ) );
 
 			if ( false !== preg_match( '$body(\s*)?\{([^\}]*)?(background-color:)([^\;]*)\;$', $style, $regs ) && ! empty( $regs[4] ) ) {
-				//solid background
-				$type_background =  sanitize_html_class( 'is-fse-bg-' . $regs[4] );
 
-				$color		 = emulsion_accessible_color( trim( $regs[4] ) );
+				if ( ! empty( sanitize_hex_color( $regs[4] ) ) ) {
+
+					//use solid background
+					$type_background = sanitize_html_class( 'is-fse-bg-' . $regs[4] );
+					$color			 = emulsion_accessible_color( trim( $regs[4] ) );
+					$fse_class		 = sanitize_html_class( 'fse-schme-custom-' . $global_settings['color']['scheme'] );
+				} else {
+
+					//use style variation
+					$css_variable_name	 = trim( str_replace( array( 'var', '(', ')' ), array( '', '', '' ), $regs[4] ) );
+					$valiable_value		 = emulsion_get_css_variables_value( $css_variable_name );
+					$type_background	 = sanitize_html_class( 'is-fse-bg-' . $valiable_value );
+					$color				 = emulsion_accessible_color( $valiable_value );
+
+				}
+
+
 
 				if ( '#ffffff' == $color ) {
 
-					$fse_class .= ' is-fse-dark';
+					$replace_class .= ' is-fse-dark ' . $type_background;
 				} elseif ( '#333333' == $color ) {
 
-					$fse_class .= ' is-fse-light';
+					$replace_class .= ' is-fse-light ' . $type_background;
 				}
 			}
 
 			if ( false !== preg_match( '$body(\s*)?\{([^\}]*)?(background:)([^\;]*)\;$', $style, $regs ) && ! empty( $regs[4] ) ) {
 				//gradient
-				$type_background = ' ' . sanitize_html_class( 'is-fse-bg-' . $regs[4] );
+				$type_background = sanitize_html_class( $regs[4] );
+				$fse_class		 = 'is-fse-gradient-' . $type_background;
 			}
 
-			$fse_class .= ' '. $type_background;
-
 			if ( empty( $fse_class ) ) {
+				$fse_class = $replace_class . ' ';
 
-				$fse_class = 'fse-scheme-default';
+				if ( is_array( $global_settings ) ) {
+
+					$color_scheme = ! empty( $global_settings['color']['scheme'] ) ? $global_settings['color']['scheme'] : 'unknown';
+
+					$fse_class .= sanitize_html_class( 'fse-scheme-' . $color_scheme );
+				}
 			}
 
 			set_transient( $transient_name, $fse_class, 0 );
@@ -1596,9 +1620,6 @@ if ( ! function_exists( 'emulsion_block_template_part' ) ) {
 
 }
 
-
-
-
 function emulsion_get_template() {
 
 	global $template;
@@ -1627,7 +1648,7 @@ function emulsion_get_template() {
 		$post_id		 = get_the_ID();
 		$custom_template = get_post_meta( $post_id, '_wp_page_template', true );
 
-		if ( ! empty( $custom_template ) && false === strstr($custom_template,'.php') && ( is_single() || is_page() ) ) {
+		if ( ! empty( $custom_template ) && false === strstr( $custom_template, '.php' ) && ( is_single() || is_page() ) ) {
 
 			return sanitize_html_class( $custom_template . '_template' );
 		}
@@ -1641,8 +1662,8 @@ function emulsion_get_template() {
 		if ( ! is_home() && is_front_page() && is_readable( get_template_directory() . '/templates/front-page.html' ) ) {
 			return 'front-page_template';
 		}
-		if( is_home() && is_readable( get_template_directory() . '/templates/home.html' ) ) {
-		//if ( 'posts' == get_option( 'show_on_front' ) && !is_singular() && !is_archive() && !is_search() && !is_attachment() && is_readable( get_template_directory() . '/templates/home.html' ) ) {
+		if ( is_home() && is_readable( get_template_directory() . '/templates/home.html' ) ) {
+			//if ( 'posts' == get_option( 'show_on_front' ) && !is_singular() && !is_archive() && !is_search() && !is_attachment() && is_readable( get_template_directory() . '/templates/home.html' ) ) {
 			return 'home_template';
 		}
 		if ( is_privacy_policy() && is_readable( get_template_directory() . '/templates/privacy-policy.html' ) ) {
@@ -1828,9 +1849,9 @@ if ( ! function_exists( 'emulsion_meta_elements' ) ) {
 	function emulsion_meta_elements() {
 
 		//if ( emulsion_the_theme_supports( 'viewport' ) ) {
-			?><meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1" id="emulsion-viewport" />
-			<meta name="apple-mobile-web-app-capable" content="yes" />
-			<meta name="apple-mobile-web-app-status-bar-style" content="default" /><?php
+		?><meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1" id="emulsion-viewport" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="default" /><?php
 		//}
 	}
 
