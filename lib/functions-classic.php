@@ -193,8 +193,17 @@ if ( ! function_exists( 'emulsion_setup' ) ) {
 					)
 			);
 		}
+		/**
+		 * header , footer template mode
+		 */
+		if ( 'theme' == emulsion_get_theme_operation_mode() ) {
 
-
+			add_filter( 'theme_mod_emulsion_header_template', 'emulsion_return_default' );
+			add_filter( 'theme_mod_emulsion_footer_template', 'emulsion_return_default' );
+		} else {
+			remove_filter( 'theme_mod_emulsion_header_template', 'emulsion_return_default' );
+			remove_filter( 'theme_mod_emulsion_footer_template', 'emulsion_return_default' );
+		}
 
 		add_action( 'widgets_init', 'emulsion_widgets_init' );
 
@@ -433,7 +442,7 @@ function emulsion_register_scripts_and_styles() {
 			//'amp-reader'					 => 'amp.css',
 	);
 
-	if ( 'html' == get_theme_mod( 'emulsion_header_template', emulsion_theme_default_val( 'emulsion_header_template', 'default' ) )&& 'theme' !== get_theme_mod( 'emulsion_editor_support' )) {
+	if ( 'html' == get_theme_mod( 'emulsion_header_template', emulsion_theme_default_val( 'emulsion_header_template', 'default' ) ) && 'theme' !== get_theme_mod( 'emulsion_editor_support' ) ) {
 
 		$exclude_stylesheets = array(
 			'emulsion-header' => 'header.css',
@@ -577,7 +586,7 @@ function emulsion_register_scripts_and_styles() {
 
 			$emulsion_theme_styles = array_keys( $emulsion_register_styles );
 		}
-		if( 'enable' !== get_theme_mod( 'emulsion_gutenberg_render_layout_support_flag', emulsion_theme_default_val( 'emulsion_gutenberg_render_layout_support_flag' ) ) ) {
+		if ( 'enable' !== get_theme_mod( 'emulsion_gutenberg_render_layout_support_flag', emulsion_theme_default_val( 'emulsion_gutenberg_render_layout_support_flag' ) ) ) {
 
 			$emulsion_theme_styles = array_keys( $emulsion_register_styles );
 		}
@@ -631,7 +640,6 @@ function emulsion_register_scripts_and_styles() {
 			);
 
 			$emulsion_theme_styles = array_keys( array_diff( $emulsion_styles_list, $exclude_stylesheets ) );
-
 		}
 		if ( 'html' == get_theme_mod( 'emulsion_header_template', emulsion_theme_default_val( 'emulsion_header_template', 'default' ) ) ) {
 
@@ -2309,10 +2317,9 @@ STYLE;
 
 }
 
-//add_filter('emulsion_site_text_markup', '__return_empty_string');
-
-
-
+function emulsion_return_default() {
+	return 'default';
+}
 
 do_action( 'emulsion_functions_after' );
 

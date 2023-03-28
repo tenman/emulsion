@@ -2,7 +2,7 @@
 
 Contributors: nobita
 Requires at least: WordPress 5.3
-Tested up to: WordPress 6.1
+Tested up to: WordPress 6.2
 Requires PHP: 5.6
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -150,6 +150,9 @@ border-image.png
         * Source: https://github.com/LeaVerou/css3patterns
 
 ## Changelog
+###  march 29 2023
+		* 2.6.7
+        * https://github.com/tenman/emulsion/releases
 ###  february 20 2023
 		* 2.6.6
         * https://github.com/tenman/emulsion/releases

@@ -17,7 +17,7 @@ if ( 'fse' == emulsion_get_theme_operation_mode() ) {
 	 */
 	function emulsion_fse_inline_style() {
 		$css = emulsion_custom_field_css();
-		//@since ver 13.1.0 , 13.2.2 Reappear
+
 		$css .= emulsion_corrected_core_css_has_nested_images_gallery();
 
 		$css .= <<<STYLE

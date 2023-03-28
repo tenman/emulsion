@@ -172,11 +172,24 @@ function emulsion_block_pattern() {
 
 			function remove_default_block_pattern_category() {
 				$categories = [
+					'about',
+					'call-to-action',
+					'contact',
+					'footers',
+					'headers',
+					'media',
+					'portfolio',
+					'posts',
+					'services',
+					'team',
+					'testimonials',
+					'query',
 					'buttons',
 					'columns',
+					'featured',
 					'gallery',
-					'header',
-					'text',
+					'text'
+
 				];
 				foreach ( $categories as $category ) {
 					unregister_block_pattern_category( $category );

@@ -2,10 +2,18 @@
 
 <!-- wp:pattern {"slug":"emulsion/primary-menu"} /-->
 
-<!-- wp:group {"align":"full", "className":"", "tagName":"main", "layout":{"type":"constrained"}} -->
-<main class="wp-block-group alignfull">
-    <!-- wp:template-part {"slug":"post-content", "tagName":"div", "align":"full", "className":"article-wrapper"} /-->
-</main><!-- /wp:group -->
+<!-- wp:columns {"className":"alignfull fse-columns"} -->
+<div class="wp-block-columns alignfull fse-columns fse-columns">
+    <!-- wp:column -->
+    <div class="wp-block-column main">
+        <!-- wp:group {"align":"full", "className":"", "tagName":"main", "layout":{"type":"constrained"}} -->
+        <main class="wp-block-group alignfull">
+            <!-- wp:template-part {"slug":"post-content", "tagName":"div", "align":"full", "className":"article-wrapper"} /-->
+        </main><!-- /wp:group -->
+    </div>
+    <!-- /wp:column -->
+</div>
+<!-- /wp:columns -->
 
 <!-- wp:group {"tagName":"nav","className":"wp-block-post-navigation","layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"center"}} -->
 <nav class="wp-block-group wp-block-post-navigation"><!-- wp:post-navigation-link {"type":"previous"} /-->

@@ -2,35 +2,14 @@
 
 <!-- wp:pattern {"slug":"emulsion/primary-menu"} /-->
 
-<!-- wp:group {"tagName":"main","align":"full","className":"alignfull fse-main-tag","layout":{"type":"constrained"}} -->
-<main class="wp-block-group alignfull">
-
-    <!-- wp:query {"queryId":1,"query":{"perPage":10,"pages":100,"offset":0,"postType":"post","categoryIds":[],"tagIds":[],"order":"desc","orderBy":"date","author":"","search":"","exclude":[],"inherit":true},"align":"full"} -->
-    <div class="wp-block-query alignfull">
-        <!-- wp:post-template {} -->
-
-        <!-- wp:group {"tagName":"article","align":"full","className":"post loop-item", "layout":{"type":"constrained"}} -->
-        <article class="wp-block-group post alignfull loop-item">
-
-            <!-- wp:template-part {"slug":"post-header","tagName":"header","className":"post-header wp-block-template-post-header"} /-->
-
-            <!-- wp:post-featured-image /-->
-
-            <!-- wp:post-excerpt /-->
-        </article>
-        <!-- /wp:group -->
-
-        <!-- /wp:post-template -->
-
-        <!-- wp:query-pagination {"layout":{"type":"flex","justifyContent":"center"}} -->
-        <!-- wp:query-pagination-previous /-->
-        <!-- wp:query-pagination-next /-->
-        <!-- /wp:query-pagination -->
-
+<!-- wp:columns {"className":"alignfull fse-columns"} -->
+<div class="wp-block-columns alignfull fse-columns">
+    <!-- wp:column {"className":"main"} -->
+    <div class="wp-block-column main">
+        <!-- wp:template-part {"slug":"query-post", "tagName":"main", "align":"full", "className":"fse-query-post-template main-query", "layout":{"type":"constrained"}} /-->
     </div>
-    <!-- /wp:query -->
+    <!-- /wp:column -->
+</div>
+<!-- /wp:columns -->
 
-</main>
-<!-- /wp:group -->
-
-<!-- wp:template-part {"slug":"footer", "tagName":"footer", "align":"full", "className":"footer-layer fse-footer banner wp-block-template-part-footer alignfull", "layout":{"type":"constrained"}} /-->
+<!-- wp:template-part {"slug":"footer", "tagName":"footer", "align":"full", "className":"footer-layer fse-footer banner wp-block-template-part-footer alignfull"} /-->

@@ -102,7 +102,7 @@ if ( ! function_exists( 'emulsion_fse_compatible_classic_template_widgets_init' 
 				)
 		);
 		//Gutenberg widget area remove
-		unregister_sidebar( 'primary-widget-area' );
+	/*	unregister_sidebar( 'primary-widget-area' );
 		unregister_sidebar( 'secondary-widget-area' );
 		unregister_sidebar( 'first-footer-widget-area' );
 		unregister_sidebar( 'second-footer-widget-area' );
@@ -112,11 +112,11 @@ if ( ! function_exists( 'emulsion_fse_compatible_classic_template_widgets_init' 
 		unregister_sidebar( 'footer-2' );
 		unregister_sidebar( 'footer-3' );
 		unregister_sidebar( 'footer-4' );
-		unregister_sidebar( 'sidebar-2' );
+		unregister_sidebar( 'sidebar-2' );*/
 	}
 
 }
-//var_dump( wp_get_sidebars_widgets());
+
 /**
  * Change the php template loading to the classic directory.
  *

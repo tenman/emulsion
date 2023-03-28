@@ -793,8 +793,8 @@ if ( ! function_exists( 'emulsion_add_flex_container_classes' ) ) {
 
 			return $block_content;
 		}
-
-		if ( 'wp-block-gallery' == $block_name || 'wp-block-columns' == $block_name ) {
+//|| 'wp-block-columns' == $block_name
+		if ( 'wp-block-gallery' == $block_name ) {
 
 			$block['attrs']['layout']['type'] = 'flex';
 		}
@@ -1111,18 +1111,21 @@ if ( ! function_exists( 'emulsion_instantclick' ) ) {
 	}
 
 }
+if ( ! function_exists( 'emulsion_get_css_variables_value' ) ) {
 
-function emulsion_get_css_variables_value( $variable ) {
+	function emulsion_get_css_variables_value( $variable ) {
 
-	$preset_values	 = wp_get_global_stylesheet( array( 'variables' ) );
-	$preset_val		 = preg_match( '$' . $variable . ':([^\;]*)\;$', $preset_values, $preset_regs );
-	if ( $preset_val ) {
+		$preset_values	 = wp_get_global_stylesheet( array( 'variables' ) );
+		$preset_val		 = preg_match( '$' . $variable . ':([^\;]*)\;$', $preset_values, $preset_regs );
+		if ( $preset_val ) {
 
-		return trim( $preset_regs[1] );
-	} else {
+			return trim( $preset_regs[1] );
+		} else {
 
-		return false;
+			return false;
+		}
 	}
+
 }
 
 if ( ! function_exists( 'emulsion_fse_background_color_class' ) ) {
@@ -1161,7 +1164,6 @@ if ( ! function_exists( 'emulsion_fse_background_color_class' ) ) {
 					$valiable_value		 = emulsion_get_css_variables_value( $css_variable_name );
 					$type_background	 = sanitize_html_class( 'is-fse-bg-' . $valiable_value );
 					$color				 = emulsion_accessible_color( $valiable_value );
-
 				}
 
 
@@ -1274,9 +1276,9 @@ if ( ! function_exists( 'emulsion_remove_spaces_from_css' ) ) {
 
 }
 
-if ( ! function_exists( 'emulsion_add_class' ) ) {
+if ( ! function_exists( 'emulsion_add_class2' ) ) {
 
-	function emulsion_add_class( $html, $target_class, $class ) {
+	function emulsion_add_class2( $html, $target_class, $class ) {
 
 		if ( 'wp-block-navigation' == $target_class ) {
 
@@ -1303,6 +1305,33 @@ if ( ! function_exists( 'emulsion_add_class' ) ) {
 				},
 				$html
 		);
+	}
+
+}
+if ( ! function_exists( 'emulsion_add_class' ) ) {
+
+	function emulsion_add_class( $html, $target_class = '', $class = '' ) {
+
+		if ( empty( $html ) ) {
+			return;
+		}
+
+		$target_class = sanitize_html_class( $target_class );
+
+		$p = new WP_HTML_Tag_Processor( $html );
+
+		$p->next_tag( array( 'className' => $target_class ) );
+
+		if ( is_array( $class ) ) {
+			foreach ( $class as $c ) {
+
+				$p->add_class( sanitize_html_class( $c ) );
+			}
+		} else {
+			$p->add_class( sanitize_html_class( $class ) );
+		}
+
+		return $p->get_updated_html();
 	}
 
 }
@@ -1847,12 +1876,9 @@ function emulsion_slug( $echo = false ) {
 if ( ! function_exists( 'emulsion_meta_elements' ) ) {
 
 	function emulsion_meta_elements() {
-
-		//if ( emulsion_the_theme_supports( 'viewport' ) ) {
 		?><meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1" id="emulsion-viewport" />
 		<meta name="apple-mobile-web-app-capable" content="yes" />
 		<meta name="apple-mobile-web-app-status-bar-style" content="default" /><?php
-		//}
 	}
 
 }
@@ -1867,19 +1893,29 @@ if ( ! function_exists( 'emulsion_pingback_header' ) ) {
 
 }
 
-add_filter( 'the_title', 'emulsion_remove_elements_post_title', 20 );
+add_filter( 'render_block', 'emulsion_style_variation_grid_filter', 10, 2 );
 
-if ( ! function_exists( 'emulsion_remove_elements_post_title' ) ) {
+if ( ! function_exists( 'emulsion_style_variation_grid_filter' ) ) {
 
-	/**
-	 * https://github.com/WordPress/gutenberg/issues/38668
-	 *
-	 */
-	function emulsion_remove_elements_post_title( $title ) {
+	function emulsion_style_variation_grid_filter( $block_content, $block ) {
 
-		$title = strip_tags( $title );
+		$block_name = 'wp-block-' . substr( strrchr( $block['blockName'], "/" ), 1 );
 
-		return esc_html( $title );
+		if ( 'grid' == emulsion_get_css_variables_value( '--wp--custom--color--scheme' )
+				&& false !== strstr( $block['attrs']['className'], 'main-query' )
+				&& false == strstr( $block['attrs']['className'], 'is-layout-flex' ) ) {
+
+			$p = new WP_HTML_Tag_Processor( $block_content );
+			$p->next_tag( 'ul' );
+			$p->add_class( 'is-layout-flex' );
+			$p->add_class( 'columns-3' );
+			$p->add_class( 'alignwide' );
+			$p->set_attribute( 'style', "flex-wrap:wrap;align-items: stretch;" );
+
+			return $p->get_updated_html();
+		}
+
+		return $block_content;
 	}
 
 }

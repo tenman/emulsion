@@ -31,13 +31,19 @@
 
     var wp_block_column_class = document.getElementsByClassName('wp-block-column is-style-sticky');
     if (wp_block_column_class.length) {
-
-        var sticky_exception = document.querySelectorAll('.wp-block-group,.wp-block-post-content,.wp-block-template-part');
+        var sticky_exception = document.querySelectorAll('.wp-block-group,.wp-block-post-content');
         for (var i = 0; i < sticky_exception.length; i++) {
             sticky_exception[i].style.overflow = 'visible';
         }
     }
 
+    var wp_block_column_class = document.getElementsByClassName('is-position-sticky');
+    if (wp_block_column_class.length) {
+        var sticky_exception = document.querySelectorAll('.wp-block-group,.wp-block-post-content');
+        for (var i = 0; i < sticky_exception.length; i++) {
+            sticky_exception[i].style.overflow = 'visible';
+        }
+    }
 
 
 }());

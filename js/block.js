@@ -2,18 +2,6 @@
  * todo: Currently blockVariation titles cannot be internationalized
  *
  */
-//https://github.com/WordPress/gutenberg/issues/33374
-wp.blocks.registerBlockVariation(
-        'core/group',
-        {
-            isDefault: true,
-            attributes: {
-                layout: {
-                    inherit: true,
-                }
-            }
-        }
-);
 wp.blocks.registerBlockVariation(
         'core/list', {
             name: 'ol',
@@ -24,7 +12,8 @@ wp.blocks.registerBlockVariation(
                 align: '',
                 className: '',
                 "ordered": true,
-            }
+            },
+            keywords: [ wp.i18n.__('ol', 'emulsion') ]
         }
 );
 wp.blocks.registerBlockVariation(
@@ -36,7 +25,8 @@ wp.blocks.registerBlockVariation(
             attributes: {
                 align: '',
                 className: ''
-            }
+            },
+            keywords: [ wp.i18n.__('ul', 'emulsion') ]
         }
 );
 
@@ -50,7 +40,8 @@ wp.blocks.registerBlockVariation(
                 align: 'full',
                 className: '',
                 "tagName": "section"
-            }
+            },
+            keywords: [ wp.i18n.__('section', 'emulsion') ]
         }
 );
 wp.blocks.registerBlockVariation(
@@ -64,6 +55,7 @@ wp.blocks.registerBlockVariation(
                 className: '',
                 "tagName": "aside"
             },
+            keywords: [ wp.i18n.__('aside', 'emulsion') ]
         }
 );
 wp.blocks.registerBlockVariation(
@@ -75,7 +67,8 @@ wp.blocks.registerBlockVariation(
             attributes: {
                 align: 'full',
                 className: ''
-            }
+            },
+            keywords: [ wp.i18n.__('div', 'emulsion') ]
         }
 );
 
@@ -89,7 +82,8 @@ wp.blocks.registerBlockVariation(
                 align: '',
                 className: '',
                 level: 2
-            }
+            },
+            keywords: [ wp.i18n.__('h2', 'emulsion') ]
         }
 );
 wp.blocks.registerBlockVariation(
@@ -102,7 +96,8 @@ wp.blocks.registerBlockVariation(
                 align: '',
                 className: '',
                 level: 3
-            }
+            },
+            keywords: [ wp.i18n.__('h3', 'emulsion') ]
         }
 );
 wp.blocks.registerBlockVariation(
@@ -115,7 +110,8 @@ wp.blocks.registerBlockVariation(
                 align: '',
                 className: '',
                 level: 4
-            }
+            },
+            keywords: [ wp.i18n.__('h4', 'emulsion') ]
         }
 );
 wp.blocks.registerBlockVariation(
@@ -128,7 +124,8 @@ wp.blocks.registerBlockVariation(
                 align: '',
                 className: '',
                 level: 5
-            }
+            },
+            keywords: [ wp.i18n.__('h5', 'emulsion') ]
         }
 );
 wp.blocks.registerBlockVariation(
@@ -141,7 +138,8 @@ wp.blocks.registerBlockVariation(
                 align: '',
                 className: '',
                 level: 6
-            }
+            },
+            keywords: [ wp.i18n.__('h6', 'emulsion') ]
         }
 );
 wp.blocks.registerBlockVariation(
@@ -173,7 +171,8 @@ wp.blocks.registerBlockVariation(
             ],
             attributes: {
                 className: 'emulsion-cta-block'
-            }
+            },
+            keywords: [ wp.i18n.__('CTA', 'emulsion') ]
         }
 );
 
@@ -197,7 +196,8 @@ wp.blocks.registerBlockVariation(
             attributes: {
                 align: 'full',
                 className: 'grid grid-group-2col grid-group'
-            }
+            },
+            keywords: [ wp.i18n.__('grid', 'emulsion') ]
         }
 );
 
@@ -226,7 +226,8 @@ wp.blocks.registerBlockVariation(
             attributes: {
                 align: 'full',
                 className: 'grid grid-group-3col grid-group'
-            }
+            },
+            keywords: [ wp.i18n.__('grid', 'emulsion') ]
         }
 );
 wp.blocks.registerBlockVariation(
@@ -258,7 +259,8 @@ wp.blocks.registerBlockVariation(
             attributes: {
                 align: 'full',
                 className: 'grid grid-group-4col grid-group'
-            }
+            },
+            keywords: [ wp.i18n.__('grid', 'emulsion') ]
         }
 );
 wp.blocks.registerBlockVariation(
@@ -294,7 +296,8 @@ wp.blocks.registerBlockVariation(
             attributes: {
                 align: 'full',
                 className: 'grid grid-group-5col grid-group'
-            }
+            },
+            keywords: [ wp.i18n.__('grid', 'emulsion') ]
         }
 );
 wp.blocks.registerBlockVariation(
@@ -314,7 +317,8 @@ wp.blocks.registerBlockVariation(
             ],
             attributes: {
                 className: 'emulsion-panel solid-border'
-            }
+            },
+            keywords: [ wp.i18n.__('panel', 'emulsion') ]
         }
 );
 
@@ -333,7 +337,8 @@ wp.blocks.registerBlockVariation(
             ],
             attributes: {
                 className: 'dropdown-on-hover'
-            }
+            },
+            keywords: [ wp.i18n.__('dropdown', 'emulsion') ]
         }
 );
 wp.blocks.registerBlockVariation(
@@ -351,7 +356,8 @@ wp.blocks.registerBlockVariation(
             ],
             attributes: {
                 className: 'dropdown-on-click'
-            }
+            },
+            keywords: [ wp.i18n.__('dropdown', 'emulsion') ]
         }
 );
 function emulsionGetParameterByName(name, url = window.location.href) {
@@ -403,6 +409,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
         )
     }
+    
     if (body.classList.contains('widgets-php') && body.classList.contains('is-presentation-fse')) {
         window.wp.data.dispatch('core/notices').createNotice(
                 'warning',
