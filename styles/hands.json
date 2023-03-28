@@ -1,0 +1,217 @@
+{
+    "version": 2,
+    "title": "Hands",
+    "settings": {
+        "custom": {
+            "color": {
+                "scheme": "hands",
+                "banner-bg": "rgba(255,255,255,.1)"
+            },
+            "border": {
+                "common-color": "#555",
+                "common": "var(--wp--custom--border--common-width) var(--wp--custom--border--common-style) var(--wp--custom--border--common-color)"
+            },
+            "textTransform": {
+                "heading": "none"
+            },
+            "fontWeight": {
+                "common": "500",
+                "heading": "400"
+            }
+        },
+        "typography": {
+            "lineHeight": true,
+            "fontFamilies": [
+                {
+                    "fontFamily": "\"Segoe UI\",\"Yu Gothic Medium\",\"YuGothic\",\"Hiragino Kaku Gothic Pro\",\"San Francisco\",Roboto, sans-serif",
+                    "slug": "system-font",
+                    "name": "System Font"
+                },
+                {
+                    "fontFace": [
+                        {
+                            "fontDisplay": "swap",
+                            "fontFamily": "Dancing Script",
+                            "fontStretch": "normal",
+                            "fontStyle": "normal",
+                            "fontWeight": "400",
+                            "src": [
+                                "file:./fonts/Dancing_Script/DancingScript-VariableFont_wght.ttf"
+                            ]
+                        }
+                    ],
+                    "fontFamily": "\"Dancing Script\",\"Comic Sans MS\", cursive",
+                    "slug": "heading",
+                    "name": "Heading"
+                },
+                {
+                    "fontFamily": "\"Hoefler Text\",\"Baskerville Old Face\",Garamond,\"Times New Roman\",serif",
+                    "slug": "serif",
+                    "name": "Serif"
+                },
+                {
+                    "fontFamily": "Menlo, Consolas, \"DejaVu Sans Mono\", monospace",
+                    "slug": "monospace",
+                    "name": "Monospace"
+                }
+
+            ],
+            "fontSizes": [
+                {
+                    "slug": "small",
+                    "size": "13px",
+                    "name": "Small"
+                },
+                {
+                    "slug": "normal",
+                    "size": "16px",
+                    "name": "Normal"
+                },
+                {
+                    "slug": "large",
+                    "size": "24px",
+                    "name": "Large"
+                },
+                {
+                    "slug": "extra-large",
+                    "size": "48px",
+                    "name": "Extra large"
+                },
+                {
+                    "slug": "huge",
+                    "size": "64px",
+                    "name": "Huge"
+                }
+            ]
+        },
+        "color": {
+            "palette": [
+                {
+                    "color": "#ccd5ae",
+                    "name": "Base",
+                    "slug": "base"
+                },
+                {
+                    "color": "#283618",
+                    "name": "Contrast",
+                    "slug": "contrast"
+                },
+                {
+                    "color": "#783c06",
+                    "name": "Primary",
+                    "slug": "primary"
+                },
+                {
+                    "color": "#728603",
+                    "name": "Secondary",
+                    "slug": "secondary"
+                },
+                {
+                    "color": "#606c38",
+                    "name": "Tertiary",
+                    "slug": "tertiary"
+                },
+                {
+                    "color": "#B7AED5",
+                    "name": "Complementary",
+                    "slug": "complementary"
+                }
+            ]
+        }
+    },
+    "styles": {
+        "color": {
+
+        },
+        "elements": {
+
+            "heading": {
+                "typography": {
+                    "lineHeight": "var(--wp--custom--line-height--heading,1.15)",
+                    "textTransform": "var(--wp--custom--text-transform--heading)",
+                    "fontWeight": "var(--wp--custom--font-weight--heading)"
+                },
+
+                "spacing": {
+                    "margin": "var(--wp--custom--margin--block, 1.5rem auto)",
+                    "padding": "0 var(--wp--custom--padding--content)"
+                }
+            },
+            "h1": {
+                "typography": {
+                    "fontSize": "clamp(var(--wp--preset--font-size--extra-large), calc( 100vw / 72 * 3), var(--wp--preset--font-size--huge))",
+                    "fontFamily": "var(--wp--preset--font-family--heading)",
+                    "fontWeight": "var(--wp--custom--font-weight--heading)"
+                }
+            },
+            "h2": {
+                "typography": {
+                    "fontSize": "clamp(var(--wp--preset--font-size--large), calc( 100vw / 72 * 2), var(--wp--preset--font-size--extra-large) )",
+                    "fontFamily": "var(--wp--preset--font-family--heading)",
+                    "fontWeight": "var(--wp--custom--font-weight--heading)"
+                }
+            }
+        },
+        "blocks": {
+            "core/site-title": {
+                "elements": {
+                    "link": {
+                        "typography": {
+                            "textDecoration": "none"
+                        }
+                    }
+                },
+                "typography": {
+                    "fontSize": "var(--wp--preset--font-size--large)",
+                    "fontWeight": "var(--wp--custom--font-weight--heading)"
+                }
+            },
+            "core/post-title": {
+                "elements": {
+                    "link": {
+                        "typography": {
+                            "textDecoration": "none",
+                            "fontWeight": "var(--wp--custom--font-weight--heading)"
+                        }
+                    }
+                }
+            },
+            "core/query": {
+                "elements": {
+                    "h2": {
+                        "typography": {
+                            "fontSize": "clamp(var(--wp--preset--font-size--large), calc( 100vw / 72 * 2), var(--wp--preset--font-size--extra-large) )",
+                            "fontFamily": "var(--wp--preset--font-family--heading)",
+                            "fontWeight": "var(--wp--custom--font-weight--heading)",
+                            "textTransform": "var(--wp--custom--text-transform--heading)"
+                        }
+                    }
+                }
+            },
+            "core/query-title": {
+                "typography": {
+                    "fontSize": "clamp(var(--wp--preset--font-size--large), calc( 100vw / 72 * 2), var(--wp--preset--font-size--extra-large) )",
+                    "fontFamily": "var(--wp--preset--font-family--heading)",
+                    "fontWeight": "var(--wp--custom--font-weight--heading)",
+                    "textTransform": "var(--wp--custom--text-transform--heading)"
+                }
+            },
+            "core/comments-query-loop": {
+                "spacing": {
+                    "margin": "var(--wp--custom--margin--block, 1.5rem auto)",
+                    "padding": "0 var(--wp--custom--padding--content)"
+                }
+            },
+            "core/heading": {
+                "spacing": {
+                    "margin": "var(--wp--custom--margin--block, 1.5rem auto)",
+                    "padding": "0 var(--wp--custom--padding--content)"
+                },
+                "typography": {
+                    "lineHeight": "var(--wp--custom--line-height--heading)",
+                    "fontWeight": "var(--wp--custom--font-weight--heading)"
+                }
+            }
+        }
+    }
+}
