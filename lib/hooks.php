@@ -1213,7 +1213,7 @@ if ( ! function_exists( 'emulsion_remove_custom_background_class' ) ) {
 	 */
 	function emulsion_remove_custom_background_class( $classes ) {
 		if ( 'fse' == emulsion_get_theme_operation_mode() ) {
-			return $css;
+			return $classes;
 		}
 		$post_id = get_the_ID();
 

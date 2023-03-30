@@ -24,7 +24,7 @@ if ( 'fse' !== emulsion_get_theme_operation_mode() && strstr( $template, '/fse-c
 <div class="wp-site-blocks">
 
 	<?php emulsion_block_template_part( 'header-2col' ) ?>
-	
+
 	<div class="is-layout-flex alignfull has-sidebar-widget-area">
 
 		<main class="alignfull is-layout-constrained">
