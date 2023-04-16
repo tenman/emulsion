@@ -8,6 +8,7 @@
  *
  */
 ?>
+<?php emulsion_scheme_transitional_alert(); ?>
 <?php get_header( emulsion_get_theme_operation_mode() ); ?>
 
 <div class="wp-site-blocks">

@@ -11,6 +11,8 @@
 
 global $template;
 
+emulsion_scheme_transitional_alert();
+
 if ( 'fse' !== emulsion_get_theme_operation_mode() && strstr( $template, '/fse-compatible-classic-template/' ) ) {
 
 	/* Templates in the classic directory are used as backwards compatible templates only if the Customizer theme scheme is the Full Site Editing Theme. */

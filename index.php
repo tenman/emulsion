@@ -11,7 +11,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 do_action( 'emulsion_template_pre' );
 do_action( 'emulsion_template_pre_' . basename( __FILE__, '.php' ) );
 
-get_header();
+
+// transitional removed @since 2.6.9
+$template_type = 'transitional' == emulsion_get_theme_operation_mode() ? 'fse': emulsion_get_theme_operation_mode();
+
+get_header( $template_type );
 
 if ( true === emulsion_is_custom_post_type() && 'fse' == emulsion_get_theme_operation_mode() ) {
 
@@ -38,12 +42,8 @@ if ( true === emulsion_is_custom_post_type() && 'fse' == emulsion_get_theme_oper
 
 	emulsion_the_theme_supports( 'title_in_page_header' ) ? '' : emulsion_archive_title();
 
-	emulsion_action( 'emulsion_article_wrapper_before' );
-
 	emulsion_have_posts();
-
-	emulsion_action( 'emulsion_article_wrapper_after' );
 
 	emulsion_pagination();
 }
-get_footer();
+get_footer( $template_type );

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Theme Customizer
  */
@@ -15,12 +14,17 @@ $emulsion_theme_mod_args = array(
 		'sanitize_callback'	 => 'emulsion_editor_support_validate',
 		'type'				 => 'radio',
 		'choices'			 => array(
-			'fse'			 => esc_html__( 'Full Site Editing Theme', 'emulsion' ),
-			'transitional'	 => esc_html__( 'FSE Transitional Theme', 'emulsion' ),
+			'fse'			 => esc_html__( 'Block Theme', 'emulsion' ),
+			/*
+			 * deprecated @since 2.6.9
+			   'transitional'	 => esc_html__( 'FSE Transitional Theme', 'emulsion' ),
+			 */
 			'theme'			 => esc_html__( 'Classic Theme', 'emulsion' ),
 		),
 	),
-	'emulsion_scheme'									 => array(
+	/*
+	 * deprecated @since 2.6.9
+	    'emulsion_scheme'									 => array(
 		'section'			 => 'emulsion_scheme',
 		'default'			 => 'default',
 		'label'				 => esc_html__( 'Radio Icon Control', 'emulsion' ),
@@ -28,6 +32,9 @@ $emulsion_theme_mod_args = array(
 		'sanitize_callback'	 => 'emulsion_scheme_validate',
 		'type'				 => 'emulsionImageRadio',
 	),
+	 */
+	/*
+	 *  deprecated @since 2.6.9
 	'emulsion_header_template'							 => array(
 		'section'			 => 'emulsion_editor',
 		'default'			 => 'html',
@@ -52,6 +59,8 @@ $emulsion_theme_mod_args = array(
 			'default'	 => esc_html__( 'Depends on editor settings', 'emulsion' ),
 		),
 	),
+	*/
+
 	'emulsion_should_load_separate_core_block_assets'	 => array(
 		'section'			 => 'emulsion_editor',
 		'default'			 => 'disable',
@@ -388,6 +397,7 @@ if ( ! function_exists( 'emulsion_theme_customizer_style' ) ) {
 	function emulsion_theme_customizer_style() {
 
 		$css = <<< CSS
+
 .customize-control-notifications-container > ul,
 #customize-notifications-area > ul{
 	padding:.5rem;

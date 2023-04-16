@@ -6,8 +6,7 @@ include_once( get_theme_file_path( 'lib/hooks.php' ) );
 'fse' == emulsion_get_theme_operation_mode() ? include_once( get_theme_file_path( 'lib/functions-fse.php' ) ) : '';
 include_once( get_theme_file_path( 'lib/navigation-pagination.php' ) );
 include_once( get_theme_file_path( 'lib/relate-posts.php' ) );
-//include_once( get_theme_file_path( 'lib/customize.php' ) );
-//include_once( get_theme_file_path( 'lib/blocks.php' ) );
+
  ! empty( wp_get_nav_menu_name( 'social' ) ) ? include_once( get_theme_file_path( 'lib/icon.php' ) ) : '';
 
 emulsion_the_theme_supports( 'scheme' ) ? include_once( get_theme_file_path( 'scheme.php' ) ) : '';
@@ -73,6 +72,8 @@ if ( ! function_exists( 'emulsion_setup' ) ) {
 		do_action( 'emulsion_setup_pre' );
 
 		load_theme_textdomain( 'emulsion', get_template_directory() . '/languages' );
+
+		add_filter( 'theme_mod_emulsion__css_variables', 'emulsion_theme_variables' );
 
 		/**
 		 * TGMPA
@@ -287,7 +288,7 @@ if ( ! function_exists( 'emulsion_setup' ) ) {
 			} );
 		}
 
-		add_filter( 'render_block', 'emulsion_relate_posts_when_addons_inactive', 10, 2 );
+		//add_filter( 'render_block', 'emulsion_relate_posts_when_addons_inactive', 10, 2 );
 
 		do_action( 'emulsion_setup_after' );
 	}
@@ -496,13 +497,13 @@ function emulsion_register_scripts_and_styles() {
 		}
 
 		if ( false == wp_style_is( 'emulsion-fse-transitional' ) && 'transitional' == get_theme_mod( 'emulsion_editor_support' ) ) {
-
+			/*
 			wp_register_style( 'emulsion-fse-transitional', get_template_directory_uri() . '/css/fse-transitional.css', array(), $emulsion_current_data_version, 'all' );
 
 			wp_enqueue_style( 'emulsion-fse-transitional' );
 			$emulsion_style	 = function_exists( 'emulsion_custom_field_css' ) ? emulsion_custom_field_css( '' ) : '';
 			$emulsion_style	 .= emulsion_amp_background_helper();
-			wp_add_inline_style( 'emulsion-fse-transitional', $emulsion_style );
+			wp_add_inline_style( 'emulsion-fse-transitional', $emulsion_style );*/
 		}
 
 		return;
@@ -1188,6 +1189,7 @@ if ( ! function_exists( 'emulsion_body_background_class' ) ) {
 		$emulsion_background_color = true === emulsion_theme_addons_exists() ? emulsion_get_background_color() : sprintf( '#%1$s', get_background_color() );
 
 		$color = emulsion_accessible_color( $emulsion_background_color );
+
 		if ( '#ffffff' == $color ) {
 			$classes[] = 'is-dark';
 		} else {

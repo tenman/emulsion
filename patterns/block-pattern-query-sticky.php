@@ -26,7 +26,9 @@ $html = <<<HTML
 		<!-- wp:group {"tagName":"header","className":"post-header","layout":{"type":"constrained"}} -->
 		<header class="wp-block-group post-header">
 			<!-- wp:group {"className":"post-header-content","layout":{"type":"constrained"}} -->
-			<div class="wp-block-group post-header-content"><!-- wp:post-title {"isLink":true} /--></div>
+			<div class="wp-block-group post-header-content">
+				<!-- wp:post-title {"isLink":true,"linkTarget":"_self"} /-->
+			</div>
 		<!-- /wp:group -->
 		</header>
 		<!-- /wp:group -->

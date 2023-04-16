@@ -45,13 +45,6 @@ function emulsion_theme_admin_notice_fse() {
 	}
 }
 
-if ( 'theme' == emulsion_get_theme_operation_mode() ) {
-
-	// todo can't remove. can't hide with CSS because the message doesn't have a special class
-	//remove_action( 'admin_notices', 'gutenberg_full_site_editing_notice' );
-}
-
-
 /**
  * Fiters
  */
@@ -153,10 +146,13 @@ function emulsion_php_custom_template_names_callback( $template ) {
  * @return type
  */
 function emulsion_fse_exclude_body_class( $classes ) {
+	global $template;
+	if( 'html' == emulsion_get_template_type( $template ) ) {
+		$result = array_diff( $classes, array( 'custom-background', 'is-light', 'is-dark', 'scheme-midnight' ) );
+		return $result;
+	}
 
-	$result = array_diff( $classes, array( 'custom-background', 'is-light', 'is-dark', 'scheme-midnight' ) );
-
-	return $result;
+	return $classes;
 }
 
 /**
