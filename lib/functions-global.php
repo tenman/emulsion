@@ -894,7 +894,7 @@ if ( ! function_exists( 'emulsion_add_flex_container_classes' ) ) {
 
 		$used_layout = isset( $block['attrs']['layout'] ) ? $block['attrs']['layout'] : '';
 
-		if ( ! empty( $used_layout['type'] ) ) {
+		if ( ! empty( $used_layout['type'] ) && ! empty($default_layout["definitions"][$used_layout['type']]["className"]) ) {
 
 			$new_class = sanitize_html_class( $default_layout["definitions"][$used_layout['type']]["className"] );
 

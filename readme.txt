@@ -151,7 +151,7 @@ border-image.png
 
 ## Changelog
 ###  april 17 2023
-		* 2.6.9
+		* 2.7.0
         * https://github.com/tenman/emulsion/releases
 ###  march 30 2023
 		* 2.6.8
