@@ -40,8 +40,14 @@ if ( ! function_exists( 'emulsion_setup' ) ) {
 			has_filter( 'render_block', 'wp_render_layout_support_flag' ) ? remove_filter( 'render_block', 'wp_render_layout_support_flag' ) : '';
 
 			add_filter( 'render_block', 'emulsion_add_flex_container_classes', 10, 2 );
+			add_filter( 'render_block', 'emulsion_block_group_variation_classes', 10, 2 );
 			add_filter( 'render_block', 'emulsion_add_layout_classes', 10, 2 );
 			add_filter( 'render_block', 'emulsion_add_custom_gap', 10, 2 );
+		} else {
+			remove_filter( 'render_block', 'emulsion_add_flex_container_classes', 10, 2 );
+			remove_filter( 'render_block', 'emulsion_block_group_variation_classes', 10, 2 );
+			remove_filter( 'render_block', 'emulsion_add_layout_classes', 10, 2 );
+			remove_filter( 'render_block', 'emulsion_add_custom_gap', 10, 2 );
 		}
 
 		/**
@@ -622,6 +628,7 @@ if ( ! function_exists( 'emulsion_editor_color_scheme_correction' ) ) {
 				. '.wp-block-nextpage,.post-nav-links,'
 				. '.rich-header .custom-logo-link,.rich-header .wp-block-site-logo,'
 				. '.posted-on,'
+				. '.wp-block-site-tagline,'
 				. '.wp-block,.wp-block-buttons,.wp-block-table'
 				. '.wp-block-post-featured-image,.wp-block-post-excerpt,.wp-block-pullquote,'
 				. '.wp-block-image,.wp-block-post-navigation,'
@@ -632,6 +639,7 @@ if ( ! function_exists( 'emulsion_editor_color_scheme_correction' ) ) {
 				. '.wp-block-post-content:not(.specificity) > .wp-block-post-comments-link,'
 				. '.wp-block-post-content:not(.specificity) > .wp-block-post-author,'
 				. '.wp-block-post-content:not(.specificity) > .wp-block-post-date';
+
 
 		$selectors = str_replace( ',', ', .editor-styles-wrapper ', $selectors );
 		/*
@@ -650,6 +658,10 @@ if ( ! function_exists( 'emulsion_editor_color_scheme_correction' ) ) {
 		{$selectors}{
 		    box-sizing:border-box;
 			margin:1.5rem auto;
+		}
+		.editor-styles-wrapper p.wp-block-site-tagline:not(.specificity):not(.specificity){
+			margin:0;
+			width:auto;
 		}
 		.editor-styles-wrapper .wp-block-post-excerpt__excerpt{
 			display: -webkit-box;

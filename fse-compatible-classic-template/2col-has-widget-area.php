@@ -11,7 +11,9 @@
 
 global $template;
 
-emulsion_scheme_transitional_alert();
+if ( 'transitional' !== emulsion_get_theme_operation_mode()){
+	emulsion_scheme_transitional_alert();
+}
 
 if ( 'fse' !== emulsion_get_theme_operation_mode() && strstr( $template, '/fse-compatible-classic-template/' ) ) {
 

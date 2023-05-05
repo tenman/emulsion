@@ -7,7 +7,7 @@
 
 if ( true === emulsion_is_custom_post_type() && 'fse' == emulsion_get_theme_operation_mode() ) {
 
-	printf( '<footer class="alignfull footer-layer fse-footer banner wp-block-template-part-footer wp-block-template-part">
+	printf( '<footer class="alignfull footer-layer fse-footer banner  wp-block-template-part">
     <p class="has-text-align-center">%1$s %2$s %3$s <a href="%4$s" class="emulsion-privacy-policy">%5$s</a></p></footer>',
 			esc_html__( 'Copyright', 'emulsion' ),
 			absint( date('Y') ),

@@ -153,6 +153,8 @@ if ( ! function_exists( 'emulsion_setup' ) ) {
 			has_filter( 'render_block', 'wp_render_layout_support_flag' ) ? remove_filter( 'render_block', 'wp_render_layout_support_flag' ) : '';
 
 			add_filter( 'render_block', 'emulsion_add_flex_container_classes', 10, 2 );
+			add_filter( 'render_block', 'emulsion_block_group_variation_classes', 10, 2 );
+
 			add_filter( 'render_block', 'emulsion_add_layout_classes', 10, 2 );
 			add_filter( 'render_block', 'emulsion_add_custom_gap', 10, 2 );
 		}

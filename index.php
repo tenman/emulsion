@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Theme emulsion
  * fallback template file

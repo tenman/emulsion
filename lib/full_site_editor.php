@@ -101,11 +101,6 @@ if ( emulsion_do_fse() ) {
 
 			return $support;
 		}, 10, 2 );
-
-		/**
-		 * For meta information related font sizes, if necessary
-		 */
-		//add_filter( 'emulsion_widget_meta_font_css_pre', '__return_empty_string');
 	}
 
 	/**

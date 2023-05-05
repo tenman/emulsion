@@ -424,7 +424,7 @@ if ( ! function_exists( 'emulsion_body_class' ) ) {
 
 
 
-		$classes[] = sanitize_html_class( 'is-presentation-' . get_theme_mod( 'emulsion_editor_support', 'theme' ) );
+		$classes[] = sanitize_html_class( 'is-presentation-' . get_theme_mod( 'emulsion_editor_support', 'fse' ) );
 
 		// current template
 

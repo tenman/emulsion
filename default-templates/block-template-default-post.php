@@ -101,8 +101,8 @@ $html = <<<HTML
 </nav>
 <!-- /wp:group -->
 
-<!-- wp:group {"tagName":"footer","className":"alignfull footer-layer fse-footer banner wp-block-template-part-footer wp-block-template-part"} -->
-<footer class="wp-block-group alignfull footer-layer fse-footer banner wp-block-template-part-footer wp-block-template-part">
+<!-- wp:group {"tagName":"footer","className":"alignfull footer-layer fse-footer banner  wp-block-template-part"} -->
+<footer class="wp-block-group alignfull footer-layer fse-footer banner  wp-block-template-part">
 	<!-- wp:paragraph {"align":"center"} -->
 	<p class="has-text-align-center">Copyright © %current_year% Site proudly powered by WordPress %privacy_policy%</p>
 	<!-- /wp:paragraph -->
