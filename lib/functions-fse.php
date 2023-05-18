@@ -692,6 +692,30 @@ if ( ! function_exists( 'emulsion_editor_color_scheme_correction' ) ) {
 		.editor-styles-wrapper .rich-header .wp-block-site-title{
 			font-size: clamp(var(--wp--preset--font-size--extra-large), calc(100vw / 72 * 3), var(--wp--preset--font-size--huge));
 		}
+		.editor-styles-wrapper .edit-site-style-book__example-title{
+			white-space:pre;
+		}
+		.editor-styles-wrapper .fse-footer{
+			min-height: var(--wp--custom--min-height--eighth, 12.5vh);
+			width:100%;
+			margin:0 auto;
+			-webkit-box-sizing: border-box;
+			box-sizing: border-box;
+			display: -webkit-box;
+			display: -ms-flexbox;
+			display: flex;
+			-ms-flex-direction: column;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			-webkit-box-pack: center;
+			-webkit-box-align: center;
+			-ms-flex-align: center;
+			-ms-flex-pack: center;
+		}
+		.editor-styles-wrapper .fse-header{
+			width:100%;
+		}
 
 STYLE;
 

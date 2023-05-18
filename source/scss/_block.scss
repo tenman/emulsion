@@ -803,10 +803,11 @@ ul{
     }
 
     li{
-        &[data-block]{ //block editor
-                       & > [role="textbox"]{
-                           display:inline-block;
-                       }
+        &[data-block]{
+            //block editor
+            & > [role="textbox"]{
+                display:inline-block;
+            }
         }
         padding:.75rem;
     }
@@ -1136,14 +1137,30 @@ td,
 .is-fse-bg-var--wp--preset--gradient--midnight{
     background: var(--wp--preset--gradient--midnight);
 }
-.is-fse-bg-var--wp--preset--duotone--dark-grayscale{ background: url('#wp-duotone-dark-grayscale');}
-.is-fse-bg-var--wp--preset--duotone--grayscale{ background: url('#wp-duotone-grayscale');}
-.is-fse-bg-var--wp--preset--duotone--purple-yellow{ background: url('#wp-duotone-purple-yellow');}
-.is-fse-bg-var--wp--preset--duotone--blue-red{ background: url('#wp-duotone-blue-red');}
-.is-fse-bg-var--wp--preset--duotone--midnight{ background: url('#wp-duotone-midnight');}
-.is-fse-bg-var--wp--preset--duotone--magenta-yellow{ background: url('#wp-duotone-magenta-yellow');}
-.is-fse-bg-var--wp--preset--duotone--purple-green{ background: url('#wp-duotone-purple-green');}
-.is-fse-bg-var--wp--preset--duotone--blue-orange{ background: url('#wp-duotone-blue-orange');}
+.is-fse-bg-var--wp--preset--duotone--dark-grayscale{
+    background: url('#wp-duotone-dark-grayscale');
+}
+.is-fse-bg-var--wp--preset--duotone--grayscale{
+    background: url('#wp-duotone-grayscale');
+}
+.is-fse-bg-var--wp--preset--duotone--purple-yellow{
+    background: url('#wp-duotone-purple-yellow');
+}
+.is-fse-bg-var--wp--preset--duotone--blue-red{
+    background: url('#wp-duotone-blue-red');
+}
+.is-fse-bg-var--wp--preset--duotone--midnight{
+    background: url('#wp-duotone-midnight');
+}
+.is-fse-bg-var--wp--preset--duotone--magenta-yellow{
+    background: url('#wp-duotone-magenta-yellow');
+}
+.is-fse-bg-var--wp--preset--duotone--purple-green{
+    background: url('#wp-duotone-purple-green');
+}
+.is-fse-bg-var--wp--preset--duotone--blue-orange{
+    background: url('#wp-duotone-blue-orange');
+}
 /**
  * Core over write
  * site editor layout issue
@@ -1172,11 +1189,6 @@ nav.has-black-background-color:not(#specificity){
 
     &.is-fse-light,
     &.fse-scheme-default{
-        //color:var(--wp--preset--color--black);
-        a{
-            // color:var(--wp--preset--color--primary);
-            //text-decoration-color:var(--wp--custom--border--common,1px solid #ccc);
-        }
         a:focus,
             a:hover{
             color:var(--wp--preset--color--secondary);
@@ -1198,11 +1210,6 @@ nav.has-black-background-color:not(#specificity){
                 }
             }
         }
-        .relate-post-no-icon{
-            //  background: var(--wp--preset--color--white);
-            // border: var(--wp--custom--border--common,1px solid #ccc);
-        }
-
         .wp-block-comments-pagination-next,
         .wp-block-comments-pagination-previous,
         .wp-block-comments-pagination-numbers a,
@@ -2021,7 +2028,7 @@ nav.has-black-background-color:not(#specificity){
     }
 }
 .emulsion{
-   // .wp-block-template-part-header-rich{
+    // .wp-block-template-part-header-rich{
     .wp-block-template-part{
         .wp-block-cover{
             margin-top:0;
@@ -2285,7 +2292,7 @@ nav.has-black-background-color:not(#specificity){
     }
 
     //.wp-block-template-part-header-rich{
-     .rich-header{
+    .rich-header{
         .wp-block-site-logo{
             width:-moz-fit-content;
             width:fit-content;
@@ -4815,7 +4822,7 @@ pre.wp-block-code.has-background code{
 
 
 .is-root-container{
-   // .wp-block-template-part-header-rich{
+    // .wp-block-template-part-header-rich{
     .rich-header{
         .wp-block-site-logo{
             width:-moz-fit-content;
@@ -5421,7 +5428,8 @@ ul.wp-block-social-links{
  */
 @for $i from 2 through 10 {
     .emulsion figure.wp-block-gallery.columns-#{$i}.has-nested-images figure.wp-block-image:not(#specificity){
-        width: calc( 99.9% / #{$i} - var(--wp--custom--margin--gap, 3px) * 2);// 99.9% for edge lauout broken when figcaption scroll
+        width: calc( 99.9% / #{$i} - var(--wp--custom--margin--gap, 3px) * 2);
+        // 99.9% for edge lauout broken when figcaption scroll
         padding:0;
     }
     /**
@@ -6454,8 +6462,8 @@ $spacings: 40,50,60,70;
          * name: core/details
  */
 .emulsion .wp-block-details{
-     margin:1.5rem auto;
-     &.has-background{
-         padding:0;
-     }
+    margin:1.5rem auto;
+    &.has-background{
+        padding:0;
+    }
 }

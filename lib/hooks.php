@@ -87,33 +87,7 @@ function emulsion_hooks_setup() {
 		}
 
 	}
-	/**
-	 * PWA
-	 * https://wordpress.org/plugins/pwa/
-	 * required : customize / site icon
-	 */
-	if ( defined( 'PWA_VERSION' ) ) {
 
-		add_filter( 'web_app_manifest', 'emulsion_manifest' );
-
-		function emulsion_manifest( $manifest ) {
-
-			if ( ! empty( $manifest['name'] ) && empty( $manifest['short_name'] ) ) {
-
-				$manifest['short_name'] = mb_strimwidth( $manifest['name'], 0, 13 );
-			}
-			if ( ! empty( $manifest['icons'] ) ) {
-
-				foreach ( $manifest['icons'] as $key => $icon ) {
-
-					$manifest['icons'][$key]["purpose"] = "any maskable";
-				}
-			}
-
-			return $manifest;
-		}
-
-	}
 	// fse or transitional
 
 	if ( 'theme' !== emulsion_get_theme_operation_mode() ) {
