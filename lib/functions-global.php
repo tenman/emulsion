@@ -1733,6 +1733,7 @@ if ( ! function_exists( 'emulsion_block_template_part' ) ) {
 			$theme_classes	 = apply_filters( 'wp-block-template-part-' . $template_part->slug, $theme_classes );
 			$theme_classes	 = emulsion_class_name_sanitize( $theme_classes );
 
+
 			printf( '<%1$s class="%3$s">%2$s</%1$s>', $tag_name, do_blocks( $template_part->content ), $theme_classes );
 
 			return;
