@@ -37,6 +37,7 @@ STYLE;
 		$css .= emulsion_add_narrow_align_css();
 		$css .= emulsion_add_misc_css();
 		$css .= emulsion_editor_color_scheme_correction();
+		$css .= emulsion_editor_post_header_correction();
 
 		$css .= <<<STYLE
 
@@ -102,3 +103,6 @@ STYLE;
 }
 
 add_action( 'enqueue_block_editor_assets', 'emulsion_block_editor_assets' );
+
+
+		

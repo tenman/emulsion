@@ -781,15 +781,16 @@ if ( ! function_exists( 'emulsion_add_flex_container_classes' ) ) {
 	function emulsion_block_group_variation_classes( $block_content, $block ) {
 
 		$block_name		 = 'wp-block-' . substr( strrchr( $block['blockName'], "/" ), 1 );
-		$transient_name	 = __FUNCTION__;
-		$transient		 = get_transient( $transient_name );
-
-		if ( ! is_user_logged_in() && false !== $transient && ! empty( $tramsoemt ) ) {
-
-			return $transient;
-		}
+		$transient_name	 = md5(serialize($block));
 
 		if ( 'wp-block-group' == $block_name ) {
+
+			$transient		 = get_transient( $transient_name );
+
+			if ( ! is_user_logged_in() && false !== $transient && ! empty( $tramsoemt ) ) {
+
+				return $transient;
+			}
 
 			if ( ! empty( $block['attrs']['layout']["flexWrap"] ) && 'nowrap' == $block['attrs']['layout']["flexWrap"] ) {
 
@@ -879,18 +880,22 @@ if ( ! function_exists( 'emulsion_add_flex_container_classes' ) ) {
 				$p->set_attribute( 'style', 'grid-template-columns: repeat(auto-fill, minmax(min(' . $style_value . ' , 100%), 1fr));' );
 				$block_content	 = $p->get_updated_html();
 			}
+
+			set_transient( $transient_name, trim( $block_content ), DAY_IN_SECONDS );
 		}
-		set_transient( $transient_name, trim( $block_content ), DAY_IN_SECONDS );
+
 
 		return $block_content;
 	}
 
 }
+
+
 if ( ! function_exists( 'emulsion_add_flex_container_classes' ) ) {
 
 	function emulsion_add_flex_container_classes( $block_content, $block ) {
 
-		$transient_name	 = __FUNCTION__;
+		$transient_name	 = md5(serialize($block));
 		$transient		 = get_transient( $transient_name );
 
 		if ( ! is_user_logged_in() && false !== $transient && ! empty( $tramsoemt ) ) {
@@ -1473,11 +1478,8 @@ if ( ! function_exists( 'emulsion_theme_google_tracking_code' ) ) {
 
 			return;
 		}
-
 		$tag	 = sanitize_text_field( get_theme_mod( 'emulsion_google_analytics_tracking_code' ) );
-		$flag	 = get_theme_mod( 'emulsion_instantclick', emulsion_the_theme_supports( 'instantclick' ) ) ? 'enable' : 'disable';
-
-		$theme_mod_name = 'emulsion_google_analytics_' . $tag . $flag;
+		$theme_mod_name = 'emulsion_google_analytics_' . $tag;
 
 		if ( $result = get_theme_mod( $theme_mod_name, false ) ) {
 
@@ -1485,7 +1487,6 @@ if ( ! function_exists( 'emulsion_theme_google_tracking_code' ) ) {
 			return;
 		}
 	}
-
 }
 
 if ( ! function_exists( 'emulsion_oembed_object_wrapper' ) ) {
