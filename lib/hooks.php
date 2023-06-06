@@ -436,7 +436,7 @@ if ( ! function_exists( 'emulsion_skip_link' ) ) {
 	}
 
 }
-
+if ( ! function_exists( 'emulsion_archive_title_filter' ) ) {
 function emulsion_archive_title_filter( $title ) {
 
 	if ( has_filter( 'get_the_archive_title_prefix' ) || has_filter( 'get_the_archive_title_prefix' ) ) {
@@ -453,6 +453,7 @@ function emulsion_archive_title_filter( $title ) {
 		return sprintf( $html, $archive_title, $archive_name );
 	}
 	return $title;
+}
 }
 
 if ( ! function_exists( 'emulsion_entry_content_filter' ) ) {

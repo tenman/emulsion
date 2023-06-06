@@ -22,45 +22,6 @@ $emulsion_theme_mod_args = array(
 			'theme'			 => esc_html__( 'Classic Theme', 'emulsion' ),
 		),
 	),
-	/*
-	 * deprecated @since 2.6.9
-	    'emulsion_scheme'									 => array(
-		'section'			 => 'emulsion_scheme',
-		'default'			 => 'default',
-		'label'				 => esc_html__( 'Radio Icon Control', 'emulsion' ),
-		'description'		 => esc_html__( 'Plugins activate more detailed settings such as fonts and sidebar colors.', 'emulsion' ),
-		'sanitize_callback'	 => 'emulsion_scheme_validate',
-		'type'				 => 'emulsionImageRadio',
-	),
-	 */
-	/*
-	 *  deprecated @since 2.6.9
-	'emulsion_header_template'							 => array(
-		'section'			 => 'emulsion_editor',
-		'default'			 => 'html',
-		'label'				 => esc_html__( 'Header Template', 'emulsion' ),
-		'description'		 => esc_html__( 'Select header template. If you select html, it will be displayed in the new html template in all editor settings.', 'emulsion' ),
-		'sanitize_callback'	 => 'emulsion_header_template_validate',
-		'type'				 => 'radio',
-		'choices'			 => array(
-			'html'		 => esc_html__( 'HTML Template', 'emulsion' ),
-			'default'	 => esc_html__( 'Depends on editor settings', 'emulsion' ),
-		),
-	),
-	'emulsion_footer_template'							 => array(
-		'section'			 => 'emulsion_editor',
-		'default'			 => 'html',
-		'label'				 => esc_html__( 'Footer Template', 'emulsion' ),
-		'description'		 => esc_html__( 'Select footer template. If you select html, it will be displayed in the new html template in all editor settings.', 'emulsion' ),
-		'sanitize_callback'	 => 'emulsion_footer_template_validate',
-		'type'				 => 'radio',
-		'choices'			 => array(
-			'html'		 => esc_html__( 'HTML Template', 'emulsion' ),
-			'default'	 => esc_html__( 'Depends on editor settings', 'emulsion' ),
-		),
-	),
-	*/
-
 	'emulsion_should_load_separate_core_block_assets'	 => array(
 		'section'			 => 'emulsion_editor',
 		'default'			 => 'disable',
@@ -184,34 +145,6 @@ if ( ! function_exists( 'emulsion_customize_register' ) ) {
 			'choices'		 => $emulsion_theme_mod_args['emulsion_editor_support']['choices'],
 		) );
 
-		$wp_customize->add_setting( 'emulsion_header_template', array(
-			'default'			 => $emulsion_theme_mod_args['emulsion_header_template']['default'],
-			'sanitize_callback'	 => $emulsion_theme_mod_args['emulsion_header_template']['sanitize_callback'],
-		) );
-
-		$wp_customize->add_control( 'emulsion_header_template', array(
-			'settings'		 => 'emulsion_header_template',
-			'section'		 => $emulsion_theme_mod_args['emulsion_header_template']['section'],
-			'label'			 => $emulsion_theme_mod_args['emulsion_header_template']['label'],
-			'description'	 => $emulsion_theme_mod_args['emulsion_header_template']['description'],
-			'type'			 => $emulsion_theme_mod_args['emulsion_header_template']['type'],
-			'choices'		 => $emulsion_theme_mod_args['emulsion_header_template']['choices'],
-		) );
-
-		$wp_customize->add_setting( 'emulsion_footer_template', array(
-			'default'			 => $emulsion_theme_mod_args['emulsion_footer_template']['default'],
-			'sanitize_callback'	 => $emulsion_theme_mod_args['emulsion_footer_template']['sanitize_callback'],
-		) );
-
-		$wp_customize->add_control( 'emulsion_footer_template', array(
-			'settings'		 => 'emulsion_footer_template',
-			'section'		 => $emulsion_theme_mod_args['emulsion_footer_template']['section'],
-			'label'			 => $emulsion_theme_mod_args['emulsion_footer_template']['label'],
-			'description'	 => $emulsion_theme_mod_args['emulsion_footer_template']['description'],
-			'type'			 => $emulsion_theme_mod_args['emulsion_footer_template']['type'],
-			'choices'		 => $emulsion_theme_mod_args['emulsion_footer_template']['choices'],
-		) );
-		//////////////////////
 		$wp_customize->add_setting( 'emulsion_should_load_separate_core_block_assets', array(
 			'default'			 => $emulsion_theme_mod_args['emulsion_should_load_separate_core_block_assets']['default'],
 			'sanitize_callback'	 => $emulsion_theme_mod_args['emulsion_should_load_separate_core_block_assets']['sanitize_callback'],
@@ -546,25 +479,6 @@ CSS3;
 CSS4;
 
 		}
-
-		if ( 'default' !== get_theme_mod( 'emulsion_header_template' ) ) {
-			$css .= <<<CSS5
-			#accordion-panel-nav_menus,
-			#accordion-panel-emulsion_theme_settings_layout_panel,
-			#accordion-section-background_image,
-			#accordion-section-header_image,
-			#accordion-panel-emulsion_theme_settings_post_panel,
-			#accordion-panel-emulsion_theme_settings_fonts_panel,
-			#accordion-panel-emulsion_theme_settings_border_panel,
-			#accordion-section-colors{
-				display:none !important;
-			}
-
-CSS5;
-
-		}
-
-
 		wp_add_inline_style( 'customize-controls', $css );
 	}
 
@@ -655,20 +569,6 @@ function emulsion_editor_support_validate( $input ) {
 
 	return $default_value;
 }
-/*
-function emulsion_color_control_validate( $input ) {
-
-	$values			 = array( 'fse', 'theme' );
-	$default_value	 = 'theme';
-
-	if ( in_array( $input, $values ) ) {
-
-		return $input;
-	}
-
-	return $default_value;
-}
- */
 
 function emulsion_render_elements_support_validate( $input ) {
 	global $emulsion_theme_mod_args;
@@ -758,37 +658,6 @@ function emulsion_should_load_separate_core_block_assets_validate( $input ) {
 
 		return $input;
 	}
-	return $default_value;
-}
-
-function emulsion_header_template_validate( $input ) {
-	global $emulsion_theme_mod_args;
-	$values			 = array( 'html', 'default' );
-	$default_value	 = in_array( $emulsion_theme_mod_args['emulsion_header_template']['default'], $values )
-			? $emulsion_theme_mod_args['emulsion_header_template']['default']
-			: 'default';
-
-	if ( in_array( $input, $values ) ) {
-
-		return $input;
-	}
-
-	return $default_value;
-}
-
-function emulsion_footer_template_validate( $input ) {
-	global $emulsion_theme_mod_args;
-
-	$values			 = array( 'html', 'default' );
-	$default_value	 = in_array( $emulsion_theme_mod_args['emulsion_footer_template']['default'], $values )
-			? $emulsion_theme_mod_args['emulsion_footer_template']['default']
-			: 'default';
-
-	if ( in_array( $input, $values ) ) {
-
-		return $input;
-	}
-
 	return $default_value;
 }
 

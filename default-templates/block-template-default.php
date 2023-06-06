@@ -49,9 +49,9 @@ $html = <<<HTML
 
     <!-- wp:post-content { "align":"full", "layout":{"type":"constrained"}} /-->
 
-<!-- wp:group {"align":"full","className":"post-footer wp-block-template-part-post-footer wp-block-template-part","layout":{"type":"constrained"}} -->
-<div class="wp-block-group alignfull post-footer wp-block-template-part-post-footer wp-block-template-partd"><!-- wp:comments {"className":"wp-block-comments-query-loop comment-wrapper"} -->
-<div class="wp-block-comments wp-block-comments-query-loop comment-wrapper"><!-- wp:comments-title /-->
+<!-- wp:group {"align":"full","className":"post-footer wp-block-template-part-post-footer wp-block-template-part"} -->
+<div class="wp-block-group alignfull post-footer wp-block-template-part-post-footer wp-block-template-partd"><!-- wp:comments {"className":"wp-block-comments-query-loop comment-wrapper","layout":{"type":"constrained"}} -->
+<div class="wp-block-comments wp-block-comments-query-loop comment-wrapper is-layout-constrained"><!-- wp:comments-title /-->
 
 <!-- wp:comment-template -->
 <!-- wp:columns -->

@@ -1999,7 +1999,7 @@ if ( ! function_exists( 'emulsion_style_variation_grid_filter' ) ) {
 
 		$block_name = 'wp-block-' . substr( strrchr( $block['blockName'], "/" ), 1 );
 
-		if ( 'grid' == emulsion_get_css_variables_value( '--wp--custom--color--scheme' ) && false !== strstr( $block['attrs']['className'], 'main-query' ) && false == strstr( $block['attrs']['className'], 'is-layout-flex' ) ) {
+		if ( ! empty($block['attrs']['className']) && 'grid' == emulsion_get_css_variables_value( '--wp--custom--color--scheme' ) && false !== strstr( $block['attrs']['className'], 'main-query' ) && false == strstr( $block['attrs']['className'], 'is-layout-flex' ) ) {
 
 			$p = new WP_HTML_Tag_Processor( $block_content );
 			$p->next_tag( 'ul' );
