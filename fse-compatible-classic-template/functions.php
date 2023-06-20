@@ -60,7 +60,7 @@ if ( ! function_exists( 'emulsion_classic' ) ) {
 			}
 
 			wp_enqueue_style( 'emulsion-classic' );
-			
+
 		}
 
 		if ( is_child_theme() ) {
@@ -121,6 +121,8 @@ if ( ! function_exists( 'emulsion_fse_compatible_classic_template_widgets_init' 
 				)
 		);
 
+
+
 	}
 
 }
@@ -162,7 +164,7 @@ if ( ! function_exists( 'emulsion_compatible_classic_template_include' ) ) {
 
 			add_filter( 'body_class', function ( $classes ) use ( $classic_template ) {
 
-				$classes[] = esc_attr( 'fse-conpatible-template-' . str_replace( '.', '-', basename( $classic_template ) ) );
+				$classes[] = esc_attr( 'fse-compatible-template-' . str_replace( '.', '-', basename( $classic_template ) ) );
 				return $classes;
 			} );
 

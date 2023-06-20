@@ -43,11 +43,13 @@ if ( ! function_exists( 'emulsion_setup' ) ) {
 			add_filter( 'render_block', 'emulsion_block_group_variation_classes', 10, 2 );
 			add_filter( 'render_block', 'emulsion_add_layout_classes', 10, 2 );
 			add_filter( 'render_block', 'emulsion_add_custom_gap', 10, 2 );
+			add_filter( 'render_block', 'emulsion_add_spacing', 10, 2 );
 		} else {
 			remove_filter( 'render_block', 'emulsion_add_flex_container_classes', 10, 2 );
 			remove_filter( 'render_block', 'emulsion_block_group_variation_classes', 10, 2 );
 			remove_filter( 'render_block', 'emulsion_add_layout_classes', 10, 2 );
 			remove_filter( 'render_block', 'emulsion_add_custom_gap', 10, 2 );
+			remove_filter( 'render_block', 'emulsion_add_spacing', 10, 2 );
 		}
 
 		/**
@@ -349,7 +351,15 @@ function emulsion_fse_admin_body_class( $classes ) {
 
 	$classes .= ' emulsion';
 	$classes .= ' ' . emulsion_fse_background_color_class();
+	$classes .= ' is-presentation-fse';
 
+	if ( isset( $_GET['postId'] ) ) {
+		
+		$template = get_post_meta( absint( $_GET['postId'] ), '_wp_page_template', true );
+		if ( strstr( $template, '.php' ) ) {
+			$classes .= ' is-php-template';
+		}
+	}
 	return $classes;
 }
 
@@ -615,9 +625,11 @@ function emulsion_add_misc_css() {
 STYLE;
 	return $css;
 }
+
 if ( ! function_exists( 'emulsion_editor_post_header_correction' ) ) {
-	function emulsion_editor_post_header_correction(){
-		$css =<<<STYLE
+
+	function emulsion_editor_post_header_correction() {
+		$css = <<<STYLE
 		.editor-styles-wrapper  .post-header-content{
 
 		}
@@ -648,6 +660,7 @@ if ( ! function_exists( 'emulsion_editor_post_header_correction' ) ) {
 STYLE;
 		return $css;
 	}
+
 }
 if ( ! function_exists( 'emulsion_editor_color_scheme_correction' ) ) {
 
@@ -673,18 +686,16 @@ if ( ! function_exists( 'emulsion_editor_color_scheme_correction' ) ) {
 				. '.wp-block-post-content:not(.specificity) > .wp-block-post-author,'
 				. '.wp-block-post-content:not(.specificity) > .wp-block-post-date';
 
-
 		$selectors = str_replace( ',', ', .editor-styles-wrapper ', $selectors );
 
 		/**
 		 * @since 2.7.5 Correction style removal
 		 *
-		 {$selectors}{
-		    box-sizing:border-box;
-			margin:1.5rem auto;
-		}
+		  {$selectors}{
+		  box-sizing:border-box;
+		  margin:1.5rem auto;
+		  }
 		 */
-
 		$css = <<<STYLE
 
 
@@ -750,6 +761,9 @@ if ( ! function_exists( 'emulsion_editor_color_scheme_correction' ) ) {
 			margin:0;
 			width:-moz-fit-content;
 			width:fit-content;
+		}
+		body.editor-styles-wrapper .rich-header .wp-block-site-logo{
+			margin:0 auto;
 		}
 		.editor-styles-wrapper:where(body) .wp-block.wp-block-query,
 		.editor-styles-wrapper:where(body) .wp-block.main-query{

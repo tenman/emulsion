@@ -41,5 +41,10 @@ document.addEventListener('DOMContentLoaded', function (event) {
         label: 'Flow Layout',
         isDefault: false
     });
+    wp.blocks.registerBlockStyle('core/post-template', {
+        name: 'layout-flow',
+        label: 'Flow Layout',
+        isDefault: false
+    });
 
 });

@@ -409,7 +409,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
         )
     }
-    
+
+
+/**
     if (body.classList.contains('widgets-php') && body.classList.contains('is-presentation-fse')) {
         window.wp.data.dispatch('core/notices').createNotice(
                 'warning',
@@ -425,5 +427,5 @@ document.addEventListener("DOMContentLoaded", function () {
                     ],
                 }
         )
-    }
+    }*/
 });

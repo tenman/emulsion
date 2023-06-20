@@ -781,11 +781,11 @@ if ( ! function_exists( 'emulsion_add_flex_container_classes' ) ) {
 	function emulsion_block_group_variation_classes( $block_content, $block ) {
 
 		$block_name		 = 'wp-block-' . substr( strrchr( $block['blockName'], "/" ), 1 );
-		$transient_name	 = md5(serialize($block));
+		$transient_name	 = md5( serialize( $block ) );
 
 		if ( 'wp-block-group' == $block_name ) {
 
-			$transient		 = get_transient( $transient_name );
+			$transient = get_transient( $transient_name );
 
 			if ( ! is_user_logged_in() && false !== $transient && ! empty( $tramsoemt ) ) {
 
@@ -895,7 +895,7 @@ if ( ! function_exists( 'emulsion_add_flex_container_classes' ) ) {
 
 	function emulsion_add_flex_container_classes( $block_content, $block ) {
 
-		$transient_name	 = md5(serialize($block));
+		$transient_name	 = md5( serialize( $block ) );
 		$transient		 = get_transient( $transient_name );
 
 		if ( ! is_user_logged_in() && false !== $transient && ! empty( $tramsoemt ) ) {
@@ -904,7 +904,7 @@ if ( ! function_exists( 'emulsion_add_flex_container_classes' ) ) {
 		}
 		$block_name		 = 'wp-block-' . substr( strrchr( $block['blockName'], "/" ), 1 );
 		// pending: , 'wp-block-query'
-		$target_blocks	 = array( 'wp-block-gallery', 'wp-block-columns', 'wp-block-group', 'wp-block-post-content', 'wp-block-query-pagination', 'wp-block-buttons' );
+		$target_blocks	 = array( 'wp-block-gallery', 'wp-block-columns', 'wp-block-group', 'wp-block-post-content', 'wp-block-query-pagination', 'wp-block-buttons', 'wp-block-social-links', 'wp-block-post-template' );
 
 		$default_layout = wp_get_global_settings( array( 'layout' ) );
 
@@ -919,6 +919,41 @@ if ( ! function_exists( 'emulsion_add_flex_container_classes' ) ) {
 			$block['attrs']['layout']['type'] = 'flex';
 		}
 
+		$used_layout = isset( $block['attrs']['layout'] ) ? $block['attrs']['layout'] : '';
+
+		if ( ! empty( $used_layout['type'] ) && 'grid' == $used_layout['type'] ) {
+			//wp-block-post-template
+
+			$layout_type = $used_layout['type'];
+
+			$column_count = isset( $used_layout['columnCount'] ) ? $used_layout['columnCount'] : '';
+
+			$gap_value = isset( $block['attrs']['style']['spacing']["blockGap"] ) ? $block['attrs']['style']['spacing']["blockGap"] : '';
+
+			$block_gap_css_variable = ! empty( $gap_value ) ? 'gap:' . emulsion_style_attribute_variables_fix( $gap_value ) . ';' : '';
+
+			preg_match( '$(<[^>]+>)$', $block_content, $target );
+
+			if ( ! empty( $block_gap_css_variable ) ) {
+
+				if ( false !== strpos( $target[0], 'style="' ) ) {
+
+					$new_element = str_replace( ' style="', ' style="' . $block_gap_css_variable, $target[0] );
+				} else {
+
+					$new_element = str_replace( '>', ' style="' . $block_gap_css_variable . '">', $target[0] );
+				}
+
+				$block_content = str_replace( $target[0], $new_element, $block_content );
+			}
+
+			$new_class		 = array(
+				! empty( $layout_type ) ? sanitize_html_class( 'is-layout-' . $layout_type ) : '',
+				! empty( $layout_type ) ? 'is-flex-container' : '',
+				! empty( $column_count ) ? sanitize_html_class( 'columns-' . $column_count ) : ''
+			);
+			$block_content	 = emulsion_add_class( $block_content, $block_name, $new_class );
+		}
 
 		$used_layout = isset( $block['attrs']['layout'] ) ? $block['attrs']['layout'] : '';
 
@@ -950,7 +985,6 @@ if ( ! function_exists( 'emulsion_add_flex_container_classes' ) ) {
 				$layout_type,
 				! empty( $block['attrs']['layout']['justifyContent'] ) ? sanitize_html_class( 'is-content-justification-' . $block['attrs']['layout']['justifyContent'] ) : '',
 				! empty( $used_layout['orientation'] ) ? sanitize_html_class( 'is-' . $used_layout['orientation'] ) : '',
-					//! empty( 'wrap' == $block['attrs']['layout']['flexWrap'] ) ? 'wrap' : '',
 			);
 
 			$block_content = emulsion_add_class( $block_content, $block_name, $new_class );
@@ -1058,6 +1092,56 @@ if ( ! function_exists( 'emulsion_style_attribute_variables_fix' ) ) {
 			'|'		 => '--'
 		);
 		return strtr( $attrbute_value, $changes ) . ')';
+	}
+
+}
+if ( ! function_exists( 'emulsion_add_spacing' ) ) {
+
+	function emulsion_add_spacing( $block_content, $block ) {
+
+		//wp-block-group.is-layout-grid
+
+		$target_blocks	 = array( 'wp-block-group' );
+		$tatget_type	 = array( 'grid' );
+
+		$block_name		 = 'wp-block-' . substr( strrchr( $block['blockName'], "/" ), 1 );
+		$margin_top		 = isset( $block['attrs']['style']['spacing']['margin']['top'] ) ? emulsion_style_attribute_variables_fix( $block['attrs']['style']['spacing']['margin']['top'] ) : '';
+		$margin_property = ! empty( $margin_top ) ? 'margin-top:' . $margin_top . ';' : '';
+		$margin_right	 = isset( $block['attrs']['style']['spacing']['margin']['right'] ) ? emulsion_style_attribute_variables_fix( $block['attrs']['style']['spacing']['margin']['right'] ) : '';
+		$margin_property .= ! empty( $margin_right ) ? 'margin-top:' . $margin_right . ';' : '';
+		$margin_bottom	 = isset( $block['attrs']['style']['spacing']['margin']['bottom'] ) ? emulsion_style_attribute_variables_fix( $block['attrs']['style']['spacing']['margin']['bottom'] ) : '';
+		$margin_property .= ! empty( $margin_bottom ) ? 'margin-bottom:' . $margin_bottom . ';' : '';
+		$margin_left	 = isset( $block['attrs']['style']['spacing']['margin']['left'] ) ? emulsion_style_attribute_variables_fix( $block['attrs']['style']['spacing']['margin']['left'] ) : '';
+		$margin_property .= ! empty( $margin_left ) ? 'margin-left:' . $margin_left . ';' : '';
+
+		$padding_top		 = isset( $block['attrs']['style']['spacing']['padding']['top'] ) ? emulsion_style_attribute_variables_fix( $block['attrs']['style']['spacing']['padding']['top'] ) : '';
+		$padding_property	 = ! empty( $padding_top ) ? 'padding-top:' . $padding_top . ';' : '';
+		$padding_right		 = isset( $block['attrs']['style']['spacing']['padding']['right'] ) ? emulsion_style_attribute_variables_fix( $block['attrs']['style']['spacing']['padding']['right'] ) : '';
+		$padding_property	 .= ! empty( $padding_right ) ? 'padding-right:' . $padding_right . ';' : '';
+		$padding_bottom		 = isset( $block['attrs']['style']['spacing']['padding']['bottom'] ) ? emulsion_style_attribute_variables_fix( $block['attrs']['style']['spacing']['padding']['bottom'] ) : '';
+		$padding_property	 .= ! empty( $padding_bottom ) ? 'padding-bottom:' . $padding_bottom . ';' : '';
+		$padding_left		 = isset( $block['attrs']['style']['spacing']['padding']['left'] ) ? emulsion_style_attribute_variables_fix( $block['attrs']['style']['spacing']['padding']['left'] ) : '';
+		$padding_property	 .= ! empty( $padding_left ) ? 'padding-left:' . $padding_left . ';' : '';
+
+		$spacing_property = $margin_property . $padding_property;
+
+		if ( in_array( $block_name, $target_blocks ) && ! empty( $spacing_property ) && in_array( $block['attrs']['layout']['type'], $tatget_type ) ) {
+
+			preg_match( '$(<[^>]+>)$', $block_content, $target );
+
+			if ( false !== strpos( $target[0], 'style="' ) ) {
+
+				$new_element = str_replace( ' style="',
+						' style="' . $spacing_property,
+						$target[0] );
+			} else {
+				$new_element = str_replace( '>', 'style="' . $spacing_property . '">', $target[0] );
+			}
+
+			$block_content = str_replace( $target[0], $new_element, $block_content );
+		}
+
+		return $block_content;
 	}
 
 }
@@ -1245,8 +1329,7 @@ if ( ! function_exists( 'emulsion_block_editor_assets' ) ) {
 				wp_add_inline_style( 'emulsion-fse', $inline_style );
 			}
 
-			wp_enqueue_script( 'emulsion-block-fse', esc_url( get_template_directory_uri() . '/js/block-fse.js' ), array( 'wp-blocks') );
-
+			wp_enqueue_script( 'emulsion-block-fse', esc_url( get_template_directory_uri() . '/js/block-fse.js' ), array( 'wp-blocks' ) );
 		}
 		if ( 'transitional' == emulsion_get_theme_operation_mode() && current_user_can( 'edit_posts' ) ) {
 			/*
@@ -1478,8 +1561,8 @@ if ( ! function_exists( 'emulsion_theme_google_tracking_code' ) ) {
 
 			return;
 		}
-		$tag	 = sanitize_text_field( get_theme_mod( 'emulsion_google_analytics_tracking_code' ) );
-		$theme_mod_name = 'emulsion_google_analytics_' . $tag;
+		$tag			 = sanitize_text_field( get_theme_mod( 'emulsion_google_analytics_tracking_code' ) );
+		$theme_mod_name	 = 'emulsion_google_analytics_' . $tag;
 
 		if ( $result = get_theme_mod( $theme_mod_name, false ) ) {
 
@@ -1487,6 +1570,7 @@ if ( ! function_exists( 'emulsion_theme_google_tracking_code' ) ) {
 			return;
 		}
 	}
+
 }
 
 if ( ! function_exists( 'emulsion_oembed_object_wrapper' ) ) {
@@ -1733,7 +1817,6 @@ if ( ! function_exists( 'emulsion_block_template_part' ) ) {
 			$theme_classes	 = array_merge( $theme_classes, $additional_classes );
 			$theme_classes	 = apply_filters( 'wp-block-template-part-' . $template_part->slug, $theme_classes );
 			$theme_classes	 = emulsion_class_name_sanitize( $theme_classes );
-
 
 			printf( '<%1$s class="%3$s">%2$s</%1$s>', $tag_name, do_blocks( $template_part->content ), $theme_classes );
 
@@ -1999,13 +2082,31 @@ if ( ! function_exists( 'emulsion_style_variation_grid_filter' ) ) {
 
 		$block_name = 'wp-block-' . substr( strrchr( $block['blockName'], "/" ), 1 );
 
-		if ( ! empty($block['attrs']['className']) && 'grid' == emulsion_get_css_variables_value( '--wp--custom--color--scheme' ) && false !== strstr( $block['attrs']['className'], 'main-query' ) && false == strstr( $block['attrs']['className'], 'is-layout-flex' ) ) {
+		if ( isset( $block['attrs']['className'] ) && ! empty( $block['attrs']['className'] ) && 'grid' == emulsion_get_css_variables_value( '--wp--custom--color--scheme' ) && false !== strstr( $block['attrs']['className'], 'main-query' ) ) {
+
+			$columns = absint( $block["innerBlocks"][0]['attrs']["displayLayout"]["columns"] );
+			$align	 = esc_attr( $block["innerBlocks"][0]["innerBlocks"][0]["attrs"]["align"] );
 
 			$p = new WP_HTML_Tag_Processor( $block_content );
 			$p->next_tag( 'ul' );
 			$p->add_class( 'is-layout-flex' );
-			$p->add_class( 'columns-3' );
-			$p->add_class( 'alignwide' );
+			empty( $columns ) ? $p->add_class( 'columns-3' ) : $p->add_class( 'columns-' . $columns );
+			empty( $align ) ? $p->add_class( 'alignwide' ) : $p->add_class( 'align' . $align );
+			$p->set_attribute( 'style', "flex-wrap:wrap;align-items: stretch;" );
+
+			return $p->get_updated_html();
+		}
+
+		if ( ! empty( $block['attrs']['className'] ) && 'grid-midnight' == emulsion_get_css_variables_value( '--wp--custom--color--scheme' ) && false !== strstr( $block['attrs']['className'], 'main-query' ) ) {
+
+			$columns = absint( $block["innerBlocks"][0]['attrs']["displayLayout"]["columns"] );
+			$align	 = esc_attr( $block["innerBlocks"][0]["innerBlocks"][0]["attrs"]["align"] );
+
+			$p = new WP_HTML_Tag_Processor( $block_content );
+			$p->next_tag( 'ul' );
+			$p->add_class( 'is-layout-flex' );
+			empty( $columns ) ? $p->add_class( 'columns-3' ) : $p->add_class( 'columns-' . $columns );
+			empty( $align ) ? $p->add_class( 'alignwide' ) : $p->add_class( 'align' . $align );
 			$p->set_attribute( 'style', "flex-wrap:wrap;align-items: stretch;" );
 
 			return $p->get_updated_html();
@@ -2013,6 +2114,7 @@ if ( ! function_exists( 'emulsion_style_variation_grid_filter' ) ) {
 
 		return $block_content;
 	}
+
 }
 
 function emulsion_theme_variables( $variables ) {
@@ -2204,29 +2306,41 @@ if ( ! function_exists( 'emulsion_scheme_transitional_alert' ) ) {
 
 }
 /**
-	 * PWA
-	 * https://wordpress.org/plugins/pwa/
-	 * required : customize / site icon
-	 */
-	if ( defined( 'PWA_VERSION' ) ) {
+ * PWA
+ * https://wordpress.org/plugins/pwa/
+ * required : customize / site icon
+ */
+if ( defined( 'PWA_VERSION' ) ) {
 
-		add_filter( 'web_app_manifest', 'emulsion_manifest' );
+	add_filter( 'web_app_manifest', 'emulsion_manifest' );
 
-		function emulsion_manifest( $manifest ) {
+	function emulsion_manifest( $manifest ) {
 
-			if ( ! empty( $manifest['name'] ) && empty( $manifest['short_name'] ) ) {
+		if ( ! empty( $manifest['name'] ) && empty( $manifest['short_name'] ) ) {
 
-				$manifest['short_name'] = mb_strimwidth( $manifest['name'], 0, 13 );
+			$manifest['short_name'] = mb_strimwidth( $manifest['name'], 0, 13 );
+		}
+		if ( ! empty( $manifest['icons'] ) ) {
+
+			foreach ( $manifest['icons'] as $key => $icon ) {
+
+				$manifest['icons'][$key]["purpose"] = "any maskable";
 			}
-			if ( ! empty( $manifest['icons'] ) ) {
-
-				foreach ( $manifest['icons'] as $key => $icon ) {
-
-					$manifest['icons'][$key]["purpose"] = "any maskable";
-				}
-			}
-
-			return $manifest;
 		}
 
+		return $manifest;
 	}
+
+}
+
+/**
+ * empty excerpt filter
+ */
+add_filter( 'render_block_core/post-excerpt', function ( $excerpt ) {
+
+	if ( empty( trim( strip_tags( $excerpt ) ) ) ) {
+		return '';
+	}
+
+	return $excerpt;
+} );

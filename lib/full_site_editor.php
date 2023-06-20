@@ -257,8 +257,9 @@ if ( ! function_exists( 'emulsion_custom_template_include' ) ) {
 		 *
 		 */
 		$new_template = '';
+		$has_page_template = ! empty( get_post_meta( get_the_ID() , '_wp_page_template', true ) ) ? true: false;
 
-		if ( 'template-canvas.php' === basename( $template ) ) {
+		if ( 'template-canvas.php' === basename( $template ) && false === $has_page_template ) {
 
 			if ( is_single() ) {
 
