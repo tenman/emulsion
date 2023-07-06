@@ -3,7 +3,7 @@
  * Title: Recipe
  * Block Types: core/post-content
  * Slug: emulsion/shape-recipe
- * Categories: contents, emulsion, recently-added
+ * Categories: contents, emulsion
  * Inserter: yes
  * Keywords: shape
  * Description: Show blocks as metal shapes

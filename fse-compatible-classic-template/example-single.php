@@ -16,6 +16,8 @@
 
 	<?php emulsion_block_template_part( 'header' ) ?>
 
+	<?php echo do_blocks('<!-- wp:pattern {"slug":"emulsion/primary-menu"} /-->'); ?>
+
 	<main class="wp-block-group alignfull is-layout-constrained">
 		<?php emulsion_block_template_part( 'post-content' ) ?>
 	</main>

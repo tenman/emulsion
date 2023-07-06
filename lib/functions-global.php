@@ -824,7 +824,7 @@ if ( ! function_exists( 'emulsion_add_flex_container_classes' ) ) {
 						if ( 'fit' == $style_type ) {
 
 							$style_value = 'fit-content';
-							$p->set_attribute( 'style', 'width:' . '-moz-' . $style_value . ';' . 'width:' . $style_value . ';' );
+							//$p->set_attribute( 'style', 'width:' . '-moz-' . $style_value . ';' . 'width:' . $style_value . ';' );
 						}
 
 						$block_content = $p->get_updated_html();
@@ -863,7 +863,7 @@ if ( ! function_exists( 'emulsion_add_flex_container_classes' ) ) {
 						if ( 'fit' == $style_type ) {
 
 							$style_value = 'fit-content';
-							$p->set_attribute( 'style', 'width:' . '-moz-' . $style_value . ';' . 'width:' . $style_value . ';' );
+							//$p->set_attribute( 'style', 'width:' . '-moz-' . $style_value . ';' . 'width:' . $style_value . ';' );
 						}
 
 						$block_content = $p->get_updated_html();
@@ -976,6 +976,23 @@ if ( ! function_exists( 'emulsion_add_flex_container_classes' ) ) {
 
 				$block_content = emulsion_add_class( $block_content, $block_name, $new_class );
 			}
+		}
+		if ( ! empty( $used_layout['verticalAlignment'] ) ) {
+
+			preg_match( '$(<[^>]+>)$', $block_content, $target );
+
+			$property_value = array("top" => "flex-start", "bottom" => "end");
+
+			$css_style	 = 'align-items:' . sanitize_text_field( strtr($used_layout['verticalAlignment'], $property_value )  );
+
+			if ( false !== strpos( $target[0], 'style="' ) ) {
+
+				$new_element = str_replace( ' style="', ' style="' . $css_style . '; ', $target[0] );
+			} else {
+
+				$new_element = str_replace( '>', ' style="' . $css_style . ';">', $target[0] );
+			}
+			$block_content = str_replace( $target[0], $new_element, $block_content );
 		}
 		if ( ! empty( $block['attrs']['layout'] ) ) {
 
@@ -1125,7 +1142,7 @@ if ( ! function_exists( 'emulsion_add_spacing' ) ) {
 
 		$spacing_property = $margin_property . $padding_property;
 
-		if ( in_array( $block_name, $target_blocks ) && ! empty( $spacing_property ) && in_array( $block['attrs']['layout']['type'], $tatget_type ) ) {
+		if ( in_array( $block_name, $target_blocks ) && ! empty( $spacing_property ) && !empty($block['attrs']['layout']['type']) && in_array( $block['attrs']['layout']['type'], $tatget_type ) ) {
 
 			preg_match( '$(<[^>]+>)$', $block_content, $target );
 
@@ -2081,6 +2098,7 @@ if ( ! function_exists( 'emulsion_style_variation_grid_filter' ) ) {
 	function emulsion_style_variation_grid_filter( $block_content, $block ) {
 
 		$block_name = 'wp-block-' . substr( strrchr( $block['blockName'], "/" ), 1 );
+
 
 		if ( isset( $block['attrs']['className'] ) && ! empty( $block['attrs']['className'] ) && 'grid' == emulsion_get_css_variables_value( '--wp--custom--color--scheme' ) && false !== strstr( $block['attrs']['className'], 'main-query' ) ) {
 

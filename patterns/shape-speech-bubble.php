@@ -2,7 +2,7 @@
 /**
  * Title: Speech Bubble
  * Slug: emulsion/shape-speech-bubble
- * Categories: contents, emulsion, recently-added
+ * Categories: contents, emulsion
  * Viewport Width: 1280
  * Inserter: yes
  * Keywords: shape

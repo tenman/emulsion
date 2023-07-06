@@ -2,7 +2,7 @@
 /**
  * Title: Sticky posts
  * Slug: emulsion/block-pattern-query-sticky
- * Categories: lists-by-article-relevant
+ * Categories: sub-query
  * Viewport Width: 1280
  * Inserter: yes
  * Keywords: sticky posts, emulsion

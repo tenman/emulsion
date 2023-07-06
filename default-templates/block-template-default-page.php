@@ -35,8 +35,8 @@ $html = <<<HTML
 <!-- wp:group {"align":"full", className":"post-footer wp-block-template-part-post-footer wp-block-template-part","layout":{"type":"constrained"}} -->
 <div class="wp-block-group post-footer wp-block-template-part-post-footer wp-block-template-part alignfull">
 
-<!-- wp:comments-query-loop {"className":"comment-wrapper","layout":{"type":"constrained"}} -->
-<div class="wp-block-comments-query-loop comment-wrapper is-layout-constrained">
+<!-- wp:comments-query-loop {"align":"full","className":"comment-wrapper","layout":{"type":"constrained"}} -->
+<div class="wp-block-comments-query-loop comment-wrapper alignfull is-layout-constrained">
     <!-- wp:comments-title /-->
 
     <!-- wp:comment-template -->

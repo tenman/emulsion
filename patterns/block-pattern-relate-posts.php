@@ -2,7 +2,7 @@
 /**
  * Title: Relate posts
  * Slug: emulsion/block-pattern-relate-posts
- * Categories: lists-by-article-relevant
+ * Categories: sub-query
  * Viewport Width: 1280
  * Inserter: yes
  * Keywords: emulsion, relate posts

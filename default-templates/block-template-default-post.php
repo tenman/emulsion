@@ -51,8 +51,8 @@ $html = <<<HTML
 
 	<!-- wp:group {"align":"full","className":"post-footer wp-block-template-part-post-footer wp-block-template-part"} -->
 	<div class="wp-block-group alignfull post-footer wp-block-template-part-post-footer wp-block-template-part">
-		<!-- wp:comments {"className":"wp-block-comments-query-loop comment-wrapper","layout":{"type":"constrained"}} -->
-		<div class="wp-block-comments wp-block-comments-query-loop comment-wrapper is-layout-constrained">
+		<!-- wp:comments {"align";"full", className":"wp-block-comments-query-loop comment-wrapper","layout":{"type":"constrained"}} -->
+		<div class="wp-block-comments wp-block-comments-query-loop comment-wrapper is-layout-constrained alignfull">
 
 			<!-- wp:comments-title /-->
 

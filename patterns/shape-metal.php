@@ -2,7 +2,7 @@
 /**
  * Title: Shape Metal
  * Slug: emulsion/shape-metal
- * Categories: contents, emulsion, recently-added
+ * Categories: contents, emulsion
  * Viewport Width: 1280
  * Inserter: yes
  * Keywords: shape

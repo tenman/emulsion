@@ -354,7 +354,7 @@ function emulsion_fse_admin_body_class( $classes ) {
 	$classes .= ' is-presentation-fse';
 
 	if ( isset( $_GET['postId'] ) ) {
-		
+
 		$template = get_post_meta( absint( $_GET['postId'] ), '_wp_page_template', true );
 		if ( strstr( $template, '.php' ) ) {
 			$classes .= ' is-php-template';
@@ -697,9 +697,12 @@ if ( ! function_exists( 'emulsion_editor_color_scheme_correction' ) ) {
 		  }
 		 */
 		$css = <<<STYLE
-
-
-
+		.editor-styles-wrapper .is-layout-flex .fse-column main > div > ul,
+		.editor-styles-wrapper .is-layout-flex.fse-columns,
+		.editor-styles-wrapper div:where(.wp-site-blocks) > *{
+			margin-block-start:0;
+			margin-top:0;
+		}
 		.editor-styles-wrapper p.wp-block-site-tagline:not(.specificity):not(.specificity){
 			margin:0;
 			width:auto;

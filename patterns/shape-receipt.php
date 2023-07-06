@@ -2,7 +2,7 @@
 /**
  * Title: Shape Receipt
  * Slug: emulsion/shape-receipt
- * Categories: contents, emulsion, recently-added
+ * Categories: contents, emulsion
  * Viewport Width: 1280
  * Inserter: yes
  * Keywords: shape
