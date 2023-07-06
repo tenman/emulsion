@@ -1054,6 +1054,7 @@ header{
 nav.fse-primary{
     display:block;
     width:100%;
+
 }
 nav.fse-primary{
     overflow:visible;
@@ -1364,12 +1365,7 @@ fieldset{
             max-width:100%;
         }
     }
-    .is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull)) {
-        @media screen and ( max-width : 40rem ) {
-            margin-left:0 !important;
-            margin-right:0 !important;
-        }
-    }
+
     .wp-site-blocks{
         .wp-block-site-logo{
             width:fit-content;
@@ -2406,7 +2402,7 @@ body > div > footer{
     }
 }
 #emulsion{
-        .wp-block-group{
+    .wp-block-group{
         .wp-block-group{
             &.alignwide{
                 @extend %alignwide;
@@ -3887,6 +3883,7 @@ div.gallery{
                 }
             }
         }
+
     }
     .is-root-container>.wp-block-group.is-layout-flex:not(.is-vertical):not(.items-justified-space-between)>*:nth-child(1):nth-last-child(2){
         width: calc(100% - min( 30vw, var(--wp--custom--width--sidebar)));
@@ -3944,7 +3941,6 @@ div.gallery{
             flex-wrap:nowrap;
             .wp-block-post-title{
                 flex-basis:100%;
-
             }
             align-items: center;
             .wp-block-site-logo{
@@ -4710,6 +4706,10 @@ div.gallery{
         width:var(--wp--custom--width--content);
         margin:auto;
     }
+    .posted-on,
+    .wp-block-post-title{
+        flex-basis:100%;
+    }
 }
 .main-query{
 
@@ -4738,6 +4738,7 @@ div.gallery{
             //Stop link. accessibility
             pointer-events: none;
             cursor: default;
+
         }
     }
 }
@@ -5578,18 +5579,22 @@ ol.wp-block-latest-comments{
         width: fit-content;
     }
 }
-.wp-block-navigation{
-    .wp-block-navigation-item{
-        flex:0 1 auto;
-        min-width:9.375rem;
-        padding:.3rem .75rem;
-    }
-    &.fse-primary{
-        .wp-block-navigation__container{
-            padding-top:.75rem;
-            padding-bottom:.75rem;
-            li{
-                min-width:120px;
+.emulsion{
+    .wp-block-navigation{
+        .wp-block-navigation-item{
+            flex:0 1 auto;
+            min-width:9.375rem;
+            padding:.3rem .75rem;
+        }
+        &.fse-primary{
+            margin-top:0;
+            margin-bottom:0;
+            .wp-block-navigation__container{
+                padding-top:.75rem;
+                padding-bottom:.75rem;
+                li{
+                    min-width:120px;
+                }
             }
         }
     }
