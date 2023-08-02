@@ -2,7 +2,7 @@
 /**
  * Title: Primary Menu
  * Slug: emulsion/primary-menu
- * Categories: navigation, emulsion, recently-added
+ * Categories: navigation, emulsion
  * Viewport Width: 1280
  * Inserter: yes
  * Keywords: shape

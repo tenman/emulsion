@@ -161,44 +161,8 @@
 
     }
 }
-/**
- * Title: Recipe
- * Block Types: core/post-content
- * Slug: emulsion/shape-recipe
- * Categories: contents, emulsion, recently-added
- * Viewport Width: 1280
- * Inserter: yes
- * Keywords: shape
- * Description: Show blocks as metal shapes
- */
-.has-content-pattern-shape-recipe{
-    .post-header{
-        color:#fff;
-        background:#EB1D36;
-        a{
-            color:#ccc;
-        }
-    }
 
-}
 
-.shape-recipe{
-
-    [role="tab"]{
-        font-weight:700;
-        color:#fff;
-        background:#EB1D36;
-        &[aria-selected="true"].active{
-            color:#fff;
-            background:#000;
-        }
-        ul{
-            color:#000;
-
-        }
-
-    }
-}
 /**
  * Title: Presentation TAB
  * Slug: emulsion/block-pattern-list-tab
@@ -466,7 +430,7 @@
     .wp-block-query.pattern-sticky-posts{
         .is-flex-container,
         .is-layout-flex{
-            width:100%;
+            //width:100%;
         }
         .wp-block-query-pagination{
             //Inheriting a query prevents front-end display
@@ -533,8 +497,9 @@
                 article{
                     .post-header{
                         min-height:0;
-                        .wp-block-post-title{
-                            min-height:calc( var(--wp--preset--font-size--medium) * 3);
+                        margin:0;
+                        .post-header-content{
+                            margin:0
                         }
                     }
                 }
@@ -814,7 +779,12 @@
  * Inserter: yes
  * Description: Call to action block','Block pattern description
  */
-
+#emulsion .is-style-call-to-action{
+    & > *{
+        margin-top:1.5rem;
+        margin-bottom:1.5rem;
+    }
+}
 /**
  * Title: File Not Found
  * Slug: emulsion/page-404

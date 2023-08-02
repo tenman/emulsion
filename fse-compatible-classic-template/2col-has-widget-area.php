@@ -62,6 +62,10 @@ if ( 'fse' !== emulsion_get_theme_operation_mode() && strstr( $template, '/fse-c
 
 	</div>
 
+	<nav class="wp-block-group wp-block-post-navigation">
+		<?php	echo do_blocks('<!-- wp:post-navigation-link {"type":"previous"} /--><!-- wp:post-navigation-link /-->'); ?>
+	</nav>
+
 	<?php emulsion_block_template_part( 'footer' ) ?>
 
 </div>

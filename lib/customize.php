@@ -101,33 +101,8 @@ if ( ! function_exists( 'emulsion_customize_register' ) ) {
 	function emulsion_customize_register( $wp_customize ) {
 		global $emulsion_theme_mod_args;
 
-		if ( 'fse' == get_theme_mod( 'emulsion_editor_support' ) ) {
-
-			unset( $emulsion_theme_mod_args['emulsion_scheme'] );
-		} else {
-
-			$wp_customize->add_section( 'emulsion_scheme', array(
-				'title'			 => esc_html__( 'One Click Configs', 'emulsion' ),
-				'description'	 => $emulsion_theme_mod_args['emulsion_scheme']['description'],
-				'priority'		 => 33
-			) );
-
-			$wp_customize->add_setting( 'emulsion_scheme', array(
-				'default'			 => $emulsion_theme_mod_args['emulsion_scheme']['default'],
-				'sanitize_callback'	 => $emulsion_theme_mod_args['emulsion_scheme']['sanitize_callback'],
-			) );
-
-			$wp_customize->add_control( new emulsion_Customize_Image_Radio_Control( $wp_customize, 'emulsion_scheme', array(
-						'settings'	 => 'emulsion_scheme',
-						'section'	 => $emulsion_theme_mod_args['emulsion_scheme']['section'],
-						'label'		 => $emulsion_theme_mod_args['emulsion_scheme']['label'],
-							)
-			) );
-		}
-
 		$wp_customize->add_section( 'emulsion_editor', array(
 			'title'		 => esc_html__( 'Theme Scheme', 'emulsion' ),
-			//'description'	 => $emulsion_theme_mod_args['emulsion_scheme']['description'],
 			'priority'	 => 20
 		) );
 
@@ -540,6 +515,7 @@ SCRIPT;
 /**
  * Customizer validate
  */
+
 function emulsion_scheme_validate( $input ) {
 	global $emulsion_theme_mod_args;
 	$default_value	 = in_array( $emulsion_theme_mod_args['emulsion_scheme']['default'], $values )

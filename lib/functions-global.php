@@ -825,6 +825,7 @@ if ( ! function_exists( 'emulsion_add_flex_container_classes' ) ) {
 
 							$style_value = 'fit-content';
 							//$p->set_attribute( 'style', 'width:' . '-moz-' . $style_value . ';' . 'width:' . $style_value . ';' );
+							//$p->set_attribute( 'style', 'border:1px solid red;' );
 						}
 
 						$block_content = $p->get_updated_html();
@@ -843,12 +844,13 @@ if ( ! function_exists( 'emulsion_add_flex_container_classes' ) ) {
 				$block_content	 = emulsion_add_class( $block_content, $block_name, $new_class );
 
 				if ( ! empty( $block["innerBlocks"] ) ) {
-
+					// todo
 					foreach ( $block["innerBlocks"] as $key => $inner_block ) {
 
 						$block_name = 'wp-block-' . substr( strrchr( $inner_block['blockName'], "/" ), 1 );
 
 						$style_type = ! empty( $inner_block['attrs']['style']['layout']['selfStretch'] ) ? $inner_block['attrs']['style']['layout']['selfStretch'] : '';
+
 
 						$p = new WP_HTML_Tag_Processor( $block_content );
 
@@ -858,18 +860,22 @@ if ( ! function_exists( 'emulsion_add_flex_container_classes' ) ) {
 
 							$style_value = ! empty( $inner_block['attrs']['style']['layout']['flexSize'] ) ? $inner_block['attrs']['style']['layout']['flexSize'] : 'auto';
 
-							$p->set_attribute( 'style', 'width:' . $style_value );
+							//$p->set_attribute( 'style', 'width:' . $style_value );
 						}
 						if ( 'fit' == $style_type ) {
 
 							$style_value = 'fit-content';
 							//$p->set_attribute( 'style', 'width:' . '-moz-' . $style_value . ';' . 'width:' . $style_value . ';' );
+							//$p->set_attribute( 'style', 'border:1px solid red;' );
+
 						}
 
 						$block_content = $p->get_updated_html();
 					}
 				}
 			}
+
+
 
 			if ( ! empty( $block['attrs']['layout']['minimumColumnWidth'] ) ) {
 
@@ -879,6 +885,7 @@ if ( ! function_exists( 'emulsion_add_flex_container_classes' ) ) {
 				$style_value	 = esc_attr( $block['attrs']['layout']['minimumColumnWidth'] );
 				$p->set_attribute( 'style', 'grid-template-columns: repeat(auto-fill, minmax(min(' . $style_value . ' , 100%), 1fr));' );
 				$block_content	 = $p->get_updated_html();
+
 			}
 
 			set_transient( $transient_name, trim( $block_content ), DAY_IN_SECONDS );
@@ -947,9 +954,11 @@ if ( ! function_exists( 'emulsion_add_flex_container_classes' ) ) {
 				$block_content = str_replace( $target[0], $new_element, $block_content );
 			}
 
+
+
 			$new_class		 = array(
 				! empty( $layout_type ) ? sanitize_html_class( 'is-layout-' . $layout_type ) : '',
-				! empty( $layout_type ) ? 'is-flex-container' : '',
+				//'grid' == $layout_type  ? 'is-flex-container' : '', //Temporary use until ready
 				! empty( $column_count ) ? sanitize_html_class( 'columns-' . $column_count ) : ''
 			);
 			$block_content	 = emulsion_add_class( $block_content, $block_name, $new_class );
@@ -1019,7 +1028,7 @@ if ( ! function_exists( 'emulsion_add_layout_classes' ) ) {
 	function emulsion_add_layout_classes( $block_content, $block ) {
 
 		if ( ! is_singular() ) {
-			return $block_content;
+			//return $block_content;
 		}
 		$transient_name	 = __FUNCTION__;
 		$transient		 = get_transient( $transient_name );
@@ -1035,6 +1044,8 @@ if ( ! function_exists( 'emulsion_add_layout_classes' ) ) {
 		$default_layout		 = wp_get_global_settings( array( 'layout' ) );
 		$default_contentSize = sanitize_text_field( $default_layout['contentSize'] );
 		$default_wideSize	 = sanitize_text_field( $default_layout['wideSize'] );
+
+
 
 		if ( ! empty( $used_layout["contentSize"] ) && '100%' == $used_layout["contentSize"] ) {
 
@@ -1080,7 +1091,10 @@ if ( ! function_exists( 'emulsion_add_layout_classes' ) ) {
 				$new_element = str_replace( '>', ' style="' . $css_variables . ';">', $target[0] );
 			}
 
-			$block_content = str_replace( $target[0], $new_element, $block_content );
+
+			if ( false == strpos( $target[0], 'article' ) ) {
+				$block_content = str_replace( $target[0], $new_element, $block_content );
+			}
 
 			$new_class = array(
 				! empty( $used_layout["contentSize"] ) ? 'has-custom-content-width' : '',
@@ -2362,3 +2376,102 @@ add_filter( 'render_block_core/post-excerpt', function ( $excerpt ) {
 
 	return $excerpt;
 } );
+
+/**
+ * experimental custom template part area
+ * The header area appears twice in home.html and archive.html. Use filters to make it clear that they are not the same thing.
+ */
+
+add_filter( 'default_wp_template_part_areas', 'emulsion_custom_template_part_areas' );
+
+function emulsion_custom_template_part_areas( array $areas ) {
+
+	$areas[] = array(
+		'area'        => 'post-header',
+		'area_tag'    => 'header',
+		'label'       => __( 'Post Header', 'emulsion' ),
+		'description' => __( 'Individual post header', 'emulsion' ),
+		'icon'        => 'header'
+	);
+	$areas[] = array(
+		'area'        => 'post-footer',
+		'area_tag'    => 'footer',
+		'label'       => __( 'Post Footer', 'emulsion' ),
+		'description' => __( 'Individual post footer', 'emulsion' ),
+		'icon'        => 'footer'
+	);
+
+	return $areas;
+}
+
+function emulsion_get_current_post_id() {
+
+	$url	 = (empty( $_SERVER['HTTPS'] ) ? 'http' : 'https') . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+	$url	 = esc_url( $url );
+	$post_id = url_to_postid( $url );
+	return absint( $post_id );
+
+}
+
+
+	function emulsion_fse_transitional_editor_inline_style() {
+
+		if ( 'fse' == emulsion_get_theme_operation_mode() ) {
+			return '';
+		}
+
+		$message	 = esc_html__( 'Please customize the header and footer with the customizer.primary menu. Set the primary menu with the Classic Menu (wp-nav-menu).', 'emulsion' );
+		$message	 .= esc_html__( 'If you want to use the block menu, change Customize / Theme Scheme / Header Template to HTML', 'emulsion' );
+		$message_2	 = esc_html__( 'If you set the content to 100%, all child elements can be displayed in a fluid layout( only front end )', 'emulsion' );
+		$css		 = '';
+		if ( 'html' !== get_theme_mod( 'emulsion_header_template', 'html' ) ) {
+			// html means use block template header
+			$css .= '
+				.edit-site-header__actions .interface-pinned-items [aria-label="Navigation"],
+				.block-editor-list-view-tree [aria-label="Navigation link"],
+				.block-editor-list-view-tree [aria-label="Header link"] ~ .block-editor-list-view-block__menu-cell,
+				.is-root-container > nav.fse-primary,
+				.edit-site-template-card__template-areas .edit-site-template-card__template-areas-list li:first-child,
+				.block-editor-list-view-tree [aria-label="Header link"],
+				.is-root-container > .fse-header{
+					display:none;
+				}
+				.components-resizable-box__container .edit-site-visual-editor__editor-canvas{
+					margin:0 auto;
+				}';
+			$css .= ".edit-site-template-card__template-areas:after{
+					content:'{$message}';
+					display:block;
+					padding:.75rem;
+					border:1px solid #ccc;
+				}";
+		}
+		if ( 'html' !== get_theme_mod( 'emulsion_footer_template', emulsion_theme_default_val( 'emulsion_footer_template', 'default' ) ) ) {
+			// html means use block template header
+			$css .= '
+				.block-editor-list-view-tree [aria-label="Navigation link"] ~ .block-editor-list-view-block__menu-cell,
+				.edit-site-template-card__template-areas .edit-site-template-card__template-areas-list li:last-child,
+				.block-editor-list-view-tree [aria-label="Header link"],
+				.is-root-container > .fse-footer{
+				display:none;
+			}';
+		}
+
+		$css .= <<<STYLE
+				.block-editor-hooks__layout-controls-helptext:after{
+					content:'{$message_2}';
+					display:block;
+					border-left:2px solid green;
+					padding-left:1rem;
+					margin-top:1rem;
+
+				}
+				.is-presentation-fse .block-editor-hooks__layout-controls-helptext:after{
+					/*@since emulsion 2.8.1 */
+					display:none;
+				}
+STYLE;
+
+
+		return $css;
+	}

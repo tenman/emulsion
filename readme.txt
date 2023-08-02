@@ -1,9 +1,9 @@
 # Emulsion
 
 Contributors: nobita
-Requires at least: WordPress 5.3
-Tested up to: WordPress 6.2
-Requires PHP: 5.6
+Requires at least: WordPress 6.1
+Tested up to: WordPress 6.3
+Requires PHP: 7.0
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: one-column, two-columns, left-sidebar, right-sidebar, custom-colors, custom-header, custom-background, custom-menu, editor-style, theme-options, threaded-comments, sticky-post, translation-ready, post-formats, featured-images, full-width-template, grid-layout, flexible-header, custom-logo, featured-image-header, footer-widgets, block-styles, wide-blocks
@@ -150,6 +150,9 @@ border-image.png
         * Source: https://github.com/LeaVerou/css3patterns
 
 ## Changelog
+###  august 2 2023
+		* 2.8.1
+        * https://github.com/tenman/emulsion/releases
 ###  july 6 2023
 		* 2.8.0
         * https://github.com/tenman/emulsion/releases
