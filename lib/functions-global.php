@@ -926,6 +926,7 @@ if ( ! function_exists( 'emulsion_add_flex_container_classes' ) ) {
 			$block['attrs']['layout']['type'] = 'flex';
 		}
 
+
 		$used_layout = isset( $block['attrs']['layout'] ) ? $block['attrs']['layout'] : '';
 
 		if ( ! empty( $used_layout['type'] ) && 'grid' == $used_layout['type'] ) {
@@ -2377,6 +2378,7 @@ add_filter( 'render_block_core/post-excerpt', function ( $excerpt ) {
 	return $excerpt;
 } );
 
+
 /**
  * experimental custom template part area
  * The header area appears twice in home.html and archive.html. Use filters to make it clear that they are not the same thing.
@@ -2475,3 +2477,4 @@ STYLE;
 
 		return $css;
 	}
+

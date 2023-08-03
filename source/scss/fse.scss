@@ -2822,6 +2822,14 @@ body > div > footer{
             padding-right:0;
             padding-left:0;
         }
+        &.is-stacked-on-mobile{
+            .wp-block-media-text__media{
+                @media screen and (max-width: 48rem){
+                    width:auto;
+                    max-width:100%;
+                }
+            }
+        }
     }
 
     /**
@@ -3372,15 +3380,6 @@ body > div > footer{
                     margin:var(--wp--custom--margin--block);
                 }
             }
-        }
-    }
-    .wp-block-query-title{
-        position:relative;
-        visibility:hidden;
-        span{
-            position:absolute;
-            left:var(--wp--custom--padding--content);
-            visibility:visible;
         }
     }
 
@@ -5941,37 +5940,32 @@ ol.wp-block-latest-comments{
 
     }
 }
-.main-query{
-    @for $i from 1 through 6 {
-        .is-layout-grid.columns-#{$i}{
-            display:grid!important;
-            gap:var(--wp--style--block-gap, .75rem);
-            grid-template-columns: repeat(#{$i}, minmax(18rem, 1fr));
-            width:var(--wp--custom--width--content);
-            &.alignfull{
-                width:var(--wp--custom--width--full);
-            }
-            &.alignwide{
-                width:var(--wp--custom--width--wide);
-            }
+.main:first-child:last-child{
 
-            @media (max-width: 48rem){
-                grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
-                /*  width:calc(var(--wp--custom--width--content) - var(--wp--custom--margin--gap) * 2);
-              &.alignfull{
-                    width:calc(100% - var(--wp--custom--margin--gap) * 2);
-
+    .main-query{
+        @for $i from 1 through 6 {
+            .is-layout-grid.columns-#{$i}{
+                display:grid!important;
+                gap:var(--wp--style--block-gap, .75rem);
+                grid-template-columns: repeat(#{$i}, minmax(15rem, 1fr));
+                width:var(--wp--custom--width--content);
+                &.alignfull{
+                    width:var(--wp--custom--width--full);
                 }
                 &.alignwide{
-                    width:calc(var(--wp--custom--width--wide) - var(--wp--custom--margin--gap) * 2);
-                }*/
-                figure{
-                    max-width:100%;
+                    width:var(--wp--custom--width--wide);
+                }
+
+                @media (max-width: 48rem){
+                    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+
+                    figure{
+                        max-width:100%;
+                    }
                 }
             }
         }
     }
-
 }
 .emulsion .is-layout-grid{
     .has-post-thumbnail .loop-item{
