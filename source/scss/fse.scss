@@ -826,7 +826,7 @@
 
 .editor-styles-wrapper .is-root-container,
 .emulsion.has-block{
-    .wp-block-post-content > :where(a,abbr,b,big,button,canvas,cite,code,data,datalist,em,embed,i,img,input,ins,kbd,label,mark,picture,q,ruby,s,small,span,time,u,tt,var,wbr){
+    .wp-block-post-content > :where(a,abbr,b,big,button,canvas,cite,code,data,datalist,em,embed,i,img,input,ins,kbd,label,mark,picture,q,ruby,s,small,span,time,u,tt,var,wbr, strong){
         //need space
         @extend %content_spacing;
         display:block;
@@ -1591,7 +1591,7 @@ fieldset{
 .emulsion{
     .fse-header-content{
         @extend %flex-container;
-        @extend %fix-flex-container-push;
+       // @extend %fix-flex-container-push;
         flex-direction:row;
         flex-wrap:nowrap;
         align-items: center;
@@ -1749,8 +1749,9 @@ p:empty{
     }
     &.search-no-results{
         .emulsion-not-found{
-            display:block;
+            display:flex;
             height:var(--wp--custom--min-height--harf);
+            background:rgba(188,188,188,.2);
         }
     }
 }
@@ -3532,6 +3533,7 @@ body > div > footer{
                         margin:0;
                     }
                 }
+
             }
         }
 
@@ -3909,7 +3911,7 @@ div.gallery{
             // width:var(--wp--custom--width--content);
             @extend %flex-container;
             @extend %structure_spacing;
-            @extend %fix-flex-container-push;
+           // @extend %fix-flex-container-push;
             margin:1.5rem auto;
             flex-direction:row;
             flex-wrap:nowrap;
@@ -6110,6 +6112,9 @@ ol.wp-block-latest-comments{
 }
 .wrap-emulsion_relate_posts{
     background:var(--wp--custom--color--relate-posts-bg);
+    .wrap-emulsion_relate_posts{
+        background:transparent;
+    }
 }
 
 /**
@@ -6267,6 +6272,10 @@ ol.wp-block-latest-comments{
         padding-left:0;
         li{
             margin-bottom:.75rem;
+            @media screen and (max-width: 48rem) {
+
+                margin-bottom:0;
+            }
         }
     }
 }
@@ -6287,6 +6296,12 @@ ol.wp-block-latest-comments{
         padding-left:0;
         li{
             margin-bottom:.75rem;
+
+            @media screen and (max-width: 48rem) {
+
+                margin-bottom:0;
+            }
+
         }
     }
 }

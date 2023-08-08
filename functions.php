@@ -93,7 +93,7 @@ function emulsion_base_layout_apply_globaly_css() {
 	if( 0 === $post_id ) {
 		return '';
 	}
-	
+
 	$post_content	 = get_post( $post_id )->post_content;
 	$blocks			 = parse_blocks( $post_content );
 	$css			 = '';
@@ -121,4 +121,5 @@ CSS;
 		return $css;
 	}
 }
+
 
