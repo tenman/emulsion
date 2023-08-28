@@ -81,7 +81,7 @@ blockquote{
     }
 }
 figure{
-    width: calc(var(--wp--custom--width--content, 720px) - var(--wp--custom--padding--content,.75rem) * 2);
+    width: calc(var(--wp--style--global--content-size, 720px) - var(--wp--custom--padding--content,.75rem) * 2);
     max-width: calc(100% - var(--wp--custom--padding--content,.75rem) * 2);
     padding:0;
 }
@@ -258,7 +258,7 @@ img{
     }
     .wp-block-site-title{
         box-sizing: border-box;
-        width: calc(var(--wp--custom--width--content, 720px ) - var(--wp--custom--padding--content, .75rem) * 2);
+        width: calc(var(--wp--style--global--content-size, 720px ) - var(--wp--custom--padding--content, .75rem) * 2);
         max-width: calc(100% - var(--wp--custom--padding--content, .75rem) * 2);
         padding: 0 var(--wp--custom--padding--content);
         margin: var(--wp--custom--margin--block, 1.5rem auto);
@@ -340,7 +340,7 @@ img{
         img{
             box-sizing:border-box;
             display:block;
-            width:var(--wp--custom--width--content);
+            width:var(--wp--style--global--content-size);
 
             max-width:100%;
             padding:0;
@@ -550,7 +550,7 @@ p.wp-block-post-excerpt__more-text{
     &.page{
         .wp-block-post-featured-image img{
             box-sizing:border-box;
-            width:var(--wp--custom--width--content);
+            width:var(--wp--style--global--content-size);
             max-width:100%;
             margin:var(--wp--custom--margin--container);
             &[style]{
@@ -566,7 +566,7 @@ p.wp-block-post-excerpt__more-text{
         .fse-footer p,
         .post-header-content,
         .wp-block-group.fse-header-content{
-            width:var(--wp--custom--width--wide, 920px);
+            width:var(--wp--style--global--wide-size, 920px);
             max-width:100%;
             margin-right:auto;
             margin-left:auto;
@@ -692,10 +692,10 @@ p.wp-block-post-excerpt__more-text{
 
     .is-style-fit-wide{
         &.alignleft{
-            width:calc( var(--wp--custom--width--wide, 920px ) / 2 - var(--wp--custom--padding--content, .75rem) - .375rem);
+            width:calc( var(--wp--style--global--wide-size, 920px ) / 2 - var(--wp--custom--padding--content, .75rem) - .375rem);
             margin-top:var(--wp--custom--padding--content, .75rem);
             margin-bottom:var(--wp--custom--padding--content, .75rem);
-            margin-left: calc((100% - var(--wp--custom--width--wide, 920px )) / 2 + var(--wp--custom--padding--content, .75rem));
+            margin-left: calc((100% - var(--wp--style--global--wide-size, 920px )) / 2 + var(--wp--custom--padding--content, .75rem));
             &.size-thumbnail{
                 width:150px;
                 padding:0;
@@ -718,9 +718,9 @@ p.wp-block-post-excerpt__more-text{
         }
 
         &.alignright{
-            width:calc( var(--wp--custom--width--wide, 920px ) / 2 - var(--wp--custom--padding--content, .75rem) - .375rem);
+            width:calc( var(--wp--style--global--wide-size, 920px ) / 2 - var(--wp--custom--padding--content, .75rem) - .375rem);
             margin-top:var(--wp--custom--padding--content, .75rem);
-            margin-right: calc((100% - var(--wp--custom--width--wide, 920px )) / 2 + var(--wp--custom--padding--content, .75rem));
+            margin-right: calc((100% - var(--wp--style--global--wide-size, 920px )) / 2 + var(--wp--custom--padding--content, .75rem));
             margin-bottom:var(--wp--custom--padding--content, .75rem);
             &.size-thumbnail{
                 width:150px;
@@ -752,8 +752,8 @@ p.wp-block-post-excerpt__more-text{
 
         &.alignleft{
 
-            width:calc( var(--wp--custom--width--content, 720px ) / 2 - var(--wp--custom--padding--content, .75rem) - .375rem);
-            margin-left: calc((100% - var(--wp--custom--width--content, 720px )) / 2 + var(--wp--custom--padding--content, .75rem));
+            width:calc( var(--wp--style--global--content-size, 720px ) / 2 - var(--wp--custom--padding--content, .75rem) - .375rem);
+            margin-left: calc((100% - var(--wp--style--global--content-size, 720px )) / 2 + var(--wp--custom--padding--content, .75rem));
 
             &.size-thumbnail{
                 width:150px;
@@ -778,8 +778,8 @@ p.wp-block-post-excerpt__more-text{
 
         &.alignright{
 
-            width:calc( var(--wp--custom--width--content, 720px ) / 2 - var(--wp--custom--padding--content, .75rem) - .375rem);
-            margin-right: calc((100% - var(--wp--custom--width--content, 720px )) / 2 + var(--wp--custom--padding--content, .75rem));
+            width:calc( var(--wp--style--global--content-size, 720px ) / 2 - var(--wp--custom--padding--content, .75rem) - .375rem);
+            margin-right: calc((100% - var(--wp--style--global--content-size, 720px )) / 2 + var(--wp--custom--padding--content, .75rem));
 
             &.size-thumbnail{
                 width:150px;
@@ -1017,8 +1017,8 @@ $spacings: 40,50,60,70;
         &:not(.specificity){
 
             max-width:calc( 100% - var(--wp--custom--padding--content,.75rem) * 2);
-            margin-right: calc(50% - var(--wp--custom--width--content) / 2 );
-            margin-left: calc(50% - var(--wp--custom--width--content) / 2 );
+            margin-right: calc(50% - var(--wp--style--global--content-size) / 2 );
+            margin-left: calc(50% - var(--wp--style--global--content-size) / 2 );
             &.is-layout-flow:not(.is-root-container),
                 &.has-fluid-children{
                 margin-right:auto;

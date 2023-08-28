@@ -1055,7 +1055,7 @@ if ( ! function_exists( 'emulsion_add_layout_classes' ) ) {
 			if ( ! empty( $used_layout["wideSize"] ) ) {
 				preg_match( '$(<[^>]+>)$', $block_content, $target );
 				$css_variables	 = ' --thm_wide_width:' . sanitize_text_field( $used_layout["wideSize"] ) . ';';
-				$css_variables	 .= ' --wp--custom--width--wide:' . sanitize_text_field( $used_layout["wideSize"] );
+				$css_variables	 .= ' --wp--style--global--wide-size:' . sanitize_text_field( $used_layout["wideSize"] );
 
 				if ( false !== strpos( $target[0], 'style="' ) ) {
 
@@ -1082,7 +1082,7 @@ if ( ! function_exists( 'emulsion_add_layout_classes' ) ) {
 			preg_match( '$(<[^>]+>)$', $block_content, $target );
 
 			$css_variables	 = '--thm_content_width:' . sanitize_text_field( $used_layout["contentSize"] ) . '; --thm_wide_width:' . sanitize_text_field( $used_layout["wideSize"] ) . ';';
-			$css_variables	 .= '--wp--custom--width--content:' . sanitize_text_field( $used_layout["contentSize"] ) . '; --wp--custom--width--wide:' . sanitize_text_field( $used_layout["wideSize"] );
+			$css_variables	 .= '--wp--style--global--content-size:' . sanitize_text_field( $used_layout["contentSize"] ) . '; --wp--style--global--wide-size:' . sanitize_text_field( $used_layout["wideSize"] );
 
 			if ( false !== strpos( $target[0], 'style="' ) ) {
 

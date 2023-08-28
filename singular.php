@@ -22,7 +22,7 @@ if ( true === emulsion_is_custom_post_type() && 'fse' == emulsion_get_theme_oper
 
 			the_title( '<h2>', '</h2>' );
 
-			print('<div style="width:var(--wp--custom--width--content);margin:var(--wp--custom--margin--block);padding:0 var(--wp--custom--padding--content)">' );
+			print('<div style="width:var(--wp--style--global--content-size);margin:var(--wp--custom--margin--block);padding:0 var(--wp--custom--padding--content)">' );
 
 			the_content();
 
