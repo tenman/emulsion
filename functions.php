@@ -24,6 +24,7 @@ if ( 'fse' == emulsion_get_theme_operation_mode() ) {
 
 		$css .= <<<STYLE
 
+
 STYLE;
 		return $css;
 	}
@@ -57,4 +58,3 @@ STYLE;
 }
 
 add_action( 'enqueue_block_editor_assets', 'emulsion_block_editor_assets' );
-

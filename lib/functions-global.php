@@ -316,9 +316,15 @@ if ( ! function_exists( 'emulsion_is_amp' ) ) {
 
 	function emulsion_is_amp() {
 
-		$amp_options = get_option( 'amp-options' );
+		$amp_options = get_option( 'amp-options', false );
 
-		if ( 'standard' == $amp_options["theme_support"] && defined( 'AMP__FILE__' ) ) {
+		if( false === $amp_options ) {
+			
+			return false;
+		}
+
+		if ( ! empty($amp_options["theme_support"]) && 'standard' == $amp_options["theme_support"] && defined( 'AMP__FILE__' ) ) {
+
 			return true;
 		}
 
