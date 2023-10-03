@@ -32,6 +32,11 @@
                 "unknown-bg": "#f8f8ff",
                 "dark-mode-bg": "#1b262c"
             },
+            "marker": {
+                "ul-list-style": "disc",
+                "ul-content": "unset",
+                "color": "var(--wp--preset--color--contrast)"
+            },
             "border": {
                 "common-style": "solid",
                 "common-width": "1px",
@@ -175,6 +180,44 @@
                 }
             },
             "core/heading": {
+                "color": {
+                    "custom": true,
+                    "defaultPalette": true,
+                    "palette": [
+                        {
+                            "name": "Black",
+                            "slug": "emulsion-black",
+                            "color": "#000000"
+                        },
+                        {
+                            "name": "White",
+                            "slug": "emulsion-white",
+                            "color": "#ffffff"
+                        },
+                        {
+                            "name": "Muted",
+                            "slug": "emulsion-muted",
+                            "color": "#ecf0f1"
+                        },
+                        {
+                            "name": "Alert",
+                            "slug": "emulsion-alert",
+                            "color": "#ED4F32"
+                        },
+                        {
+                            "name": "Warning",
+                            "slug": "emulsion-warning",
+                            "color": "#EDE04D"
+                        },
+                        {
+                            "name": "Notice",
+                            "slug": "emulsion-notice",
+                            "color": "#4bb1cf"
+                        }
+                    ]
+                }
+            },
+            "core/group": {
                 "color": {
                     "custom": true,
                     "defaultPalette": true,
@@ -563,7 +606,7 @@
                 "unit": "rem",
                 "increment": 0.75,
                 "operator": "+",
-                "steps": 4
+                "steps": 6
             }
         },
         "border": {

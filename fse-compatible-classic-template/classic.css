@@ -13,12 +13,16 @@
 }
 .is-layout-flex.header-2col-wrapper{
     margin:auto;
+
 }
 .has-sidebar-widget-area{
     margin:auto;
 }
-
-.emulsion .wp-block-template-part-header-2col .header-text{
+.is-php-template .wp-block-template-part-header-2col .fse-header-content{
+    display:flex;
+    padding:.75rem 0;
+}
+.is-php-template .eader-2col-wrapper .fse-header-text{
     display:flex;
     flex-wrap:nowrap;
     align-content: flex-start;
@@ -26,17 +30,19 @@
     align-items: center;
     margin:0;
 }
+.is-php-template  .wp-block-template-part-header-2col .fse-header-text .wp-block-site-tagline{
+    width:-moz-fit-content;
+    width:fit-content;
+    margin:0;
+}
 .has-sidebar-widget-area main,
-.emulsion .wp-block-template-part-header-2col .fse-header-content,
+.is-php-template  .wp-block-template-part-header-2col .fse-header-content,
 .template-2col-has-widget-area-php main{
     width:calc(100% - min( 30vw, var(--wp--custom--width--sidebar)));
     max-width:100%;
     overflow:hidden;
 }
-#emulsion .wp-block-template-part-header-2col .fse-header-content{
-    margin: var(--wp--custom--margin--block);
 
-}
 .has-sidebar-widget-area .post-sidebar,
 .wp-block-template-part-header-2col .header-sidebar,
 .template-2col-has-widget-area-php .sidebar-widget-area{
@@ -51,16 +57,16 @@
 .wp-block-template-part-header-2col .wp-block-site-logo{
     width:fit-content;
     display:inline-block;
-    margin:1.5rem 0;
+    margin:0;
 }
 .header-sidebar .wp-block-search{
     padding:1.125rem var(--wp--custom--padding--content);
 }
 
-.emulsion.fse-compatible-template-2col-has-widget-area-php .fse-header .wp-block-site-title {
+.is-php-template .fse-compatible-template-2col-has-widget-area-php .fse-header .wp-block-site-title {
     margin: 0;
 }
-.emulsion.fse-compatible-template-2col-has-widget-area-php .fse-header .wp-block-search{
+.is-php-template .fse-compatible-template-2col-has-widget-area-php .fse-header .wp-block-search{
     margin:2rem auto;
     padding:0 var(--wp--custom--padding--content);
 }
@@ -86,12 +92,12 @@
         width:var(--wp--style--global--content-size);
         margin:auto;
     }
-    .wp-block-template-part-header-2col .header-text,
+    .wp-block-template-part-header-2col .fse-header-text,
     .header-sidebar .wp-block-search{
         margin:auto;
         padding:0 var(--wp--custom--padding--content);
     }
-    .emulsion.fse-compatible-template-2col-has-widget-area-php .fse-header .wp-block-search{
+    .is-php-template .fse-compatible-template-2col-has-widget-area-php .fse-header .wp-block-search{
         margin:0 auto 1.5rem;
         padding:0 var(--wp--custom--padding--content);
     }

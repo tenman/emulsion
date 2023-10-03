@@ -6,7 +6,7 @@
  * @param type $type string unit or value
  * @return array
  */
-define( 'EMULSION_MIN_PHP_VERSION', '5.6' );
+define( 'EMULSION_MIN_PHP_VERSION', '7.0' );
 
 if ( ! defined( 'EMULSION_DARK_MODE_SUPPORT' ) ) {
 	$emulsion_dark_mode_support_val = 'enable' == get_theme_mod( 'emulsion_dark_mode_support' ) ? true : false;

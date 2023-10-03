@@ -799,7 +799,8 @@ if ( ! function_exists( 'emulsion_add_flex_container_classes' ) ) {
 			}
 
 			if ( ! empty( $block['attrs']['layout']["flexWrap"] ) && 'nowrap' == $block['attrs']['layout']["flexWrap"] ) {
-
+				$result			 = '';
+				$flag = false;
 				$new_class		 = array(
 					'is-layout-flex',
 					'is-nowrap',
@@ -812,29 +813,35 @@ if ( ! function_exists( 'emulsion_add_flex_container_classes' ) ) {
 
 					foreach ( $block["innerBlocks"] as $key => $inner_block ) {
 
-						$block_name = 'wp-block-' . substr( strrchr( $inner_block['blockName'], "/" ), 1 );
-
 						$style_type = ! empty( $inner_block['attrs']['style']['layout']['selfStretch'] ) ? $inner_block['attrs']['style']['layout']['selfStretch'] : '';
-
-						$p = new WP_HTML_Tag_Processor( $block_content );
-
-						$p->next_tag( array( 'class_name' => $block_name ) );
+						$inner_html = do_blocks( $inner_block['innerHTML'] );
+						$style_value = ! empty( $inner_block['attrs']['style']['layout']['flexSize'] ) ? $inner_block['attrs']['style']['layout']['flexSize'] : 'auto';
 
 						if ( 'fixed' == $style_type ) {
+							$flag = true;
+							$p = new WP_HTML_Tag_Processor( $inner_block['innerHTML'] );
 
-							$style_value = ! empty( $inner_block['attrs']['style']['layout']['flexSize'] ) ? $inner_block['attrs']['style']['layout']['flexSize'] : 'auto';
+							if ( $inner_block['blockName'] == 'core/paragraph' ) {
 
-							$p->set_attribute( 'style', 'width:' . $style_value );
-							//$p->add_class( sanitize_html_class( 'hello world' ) );
+								$p->next_tag( array( 'tag_name' => 'p' ) );
+							} else {
+								//$p->next_tag( );
+								$inner_block_name = 'wp-block-' . substr( strrchr( $inner_block['blockName'], "/" ), 1 );
+								$p->next_tag( array( 'class_name' => $inner_block_name ) );
+
+							}
+
+							$p->set_attribute( 'style', 'width:' . $style_value . ';' );
+							$p->add_class( sanitize_html_class( 'fixed' ) );
+
+							$result .= do_blocks( $p->get_updated_html() );
 						}
-						if ( 'fit' == $style_type ) {
-
-							$style_value = 'fit-content';
-							//$p->set_attribute( 'style', 'width:' . '-moz-' . $style_value . ';' . 'width:' . $style_value . ';' );
-							//$p->set_attribute( 'style', 'border:1px solid red;' );
+						if ( $style_value == 'auto' ) {
+							$result .= do_blocks( $inner_html );
 						}
-
-						$block_content = $p->get_updated_html();
+						if($flag == true){
+							$block_content = '<div class="wp-block-group is-layout-flex is-nowrap">' . $result . '</div>';
+						}
 					}
 				}
 			}

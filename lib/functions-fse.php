@@ -703,6 +703,16 @@ if ( ! function_exists( 'emulsion_editor_color_scheme_correction' ) ) {
 		$global_styles = '';
 
 		$css = <<<STYLE
+		.edit-site-table-wrapper th,
+		.edit-site-table-wrapper td{
+				border:none;
+		}
+		.editor-styles-wrapper .wp-block-cover.wp-block-template-part-header-content.rich-header{
+			width:100%;
+		}
+		.editor-styles-wrapper .wp-block-template-part.fse-header{
+			width:100%;
+		}
 		.editor-styles-wrapper .alignleft{
 			width:var(--wp--custom--width--float);
 			max-width:100%;
@@ -736,7 +746,6 @@ if ( ! function_exists( 'emulsion_editor_color_scheme_correction' ) ) {
 		.editor-styles-wrapper .wp-block{
 			width: var(--wp--style--global--content-size);
 			 max-width: 100%;
-			 margin: var(--wp--custom--margin--block);
 		}
 		.editor-styles-wrapper .aligncenter {
 			 width: var(--wp--custom--width--aligncenter);
@@ -876,7 +885,12 @@ if ( ! function_exists( 'emulsion_editor_color_scheme_correction' ) ) {
 		.editor-styles-wrapper .wp-block-cover.is-light .wp-block-cover__inner-container{
 			color:revert;
 		}
-
+		.editor-styles-wrapper .rich-header	.wp-block-site-logo,
+		.editor-styles-wrapper .rich-header	.wp-block-site-title,
+		.editor-styles-wrapper .rich-header	.wp-block-site-tagline{
+			margin:var(--wp--custom--margin--block) !important;
+			display:block;
+		}
 		.editor-styles-wrapper .fse-header .fse-header-content {
 			padding-top: 1.5rem;
 			padding-bottom: 1.5rem;
@@ -1078,6 +1092,7 @@ if ( ! function_exists( 'emulsion_editor_color_scheme_correction' ) ) {
 		}
 		.editor-styles-wrapper .rich-header .wp-block-site-title{
 			font-size: clamp(var(--wp--preset--font-size--extra-large), calc(100vw / 72 * 3), var(--wp--preset--font-size--huge));
+			margin:1.5rem auto;
 		}
 		.editor-styles-wrapper .edit-site-style-book__example-title{
 			white-space:pre;
@@ -1100,9 +1115,7 @@ if ( ! function_exists( 'emulsion_editor_color_scheme_correction' ) ) {
 			-ms-flex-align: center;
 			-ms-flex-pack: center;
 		}
-		.editor-styles-wrapper .fse-header{
-			width:100%;
-		}
+
 		body.editor-styles-wrapper div.wp-block-site-logo{
 			margin:0;
 			width:-moz-fit-content;
