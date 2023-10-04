@@ -703,6 +703,9 @@ if ( ! function_exists( 'emulsion_editor_color_scheme_correction' ) ) {
 		$global_styles = '';
 
 		$css = <<<STYLE
+		.editor-styles-wrapper .is-layout-constrained > [style*="margin"]{
+			width:auto;
+		}
 		.edit-site-table-wrapper th,
 		.edit-site-table-wrapper td{
 				border:none;

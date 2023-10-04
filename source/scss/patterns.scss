@@ -2157,47 +2157,54 @@ div.gallery{
 
 $spacings: 40,50,60,70,80,90;
 @each $space in $spacings {
-    [style*="margin-left:var(--wp--preset--spacing--#{$space})"]:not(#specificity){
+
+    .is-layout-constrained > [style*="margin-left:var(--wp--preset--spacing--#{$space})"]:not(#specificity){
         max-width:calc(100% - var(--wp--preset--spacing--#{$space}) );
-        // @media (min-width: 48rem){
+        margin-left:auto;
+         @media (min-width: 48rem){
         width: auto;
         margin-left:max(1px,calc(var(--wp--custom--margin--start-content) + var(--wp--preset--spacing--#{$space}))) !important;
-        //}
+        }
     }
-    [style*="margin-right:var(--wp--preset--spacing--#{$space})"]:not(#specificity){
+    .is-layout-constrained > [style*="margin-right:var(--wp--preset--spacing--#{$space})"]:not(#specificity){
         max-width:calc(100% - var(--wp--preset--spacing--#{$space}) );
-        //@media (min-width: 48rem){
+        margin-right:auto;
+        @media (min-width: 48rem){
         width: auto;
         margin-right:max(1px,calc(var(--wp--custom--margin--start-content) + var(--wp--preset--spacing--#{$space}))) !important;
-        //}
+        }
     }
-    [style*="margin-left:var(--wp--preset--spacing--#{$space})"][style*="margin-right:var(--wp--preset--spacing--#{$space})"]:not(#specificity){
+    .is-layout-constrained > [style*="margin-left:var(--wp--preset--spacing--#{$space})"][style*="margin-right:var(--wp--preset--spacing--#{$space})"]:not(#specificity){
         max-width:calc(100% - var(--wp--preset--spacing--#{$space}) * 2 );
-        //@media (min-width: 48rem){
+        margin-right:auto;
+        @media (min-width: 48rem){
         width: auto;
         margin-right:max(1px,calc(var(--wp--custom--margin--start-content) + var(--wp--preset--spacing--#{$space}))) !important;
-        //}
+        }
     }
-    .alignwide[style*="margin-left:var(--wp--preset--spacing--#{$space})"]:not(#specificity){
+    .is-layout-constrained > .alignwide[style*="margin-left:var(--wp--preset--spacing--#{$space})"]:not(#specificity){
         max-width:calc(100% - var(--wp--preset--spacing--#{$space}) );
-        // @media (min-width: 57.5rem){
+        margin-left:auto;
+         @media (min-width: 57.5rem){
         width: auto;
         margin-left:max(1px,calc(var(--wp--custom--margin--start-wide) + var(--wp--preset--spacing--#{$space}))) !important;
-        // }
+         }
     }
-    .alignwide[style*="margin-right:var(--wp--preset--spacing--#{$space})"]:not(#specificity){
+    .is-layout-constrained > .alignwide[style*="margin-right:var(--wp--preset--spacing--#{$space})"]:not(#specificity){
         max-width:calc(100% - var(--wp--preset--spacing--#{$space}) );
-        //@media (min-width: 57.5rem){
+        margin-right:auto;
+        @media (min-width: 57.5rem){
         width: auto;
         margin-right:max(1px,calc(var(--wp--custom--margin--start-wide) + var(--wp--preset--spacing--#{$space}))) !important;
-        // }
+         }
     }
-    .alignwide[style*="margin-left:var(--wp--preset--spacing--#{$space})"][style*="margin-right:var(--wp--preset--spacing--#{$space})"]:not(#specificity){
+    .is-layout-constrained > .alignwide[style*="margin-left:var(--wp--preset--spacing--#{$space})"][style*="margin-right:var(--wp--preset--spacing--#{$space})"]:not(#specificity){
         max-width:calc(100% - var(--wp--preset--spacing--#{$space}) * 2);
-        //@media (min-width: 57.5rem){
+        margin-right:auto;
+        @media (min-width: 57.5rem){
         width: auto;
         margin-right:max(1px,calc(var(--wp--custom--margin--start-wide) + var(--wp--preset--spacing--#{$space}))) !important;
-        //}
+        }
     }
 }
 [style*="margin-left:0"]:not(#specificity){

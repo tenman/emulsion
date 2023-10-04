@@ -1184,17 +1184,19 @@ body{
             & > .alignright ~ .wp-block-pullquote:not([class*="align"]),
             & > .alignright ~ .wp-block-quote:not([class*="align"]),
             & > .alignright ~ .wp-block-code:not([class*="align"]){
-            //@media (min-width: 48rem){
+            @media (min-width: 48rem){
             margin-right: max(1px, calc(50% - var(--wp--style--global--content-size) / 2 ));
             margin-left: max(1px,calc(50% - var(--wp--style--global--content-size) / 2 ));
-            //}
-            /*
+            }
+/*
             @media (max-width: 48rem){
                 max-width:100%;
                 margin-left:auto;
                 margin-right:auto;
-            }*/
+            }
+*/
         }
+
 
     }
 
@@ -4275,6 +4277,7 @@ ol.wp-block-latest-comments{
             width:-moz-fit-content;
             width:fit-content;
             min-width:calc(100% - var(--wp--custom--padding--content) * 2);
+            margin:auto;
         }
     }
     .theme-message,
@@ -4289,7 +4292,7 @@ ol.wp-block-latest-comments{
     fieldset{
         @media screen and (max-width: 48rem){
             width:calc( var(--wp--style--global--content-size, 45rem) - var(--wp--custom--padding--content,.75rem) * 2);
-            max-width:calc( 100% - var(--wp--custom--padding--content,.75rem) * 2);
+            //max-width:calc( 100% - var(--wp--custom--padding--content,.75rem) * 2);
         }
     }
     .is-layout-grid{
