@@ -64,6 +64,7 @@ if ( ! function_exists( 'emulsion_setup' ) ) {
 			function_exists( 'gutenberg_render_elements_support' ) ? remove_filter( 'render_block', 'gutenberg_render_elements_support', 10, 2 ) : '';
 
 			add_filter( 'render_block', 'emulsion_add_link_color_class', 10, 2 );
+			add_filter( 'render_block', 'emulsion_add_link_hover_class', 10, 2 );
 		}
 		add_action( 'admin_print_styles', function () {
 
@@ -703,6 +704,41 @@ if ( ! function_exists( 'emulsion_editor_color_scheme_correction' ) ) {
 		$global_styles = '';
 
 		$css = <<<STYLE
+		.editor-styles-wrapper .wp-block-post-navigation-link,
+		.editor-styles-wrapper [type="submit"],
+		.editor-styles-wrapper .wp-element-button,
+		.editor-styles-wrapper .wp-block-post-excerpt__more-text a,
+		.editor-styles-wrapper .wp-block-read-more,
+		.editor-styles-wrapper .logged-out.editor-styles-wrapper .wp-block-loginout a,
+		.editor-styles-wrapper .logged-in.editor-styles-wrapper .wp-block-loginout a,
+		.editor-styles-wrapper .wp-block-comments-pagination-numbers a,
+		.editor-styles-wrapper .wp-block-comments-pagination-numbers span,
+		.editor-styles-wrapper .wp-block-comments-pagination-next,
+		.editor-styles-wrapper .wp-block-comments-pagination-previous,
+		.editor-styles-wrapper .comment-edit-link,
+		.editor-styles-wrapper .comment-reply-link,
+		.editor-styles-wrapper .wp-block-comment-edit-link a,
+		.editor-styles-wrapper .is-style-list-style-inline li,
+		.editor-styles-wrapper .form-submit [type="submit"],
+		.editor-styles-wrapper .wp-block-file__button,
+		.editor-styles-wrapper .wp-block-button__link,
+		.editor-styles-wrapper .wp-block-query-pagination a,
+		.editor-styles-wrapper .post-navigation-link-previous a,
+		.editor-styles-wrapper .post-navigation-link-next a,
+		.editor-styles-wrapper .wp-block-post-navigation-link{
+				color:var(--wp--custom--color--button-text);
+				background:var(--wp--custom--color--button-bg);
+		}
+
+		.editor-styles-wrapper li > ul,
+		.editor-styles-wrapper li > ol{
+			margin:0;
+		}
+		.editor-styles-wrapper .is-root-container .wp-block-group.is-nowrap > *{
+				width:-moz-fit-content;
+				width:fit-content;
+				margin:0;
+		}
 		.editor-styles-wrapper .is-layout-constrained > [style*="margin"]{
 			width:auto;
 		}
@@ -1080,8 +1116,8 @@ if ( ! function_exists( 'emulsion_editor_color_scheme_correction' ) ) {
 			font-family: var(--wp--preset--font-family--heading);
 			font-weight: var(--wp--custom--font-weight--heading, initial);
 		}
-		.editor-styles-wrapper .is-root-container > footer,
-		.editor-styles-wrapper .is-root-container > header{
+		.editor-styles-wrapper header.wp-block-template-part-header-singular,
+		.editor-styles-wrapper .is-root-container > footer{
 			background:var(--wp--custom--color--banner-bg);
 		}
 		.editor-styles-wrapper .is-root-container > main [data-type="core/query"],

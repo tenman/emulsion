@@ -782,7 +782,7 @@ if ( ! function_exists( 'emulsion_oembed_filter' ) ) {
 	}
 
 }
-if ( ! function_exists( 'emulsion_add_flex_container_classes' ) ) {
+if ( ! function_exists( 'emulsion_block_group_variation_classes' ) ) {
 
 	function emulsion_block_group_variation_classes( $block_content, $block ) {
 
@@ -1272,7 +1272,53 @@ if ( ! function_exists( 'emulsion_add_custom_gap' ) ) {
 
 }
 
+if ( ! function_exists( 'emulsion_add_link_hover_class' ) ) {
 
+	function emulsion_add_link_hover_class( $block_content, $block ) {
+
+		$transient_name	 = __FUNCTION__;
+		$transient		 = get_transient( $transient_name );
+
+		if ( ! is_user_logged_in() && false !== $transient && ! empty( $transient ) ) {
+
+			return $transient;
+		}
+
+		$block_name = 'wp-block-' . substr( strrchr( $block['blockName'], "/" ), 1 );
+
+		$hover_color = null;
+
+		if ( ! empty( $block['attrs'] ) ) {
+
+            $hover_color = ! empty($block['attrs']["style"]["elements"]["link"][":hover"]["color"]["text"]) ? $block['attrs']["style"]["elements"]["link"][":hover"]["color"]["text"]: null;
+		}
+
+		if ( null === $hover_color ) {
+			return $block_content;
+		}
+
+		if ( false !== strpos( $hover_color, 'var:preset|color|' ) ) {
+
+			$index_to_splice = strrpos( $hover_color, '|' ) + 1;
+			$hover_color_name = substr( $hover_color, $index_to_splice );
+
+			$target_class	 = 'has-link-color';
+			$new_class		 = sanitize_html_class( 'has-' . $hover_color_name . '-hover-color' );
+
+			if ( false !== strpos( $block_content, '-link-color' ) ) {
+
+				$block_content = preg_replace( '!has-link-color!', 'has-link-color has-hover-color ' . $new_class, $block_content, 1 );
+			} else {
+
+				$block_content = emulsion_add_class( $block_content, $block_name, $new_class );
+			}
+		}
+
+		set_transient( $transient_name, trim( $block_content ), DAY_IN_SECONDS );
+		return $block_content;
+	}
+
+}
 
 if ( ! function_exists( 'emulsion_add_link_color_class' ) ) {
 
@@ -1291,8 +1337,10 @@ if ( ! function_exists( 'emulsion_add_link_color_class' ) ) {
 
 		if ( ! empty( $block['attrs'] ) ) {
 			$link_color = _wp_array_get( $block['attrs'], array( 'style', 'elements', 'link', 'color', 'text' ), null );
-		}
 
+			$hover_color = !empty($block['attrs']["style"]["elements"]["link"][":hover"]["color"]["text"])
+					? '--wp--custom--color--pallette-secondary:'. $block['attrs']["style"]["elements"]["link"][":hover"]["color"]["text"]. ';': '';
+		}
 
 		if ( null === $link_color ) {
 			return $block_content;
@@ -1319,9 +1367,16 @@ if ( ! function_exists( 'emulsion_add_link_color_class' ) ) {
 
 			$target_block = $block['innerHTML'];
 
-			$new_block		 = str_replace( '<a ', '<a style="color:' . $link_color . ';" ', $target_block );
-			$block_content	 = str_replace( $target_block, $new_block, $block_content );
+			if( false === strpos($block_content, "style=")){
+				$new_block		 = str_replace( '<a ', '<a style="color:' . $link_color . ';' . $hover_color.'" ', $target_block );
+				$block_content	 = str_replace( $target_block, $new_block, $block_content );
+			} else {
+				$new_block		 = str_replace( 'style="', 'style="color:' . $link_color . ';' . $hover_color . ' " ', $target_block );
+				$block_content	 = str_replace( $target_block, $new_block, $block_content );
+			}
 		}
+
+
 		set_transient( $transient_name, trim( $block_content ), DAY_IN_SECONDS );
 		return $block_content;
 	}
@@ -1416,6 +1471,19 @@ if ( ! function_exists( 'emulsion_get_css_variables_value' ) ) {
 
 }
 
+function emulsion_get_fse_background_color_from_stylesheet() {
+
+	$style = wp_get_global_stylesheet( array( 'styles' ) );
+
+	if ( false !== preg_match( '$body(\s*)?\{([^\}]*)?(background-color:)([^\;]*)\;$', $style, $regs ) && ! empty( $regs[4] ) ) {
+
+			$color = trim( $regs[4] );
+			return $color;
+
+	}
+	return false;
+}
+
 if ( ! function_exists( 'emulsion_fse_background_color_class' ) ) {
 
 	function emulsion_fse_background_color_class() {
@@ -1477,6 +1545,7 @@ if ( ! function_exists( 'emulsion_fse_background_color_class' ) ) {
 				if ( is_array( $global_settings ) ) {
 
 					$color_scheme = ! empty( $global_settings['color']['scheme'] ) ? $global_settings['color']['scheme'] : 'unknown';
+
 
 					$fse_class .= sanitize_html_class( 'fse-scheme-' . $color_scheme );
 				}
@@ -1700,7 +1769,6 @@ if ( ! function_exists( 'emulsion_oembed_object_wrapper' ) ) {
 
 }
 
-
 if ( ! function_exists( 'emulsion_fallback_block_class' ) ) {
 
 	function emulsion_fallback_block_class( $block_content, $block ) {
@@ -1719,6 +1787,9 @@ if ( ! function_exists( 'emulsion_fallback_block_class' ) ) {
 	}
 
 }
+
+add_filter( 'wp_calculate_image_sizes', 'emulsion_content_image_sizes_attr', 10, 2 );
+
 if ( ! function_exists( 'emulsion_content_image_sizes_attr' ) ) {
 
 	function emulsion_content_image_sizes_attr( $sizes, $size ) {
@@ -1731,7 +1802,8 @@ if ( ! function_exists( 'emulsion_content_image_sizes_attr' ) ) {
 				return $sizes;
 			}
 		} else {
-			if ( $width > 768 && ! is_singular() ) {
+
+			if ( ! is_singular() ) {
 				return '768px';
 			} else {
 				return $sizes;
@@ -1740,7 +1812,7 @@ if ( ! function_exists( 'emulsion_content_image_sizes_attr' ) ) {
 	}
 
 }
-add_filter( 'wp_calculate_image_sizes', 'emulsion_content_image_sizes_attr', 10, 2 );
+
 
 if ( ! function_exists( 'emulsion_is_custom_post_type' ) ) {
 
@@ -2129,10 +2201,9 @@ if ( ! function_exists( 'emulsion_style_variation_grid_filter' ) ) {
 
 			$p = new WP_HTML_Tag_Processor( $block_content );
 			$p->next_tag( 'ul' );
-			$p->add_class( 'is-layout-flex' );
+			$p->add_class( 'is-layout-grid' );
 			empty( $columns ) ? $p->add_class( 'columns-3' ) : $p->add_class( 'columns-' . $columns );
 			empty( $align ) ? $p->add_class( 'alignwide' ) : $p->add_class( 'align' . $align );
-			$p->set_attribute( 'style', "flex-wrap:wrap;align-items: stretch;" );
 
 			return $p->get_updated_html();
 		}

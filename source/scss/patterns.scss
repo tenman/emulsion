@@ -2,16 +2,18 @@
  * Reset for Block editor
  */
 a{
+
     text-decoration: underline solid 1px;
     text-underline-offset:3px;
     background:transparent;
     outline-offset:0;
-
 }
 a:focus,
 a:hover{
-    color:var(--wp--preset--color--secondary);
     text-decoration: inherit;
+}
+#emulsion.emulsion a[style*="--wp--custom--color--pallette-secondary"]:hover{
+    color:var(--wp--custom--color--pallette-secondary) !important;
 }
 a:focus,
 a:hover,
@@ -39,6 +41,12 @@ header a,
 footer a,
 nav a{
     text-decoration: inherit;
+}
+.has-link-color a{
+    color:inherit;
+}
+html{
+    scroll-behavior: smooth;
 }
 body{
 
@@ -84,12 +92,16 @@ form{
     }
 }
 table{
-    width:calc( var(--wp--style--global--content-size) - var(--wp--custom--padding--content) * 2);
     border-collapse: collapse;
     border-color:var(--wp--custom--border--common-color);
-    margin:auto;
 }
-
+.is-layout-constrained > .shortcode-wrapper > *:not([class*="align"]){
+    width:calc( var(--wp--style--global--content-size) - var(--wp--custom--padding--content) * 2);
+    margin:var(--wp--custom--margin--block);
+}
+.is-layout-constrained > table{
+    width:calc( var(--wp--style--global--content-size) - var(--wp--custom--padding--content) * 2);
+}
 
 thead {
     border-bottom-color:var(--wp--custom--border--common-color);
@@ -161,6 +173,7 @@ ul{
         }
     }
 }
+.wp-site-blocks ul:where(:not[class*="wp-block"]:not(.is-style-list-style-none):not(.is-style-list-style-inline)),
 ul:where(.is-style-default),
 ul:where(:not([class])){
     list-style:var(--wp--custom--marker--ul-list-style);
@@ -207,8 +220,10 @@ span[id]:empty{
     width:var(--wp--style--global--wide-size);
 }
 pre{
-    color:var(--wp--custom--color--code-tag-text);
-    background:var(--wp--custom--color--code-tag-bg);
+    &:where(:not(.has-background):not(.has-text-color)){
+        color:var(--wp--custom--color--code-tag-text);
+        background:var(--wp--custom--color--code-tag-bg);
+    }
     white-space: pre-wrap;
 }
 option,
@@ -338,17 +353,17 @@ table,figure,pre, address,dl,form,hr,fieldset,menu,nav{
 .dark-block{
     *:not(.has-text-color) *,
         &:not(.has-text-color) *{
-        color:var(--wp--preset--color--white);
+        color:#fff;
         background:transparent;
         a{
-            color:var(--wp--preset--color--cyan-bluish-gray);
+            color:#abb8c3;
             &:focus,
                 &:hover{
-                color:var(--wp--preset--color--secondary);
+                color:#ccc;
             }
         }
         h1,h2,h3,h4,h5,h6,p,table,ol,ul{
-            color:var(--wp--preset--color--white);
+            color:#fff;
         }
     }
 }
@@ -481,9 +496,14 @@ main .is-layout-flex:not(.is-layout-constrained){
             display:block;
             width:auto;
 
-            // @media (min-width: 48rem){
-            margin-left:max(1px,calc(50% - var(--wp--style--global--content-size) / 2 ));
-            // }
+            @media (min-width: 48rem){
+                margin-left:max(1px,calc(50% - var(--wp--style--global--content-size) / 2 ));
+            }
+
+        }
+
+        & > .wp-block-read-more{
+            display:inline-block;
         }
     }
 }
@@ -653,6 +673,7 @@ main .is-layout-flex:not(.is-layout-constrained){
             -ms-flex-align: center;
             -ms-flex-pack: center;
         }
+
         ul:not(.is-layout-flex):not(.is-flex-container):not(.is-layout-grid){
             .post-header-content,
             .loop-item{
@@ -686,7 +707,7 @@ main .is-layout-flex:not(.is-layout-constrained){
                         display: flex;
                         flex-direction: row !important;
                         align-items: flex-start;
-                        justify-content: center;
+                        justify-content: flex-start;
                         -webkit-box-pack: center;
                         -webkit-box-align: center;
                         -ms-flex-align: center;
@@ -764,9 +785,10 @@ main .is-layout-flex:not(.is-layout-constrained){
          * Button Shape
  */
 
+.list-style-tab.success-js > li,
 .wp-block-post-navigation-link,
 [type="submit"],
-.wp-element-button,
+:where(.wp-element-button),
 .wp-block-post-excerpt__more-text a,
 .wp-block-read-more,
 .logged-out.wp-block-loginout a,
@@ -777,25 +799,44 @@ main .is-layout-flex:not(.is-layout-constrained){
 .wp-block-comments-pagination-previous,
 .comment-edit-link,
 .comment-reply-link,
-.wp-block-comment-edit-link,
+.wp-block-comment-edit-link a,
 .is-style-list-style-inline li,
+.is-style-list-style-inline a,
 .form-submit [type="submit"],
 .wp-block-file__button,
-.wp-block-button__link,
+:where(.wp-block-button__link),
 .wp-block-query-pagination a,
 .post-navigation-link-previous a,
 .post-navigation-link-next a,
 .wp-block-post-navigation-link{
     box-sizing:border-box;
     padding:.375rem var( --wp--custom--padding--content, .75rem );
-    color:var(--wp--custom--color--button-text);
     text-align:center;
     text-decoration: none;
-    background:var(--wp--custom--color--button-bg);
+    //border radius :Conflicts with site editor global style
+    border-radius:var(--wp--custom--border--radius);
+
+    &:where(:not(.has-text-color)){
+        color:var(--wp--custom--color--button-text);
+    }
+    &:where(:not([class*="background"])){
+        background:var(--wp--custom--color--button-bg);
+    }
+}
+.wp-block-button__link,
+.wp-element-button{
+    box-sizing:border-box;
+    padding:.375rem var( --wp--custom--padding--content, .75rem );
+    text-align:center;
+    text-decoration: none;
     //border radius :Conflicts with site editor global style
     border-radius:var(--wp--custom--border--radius);
 }
-
+a:where(.wp-block-button__link),
+a:where(.wp-element-button){
+    color:var(--wp--custom--color--button-text);
+    background:var(--wp--custom--color--button-bg);
+}
 /**
  * Theme block pallet color
  */
@@ -821,6 +862,7 @@ main .is-layout-flex:not(.is-layout-constrained){
 .has-emulsion-info-color{
     color:#4bb1cf;
 }
+
 .has-emulsion-black-background-color{
     background-color:#000000;
 }
@@ -863,6 +905,56 @@ main .is-layout-flex:not(.is-layout-constrained){
 .has-emulsion-info-link-color a{
     color:#4bb1cf;
 }
+
+.has-emulsion-black-hover-color a:hover{
+    color:#000000;
+}
+.has-emulsion-white-hover-color a:hover{
+    color:#ffffff;
+}
+.has-emulsion-muted-hover-color a:hover{
+    color:#ecf0f1;
+}
+.has-emulsion-alert-hover-color a:hover{
+    color:#ED4F32;
+}
+.has-emulsion-warning-hover-color a:hover{
+    color:#EDE04D;
+}
+.has-emulsion-notice-hover-color a:hover{
+    color:#4bb1cf;
+}
+.has-emulsion-info-hover-color a:hover{
+    color:#4bb1cf;
+}
+
+//has-link-color has-base-link-color has-text-color has-base-color has-background has-contrast-background-color wp-block-post-title
+
+.has-text-color.has-base-color,
+.has-link-color.has-base-link-color a{
+    color:var(--wp--preset--color--base);
+}
+.has-text-color.has-contrast-color,
+.has-link-color.has-contrast-link-color a{
+    color:var(--wp--preset--color--contrast);
+}
+.has-text-color.has-primary-color,
+.has-link-color.has-primary-link-color a{
+    color:var(--wp--preset--color--primary);
+}
+.has-text-color.has-secondary-color,
+.has-link-color.has-secondary-link-color a{
+    color:var(--wp--preset--color--secondary);
+}
+.has-text-color.has-tertiary-color,
+.has-link-color.has-tertiary-link-color a{
+    color:var(--wp--preset--color--tertiary);
+}
+.has-text-color.has-complementary-color,
+.has-link-color.has-complementary-link-color a{
+    color:var(--wp--preset--color--complementary);
+}
+
 /**
         * twenty_twenty_one_palette link color
  *
@@ -874,8 +966,14 @@ luminous-vivid-amber #fcb900, light-green-cyan #7bdcb5, vivid-green-cyan #00d084
 @each $twenty_twenty_one_color in $twenty_twenty_one_palette {
     $slug: nth($twenty_twenty_one_color, 1);
     $color: nth($twenty_twenty_one_color, 2);
-    .emulsion .has-#{$slug}-link-color {
+
+    .has-#{$slug}-link-color {
         a{
+            color:var( --wp--preset--color--#{$slug});
+        }
+    }
+    .has-#{$slug}-hover-color {
+        a:hover{
             color:var( --wp--preset--color--#{$slug});
         }
     }
@@ -886,9 +984,11 @@ luminous-vivid-amber #fcb900, light-green-cyan #7bdcb5, vivid-green-cyan #00d084
         }
     }
 }
-
-body > div > div > header,
-body > div > header,
+.error404 > div > header,
+.search > div > header,
+.archive > div > header,
+.page > div > header,
+.single > div > header,
 body > div > footer{
 
     color:var(--wp--custom--color--banner-text);
@@ -897,6 +997,15 @@ body > div > footer{
         color:var(--wp--custom--color--banner-text);
     }
 }
+:where(.wp-block-cover-image:not(.has-text-color)),
+:where(.wp-block-cover:not(.has-text-color)){
+    color:var(--wp--custom--color--banner-text);
+    background:var(--wp--custom--color--banner-bg);
+    a{
+        color:var(--wp--custom--color--banner-text);
+    }
+}
+
 .wrap-emulsion_relate_posts{
     background:var(--wp--custom--color--relate-posts-bg);
 }
@@ -1030,6 +1139,7 @@ body > div > footer{
     .wp-block-post-title{
         position:relative;
         margin:0;
+        flex-basis:100%;
         // width depend .post-header-content
     }
 }
@@ -1643,6 +1753,7 @@ div.gallery{
         flex:1 1 auto;
         list-style:none;
         border:var(--wp--custom--border--common,1px solid #ccc);
+
     }
 }
 .wp-block-column{
@@ -1976,10 +2087,19 @@ div.gallery{
         }
     }
 }
-:where(.wp-block-cover-image.is-light:not(.has-text-color)),
-:where(.wp-block-cover.is-light:not(.has-text-color)){
-    color:revert;
+.on-scroll{
+    &[class*="is-fse-gradient-var--"]{
+        .sticky.wp-block-navigation:not(.has-background),
+            .wp-block-navigation:not(.has-background) .wp-block-navigation__submenu-container {
+            color: #000;
+            background-color: #fff;
+        }
+        .is-layout-flex .loop-item{
+            width:100%;
+        }
+    }
 }
+
 .fse-scheme-pack-midnight{
     .wp-block-latest-posts__list li{
         list-style-type:none;
@@ -2018,7 +2138,7 @@ div.gallery{
         background-color: #000;
     }
     .wp-block-cover__inner-container{
-        color:var(--wp--preset--color--contrast);
+        color:#fff;
     }
     .is-layout-grid .loop-item,
     .is-flex-container .loop-item,
@@ -2094,7 +2214,7 @@ div.gallery{
         li{
             @media (max-width: 48rem){
                 padding:0 .75rem;
-                background-color: var(--wp--preset--color--base);
+                background-color: var(--wp--custom--color--palette-base);
             }
         }
         .loop-item{
@@ -2161,49 +2281,49 @@ $spacings: 40,50,60,70,80,90;
     .is-layout-constrained > [style*="margin-left:var(--wp--preset--spacing--#{$space})"]:not(#specificity){
         max-width:calc(100% - var(--wp--preset--spacing--#{$space}) );
         margin-left:auto;
-         @media (min-width: 48rem){
-        width: auto;
-        margin-left:max(1px,calc(var(--wp--custom--margin--start-content) + var(--wp--preset--spacing--#{$space}))) !important;
+        @media (min-width: 48rem){
+            width: auto;
+            margin-left:max(1px,calc(var(--wp--custom--margin--start-content) + var(--wp--preset--spacing--#{$space}))) !important;
         }
     }
     .is-layout-constrained > [style*="margin-right:var(--wp--preset--spacing--#{$space})"]:not(#specificity){
         max-width:calc(100% - var(--wp--preset--spacing--#{$space}) );
         margin-right:auto;
         @media (min-width: 48rem){
-        width: auto;
-        margin-right:max(1px,calc(var(--wp--custom--margin--start-content) + var(--wp--preset--spacing--#{$space}))) !important;
+            width: auto;
+            margin-right:max(1px,calc(var(--wp--custom--margin--start-content) + var(--wp--preset--spacing--#{$space}))) !important;
         }
     }
     .is-layout-constrained > [style*="margin-left:var(--wp--preset--spacing--#{$space})"][style*="margin-right:var(--wp--preset--spacing--#{$space})"]:not(#specificity){
         max-width:calc(100% - var(--wp--preset--spacing--#{$space}) * 2 );
         margin-right:auto;
         @media (min-width: 48rem){
-        width: auto;
-        margin-right:max(1px,calc(var(--wp--custom--margin--start-content) + var(--wp--preset--spacing--#{$space}))) !important;
+            width: auto;
+            margin-right:max(1px,calc(var(--wp--custom--margin--start-content) + var(--wp--preset--spacing--#{$space}))) !important;
         }
     }
     .is-layout-constrained > .alignwide[style*="margin-left:var(--wp--preset--spacing--#{$space})"]:not(#specificity){
         max-width:calc(100% - var(--wp--preset--spacing--#{$space}) );
         margin-left:auto;
-         @media (min-width: 57.5rem){
-        width: auto;
-        margin-left:max(1px,calc(var(--wp--custom--margin--start-wide) + var(--wp--preset--spacing--#{$space}))) !important;
-         }
+        @media (min-width: 57.5rem){
+            width: auto;
+            margin-left:max(1px,calc(var(--wp--custom--margin--start-wide) + var(--wp--preset--spacing--#{$space}))) !important;
+        }
     }
     .is-layout-constrained > .alignwide[style*="margin-right:var(--wp--preset--spacing--#{$space})"]:not(#specificity){
         max-width:calc(100% - var(--wp--preset--spacing--#{$space}) );
         margin-right:auto;
         @media (min-width: 57.5rem){
-        width: auto;
-        margin-right:max(1px,calc(var(--wp--custom--margin--start-wide) + var(--wp--preset--spacing--#{$space}))) !important;
-         }
+            width: auto;
+            margin-right:max(1px,calc(var(--wp--custom--margin--start-wide) + var(--wp--preset--spacing--#{$space}))) !important;
+        }
     }
     .is-layout-constrained > .alignwide[style*="margin-left:var(--wp--preset--spacing--#{$space})"][style*="margin-right:var(--wp--preset--spacing--#{$space})"]:not(#specificity){
         max-width:calc(100% - var(--wp--preset--spacing--#{$space}) * 2);
         margin-right:auto;
         @media (min-width: 57.5rem){
-        width: auto;
-        margin-right:max(1px,calc(var(--wp--custom--margin--start-wide) + var(--wp--preset--spacing--#{$space}))) !important;
+            width: auto;
+            margin-right:max(1px,calc(var(--wp--custom--margin--start-wide) + var(--wp--preset--spacing--#{$space}))) !important;
         }
     }
 }
@@ -2275,6 +2395,19 @@ $spacings: 40,50,60,70,80,90;
         }
     }
 }
+.wp-block-table,
+.wp-block-code{
+    &::-webkit-scrollbar{
+        width: 1rem;
+    }
+    &::-webkit-scrollbar-track{
+        background-color: var(--wp--custom--color--pallette-primary);
+    }
+    &::-webkit-scrollbar-thumb{
+        background-color: var(--wp--custom--color--pallette-secondary);
+    }
+}
+
 
 /**
  * Title: Shape Metal
@@ -2481,6 +2614,10 @@ $spacings: 40,50,60,70,80,90;
             clear:none;
             text-indent:0;
             list-style:none;
+            & > *{
+                color:var(--wp--custom--color--pallette-contrast);
+                text-align:left;
+            }
 
             visibility:visible;
             border:var(--wp--custom--border--common);
@@ -2495,6 +2632,7 @@ $spacings: 40,50,60,70,80,90;
                 &.active{
                 visibility:visible;
                 outline:none;
+                color:#000;
             }
             &:after{
                 position:absolute;
@@ -2890,7 +3028,7 @@ $spacings: 40,50,60,70,80,90;
                 text-transform: uppercase;
                 vertical-align:middle;
                 border:var(--wp--custom--border--common);
-                background:var(--wp--preset--color--base);
+                background:var(--wp--custom--color--palette-base);
             }
         }
     }

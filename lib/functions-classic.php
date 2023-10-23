@@ -169,6 +169,7 @@ if ( ! function_exists( 'emulsion_setup' ) ) {
 			function_exists( 'gutenberg_render_elements_support' ) ? remove_filter( 'render_block', 'gutenberg_render_elements_support', 10, 2 ) : '';
 
 			add_filter( 'render_block', 'emulsion_add_link_color_class', 10, 2 );
+			add_filter( 'render_block', 'emulsion_add_link_hover_class', 10, 2 );
 		}
 		add_action( 'admin_print_styles', function () {
 

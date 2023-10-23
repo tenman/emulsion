@@ -27,10 +27,22 @@
                 "banner-bg": "rgba(0,0,0,.1)",
                 "banner-text": "#000000",
                 "stripe": "rgba(0,0,0,.1)",
-                "button-bg": "buttonface",
-                "button-text": "#000",
+                "button-bg": "#32373c",
+                "button-text": "#fff",
                 "unknown-bg": "#f8f8ff",
-                "dark-mode-bg": "#1b262c"
+                "dark-mode-bg": "#1b262c",
+                "palette-base": "#ffffff",
+                "pallette-contrast": "#000000",
+                "pallette-primary": "#333333",
+                "pallette-secondary": "#a22041",
+                "pallette-tertiary": "#8ea729",
+                "pallette-complementary": "#160385",
+                "pallette-blocks-black":"#000000",
+                "pallette-blocks-white":"#ffffff",
+                "pallette-blocks-muted":"#ecf0f1",
+                "pallette-blocks-alert":"#ED4F32",
+                "pallette-blocks-warning":"#EDE04D",
+                "pallette-blocks-notice":"#4bb1cf"
             },
             "marker": {
                 "ul-list-style": "disc",
@@ -108,32 +120,32 @@
         "color": {
             "palette": [
                 {
-                    "color": "#ffffff",
+                    "color": "var(--wp--custom--color--palette-base)",
                     "name": "Base",
                     "slug": "base"
                 },
                 {
-                    "color": "#000000",
+                    "color": "var(--wp--custom--color--pallette-contrast)",
                     "name": "Contrast",
                     "slug": "contrast"
                 },
                 {
-                    "color": "#333333",
+                    "color": "var(--wp--custom--color--pallette-primary)",
                     "name": "Primary",
                     "slug": "primary"
                 },
                 {
-                    "color": "#a22041",
+                    "color": "var(--wp--custom--color--pallette-secondary)",
                     "name": "Secondary",
                     "slug": "secondary"
                 },
                 {
-                    "color": "#8ea729",
+                    "color": "var(--wp--custom--color--pallette-tertiary)",
                     "name": "Tertiary",
                     "slug": "tertiary"
                 },
                 {
-                    "color": "#160385",
+                    "color": "var(--wp--custom--color--pallette-complementary)",
                     "name": "Complementary",
                     "slug": "complementary"
                 }
@@ -149,32 +161,32 @@
                         {
                             "name": "Black",
                             "slug": "emulsion-black",
-                            "color": "#000000"
+                            "color": "var(--wp--custom--color--pallette-blocks-black)"
                         },
                         {
                             "name": "White",
                             "slug": "emulsion-white",
-                            "color": "#ffffff"
+                            "color": "var(--wp--custom--color--pallette-blocks-white)"
                         },
                         {
                             "name": "Muted",
                             "slug": "emulsion-muted",
-                            "color": "#ecf0f1"
+                            "color": "var(--wp--custom--color--pallette-blocks-muted)"
                         },
                         {
                             "name": "Alert",
                             "slug": "emulsion-alert",
-                            "color": "#ED4F32"
+                            "color": "var(--wp--custom--color--pallette-blocks-alert)"
                         },
                         {
                             "name": "Warning",
                             "slug": "emulsion-warning",
-                            "color": "#EDE04D"
+                            "color": "var(--wp--custom--color--pallette-blocks-warning)"
                         },
                         {
                             "name": "Notice",
                             "slug": "emulsion-notice",
-                            "color": "#4bb1cf"
+                            "color": "var(--wp--custom--color--pallette-blocks-notice)"
                         }
                     ]
                 }
@@ -187,32 +199,32 @@
                         {
                             "name": "Black",
                             "slug": "emulsion-black",
-                            "color": "#000000"
+                            "color": "var(--wp--custom--color--pallette-blocks-black)"
                         },
                         {
                             "name": "White",
                             "slug": "emulsion-white",
-                            "color": "#ffffff"
+                            "color": "var(--wp--custom--color--pallette-blocks-white)"
                         },
                         {
                             "name": "Muted",
                             "slug": "emulsion-muted",
-                            "color": "#ecf0f1"
+                            "color": "var(--wp--custom--color--pallette-blocks-muted)"
                         },
                         {
                             "name": "Alert",
                             "slug": "emulsion-alert",
-                            "color": "#ED4F32"
+                            "color": "var(--wp--custom--color--pallette-blocks-alert)"
                         },
                         {
                             "name": "Warning",
                             "slug": "emulsion-warning",
-                            "color": "#EDE04D"
+                            "color": "var(--wp--custom--color--pallette-blocks-warning)"
                         },
                         {
                             "name": "Notice",
                             "slug": "emulsion-notice",
-                            "color": "#4bb1cf"
+                            "color": "var(--wp--custom--color--pallette-blocks-notice)"
                         }
                     ]
                 }
@@ -225,32 +237,70 @@
                         {
                             "name": "Black",
                             "slug": "emulsion-black",
-                            "color": "#000000"
+                            "color": "var(--wp--custom--color--pallette-blocks-black)"
                         },
                         {
                             "name": "White",
                             "slug": "emulsion-white",
-                            "color": "#ffffff"
+                            "color": "var(--wp--custom--color--pallette-blocks-white)"
                         },
                         {
                             "name": "Muted",
                             "slug": "emulsion-muted",
-                            "color": "#ecf0f1"
+                            "color": "var(--wp--custom--color--pallette-blocks-muted)"
                         },
                         {
                             "name": "Alert",
                             "slug": "emulsion-alert",
-                            "color": "#ED4F32"
+                            "color": "var(--wp--custom--color--pallette-blocks-alert)"
                         },
                         {
                             "name": "Warning",
                             "slug": "emulsion-warning",
-                            "color": "#EDE04D"
+                            "color": "var(--wp--custom--color--pallette-blocks-warning)"
                         },
                         {
                             "name": "Notice",
                             "slug": "emulsion-notice",
-                            "color": "#4bb1cf"
+                            "color": "var(--wp--custom--color--pallette-blocks-notice)"
+                        }
+                    ]
+                }
+            },
+            "core/button": {
+                "color": {
+                    "custom": true,
+                    "defaultPalette": true,
+                    "palette": [
+                        {
+                            "name": "Black",
+                            "slug": "emulsion-black",
+                            "color": "var(--wp--custom--color--pallette-blocks-black)"
+                        },
+                        {
+                            "name": "White",
+                            "slug": "emulsion-white",
+                            "color": "var(--wp--custom--color--pallette-blocks-white)"
+                        },
+                        {
+                            "name": "Muted",
+                            "slug": "emulsion-muted",
+                            "color": "var(--wp--custom--color--pallette-blocks-muted)"
+                        },
+                        {
+                            "name": "Alert",
+                            "slug": "emulsion-alert",
+                            "color": "var(--wp--custom--color--pallette-blocks-alert)"
+                        },
+                        {
+                            "name": "Warning",
+                            "slug": "emulsion-warning",
+                            "color": "var(--wp--custom--color--pallette-blocks-warning)"
+                        },
+                        {
+                            "name": "Notice",
+                            "slug": "emulsion-notice",
+                            "color": "var(--wp--custom--color--pallette-blocks-notice)"
                         }
                     ]
                 }
@@ -1078,10 +1128,7 @@
                 "border": {
                     "radius": "var(--wp--custom--border--radius)"
                 },
-                "color": {
-                    "background": "var(--wp--custom--color--button-bg)",
-                    "text": "var(--wp--custom--color--button-text)"
-                },
+
                 "typography": {
                     "fontSize": "var(--wp--preset--font-size--medium)"
                 },
@@ -1099,10 +1146,7 @@
                                 "left": "0!important"
                             }
                         },
-                        "color": {
-                            "text": "var(--wp--custom--color--button-text)",
-                            "background": "var(--wp--custom--color--button-bg)"
-                        },
+
                         "typography": {
                             "textDecoration": "none"
                         }
