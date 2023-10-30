@@ -147,8 +147,7 @@ function emulsion_block_pattern() {
 					'headers'		 => esc_html_x( 'Headers', 'Emulsion Block pattern', 'emulsion' ),
 					'contents'		 => esc_html_x( 'Contents', 'Emulsion Block pattern', 'emulsion' ),
 					'footers'		 => esc_html_x( 'Footers', 'Emulsion Block pattern', 'emulsion' ),
-					'layout'		 => esc_html_x( 'Layout', 'Emulsion Block pattern', 'emulsion' ),
-					'emulsion'		 => esc_html_x( 'Theme All Patterns', 'Emulsion Block pattern', 'emulsion' )
+					'layout'		 => esc_html_x( 'Layout', 'Emulsion Block pattern', 'emulsion' )
 				];
 
 				foreach ( $categories as $category_slug => $category_text ) {

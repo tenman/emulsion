@@ -704,6 +704,20 @@ if ( ! function_exists( 'emulsion_editor_color_scheme_correction' ) ) {
 		$global_styles = '';
 
 		$css = <<<STYLE
+		.editor-styles-wrapper .wp-block-cover a,
+		.editor-styles-wrapper .wp-block-cover{
+			--wp--custom--color--pallette-contrast:#000;
+			color:#000;
+
+		}
+		.is-dark-theme .wp-block-cover a,
+		.is-dark-theme .wp-block-cover{
+			--wp--custom--color--pallette-contrast:#fff;
+			color:#fff;
+		}
+		.fse-header .wp-block-cover{
+			background:var(--wp--custom--color--banner-bg);
+		}
 		.editor-styles-wrapper .wp-block-post-navigation-link,
 		.editor-styles-wrapper [type="submit"],
 		.editor-styles-wrapper .wp-element-button,

@@ -1276,13 +1276,6 @@ if ( ! function_exists( 'emulsion_add_link_hover_class' ) ) {
 
 	function emulsion_add_link_hover_class( $block_content, $block ) {
 
-		$transient_name	 = __FUNCTION__;
-		$transient		 = get_transient( $transient_name );
-
-		if ( ! is_user_logged_in() && false !== $transient && ! empty( $transient ) ) {
-
-			return $transient;
-		}
 
 		$block_name = 'wp-block-' . substr( strrchr( $block['blockName'], "/" ), 1 );
 
@@ -1314,7 +1307,6 @@ if ( ! function_exists( 'emulsion_add_link_hover_class' ) ) {
 			}
 		}
 
-		set_transient( $transient_name, trim( $block_content ), DAY_IN_SECONDS );
 		return $block_content;
 	}
 
@@ -1459,7 +1451,8 @@ if ( ! function_exists( 'emulsion_get_css_variables_value' ) ) {
 	function emulsion_get_css_variables_value( $variable ) {
 
 		$preset_values	 = wp_get_global_stylesheet( array( 'variables' ) );
-		$preset_val		 = preg_match( '$' . $variable . ':([^\;]*)\;$', $preset_values, $preset_regs );
+		$preset_val		 = preg_match( '$' . trim($variable) . '\:([^\;]*)\;$', $preset_values, $preset_regs );
+
 		if ( $preset_val ) {
 
 			return trim( $preset_regs[1] );
@@ -1481,6 +1474,8 @@ function emulsion_get_fse_background_color_from_stylesheet() {
 			return $color;
 
 	}
+
+
 	return false;
 }
 
@@ -1519,6 +1514,13 @@ if ( ! function_exists( 'emulsion_fse_background_color_class' ) ) {
 					//use style variation
 					$css_variable_name	 = trim( str_replace( array( 'var', '(', ')' ), array( '', '', '' ), $regs[4] ) );
 					$valiable_value		 = emulsion_get_css_variables_value( $css_variable_name );
+					// defined color custom
+
+					if( false !== strpos($valiable_value,'var') ) {
+						$css_variable_name	 = trim( str_replace( array( 'var', '(', ')' ), array( '', '', '' ), $valiable_value ) );
+						$valiable_value		 = emulsion_get_css_variables_value( $css_variable_name );
+					}
+
 					$type_background	 = sanitize_html_class( 'is-fse-bg-' . $valiable_value );
 					$color				 = emulsion_accessible_color( $valiable_value );
 				}
@@ -2147,6 +2149,7 @@ if ( ! function_exists( 'emulsion_get_the_password_form' ) ) {
 	}
 
 }
+
 if ( ! function_exists( 'emulsion_slug' ) ) {
 
 	function emulsion_slug( $echo = false ) {
@@ -2478,6 +2481,14 @@ function emulsion_custom_template_part_areas( array $areas ) {
 		'description'	 => __( 'Individual post footer', 'emulsion' ),
 		'icon'			 => 'footer'
 	);
+	$areas[] = array(
+		'area'			 => 'article-wrapper',
+		'area_tag'		 => 'div',
+		'label'			 => __( 'Article Wrapper', 'emulsion' ),
+		'description'	 => __( 'Whole article', 'emulsion' ),
+		'icon'			 => ''
+	);
+
 
 	return $areas;
 }

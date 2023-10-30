@@ -98,6 +98,7 @@ table{
 .is-layout-constrained > .shortcode-wrapper > *:not([class*="align"]){
     width:calc( var(--wp--style--global--content-size) - var(--wp--custom--padding--content) * 2);
     margin:var(--wp--custom--margin--block);
+    //display:inline-block;
 }
 .is-layout-constrained > table{
     width:calc( var(--wp--style--global--content-size) - var(--wp--custom--padding--content) * 2);
@@ -254,6 +255,10 @@ abbr,
 kbd{
     padding:.25rem;
     margin:0 .25rem;
+}
+pre code{
+    display:block;
+    padding: var(--wp--custom--padding--content);
 }
 .wp-block-heading > code,
 p > code,
@@ -539,6 +544,9 @@ main .is-layout-flex:not(.is-layout-constrained){
 .comment-wrapper > .wp-block-group{
     margin:0 auto;
 }
+.comment-reply-title{
+    color:inherit;
+}
 .emulsion{
 
     /**
@@ -576,8 +584,8 @@ main .is-layout-flex:not(.is-layout-constrained){
         }
     }
     &.keep-align-wide{
-        div.taxsonomy,
-        .posted-on,
+        //div.taxsonomy,
+        //.posted-on,
         .post-header-content .wp-block-post-title{
             width:var(--wp--style--global--wide-size, 57.5rem);
         }
@@ -619,8 +627,8 @@ main .is-layout-flex:not(.is-layout-constrained){
         }
     }
     &.keep-align-full{
-        div.taxsonomy,
-        .posted-on,
+        //div.taxsonomy,
+        //.posted-on,
         .post-header-content .wp-block-post-title{
             width:var(--wp--custom--width--full, 80rem);
             //overflow:auto;
@@ -832,6 +840,13 @@ main .is-layout-flex:not(.is-layout-constrained){
     //border radius :Conflicts with site editor global style
     border-radius:var(--wp--custom--border--radius);
 }
+.wp-block-button.is-style-outline>.wp-block-button__link{
+    border:var(--wp--custom--border--common);
+}
+
+.wp-block-button__link:focus{
+    outline-color:2px solid var(--wp--custom--color--button-text);
+}
 a:where(.wp-block-button__link),
 a:where(.wp-element-button){
     color:var(--wp--custom--color--button-text);
@@ -984,6 +999,7 @@ luminous-vivid-amber #fcb900, light-green-cyan #7bdcb5, vivid-green-cyan #00d084
         }
     }
 }
+
 .error404 > div > header,
 .search > div > header,
 .archive > div > header,
@@ -2088,7 +2104,7 @@ div.gallery{
     }
 }
 .on-scroll{
-    &[class*="is-fse-gradient-var--"]{
+    &[class*="is-fse-gradient-"]{
         .sticky.wp-block-navigation:not(.has-background),
             .wp-block-navigation:not(.has-background) .wp-block-navigation__submenu-container {
             color: #000;
@@ -2128,6 +2144,7 @@ div.gallery{
         }
     }
 }
+.fse-scheme-twiggy-midnight,
 .fse-scheme-grid-midnight,
 .fse-scheme-pack-midnight,
 .is-fse-gradient-var--wp--preset--gradient--dots,

@@ -983,7 +983,7 @@ body{
          * WordPress 6.4
          fallback full site editor global style
 */
-
+.is-dark-theme,
 .is-fse-dark{
 
     --wp--custom--color--palette-base: #1b262c;
@@ -1014,7 +1014,7 @@ body{
         color:var(--wp--custom--color--banner-text);
     }
     //OW
-   // color:var(--wp--custom--color--pallette-contrast);
+    // color:var(--wp--custom--color--pallette-contrast);
 
 }
 /**
@@ -1943,22 +1943,24 @@ body.emulsion .shortcode-wrapper{
 .is-layout-constrained > .wp-block-table{
     width:calc( var(--wp--style--global--content-size) - var(--wp--custom--padding--content) * 2);
 }
-.emulsion{
-    .wp-block-table{
-        thead {
-            border-bottom-color:var(--wp--custom--border--common-color);
-            border-bottom-style:var(--wp--custom--border--common-style);
-            border-bottom-width:3px;
-        }
-        tfoot {
-            border-top-color:var(--wp--custom--border--common-color);
-            border-top-style:var(--wp--custom--border--common-style);
-            border-top-width:3px;
-        }
-        td,th{
-            border:var(--wp--custom--border--common);
-        }
+
+.wp-block-table{
+    thead {
+        border-bottom-color:var(--wp--custom--border--common-color);
+        border-bottom-style:var(--wp--custom--border--common-style);
+        border-bottom-width:3px;
     }
+    tfoot {
+        border-top-color:var(--wp--custom--border--common-color);
+        border-top-style:var(--wp--custom--border--common-style);
+        border-top-width:3px;
+    }
+    td,th{
+        border:var(--wp--custom--border--common);
+        padding:calc( var(--wp--custom--padding--content,.75rem) / 2);
+    }
+}
+.emulsion{
     .wp-block-table{
         &.is-style-stripes{
             //OW
@@ -2038,10 +2040,10 @@ body.emulsion .shortcode-wrapper{
         }
     }
 }
-    .wp-block-post-excerpt__excerpt{
-        @extend %line-clamp;
-        margin-top:0;
-    }
+.wp-block-post-excerpt__excerpt{
+    @extend %line-clamp;
+    margin-top:0;
+}
 .emulsion{
     .wp-block-post-excerpt__more-text{
         margin:var(--wp--custom--margin--block);
@@ -3657,10 +3659,10 @@ pre.wp-block-code{
             transform-origin: center center;
             transform: rotate( 90deg );
             width:48px;
-           &.is-style-dots:before{
-               padding-left:0;
-               margin:0;
-           }
+            &.is-style-dots:before{
+                padding-left:0;
+                margin:0;
+            }
 
 
         }

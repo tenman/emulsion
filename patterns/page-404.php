@@ -10,9 +10,9 @@
  */
 
 ?>
-<!-- wp:group {"tagName":"main","align":"full","className":"alignfull fse-main-category","layout":{"type":"constrained"}} -->
+<!-- wp:group {"tagName":"main","align":"full","className":"alignfull fse-main-category","layout":{"type":"constrained"},"metadata":{"name":"Main"}} -->
 <main class="wp-block-group alignfull">
-	<!-- wp:group {"tagName":"article", "className":"file-not-found","layout":{"type":"constrained"}} -->
+	<!-- wp:group {"tagName":"article", "className":"file-not-found","layout":{"type":"constrained"},"metadata":{"name":"Article"}} -->
 	<article class="wp-block-group file-not-found">
 		<!-- wp:spacer {"height":"10vh"} -->
 		<div style="height:10vh" aria-hidden="true" class="wp-block-spacer"></div>
