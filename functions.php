@@ -19,8 +19,8 @@ if ( 'fse' == emulsion_get_theme_operation_mode() ) {
 		$css = emulsion_custom_field_css();
 
 		$css .= emulsion_corrected_core_css_has_nested_images_gallery();
-		//$css .= emulsion_pattern_custom_layout_inline_css();
 		$css .= emulsion_base_layout_apply_globaly_css();
+		$css .= emulsion_hide_redundant_category();
 
 		$css .= <<<STYLE
 
@@ -42,7 +42,6 @@ STYLE;
 		$css .= emulsion_editor_color_scheme_correction();
 		$css .= emulsion_fse_scheme_pack_eiditor_style();
 		$css .= emulsion_fse_scheme_pack_midnight_eiditor_style();
-		//$css .= emulsion_fse_scheme_grid_eiditor_style();
 
 		$css .= <<<STYLE
 

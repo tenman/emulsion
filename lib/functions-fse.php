@@ -704,6 +704,43 @@ if ( ! function_exists( 'emulsion_editor_color_scheme_correction' ) ) {
 		$global_styles = '';
 
 		$css = <<<STYLE
+		.editor-styles-wrapper .is-style-tategaki {
+			flex-direction: row-reverse;
+			display: flex;
+			flex-wrap: wrap;
+			padding: 0 0.75rem;
+			gap: 0;
+	   }
+		.editor-styles-wrapper .is-style-tategaki [style*="vertical-rl"]:lang(ja) {
+			flex: 0 0 auto;
+			width: auto;
+			display: inline-block;
+			text-align: left;
+			text-indent: 1rem;
+			margin: 0;
+			margin-block: 0.1875rem;
+			padding: 0.75rem;
+			padding-block: 0;
+			box-sizing: content-box;
+			max-height: 25rem;
+	   }
+		.editor-styles-wrapper .is-style-tategaki h1[style*="vertical-rl"]:lang(ja),
+		.editor-styles-wrapper .is-style-tategaki h2[style*="vertical-rl"]:lang(ja),
+		.editor-styles-wrapper .is-style-tategaki h3[style*="vertical-rl"]:lang(ja),
+		.editor-styles-wrapper .is-style-tategaki h4[style*="vertical-rl"]:lang(ja),
+		.editor-styles-wrapper .is-style-tategaki h5[style*="vertical-rl"]:lang(ja),
+		.editor-styles-wrapper .is-style-tategaki h4[style*="vertical-rl"]:lang(ja) {
+			margin-block: 0.75rem;
+			text-indent: 0;
+	   }
+		.editor-styles-wrapper [style*="vertical-rl"]:lang(ja) {
+			width: auto;
+			max-height: 360px;
+			margin: 0;
+			margin-block: auto;
+			padding: 0.75rem;
+			padding-block: 0;
+	   }
 		.editor-styles-wrapper .wp-block-cover a,
 		.editor-styles-wrapper .wp-block-cover{
 			--wp--custom--color--pallette-contrast:#000;

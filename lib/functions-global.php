@@ -2561,3 +2561,33 @@ STYLE;
 
 	return $css;
 }
+
+
+if ( ! function_exists( 'emulsion_hide_redundant_category' ) ) {
+
+	function emulsion_hide_redundant_category() {
+
+		$permalink_structure = get_option( 'permalink_structure' );
+
+		$css_rule_set = '.taxsonomy [rel="tag"][href$="%1$s/"],
+						.taxsonomy [rel="tag"][href$="%1$s"]{
+							display:none;
+						}';
+		if ( is_category() ) {
+
+			$category		 = single_term_title( "", false );
+			$catid			 = get_cat_ID( $category );
+			$category_link	 = get_category_link( $catid );
+
+			return sprintf( $css_rule_set, $category_link );
+		}
+		if ( ! empty( $permalink_structure ) ) {
+
+			$default_category_id	 = get_option( 'default_category' );
+			$default_category_info	 = get_category( $default_category_id );
+			$default_category_slug	 = $default_category_info->slug;
+			return sprintf( $css_rule_set, $default_category_slug );
+		}
+	}
+
+}

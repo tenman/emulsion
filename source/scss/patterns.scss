@@ -1000,11 +1000,12 @@ luminous-vivid-amber #fcb900, light-green-cyan #7bdcb5, vivid-green-cyan #00d084
     }
 }
 
-.error404 > div > header,
-.search > div > header,
-.archive > div > header,
-.page > div > header,
-.single > div > header,
+//.error404 > div > header,
+//.search > div > header,
+//.archive > div > header,
+//.page > div > header,
+//.single > div > header,
+body > div > header,
 body > div > footer{
 
     color:var(--wp--custom--color--banner-text);
@@ -1331,7 +1332,7 @@ div.gallery{
                 }
             }
             &.gallery-size-thumbnail{
-                margin:0;
+                margin:0 auto;
                 .gallery-item{
                     max-width:9.375rem;
                 }
@@ -2531,7 +2532,9 @@ $spacings: 40,50,60,70,80,90;
  * Keywords: shape
  * Description: Show blocks as metal shapes
  */
-
+.is-fse-dark .shape-speech-bubble{
+    color:#000;
+}
 .shape-speech-bubble{
     .wp-block-column{
         position:relative;
@@ -2616,8 +2619,9 @@ $spacings: 40,50,60,70,80,90;
 }
 .list-style-tab{
     margin:1.5rem auto .75rem;
+
     &.success-js{
-        position:relative;
+        position:relative!important;
         margin-top:1.5rem;
         margin-bottom:.75rem;
         overflow:hidden;
