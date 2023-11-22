@@ -754,6 +754,7 @@ if ( ! function_exists( 'emulsion_editor_color_scheme_correction' ) ) {
 		}
 		.fse-header .wp-block-cover{
 			background:var(--wp--custom--color--banner-bg);
+			color:var(--wp--custom--color--banner-text);
 		}
 		.editor-styles-wrapper .wp-block-post-navigation-link,
 		.editor-styles-wrapper [type="submit"],
@@ -986,6 +987,15 @@ if ( ! function_exists( 'emulsion_editor_color_scheme_correction' ) ) {
 			padding-bottom: 1.5rem;
 			margin: 0 auto;
 	   }
+		.editor-styles-wrapper .is-root-container > p.wp-block-site-tagline:not(.specificity):not(.specificity){
+				/* OW */
+			margin: var(--wp--custom--margin--block, 1.5rem auto);
+			width: var(--wp--style--global--content-size);
+		}
+		.editor-styles-wrapper .is-root-container > .wp-block-site-title{
+			margin-left:auto;
+			margin-right:auto;
+		}
 		.editor-styles-wrapper .fse-header .fse-header-content .wp-block-site-title {
 			margin-bottom: 0;
 			margin-left: 0;
@@ -1033,11 +1043,11 @@ if ( ! function_exists( 'emulsion_editor_color_scheme_correction' ) ) {
 			 width: fit-content;
 			 padding-left: var(--wp--custom--padding--left);
 		}
-		 .editor-styles-wrapper .is-root-container > .wp-block-group.is-layout-flex:not(.is-vertical):not(.items-justified-space-between) > *:nth-child(1):nth-last-child(2) {
+		 .editor-styles-wrapper .is-root-container > .wp-block-group.is-layout-flex:not(.is-vertical):not(.is-nowrap):not(.items-justified-space-between) > *:nth-child(1):nth-last-child(2) {
 			 width: calc(100% - min( 30vw, var(--wp--custom--width--sidebar)));
 			 overflow: hidden;
 		}
-		 .editor-styles-wrapper .is-root-container > .wp-block-group.is-layout-flex:not(.is-vertical):not(.items-justified-space-between) > *:nth-child(1):nth-last-child(2) .wp-block-site-logo {
+		 .editor-styles-wrapper .is-root-container > .wp-block-group.is-layout-flex:not(.is-vertical):not(.is-nowrap):not(.items-justified-space-between) > *:nth-child(1):nth-last-child(2) .wp-block-site-logo {
 			 width: -moz-fit-content;
 			 width: fit-content;
 			 padding-left: var(--wp--custom--padding--left);

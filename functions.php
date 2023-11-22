@@ -9,7 +9,7 @@ if ( 'fse' == emulsion_get_theme_operation_mode() ) {
 
 	include_once( get_theme_file_path( 'lib/functions-fse.php' ) );
 	include_once( get_template_directory() . '/lib/full_site_editor.php' );
-	include_once( get_theme_file_path( 'fse-compatible-classic-template/functions.php' ) );
+	include_once( get_theme_file_path( 'classic-templates/functions.php' ) );
 
 	/**
 	 * front emd extend CSS

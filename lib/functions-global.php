@@ -1451,8 +1451,13 @@ if ( ! function_exists( 'emulsion_get_css_variables_value' ) ) {
 	function emulsion_get_css_variables_value( $variable ) {
 
 		$preset_values	 = wp_get_global_stylesheet( array( 'variables' ) );
-		$preset_val		 = preg_match( '$' . trim($variable) . '\:([^\;]*)\;$', $preset_values, $preset_regs );
+		$preset_val		 = preg_match( '$' . trim( $variable ) . '\:([^\;]*)\;$', $preset_values, $preset_regs );
 
+		if ( false !== strpos( $preset_regs[1], 'var(' ) ) {
+			$css_variable_name	 = trim( str_replace( array( 'var', '(', ')' ), array( '', '', '' ), $preset_regs[1] ) );
+			return emulsion_get_css_variables_value( $css_variable_name );
+
+		}
 		if ( $preset_val ) {
 
 			return trim( $preset_regs[1] );
@@ -1472,7 +1477,6 @@ function emulsion_get_fse_background_color_from_stylesheet() {
 
 			$color = trim( $regs[4] );
 			return $color;
-
 	}
 
 
@@ -1501,14 +1505,19 @@ if ( ! function_exists( 'emulsion_fse_background_color_class' ) ) {
 			$replace_class	 = '';
 			$style			 = wp_get_global_stylesheet( array( 'styles' ) );
 
+			$is_global_style = 'default' == $global_settings['color']['scheme'] ? '-global': '';
+
+
 			if ( false !== preg_match( '$body(\s*)?\{([^\}]*)?(background-color:)([^\;]*)\;$', $style, $regs ) && ! empty( $regs[4] ) ) {
+
+				$regs[4] = trim($regs[4]);
 
 				if ( ! empty( sanitize_hex_color( $regs[4] ) ) ) {
 
 					//use solid background
 					$type_background = sanitize_html_class( 'is-fse-bg-' . $regs[4] );
-					$color			 = emulsion_accessible_color( trim( $regs[4] ) );
-					$fse_class		 = sanitize_html_class( 'fse-schme-custom-' . $global_settings['color']['scheme'] );
+					$color			 = emulsion_accessible_color( $regs[4] );
+			
 				} else {
 
 					//use style variation
@@ -1516,7 +1525,7 @@ if ( ! function_exists( 'emulsion_fse_background_color_class' ) ) {
 					$valiable_value		 = emulsion_get_css_variables_value( $css_variable_name );
 					// defined color custom
 
-					if( false !== strpos($valiable_value,'var') ) {
+					if( false !== strpos($valiable_value,'var(') ) {
 						$css_variable_name	 = trim( str_replace( array( 'var', '(', ')' ), array( '', '', '' ), $valiable_value ) );
 						$valiable_value		 = emulsion_get_css_variables_value( $css_variable_name );
 					}
@@ -1528,10 +1537,10 @@ if ( ! function_exists( 'emulsion_fse_background_color_class' ) ) {
 
 				if ( '#ffffff' == $color ) {
 
-					$replace_class .= ' is-fse-dark ' . $type_background;
+					$replace_class .= ' is-fse-dark'. $is_global_style. ' '. $type_background;
 				} elseif ( '#333333' == $color ) {
 
-					$replace_class .= ' is-fse-light ' . $type_background;
+					$replace_class .= ' is-fse-light'. $is_global_style. ' '. $type_background;
 				}
 			}
 
@@ -2412,7 +2421,7 @@ if ( ! function_exists( 'emulsion_scheme_transitional_alert' ) ) {
 
 		$template_name = basename( $template );
 
-		if ( 'transitional' == emulsion_get_theme_operation_mode() && strstr( $template, '/fse-compatible-classic-template/' ) && is_user_logged_in() ) {
+		if ( 'transitional' == emulsion_get_theme_operation_mode() && strstr( $template, '/classic-templates/' ) && is_user_logged_in() ) {
 			printf( '<div class="transitional-alert"><h2>%1$s</h2>', esc_html__( 'Theme scheme \'transitional\' has selected a template that is not available.', 'emulsion' ) );
 			printf( '<p class="transitional-alert">%1$s %2$s</p></div>', esc_html__( 'The specified template cannot be used. Please change', 'emulsion' ), $template_name );
 		}

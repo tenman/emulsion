@@ -273,12 +273,12 @@ if ( ! function_exists( 'emulsion_custom_template_include' ) ) {
 
 			if ( is_singular() && empty( $new_template ) ) {
 
-				$new_template = locate_template( array( 'fse-compatible-classic-template/singular.php' ) );
+				$new_template = locate_template( array( 'classic-templates/singular.php' ) );
 			}
 
 			if ( is_privacy_policy() ) {
 
-				$new_template = locate_template( array( 'fse-compatible-classic-template/privacy-policy.php' ) );
+				$new_template = locate_template( array( 'classic-templates/privacy-policy.php' ) );
 			}
 			if ( is_search() ) {
 
@@ -341,11 +341,11 @@ if ( ! function_exists( 'emulsion_custom_template_include' ) ) {
 			}
 			if ( is_404() ) {
 
-				$new_template = locate_template( array( 'fse-compatible-classic-template/404.php' ) );
+				$new_template = locate_template( array( 'classic-templates/404.php' ) );
 
 			}
 			if ( is_date() ) {
-				$new_template = locate_template( array( 'fse-compatible-classic-template/date.php' ) );
+				$new_template = locate_template( array( 'classic-templates/date.php' ) );
 				if ( empty( $new_template ) ) {
 				$new_template = emulsion_get_archive_template();
 				}
@@ -540,13 +540,13 @@ if ( ! function_exists( 'emulsion_get_category_template' ) ) {
 
 			$slug_decoded = urldecode( $category->slug );
 			if ( $slug_decoded !== $category->slug ) {
-				$templates[] = "fse-compatible-classic-template/category-{$slug_decoded}.php";
+				$templates[] = "classic-templates/category-{$slug_decoded}.php";
 			}
 
-			$templates[] = "fse-compatible-classic-template/category-{$category->slug}.php";
-			$templates[] = "fse-compatible-classic-template/category-{$category->term_id}.php";
+			$templates[] = "classic-templates/category-{$category->slug}.php";
+			$templates[] = "classic-templates/category-{$category->term_id}.php";
 		}
-		$templates[] = 'fse-compatible-classic-template/category.php';
+		$templates[] = 'classic-templates/category.php';
 
 		return get_query_template( 'category', $templates );
 	}
@@ -563,13 +563,13 @@ if ( ! function_exists( 'emulsion_get_tag_template' ) ) {
 
 			$slug_decoded = urldecode( $tag->slug );
 			if ( $slug_decoded !== $tag->slug ) {
-				$templates[] = "fse-compatible-classic-template/tag-{$slug_decoded}.php";
+				$templates[] = "classic-templates/tag-{$slug_decoded}.php";
 			}
 
-			$templates[] = "fse-compatible-classic-template/tag-{$tag->slug}.php";
-			$templates[] = "fse-compatible-classic-template/tag-{$tag->term_id}.php";
+			$templates[] = "classic-templates/tag-{$tag->slug}.php";
+			$templates[] = "classic-templates/tag-{$tag->term_id}.php";
 		}
-		$templates[] = 'fse-compatible-classic-template/tag.php';
+		$templates[] = 'classic-templates/tag.php';
 
 		return get_query_template( 'tag', $templates );
 	}
@@ -584,10 +584,10 @@ if ( ! function_exists( 'emulsion_get_author_template' ) ) {
 		$templates = array();
 
 		if ( $author instanceof WP_User ) {
-			$templates[] = "fse-compatible-classic-template/author-{$author->user_nicename}.php";
-			$templates[] = "fse-compatible-classic-template/author-{$author->ID}.php";
+			$templates[] = "classic-templates/author-{$author->user_nicename}.php";
+			$templates[] = "classic-templates/author-{$author->ID}.php";
 		}
-		$templates[] = 'fse-compatible-classic-template/author.php';
+		$templates[] = 'classic-templates/author.php';
 
 		return get_query_template( 'author', $templates );
 	}
@@ -595,7 +595,7 @@ if ( ! function_exists( 'emulsion_get_author_template' ) ) {
 }
 
 function emulsion_get_search_template() {
-	$templates = array( 'fse-compatible-classic-template/search.php' );
+	$templates = array( 'classic-templates/search.php' );
 	return get_query_template( 'search', $templates );
 }
 
@@ -608,19 +608,19 @@ function emulsion_get_single_template() {
 	if ( ! empty( $object->post_type ) ) {
 		$template = get_page_template_slug( $object );
 		if ( $template && 0 === validate_file( $template ) ) {
-			$templates[] = "fse-compatible-classic-template/{$template}";
+			$templates[] = "classic-templates/{$template}";
 		}
 
 		$name_decoded = urldecode( $object->post_name );
 		if ( $name_decoded !== $object->post_name ) {
-			$templates[] = "fse-compatible-classic-template/single-{$object->post_type}-{$name_decoded}.php";
+			$templates[] = "classic-templates/single-{$object->post_type}-{$name_decoded}.php";
 		}
 
-		$templates[] = "fse-compatible-classic-template/single-{$object->post_type}-{$object->post_name}.php";
-		$templates[] = "fse-compatible-classic-template/single-{$object->post_type}.php";
+		$templates[] = "classic-templates/single-{$object->post_type}-{$object->post_name}.php";
+		$templates[] = "classic-templates/single-{$object->post_type}.php";
 	}
 
-	$templates[] = 'fse-compatible-classic-template/single.php';
+	$templates[] = 'classic-templates/single.php';
 
 	return get_query_template( 'single', $templates );
 }
@@ -646,40 +646,40 @@ function emulsion_get_page_template() {
 	if ( $pagename ) {
 		$pagename_decoded = urldecode( $pagename );
 		if ( $pagename_decoded !== $pagename ) {
-			$templates[] = "fse-compatible-classic-template/page-{$pagename_decoded}.php";
+			$templates[] = "classic-templates/page-{$pagename_decoded}.php";
 		}
-		$templates[] = "fse-compatible-classic-template/page-{$pagename}.php";
+		$templates[] = "classic-templates/page-{$pagename}.php";
 	}
 	if ( $id ) {
-		$templates[] = "fse-compatible-classic-template/page-{$id}.php";
+		$templates[] = "classic-templates/page-{$id}.php";
 	}
-	$templates[] = 'fse-compatible-classic-template/page.php';
+	$templates[] = 'classic-templates/page.php';
 
 	return get_query_template( 'page', $templates );
 }
 
 function emulsion_get_home_template() {
-	$templates = array( 'fse-compatible-classic-template/home.php' );
+	$templates = array( 'classic-templates/home.php' );
 
 	return get_query_template( 'home', $templates );
 }
 
 function emulsion_get_front_page_template() {
 
-	$templates = array( 'fse-compatible-classic-template/front-page.php' );
+	$templates = array( 'classic-templates/front-page.php' );
 
 	return get_query_template( 'frontpage', $templates );
 }
 
 function emulsion_get_privacy_policy_template() {
 
-	$templates = array( 'fse-compatible-classic-template/privacy-policy.php' );
+	$templates = array( 'classic-templates/privacy-policy.php' );
 
 	return get_query_template( 'privacypolicy', $templates );
 }
 
 function emulsion_get_404_template() {
-	$templates = array( 'fse-compatible-classic-template/404.php' );
+	$templates = array( 'classic-templates/404.php' );
 	return get_query_template( '404', $template );
 }
 
@@ -690,9 +690,9 @@ function emulsion_get_archive_template() {
 
 	if ( count( $post_types ) == 1 ) {
 		$post_type	 = reset( $post_types );
-		$templates[] = "fse-compatible-classic-template/archive-{$post_type}.php";
+		$templates[] = "classic-templates/archive-{$post_type}.php";
 	}
-	$templates[] = 'fse-compatible-classic-template/archive.php';
+	$templates[] = 'classic-templates/archive.php';
 
 	return get_query_template( 'archive', $templates );
 }
@@ -721,13 +721,13 @@ function emulsion_get_taxonomy_template() {
 
 		$slug_decoded = urldecode( $term->slug );
 		if ( $slug_decoded !== $term->slug ) {
-			$templates[] = "fse-compatible-classic-template/taxonomy-$taxonomy-{$slug_decoded}.php";
+			$templates[] = "classic-templates/taxonomy-$taxonomy-{$slug_decoded}.php";
 		}
 
-		$templates[] = "fse-compatible-classic-template/taxonomy-$taxonomy-{$term->slug}.php";
-		$templates[] = "fse-compatible-classic-template/taxonomy-$taxonomy.php";
+		$templates[] = "classic-templates/taxonomy-$taxonomy-{$term->slug}.php";
+		$templates[] = "classic-templates/taxonomy-$taxonomy.php";
 	}
-	$templates[] = 'fse-compatible-classic-template/taxonomy.php';
+	$templates[] = 'classic-templates/taxonomy.php';
 
 	return get_query_template( 'taxonomy', $templates );
 }
@@ -740,12 +740,12 @@ function emulsion_get_embed_template() {
 	if ( ! empty( $object->post_type ) ) {
 		$post_format = get_post_format( $object );
 		if ( $post_format ) {
-			$templates[] = "fse-compatible-classic-template/embed-{$object->post_type}-{$post_format}.php";
+			$templates[] = "classic-templates/embed-{$object->post_type}-{$post_format}.php";
 		}
-		$templates[] = "fse-compatible-classic-template/embed-{$object->post_type}.php";
+		$templates[] = "classic-templates/embed-{$object->post_type}.php";
 	}
 
-	$templates[] = 'fse-compatible-classic-template/embed.php';
+	$templates[] = 'classic-templates/embed.php';
 
 	return get_query_template( 'embed', $templates );
 }
@@ -763,12 +763,12 @@ function emulsion_get_attachment_template() {
 		}
 
 		if ( ! empty( $subtype ) ) {
-			$templates[] = "fse-compatible-classic-template/{$type}-{$subtype}.php";
-			$templates[] = "fse-compatible-classic-template/{$subtype}.php";
+			$templates[] = "classic-templates/{$type}-{$subtype}.php";
+			$templates[] = "classic-templates/{$subtype}.php";
 		}
-		$templates[] = "fse-compatible-classic-template/{$type}.php";
+		$templates[] = "classic-templates/{$type}.php";
 	}
-	$templates[] = 'fse-compatible-classic-template/attachment.php';
+	$templates[] = 'classic-templates/attachment.php';
 
 	return get_query_template( 'attachment', $templates );
 }
