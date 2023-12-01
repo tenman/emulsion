@@ -58,7 +58,7 @@ if ( ! function_exists( 'emulsion_classic' ) ) {
 				);
 				wp_enqueue_style( 'emulsion-custom-color' );
 			}
-			 * 
+			 *
 			 */
 
 			wp_enqueue_style( 'emulsion-classic' );

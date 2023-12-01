@@ -374,29 +374,10 @@ function emulsionGetParameterByName(name, url = window.location.href) {
 
 document.addEventListener("DOMContentLoaded", function () {
     var body = document.body;
-    // Todo: 5.9.3 not work this notices (customizer site editor link has postType)
-    //5.8
     if (body.classList.contains('site-editor-php') && body.classList.contains('is-presentation-theme') && !emulsionGetParameterByName('postType')) {
         window.wp.data.dispatch('core/notices').createNotice(
                 'warning',
-                'The settings made here will not take effect unless you change the theme settings.<br /> Please open the customizer from the link below and select <b>Full Site Editing Theme or FSE Transitional Theme</b>.',
-                {
-                    __unstableHTML: true, // true = allows HTML; default false
-                    isDismissible: true,
-                    actions: [
-                        {
-                            url: 'customize.php?autofocus[section]=emulsion_editor',
-                            label: 'Change setting in Customizer',
-                        },
-                    ],
-                }
-        )
-    }
-    //for 5.9
-    if (body.classList.contains('appearance_page_gutenberg-edit-site') && body.classList.contains('is-presentation-theme') && !emulsionGetParameterByName('postType')) {
-        window.wp.data.dispatch('core/notices').createNotice(
-                'warning',
-                'The settings made here will not take effect unless you change the theme settings.<br /> Please open the customizer from the link below and select <b>Full Site Editing Theme or FSE Transitional Theme</b>.',
+                'A PHP template has been applied. <br />Style changes will be reflected, but the template cannot be edited.',
                 {
                     __unstableHTML: true, // true = allows HTML; default false
                     isDismissible: true,
@@ -411,21 +392,4 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-/**
-    if (body.classList.contains('widgets-php') && body.classList.contains('is-presentation-fse')) {
-        window.wp.data.dispatch('core/notices').createNotice(
-                'warning',
-                'The settings made here will not take effect unless you change the theme settings.<br />Please open the customizer from the link below and select <b>FSE Transitional Theme or Classic Theme</b>.',
-                {
-                    __unstableHTML: true, // true = allows HTML; default false
-                    isDismissible: true,
-                    actions: [
-                        {
-                            url: 'customize.php?autofocus[section]=emulsion_editor',
-                            label: 'Change setting in Customizer',
-                        },
-                    ],
-                }
-        )
-    }*/
 });

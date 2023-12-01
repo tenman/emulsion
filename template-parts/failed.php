@@ -2,7 +2,7 @@
 
 if( 'theme' == emulsion_get_theme_operation_mode() ) {
 
-?><div class="emulsion-failed <?php emulsion_template_part_names_class( __FILE__ ) ?>"><?php
+?><div class="emulsion-failed is-layout-constrained <?php emulsion_template_part_names_class( __FILE__ ) ?>"><?php
 
 	if ( is_search() ) {
 

@@ -13,9 +13,10 @@ if ( true === emulsion_is_custom_post_type() && 'fse' == emulsion_get_theme_oper
 	get_template_part( 'header', 'fse' );
 
 	emulsion_block_template_part( 'header' );
+
 } else {
 	?><!DOCTYPE html>
-	<html <?php language_attributes(); ?> id="document" <?php printf( 'class="%1$s"', esc_attr( emulsion_element_classes( 'root' ) ) ); ?>>
+	<html <?php language_attributes(); ?> id="document" <?php //printf( 'class="%1$s"', esc_attr( emulsion_element_classes( 'root' ) ) ); ?>>
 		<head>
 			<meta http-equiv="content-type" content="<?php bloginfo( 'html_type' ); ?>; charset=<?php bloginfo( 'charset' ); ?>" />
 			<?php wp_head(); ?>
@@ -25,6 +26,8 @@ if ( true === emulsion_is_custom_post_type() && 'fse' == emulsion_get_theme_oper
 			has_action( 'wp_body_open' ) ? do_action( 'wp_body_open' ) : '';
 
 			emulsion_header_manager();
+			
+			echo do_blocks('<!-- wp:pattern {"slug":"emulsion/primary-menu"} /-->');
 
 			emulsion_sidebar_manager();
 			?>
@@ -34,7 +37,6 @@ if ( true === emulsion_is_custom_post_type() && 'fse' == emulsion_get_theme_oper
 
 				<main id="main">
 					<?php ! have_posts() ? get_template_part( 'template-parts/failed' ) : ''; ?>
-
 	<?php
 }
 

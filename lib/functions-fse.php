@@ -89,6 +89,7 @@ if ( ! function_exists( 'emulsion_setup' ) ) {
 
 		add_filter( 'get_the_author_description', 'emulsion_author_description', 20 );
 		add_filter( 'the_password_form', 'emulsion_get_the_password_form', 11 );
+		add_filter( 'render_block_post_content', 'emulsion_entry_content_filter', 11 );
 
 		if ( 'enable' == get_theme_mod( 'emulsion_gutenberg_render_layout_support_flag' ) ) {
 

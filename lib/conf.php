@@ -196,8 +196,8 @@ if ( ! function_exists( 'emulsion_theme_default_val' ) ) {
 			/**
 			 * Theme Customizer for Block Editor
 			 */
-			'emulsion_header_template'	 => array( 'default' => 'default', 'unit' => '', ),
-			'emulsion_footer_template'	 => array( 'default' => 'default', 'unit' => '', ),
+			'emulsion_header_template'	 => array( 'default' => 'html', 'unit' => '', ),
+			'emulsion_footer_template'	 => array( 'default' => 'html', 'unit' => '', ),
 			'emulsion_editor_support'	 => array( 'default' => 'transitional', 'unit' => '', ),
 		);
 
@@ -244,15 +244,15 @@ function emulsion_theme_default_values( $name, $fallback ) {
 
 	global $content_width;
 
-	if ( ! emulsion_the_theme_supports( 'scheme' ) ) {
+	//if ( ! emulsion_the_theme_supports( 'scheme' ) ) {
 
 		return $fallback;
-	}
+	//}
 
 	$scheme			 = get_theme_mod( 'emulsion_scheme' );
-	$include_path	 = get_template_directory() . '/scheme.php';
+	//$include_path	 = get_template_directory() . '/scheme.php';
 	$settings		 = md5( serialize( get_theme_mods() ) );
-	$transient_name	 = sprintf( '%1$s-%2$s-%3$s-%4$s', $scheme, $name, md5_file( $include_path ), $settings );
+	//$transient_name	 = sprintf( '%1$s-%2$s-%3$s-%4$s', $scheme, $name, md5_file( $include_path ), $settings );
 
 	$transient_val = get_transient( $transient_name );
 
@@ -283,12 +283,12 @@ function emulsion_theme_default_values( $name, $fallback ) {
 			$result = get_theme_mod( $name, $fallback );
 		}
 
-		set_transient( $transient_name, $result, DAY_IN_SECONDS );
+		//set_transient( $transient_name, $result, DAY_IN_SECONDS );
 
 		return $result;
 	} else {
 
-		return $transient_val;
+		//return $transient_val;
 	}
 }
 

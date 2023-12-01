@@ -2,6 +2,7 @@
 /**
  * Theme Customizer
  */
+
 add_action( 'customize_register', 'emulsion_customize_register' );
 
 $emulsion_theme_mod_args = array(
@@ -305,6 +306,9 @@ if ( ! function_exists( 'emulsion_theme_customizer_style' ) ) {
 	function emulsion_theme_customizer_style() {
 
 		$css = <<< CSS
+.wp-full-overlay .wp-full-overlay-sidebar{
+		width:25%;
+}
 
 .customize-control-notifications-container > ul,
 #customize-notifications-area > ul{
@@ -422,6 +426,10 @@ CSS3;
 
 			$css .= <<<CSS3
 		#customize-notifications-area [data-code="site_editor_block_theme_notice"]{
+			display:none !important;
+		}
+		#customize-theme-controls #accordion-section-background_image,
+		#customize-theme-controls #accordion-section-colors{
 			display:none !important;
 		}
 CSS3;

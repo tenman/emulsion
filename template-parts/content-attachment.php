@@ -52,7 +52,7 @@ $emulsion_image_alt				 = get_post_meta( $emulsion_post_id, '_wp_attachment_imag
 			?></div>
 		<footer><?php
 
-			edit_post_link( esc_html__( 'Edit', 'emulsion' ), '<span class="editor">', '</span>', '', 'skin-button' );
+			edit_post_link( esc_html__( 'Edit', 'emulsion' ), '<div class="editor alignnone">', '</div>', '', 'skin-button' );
 
 	  ?></footer>
 	</article>
