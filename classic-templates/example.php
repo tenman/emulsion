@@ -22,7 +22,7 @@
 	</main>
 
 	<nav class="wp-block-group wp-block-post-navigation">
-		<?php	echo do_blocks('<!-- wp:post-navigation-link {"type":"previous"} /--><!-- wp:post-navigation-link /-->'); ?>
+		<?php	echo do_blocks('<!-- wp:post-navigation-link {"showTitle":true} /--><!-- wp:post-navigation-link {"type":"previous","showTitle":true} /-->'); ?>
 	</nav>
 
 	<?php emulsion_block_template_part( 'footer' ) ?>

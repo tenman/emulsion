@@ -142,6 +142,7 @@ wp.blocks.registerBlockVariation(
             keywords: [ wp.i18n.__('h6', 'emulsion') ]
         }
 );
+/**
 wp.blocks.registerBlockVariation(
         'core/columns', {
             name: 'cta-block',
@@ -300,6 +301,8 @@ wp.blocks.registerBlockVariation(
             keywords: [ wp.i18n.__('grid', 'emulsion') ]
         }
 );
+ *
+ */
 wp.blocks.registerBlockVariation(
         'core/group', {
             name: 'emulsion-panel',

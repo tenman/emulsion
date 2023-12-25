@@ -2,7 +2,7 @@
     width:var(--wp--style--global--content-size);
 }
 .header-2col-wrapper{
-    background: var(--wp--custom--color--banner-bg);
+    background: var(--wp--preset--color--base-banner);
 }
 .wp-block-template-part{
     float:none;
@@ -51,8 +51,8 @@ p.wp-block-post-excerpt__more-text{
     .wp-block-comments-pagination-numbers * {
         width:-moz-fit-content;
         width:fit-content;
-        margin:0;
         padding:.75rem;
+        margin:0;
     }
 }
 .is-grid .wp-block-latest-posts__post-title,
@@ -97,8 +97,8 @@ nav.fse-primary {
     min-height:var(--wp--custom--min-height--eighth);
 }
 .fse-header-content{
-    min-height:var(--wp--custom--min-height--eighth);
     width:min(100%, var(--wp--style--global--content-size));
+    min-height:var(--wp--custom--min-height--eighth);
     .fse-header-text{
         .wp-block-site-tagline{
             margin:0;
@@ -109,8 +109,8 @@ nav.fse-primary {
  * Header
  */
 .post-header-content{
-     margin:var(--wp--custom--margin--block);
      width:min(100%, var(--wp--style--global--content-size));
+     margin:var(--wp--custom--margin--block);
     .fse-header-text{
         .wp-block-site-tagline{
             margin:0;
@@ -150,11 +150,11 @@ nav.fse-primary {
 }
 
 body.editor-styles-wrapper{
-    color: var(--wp--custom--color--pallette-contrast);
+    color: var(--wp--custom--color--palette-contrast);
     background: var(--wp--custom--color--palette-base);
 }
 body.editor-styles-wrapper a{
-    color: var(--wp--custom--color--pallette-primary);
+    color: var(--wp--custom--color--palette-primary);
 }
 
 body .is-layout-flex > * {
@@ -177,8 +177,8 @@ body .is-layout-flex > * {
             li{
                 flex:1 1 auto;
                 width: calc( 99.9% / #{$i} - var(--wp--style--block-gap, .75rem) * 3);
-                margin:0;
                 padding:.75rem;
+                margin:0;
                 border:var(--wp--custom--border--common);
                 @media screen and ( max-width : 40rem ) {
                     display:block;
@@ -203,10 +203,10 @@ body .is-layout-flex > * {
 body .is-layout-constrained > .alignleft,
 .alignleft{
     float:left;
-    clear:left;
     width:var(--wp--custom--width--float);
     max-width:100%;
     margin:var(--wp--custom--margin--alignleft);
+    clear:left;
 
 }
 
@@ -222,10 +222,10 @@ body .is-layout-constrained > .alignleft,
 body .is-layout-constrained > .alignright,
 .alignright{
     float:right;
-    clear:right;
     width:var(--wp--custom--width--float);
     max-width:100%;
     margin:var(--wp--custom--margin--alignright);
+    clear:right;
 }
 
 .alignright.size-thumbnail{
@@ -316,13 +316,13 @@ body .is-layout-constrained > .alignright,
         }
         .is-style-layout-wide{
             width:auto;
-            margin-left:auto !important;
             margin-right:auto !important;
+            margin-left:auto !important;
 
             & > *:not(.alignfull){
                 width:var(--wp--style--global--wide-size, 57.5rem);
-                margin-left:auto !important;
                 margin-right:auto !important;
+                margin-left:auto !important;
             }
             .archive-title,
             .post-header-content,
@@ -376,8 +376,8 @@ body .is-layout-constrained > .alignright,
         }
         & > * .fse-header-text,
         & > * .wp-block-site-logo{
-            margin:auto 0 !important;
             padding-left:.75rem;
+            margin:auto 0 !important;
         }
     }
 }
@@ -392,12 +392,12 @@ body .is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alig
         margin-left:max(1px, var(--wp--custom--margin--start-wide)) !important;
     }
     &.is-style-end-content{
-        margin-left:auto;
         margin-right: max(1px, var(--wp--custom--margin--start-content)) !important;
+        margin-left:auto;
     }
     .is-style-end-wide{
-        margin-left:auto;
         margin-right:max(1px, var(--wp--custom--margin--start-wide)) !important;
+        margin-left:auto;
     }
 }
 
@@ -424,8 +424,8 @@ body .is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alig
         flex: 1 1 auto;
         padding:0;
         a{
-            padding: 0.685rem;
             display:block;
+            padding: 0.685rem;
             text-align:center;
         }
         &:empty{

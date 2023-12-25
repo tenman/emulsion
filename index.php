@@ -3,9 +3,6 @@
  * Theme emulsion
  * fallback template file
  */
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
 
 do_action( 'emulsion_template_pre' );
 do_action( 'emulsion_template_pre_' . basename( __FILE__, '.php' ) );
@@ -45,4 +42,5 @@ if ( true === emulsion_is_custom_post_type() && 'fse' == emulsion_get_theme_oper
 
 	emulsion_pagination();
 }
+
 get_footer( $template_type );

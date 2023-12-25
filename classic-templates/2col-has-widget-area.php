@@ -11,10 +11,6 @@
 
 global $template;
 
-if ( 'transitional' !== emulsion_get_theme_operation_mode()){
-	emulsion_scheme_transitional_alert();
-}
-
 if ( 'fse' !== emulsion_get_theme_operation_mode() && strstr( $template, '/classic-templates/' ) ) {
 
 	/* Templates in the classic directory are used as backwards compatible templates only if the Customizer theme scheme is the Full Site Editing Theme. */
@@ -28,8 +24,9 @@ if ( 'fse' !== emulsion_get_theme_operation_mode() && strstr( $template, '/class
 <div class="wp-site-blocks">
 
 	<?php emulsion_block_template_part( 'header-2col' ) ?>
+	<?php echo do_blocks('<!-- wp:pattern {"slug":"emulsion/primary-menu"} /-->'); ?>
 
-	<div class="is-layout-flex alignfull has-sidebar-widget-area">
+	<div class="is-layout-flex alignfull has-sidebar-widget-area fse-columns">
 
 		<main class="alignfull is-layout-constrained">
 			<?php is_singular() ? emulsion_block_template_part( 'post-content' ) : emulsion_block_template_part( 'query-post' ); ?>
@@ -63,7 +60,7 @@ if ( 'fse' !== emulsion_get_theme_operation_mode() && strstr( $template, '/class
 	</div>
 
 	<nav class="wp-block-group wp-block-post-navigation">
-		<?php	echo do_blocks('<!-- wp:post-navigation-link {"type":"previous"} /--><!-- wp:post-navigation-link /-->'); ?>
+		<?php	echo do_blocks('<!-- wp:post-navigation-link {"showTitle":true} /--><!-- wp:post-navigation-link {"type":"previous","showTitle":true} /-->'); ?>
 	</nav>
 
 	<?php emulsion_block_template_part( 'footer' ) ?>

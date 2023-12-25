@@ -49,7 +49,7 @@ $emulsion_theme_mod_args = array(
 	),
 	'emulsion_render_elements_support'					 => array(
 		'section'			 => 'emulsion_editor',
-		'default'			 => 'disable',
+		'default'			 => 'enable',
 		'label'				 => esc_html__( 'Elements styles block support.', 'emulsion' ),
 		'description'		 => esc_html__( 'link style gutenberg use Class wp-elements-XXXXXXXXXXXX, theme use Class has-[preset color name]-link-color', 'emulsion' ),
 		'sanitize_callback'	 => 'emulsion_render_elements_support_validate',
@@ -307,7 +307,31 @@ if ( ! function_exists( 'emulsion_theme_customizer_style' ) ) {
 
 		$css = <<< CSS
 .wp-full-overlay .wp-full-overlay-sidebar{
-		width:25%;
+		width:100%;
+		max-width:100%;
+}
+.wp-full-overlay.preview-only .wp-full-overlay-sidebar{
+/*		box-sizing: border-box;
+    position: fixed;
+    min-width: 300px;
+    max-width: 600px;
+    width: 18%;
+    height: 100%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    padding: 0;
+    margin: 0;
+    z-index: 10;*/
+	margin-left:100%;
+}
+#customize-theme-controls .customize-pane-child.accordion-sub-container,
+#customize-theme-controls .customize-pane-child.accordion-section-content,
+#customize-theme-controls{
+	width:var(--wp--custom--width--content);
+	max-width:100%;
+	margin:auto;
+	left:auto;
 }
 
 .customize-control-notifications-container > ul,
@@ -413,14 +437,7 @@ CSS2;
 		}
 
 
-		if ( 'simple' == get_theme_mod( 'emulsion_header_layout' ) ) {
 
-			$css .= <<<CSS3
-		#customize-theme-controls #accordion-section-header_image{
-			display:none !important;
-		}
-CSS3;
-		}
 
 		if ( 'theme' == get_theme_mod( 'emulsion_editor_support' ) ) {
 

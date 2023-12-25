@@ -16,24 +16,10 @@ add_action( 'tgmpa_register', 'emulsion_theme_register_required_plugins' );
 function emulsion_theme_register_required_plugins() {
 
     $plugins = array(
-		array(
-			'name'		 => 'Breadcrumb NavXT',
-			'slug'		 => 'breadcrumb-navxt',
-			'required'	 => false,
-		),
+
 		array(
 			'name'		 => 'emulsion addons',
 			'slug'		 => 'emulsion-addons',
-			'required'	 => false,
-		),
-		array(
-			'name'		 => 'AMP',
-			'slug'		 => 'amp',
-			'required'	 => false,
-		),
-		array(
-			'name'		 => 'PWA',
-			'slug'		 => 'pwa',
 			'required'	 => false,
 		),
 		array(

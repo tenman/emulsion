@@ -4,20 +4,16 @@ include_once( get_theme_file_path( 'lib/conf.php' ) );
 current_user_can( 'edit_posts' ) ? include_once( get_theme_file_path( 'lib/customize.php' ) ) : '';
 include_once( get_theme_file_path( 'lib/functions-global.php' ) );
 include_once( get_theme_file_path( 'lib/blocks.php' ) );
+include_once( get_theme_file_path( 'lib/template-tags.php' ) );
 
-const emulsion_theme_scheme = array();
-
-/**
- * If set to true, displays the action hook position in classic templates.
- */
-
-define('SHOW_CLASSIC_TEMPLATE_ACTION_HOOKS', false);
 
 if ( 'fse' == emulsion_get_theme_operation_mode() ) {
 
 	include_once( get_theme_file_path( 'lib/functions-fse.php' ) );
 	include_once( get_template_directory() . '/lib/full_site_editor.php' );
 	include_once( get_theme_file_path( 'classic-templates/functions.php' ) );
+
+
 
 	/**
 	 * front emd extend CSS
@@ -58,8 +54,24 @@ STYLE;
 
 } else {
 
-
 	require_once( get_theme_file_path( 'lib/functions-classic.php' ) );
 }
 
 add_action( 'enqueue_block_editor_assets', 'emulsion_block_editor_assets' );
+
+add_filter( 'emulsion_layout_control', 'emulsion_style_variation_grid_filter_classic', 11 );
+
+function emulsion_style_variation_grid_filter_classic( $classes ) {
+	//@see emulsion_style_variation_grid_filter()
+
+	if ( 'grid' == emulsion_get_css_variables_value( '--wp--custom--color--scheme' )
+			|| 'grid-midnight' == emulsion_get_css_variables_value( '--wp--custom--color--scheme' )) {
+
+		return 'is-layout-grid columns-3 alignwide';
+	}
+
+	return $classes;
+}
+
+
+//add_action('emulsion_append_post_header', function(){echo '<p>test</p>';});

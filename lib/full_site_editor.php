@@ -66,12 +66,12 @@ if ( emulsion_do_fse() ) {
 	 */
 	if ( 'fse' == emulsion_get_theme_operation_mode() ) {
 
-		add_filter( 'emulsion_add_common_font_css_pre', '__return_empty_string' );
+		//add_filter( 'emulsion_add_common_font_css_pre', '__return_empty_string' );
 
 		/**
 		 * remove headding font style
 		 */
-		add_filter( 'emulsion_heading_font_css_pre', '__return_empty_string' );
+		//add_filter( 'emulsion_heading_font_css_pre', '__return_empty_string' );
 
 		/**
 		 * Reset Background Color
@@ -86,21 +86,7 @@ if ( emulsion_do_fse() ) {
 		 */
 		add_filter( 'body_class', 'emulsion_fse_exclude_body_class', 30 );
 
-		/**
-		 * Classic Sidebar Class Remove
-		 */
-		add_filter( 'emulsion_the_theme_supports', function ( $support, $name ) {
 
-			$remove_supports = array( 'sidebar', 'sidebar-page', 'title_in_page_header' );
-			$theme_mode		 = get_theme_mod( 'emulsion_editor_support', false );
-
-			if ( in_array( $name, $remove_supports ) && 'fse' == $theme_mode ) {
-
-				return false;
-			}
-
-			return $support;
-		}, 10, 2 );
 	}
 
 	/**
@@ -124,6 +110,7 @@ if ( emulsion_do_fse() ) {
  ! emulsion_the_theme_supports( 'full_site_editor' ) ? emulsion_stop_fse() : '';
 
 'theme' == emulsion_get_theme_operation_mode() ? emulsion_stop_fse() : '';
+'fse' == emulsion_get_theme_operation_mode() && false !== strstr( emulsion_get_template(), '-php' ) ? emulsion_stop_fse() : '';
 
 function emulsion_html_template_names_callback( $template ) {
 
@@ -274,6 +261,15 @@ if ( ! function_exists( 'emulsion_custom_template_include' ) ) {
 			if ( is_singular() && empty( $new_template ) ) {
 
 				$new_template = locate_template( array( 'classic-templates/singular.php' ) );
+			}
+
+			if( is_home() ){
+
+				$new_template = locate_template( array( 'classic-templates/home.php' ) );
+			}
+			if( is_front_page() && is_page() ){
+
+				$new_template = locate_template( array( 'classic-templates/front-page.php' ) );
 			}
 
 			if ( is_privacy_policy() ) {
@@ -510,24 +506,7 @@ function emulsion_revert_widgets_area() {
 
 //add_action( 'after_setup_theme', 'emulsion_revert_widgets_area' );
 
-add_action( 'enqueue_block_editor_assets', function () {
 
-	$post_type	 = filter_input( INPUT_GET, 'postType', FILTER_SANITIZE_SPECIAL_CHARS );
-	$post_id	 = filter_input( INPUT_GET, 'postId', FILTER_SANITIZE_SPECIAL_CHARS );
-	$page		 = filter_input( INPUT_GET, 'page', FILTER_SANITIZE_SPECIAL_CHARS );
-
-	If ( empty( $post_type ) && empty( $post_id ) && 'gutenberg-edit-site' == $page ) {
-
-		echo '<div style="position:absolute;height: 20vh;max-width:100%; background: #eee;top: 0;right: 0;bottom: 0;left: 0;margin: auto;width: 720px;">'
-		. '<p style="padding:0 24px;">'
-		. esc_html__( 'It may take some time for the site editor to appear.', 'emulsion' )
-		. '</p>'
-		. '<p style="padding:0 24px;">'
-		. esc_html__( 'Exception: If you have added a PHP template to your theme, the site editor will not be displayed', 'emulsion' )
-		. '</p>'
-		. '</div>';
-	}
-} );
 
 if ( ! function_exists( 'emulsion_get_category_template' ) ) {
 

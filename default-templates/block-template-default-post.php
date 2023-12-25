@@ -95,8 +95,7 @@ $html = <<<HTML
 <!-- /wp:group -->
 
 <!-- wp:group {"tagName":"nav","className":"wp-block-post-navigation","layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"center"}} -->
-<nav class="wp-block-group wp-block-post-navigation"><!-- wp:post-navigation-link {"type":"previous"} /-->
-<!-- wp:post-navigation-link /-->
+<nav class="wp-block-group wp-block-post-navigation"><!-- wp:post-navigation-link {"showTitle":true} /--><!-- wp:post-navigation-link {"type":"previous","showTitle":true} /-->
 </nav>
 <!-- /wp:group -->
 
