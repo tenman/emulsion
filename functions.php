@@ -73,5 +73,3 @@ function emulsion_style_variation_grid_filter_classic( $classes ) {
 	return $classes;
 }
 
-
-//add_action('emulsion_append_post_header', function(){echo '<p>test</p>';});

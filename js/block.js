@@ -142,6 +142,7 @@ wp.blocks.registerBlockVariation(
             keywords: [ wp.i18n.__('h6', 'emulsion') ]
         }
 );
+
 /**
 wp.blocks.registerBlockVariation(
         'core/columns', {
@@ -312,7 +313,7 @@ wp.blocks.registerBlockVariation(
             keywords: ["emulsion", "container", "wrapper", "panel"],
             innerBlocks: [
 
-                ['core/heading', {level: 4, placeholder: 'Panel Title', className: 'emulsion-panel-title'}],
+                ['core/heading', {level: 3, placeholder: 'Panel Title', className: 'emulsion-panel-title'}],
                 ['core/group', {className: 'emulsion-panel-content'}, [
                         ['core/paragraph', {placeholder: 'content'}]
                     ]]
