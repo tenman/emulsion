@@ -795,7 +795,7 @@ if ( ! function_exists( 'emulsion_add_flex_container_classes' ) ) {
 
 			$layout_type = $used_layout['type'];
 
-			$column_count = isset( $used_layout['columnCount'] ) ? $used_layout['columnCount'] : '';
+			$column_count = isset( $used_layout['columnCount'] ) ? absint( $used_layout['columnCount'] ) : '';
 
 			$gap_value = isset( $block['attrs']['style']['spacing']["blockGap"] ) ? $block['attrs']['style']['spacing']["blockGap"] : '';
 
@@ -820,8 +820,8 @@ if ( ! function_exists( 'emulsion_add_flex_container_classes' ) ) {
 
 			$new_class		 = array(
 				! empty( $layout_type ) ? sanitize_html_class( 'is-layout-' . $layout_type ) : '',
-				//'grid' == $layout_type  ? 'is-flex-container' : '', //Temporary use until ready
- ! empty( $column_count ) ? sanitize_html_class( 'columns-' . $column_count ) : ''
+				//'grid' == $layout_type  ? 'is-layout-grid' : '', //Temporary use until ready
+				! empty( $column_count ) ? sanitize_html_class( 'columns-' . $column_count ) : ''
 			);
 			$block_content	 = emulsion_add_class( $block_content, $block_name, $new_class );
 		}
@@ -836,6 +836,7 @@ if ( ! function_exists( 'emulsion_add_flex_container_classes' ) ) {
 
 				$block_content = emulsion_add_class( $block_content, $block_name, $new_class );
 			}
+
 			if ( 'flex' == $used_layout['type'] && false === strstr( $block_content, $new_class ) ) {
 
 				$new_class = array(
@@ -904,8 +905,8 @@ if ( ! function_exists( 'emulsion_add_layout_classes' ) ) {
 		$used_layout = isset( $block['attrs']['layout'] ) ? $block['attrs']['layout'] : '';
 
 		$default_layout		 = wp_get_global_settings( array( 'layout' ) );
-		$default_contentSize = ! empty($default_layout['contentSize']) ? sanitize_text_field( $default_layout['contentSize'] ): '';
-		$default_wideSize	 = ! empty($default_layout['wideSize']) ? sanitize_text_field( $default_layout['wideSize'] ): '';
+		$default_contentSize = ! empty( $default_layout['contentSize'] ) ? sanitize_text_field( $default_layout['contentSize'] ) : '';
+		$default_wideSize	 = ! empty( $default_layout['wideSize'] ) ? sanitize_text_field( $default_layout['wideSize'] ) : '';
 
 		if ( ! empty( $used_layout["contentSize"] ) && '100%' == $used_layout["contentSize"] ) {
 
@@ -1765,7 +1766,6 @@ if ( ! function_exists( 'emulsion_block_template_part' ) ) {
 		printf( '<%1$s class="%3$s">%2$s</%1$s>', $tag_name, do_blocks( $template_part->content ), $theme_classes );
 
 		return;
-
 	}
 
 }
@@ -1952,7 +1952,7 @@ if ( ! function_exists( 'emulsion_get_the_password_form' ) ) {
 			return $output;
 		}
 		if ( ! is_singular() ) {
-			return sprintf('<p class="password-protected-notice">%1$s</p>', esc_html__('There is no excerpt because this is a protected post', 'emulsion'));
+			return sprintf( '<p class="password-protected-notice">%1$s</p>', esc_html__( 'There is no excerpt because this is a protected post', 'emulsion' ) );
 		}
 
 		$form_html = '<div class="theme-message aligncenter"><form action="%1$s" class="post-password-form" method="post">
@@ -2106,37 +2106,43 @@ add_filter( 'render_block_core/post-excerpt', function ( $excerpt ) {
 	return $excerpt;
 } );
 
+
+
 /**
  * experimental custom template part area
  * The header area appears twice in home.html and archive.html. Use filters to make it clear that they are not the same thing.
  */
 add_filter( 'default_wp_template_part_areas', 'emulsion_custom_template_part_areas' );
 
-function emulsion_custom_template_part_areas( array $areas ) {
+if ( ! function_exists( 'emulsion_custom_template_part_areas' ) ) {
 
-	$areas[] = array(
-		'area'			 => 'post-header',
-		'area_tag'		 => 'header',
-		'label'			 => __( 'Post Header', 'emulsion' ),
-		'description'	 => __( 'Individual post header', 'emulsion' ),
-		'icon'			 => 'header'
-	);
-	$areas[] = array(
-		'area'			 => 'post-footer',
-		'area_tag'		 => 'footer',
-		'label'			 => __( 'Post Footer', 'emulsion' ),
-		'description'	 => __( 'Individual post footer', 'emulsion' ),
-		'icon'			 => 'footer'
-	);
-	$areas[] = array(
-		'area'			 => 'article-wrapper',
-		'area_tag'		 => 'div',
-		'label'			 => __( 'Article Wrapper', 'emulsion' ),
-		'description'	 => __( 'Whole article', 'emulsion' ),
-		'icon'			 => ''
-	);
+	function emulsion_custom_template_part_areas( array $areas ) {
 
-	return $areas;
+		$areas[] = array(
+			'area'			 => 'post-header',
+			'area_tag'		 => 'header',
+			'label'			 => __( 'Post Header', 'emulsion' ),
+			'description'	 => __( 'Individual post header', 'emulsion' ),
+			'icon'			 => 'header'
+		);
+		$areas[] = array(
+			'area'			 => 'post-footer',
+			'area_tag'		 => 'footer',
+			'label'			 => __( 'Post Footer', 'emulsion' ),
+			'description'	 => __( 'Individual post footer', 'emulsion' ),
+			'icon'			 => 'footer'
+		);
+		$areas[] = array(
+			'area'			 => 'article-wrapper',
+			'area_tag'		 => 'div',
+			'label'			 => __( 'Article Wrapper', 'emulsion' ),
+			'description'	 => __( 'Whole article', 'emulsion' ),
+			'icon'			 => ''
+		);
+
+		return $areas;
+	}
+
 }
 
 function emulsion_get_current_post_id() {
@@ -2178,11 +2184,15 @@ if ( ! function_exists( 'emulsion_hide_redundant_category' ) ) {
 //navigation pagination
 add_filter( 'navigation_markup_template', 'custom_the_posts_pagination' );
 
-function custom_the_posts_pagination( $template ) {
+if ( ! function_exists( 'custom_the_posts_pagination' ) ) {
 
-	$template = '<nav class="navigation %1$s wp-block-query-pagination" aria-label="%4$s"> <h2 class="screen-reader-text">%2$s</h2> <div class="nav-links wp-block-query-pagination-numbers">%3$s</div> </nav>';
+	function custom_the_posts_pagination( $template ) {
 
-	return $template;
+		$template = '<nav class="navigation %1$s wp-block-query-pagination" aria-label="%4$s"> <h2 class="screen-reader-text">%2$s</h2> <div class="nav-links wp-block-query-pagination-numbers">%3$s</div> </nav>';
+
+		return $template;
+	}
+
 }
 
 if ( ! function_exists( 'emulsion_pagination' ) ) {
@@ -2209,6 +2219,7 @@ if ( ! function_exists( 'emulsion_pagination' ) ) {
 	}
 
 }
+
 if ( ! function_exists( 'emulsion_entry_content_filter' ) ) {
 
 	/**
@@ -2229,6 +2240,7 @@ if ( ! function_exists( 'emulsion_entry_content_filter' ) ) {
 	}
 
 }
+
 if ( ! function_exists( 'emulsion_link_url_text_decode' ) ) {
 
 	/**
@@ -2250,6 +2262,7 @@ if ( ! function_exists( 'emulsion_link_url_text_decode' ) ) {
 	}
 
 }
+
 if ( ! function_exists( 'emulsion_post_content' ) ) {
 
 	/**
@@ -2270,7 +2283,7 @@ if ( ! function_exists( 'emulsion_post_content' ) ) {
 		$read_more_text			 = esc_html__( '...', 'emulsion' );
 		$excerpt_from_content	 = '';
 		$excerpt_html_wrapper	 = '<blockquote cite="%2$s" class="content-excerpt"><p class="%3$s" data-rows="%4$d">%1$s</p></blockquote>';
-		$excerpt_plain_text      = '';
+		$excerpt_plain_text		 = '';
 
 		// Create excerpt from entry content
 		$post_text	 = strip_shortcodes( $get_post->post_content );
@@ -2464,6 +2477,7 @@ if ( ! function_exists( 'emulsion_strip_elements' ) ) {
 	}
 
 }
+
 if ( ! function_exists( 'emulsion_remove_url_from_text' ) ) {
 
 	function emulsion_remove_url_from_text( $plain_text = '' ) {
@@ -2503,3 +2517,26 @@ if ( ! function_exists( 'emulsion_post_excerpt_more' ) ) {
 	}
 
 }
+
+/**
+ * body_class
+ * wp_template
+ */
+
+add_filter(	'template_include',	function ( $template ) {
+			global $_wp_current_template_id;
+			
+			$template_object		 = get_block_template( $_wp_current_template_id, 'wp_template' );
+
+			add_filter( 'body_class', function ( $classes ) use ( $template_object ) {
+
+				if ( 'wp_template' == $template_object->type ) {
+
+					$classes[] = emulsion_class_name_sanitize( 'is-' . $template_object->type . "-" . $template_object->slug );
+				}
+				return $classes;
+			} );
+
+			return $template;
+		}
+);

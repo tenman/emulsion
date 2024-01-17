@@ -1,29 +1,27 @@
 <?php
 /**
- * Title: File Not Found
+ * Title: Emulsion 404 Text
  * Slug: emulsion/page-404
- * Categories: contents, emulsion, recently-added
- * Viewport Width: 1280
+ * Categories: recently-added, layout, emulsion
+ * Template Types: 404
  * Inserter: no
- * Keywords: shape
- * Description: Message page if file not found
+ * Keywords: 404
+ * Description: Page File Not Found Text
  */
-
 ?>
-<!-- wp:group {"tagName":"main","align":"full","className":"alignfull fse-main-category","layout":{"type":"constrained"},"metadata":{"name":"Main"}} -->
+<!-- wp:template-part {"slug":"header-singular","theme":"emulsion","tagName":"header","align":"full","className":"fse-header header-layer banner wp-block-template-part-header-singular alignfull is-pattern-404"} /-->
+
+<!-- wp:navigation {"__unstableLocation":"primary","align":"full","className":"fse-primary sticky","layout":{"type":"flex","setCascadingProperties":true,"justifyContent":"center","orientation":"horizontal","flexWrap":"nowrap"}} -->
+<!-- wp:navigation-link {"label":"Home","url":"#","kind":"custom","isTopLevelLink":true} /-->
+
+<!-- wp:navigation-link {"label":"Blog","url":"#","kind":"custom","isTopLevelLink":true} /-->
+
+<!-- wp:navigation-link {"label":"Contact","url":"#","kind":"custom","isTopLevelLink":true} /-->
+<!-- /wp:navigation -->
+<!-- wp:group {"tagName":"main","align":"full","layout":{"type":"constrained"},"metadata":{"name":"Main"}} -->
 <main class="wp-block-group alignfull">
-	<!-- wp:group {"tagName":"article", "className":"file-not-found","layout":{"type":"constrained"},"metadata":{"name":"Article"}} -->
-	<article class="wp-block-group file-not-found">
-		<!-- wp:spacer {"height":"10vh"} -->
-		<div style="height:10vh" aria-hidden="true" class="wp-block-spacer"></div>
-		<!-- /wp:spacer -->
-
-		<!-- wp:heading {"textAlign":"center"} -->
-		<h2 class="has-text-align-center"><?php esc_html_e( 'File not found', 'emulsion' ); ?></h2>
-		<!-- /wp:heading -->
-
-		<!-- wp:search {"label":"Search","buttonText":"Search","buttonUseIcon":true,"align":"center"} /-->
-	</article>
-	<!-- /wp:group -->
+<!-- wp:pattern {"slug":"emulsion/404", "align":"full"} /-->
 </main>
 <!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","theme":"emulsion","tagName":"footer","align":"full","className":"footer-layer fse-footer banner  alignfull"} /-->

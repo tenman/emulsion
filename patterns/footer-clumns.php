@@ -2,7 +2,7 @@
 /**
  * Title: Columns footer
  * Slug: emulsion/footer-columns
- * Categories: footers,emulsion
+ * Categories: footer,emulsion
  * Viewport Width: 1280
  * Block Types: core/template-part/footer
  * Inserter: yes

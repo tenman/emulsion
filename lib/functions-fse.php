@@ -351,7 +351,7 @@ function emulsion_fse_body_class( $classes ) {
 			$classes[] = 'keep-align-full';
 		}
 	}
-	if ( emulsion_the_theme_supports( 'sidebar' ) || emulsion_the_theme_supports( 'sidebar_page' ) ) {
+	if (false !== strstr( emulsion_get_template(), '-php' ) && ( emulsion_the_theme_supports( 'sidebar' ) || emulsion_the_theme_supports( 'sidebar_page' ) ) ) {
 
 		if ( is_page() ) {
 
@@ -725,6 +725,9 @@ if ( ! function_exists( 'emulsion_editor_color_scheme_correction' ) ) {
 		$global_styles = '';
 
 		$css = <<<STYLE
+		.editor-styles-wrapper .wp-block-comments-pagination-numbers a{
+			padding:.375rem .75rem;
+		}
 		.editor-styles-wrapper .is-style-tategaki {
 			flex-direction: row-reverse;
 			display: flex;
@@ -1020,6 +1023,8 @@ if ( ! function_exists( 'emulsion_editor_color_scheme_correction' ) ) {
 		.editor-styles-wrapper .fse-header .fse-header-content .wp-block-site-title {
 			margin-bottom: 0;
 			margin-left: 0;
+			margin-top:0;
+			text-transform: var(--wp--custom--text-transform--heading);
 	   }
 		.editor-styles-wrapper .fse-header .fse-header-content .wp-block-site-tagline {
 			margin-top: 0;
@@ -1044,7 +1049,7 @@ if ( ! function_exists( 'emulsion_editor_color_scheme_correction' ) ) {
 		 .editor-styles-wrapper .is-root-container .wp-block-group.fse-header-content .fse-header-text {
 			 display: flex;
 			 flex-wrap: wrap;
-			 gap: var(--wp--style--block-gap, 0.75rem);
+			 gap: 0;
 			 --wp--style--block-gap: var(--wp--custom--margin--gap, 0.75rem);
 			 flex-direction: column;
 			 align-items: flex-start;
@@ -1062,7 +1067,7 @@ if ( ! function_exists( 'emulsion_editor_color_scheme_correction' ) ) {
 		 .editor-styles-wrapper .is-root-container .wp-block-group.fse-header-content .wp-block-site-logo:not(#specificity) {
 			 width: -moz-fit-content;
 			 width: fit-content;
-			 padding-left: var(--wp--custom--padding--left);
+			 padding-left: var(--wp--preset--spacing--40);
 		}
 		 .editor-styles-wrapper .is-root-container > .wp-block-group.is-layout-flex:not(.is-vertical):not(.is-nowrap):not(.items-justified-space-between) > *:nth-child(1):nth-last-child(2) {
 			 width: calc(100% - min( 30vw, var(--wp--custom--width--sidebar)));
@@ -1071,7 +1076,7 @@ if ( ! function_exists( 'emulsion_editor_color_scheme_correction' ) ) {
 		 .editor-styles-wrapper .is-root-container > .wp-block-group.is-layout-flex:not(.is-vertical):not(.is-nowrap):not(.items-justified-space-between) > *:nth-child(1):nth-last-child(2) .wp-block-site-logo {
 			 width: -moz-fit-content;
 			 width: fit-content;
-			 padding-left: var(--wp--custom--padding--left);
+			 padding-left: var(--wp--preset--spacing--40);
 		}
 		.editor-styles-wrapper ul.wp-block-post-template {
 			 margin-left: auto;
@@ -1131,8 +1136,8 @@ if ( ! function_exists( 'emulsion_editor_color_scheme_correction' ) ) {
 			width: auto;
 	   }
 		.editor-styles-wrapper .wp-block-navigation .wp-block-navigation-item__content {
-			padding-left: var(--wp--custom--padding--left);
-			padding-right: var(--wp--custom--padding--right);
+			padding-left: var(--wp--preset--spacing--40);
+			padding-right: var(--wp--preset--spacing--40);
 	   }
 		.editor-styles-wrapper .wp-block-navigation__responsive-container-content > * {
 			width: -moz-fit-content;
@@ -1427,13 +1432,14 @@ CSS;
 
 }
 
-add_filter( 'render_block_core/post-content', 'test_post_content', 10, 2 );
+add_filter( 'render_block_core/post-content', 'emulsion_post_content_has_custom_content_width', 10, 2 );
 
-function test_post_content( $block_content, $block ) {
+function emulsion_post_content_has_custom_content_width( $block_content, $block ) {
 	$post_id				 = emulsion_get_current_post_id();
 	$content_size			 = ! empty( $block['attrs']['layout']["contentSize"] ) ? $block['attrs']['layout']["contentSize"] : '';
 	$wide_size				 = ! empty( $block['attrs']['layout']["wideSize"] ) ? $block['attrs']['layout']["wideSize"] : '';
 	$emulsion_additional_css = '';
+
 	//&& false === strpos($block['attrs']['className'],'emulsion-pattern-custom-layout')
 	if ( ! empty( $content_size ) && 0 !== $post_id ) {
 
@@ -1459,6 +1465,8 @@ CSS;
 			return $classes;
 		}, 20 );
 	}
+	// link text decode
+	$block_content = emulsion_entry_content_filter( $block_content );
 
 
 	return $block_content;

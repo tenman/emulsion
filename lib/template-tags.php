@@ -26,7 +26,7 @@ if ( ! function_exists( 'emulsion_get_post_title' ) ) {
 		//$entry_title_status	 = get_theme_mod( 'emulsion_title_in_header', emulsion_theme_default_val( 'emulsion_title_in_header' ) );
 		$layout_type = emulsion_current_layout_type();
 		$attr		 = '';
-		$class		 = 'entry-title';
+		$class		 = 'entry-title wp-block-post-title';
 
 		switch ( $layout_type ) {
 			case 'grid':
@@ -48,7 +48,7 @@ if ( ! function_exists( 'emulsion_get_post_title' ) ) {
 
 		if ( is_singular() ) {
 
-			return the_title( '<h2 class="entry-title">' . $insert_start_tag, $insert_end_tag . '</h2>', false );
+			return the_title( '<h1 class="entry-title child-of-post-header wp-block-post-title">' . $insert_start_tag, $insert_end_tag . '</h1>', false );
 		} else {
 
 			if ( has_post_thumbnail() && true === $with_thumbnail && false !== $post_id && ! post_password_required( $post_id ) ) {

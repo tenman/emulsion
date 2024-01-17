@@ -11,6 +11,7 @@ if( 'theme' == emulsion_get_theme_operation_mode() ) {
 		printf( $search_failed_html, get_search_query( true ), absint( $wp_query->found_posts ), esc_html__( 'Sorry, no posts matched your search. Please try again', 'emulsion' ), 'fail-search' );
 
 		print get_search_form();
+
 	}
 
 	if ( is_404() ) {
@@ -21,6 +22,7 @@ if( 'theme' == emulsion_get_theme_operation_mode() ) {
 		);
 
 		print get_search_form();
+
 	}
 ?></div><?php
 }

@@ -265,11 +265,14 @@ if ( ! function_exists( 'emulsion_custom_template_include' ) ) {
 
 			if( is_home() ){
 
-				$new_template = locate_template( array( 'classic-templates/home.php' ) );
+				//$new_template = locate_template( array( 'classic-templates/home.php' ) );
+				$new_template = emulsion_get_home_template();
 			}
 			if( is_front_page() && is_page() ){
 
-				$new_template = locate_template( array( 'classic-templates/front-page.php' ) );
+				//$new_template = locate_template( array( 'classic-templates/front-page.php' ) );
+				$new_template = emulsion_get_front_page_template();
+
 			}
 
 			if ( is_privacy_policy() ) {

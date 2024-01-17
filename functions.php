@@ -6,14 +6,11 @@ include_once( get_theme_file_path( 'lib/functions-global.php' ) );
 include_once( get_theme_file_path( 'lib/blocks.php' ) );
 include_once( get_theme_file_path( 'lib/template-tags.php' ) );
 
-
 if ( 'fse' == emulsion_get_theme_operation_mode() ) {
 
 	include_once( get_theme_file_path( 'lib/functions-fse.php' ) );
 	include_once( get_template_directory() . '/lib/full_site_editor.php' );
 	include_once( get_theme_file_path( 'classic-templates/functions.php' ) );
-
-
 
 	/**
 	 * front emd extend CSS
@@ -64,12 +61,12 @@ add_filter( 'emulsion_layout_control', 'emulsion_style_variation_grid_filter_cla
 function emulsion_style_variation_grid_filter_classic( $classes ) {
 	//@see emulsion_style_variation_grid_filter()
 
-	if ( 'grid' == emulsion_get_css_variables_value( '--wp--custom--color--scheme' )
-			|| 'grid-midnight' == emulsion_get_css_variables_value( '--wp--custom--color--scheme' )) {
+	if ( 'grid' == emulsion_get_css_variables_value( '--wp--custom--color--scheme' ) || 'grid-midnight' == emulsion_get_css_variables_value( '--wp--custom--color--scheme' ) ) {
 
 		return 'is-layout-grid columns-3 alignwide';
 	}
 
 	return $classes;
 }
+
 
