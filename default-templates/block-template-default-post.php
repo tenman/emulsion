@@ -26,7 +26,7 @@ $html = <<<HTML
 
 	<!-- wp:group {"className":"post-header wp-block-template-post-header wp-block-template-part alignfull","layout":{"type":"constrained"}} -->
 	<div class="wp-block-group post-header wp-block-template-post-header wp-block-template-part alignfull ">
-		<!-- wp:group {"className":"post-header-content","layout":{"type":"constrained"}} -->
+		<!-- wp:group {"className":"post-header-content","layout":{"type":"default"}} -->
 		<div class="wp-block-group post-header-content">
 			<!-- wp:post-title {"isLink":true} /-->
 			<!-- wp:group {"className":"posted-on","layout":{"type":"constrained"}} -->
@@ -101,9 +101,7 @@ $html = <<<HTML
 
 <!-- wp:group {"tagName":"footer","className":"alignfull footer-layer fse-footer banner  wp-block-template-part"} -->
 <footer class="wp-block-group alignfull footer-layer fse-footer banner  wp-block-template-part">
-	<!-- wp:paragraph {"align":"center"} -->
-	<p class="has-text-align-center">Copyright © %current_year% Site proudly powered by WordPress %privacy_policy%</p>
-	<!-- /wp:paragraph -->
+	<!-- wp:pattern {"slug":"emulsion/copyright-notice"} /-->
 </footer>
 <!-- /wp:group -->
 HTML;

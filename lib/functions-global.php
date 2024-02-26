@@ -651,15 +651,8 @@ if ( ! function_exists( 'emulsion_block_group_variation_classes' ) ) {
 			}
 
 			if ( ! empty( $block['attrs']['layout']["flexWrap"] ) && 'nowrap' == $block['attrs']['layout']["flexWrap"] ) {
-				$result			 = '';
-				$flag			 = false;
-				$new_class		 = array(
-					'is-layout-flex',
-					'is-nowrap',
-					! empty( $block['attrs']['layout']['justifyContent'] ) ? sanitize_html_class( 'items-justified-' . $block['attrs']['layout']['justifyContent'] ) : '',
-					! empty( $block['attrs']['layout']['orientation'] ) ? sanitize_html_class( 'is-' . $block['attrs']['layout']['orientation'] ) : ''
-				);
-				$block_content	 = emulsion_add_class( $block_content, $block_name, $new_class );
+				$result	 = '';
+				$flag	 = false;
 
 				if ( ! empty( $block["innerBlocks"] ) ) {
 
@@ -667,9 +660,9 @@ if ( ! function_exists( 'emulsion_block_group_variation_classes' ) ) {
 
 						$style_type	 = ! empty( $inner_block['attrs']['style']['layout']['selfStretch'] ) ? $inner_block['attrs']['style']['layout']['selfStretch'] : '';
 						$inner_html	 = do_blocks( $inner_block['innerHTML'] );
-						$style_value = ! empty( $inner_block['attrs']['style']['layout']['flexSize'] ) ? $inner_block['attrs']['style']['layout']['flexSize'] : 'auto';
+						$style_value = ! empty( $inner_block['attrs']['style']['layout']['flexSize'] ) ? $inner_block['attrs']['style']['layout']['flexSize'] : '';
 
-						if ( 'fixed' == $style_type ) {
+						if ( ! empty( $style_type ) ) {
 							$flag	 = true;
 							$p		 = new WP_HTML_Tag_Processor( $inner_block['innerHTML'] );
 
@@ -677,22 +670,38 @@ if ( ! function_exists( 'emulsion_block_group_variation_classes' ) ) {
 
 								$p->next_tag( array( 'tag_name' => 'p' ) );
 							} else {
-								//$p->next_tag( );
+
 								$inner_block_name = 'wp-block-' . substr( strrchr( $inner_block['blockName'], "/" ), 1 );
 								$p->next_tag( array( 'class_name' => $inner_block_name ) );
 							}
-
-							$p->set_attribute( 'style', 'width:' . $style_value . ';' );
-							$p->add_class( sanitize_html_class( 'fixed' ) );
+							if ( ! empty( $style_value ) ) {
+								$p->set_attribute( 'style', 'width:' . $style_value . ';' );
+							}
+							$p->add_class( sanitize_html_class( $style_type ) );
 
 							$result .= do_blocks( $p->get_updated_html() );
+						} else {
+
+							$result .= $inner_html;
 						}
-						if ( $style_value == 'auto' ) {
-							$result .= do_blocks( $inner_html );
+					}
+
+
+
+					//$block_class_base	 = emulsion_class_name_sanitize( $block_class_base );
+					$additional_classes	 = ! empty( $block["attrs"]["className"] ) ? emulsion_class_name_sanitize( $block["attrs"]["className"] ): '';
+
+					preg_match( '$<([^\s]+\s)([^>]+>)$', $block_content, $target );
+
+					if ( $block["innerBlocks"][0]["blockName"] !== 'core/post-navigation-link' ) {
+
+						$v_align = ! empty( $block['attrs']['layout']['verticalAlignment'] ) ? sanitize_html_class( 'items-justified-' . $block['attrs']['layout']['verticalAlignment'] ) : '';
+
+						if( 'items-justified-stretch' !== $v_align ){
+							$target[0] = str_replace('class="', 'class="'. $v_align. ' ', $target[0]);
 						}
-						if ( $flag == true ) {
-							$block_content = '<div class="wp-block-group is-layout-flex is-nowrap">' . $result . '</div>';
-						}
+						$block_content = $target[0]. $result.'</'.esc_attr($target[1]).'>';
+
 					}
 				}
 			}
@@ -735,6 +744,17 @@ if ( ! function_exists( 'emulsion_block_group_variation_classes' ) ) {
 						$block_content = $p->get_updated_html();
 					}
 				}
+			}else {
+
+
+					$new_class		 = array(
+					! empty( $block['attrs']['layout']["type"] ) ? sanitize_html_class( 'is-layout-' . $block['attrs']['layout']["type"] ) : '',
+					! empty( $block['attrs']['layout']["flexWrap"] ) ? sanitize_html_class( 'is-' . $block['attrs']['layout']["flexWrap"] ) : '',
+					! empty( $block['attrs']['layout']['justifyContent'] ) ? sanitize_html_class( 'items-justified-' . $block['attrs']['layout']['justifyContent'] ) : '',
+					! empty( $block['attrs']['layout']['orientation'] ) ? sanitize_html_class( 'is-' . $block['attrs']['layout']['orientation'] ) : ''
+				);
+				$block_content	 = emulsion_add_class( $block_content, $block_name, $new_class );
+
 			}
 
 
@@ -821,7 +841,7 @@ if ( ! function_exists( 'emulsion_add_flex_container_classes' ) ) {
 			$new_class		 = array(
 				! empty( $layout_type ) ? sanitize_html_class( 'is-layout-' . $layout_type ) : '',
 				//'grid' == $layout_type  ? 'is-layout-grid' : '', //Temporary use until ready
-				! empty( $column_count ) ? sanitize_html_class( 'columns-' . $column_count ) : ''
+ ! empty( $column_count ) ? sanitize_html_class( 'columns-' . $column_count ) : ''
 			);
 			$block_content	 = emulsion_add_class( $block_content, $block_name, $new_class );
 		}
@@ -1251,8 +1271,8 @@ if ( ! function_exists( 'emulsion_block_editor_assets' ) ) {
 	function emulsion_block_editor_assets() {
 
 		$emulsion_current_data_version = is_user_logged_in() ? emulsion_version() : null;
-
-		wp_enqueue_script( 'emulsion-block', esc_url( get_template_directory_uri() . '/js/block.js' ), array( 'wp-blocks', 'wp-i18n', 'jquery' ), $emulsion_current_data_version );
+//add 'wp-element','wp-rich-text','wp-editor',
+		wp_enqueue_script( 'emulsion-block', esc_url( get_template_directory_uri() . '/js/block.js' ), array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-rich-text', 'wp-editor', 'jquery' ), $emulsion_current_data_version );
 
 		wp_register_style( 'emulsion-patterns', get_template_directory_uri() . '/css/patterns.css', array(), $emulsion_current_data_version, 'all' );
 		wp_enqueue_style( 'emulsion-patterns' );
@@ -2106,8 +2126,6 @@ add_filter( 'render_block_core/post-excerpt', function ( $excerpt ) {
 	return $excerpt;
 } );
 
-
-
 /**
  * experimental custom template part area
  * The header area appears twice in home.html and archive.html. Use filters to make it clear that they are not the same thing.
@@ -2522,21 +2540,55 @@ if ( ! function_exists( 'emulsion_post_excerpt_more' ) ) {
  * body_class
  * wp_template
  */
+add_filter( 'template_include', function ( $template ) {
+	global $_wp_current_template_id;
 
-add_filter(	'template_include',	function ( $template ) {
-			global $_wp_current_template_id;
-			
-			$template_object		 = get_block_template( $_wp_current_template_id, 'wp_template' );
+	$template_object = get_block_template( $_wp_current_template_id, 'wp_template' );
 
-			add_filter( 'body_class', function ( $classes ) use ( $template_object ) {
+	add_filter( 'body_class', function ( $classes ) use ( $template_object ) {
 
-				if ( 'wp_template' == $template_object->type ) {
+		if ( 'wp_template' == $template_object->type ) {
 
-					$classes[] = emulsion_class_name_sanitize( 'is-' . $template_object->type . "-" . $template_object->slug );
-				}
-				return $classes;
-			} );
-
-			return $template;
+			$classes[] = emulsion_class_name_sanitize( 'is-' . $template_object->type . "-" . $template_object->slug );
 		}
+		return $classes;
+	} );
+
+	return $template;
+}
 );
+
+/**
+ * wp-block-heading add border style
+ */
+add_filter( 'block_type_metadata', 'emulsion_block_default_values' );
+
+if ( ! function_exists( 'emulsion_block_default_values' ) ) {
+
+	function emulsion_block_default_values( $metadata ) {
+
+		if ( 'core/heading' === $metadata['name'] ) {
+
+			$metadata['supports']['__experimentalBorder']['color']									 = true;
+			$metadata['supports']['__experimentalBorder']['radius']									 = true;
+			$metadata['supports']['__experimentalBorder']['style']									 = true;
+			$metadata['supports']['__experimentalBorder']['width']									 = true;
+			$metadata['supports']['__experimentalBorder']['__experimentalDefaultControls']['color']	 = true;
+			$metadata['supports']['__experimentalBorder']['__experimentalDefaultControls']['radius'] = true;
+			$metadata['supports']['__experimentalBorder']['__experimentalDefaultControls']['style']	 = true;
+			$metadata['supports']['__experimentalBorder']['__experimentalDefaultControls']['width']	 = true;
+		}
+
+		if ( 'core/spacer' === $metadata['name'] ) {
+
+			$metadata['attributes']['height']['default'] = '6vw';
+		}
+
+		if ( 'core/paragraph' !== $metadata['name'] ) {
+			$metadata['supports']['align'] = [ "left", "right", "center", "none", "wide", "full" ];
+		}
+
+		return $metadata;
+	}
+
+}

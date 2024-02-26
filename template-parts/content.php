@@ -8,7 +8,7 @@
 
 		<?php emulsion_article_header(); ?>
 
-		<div class="entry-content is-layout-constrained"><?php
+		<div class="entry-content wp-block-post-content is-layout-constrained"><?php
 			if ( false === $required_password ) {
 				if ( function_exists( 'emulsion_post_content' ) ) {
 

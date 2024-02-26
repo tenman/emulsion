@@ -47,7 +47,7 @@ function emulsion_hooks_setup() {
 		 */
 		add_filter( 'emulsion_the_post_meta_on', 'ent2ncr' );
 		add_filter( 'emulsion_the_post_meta_in', 'ent2ncr' );
-		add_filter( 'emulsion_footer_text', 'ent2ncr' );
+
 		/**
 		 * Plugin Settings relate
 		 */

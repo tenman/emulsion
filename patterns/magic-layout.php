@@ -4,6 +4,7 @@
  * Block Types: core/post-content
  * Slug: emulsion/magic-layout
  * Categories: recently-added, layout, emulsion
+ * Post Types: page
  * Inserter: yes
  * Keywords: page
  * Description: Custom Layout Pattern

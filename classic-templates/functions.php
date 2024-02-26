@@ -12,6 +12,7 @@ if ( ! function_exists( 'emulsion_fse_compatible_classic_template_setup' ) ) {
 		add_theme_support( 'html5', array( 'comment-list', 'comment-form', 'search-form', 'gallery', 'caption', 'style', 'script', 'navigation-widgets' ) );
 		add_theme_support( 'post-thumbnails' );
 		add_theme_support( 'post-formats', array( 'gallery' ) );
+		add_theme_support( 'appearance-tools' );
 
 		add_action( 'wp_head', 'emulsion_meta_elements' );
 

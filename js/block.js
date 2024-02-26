@@ -13,7 +13,7 @@ wp.blocks.registerBlockVariation(
                 className: '',
                 "ordered": true,
             },
-            keywords: [ wp.i18n.__('ol', 'emulsion') ]
+            keywords: [wp.i18n.__('ol', 'emulsion')]
         }
 );
 wp.blocks.registerBlockVariation(
@@ -26,7 +26,7 @@ wp.blocks.registerBlockVariation(
                 align: '',
                 className: ''
             },
-            keywords: [ wp.i18n.__('ul', 'emulsion') ]
+            keywords: [wp.i18n.__('ul', 'emulsion')]
         }
 );
 
@@ -41,7 +41,7 @@ wp.blocks.registerBlockVariation(
                 className: '',
                 "tagName": "section"
             },
-            keywords: [ wp.i18n.__('section', 'emulsion') ]
+            keywords: [wp.i18n.__('section', 'emulsion')]
         }
 );
 wp.blocks.registerBlockVariation(
@@ -55,7 +55,7 @@ wp.blocks.registerBlockVariation(
                 className: '',
                 "tagName": "aside"
             },
-            keywords: [ wp.i18n.__('aside', 'emulsion') ]
+            keywords: [wp.i18n.__('aside', 'emulsion')]
         }
 );
 wp.blocks.registerBlockVariation(
@@ -68,7 +68,7 @@ wp.blocks.registerBlockVariation(
                 align: 'full',
                 className: ''
             },
-            keywords: [ wp.i18n.__('div', 'emulsion') ]
+            keywords: [wp.i18n.__('div', 'emulsion')]
         }
 );
 
@@ -83,7 +83,7 @@ wp.blocks.registerBlockVariation(
                 className: '',
                 level: 2
             },
-            keywords: [ wp.i18n.__('h2', 'emulsion') ]
+            keywords: [wp.i18n.__('h2', 'emulsion')]
         }
 );
 wp.blocks.registerBlockVariation(
@@ -97,7 +97,7 @@ wp.blocks.registerBlockVariation(
                 className: '',
                 level: 3
             },
-            keywords: [ wp.i18n.__('h3', 'emulsion') ]
+            keywords: [wp.i18n.__('h3', 'emulsion')]
         }
 );
 wp.blocks.registerBlockVariation(
@@ -111,7 +111,7 @@ wp.blocks.registerBlockVariation(
                 className: '',
                 level: 4
             },
-            keywords: [ wp.i18n.__('h4', 'emulsion') ]
+            keywords: [wp.i18n.__('h4', 'emulsion')]
         }
 );
 wp.blocks.registerBlockVariation(
@@ -125,7 +125,7 @@ wp.blocks.registerBlockVariation(
                 className: '',
                 level: 5
             },
-            keywords: [ wp.i18n.__('h5', 'emulsion') ]
+            keywords: [wp.i18n.__('h5', 'emulsion')]
         }
 );
 wp.blocks.registerBlockVariation(
@@ -139,171 +139,10 @@ wp.blocks.registerBlockVariation(
                 className: '',
                 level: 6
             },
-            keywords: [ wp.i18n.__('h6', 'emulsion') ]
+            keywords: [wp.i18n.__('h6', 'emulsion')]
         }
 );
 
-/**
-wp.blocks.registerBlockVariation(
-        'core/columns', {
-            name: 'cta-block',
-            title: wp.i18n.__('CTA Block', 'emulsion'),
-            icon: 'admin-appearance',
-            scope: ['inserter'],
-            keywords: ["emulsion", "columns", "call to action", "cta"],
-            innerBlocks: [
-                ['core/column', {}, [
-                        ['core/image'],
-                        ['core/heading', {level: 3, placeholder: 'Title', align: 'center'}],
-                        ['core/paragraph', {placeholder: 'description'}],
-                        ['core/buttons']
-                    ]],
-                ['core/column', {}, [
-                        ['core/image'],
-                        ['core/heading', {level: 3, placeholder: 'Title'}],
-                        ['core/paragraph', {placeholder: 'description'}],
-                        ['core/buttons']
-                    ]],
-                ['core/column', {}, [
-                        ['core/image'],
-                        ['core/heading', {level: 3, placeholder: 'Title'}],
-                        ['core/paragraph', {placeholder: 'description'}],
-                        ['core/buttons']
-                    ]]
-            ],
-            attributes: {
-                className: 'emulsion-cta-block'
-            },
-            keywords: [ wp.i18n.__('CTA', 'emulsion') ]
-        }
-);
-
-wp.blocks.registerBlockVariation(
-        'core/group', {
-            name: 'grid-group-2col',
-            title: wp.i18n.__('Group Grid 2', 'emulsion'),
-            icon: 'admin-appearance',
-            scope: ['inserter'],
-            keywords: ["emulsion", "container", "wrapper", "grid", "2column", "photo", "image", "img"],
-            innerBlocks: [
-                ['core/group', {className: 'size1of2'}, [
-                        ['core/image', {className: 'alignfull'}]
-                    ]],
-                ['core/group', {className: 'size1of2 centered'}, [
-                        ['core/heading', {level: 2, placeholder: 'Title', align: 'center'}],
-                        ['core/paragraph', {placeholder: 'description', align: 'center'}]
-                    ]]
-
-            ],
-            attributes: {
-                align: 'full',
-                className: 'grid grid-group-2col grid-group'
-            },
-            keywords: [ wp.i18n.__('grid', 'emulsion') ]
-        }
-);
-
-wp.blocks.registerBlockVariation(
-        'core/group', {
-            name: 'grid-group-3col',
-            title: wp.i18n.__('Group Grid 3', 'emulsion'),
-            icon: 'admin-appearance',
-            scope: ['inserter'],
-            keywords: ["emulsion", "container", "wrapper", "grid", "3column"],
-            innerBlocks: [
-                ['core/group', {className: 'size1of3 centered'}, [
-                        ['core/heading', {level: 2, placeholder: 'Title', align: 'center'}],
-                        ['core/paragraph', {placeholder: 'description', align: 'center'}]
-                    ]],
-                ['core/group', {className: 'size1of3 centered'}, [
-                        ['core/heading', {level: 2, placeholder: 'Title', align: 'center'}],
-                        ['core/paragraph', {placeholder: 'description', align: 'center'}]
-                    ]],
-                ['core/group', {className: 'size1of3 centered'}, [
-                        ['core/heading', {level: 2, placeholder: 'Title', align: 'center'}],
-                        ['core/paragraph', {placeholder: 'description', align: 'center'}]
-                    ]]
-
-            ],
-            attributes: {
-                align: 'full',
-                className: 'grid grid-group-3col grid-group'
-            },
-            keywords: [ wp.i18n.__('grid', 'emulsion') ]
-        }
-);
-wp.blocks.registerBlockVariation(
-        'core/group', {
-            name: 'grid-group-4col',
-            title: wp.i18n.__('Group Grid 4', 'emulsion'),
-            icon: 'admin-appearance',
-            scope: ['inserter'],
-            keywords: ["emulsion", "container", "wrapper", "grid", "4column"],
-            innerBlocks: [
-                ['core/group', {className: 'size1of4 centered'}, [
-                        ['core/heading', {level: 2, placeholder: 'Title', align: 'center'}],
-                        ['core/paragraph', {placeholder: 'description', align: 'center'}]
-                    ]],
-                ['core/group', {className: 'size1of4 centered'}, [
-                        ['core/heading', {level: 2, placeholder: 'Title', align: 'center'}],
-                        ['core/paragraph', {placeholder: 'description', align: 'center'}]
-                    ]],
-                ['core/group', {className: 'size1of4 centered'}, [
-                        ['core/heading', {level: 2, placeholder: 'Title', align: 'center'}],
-                        ['core/paragraph', {placeholder: 'description', align: 'center'}]
-                    ]],
-                ['core/group', {className: 'size1of4 centered'}, [
-                        ['core/heading', {level: 2, placeholder: 'Title', align: 'center'}],
-                        ['core/paragraph', {placeholder: 'description', align: 'center'}]
-                    ]]
-
-            ],
-            attributes: {
-                align: 'full',
-                className: 'grid grid-group-4col grid-group'
-            },
-            keywords: [ wp.i18n.__('grid', 'emulsion') ]
-        }
-);
-wp.blocks.registerBlockVariation(
-        'core/group', {
-            name: 'grid-group-5col',
-            title: wp.i18n.__('Group Grid 5', 'emulsion'),
-            icon: 'admin-appearance',
-            scope: ['inserter'],
-            keywords: ["emulsion", "container", "wrapper", "grid", "5column"],
-            innerBlocks: [
-                ['core/group', {className: 'size1of5 centered'}, [
-                        ['core/heading', {level: 2, placeholder: 'Title', align: 'center'}],
-                        ['core/paragraph', {placeholder: 'description', align: 'center'}]
-                    ]],
-                ['core/group', {className: 'size1of5 centered'}, [
-                        ['core/heading', {level: 2, placeholder: 'Title', align: 'center'}],
-                        ['core/paragraph', {placeholder: 'description', align: 'center'}]
-                    ]],
-                ['core/group', {className: 'size1of5 centered'}, [
-                        ['core/heading', {level: 2, placeholder: 'Title', align: 'center'}],
-                        ['core/paragraph', {placeholder: 'description', align: 'center'}]
-                    ]],
-                ['core/group', {className: 'size1of5 centered'}, [
-                        ['core/heading', {level: 2, placeholder: 'Title', align: 'center'}],
-                        ['core/paragraph', {placeholder: 'description', align: 'center'}]
-                    ]],
-                ['core/group', {className: 'size1of5 centered'}, [
-                        ['core/heading', {level: 2, placeholder: 'Title', align: 'center'}],
-                        ['core/paragraph', {placeholder: 'description', align: 'center'}]
-                    ]]
-
-            ],
-            attributes: {
-                align: 'full',
-                className: 'grid grid-group-5col grid-group'
-            },
-            keywords: [ wp.i18n.__('grid', 'emulsion') ]
-        }
-);
- *
- */
 wp.blocks.registerBlockVariation(
         'core/group', {
             name: 'emulsion-panel',
@@ -322,7 +161,7 @@ wp.blocks.registerBlockVariation(
             attributes: {
                 className: 'emulsion-panel solid-border'
             },
-            keywords: [ wp.i18n.__('panel', 'emulsion') ]
+            keywords: [wp.i18n.__('panel', 'emulsion')]
         }
 );
 
@@ -342,7 +181,7 @@ wp.blocks.registerBlockVariation(
             attributes: {
                 className: 'dropdown-on-hover'
             },
-            keywords: [ wp.i18n.__('dropdown', 'emulsion') ]
+            keywords: [wp.i18n.__('dropdown', 'emulsion')]
         }
 );
 wp.blocks.registerBlockVariation(
@@ -361,9 +200,52 @@ wp.blocks.registerBlockVariation(
             attributes: {
                 className: 'dropdown-on-click'
             },
-            keywords: [ wp.i18n.__('dropdown', 'emulsion') ]
+            keywords: [wp.i18n.__('dropdown', 'emulsion')]
         }
 );
+
+/**
+ * editor button
+ * @param {type} wp
+ * @returns {undefined}
+ */
+
+(function (wp) {
+    var emulsionTextEmphasisButton = function (props) {
+        return wp.element.createElement(
+                wp.blockEditor.RichTextToolbarButton,
+                {
+                    icon: 'admin-customizer',
+                    title: wp.i18n.__('Text Emphasis', 'emulsion'),
+                    onClick: function () {
+                        props.onChange(
+                                wp.richText.toggleFormat(
+                                        props.value,
+                                        {
+                                            type: 'emulsion/text-emphasis',
+                                        }
+                                )
+                                );
+                        props.onFocus();
+                    },
+                }
+        );
+    }
+
+    wp.richText.registerFormatType(
+            'emulsion/text-emphasis',
+            {
+                title: wp.i18n.__('Text Emphasis', 'emulsion'),
+                tagName: 'span',
+                className: 'text-emphasis',
+                edit: emulsionTextEmphasisButton
+            }
+    );
+})(window.wp);
+
+
+
+
 function emulsionGetParameterByName(name, url = window.location.href) {
 
     name = name.replace(/[\[\]]/g, '\\$&');

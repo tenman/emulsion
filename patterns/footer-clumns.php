@@ -7,7 +7,7 @@
  * Block Types: core/template-part/footer
  * Inserter: yes
  * Keywords: emulsion
- * Description: emulsion test
+ * Description: emulsion
  */
 $current_year		 = date( 'Y' );
 $privacy_policy_url	 = esc_url( get_privacy_policy_url() );
@@ -70,7 +70,5 @@ $privacy_policy_text = esc_html__( 'Privacy policy', 'emulsion' );
 <!-- /wp:column --></div>
 <!-- /wp:columns -->
 
-<!-- wp:paragraph {"align":"center"} -->
-<p class="has-text-align-center">Copyright © <?php echo $current_year; ?> Site proudly powered by WordPress <a href="<?php echo $privacy_policy_url; ?>"><?php echo $privacy_policy_text; ?></a></p>
-<!-- /wp:paragraph --></div>
+<!-- wp:pattern {"slug":"emulsion/copyright-notice"} /--></div>
 <!-- /wp:group -->

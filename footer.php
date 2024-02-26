@@ -4,15 +4,9 @@
  * footer template part file
  */
 
-$footer_text = sprintf( '</div><footer class="alignfull footer-layer fse-footer banner  wp-block-template-part">
-    <p class="has-text-align-center">%1$s %2$s %3$s <a href="%4$s" class="emulsion-privacy-policy">%5$s</a></p></footer>',
-		esc_html__( 'Copyright', 'emulsion' ),
-		absint( date( 'Y' ) ),
-		esc_html__( 'Site proudly powered by WordPress', 'emulsion' ),
-		esc_url( get_privacy_policy_url() ),
-		esc_html__( 'Privacy policy', 'emulsion' )
+$footer_text = sprintf( '</div><footer class="alignfull footer-layer fse-footer banner  wp-block-template-part">%1$s</footer>',
+		do_blocks('<!-- wp:pattern {"slug":"emulsion/copyright-notice"} /-->')
 );
-
 
 if ( true === emulsion_is_custom_post_type() && 'fse' == emulsion_get_theme_operation_mode() ) {
 

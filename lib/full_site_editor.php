@@ -444,6 +444,7 @@ function emulsion_admin_bar_customize_menu( $wp_admin_bar ) {
 
 function emulsion_load_block_page_templates( $templates, $theme, $post,
 		$post_type ) {
+
 	/**
 	 * Todo this filter not work ? javascript filter ?
 	 */
@@ -473,7 +474,7 @@ function emulsion_load_block_page_templates( $templates, $theme, $post,
 	return $templates;
 }
 
-//add_filter( 'theme_templates', 'emulsion_load_block_page_templates', 20, 4 );
+ //add_filter( 'theme_templates', 'emulsion_load_block_page_templates', 20, 4 );
 
 'disable' == get_theme_mod( 'emulsion_custom_css_support' ) ? emulsion_custom_css_support() : '';
 

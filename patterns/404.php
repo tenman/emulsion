@@ -10,7 +10,7 @@
  */
 ?>
 
-<!-- wp:group {"tagName":"article","className":"file-not-found","layout":{"type":"constrained"},"metadata":{"name":"Article"}} -->
+<!-- wp:group {"tagName":"article","className":"file-not-found","layout":{"type":"flex","orientation":"vertical","justifyContent":"center"},"metadata":{"name":"Article"}} -->
 <article class="wp-block-group file-not-found">
 
 <!-- wp:paragraph {"align":"center","style":{"elements":{"link":{"color":{"text":"var:preset|color|emulsion-alert"}}},"typography":{"fontStyle":"normal","fontWeight":"900"}},"textColor":"emulsion-alert","fontSize":"huge"} -->
@@ -21,5 +21,9 @@
 <h2 class="wp-block-heading has-text-align-center">File Not Found</h2>
 <!-- /wp:heading -->
 
-<!-- wp:search {"label":"Search","buttonText":"Search","buttonUseIcon":true,"align":"center"} /--></article>
+<!-- wp:search {"label":"Search","buttonText":"Search","buttonUseIcon":true,"align":"center"} /-->
+<!-- wp:spacer -->
+<div style="height:6vw" aria-hidden="true" class="wp-block-spacer"></div>
+<!-- /wp:spacer -->
+</article>
 <!-- /wp:group -->
