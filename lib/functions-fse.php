@@ -38,8 +38,13 @@ if ( ! function_exists( 'emulsion_setup' ) ) {
 
 			has_filter( 'render_block', 'gutenberg_render_layout_support_flag' ) ? remove_filter( 'render_block', 'gutenberg_render_layout_support_flag' ) : '';
 			has_filter( 'render_block', 'wp_render_layout_support_flag' ) ? remove_filter( 'render_block', 'wp_render_layout_support_flag' ) : '';
-
-			add_theme_support( 'disable-layout-styles' );
+			/*
+			 * disable-layout-styles stop
+			 *
+			 * editor class wp-container-core-group-is-layout-0 is-layout-grid wp-block-group-is-layout-grid.. not applied
+			 * @since 3.0.9
+			 */
+			//add_theme_support( 'disable-layout-styles' );
 
 			add_filter( 'render_block', 'emulsion_add_flex_container_classes', 10, 2 );
 			add_filter( 'render_block', 'emulsion_block_group_variation_classes', 10, 2 );
@@ -727,7 +732,22 @@ if ( ! function_exists( 'emulsion_editor_color_scheme_correction' ) ) {
 		$global_styles = '';
 
 		$css = <<<STYLE
-
+		.editor-styles-wrapper .alignleft:not(#specificity){
+			margin: var(--wp--custom--margin--alignleft);
+			clear: left;
+		}
+		.editor-styles-wrapper .alignright:not(#specificity){
+			margin: var(--wp--custom--margin--alignright);
+			clear: right;
+		}
+		.editor-styles-wrapper > .is-root-container > .wp-block{
+			margin-top:1.5rem;
+			margin-bottom:1.5rem;
+		}
+		.editor-styles-wrapper > .is-root-container > .wp-block.alignfull{
+			margin-top:0;
+			margin-bottom:0;
+		}
 		.editor-styles-wrapper .wp-block.header-2col-wrapper{
 			width:100%;
 			display:flex;
@@ -889,6 +909,9 @@ if ( ! function_exists( 'emulsion_editor_color_scheme_correction' ) ) {
 		.editor-styles-wrapper .wp-block{
 			width: var(--wp--style--global--content-size);
 			 max-width: 100%;
+		}
+		.editor-styles-wrapper .wp-block.wp-block-list-item{
+			width:auto;
 		}
 		.editor-styles-wrapper .aligncenter {
 			 width: var(--wp--custom--width--aligncenter);

@@ -639,6 +639,7 @@ if ( ! function_exists( 'emulsion_get_layout_setting' ) ) {
 		}
 
 
+
 		if ( false === $extend_template_part ) {
 
 			$template_part = get_post_type();
@@ -667,6 +668,7 @@ if ( ! function_exists( 'emulsion_get_layout_setting' ) ) {
 					} elseif ( is_search() ) {
 
 						$template_part = get_theme_mod( 'emulsion_layout_search_results', emulsion_theme_default_val( 'emulsion_layout_search_results' ) );
+
 					} else {
 						$template_part = 'excerpt';
 					}

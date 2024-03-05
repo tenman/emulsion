@@ -24,7 +24,7 @@ if ( true === emulsion_is_custom_post_type() && 'fse' == emulsion_get_theme_oper
 		<body id="<?php echo esc_attr( emulsion_slug() ); ?>" <?php body_class(); ?>>
 			<?php
 			has_action( 'wp_body_open' ) ? do_action( 'wp_body_open' ) : '';
-			
+
 			 emulsion_action( 'emulsion_prepend_site_wrapper' );
 
 			emulsion_header_manager();

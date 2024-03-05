@@ -188,7 +188,7 @@ ul{
         }
     }
 }
-.wp-site-blocks ul:where(:not([class*="wp-block"]):not(.is-style-list-style-none):not(.is-style-list-style-inline)),
+.wp-site-blocks ul:where(:not([class*="wp-block"]):not(.is-style-list-style-none):not(.is-style-list-style-inline):not(.list-style-tab)),
 ul:where(.is-style-default),
 ul:where(:not([class])){
     list-style:var(--wp--custom--marker--ul-list-style);
@@ -747,6 +747,8 @@ main .is-layout-flex:not(.is-layout-constrained){
         margin-right:0;
         margin-bottom:0;
     }
+
+
 }
 /**
  * In the block editor, there is a problem that the layout cannot be kept
@@ -821,6 +823,25 @@ main .is-layout-flex:not(.is-layout-constrained){
     overflow:hidden;
 
 }
+.is-layout-grid{
+    .article-wrapper > article{
+        height:100%;
+    }
+    .article-wrapper > article,//classic
+    .loop-item {
+        display:flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .has-post-thumbnail .loop-item{
+        display:flex;
+        flex-direction: column-reverse;
+    }
+
+    .wp-block-excerpt{
+        height: calc(1rem * var(--wp--custom--line-height--common) * var(--wp--custom--max-height--excerpt-lines));
+    }
+}
 .emulsion{
     .is-action:not(.specificity){
         margin:0;
@@ -882,6 +903,7 @@ main .is-layout-flex:not(.is-layout-constrained){
         .post-header-content .wp-block-post-title{
             width:var(--wp--style--global--wide-size, 57.5rem);
             max-width:100%;
+
         }
 
         .fse-footer p,
@@ -912,9 +934,7 @@ main .is-layout-flex:not(.is-layout-constrained){
                     .post-header{
                         margin-bottom:0;
                     }
-                    .post-header-content{
 
-                    }
                 }
             }
         }
@@ -955,6 +975,14 @@ main .is-layout-flex:not(.is-layout-constrained){
     }
 }
 
+
+
+
+
+
+
+
+
 .summary{
     //body.summary: no single page  ! is_page() || ! is_attachment() || ! is_single() || has_block( 'post-excerpt' )
     .wp-block-query{
@@ -968,7 +996,6 @@ main .is-layout-flex:not(.is-layout-constrained){
             flex-direction:column;
             align-items: center;
             justify-content: center;
-            min-height: var(--wp--custom--min-height--quarter);
             -webkit-box-pack: center;
             -webkit-box-align: center;
             -ms-flex-align: center;
@@ -976,7 +1003,11 @@ main .is-layout-flex:not(.is-layout-constrained){
         }
 
         ul:not(.is-layout-flex):not(.is-flex-container):not(.is-layout-grid){
-            .post-header-content,
+            .post-header-content{
+                box-sizing:border-box;
+                padding:0;
+                overflow:hidden;
+            }
             .loop-item{
                 box-sizing:border-box;
                 padding:0 0 0 0;
@@ -1334,6 +1365,7 @@ body > div > footer{
 /**
  * template part content
  */
+
 .rich-header{
     .wp-block-site-title{
         font-size:clamp(var(--wp--preset--font-size--extra-large), calc( 100vw / 72 * 3), var(--wp--preset--font-size--huge));
@@ -1355,6 +1387,25 @@ body > div > footer{
     align-items:flex-start;
     width:auto;
     margin:auto !important;
+}
+
+.emulsion{
+    .fse-header{
+
+        .rich-header{
+            &.wp-block-cover{
+                &:not([class*="align"]){
+                    width:100%;
+                }
+            }
+        }
+        .wp-block-navigation{
+            margin-top:1.5rem;
+            margin-bottom:1.5rem;
+        }
+
+    }
+
 }
 
 .fse-header-content{
@@ -1402,7 +1453,8 @@ body > div > footer{
     }
 }
 
-:where(.post-header-content){
+////////////////////////////////////////////////////////////////////////////
+.post-header-content{
     .posted-on{
         padding:0;
     }
@@ -1415,6 +1467,7 @@ body > div > footer{
         justify-content: center;
         width:-moz-fit-content !important;
         width:fit-content !important;
+        margin-top:0;
         .wp-block-post-author__avatar{
             display:inline-block;
             flex: 0 0 auto;
@@ -1458,10 +1511,26 @@ body > div > footer{
     .wp-block-post-title{
         position:relative;
         flex-basis:100%;
-        // width depend .post-header-content
+        margin:1.5rem 0 0;
     }
 }
-
+body:not(.summary){
+    &.single,
+    &.page{
+        article{
+            & > header{
+                .wp-block-post-title{
+                    a{
+                        // width depend .post-header-content
+                        //Stop link. accessibility
+                        pointer-events: none;
+                        cursor: default;
+                    }
+                }
+            }
+        }
+    }
+}
 /**
         * .is-php-template
  */
@@ -1590,14 +1659,18 @@ body > div > footer{
 div.gallery{
     display:flex;
     flex-wrap:wrap;
-    width:-moz-fit-content !important;
-    width:fit-content !important;
+    //width:-moz-fit-content !important;
+    width:var(--wp--style--global--content-size);
+    //width:fit-content !important;
 
     .columns-default{
         flex-wrap:nowrap;
     }
     &.is-nowrap{
         flex-wrap:nowrap;
+    }
+    &.gallery-size-medium{
+        width:var(--wp--style--global--content-size);
     }
     gap:var(--wp--style--block-gap, .75rem);
     --wp--style--block-gap:var(--wp--custom--margin--gap, .75rem);
@@ -1623,7 +1696,6 @@ div.gallery{
                 }
             }
             &.gallery-size-thumbnail{
-                //margin:var(--wp--custom--margin--container);
                 .gallery-item{
                     max-width:9.375rem;
                 }
@@ -1688,6 +1760,7 @@ div.gallery{
 .emulsion.emulsion-has-sidebar .wp-block-group.fse-header-content.is-layout-flex {
     margin-left:0;
 }
+
 .summary,
 .archive,
 .home{
@@ -1707,12 +1780,9 @@ div.gallery{
 }
 
 .is-presentation-theme .wp-block-query-title{
-    margin:1.5rem auto;
+    margin:var(--wp--custom--margin--block);
 }
-.is-presentation-theme .wp-block-term-description,
-.is-presentation-theme header .archive-title{
-    display:none;
-}
+
 .is-presentation-theme .page-title-block{
     padding:1.5rem 0;
 }
@@ -1742,7 +1812,7 @@ div.gallery{
                 display:flex;
                 flex-direction: row;
                 width:var(--wp--custom--width--content);
-                margin:1.5rem auto;
+                margin:var(--wp--custom--margin--block);
                 @media screen and (max-width: 40rem){
                     display:block;
                     width:100%;
@@ -1842,7 +1912,7 @@ div.gallery{
             margin-top:1.5rem;
         }
         .comment-author{
-            margin:1.5rem auto;
+            margin:var(--wp--custom--margin--block);
             text-align:left;
             img{
                 display:inline;
@@ -2567,6 +2637,7 @@ body:not(.is-php-template) .fse-columns > :not(.main){
          */
 
     .is-style-fit-wide{
+
         &.alignleft{
             width:calc( var(--wp--style--global--wide-size, 57.5rem ) / 2 - var(--wp--custom--padding--content, .75rem) - .75rem);
             margin-top:var(--wp--custom--padding--content, .75rem);
@@ -2587,13 +2658,10 @@ body:not(.is-php-template) .fse-columns > :not(.main){
             figure{
                 width:100%;
             }
-            /*
-            @media screen and (max-width: 45rem) {
-                width:auto;
-                margin-right:auto;
-                margin-left:auto;
+            img{
+                width:100%;
+
             }
-            */
         }
         &.alignright{
             width:calc( var(--wp--style--global--wide-size, 57.5rem ) / 2 - var(--wp--custom--padding--content, .75rem) - .75rem);
@@ -2855,6 +2923,7 @@ body:not(.is-php-template) .fse-columns > :not(.main){
         width:100%;
         background:rgba(0,0,0,.7);
         transition:all .5s ease-in-out;
+
         &:hover{
             background:rgba(0,0,0,1);
         }
@@ -3594,6 +3663,12 @@ $spacings: 40,50,60,70,80,90;
         .wp-block-post-template{
             &.is-layout-grid{
                 min-height:0;
+                .post-header-content{
+                    box-sizing:border-box;
+                    padding:0 0 0 0;
+                    overflow:hidden;
+
+                }
             }
 
         }
