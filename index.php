@@ -40,7 +40,6 @@ if ( true === emulsion_is_custom_post_type() && 'fse' == emulsion_get_theme_oper
 
 	emulsion_have_posts();
 
-	emulsion_pagination();
 }
 
 get_footer( $template_type );

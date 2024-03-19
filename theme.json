@@ -450,32 +450,32 @@
             "fontSizes": [
                 {
                     "slug": "small",
-                    "size": "calc( var(--wp--custom--font--sccale--small) * 1rem)",
+                    "size": "clamp(calc( var(--wp--custom--font--sccale--small) * 1rem), calc( 100vw / 72 * 1.5), calc( var(--wp--custom--font--sccale--normal) * 1rem))",
                     "name": "Small"
                 },
                 {
                     "slug": "normal",
-                    "size": "calc( var(--wp--custom--font--sccale--normal) * 1rem)",
+                    "size": "clamp(calc( var(--wp--custom--font--sccale--normal) * 1rem), calc( 100vw / 72 * 1.5), calc( var(--wp--custom--font--sccale--medium) * 1rem))",
                     "name": "Normal"
                 },
                 {
                     "slug": "medium",
-                    "size": "calc( var(--wp--custom--font--sccale--medium) * 1rem)",
+                    "size": "clamp(calc( var(--wp--custom--font--sccale--medium) * 1rem), calc( 100vw / 72 * 1.5), calc( var(--wp--custom--font--sccale--large) * 1rem))",
                     "name": "Medium"
                 },
                 {
                     "slug": "large",
-                    "size": "calc( var(--wp--custom--font--sccale--large) * 1rem)",
+                    "size": "clamp(calc( var(--wp--custom--font--sccale--large) * 1rem), calc( 100vw / 72 * 1.5), calc( var(--wp--custom--font--sccale--extra-large) * 1rem))",
                     "name": "Large"
                 },
                 {
                     "slug": "extra-large",
-                    "size": "calc( var(--wp--custom--font--sccale--extra-large) * 1rem)",
+                    "size": "clamp(calc( var(--wp--custom--font--sccale--extra-large) * 1rem), calc( 100vw / 72 * 2), calc( var(--wp--custom--font--sccale--x-large) * 1rem))",
                     "name": "Extra large"
                 },
                 {
                     "slug": "x-large",
-                    "size": "calc( var(--wp--custom--font--sccale--x-large) * 1rem)",
+                    "size": "clamp(calc( var(--wp--custom--font--sccale--x-large) * 1rem), calc( 100vw / 72 * 3), calc( var(--wp--custom--font--sccale--huge) * 1rem))",
                     "name": "X large"
                 },
                 {
@@ -519,7 +519,13 @@
             "name": "the-blank",
             "title": "Blank No Header No Footer",
             "postTypes": ["post", "page"]
+        },
+        {
+            "name": "single-sidebar",
+            "title": "Post With Sidebar",
+            "postTypes": ["post"]
         }
+
     ],
     "templateParts": [
         {
@@ -768,7 +774,7 @@
                     }
                 },
                 "typography": {
-                    "fontSize": "var(--wp--preset--font-size--medium)"
+                    "fontSize": "1.5rem"
                 },
                 "spacing": {
                     "margin": {
@@ -793,6 +799,9 @@
                         }
                     }
                 },
+                "typography": {
+                    "fontSize": "2rem"
+                },
                 "spacing": {
                     "margin": {
                         "top": "0",
@@ -812,8 +821,8 @@
                 "elements": {
                     "h2": {
                         "typography": {
-                            "fontSize": "clamp(var(--wp--preset--font-size--large), calc( 100vw / 72 * 2), var(--wp--preset--font-size--extra-large) )",
-                            "fontFamily": "var(--wp--preset--font-family--serif)"
+                            "fontFamily": "var(--wp--preset--font-family--serif)",
+                            "fontSize": "2rem"
                         }
                     }
                 },

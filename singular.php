@@ -36,10 +36,7 @@ if ( true === emulsion_is_custom_post_type() && 'fse' == emulsion_get_theme_oper
 
  ! is_page() && emulsion_the_theme_supports( 'title_in_page_header' ) ? '' : emulsion_archive_title();
 
-
-
 	emulsion_have_posts();
 
-	! is_page() ? emulsion_pagination() : '';
 }
 get_footer();

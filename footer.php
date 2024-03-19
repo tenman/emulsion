@@ -16,10 +16,10 @@ if ( true === emulsion_is_custom_post_type() && 'fse' == emulsion_get_theme_oper
 } else {
 
 	?></main>
-	<?php do_action( 'emulsion_append_page_wrapper' ); ?>
+	<?php emulsion_action( 'emulsion_append_page_wrapper' ); ?>
 	</div>
 
-	<?php get_template_part( 'template-parts/widget', 'sidebar' );  ?>
+	<?php //get_template_part( 'template-parts/widget', 'sidebar' );  ?>
 	<?php get_template_part( 'template-parts/widget', 'footer' ); ?>
 	<?php emulsion_the_theme_supports( 'footer-svg' )  ? get_template_part( 'images/svg' ) : ''; ?>
 

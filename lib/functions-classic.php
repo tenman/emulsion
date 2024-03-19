@@ -534,7 +534,6 @@ function emulsion_register_scripts_and_styles() {
 	 */
 //////////////////////////////////////////////////////////////////////////
 
-
 	/**
 	 * jQuery in Footer when user not logged in.
 	 */
@@ -720,51 +719,6 @@ function emulsion_register_scripts_and_styles() {
 	}
 }
 
-if ( ! function_exists( 'emulsion_template_part_names_class' ) ) {
-
-	/**
-	 * the class name associated with the included template
-	 *
-	 * @global type $template
-	 * @param type $file
-	 * @param type $echo
-	 * @return boolean
-	 */
-	function emulsion_template_part_names_class( $file = '', $echo = true ) {
-		global $template;
-
-		if ( 'fse' == emulsion_get_theme_operation_mode() ) {
-			return;
-		}
-
-		if ( 'html' == trim(get_theme_mod( 'emulsion_header_template', emulsion_theme_default_val( 'emulsion_header_template', 'default' ) ) ) ) {
-			return;
-		}
-		if ( empty( $file ) ) {
-
-			return false;
-		}
-
-		if ( $template == $file ) {
-
-			$current_template	 = basename( $template, '.php' );
-			$current_template	 = sprintf( 'template-%1$s', $current_template );
-		} else {
-
-			$current_template	 = basename( $file, '.php' );
-			$current_template	 = sprintf( 'template-part-%1$s', $current_template );
-		}
-
-		if ( $echo ) {
-
-			echo ' ' . sanitize_html_class( $current_template );
-		} else {
-
-			return ' ' . sanitize_html_class( $current_template );
-		}
-	}
-
-}
 
 if ( ! function_exists( 'emulsion_the_header_layer_class' ) ) {
 
@@ -849,59 +803,8 @@ function emulsion_media_display_judgment() {
 }
 
 
-if ( ! function_exists( 'emulsion_element_classes' ) ) {
 
-	/**
-	 * Adds a class according to the primary menu background color,sidebar background color specified in the customizer.
-	 * Return the class specified by location
-	 * @param type $location
-	 * @return string
-	 *
-	 * @since 0.99 class name change from menu-has-column to menu-active
-	 */
-	function emulsion_element_classes( $location = '' ) {
-		// todo pending
-		return;
 
-	}
-
-}
-
-if ( ! function_exists( 'emulsion_layout_control' ) ) {
-
-	/**
-	 * Add html element for grid display and stream display.
-	 * Using the filter, you can return the page displayed in grid format to normal display.
-	 * @param type $position
-	 * @param type $type
-	 * @return type
-	 */
-	function emulsion_layout_control( $position = 'before', $type = '' ) {
-
-		if ( is_single() ) {
-
-			return false;
-		}
-		$custom_border_class = '';
-		$type				 = apply_filters( 'emulsion_layout_control', $type );
-		$type				 = emulsion_sanitize_css( $type );
-
-		if ( post_type_exists( $type ) && 'post' !== $type && 'page' !== $type ) {
-
-			$type .= ' custom-post-type';
-		}
-
-		$position = $position == ('before' || 'after') ? $position : '';
-
-		if ( ! empty( $type ) && ! empty( $position ) ) {
-
-			echo 'before' === $position ? '<div class="' . $type . ' ' . $custom_border_class . '">' : '</div>';
-			return true;
-		}
-		return false;
-	}
-
-}
 
 if ( ! function_exists( 'emulsion_svg_icon' ) ) {
 

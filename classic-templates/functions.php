@@ -145,6 +145,10 @@ if ( ! function_exists( 'emulsion_compatible_classic_template_include' ) ) {
 
 	function emulsion_compatible_classic_template_include( $template ) {
 
+		If( empty( $template ) ){
+			return;
+		}
+
 		$post_id			 = get_the_ID();
 		$page_template_slug	 = get_page_template_slug( $post_id );
 

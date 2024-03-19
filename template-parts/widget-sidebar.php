@@ -1,5 +1,5 @@
 <?php
-//
+
 if ( is_page() && emulsion_the_theme_supports( 'sidebar_page' ) ) {
 
 
@@ -16,6 +16,7 @@ if ( is_page() && emulsion_the_theme_supports( 'sidebar_page' ) ) {
 		}
 		?></ul></aside></div><?php
 	}
+
 } elseif ( emulsion_the_theme_supports( 'sidebar' ) ) {
 
 

@@ -11,7 +11,7 @@ $emulsion_image_alt				 = get_post_meta( $emulsion_post_id, '_wp_attachment_imag
 
 	<?php emulsion_action('emulsion_article_before'); ?>
 
-	<article id="post-<?php the_ID() ?>" <?php post_class(); ?>>
+	<article id="post-<?php the_ID() ?>" <?php //post_class(); ?>>
 		<?php
 
 		wp_attachment_is_image( $emulsion_post_id ) ? emulsion_attachment_image( $emulsion_post_id, 'full', $emulsion_excerpt ) : the_content();

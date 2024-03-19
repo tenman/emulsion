@@ -63,7 +63,7 @@ function emulsion_style_variation_grid_filter_classic( $classes ) {
 
 	if ( 'grid' == emulsion_get_css_variables_value( '--wp--custom--color--scheme' ) || 'grid-midnight' == emulsion_get_css_variables_value( '--wp--custom--color--scheme' ) ) {
 
-		return 'is-layout-grid columns-3 alignwide';
+		return 'is-layout-grid columns-3 alignwide classic-query';
 	}
 
 	return $classes;

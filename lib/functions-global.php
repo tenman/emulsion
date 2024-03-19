@@ -713,7 +713,7 @@ if ( ! function_exists( 'emulsion_block_group_variation_classes' ) ) {
 
 						}
 					}
-
+					/* todo
 					$additional_classes = ! empty( $block["attrs"]["className"] ) ? emulsion_class_name_sanitize( $block["attrs"]["className"] ) : '';
 
 					preg_match( '$<([^\s]+\s)([^>]+>)$', $block_content, $target );
@@ -726,7 +726,7 @@ if ( ! function_exists( 'emulsion_block_group_variation_classes' ) ) {
 							$target[0] = str_replace( 'class="', 'class="' . $v_align . ' ', $target[0] );
 						}
 						$block_content = $target[0] . $result . '</' . esc_attr( $target[1] ) . '>';
-					}
+					}*/
 				}
 			}
 
@@ -2103,10 +2103,11 @@ if ( ! function_exists( 'emulsion_style_variation_grid_filter' ) ) {
 
 			$p = new WP_HTML_Tag_Processor( $block_content );
 			$p->next_tag( 'ul' );
-			$p->add_class( 'is-layout-flex' );
+			$p->add_class( 'is-layout-grid' );
 			empty( $columns ) ? $p->add_class( 'columns-3' ) : $p->add_class( 'columns-' . $columns );
 			empty( $align ) ? $p->add_class( 'alignwide' ) : $p->add_class( 'align' . $align );
-			$p->set_attribute( 'style', "flex-wrap:wrap;align-items: stretch;" );
+			// if is-layout-flex
+			//$p->set_attribute( 'style', "flex-wrap:wrap;align-items: stretch;" );
 
 			return $p->get_updated_html();
 		}
@@ -2577,7 +2578,7 @@ add_filter( 'template_include', function ( $template ) {
 
 	add_filter( 'body_class', function ( $classes ) use ( $template_object ) {
 
-		if ( 'wp_template' == $template_object->type ) {
+		if ( ! empty($template_object->type) && 'wp_template' == $template_object->type ) {
 
 			$classes[] = emulsion_class_name_sanitize( 'is-' . $template_object->type . "-" . $template_object->slug );
 		}
@@ -2623,3 +2624,168 @@ if ( ! function_exists( 'emulsion_block_default_values' ) ) {
 	}
 
 }
+if ( ! function_exists( 'emulsion_layout_control' ) ) {
+
+	/**
+	 * Add html element for grid display and stream display.
+	 * Using the filter, you can return the page displayed in grid format to normal display.
+	 * @param type $position
+	 * @param type $type
+	 * @return type
+	 */
+	function emulsion_layout_control( $position = 'before', $type = '',$element = 'div' ) {
+
+		if ( is_single() ) {
+
+			return false;
+		}
+		$custom_border_class = '';
+		$type				 = apply_filters( 'emulsion_layout_control', $type );
+		$type				 = emulsion_sanitize_css( $type );
+
+		if ( post_type_exists( $type ) && 'post' !== $type && 'page' !== $type ) {
+
+			$type .= ' custom-post-type';
+		}
+
+		$position = $position == ('before' || 'after') ? $position : '';
+
+		if ( ! empty( $type ) && ! empty( $position ) ) {
+
+			echo 'before' === $position ? '<'.$element.' class="' . $type . ' ' . $custom_border_class . '">' : '</'.$element.'>';
+			return true;
+		}
+		return false;
+	}
+
+}
+
+if ( ! function_exists( 'emulsion_template_part_names_class' ) ) {
+
+	/**
+	 * the class name associated with the included template
+	 *
+	 * @global type $template
+	 * @param type $file
+	 * @param type $echo
+	 * @return boolean
+	 */
+	function emulsion_template_part_names_class( $file = '', $echo = true ) {
+		global $template;
+
+		if ( empty( $file ) ) {
+
+			return false;
+		}
+
+		if ( $template == $file ) {
+
+			$current_template	 = basename( $template, '.php' );
+			$current_template	 = sprintf( 'template-%1$s', $current_template );
+		} else {
+
+			$current_template	 = basename( $file, '.php' );
+			$current_template	 = sprintf( 'template-part-%1$s', $current_template );
+		}
+
+		$post_class = ' '. implode(' ',get_post_class());
+
+		if ( $echo ) {
+
+			echo ' ' . emulsion_class_name_sanitize( $current_template.$post_class );
+		} else {
+
+			return ' ' .  emulsion_class_name_sanitize( $current_template.$post_class );
+		}
+	}
+
+}
+
+if ( ! function_exists( 'emulsion_element_classes' ) ) {
+
+	/**
+	 * Adds a class according to the primary menu background color,sidebar background color specified in the customizer.
+	 * Return the class specified by location
+	 * @param type $location
+	 * @return string
+	 *
+	 * @since 0.99 class name change from menu-has-column to menu-active
+	 */
+	function emulsion_element_classes( $location = '' ) {
+		// todo pending
+		return;
+
+	}
+
+}
+
+
+
+if ( ! function_exists( 'emulsion_related_posts' ) ) {
+
+	/**
+	 *
+	 * @since 1.1.3 removed global $post
+	 */
+
+	function emulsion_related_posts() {
+
+		$relate_posts_enable = emulsion_the_theme_supports( 'relate_posts' );
+
+		if( empty( $relate_posts_enable ) ) {
+
+			return;
+		}
+
+		$algo = emulsion_related_posts_finder();
+
+		if ( ! empty( $algo ) && is_single() && ! is_attachment() ) {
+
+			$type			 = key( $algo );
+			$id				 = $algo[$type];
+			$args			 = "recent_post" == $type ? array( 'posts_per_page' => 5, 'post_status' => 'publish' ) : array( 'posts_per_page' => 5, $type => $id, 'post_status' => 'publish' );
+			$relate_posts	 = get_posts( $args );
+
+			if ( ! empty( $relate_posts ) && is_single() && ! is_attachment() ) {
+				?>
+				<h2 class="relate-posts-title fit"><?php esc_html_e( 'Relate Posts', 'emulsion' ); ?></h2>
+				<ul class="relate-posts fit"><?php
+
+					foreach ( $relate_posts as $relate_post ) {
+
+						$post_id			 = absint( $relate_post->ID );
+						$relate_post_title	 =  $relate_post->post_title ;
+						$link_url			 = get_permalink( $post_id );
+?>
+						<li><?php
+							if ( has_post_thumbnail( $post_id ) ) {
+
+								/**
+								 * @since ver1.1.6 function change the_post_thumbnail to get_the_post_thumbnail
+								 */
+								echo get_the_post_thumbnail( $post_id, 'thumbnail' );
+							} else {
+
+								/* translators: title icon question mark */
+								$icon_text	 = empty( $relate_post_title ) ? esc_html_x( '?','title icon question mark', 'emulsion' ) : mb_substr( sanitize_text_field( $relate_post_title ), 0, 1 );
+
+								/**
+								 * The character string is the first character extracted from the post title.
+								 * This will only be displayed as an alternative if the featured image does not exist in the post.
+								 * Just used as a design, no meaning for strings
+								 */
+								echo '<div class="relate-post-no-icon">' . esc_html( $icon_text ) . '</div>';
+							}
+
+							?><a href="<?php echo esc_url( $link_url ); ?>"><?php echo wp_kses( $relate_post_title, array() ); ?></a></li>
+						<?php
+					}
+					wp_reset_postdata();
+				}
+				?></ul>
+			<?php
+		}
+	}
+}
+
+
