@@ -66,9 +66,8 @@ $privacy_policy_text = esc_html__( 'Privacy policy', 'emulsion' );
 <p style="font-size:16px">Lorem ipsum dolor sit amet, consectetur ut labore et dolore magna aliqua ipsum dolor sit</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:search {"label":"","showLabel":false,"placeholder":"Enter Your Email...","width":100,"widthUnit":"%","buttonText":"Subscribe","style":{"border":{"width":"1px"}},"borderColor":"tertiary","backgroundColor":"background-header","textColor":"background"} /--></div>
+<!-- wp:search {"label":"","showLabel":false,"placeholder":"Enter Your Email...","width":100,"widthUnit":"%","buttonText":"Subscribe"} /--></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns -->
-
 <!-- wp:pattern {"slug":"emulsion/copyright-notice"} /--></div>
 <!-- /wp:group -->

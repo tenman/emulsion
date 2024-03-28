@@ -686,7 +686,6 @@ if ( ! function_exists( 'emulsion_block_group_variation_classes' ) ) {
 							$p->add_class( sanitize_html_class( $style_type ) );
 
 							$result .= do_blocks( $p->get_updated_html() );
-
 						} else {
 							if ( $inner_block['blockName'] == 'core/list' ) {
 
@@ -710,23 +709,8 @@ if ( ! function_exists( 'emulsion_block_group_variation_classes' ) ) {
 							} else {
 								$result .= $inner_html;
 							}
-
 						}
 					}
-					/* todo
-					$additional_classes = ! empty( $block["attrs"]["className"] ) ? emulsion_class_name_sanitize( $block["attrs"]["className"] ) : '';
-
-					preg_match( '$<([^\s]+\s)([^>]+>)$', $block_content, $target );
-
-					if ( $block["innerBlocks"][0]["blockName"] !== 'core/post-navigation-link' ) {
-
-						$v_align = ! empty( $block['attrs']['layout']['verticalAlignment'] ) ? sanitize_html_class( 'items-justified-' . $block['attrs']['layout']['verticalAlignment'] ) : '';
-
-						if ( 'items-justified-stretch' !== $v_align ) {
-							$target[0] = str_replace( 'class="', 'class="' . $v_align . ' ', $target[0] );
-						}
-						$block_content = $target[0] . $result . '</' . esc_attr( $target[1] ) . '>';
-					}*/
 				}
 			}
 
@@ -780,9 +764,9 @@ if ( ! function_exists( 'emulsion_block_group_variation_classes' ) ) {
 			}
 
 			if ( ! empty( $block["attrs"]["style"]["layout"] ) ) {
-				$p				 = new WP_HTML_Tag_Processor( $block_content );
+				$p			 = new WP_HTML_Tag_Processor( $block_content );
 				$p->next_tag( array( 'class_name' => $block_name ) );
-				$rule_set = '';
+				$rule_set	 = '';
 
 				if ( ! empty( $block['attrs']['style']['layout']['columnSpan'] ) ) {
 
@@ -794,7 +778,7 @@ if ( ! function_exists( 'emulsion_block_group_variation_classes' ) ) {
 					$rule_set .= 'grid-row: span ' . absint( $block['attrs']['style']['layout']['rowSpan'] ) . ';';
 				}
 				$p->set_attribute( 'style', $rule_set );
-				$block_content	 = $p->get_updated_html();
+				$block_content = $p->get_updated_html();
 			}
 
 			if ( ! empty( $block['attrs']['layout']['minimumColumnWidth'] ) ) {
@@ -1787,7 +1771,6 @@ if ( ! function_exists( 'emulsion_block_template_part' ) ) {
 			$additional_classes		 = array( 'fse-header', 'header-layer', 'html-header' );
 			$additional_classes[]	 = 'header-rich' !== $part ? 'banner' : '';
 			$tag_name				 = 'header';
-
 		}
 
 		if ( 'footer' == $template_part->area ) {
@@ -1871,7 +1854,9 @@ if ( ! function_exists( 'emulsion_get_template' ) ) {
 			if ( is_privacy_policy() && is_readable( get_template_directory() . '/templates/privacy-policy.html' ) ) {
 				return 'privacy-policy_template';
 			}
-			if ( is_tax() && is_readable( get_template_directory() . '/templates/taxsonomy.html' ) ) {
+
+			if ( is_tax() && is_readable( get_template_directory() . '/templates/taxonomy.html' ) ) {
+
 				return 'taxonomy_template';
 			}
 			if ( is_attachment() && is_readable( get_template_directory() . '/templates/attachment.html' ) ) {
@@ -2578,7 +2563,7 @@ add_filter( 'template_include', function ( $template ) {
 
 	add_filter( 'body_class', function ( $classes ) use ( $template_object ) {
 
-		if ( ! empty($template_object->type) && 'wp_template' == $template_object->type ) {
+		if ( ! empty( $template_object->type ) && 'wp_template' == $template_object->type ) {
 
 			$classes[] = emulsion_class_name_sanitize( 'is-' . $template_object->type . "-" . $template_object->slug );
 		}
@@ -2633,7 +2618,8 @@ if ( ! function_exists( 'emulsion_layout_control' ) ) {
 	 * @param type $type
 	 * @return type
 	 */
-	function emulsion_layout_control( $position = 'before', $type = '',$element = 'div' ) {
+	function emulsion_layout_control( $position = 'before', $type = '',
+			$element = 'div' ) {
 
 		if ( is_single() ) {
 
@@ -2652,7 +2638,7 @@ if ( ! function_exists( 'emulsion_layout_control' ) ) {
 
 		if ( ! empty( $type ) && ! empty( $position ) ) {
 
-			echo 'before' === $position ? '<'.$element.' class="' . $type . ' ' . $custom_border_class . '">' : '</'.$element.'>';
+			echo 'before' === $position ? '<' . $element . ' class="' . $type . ' ' . $custom_border_class . '">' : '</' . $element . '>';
 			return true;
 		}
 		return false;
@@ -2688,14 +2674,14 @@ if ( ! function_exists( 'emulsion_template_part_names_class' ) ) {
 			$current_template	 = sprintf( 'template-part-%1$s', $current_template );
 		}
 
-		$post_class = ' '. implode(' ',get_post_class());
+		$post_class = ' ' . implode( ' ', get_post_class() );
 
 		if ( $echo ) {
 
-			echo ' ' . emulsion_class_name_sanitize( $current_template.$post_class );
+			echo ' ' . emulsion_class_name_sanitize( $current_template . $post_class );
 		} else {
 
-			return ' ' .  emulsion_class_name_sanitize( $current_template.$post_class );
+			return ' ' . emulsion_class_name_sanitize( $current_template . $post_class );
 		}
 	}
 
@@ -2714,7 +2700,6 @@ if ( ! function_exists( 'emulsion_element_classes' ) ) {
 	function emulsion_element_classes( $location = '' ) {
 		// todo pending
 		return;
-
 	}
 
 }
@@ -2727,12 +2712,11 @@ if ( ! function_exists( 'emulsion_related_posts' ) ) {
 	 *
 	 * @since 1.1.3 removed global $post
 	 */
-
 	function emulsion_related_posts() {
 
 		$relate_posts_enable = emulsion_the_theme_supports( 'relate_posts' );
 
-		if( empty( $relate_posts_enable ) ) {
+		if ( empty( $relate_posts_enable ) ) {
 
 			return;
 		}
@@ -2750,13 +2734,12 @@ if ( ! function_exists( 'emulsion_related_posts' ) ) {
 				?>
 				<h2 class="relate-posts-title fit"><?php esc_html_e( 'Relate Posts', 'emulsion' ); ?></h2>
 				<ul class="relate-posts fit"><?php
-
 					foreach ( $relate_posts as $relate_post ) {
 
 						$post_id			 = absint( $relate_post->ID );
-						$relate_post_title	 =  $relate_post->post_title ;
+						$relate_post_title	 = $relate_post->post_title;
 						$link_url			 = get_permalink( $post_id );
-?>
+						?>
 						<li><?php
 							if ( has_post_thumbnail( $post_id ) ) {
 
@@ -2767,7 +2750,7 @@ if ( ! function_exists( 'emulsion_related_posts' ) ) {
 							} else {
 
 								/* translators: title icon question mark */
-								$icon_text	 = empty( $relate_post_title ) ? esc_html_x( '?','title icon question mark', 'emulsion' ) : mb_substr( sanitize_text_field( $relate_post_title ), 0, 1 );
+								$icon_text = empty( $relate_post_title ) ? esc_html_x( '?', 'title icon question mark', 'emulsion' ) : mb_substr( sanitize_text_field( $relate_post_title ), 0, 1 );
 
 								/**
 								 * The character string is the first character extracted from the post title.
@@ -2776,7 +2759,6 @@ if ( ! function_exists( 'emulsion_related_posts' ) ) {
 								 */
 								echo '<div class="relate-post-no-icon">' . esc_html( $icon_text ) . '</div>';
 							}
-
 							?><a href="<?php echo esc_url( $link_url ); ?>"><?php echo wp_kses( $relate_post_title, array() ); ?></a></li>
 						<?php
 					}
@@ -2786,6 +2768,36 @@ if ( ! function_exists( 'emulsion_related_posts' ) ) {
 			<?php
 		}
 	}
+
 }
 
+add_filter( 'render_block_core/group', 'emulsion_block_group_vertical_classes', 10, 2 );
 
+function emulsion_block_group_vertical_classes( $block_content, $block ) {
+
+	$block_name	 = 'wp-block-' . substr( strrchr( $block['blockName'], "/" ), 1 );
+	$v_align	 = ! empty( $block['attrs']['layout']['verticalAlignment'] ) ? sanitize_html_class( 'items-justified-' . $block['attrs']['layout']['verticalAlignment'] ) : '';
+
+	if ( ! empty( $v_align ) ) {
+		$p = new WP_HTML_Tag_Processor( $block_content );
+		$p->next_tag( array( 'class_name' => $block_name ) );
+		! empty( $v_align ) ? $p->add_class( $v_align ) : '';
+		return $p->get_updated_html();
+	}
+	return $block_content;
+}
+/*
+add_filter( 'render_block', 'emulsion_layout_on_filter', 10, 2 );
+
+if ( ! function_exists( 'emulsion_layout_on_filter' ) ) {
+
+	function emulsion_layout_on_filter($block_content, $block){
+		if('enable' == get_theme_mod( 'emulsion_gutenberg_render_layout_support_flag', 'disable' )){
+			$block_name	 = 'wp-block-' . substr( strrchr( $block['blockName'], "/" ), 1 );
+			$v_align	 = ! empty( $block['attrs']['layout']['verticalAlignment'] ) ? sanitize_html_class( 'items-justified-' . $block['attrs']['layout']['verticalAlignment'] ) : '';
+
+		}
+
+		return $block_content;
+	}
+}*/

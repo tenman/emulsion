@@ -61,7 +61,7 @@ body{
 
     &:not(.block-editor-page) *{
         box-sizing:border-box;
-        max-width:100%;
+       // max-width:100%;
 
     }
 
@@ -270,6 +270,85 @@ span[id]:empty{
 .emulsion .is-style-white-text{
     color:var(--wp--custom--color--palette-blocks-white);
 }
+
+/*
+    When there is a complicated nest such as wp-block-columns,
+    you can add a class, dark-block to a dark block.
+*/
+
+.dark-block{
+    *:not(.has-text-color) *,
+        &:not(.has-text-color) *{
+        color:#fff;
+        background:transparent;
+        a{
+            color:#abb8c3;
+            &:focus,
+                &:hover{
+                color:#ccc;
+            }
+        }
+        h1,h2,h3,h4,h5,h6,p,table,ol,ul{
+            color:#fff;
+        }
+    }
+}
+/**
+ * Global Color
+ */
+/* background */
+.has-base-banner-background-color.has-background{
+    background-color: var(--wp--preset--color--base-banner);
+}
+.has-base-menu-primary-background-color.has-background{
+    background-color: var(--wp--preset--color--base-menu-primary);
+}
+.has-base-sidebar-background-color.has-background{
+    background-color: var(--wp--preset--color--base-sidebar);
+}
+.has-border-color-background-color.has-background{
+    background-color: var(--wp--preset--color--border-color);
+}
+.has-primary-background-color.has-background{
+    background-color: var(--wp--preset--color--primary);
+}
+.has-secondary-background-color.has-background{
+    background-color: var(--wp--preset--color--secondary);
+}
+.has-tertiary-background-color.has-background{
+    background-color: var(--wp--preset--color--tertiary);
+}
+.has-complementary-background-color.has-background {
+    background-color: var(--wp--preset--color--complementary);
+}
+/* color */
+.has-contrast-banner-color.has-text-color{
+    color: var(--wp--preset--color--contrast-banner);
+}
+.has-contrast-menu-primary-color.has-text-color{
+    color: var(--wp--preset--color--contrast-menu-primary);
+}
+.has-contrast-sidebar-color.has-text-color{
+    color: var(--wp--preset--color--contrast-sidebar);
+}
+.has-border-color-color.has-text-color{
+    color: var(--wp--preset--color--border-color);
+}
+.has-contrast-color.has-text-color{
+    color: var(--wp--preset--color--contrast);
+}
+.has-primary-color.has-text-color{
+    color: var(--wp--preset--color--primary);
+}
+.has-secondary-color.has-text-color{
+    color: var(--wp--preset--color--secondary);
+}
+.has-tertiary-color.has-text-color{
+    color: var(--wp--preset--color--tertiary);
+}
+.has-complementary-color.has-text-color{
+    color: var(--wp--preset--color--complementary);
+}
 /**
 * name: core/shortcode
 */
@@ -371,50 +450,6 @@ h1,h2,h3,h4,h5,h6{
 .sidebar-widget-area{
     height:100%;
 }
-/*
-h1{
-    margin-top: calc( var(--wp--custom--margin--top) * var(--wp--custom--font--sccale--extra-large));
-    margin-right: var(--wp--custom--margin--right);
-    margin-bottom: calc( var(--wp--custom--margin--bottom) * var(--wp--custom--font--sccale--extra-large));
-    margin-left: var(--wp--custom--margin--left)
-}
-
-h2{
-    margin-top:  calc( var(--wp--custom--margin--top) * var(--wp--custom--font--sccale--large));
-    margin-right: var(--wp--custom--margin--right);
-    margin-bottom: calc( var(--wp--custom--margin--bottom) * var(--wp--custom--font--sccale--large));
-    margin-left: var(--wp--custom--margin--left)
-}
-
-h3{
-    margin-top: calc( var(--wp--custom--margin--top) * var(--wp--custom--font--sccale--normal));
-    margin-right: var(--wp--custom--margin--right);
-    margin-bottom: calc( var(--wp--custom--margin--bottom) * var(--wp--custom--font--sccale--normal));
-    margin-left: var(--wp--custom--margin--left)
-}
-
-h4{
-    margin-top: calc( var(--wp--custom--margin--top) * var(--wp--custom--font--sccale--normal));
-    margin-right: var(--wp--custom--margin--right);
-    margin-bottom: calc( var(--wp--custom--margin--bottom) * var(--wp--custom--font--sccale--normal));
-    margin-left: var(--wp--custom--margin--left)
-}
-
-h5{
-    margin-top: calc( var(--wp--custom--margin--top) * var(--wp--custom--font--sccale--small));
-    margin-right: var(--wp--custom--margin--right);
-    margin-bottom: calc( var(--wp--custom--margin--bottom) * var(--wp--custom--font--sccale--small));
-    margin-left: var(--wp--custom--margin--left)
-}
-h6 {
-
-
-    margin-top: calc( var(--wp--custom--margin--top) * var(--wp--custom--font--sccale--small));
-    margin-right: var(--wp--custom--margin--right);
-    margin-bottom: calc( var(--wp--custom--margin--bottom) * var(--wp--custom--font--sccale--small));
-    margin-left: var(--wp--custom--margin--left)
-}
-*/
 
 /* support wbr element
     &ZeroWidthSpace;
@@ -550,28 +585,6 @@ table,figure,pre, address,dl,form,hr,fieldset,menu,nav{
     }
 }
 
-/*
-    When there is a complicated nest such as wp-block-columns,
-    you can add a class, dark-block to a dark block.
-*/
-
-.dark-block{
-    *:not(.has-text-color) *,
-        &:not(.has-text-color) *{
-        color:#fff;
-        background:transparent;
-        a{
-            color:#abb8c3;
-            &:focus,
-                &:hover{
-                color:#ccc;
-            }
-        }
-        h1,h2,h3,h4,h5,h6,p,table,ol,ul{
-            color:#fff;
-        }
-    }
-}
 /**
          * theme toc (table of contents)
  */
@@ -684,6 +697,7 @@ main .is-layout-flex:not(.is-layout-constrained){
 
 
 /* margin */
+/*
 :where(.is-layout-constrained){
 
     & > blockquote:where(:not(.wp-block-quote)),
@@ -739,6 +753,7 @@ main .is-layout-flex:not(.is-layout-constrained){
     }
 
 }
+*/
 
 &.entry-content,
 &.wp-bblock-post-content{
@@ -790,6 +805,7 @@ main .is-layout-flex:not(.is-layout-constrained){
         }
     }
 }
+/*
 .wp-block-post-content > [style*="inline-block"],
 .wp-block-post-content > [style*="inline-flex"],
 .wp-block-post-content > [style*="inline-grid"]{
@@ -802,7 +818,7 @@ main .is-layout-flex:not(.is-layout-constrained){
         max-width: calc(100% - var(--wp--custom--padding--content,.75rem) * 2);
 
     }
-}
+}*/
 .wp-block-comment-template .is-layout-flex,
 .wp-block-comments-pagination.is-layout-flex{
     align-items: center;
@@ -1102,6 +1118,27 @@ main .is-layout-flex:not(.is-layout-constrained){
             }
         }
     }
+
+    .wp-block-post-template.is-layout-grid,
+    .wp-block-post-template.is-layout-flex,
+    .wp-block-post-template.is-flex-container{
+        li{
+            &.has-post-thumbnail{
+                .wp-block-post-excerpt{
+                    display:none;
+                }
+                .is-layout-grid{
+                    .wp-block-post-excerpt{
+                        display:none;
+                    }
+                    .wp-block-post-featured-image{
+                        aspect-ratio:unset;
+                    }
+                }
+            }
+        }
+    }
+
     .wp-block-column.is-style-layout-flow{
         .wp-block-query{
             .wp-block-post-template{
@@ -1628,6 +1665,10 @@ body:not(.summary){
         .header-sidebar{
             width:min( 30vw, var(--wp--custom--width--sidebar));
             margin:auto;
+            @media (max-width: 48rem){
+
+             width:auto;
+            }
         }
 
         .wp-block-site-tagline,
@@ -4190,6 +4231,7 @@ $spacings: 40,50,60,70,80,90;
         display:ruby-text;
         font-weight:normal;
         font-size:50%;
+        letter-spacing: normal !important;
     }
 
 }
@@ -4201,6 +4243,7 @@ $spacings: 40,50,60,70,80,90;
         display:ruby-text;
         font-size:50%;
         font-weight:normal;
+        letter-spacing: normal !important;
     }
 }
 
@@ -4326,6 +4369,7 @@ p:where(.child-of-fse-header){
 /**
  * In classic mode, navigation block javascript is not applied, ensuring minimum readability.
  */
+
 .is-presentation-theme{
     @media (max-width: 600px){
         .wp-block-navigation{

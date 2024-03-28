@@ -340,7 +340,7 @@ if ( ! function_exists( 'emulsion_theme_default_val' ) ) {
 			'emulsion_tooltip'									 => array( 'default' => 'diaable', 'unit' => '', ), //Please use emulsion_the_theme_supports()
 			'emulsion_sticky_sidebar'							 => array( 'default' => 'enable', 'unit' => '', ),
 			'emulsion_lazyload'									 => array( 'default' => 'disable', 'unit' => '', ), //Please use emulsion_the_theme_supports()
-			'emulsion_instantclick'								 => array( 'default' => 'disable', 'unit' => '', ), //Please use emulsion_the_theme_supports()
+			'emulsion_instantclick'								 => array( 'default' => 'enable', 'unit' => '', ), //Please use emulsion_the_theme_supports()
 			'emulsion_search_drawer'							 => array( 'default' => 'disable', 'unit' => '', ),
 			'emulsion_relate_posts'								 => array( 'default' => 'enable', 'unit' => '', ), // required emulsion-addons plugin
 			'emulsion_customizer_preview_redirect'				 => array( 'default' => 'disable', 'unit' => '', ), // required emulsion-addons plugin
