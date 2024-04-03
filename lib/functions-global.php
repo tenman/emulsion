@@ -655,65 +655,6 @@ if ( ! function_exists( 'emulsion_block_group_variation_classes' ) ) {
 				return $transient;
 			}
 
-			if ( ! empty( $block['attrs']['layout']["flexWrap"] ) && 'nowrap' == $block['attrs']['layout']["flexWrap"] ) {
-				$result	 = '';
-				$flag	 = false;
-
-				if ( ! empty( $block["innerBlocks"] ) ) {
-
-					foreach ( $block["innerBlocks"] as $key => $inner_block ) {
-
-						$inner_block_name	 = 'wp-block-' . substr( strrchr( $inner_block['blockName'], "/" ), 1 );
-						$style_type			 = ! empty( $inner_block['attrs']['style']['layout']['selfStretch'] ) ? $inner_block['attrs']['style']['layout']['selfStretch'] : '';
-						$inner_html			 = do_blocks( $inner_block['innerHTML'] );
-						$style_value		 = ! empty( $inner_block['attrs']['style']['layout']['flexSize'] ) ? $inner_block['attrs']['style']['layout']['flexSize'] : '';
-
-						if ( ! empty( $style_type ) ) {
-							$flag	 = true;
-							$p		 = new WP_HTML_Tag_Processor( $inner_block['innerHTML'] );
-							if ( $inner_block['blockName'] == 'core/paragraph' ) {
-
-								$p->next_tag( array( 'tag_name' => 'p' ) );
-							} else {
-
-								$p->next_tag( array( 'class_name' => $inner_block_name ) );
-							}
-
-
-							if ( ! empty( $style_value ) ) {
-								$p->set_attribute( 'style', 'width:' . $style_value . ';' );
-							}
-							$p->add_class( sanitize_html_class( $style_type ) );
-
-							$result .= do_blocks( $p->get_updated_html() );
-						} else {
-							if ( $inner_block['blockName'] == 'core/list' ) {
-
-								$p = new WP_HTML_Tag_Processor( $block_content );
-
-								$result_2 = '';
-
-								$inner_block_name	 = 'wp-block-' . substr( strrchr( $inner_block['blockName'], "/" ), 1 );
-								$style_type			 = ! empty( $inner_block['attrs']['style']['layout']['selfStretch'] ) ? $inner_block['attrs']['style']['layout']['selfStretch'] : '';
-								$style_value		 = ! empty( $inner_block['attrs']['style']['layout']['flexSize'] ) ? $inner_block['attrs']['style']['layout']['flexSize'] : '';
-
-								$p->next_tag( array( 'class_name' => $inner_block_name ) );
-
-								if ( ! empty( $style_value ) ) {
-									$p->set_attribute( 'style', 'width:' . $style_value . ';' );
-								}
-
-								$p->add_class( sanitize_html_class( $style_type ) );
-
-								$result = do_blocks( $p->get_updated_html() );
-							} else {
-								$result .= $inner_html;
-							}
-						}
-					}
-				}
-			}
-
 			if ( ! empty( $block['attrs']['layout']["orientation"] ) && 'vertical' == $block['attrs']['layout']["orientation"] ) {
 
 				$new_class		 = array(
@@ -723,36 +664,7 @@ if ( ! function_exists( 'emulsion_block_group_variation_classes' ) ) {
 					! empty( $block['attrs']['layout']['orientation'] ) ? sanitize_html_class( 'is-' . $block['attrs']['layout']['orientation'] ) : ''
 				);
 				$block_content	 = emulsion_add_class( $block_content, $block_name, $new_class );
-
-				if ( ! empty( $block["innerBlocks"] ) ) {
-					// todo
-					foreach ( $block["innerBlocks"] as $key => $inner_block ) {
-
-						$block_name = 'wp-block-' . substr( strrchr( $inner_block['blockName'], "/" ), 1 );
-
-						$style_type = ! empty( $inner_block['attrs']['style']['layout']['selfStretch'] ) ? $inner_block['attrs']['style']['layout']['selfStretch'] : '';
-
-						$p = new WP_HTML_Tag_Processor( $block_content );
-
-						$p->next_tag( array( 'class_name' => $block_name ) );
-
-						if ( 'fixed' == $style_type ) {
-
-							$style_value = ! empty( $inner_block['attrs']['style']['layout']['flexSize'] ) ? $inner_block['attrs']['style']['layout']['flexSize'] : 'auto';
-
-							//$p->set_attribute( 'style', 'width:' . $style_value );
-						}
-						if ( 'fit' == $style_type ) {
-
-							$style_value = 'fit-content';
-							//$p->set_attribute( 'style', 'width:' . '-moz-' . $style_value . ';' . 'width:' . $style_value . ';' );
-						}
-
-						$block_content = $p->get_updated_html();
-					}
-				}
 			} else {
-
 
 				$new_class		 = array(
 					! empty( $block['attrs']['layout']["type"] ) ? sanitize_html_class( 'is-layout-' . $block['attrs']['layout']["type"] ) : '',
@@ -1293,8 +1205,8 @@ if ( ! function_exists( 'emulsion_block_editor_assets' ) ) {
 	function emulsion_block_editor_assets() {
 
 		$emulsion_current_data_version = is_user_logged_in() ? emulsion_version() : null;
-//add 'wp-element','wp-rich-text','wp-editor',
-		wp_enqueue_script( 'emulsion-block', esc_url( get_template_directory_uri() . '/js/block.js' ), array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-rich-text', 'wp-editor', 'jquery' ), $emulsion_current_data_version );
+//add 'wp-element','wp-rich-text','wp-editor',removed 'wp-editor',
+		wp_enqueue_script( 'emulsion-block', esc_url( get_template_directory_uri() . '/js/block.js' ), array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-rich-text',  'jquery' ), $emulsion_current_data_version );
 
 		wp_register_style( 'emulsion-patterns', get_template_directory_uri() . '/css/patterns.css', array(), $emulsion_current_data_version, 'all' );
 		wp_enqueue_style( 'emulsion-patterns' );
@@ -2786,18 +2698,50 @@ function emulsion_block_group_vertical_classes( $block_content, $block ) {
 	}
 	return $block_content;
 }
-/*
-add_filter( 'render_block', 'emulsion_layout_on_filter', 10, 2 );
 
-if ( ! function_exists( 'emulsion_layout_on_filter' ) ) {
+add_filter( 'render_block', 'emulsion_block_group_self_stretch_classes', 10, 2 );
 
-	function emulsion_layout_on_filter($block_content, $block){
-		if('enable' == get_theme_mod( 'emulsion_gutenberg_render_layout_support_flag', 'disable' )){
-			$block_name	 = 'wp-block-' . substr( strrchr( $block['blockName'], "/" ), 1 );
-			$v_align	 = ! empty( $block['attrs']['layout']['verticalAlignment'] ) ? sanitize_html_class( 'items-justified-' . $block['attrs']['layout']['verticalAlignment'] ) : '';
+function emulsion_block_group_self_stretch_classes( $block_content, $block ) {
 
+	$block_name		 = 'wp-block-' . substr( strrchr( $block['blockName'], "/" ), 1 );
+	$self_stretch	 = ! empty( $block["attrs"]["style"]["layout"]["selfStretch"] ) ? sanitize_html_class( $block["attrs"]["style"]["layout"]["selfStretch"] ) : '';
+
+	if ( ! empty( $self_stretch ) ) {
+
+		$p = new WP_HTML_Tag_Processor( $block_content );
+
+		if ( 'wp-block-paragraph' == $block_name ) {
+
+			$p->next_tag( array( 'tag_name' => 'p', ) );
+		}elseif('wp-block-list' == $block_name){
+
+			if( strstr($block_content,'<ul') ) {
+
+				$p->next_tag( array( 'tag_name' => 'ul', ) );
+			} else {
+
+				$p->next_tag( array( 'tag_name' => 'ol', ) );
+			}
+
+		} else {
+
+			$p->next_tag( array( 'class_name' => $block_name ) );
 		}
 
-		return $block_content;
+		$p->add_class( $self_stretch );
+
+		if ( 'fixed' == $self_stretch ) {
+
+			$style_value = ! empty( $block['attrs']['style']['layout']['flexSize'] ) ? $block['attrs']['style']['layout']['flexSize'] : 'auto';
+
+			$p->set_attribute('style', 'width:'.$style_value);
+		}
+
+		return $p->get_updated_html();
 	}
-}*/
+
+
+	return $block_content;
+}
+
+

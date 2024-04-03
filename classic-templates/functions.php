@@ -47,21 +47,7 @@ if ( ! function_exists( 'emulsion_classic' ) ) {
 					$dependency_style,
 					wp_get_theme()->get( 'Version' )
 			);
-			/*
-			if( ! empty( get_theme_mod( 'emulsion__css_variables' ) ) && emulsion_theme_addons_exists() ) {
-				wp_add_inline_style( 'emulsion-classic', get_theme_mod( 'emulsion__css_variables' ) );
-
-				wp_register_style(
-						'emulsion-custom-color',
-						get_template_directory_uri() . '/css/custom-color.css',
-						$dependency_style,
-						wp_get_theme()->get( 'Version' )
-				);
-				wp_enqueue_style( 'emulsion-custom-color' );
-			}
-			 *
-			 */
-
+			
 			wp_enqueue_style( 'emulsion-classic' );
 
 		}

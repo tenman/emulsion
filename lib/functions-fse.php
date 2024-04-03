@@ -711,6 +711,9 @@ if ( ! function_exists( 'emulsion_editor_color_scheme_correction' ) ) {
 		$global_styles = '';
 
 		$css = <<<STYLE
+		.editor-styles-wrapper ul.wp-block-post-template{
+			margin:auto;
+		}
 		.editor-editor-canvas__post-title-wrapper{
 			margin-bottom:1.5rem;
 		}

@@ -68,3 +68,5 @@ function emulsion_style_variation_grid_filter_classic( $classes ) {
 
 	return $classes;
 }
+
+

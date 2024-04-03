@@ -5,6 +5,25 @@
     "patterns": [],
     "settings": {
         "appearanceTools": true,
+        "shadow": {
+            "presets": [
+                {
+                    "name": "Small",
+                    "slug": "sm",
+                    "shadow": "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)"
+                },
+                {
+                    "name": "Medium",
+                    "slug": "md",
+                    "shadow": "0 4px  10px 0 rgba( 0, 0, 0, 0.3 )"
+                },
+                {
+                    "name": "Large",
+                    "slug": "lg",
+                    "shadow": "0 8px  15px 0 rgba( 0, 0, 0, 0.3 )"
+                }
+            ]
+        },
         "custom": {
             "width": {
                 "aligncenter": "32.5rem",
@@ -672,7 +691,7 @@
                 },
                 "spacing": {
                     "margin": {
-                        "top":  "calc( var(--wp--custom--margin--top) * var(--wp--custom--font--sccale--large))",
+                        "top": "calc( var(--wp--custom--margin--top) * var(--wp--custom--font--sccale--large))",
                         "right": "var(--wp--custom--margin--right)",
                         "bottom": "calc( var(--wp--custom--margin--bottom) * var(--wp--custom--font--sccale--large))",
                         "left": "var(--wp--custom--margin--left)"
@@ -966,11 +985,10 @@
             },
             "core/table-of-contents": {
                 "color": {
-                    "background": "var(--wp--custom--color--toc-bg)",
-                    "text": "var(--wp--custom--color--button-text)"
+                    "background": "var(--wp--custom--color--code-tag-bg)",
+                    "text": "var(--wp--custom--color--code-tag-text)"
                 },
                 "border": {
-
                     "width": "var(--wp--custom--border--common-width)",
                     "style": "var(--wp--custom--border--common-style)",
                     "color": "var(--wp--preset--color--border-color)"
