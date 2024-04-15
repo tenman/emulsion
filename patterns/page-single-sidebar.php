@@ -31,7 +31,7 @@
 <!-- /wp:column --></div>
 <!-- /wp:columns -->
 
-<!-- wp:group {"tagName":"nav","className":"wp-block-post-navigation","layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"center"},"metadata":{"name":"Post Navigation"}} -->
+<!-- wp:group {"tagName":"nav","className":"wp-block-post-navigation","style":{"spacing":{"blockGap":"var:preset|spacing|40"}},"layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"center"},"metadata":{"name":"Post Navigation"}} -->
 <nav class="wp-block-group wp-block-post-navigation"><!-- wp:post-navigation-link {"showTitle":true} /-->
 
 <!-- wp:post-navigation-link {"type":"previous","showTitle":true} /--></nav>

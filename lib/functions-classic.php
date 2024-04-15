@@ -4,7 +4,7 @@ include_once( get_theme_file_path( 'lib/conf.php' ) );
 include_once( get_theme_file_path( 'lib/hooks.php' ) );
 include_once( get_theme_file_path( 'lib/relate-posts.php' ) );
  ! empty( wp_get_nav_menu_name( 'social' ) ) ? include_once( get_theme_file_path( 'lib/icon.php' ) ) : '';
-emulsion_do_fse() ? include_once( get_template_directory() . '/lib/full_site_editor.php' ) : '';
+include_once( get_template_directory() . '/lib/full_site_editor.php' );
 
 if ( is_admin() && current_user_can( 'edit_theme_options' ) ) {
 
@@ -62,14 +62,11 @@ if ( ! function_exists( 'emulsion_setup' ) ) {
 
 		if ( ! empty( $wp_version ) && version_compare( $wp_version, '5.9', '<' ) ) {
 
-			if ( 'fse' == emulsion_get_theme_operation_mode() && ! emulsion_do_fse() ) {
+			if ( 'fse' == emulsion_get_theme_operation_mode() ) {
 
 				set_theme_mod( 'emulsion_editor_support', 'theme' );
 			}
-			if ( 'transitional' !== emulsion_get_theme_operation_mode() && ! emulsion_do_fse() ) {
 
-				set_theme_mod( 'emulsion_editor_support', 'transitional' );
-			}
 		}
 
 		/**
@@ -746,11 +743,6 @@ if ( ! function_exists( 'emulsion_the_header_layer_class' ) ) {
 			$class_name = ' has-header-text-color';
 		}
 
-		if ( 'transitional' == emulsion_get_theme_operation_mode() && false !== get_theme_mod( 'emulsion_header_background_color', false ) ) {
-			$class_name = ' has-customizer-bg';
-		}
-
-
 		/**
 		 * CTA layer
 		 */
@@ -1015,8 +1007,7 @@ if ( ! function_exists( 'emulsion_style_load_controller' ) ) {
 
 			$flag = false;
 
-			if ( 'fse' == emulsion_get_theme_operation_mode() ||
-					'transitional' == emulsion_get_theme_operation_mode() ) {
+			if ( 'fse' == emulsion_get_theme_operation_mode() ) {
 				$flag = true;
 				return apply_filters( $handle . '-load', $flag );
 			}
@@ -1053,9 +1044,6 @@ if ( ! function_exists( 'emulsion_style_load_controller' ) ) {
 					case 'experimental':
 						$flag	 = true;
 						break;
-					case 'transitional':
-						$flag	 = true;
-						break;
 					case 'fse':
 						$flag	 = false;
 						break;
@@ -1080,7 +1068,6 @@ if ( ! function_exists( 'emulsion_style_load_controller' ) ) {
 			 * exception
 			 * FSE needs block style
 			 */
-			//$flag	 = emulsion_do_fse() ? true: $flag;
 
 			$flag = 'full_text' !== emulsion_content_type() ? false : $flag;
 
@@ -1141,9 +1128,6 @@ if ( ! function_exists( 'emulsion_style_load_controller' ) ) {
 					case 'experimental':
 						$flag	 = true;
 						break;
-					case 'transitional':
-						$flag	 = true;
-						break;
 					case 'fse':
 						$flag	 = false;
 						break;
@@ -1195,8 +1179,6 @@ if ( ! function_exists( 'emulsion_style_load_controller' ) ) {
 
 				$flag = true;
 			}
-
-			//$flag	 = emulsion_do_fse() ? false: $flag;
 
 			return apply_filters( $handle . '-load', $flag );
 		}
@@ -1366,41 +1348,6 @@ if ( ! function_exists( 'emulsion_woocommerce_dinamic_css' ) ) {
 	}
 
 }
-
-
-
-add_filter( 'render_block', 'emulsion_modified_main_element', 10, 2 );
-
-if ( ! function_exists( 'emulsion_modified_main_element' ) ) {
-
-	/**
-	 *
-	 *
-	 * @param type $block_content
-	 * @param type $block
-	 * @return text/html
-	 */
-	function emulsion_modified_main_element( $block_content, $block ) {
-
-		if ( 'transitional' !== emulsion_get_theme_operation_mode() ) {
-
-			return $block_content;
-		}
-		$block_name	 = 'wp-block-' . substr( strrchr( $block['blockName'], "/" ), 1 );
-		$used_layout = isset( $block['attrs']['layout'] ) ? $block['attrs']['layout'] : '';
-
-		if ( 'wp-block-template-part' == $block_name && ! empty( $block['attrs']['tagName'] ) && 'main' == $block['attrs']['tagName'] ) {
-
-			//Why simple replacement is right: The main element is a special element that appears only once in the document
-
-			$block_content = str_replace( array( '<main ', '</main>' ), array( '<div ', '</div>' ), $block_content );
-		}
-
-		return $block_content;
-	}
-
-}
-
 
 add_filter( 'render_block', 'emulsion_posted_on_classes', 10, 2 );
 

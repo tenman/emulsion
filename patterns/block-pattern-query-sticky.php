@@ -23,8 +23,8 @@ $html = <<<HTML
 	<!-- wp:group {"tagName":"article","className":"post loop-item","layout":{"type":"constrained"}} -->
 	<article class="wp-block-group post loop-item">
 
-		<!-- wp:group {"tagName":"header","className":"post-header","layout":{"type":"constrained"}} -->
-		<header class="wp-block-group post-header">
+		<!-- wp:group {"tagName":"header","className":"post-header centered","layout":{"type":"constrained"}} -->
+		<header class="wp-block-group post-header centered">
 			<!-- wp:group {"className":"post-header-content","layout":{"type":"constrained"}} -->
 			<div class="wp-block-group post-header-content">
 				<!-- wp:post-title {"isLink":true,"linkTarget":"_self"} /-->

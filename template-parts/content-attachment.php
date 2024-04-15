@@ -1,6 +1,4 @@
 <?php
-
-$emulsion_title_in_page_header	 = emulsion_the_theme_supports( 'title_in_page_header' );
 $emulsion_post_id				 = get_the_ID();
 $emulsion_post_info				 = get_post( $emulsion_post_id );
 $emulsion_mime_type				 = get_post_mime_type( $emulsion_post_id ); // if you needs attachment mime type

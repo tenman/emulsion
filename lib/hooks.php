@@ -10,9 +10,6 @@ function emulsion_hooks_setup() {
 	//both
 
 	add_filter( 'body_class', 'emulsion_body_class' );
-	add_filter( 'admin_body_class', 'emulsion_block_editor_class' );
-	add_action( 'customize_controls_enqueue_scripts', 'emulsion_customizer_controls_script' );
-	add_action( 'customize_controls_enqueue_scripts', 'emulsion_customizer_controls_style' );
 
 	/**
 	 * Script
@@ -45,7 +42,7 @@ function emulsion_hooks_setup() {
 		/**
 		 * Data validations
 		 */
-		add_filter( 'emulsion_the_post_meta_on', 'ent2ncr' );
+		//add_filter( 'emulsion_the_post_meta_on', 'ent2ncr' );
 		add_filter( 'emulsion_the_post_meta_in', 'ent2ncr' );
 
 		/**
@@ -53,36 +50,14 @@ function emulsion_hooks_setup() {
 		 */
 		add_action( 'wp_footer', 'emulsion_theme_google_tracking_code', 99 );
 
-		if ( ! emulsion_theme_addons_exists() ) {
-			//add_filter( 'wp_scss_needs_compiling', '__return_false' );
-		}
 	}
 
-	// fse or transitional
-
-	if ( 'theme' !== emulsion_get_theme_operation_mode() ) {
-
-		add_filter( 'render_block_core/navigation', function ( $content, $block ) {
-
-			if ( 'transitional' == emulsion_get_theme_operation_mode() && isset( $block["attrs"]["className"] ) && 'fse-primary' == $block["attrs"]["className"] ) {
-
-				return;
-			}
-			return $content;
-		}, 10, 2 );
-
-	}
-
-	if ( 'fse' == emulsion_get_theme_operation_mode() ) {
-
-	} else {
-		// transitional or theme
+	if ( 'theme' == emulsion_get_theme_operation_mode() ) {
 
 		add_action( 'wp_head', 'emulsion_meta_elements' );
 		add_action( 'wp_head', 'emulsion_pingback_header' );
-		'fse' !== emulsion_get_theme_operation_mode() ? add_action( 'wp_body_open', 'emulsion_skip_link' ) : '';
-
-		add_action( 'wp_enqueue_scripts', 'emulsion_not_support_presentation_page_link' );
+		add_action( 'wp_body_open', 'emulsion_skip_link' );
+		//add_action( 'wp_enqueue_scripts', 'emulsion_not_support_presentation_page_link' );
 
 		add_filter( 'get_the_archive_title', 'emulsion_archive_title_filter' );
 		add_filter( 'the_title', 'emulsion_empty_the_title_fallback' );
@@ -96,7 +71,7 @@ function emulsion_hooks_setup() {
 		add_filter( 'gettext_with_context_default', 'emulsion_change_translate', 99, 4 );
 		add_filter( 'the_content_more_link', 'emulsion_read_more_link' );
 		add_filter( 'navigation_markup_template', 'emulsion_remove_role_from_pagination' );
-		add_filter( 'get_header_image_tag', 'emulsion_amp_add_layout_attribute' );
+		//add_filter( 'get_header_image_tag', 'emulsion_amp_add_layout_attribute' );
 		add_filter( 'get_the_archive_description', 'wpautop' );
 
 		//Post title cannot be displayed in header when html template is loaded
@@ -137,12 +112,7 @@ if ( ! function_exists( 'emulsion_body_class' ) ) {
 			return $classes;
 		}
 
-		if ( is_admin() && $_GET['legacy-widget-preview'] ) {
-			//$classes[] = 'legacy-widget-preview';
-		}
-
 		$post_id = get_the_ID();
-
 
 		if ( emulsion_the_theme_supports( 'sidebar' ) || emulsion_the_theme_supports( 'sidebar_page' ) ) {
 
@@ -174,21 +144,6 @@ if ( ! function_exists( 'emulsion_body_class' ) ) {
 		// fse background class
 		$classes[] = emulsion_fse_background_color_class();
 
-		if ( true === emulsion_the_theme_supports( 'title_in_page_header' ) ) {
-			// fse mode allways return no
-			$title_in_header = get_theme_mod( "emulsion_title_in_header", emulsion_theme_default_val( 'emulsion_title_in_header' ) );
-
-			// fse needs this
-			if ( 'yes' == $title_in_header ) {
-
-				$classes[] = 'emulsion-header-has-title';
-			}
-			if ( 'no' == $title_in_header ) {
-
-				$classes[] = 'emulsion-layout-no-title';
-			}
-		}
-
 		if ( is_singular() ) {
 
 			$classes[] = 'is-singular';
@@ -208,10 +163,6 @@ if ( ! function_exists( 'emulsion_body_class' ) ) {
 			$classes[] = 'enable-alignfull';
 		}
 
-		if ( 'transitional' !== emulsion_get_theme_operation_mode() &&
-				'html' !== get_theme_mod( 'emulsion_header_template', emulsion_theme_default_val( 'emulsion_header_template', 'default' ) ) ) {
-			$classes[] = 'noscript';
-		}
 		$classes[] = 'emulsion';
 
 		if ( is_singular() && isset( $post ) ) {
@@ -249,7 +200,7 @@ if ( ! function_exists( 'emulsion_body_class' ) ) {
 			$classes[] = 'no-block';
 		}
 
-		if ( emulsion_the_theme_supports( 'full_site_editor' ) && emulsion_do_fse() ) {
+		if ( emulsion_the_theme_supports( 'full_site_editor' ) ) {
 
 			$classes[] = 'emulsion-fse-active';
 
@@ -378,7 +329,6 @@ if ( ! function_exists( 'emulsion_oembed_default_width' ) ) {
 
 		return emulsion_theme_default_val( 'emulsion_content_width' );
 	}
-
 }
 
 if ( ! function_exists( 'emulsion_empty_the_title_fallback' ) ) {
@@ -390,10 +340,7 @@ if ( ! function_exists( 'emulsion_empty_the_title_fallback' ) ) {
 		}
 		return $title;
 	}
-
 }
-
-
 
 if ( ! function_exists( 'emulsion_get_rest' ) ) {
 
@@ -460,78 +407,6 @@ SCRIPT;
 
 
 
-if ( ! function_exists( 'emulsion_customizer_controls_script' ) ) {
-
-	function emulsion_customizer_controls_script() {
-
-		if ( is_plugin_active( 'emulsion-addons/emulsion.php' ) ) {
-
-			return;
-		}
-
-		$plugin_install_url	 = esc_url( admin_url( 'themes.php?page=tgmpa-install-plugins&plugin_status=all' ) );
-		$message			 = sprintf( '<p>%1$s</p><a href="%2$s">%3$s</a>', esc_html__( 'You can use the emulsion-addons plugin for further customization.', 'emulsion' ), esc_url( $plugin_install_url ), esc_html__( 'Install Plugin', 'emulsion' )
-		);
-
-		$script = <<<SCRIPT
-
-	( function( $ ) {
-		'use strict';
-		wp.customize.bind( 'ready', function () {
-			wp.customize.notifications.add(
-				'emulsion-addons-custom-notification',
-				new wp.customize.Notification(
-					'emulsion-addons-custom-notification', {
-						dismissible: true,
-						message: '{$message}',
-						type: 'warning'
-					}
-				)
-			);
-		} );
-
-	} )( jQuery );
-
-
-SCRIPT;
-
-		if ( is_customize_preview() && current_user_can( 'edit_theme_options' ) ) {
-
-			wp_add_inline_script( 'customize-controls', $script );
-		}
-	}
-
-}
-
-if ( ! function_exists( 'emulsion_customizer_controls_style' ) ) {
-
-	function emulsion_customizer_controls_style() {
-
-		$plugin_icon_url = get_template_directory_uri() . '/images/emulsion-addons.png';
-		$css			 = <<<CSS
-
-	[data-code="emulsion-addons-custom-notification"] .notification-message{
-			margin-left:72px;
-	}
-
-	[data-code="emulsion-addons-custom-notification"]:before{
-			content:'';
-			background:url({$plugin_icon_url});
-			background-size:contain;
-			width:64px;
-			height:64px;
-			position:absolute;
-			top:1rem;
-	}
-CSS;
-		if ( is_customize_preview() && ! emulsion_theme_addons_exists() && current_user_can( 'edit_theme_options' ) ) {
-
-			wp_add_inline_style( 'customize-controls', $css );
-		}
-	}
-
-}
-
 
 if ( ! function_exists( 'emulsion_amp_description' ) ) {
 
@@ -593,7 +468,7 @@ if ( ! function_exists( 'emulsion_read_more_link' ) ) {
 	}
 
 }
-
+/*
 if ( ! function_exists( 'emulsion_block_editor_class' ) ) {
 
 	function emulsion_block_editor_class( $classes ) {
@@ -653,7 +528,8 @@ if ( ! function_exists( 'emulsion_block_editor_class' ) ) {
 		return $classes . $block_editor_class_name;
 	}
 
-}
+}*/
+/*
 if ( ! function_exists( 'emulsion_amp_add_layout_attribute' ) ) {
 
 	function emulsion_amp_add_layout_attribute( $html ) {
@@ -665,11 +541,13 @@ if ( ! function_exists( 'emulsion_amp_add_layout_attribute' ) ) {
 	}
 
 }
-
+ *
+ */
+/*
 if ( ! function_exists( 'emulsion_not_support_presentation_page_link' ) ) {
 
 	function emulsion_not_support_presentation_page_link() {
-		//if ( 'fse' == emulsion_get_theme_operation_mode() ) {
+
 		if ( 'fse' == emulsion_get_theme_operation_mode() && 'html' == get_theme_mod( 'emulsion_header_template', emulsion_theme_default_val( 'emulsion_header_template', 'default' ) ) ) {
 			return;
 		}
@@ -690,7 +568,7 @@ EOT;
 		}
 	}
 
-}
+}*/
 
 
 if ( ! function_exists( 'emulsion_remove_role_from_pagination' ) ) {
@@ -798,17 +676,4 @@ function emulsion_primary_menu_background_filter( $color ) {
 	return $color;
 }
 
-/*
-if ( 'daybreak' == get_theme_mod( 'emulsion_scheme' ) ||
-		'bloging' == get_theme_mod( 'emulsion_scheme' ) ||
-		'boilerplate' == get_theme_mod( 'emulsion_scheme' ) ) {
-
-	add_filter( 'theme_mod_emulsion_title_in_header', 'emulsion_scheme_daybreak_filter' );
-
-	function emulsion_scheme_daybreak_filter( $val ) {
-
-		return 'no';
-	}
-
-}*/
 

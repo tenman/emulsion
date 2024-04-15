@@ -20,8 +20,8 @@ $html = <<<HTML
 <main class="wp-block-group alignfull"><!-- wp:group {"tagName":"article","align":"full","className":"post","layout":{"type":"constrained"}} -->
 <article class="wp-block-group alignfull post"><!-- wp:post-featured-image /-->
 
-<!-- wp:group {"tagName":"header","align":"full", "className":"post-header wp-block-template-post-header wp-block-template-part", "layout":{"type":"constrained"}} -->
-<header class="wp-block-group post-header wp-block-template-post-header wp-block-template-part alignfull">
+<!-- wp:group {"tagName":"header","align":"full", "className":"post-header wp-block-template-post-header wp-block-template-part centered", "layout":{"type":"constrained"}} -->
+<header class="wp-block-group post-header wp-block-template-post-header wp-block-template-part centered alignfull">
 	<!-- wp:group {"className":"post-header-content","layout":{"type":"default"}} -->
 	<div class="wp-block-group post-header-content">
 	<!-- wp:post-title {"isLink":true} /-->

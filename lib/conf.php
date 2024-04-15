@@ -393,7 +393,7 @@ if ( ! function_exists( 'emulsion_theme_default_val' ) ) {
 			 */
 			'emulsion_header_template'		 => array( 'default' => 'html', 'unit' => '', ),
 			'emulsion_footer_template'		 => array( 'default' => 'html', 'unit' => '', ),
-			'emulsion_editor_support'		 => array( 'default' => 'transitional', 'unit' => '', ),
+			'emulsion_editor_support'		 => array( 'default' => 'fse', 'unit' => '', ),
 		);
 
 		$exclude_name = array( 'emulsion_header_template', 'emulsion_footer_template', 'emulsion_editor_support' );

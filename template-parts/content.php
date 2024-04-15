@@ -1,4 +1,5 @@
 <?php
+
 if ( is_page() ) {
 
 	$has_column = is_active_sidebar( 'sidebar-3' ) ? 'has-sidebar' : 'no-sidebar';
@@ -6,7 +7,9 @@ if ( is_page() ) {
 
 	$has_column = is_active_sidebar( 'sidebar-1' ) ? 'has-sidebar' : 'no-sidebar';
 }
+
 printf( '<div class="fse-columns is-layout-flex wp-block-columns classic %1$s">', esc_attr( $has_column ) );
+
 ?>
 <div class="wp-block-column main">
 	<?php
@@ -56,12 +59,15 @@ printf( '<div class="fse-columns is-layout-flex wp-block-columns classic %1$s">'
 
 				<?php emulsion_action( 'emulsion_article_after' ); ?>
 
+				<?php emulsion_pagination(); ?>
+
 			</div>
 
 		<?php
 	}
 }
 ?>
+
 </div>
 
 <div class="wp-block-column" style="flex-basis:400px">

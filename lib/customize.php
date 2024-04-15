@@ -16,10 +16,6 @@ $emulsion_theme_mod_args = array(
 		'type'				 => 'radio',
 		'choices'			 => array(
 			'fse'			 => esc_html__( 'Block Theme', 'emulsion' ),
-			/*
-			 * deprecated @since 2.6.9
-			   'transitional'	 => esc_html__( 'FSE Transitional Theme', 'emulsion' ),
-			 */
 			'theme'			 => esc_html__( 'Classic Theme', 'emulsion' ),
 		),
 	),
@@ -63,7 +59,7 @@ $emulsion_theme_mod_args = array(
 		'section'			 => 'emulsion_editor',
 		'default'			 => 'disable',
 		'label'				 => esc_html__( 'Custom CSS.', 'emulsion' ),
-		'description'		 => esc_html__( 'If enabled, include one of the body classes (is-presentation-fse, is-presentation-transitional, is-presentation-theme) in the CSS ruleset.', 'emulsion' ),
+		'description'		 => esc_html__( 'If enabled, include one of the body classes (is-presentation-fse, is-presentation-theme) in the CSS ruleset.', 'emulsion' ),
 		'sanitize_callback'	 => 'emulsion_custom_css_support_validate',
 		'type'				 => 'radio',
 		'choices'			 => array(
@@ -452,33 +448,6 @@ CSS2;
 CSS3;
 		}
 
-		if ( 'transitional' == get_theme_mod( 'emulsion_editor_support' ) ) {
-			//#customize-theme-controls #accordion-section-emulsion_section_advanced_excerpt,
-			$css .= <<<CSS4
-		#accordion-section-emulsion_section_post,
-		#accordion-section-emulsion_section_layout_search_results,
-		#accordion-section-emulsion_section_layout_author_archives,
-		#accordion-section-emulsion_section_layout_tag_archives,
-		#accordion-section-emulsion_section_layout_category_archives,
-		#accordion-section-emulsion_section_layout_date_archives,
-		#accordion-section-emulsion_section_layout_posts_page,
-		#accordion-section-emulsion_section_layout_homepage,
-		#accordion-section-emulsion_section_border_stream,
-		#accordion-section-emulsion_section_border_grid,
-		#accordion-section-emulsion_section_border_global,
-		#customize-control-emulsion_background_css_pattern,
-
-		#customize-control-emulsion_scheme #details-stream,
-		#customize-control-emulsion_scheme [for="emulsion_schemestream"],
-		#customize-control-emulsion_scheme #details-grid,
-		#customize-control-emulsion_scheme [for="emulsion_schemegrid"],
-		#customize-control-emulsion_scheme #details-bloging{
-			display:none !important;
-
-		}
-CSS4;
-
-		}
 		wp_add_inline_style( 'customize-controls', $css );
 	}
 
@@ -558,10 +527,10 @@ function emulsion_scheme_validate( $input ) {
 function emulsion_editor_support_validate( $input ) {
 	global $emulsion_theme_mod_args;
 
-	$values			 = array( 'fse', 'transitional', 'theme' );
+	$values			 = array( 'fse', 'theme' );
 	$default_value	 = in_array( $emulsion_theme_mod_args['emulsion_editor_support']['default'], $values )
 			? $emulsion_theme_mod_args['emulsion_editor_support']['default']
-			: 'transitional';
+			: 'fse';
 
 	if ( in_array( $input, $values ) ) {
 
@@ -686,9 +655,6 @@ function emulsion_customizer_script() {
 
 		if( newval == 'theme') {
 			var current_theme_mode_label = 'Classic Theme';
-		}
-		if( newval == 'transitional') {
-			var current_theme_mode_label =  'FSE Transitional Theme';
 		}
 		if( newval == 'fse') {
 			var current_theme_mode_label =  'Full Site Editing Theme';

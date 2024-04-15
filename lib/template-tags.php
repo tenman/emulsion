@@ -81,11 +81,11 @@ if ( ! function_exists( 'emulsion_the_post_title' ) ) {
 
 }
 
+
 if ( ! function_exists( 'emulsion_article_header' ) ) {
 
 	/**
 	 * Print Article header block
-	 * Article header is displayed when title_in_page_header is set to false.
 	 */
 	function emulsion_article_header() {
 
@@ -106,7 +106,7 @@ if ( ! function_exists( 'emulsion_article_header' ) ) {
 			return;
 		}
 
-		$header_element	 = '<header class="post-header is-layout-constrained classic"';
+		$header_element	 = '<header class="post-header is-layout-constrained classic centered"';
 		$header_element	 .= ! empty( emulsion_element_classes( 'article-header' ) ) ? 'class="' . sanitize_html_class( emulsion_element_classes( 'article-header' ) ) . '" ' : '';
 		$header_element	 .= ! empty( emulsion_element_classes( 'article-header' ) ) && ! empty( $thumbnail_url ) ? ' style="' . 'background-image:linear-gradient(var(--thm_header_image_dim),transparent), url(' . esc_url( $thumbnail_url ) . ' );"' : '';
 		$header_element	 .= '>';
@@ -549,7 +549,7 @@ if ( ! function_exists( 'emulsion_have_posts' ) ) {
 		if ( 'theme' == emulsion_get_theme_operation_mode() && false !== strstr( emulsion_get_template(), '-php' ) ) {
 
 			//echo '<h1>classic</h1>';
-			
+
 			if ( is_page() ) {
 
 				$has_column = is_active_sidebar( 'sidebar-3' ) ? 'has-sidebar' : 'no-sidebar';
@@ -888,6 +888,8 @@ if ( ! function_exists( 'emulsion_attachment_image' ) ) {
 			} else {
 				$template_part = 'header';
 			}
+
+			$template_part = apply_filters( 'emulsion_header_manager', $template_part );
 
 			emulsion_block_template_part( $template_part );
 		}

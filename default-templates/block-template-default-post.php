@@ -24,8 +24,8 @@ $html = <<<HTML
 	<!-- wp:group {"tagName":"article","align":"full","className":"post","layout":{"type":"constrained"}} -->
 	<article class="wp-block-group alignfull post"><!-- wp:post-featured-image /-->
 
-	<!-- wp:group {"className":"post-header wp-block-template-post-header wp-block-template-part alignfull","layout":{"type":"constrained"}} -->
-	<div class="wp-block-group post-header wp-block-template-post-header wp-block-template-part alignfull ">
+	<!-- wp:group {"className":"post-header wp-block-template-post-header wp-block-template-part alignfull centered","layout":{"type":"constrained"}} -->
+	<div class="wp-block-group post-header wp-block-template-post-header wp-block-template-part centered alignfull ">
 		<!-- wp:group {"className":"post-header-content","layout":{"type":"default"}} -->
 		<div class="wp-block-group post-header-content">
 			<!-- wp:post-title {"isLink":true} /-->
@@ -94,7 +94,7 @@ $html = <<<HTML
 </main>
 <!-- /wp:group -->
 
-<!-- wp:group {"tagName":"nav","className":"wp-block-post-navigation","layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"center"}} -->
+<!-- wp:group {"tagName":"nav","className":"wp-block-post-navigation","style":{"spacing":{"blockGap":"var:preset|spacing|40"}},"layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"center"}} -->
 <nav class="wp-block-group wp-block-post-navigation"><!-- wp:post-navigation-link {"showTitle":true} /--><!-- wp:post-navigation-link {"type":"previous","showTitle":true} /-->
 </nav>
 <!-- /wp:group -->

@@ -4,7 +4,7 @@ include_once( get_theme_file_path( 'lib/conf.php' ) );
 current_user_can( 'edit_posts' ) ? include_once( get_theme_file_path( 'lib/customize.php' ) ) : '';
 include_once( get_theme_file_path( 'lib/functions-global.php' ) );
 include_once( get_theme_file_path( 'lib/blocks.php' ) );
-include_once( get_theme_file_path( 'lib/template-tags.php' ) );
+	include_once( get_theme_file_path( 'lib/template-tags.php' ) );
 
 if ( 'fse' == emulsion_get_theme_operation_mode() ) {
 
@@ -68,5 +68,3 @@ function emulsion_style_variation_grid_filter_classic( $classes ) {
 
 	return $classes;
 }
-
-

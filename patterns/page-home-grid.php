@@ -25,7 +25,7 @@
 <main class="wp-block-group alignfull main-query"><!-- wp:query {"queryId":1,"query":{"perPage":10,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"inherit":true},"align":"full","className":"is-layout-constrained","layout":{"type":"constrained"}} -->
 <div class="wp-block-query alignfull is-layout-constrained"><!-- wp:post-template {"align":"wide","layout":{"type":"grid","columnCount":3}} -->
 <!-- wp:group {"tagName":"article","className":"post loop-item is-vertical"} -->
-<article class="wp-block-group post loop-item is-vertical"><!-- wp:template-part {"slug":"post-header","theme":"emulsion","tagName":"header","className":"post-header wp-block-template-post-header"} /-->
+<article class="wp-block-group post loop-item is-vertical"><!-- wp:template-part {"slug":"post-header","theme":"emulsion","tagName":"header","className":"post-header wp-block-template-post-header centered"} /-->
 
 <!-- wp:post-featured-image /-->
 

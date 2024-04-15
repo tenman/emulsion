@@ -123,6 +123,7 @@ if ( ! function_exists( 'emulsion_setup' ) ) {
 				)
 		);
 
+
 		do_action( 'emulsion_setup_after' );
 	}
 

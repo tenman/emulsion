@@ -260,10 +260,10 @@ function emulsionGetParameterByName(name, url = window.location.href) {
 
 document.addEventListener("DOMContentLoaded", function () {
     var body = document.body;
-    if (body.classList.contains('site-editor-php') && body.classList.contains('is-presentation-theme') && !emulsionGetParameterByName('postType')) {
+    if (body.classList.contains('site-editor-php') && emulsionGetParameterByName('notice')) {
         window.wp.data.dispatch('core/notices').createNotice(
                 'warning',
-                'A PHP template has been applied. <br />Style changes will be reflected, but the template cannot be edited.',
+                wp.i18n.__('A PHP template has been applied. <br />Style changes will be reflected, but the template cannot be edited.', 'emulsion'),
                 {
                     __unstableHTML: true, // true = allows HTML; default false
                     isDismissible: true,
