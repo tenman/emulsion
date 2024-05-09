@@ -201,6 +201,9 @@ if ( ! function_exists( 'emulsion_setup' ) ) {
 			} );
 		}
 
+		remove_filter( 'the_content', 'prepend_attachment' );
+
+
 		do_action( 'emulsion_setup_after' );
 	}
 

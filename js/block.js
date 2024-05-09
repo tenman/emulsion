@@ -204,6 +204,8 @@ wp.blocks.registerBlockVariation(
         }
 );
 
+
+
 /**
  * editor button
  * @param {type} wp
@@ -260,7 +262,7 @@ function emulsionGetParameterByName(name, url = window.location.href) {
 
 document.addEventListener("DOMContentLoaded", function () {
     var body = document.body;
-    if (body.classList.contains('site-editor-php') && emulsionGetParameterByName('notice')) {
+    if (body.classList.contains('site-editor-php') && emulsionGetParameterByName('notice') == 'isClassic') {
         window.wp.data.dispatch('core/notices').createNotice(
                 'warning',
                 wp.i18n.__('A PHP template has been applied. <br />Style changes will be reflected, but the template cannot be edited.', 'emulsion'),
@@ -273,6 +275,17 @@ document.addEventListener("DOMContentLoaded", function () {
                             label: 'Change setting in Customizer',
                         },
                     ],
+                }
+        )
+    }
+    if (body.classList.contains('site-editor-php') && emulsionGetParameterByName('notice') == 'isAttachment') {
+        window.wp.data.dispatch('core/notices').createNotice(
+                'warning',
+                wp.i18n.__('The attachment.html template is not compatible with the site editor.<br />Do not edit with site editor', 'emulsion'),
+                {
+                    __unstableHTML: true, // true = allows HTML; default false
+                    isDismissible: true,
+
                 }
         )
     }

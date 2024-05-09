@@ -3,7 +3,7 @@
  * Theme emulsion
  * fallback template file
  */
-get_header( emulsion_get_theme_operation_mode() );
+get_header();
 
 if ( true === emulsion_is_custom_post_type() && 'fse' == emulsion_get_theme_operation_mode() ) {
 	/**
@@ -26,4 +26,5 @@ if ( true === emulsion_is_custom_post_type() && 'fse' == emulsion_get_theme_oper
 	emulsion_have_posts();
 }
 
-get_footer( emulsion_get_theme_operation_mode() );
+get_footer();
+

@@ -538,6 +538,8 @@ if ( ! function_exists( 'emulsion_have_posts' ) ) {
 			if ( ! is_singular() ) {
 
 				get_template_part( 'template-parts/content', 'loop' );
+			} elseif ( is_attachment() ){
+				get_template_part( 'template-parts/content', 'attachment' );
 			} else {
 
 				get_template_part( 'template-parts/content', '' );
@@ -561,6 +563,8 @@ if ( ! function_exists( 'emulsion_have_posts' ) ) {
 			if ( ! is_singular() ) {
 
 				get_template_part( 'template-parts/content', 'loop' );
+			} elseif ( is_attachment() ){
+				get_template_part( 'template-parts/content', 'attachment' );
 			} else {
 
 				get_template_part( 'template-parts/content', '' );

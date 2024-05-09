@@ -41,4 +41,5 @@ if ( true === emulsion_is_custom_post_type() && 'fse' == emulsion_get_theme_oper
 					<?php ! have_posts() ? get_template_part( 'template-parts/failed' ) : ''; ?>
 	<?php
 }
+
 ?>

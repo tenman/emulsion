@@ -47,7 +47,7 @@ if ( ! function_exists( 'emulsion_classic' ) ) {
 					$dependency_style,
 					wp_get_theme()->get( 'Version' )
 			);
-			
+
 			wp_enqueue_style( 'emulsion-classic' );
 
 		}
@@ -158,14 +158,19 @@ if ( ! function_exists( 'emulsion_compatible_classic_template_include' ) ) {
 
 			add_filter( 'body_class', function ( $classes ) use ( $classic_template ) {
 
-				$classes[] = esc_attr( 'fse-compatible-template-' . str_replace( '.', '-', basename( $classic_template ) ) );
-				return $classes;
-			} );
+			$classic_template = str_replace( '.', '-', basename( $classic_template ) );
+
+			unset($classes['is-wp_template-'.strstr( $classic_template, '-', true) ]);
+			unset($classes['is-tpl-'.strstr( $classic_template, '-', true) ]);
+			unset($classes['is-tpl-'.strstr( $classic_template, '-', true) .'_template' ]);
+
+				$classes[] = esc_attr( 'fse-compatible-template-' . $classic_template  );
+			return $classes;
+			}, 21 );
 
 			return $classic_template;
 		}
 
 		return $template;
 	}
-
 }

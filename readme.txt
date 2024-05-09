@@ -10,7 +10,7 @@ Tags: one-column, two-columns, left-sidebar, right-sidebar, custom-colors, custo
 
 ## Description
 
-By switching Customize / Theme Operation Mode. A universal theme that allows you to use the latest Setting Full Site Editing (Editor), Block Editor, Block Template.You will be free to go back and forth between the future of WordPress and the present.
+By toggling the customization/theme operation mode, you can make the entire theme work as a classic theme. Also, while using it as a block theme, you can switch a specific template to a classic template if necessary.
 
 * Archives layout
 	* Archive has 3 layout. list, grid and stream
@@ -150,6 +150,9 @@ border-image.png
         * Source: https://github.com/LeaVerou/css3patterns
 
 ## Changelog
+###  may 9 2024
+		* 3.1.4
+        * https://github.com/tenman/emulsion/releases
 ###  april 15 2024
 		* 3.1.3
         * https://github.com/tenman/emulsion/releases

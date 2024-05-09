@@ -7,8 +7,6 @@
  * Inserter: yes
  * Description: Call to action block','Block pattern description
  */
-//esc_html_x( 'Call to action','Block pattern title', 'emulsion' )
-//esc_html_x( 'Call to action block','Block pattern description', 'emulsion' )
 ?>
 <!-- wp:group {"align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|60","right":"var:preset|spacing|60","bottom":"var:preset|spacing|60","left":"var:preset|spacing|60"}},"color":{"background":"#eee8e8"}},"textColor":"black","className":"is-style-call-to-action","layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignfull is-style-call-to-action has-black-color has-text-color has-background" style="background-color:#eee8e8;padding-top:var(--wp--preset--spacing--60);padding-right:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--60);padding-left:var(--wp--preset--spacing--60)"><!-- wp:heading {"textAlign":"center","textColor":"black","className":"alignnone is-style-default","fontSize":"x-large"} -->

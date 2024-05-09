@@ -338,7 +338,7 @@ if ( ! function_exists( 'emulsion_theme_default_val' ) ) {
 			'emulsion_excerpt_length_stream'					 => array( 'default' => 2, 'unit' => '', ),
 			'emulsion_table_of_contents'						 => array( 'default' => 'disable', 'unit' => '', ), //Please use emulsion_the_theme_supports()
 			'emulsion_tooltip'									 => array( 'default' => 'diaable', 'unit' => '', ), //Please use emulsion_the_theme_supports()
-			'emulsion_sticky_sidebar'							 => array( 'default' => 'enable', 'unit' => '', ),
+			'emulsion_sticky_sidebar'							 => array( 'default' => 'disable', 'unit' => '', ),
 			'emulsion_lazyload'									 => array( 'default' => 'disable', 'unit' => '', ), //Please use emulsion_the_theme_supports()
 			'emulsion_instantclick'								 => array( 'default' => 'enable', 'unit' => '', ), //Please use emulsion_the_theme_supports()
 			'emulsion_search_drawer'							 => array( 'default' => 'disable', 'unit' => '', ),

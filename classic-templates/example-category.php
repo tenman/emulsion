@@ -12,5 +12,4 @@
 	emulsion_have_posts();
 	emulsion_block_template_part( 'footer' );
 	get_footer( emulsion_get_theme_operation_mode() );
-
 ?>

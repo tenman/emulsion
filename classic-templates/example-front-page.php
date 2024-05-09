@@ -12,8 +12,11 @@
  */
 	get_header( emulsion_get_theme_operation_mode() );
 	emulsion_block_template_part( 'header' );
-	echo do_blocks('<!-- wp:pattern {"slug":"emulsion/primary-menu"} /-->');
-	emulsion_have_posts();
-	emulsion_block_template_part( 'footer' );
+	echo do_blocks('<!-- wp:pattern {"slug":"emulsion/primary-menu"} /-->'); ?>
+	<article class="is-layout-constrained centered" style="height:var(--wp--custom--max-height--3-quarters)">
+		<h2>Front Page Example</h2>
+		<p>Content for the front page</p>
+	</article>
+<?php	emulsion_block_template_part( 'footer' );
 	get_footer( emulsion_get_theme_operation_mode() );
 ?>

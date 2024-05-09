@@ -37,6 +37,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
         label: 'Align Offset Zero',
         isDefault: false
     });
+
     wp.blocks.registerBlockStyle('core/group', {
         name: 'layout-flow',
         label: 'Flow Layout',
@@ -52,5 +53,4 @@ document.addEventListener('DOMContentLoaded', function (event) {
         label: 'Contents Alignwide',
         isDefault: false
     });
-    
 });
