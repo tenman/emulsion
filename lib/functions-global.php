@@ -848,7 +848,7 @@ if ( ! function_exists( 'emulsion_style_attribute_variables_fix' ) ) {
 
 	function emulsion_style_attribute_variables_fix( $attrbute_value ) {
 
-		if ( is_array( $attrbute_value ) || false === strstr( $attrbute_value, 'var:' ) ) {
+		if ( is_array( $attrbute_value ) || ( ! empty( $attrbute_value ) && false === strstr( $attrbute_value, 'var:' ) ) ) {
 
 			return $attrbute_value;
 		}
@@ -954,7 +954,7 @@ if ( ! function_exists( 'emulsion_add_custom_gap' ) ) {
 
 			preg_match( '$(<[^>]+>)$', $block_content, $target );
 
-			if ( false !== strpos( $target[0], 'style="' ) ) {
+			if ( ! empty($target[0] ) && false !== strpos( $target[0], 'style="' ) ) {
 
 				if ( 'string' == $flag ) {
 
@@ -968,7 +968,7 @@ if ( ! function_exists( 'emulsion_add_custom_gap' ) ) {
 							' style="' . $css_variable_name . ':' . $row_gap . ';' . $css_propaty_name . ':' . $row_gap . ' ' . $column_gap . ';',
 							$target[0] );
 				}
-			} else {
+			} elseif( ! empty($target[0] ) ) {
 
 				if ( 'string' == $flag ) {
 
@@ -984,7 +984,7 @@ if ( ! function_exists( 'emulsion_add_custom_gap' ) ) {
 				}
 			}
 
-			$block_content = str_replace( $target[0], $new_element, $block_content );
+			$block_content = ! empty($target[0] ) ? str_replace( $target[0], $new_element, $block_content ): $block_content;
 
 			$block_content = emulsion_add_class( $block_content, $block_name, $new_class );
 		}
@@ -1894,6 +1894,10 @@ add_filter( 'render_block', 'emulsion_style_variation_grid_filter', 10, 2 );
 if ( ! function_exists( 'emulsion_style_variation_grid_filter' ) ) {
 
 	function emulsion_style_variation_grid_filter( $block_content, $block ) {
+
+		if( is_feed() ){
+			return $block_content;
+		}
 
 		$block_name = 'wp-block-' . substr( strrchr( $block['blockName'], "/" ), 1 );
 

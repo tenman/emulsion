@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Title: attachment media
  * Slug: emulsion/attachment-media
@@ -8,14 +7,18 @@
  * Inserter: no
  * Description: attachment image
  */
-$src				 = wp_get_attachment_image_src( get_the_ID(), 'full' );
-$attachment_image	 = img_caption_shortcode( array( 'align' => 'alignfull', 'width' => esc_attr( $src[1] ), 'caption' => get_the_excerpt() ), wp_get_attachment_image( get_the_ID(), 'full', false ) );
-$mime_type			 = get_post_mime_type();
-$emulsion_post_id	 = get_the_ID();
-$emulsion_post_info	 = get_post( $emulsion_post_id );
-$url				 = esc_url( wp_get_attachment_url( get_the_ID() ) );
 
-if ( wp_attachment_is_image( get_the_ID() ) ) {
+$post_id			 = absint( get_the_ID() );
+$src				 = wp_get_attachment_image_src( $post_id, 'full' );
+$width				 = ! empty( $src[1] ) ? esc_attr( $src[1] ) : '';
+$caption			 = ! empty( get_the_excerpt() ) ? wp_kses_post( get_the_excerpt() ) : '';
+$attachment_image	 = wp_kses_post( wp_get_attachment_image( $post_id, 'full', false ) );
+$attachment_image	 = img_caption_shortcode( array( 'align' => 'alignfull', 'width' => $width, 'caption' => $caption ), $attachment_image );
+$mime_type			 = esc_attr( get_post_mime_type() );
+$emulsion_post_info	 = get_post( $post_id );
+$url				 = esc_url( wp_get_attachment_url( $post_id ) );
+
+if ( wp_attachment_is_image( $post_id ) ) {
 
 	printf( '<figure class="wp-block-image alignwide emulsion-pattern-attachment-image">%1$s</figure>', $attachment_image );
 
@@ -25,7 +28,7 @@ if ( wp_attachment_is_image( get_the_ID() ) ) {
 
 	foreach ( $sizes as $size ) {
 
-		$image = wp_get_attachment_image_src( get_the_ID(), $size );
+		$image = wp_get_attachment_image_src( $post_id, $size );
 
 		if ( ! empty( $image ) && ( true === $image[3] || 'full' == $size ) ) {
 
