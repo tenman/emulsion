@@ -22,8 +22,8 @@ $privacy_policy_text = esc_html__( 'Privacy policy', 'emulsion' );
 <p style="font-size:16px">Lorem ipsum dolor sit amet, consectetur ut labore et dolore magna aliqua ipsum dolor sit</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:social-links {"iconColor":"vivid-cyan-blue","iconColorValue":"#0693e3","openInNewTab":true,"align":"center","style":{"spacing":{"blockGap":{"top":"15px","left":"15px"}}},"className":"is-style-logos-only","layout":{"type":"flex","justifyContent":"center"}} -->
-<ul class="wp-block-social-links aligncenter has-icon-color is-style-logos-only"><!-- wp:social-link {"url":"#","service":"facebook"} /-->
+<!-- wp:social-links {"iconColor":"vivid-cyan-blue","iconColorValue":"#0693e3","openInNewTab":true,"style":{"spacing":{"blockGap":{"top":"15px","left":"15px"}}},"className":"is-style-logos-only","layout":{"type":"flex","justifyContent":"center"}} -->
+<ul class="wp-block-social-links has-icon-color is-style-logos-only"><!-- wp:social-link {"url":"#","service":"facebook"} /-->
 
 <!-- wp:social-link {"url":"#","service":"twitter"} /-->
 

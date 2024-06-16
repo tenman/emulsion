@@ -945,7 +945,7 @@ if ( ! function_exists( 'emulsion_add_custom_gap' ) ) {
 
 			$row_gap	 = emulsion_style_attribute_variables_fix( $row_gap );
 			$column_gap	 = emulsion_style_attribute_variables_fix( $column_gap );
-		} else {
+		} elseif( ! is_null( $block_gap ) ) {
 			$block_gap = emulsion_style_attribute_variables_fix( $block_gap );
 		}
 
@@ -1975,7 +1975,17 @@ add_filter( 'render_block_core/post-excerpt', function ( $excerpt ) {
 
 	return $excerpt;
 } );
+//
+add_filter( 'render_block_core/query-pagination-numbers', function ( $block_content, $block ) {
 
+	$block_name	 = 'wp-block-' . substr( strrchr( $block['blockName'], "/" ), 1 );
+
+		$p = new WP_HTML_Tag_Processor( $block_content );
+		$p->next_tag( array( 'class_name' => $block_name ) );
+		$p->add_class( 'no-instant' );
+		return $p->get_updated_html();
+
+}, 10, 2);
 /**
  * experimental custom template part area
  * The header area appears twice in home.html and archive.html. Use filters to make it clear that they are not the same thing.
@@ -2375,7 +2385,6 @@ if ( ! function_exists( 'emulsion_post_excerpt_more' ) ) {
 			}
 		}
 	}
-
 }
 
 /**
@@ -2388,6 +2397,16 @@ add_filter( 'template_include', function ( $template ) {
 	$template_object = get_block_template( $_wp_current_template_id, 'wp_template' );
 
 	add_filter( 'body_class', function ( $classes ) use ( $template_object ) {
+
+		/**
+		 * Mainly on the archive page, check for excerpt or the full text, and if it is the full text, add the class.
+		 * @since 3.1.6
+		 */
+
+		if( false !== strpos($template_object->content,'wp:post-content') ) {
+			$classes = array_diff($classes, array('summary'));
+			$classes[] = 'full-text';
+		}
 
 		if ( ! empty( $template_object->type ) && 'wp_template' == $template_object->type ) {
 

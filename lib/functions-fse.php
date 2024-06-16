@@ -43,9 +43,12 @@ if ( ! function_exists( 'emulsion_setup' ) ) {
 			 *
 			 * editor class wp-container-core-group-is-layout-0 is-layout-grid wp-block-group-is-layout-grid.. not applied
 			 * @since 3.0.9
+			 *
+			 * Now that I can confirm that the problem is fixed, I re-enable disable-layout-style
+			 * Please note that the style sheet specificity level will not be changed at this time.
+			 * @since 3.1.6
 			 */
-			//add_theme_support( 'disable-layout-styles' );
-
+			add_theme_support( 'disable-layout-styles' );
 
 			add_filter( 'render_block', 'emulsion_add_flex_container_classes', 10, 2 );
 			add_filter( 'render_block', 'emulsion_block_group_variation_classes', 10, 2 );
@@ -88,7 +91,13 @@ if ( ! function_exists( 'emulsion_setup' ) ) {
 
 		add_filter( 'emulsion_toc_script', 'emulsion_toc_fse' );
 
-		add_filter( 'emulsion_instantclick_script', 'emulsion_instantclick' );
+		/**
+		 * Stop instantclick
+		 * Temporarily suspends scripting to accommodate interactive navigation.
+		 * @since 3.1.6
+		 */
+		
+		//add_filter( 'emulsion_instantclick_script', 'emulsion_instantclick' );
 		add_filter( 'body_class', 'emulsion_fse_body_class' );
 
 		add_filter( 'admin_body_class', 'emulsion_fse_admin_body_class' );
@@ -276,7 +285,7 @@ function emulsion_fse_body_class( $classes ) {
 
 	$classes[] = 'is-presentation-fse';
 
-	if ( ! is_page() && ! is_attachment() && ! is_single() ) {
+	if ( ! is_page() && ! is_attachment() && ! is_single()  ) {
 
 		$classes[] = 'summary';
 	}
@@ -717,6 +726,7 @@ if ( ! function_exists( 'emulsion_editor_color_scheme_correction' ) ) {
 		$global_styles = '';
 
 		$css = <<<STYLE
+		:where(.wp-block),
 		.wp-block-columns :where(.wp-block){
 			margin:auto;
 		}
@@ -1073,8 +1083,10 @@ if ( ! function_exists( 'emulsion_editor_color_scheme_correction' ) ) {
 		.editor-styles-wrapper .post-header-content{
 			flex-direction:column;
 		}
+
 		.editor-styles-wrapper .post-header-content .wp-block-post-title {
 			flex-basis:100%;
+
 		}
 		.editor-styles-wrapper .post-header-content .wp-block-post-date {
 			width: auto;

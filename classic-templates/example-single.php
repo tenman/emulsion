@@ -6,6 +6,7 @@
  * Place this template in the classic-templates directory
  *
  */
+
 	get_header( emulsion_get_theme_operation_mode() );
 	emulsion_block_template_part( 'header' );
 	echo do_blocks('<!-- wp:pattern {"slug":"emulsion/primary-menu"} /-->');

@@ -150,6 +150,9 @@ border-image.png
         * Source: https://github.com/LeaVerou/css3patterns
 
 ## Changelog
+###  june 16 2024
+		* 3.1.6
+        * https://github.com/tenman/emulsion/releases
 ###  may 10 2024
 		* 3.1.5
         * https://github.com/tenman/emulsion/releases
