@@ -324,7 +324,7 @@ if ( ! function_exists( 'emulsion_theme_customizer_style' ) ) {
 #customize-theme-controls .customize-pane-child.accordion-sub-container,
 #customize-theme-controls .customize-pane-child.accordion-section-content,
 #customize-theme-controls{
-	width:var(--wp--custom--width--content);
+	width:var(--wp--custom--width--content,720px);
 	max-width:100%;
 	margin:auto;
 	left:auto;

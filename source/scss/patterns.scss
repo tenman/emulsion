@@ -266,6 +266,7 @@ div.gallery,
 
 #emulsion_theme_svgs{
     display:none;
+    width:0;
 }
 .alignnone{
     width:var(--wp--style--global--content-size);
@@ -772,10 +773,13 @@ main .is-layout-flex:not(.is-layout-constrained){
 
 
 
-&.entry-content,
-&.wp-bblock-post-content{
-    & > div{
-        margin:1.5rem auto;
+.entry-content,
+.wp-bblock-post-content{
+    & > div:not([class*="align"]){
+        margin-top:1.5rem;
+        margin-left:max(1px,calc(50% - var(--wp--style--global--content-size) / 2 )) !important;
+        margin-right:max(1px,calc(50% - var(--wp--style--global--content-size) / 2 )) !important;
+        margin-bottom:1.5rem;
     }
 }
 .is-presentation-theme .wp-block-latest-posts__list.is-grid,
@@ -816,7 +820,8 @@ main .is-layout-flex:not(.is-layout-constrained){
 
         & > .wp-block-read-more{
             display:inline-block;
-            margin-left:var(--wp--style--block-gap) !important;
+            /*margin-left:var(--wp--style--block-gap) !important;*/
+            margin-left:max(1px,calc(50% - var(--wp--style--global--content-size) / 2 )) !important;
         }
     }
 }
@@ -1495,7 +1500,7 @@ body > div > footer{
             }
             &.wp-block-cover{
                 @media screen and (max-width: 45rem) {
-                    min-height:0;
+                    min-height:6rem;
 
                     .wp-block-cover__inner-container{
                         width:100%;
@@ -1871,10 +1876,22 @@ div.gallery{
     flex-wrap:nowrap;
     gap:0;
     align-items: flex-start;
+    justify-content:center;
     .page-wrapper{
+        width:100%;
+    }
+    .page-wrapper > main{
         flex-basis:auto;
         width:calc(100% - min( 30vw, var(--wp--custom--width--sidebar)));
         overflow:hidden;
+        margin:var(--wp--custom--margin--container);
+        .no-sidebar{
+
+            & > .wp-block-column:not(.main){
+               display:none;
+
+            }
+        }
         &:first-child:last-child{
             width:100%;
         }
@@ -1883,6 +1900,7 @@ div.gallery{
         }
 
     }
+
     aside{
         width:calc(min( 30vw, var(--wp--custom--width--sidebar)));
         @media (max-width: 48rem){
@@ -2146,6 +2164,7 @@ div.gallery{
  */
 .emulsion .fse-columns{
     margin-bottom:0;
+    margin:var(--wp--custom--margin--container);
 }
 .wp-site-blocks{
     .fse-columns .main-query .wp-block-query{

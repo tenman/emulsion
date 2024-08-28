@@ -2165,7 +2165,7 @@ if ( ! function_exists( 'emulsion_post_content' ) ) {
 
 		// Create excerpt from entry content
 		$post_text	 = strip_shortcodes( $get_post->post_content );
-		$has_more	 = stristr( $post_text, '<!--more-->' );
+		$has_more	 = stristr( $post_text, '<!--more' );
 
 		if ( empty( $post_id ) && ! empty( $post_text ) ) {
 			//case bbpress forums, woocommerce product-category

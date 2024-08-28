@@ -96,7 +96,7 @@ if ( ! function_exists( 'emulsion_setup' ) ) {
 		 * Temporarily suspends scripting to accommodate interactive navigation.
 		 * @since 3.1.6
 		 */
-		
+
 		//add_filter( 'emulsion_instantclick_script', 'emulsion_instantclick' );
 		add_filter( 'body_class', 'emulsion_fse_body_class' );
 
@@ -726,6 +726,28 @@ if ( ! function_exists( 'emulsion_editor_color_scheme_correction' ) ) {
 		$global_styles = '';
 
 		$css = <<<STYLE
+		.wp-block-navigation .wp-block-search{
+			margin:0;
+				width:auto;
+		}
+		.block-list-appender{
+			width:-moz-fit-content;
+			width:fit-content;
+		}
+		.wp-block-columns .wp-block-column{
+			margin:0;
+
+		}
+
+		.editor-styles-wrapper{
+			--wp--style--block-gap:.75rem;
+		}
+		.editor-sidebar__panel .editor-template-areas__list{
+			padding-left:0;
+		}
+		.editor-template-areas__item{
+			width:auto;
+		}
 		:where(.wp-block),
 		.wp-block-columns :where(.wp-block){
 			margin:auto;

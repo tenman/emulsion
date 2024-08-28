@@ -455,13 +455,16 @@ if ( ! function_exists( 'emulsion_read_more_link' ) ) {
 				array( 'before' => esc_html__( 'link to ', 'emulsion' ),
 					'echo'	 => false, )
 		);
+		$post			  = get_post( $post_id );
+		$content_arr	  = get_extended( $post->post_content );
+		$custom_more_text = wp_kses( $content_arr['more_text'], array() );
 
 		if ( is_int( $post_id ) ) {
 
 			return sprintf(
 					'<p class="read-more"><a class="skin-button" href="%1$s" aria-label="%3$s">%2$s<span class="screen-reader-text read-more-context">%3$s</span></a></p>',
 					esc_url( get_permalink() ),
-					esc_html__( 'Read more', 'emulsion' ),
+					! empty($custom_more_text) ? $custom_more_text : esc_html__( 'Read more', 'emulsion' ),
 					$title_text
 			);
 		}
